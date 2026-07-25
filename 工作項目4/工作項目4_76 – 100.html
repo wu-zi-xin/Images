@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路乙級架設解析 - 工作項目4 (76-100題 綜合解析完美版)</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .toggle-btn:hover { background-color: #219150; }
+
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative;
+        }
+        
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+
+        .question { 
+            font-size: 1.15em; 
+            font-weight: bold; 
+            color: #34495e; 
+            margin-bottom: 15px; 
+            line-height: 1.5; 
+        }
+        
+        /* 選項樣式 */
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            margin-bottom: 20px; 
+        }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+        
+        /* 純HTML 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { 
+            padding: 20px; 
+            background: #f4fcf7; 
+            border-top: 1px solid #dfe6e9; 
+        }
+        .answer-title { 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            color: #27ae60; 
+            margin-bottom: 15px; 
+        }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+
+        .explanation { 
+            color: #4b6584; 
+            font-size: 1em; 
+            line-height: 1.7; 
+        }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        .opt-list { 
+            margin: 0; 
+            padding-left: 0; 
+            list-style: none; 
+        }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級 工作項目04</h1>
+        <p>第 76 - 100 題 (綜合解析與各選項詳解版)</p>
+        <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+
+        <!-- 第76題 -->
+        <div class="card">
+            <div class="theme-badge">主題：數位調變技術</div>
+            <div class="question">76. 下列何者不是數位調變技術的優點？</div>
+            <div class="options">
+                <div class="option">① 受雜訊的影響較小</div>
+                <div class="option">② 安全性高</div>
+                <div class="option">③ 使多媒體資料不易多工</div>
+                <div class="option">④ 含數位錯誤控制碼，可偵測與修改傳輸時的錯誤</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>數位調變技術 (Digital Modulation) 是將資料轉為 0 與 1 的數位訊號再進行傳送。相較於傳統的類比訊號，它具備抗雜訊能力強、容易進行資料加密 (安全性高)，且能透過錯誤更正碼 (如 CRC) 修正錯誤等極大優點。更重要的是，數位化讓語音、影像、文字等各種多媒體資料可以全部變成統一的數位格式，<strong>「非常容易」</strong>進行多工處理 (Multiplexing)，因此選項 ③ 的敘述完全相反。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 受雜訊的影響較小：</strong>敘述正確 (不選)。數位訊號只要能辨識 0 或 1 即可，抗干擾強。</li>
+                            <li class="wrong-opt"><strong>② 安全性高：</strong>敘述正確 (不選)。容易加入現代密碼學演算法加密。</li>
+                            <li class="correct-opt"><strong>③ 使多媒體資料不易多工：</strong>敘述錯誤 (應選此項)。數位化反而使多媒體資料極度「容易」多工。</li>
+                            <li class="wrong-opt"><strong>④ 含數位錯誤控制碼：</strong>敘述正確 (不選)。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第77題 -->
+        <div class="card">
+            <div class="theme-badge">主題：FDDI 網路介質</div>
+            <div class="question">77. 下列何者為 FDDI (Fiber Distributed Data Interface) 網路所使用的傳輸介質？</div>
+            <div class="options">
+                <div class="option">① 光纖</div>
+                <div class="option">② 無遮蔽雙絞線</div>
+                <div class="option">③ 遮蔽雙絞線</div>
+                <div class="option">④ 同軸電纜</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>從英文全名 <strong>Fiber</strong> Distributed Data Interface 的第一個單字 <strong>Fiber (光纖)</strong> 就可以直接判斷。FDDI 是一種在早期區域網路與都會網路中，使用雙環拓撲結構的「光纖分佈資料介面」標準，它運用光纖作為傳輸介質以達到 100 Mbps 的高傳輸速率與長距離傳輸。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① 光纖：</strong>正確。FDDI (Fiber) 顧名思義即是使用光纖傳輸。</li>
+                            <li class="wrong-opt"><strong>② 無遮蔽雙絞線：</strong>錯誤。簡稱 UTP，主要用於一般乙太網路。</li>
+                            <li class="wrong-opt"><strong>③ 遮蔽雙絞線：</strong>錯誤。簡稱 STP。</li>
+                            <li class="wrong-opt"><strong>④ 同軸電纜：</strong>錯誤。用於有線電視或早期匯流排網路。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第78題 -->
+        <div class="card">
+            <div class="theme-badge">主題：MIMO 天線技術</div>
+            <div class="question">78. 關於多輸入多輸出 (Multi-Input Multi-Outputm, MIMO) 技術，下列何者不正確？</div>
+            <div class="options">
+                <div class="option">① 可同時建立多個通訊管道</div>
+                <div class="option">② 可增加通訊容量 (Capacity)</div>
+                <div class="option">③ 可降低多重路徑 (Multipath) 衰減</div>
+                <div class="option">④ 在傳送端及接收端只允許使用單一天線發射及接收多種訊號</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>MIMO 技術 (如 Wi-Fi 4 / 802.11n 以上版本所使用) 的核心精神就是 <strong>「多天線」</strong>。它透過在發射端與接收端同時配置「多根天線」，將資料分割成多份同時傳輸 (空間多工)，不但成倍提升了通訊容量與速度，更能利用原本有害的多重路徑反射訊號來強化收訊品質。選項 ④ 稱「只允許使用單一天線」，完全違背 MIMO (多輸入多輸出) 的定義。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 可同時建立多個通訊管道：</strong>敘述正確 (不選)。</li>
+                            <li class="wrong-opt"><strong>② 可增加通訊容量：</strong>敘述正確 (不選)。能大幅提升傳輸頻寬。</li>
+                            <li class="wrong-opt"><strong>③ 可降低多重路徑衰減：</strong>敘述正確 (不選)。MIMO 將多重路徑化缺點為優點。</li>
+                            <li class="correct-opt"><strong>④ 只允許使用單一天線：</strong>敘述錯誤 (應選此項)。MIMO 必須使用「多天線」。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第79題 -->
+        <div class="card">
+            <div class="theme-badge">主題：FDMA 頻分多工存取</div>
+            <div class="question">79. 下列何者不是頻率分割多重存取 (Frequency Division Multiple Access, FDMA) 的特性？</div>
+            <div class="options">
+                <div class="option">① 將頻寬分割成多個不同頻率的頻道</div>
+                <div class="option">② 行動台必須使用雙工器 (Duplexer)</div>
+                <div class="option">③ 每一個發送端的數位信號都使用相同的頻率</div>
+                <div class="option">④ 一旦頻道被指定後，基地台與行動台可在頻道上同時且持續傳送訊號</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>FDMA 的運作原理就像傳統廣播電台一樣，是將總頻寬「切出許多條不同頻率的專屬車道」。當有使用者要通訊時，系統會分配一個<strong>獨立且專屬的特定頻率</strong>給該使用者。因為大家都在各自不同的頻率上講話，才不會互相干擾。因此，選項 ③ 說「大家都使用相同的頻率」是完全錯誤的。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 將頻寬分割成多個不同頻率的頻道：</strong>敘述正確 (不選)。此為 FDMA 基本定義。</li>
+                            <li class="wrong-opt"><strong>② 行動台必須使用雙工器：</strong>敘述正確 (不選)。收發需分隔以免干擾。</li>
+                            <li class="correct-opt"><strong>③ 都使用相同的頻率：</strong>敘述錯誤 (應選此項)。FDMA 必須使用「不同」的頻率。</li>
+                            <li class="wrong-opt"><strong>④ 頻道指定後可持續傳送：</strong>敘述正確 (不選)。因為是頻率專用，所以不需中斷。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第80題 -->
+        <div class="card">
+            <div class="theme-badge">主題：TDMA 時分多工存取</div>
+            <div class="question">80. 下列何者不是分時多重存取 (Time Division Multiple Access, TDMA) 的特性？</div>
+            <div class="options">
+                <div class="option">① 將頻道以時間作切割，分成多個時槽，每個時槽內只有一個使用者可以傳送或接收資料</div>
+                <div class="option">② 多個使用者可以共用單一的載波頻率</div>
+                <div class="option">③ 資料傳輸速率與使用者個數無關</div>
+                <div class="option">④ 不同的使用者要用保護時槽 (Guard slots) 區隔，所以會造成額外負擔</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>TDMA 的原理是「大家共用同一個頻率，但是排隊輪流講話」，系統將時間切成極短的「時槽 (Time Slots)」分配給各使用者。因為總時間是固定的，**當排隊輪流的使用者越多時，每個人能分配到的傳輸時間比例就越少，個人的有效資料傳輸速率就會跟著降低**。因此，資料傳輸速率與使用者個數是呈現負相關的。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 切割為時槽輪流傳送：</strong>敘述正確 (不選)。此為 TDMA 基本定義。</li>
+                            <li class="wrong-opt"><strong>② 共用單一載波頻率：</strong>敘述正確 (不選)。</li>
+                            <li class="correct-opt"><strong>③ 資料傳輸速率與使用者個數無關：</strong>敘述錯誤 (應選此項)。使用者越多，速率越低。</li>
+                            <li class="wrong-opt"><strong>④ 需使用保護時槽區隔：</strong>敘述正確 (不選)。為了防止前後使用者訊號重疊相撞。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第81題 -->
+        <div class="card">
+            <div class="theme-badge">主題：CDMA 碼分多工存取</div>
+            <div class="question">81. 下列何者不是分碼多重存取 (Code Division Multiple Access, CDMA) 的特性？</div>
+            <div class="options">
+                <div class="option">① 將傳輸訊息所需頻寬擴展至整個使用頻譜</div>
+                <div class="option">② 可允許多個使用者共用相同頻率</div>
+                <div class="option">③ 可完全消除任何干擾</div>
+                <div class="option">④ 每個使用者可擁有自己的碼字 (Codeword)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>CDMA 的原理是讓所有使用者在「同一時間、使用相同的廣大頻率」，但每個人配發一組獨特的數學「正交碼字 (Codeword)」。接收端只要用對應的密碼解開，別人的訊號就會被當作背景雜音濾除。雖然 CDMA 抗干擾能力極佳，但當使用者數量太多時，整體的背景雜音還是會提高並導致通訊品質下降，因此它**不可能「完全消除任何干擾」**。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 將頻寬擴展至整個使用頻譜：</strong>敘述正確 (不選)。即展頻技術特性。</li>
+                            <li class="wrong-opt"><strong>② 可允許共用相同頻率：</strong>敘述正確 (不選)。</li>
+                            <li class="correct-opt"><strong>③ 可完全消除任何干擾：</strong>敘述錯誤 (應選此項)。無法百分之百完全消除干擾。</li>
+                            <li class="wrong-opt"><strong>④ 每個使用者擁有自己的碼字：</strong>敘述正確 (不選)。此為 CDMA (Code Division) 的核心。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第82題 -->
+        <div class="card">
+            <div class="theme-badge">主題：通訊介質安全性</div>
+            <div class="question">82. 下列何種資料通訊媒介的安全性最高？</div>
+            <div class="options">
+                <div class="option">① 衛星</div>
+                <div class="option">② 光纖</div>
+                <div class="option">③ 微波</div>
+                <div class="option">④ 同軸電纜</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在所有網路實體傳輸介質中，**光纖 (Fiber Optic)** 的安全性是最高的。因為它是利用光束在玻璃或塑膠纖維內部進行全反射傳遞，完全不會向外輻射電磁波。這意味著駭客無法像竊聽銅線或無線電波那樣，在不破壞線路的情況下隔空側錄訊號。若有人企圖切斷光纖進行搭線竊聽，光訊號就會立刻大幅衰減並引發系統警報。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 衛星：</strong>錯誤。無線電波在空中廣播，極易被接收與側錄。</li>
+                            <li class="correct-opt"><strong>② 光纖：</strong>正確。無電磁波輻射且難以物理搭線竊聽，安全性最高。</li>
+                            <li class="wrong-opt"><strong>③ 微波：</strong>錯誤。無線傳輸形式，易遭攔截。</li>
+                            <li class="wrong-opt"><strong>④ 同軸電纜：</strong>錯誤。銅線傳輸會產生微弱電磁外洩，仍有被感應竊聽的風險。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第83題 -->
+        <div class="card">
+            <div class="theme-badge">主題：訊號物理特性</div>
+            <div class="question">83. 重複出現之相同形狀訊號，每一訊號從開始到結束的時間長度稱為</div>
+            <div class="options">
+                <div class="option">① 振幅</div>
+                <div class="option">② 週期</div>
+                <div class="option">③ 頻率</div>
+                <div class="option">④ 相位</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在物理學與通訊波形分析中，一個規律變化的波浪圖形，完成「一次完整來回震盪」所需要花費的「時間長度」，就被定義為**週期 (Period)**，單位通常是秒 (s)。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 振幅：</strong>錯誤。指波浪的高低大小 (強度)。</li>
+                            <li class="correct-opt"><strong>② 週期：</strong>正確。完成一次波形變化的時間長度。</li>
+                            <li class="wrong-opt"><strong>③ 頻率：</strong>錯誤。指一秒鐘內可以完成多少個週期 (Hz)，為週期的倒數。</li>
+                            <li class="wrong-opt"><strong>④ 相位：</strong>錯誤。指波形在特定時間點所處的相對位置 (角度)。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第84題 -->
+        <div class="card">
+            <div class="theme-badge">主題：DSSS 展頻技術</div>
+            <div class="question">84. 將每個「窄頻寬、高能量」的位元訊號與展頻碼 (Spreading Code) 進行運算，將原本訊號延展為數倍頻寬，並將訊號能量降低到低於背景雜訊，再把訊號傳送出去的技術稱為</div>
+            <div class="options">
+                <div class="option">① 直接序列展頻 (Direct Sequence Spread Spectrum, DSSS)</div>
+                <div class="option">② 跳頻式展頻 (Frequency Hopping Spread Spectrum, FHSS)</div>
+                <div class="option">③ 紅外線</div>
+                <div class="option">④ 正交分頻多工 (Orthogonal Frequency Division Multiplexing, OFDM)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>無線通訊中的 <strong>DSSS (直接序列展頻)</strong> 技術，是利用一長串高速且偽隨機的「展頻碼 (Chips)」去乘以原始的資料訊號。這會使得原本能量集中的窄頻訊號，瞬間在頻譜上被拉寬(延展)，讓功率密度降得極低，甚至隱藏在背景雜訊中。這使得訊號抗干擾能力極強，且難以被敵方察覺與攔截 (早期為軍事用途，後用於 802.11b Wi-Fi)。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① 直接序列展頻 (DSSS)：</strong>正確。透過展頻碼直接擴展訊號頻寬。</li>
+                            <li class="wrong-opt"><strong>② 跳頻式展頻 (FHSS)：</strong>錯誤。這是不斷快速改變傳送的載波頻率來躲避干擾。</li>
+                            <li class="wrong-opt"><strong>③ 紅外線：</strong>錯誤。這是一種光傳輸技術。</li>
+                            <li class="wrong-opt"><strong>④ 正交分頻多工 (OFDM)：</strong>錯誤。這是將頻寬切成多個互相垂直的子載波並行傳輸的技術。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第85題 -->
+        <div class="card">
+            <div class="theme-badge">主題：FHSS 跳頻技術</div>
+            <div class="question">85. 先將要傳送的資料分割成許多區塊，並將連續的頻道切割成多個子頻道，每次依序傳送資料區塊時，會隨機選擇要把封包放至哪一個頻道，此項技術稱為？</div>
+            <div class="options">
+                <div class="option">① 直接序列展頻（Direct Sequence Spread Spectrum, DSSS）</div>
+                <div class="option">② 跳頻式展頻（Frequency Hopping Spread Spectrum, FHSS）</div>
+                <div class="option">③ 紅外線</div>
+                <div class="option">④ 正交分頻多工（Orthogonal Frequency Division Multiplexing, OFDM）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>相較於前一題的 DSSS，<strong>FHSS (跳頻式展頻)</strong> 是另一種展頻技術。它的運作方式是將總頻寬切割成許多小的子頻道，發送端與接收端會按照一個預先講好的「偽隨機跳頻序列」，在極短的時間內不斷地變換(跳躍)傳輸頻率。因為頻率一直在變，即使某個頻道受到干擾，也只有極少部分資料遺失，展現出強大的抗干擾能力 (例如早期的藍牙技術即採用此原理)。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 直接序列展頻（DSSS）：</strong>錯誤。這是用展頻碼將頻寬直接拉寬。</li>
+                            <li class="correct-opt"><strong>② 跳頻式展頻（FHSS）：</strong>正確。隨機選擇頻道並不斷切換即為跳頻。</li>
+                            <li class="wrong-opt"><strong>③ 紅外線：</strong>錯誤。</li>
+                            <li class="wrong-opt"><strong>④ 正交分頻多工（OFDM）：</strong>錯誤。這是多載波同時平行傳輸的技術。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第86題 -->
+        <div class="card">
+            <div class="theme-badge">主題：乙太網路標準</div>
+            <div class="question">86. 10Base5 乙太網路標準距離最遠可傳送幾公尺？</div>
+            <div class="options">
+                <div class="option">① 5000</div>
+                <div class="option">② 1250</div>
+                <div class="option">③ 20000</div>
+                <div class="option">④ 2500 公尺</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在早期的粗同軸電纜乙太網路標準 <strong>10Base5</strong> 中：<br>
+                            - 10 代表速度 10 Mbps。<br>
+                            - Base 代表基頻傳輸。<br>
+                            - 5 代表「單一區段 (Segment)」的最長傳輸距離為 500 公尺。<br>
+                            根據網路設計的 <strong>5-4-3 規則</strong>，整個網路最多可以串接 5 個區段 (使用 4 個中繼器 Repeaters)。因此，整體網路所能延伸的「最遠極限距離」為 5 個區段 × 500 公尺 = <strong>2500 公尺</strong>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 5000：</strong>錯誤。超過了網路極限。</li>
+                            <li class="wrong-opt"><strong>② 1250：</strong>錯誤。這是隨機數字。</li>
+                            <li class="wrong-opt"><strong>③ 20000：</strong>錯誤。超過極限。</li>
+                            <li class="correct-opt"><strong>④ 2500 公尺：</strong>正確。500 公尺/區段 × 5 區段 = 2500 公尺。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第87題 -->
+        <div class="card">
+            <div class="theme-badge">主題：多路徑無線電頻道參數</div>
+            <div class="question">87. 下列何者不是行動多路徑無線電頻道（Mobile Multipath Radio Channel）的參數？</div>
+            <div class="options">
+                <div class="option">① 脈衝回應（Impulse Response）</div>
+                <div class="option">② 諧和時間（Coherence Time）</div>
+                <div class="option">③ 路徑減損（Path Loss）</div>
+                <div class="option">④ 諧和頻寬（Coherence Bandwidth）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>行動通訊中用來描述「多重路徑 (Multipath)」所引起的小尺度衰落效應 (Small-scale fading) 的核心特性參數包括了：脈衝回應 (評估延遲擴展)、諧和時間 (評估都卜勒頻移帶來的時變率)、以及諧和頻寬。<br>
+                            而 <strong>「路徑減損 (Path Loss)」</strong> 則是指電磁波隨著傳輸「距離增加」而產生的大尺度 (Large-scale) 基本能量衰減現象，它不是專門用來描述多路徑特性的參數。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 脈衝回應：</strong>屬於多路徑特性的數學模型參數。</li>
+                            <li class="wrong-opt"><strong>② 諧和時間：</strong>屬於多路徑造成的時變特性參數。</li>
+                            <li class="correct-opt"><strong>③ 路徑減損：</strong>正確 (應選此項)。這是基本距離衰減，非多路徑專屬參數。</li>
+                            <li class="wrong-opt"><strong>④ 諧和頻寬：</strong>屬於多路徑造成的頻率選擇特性參數。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第88題 -->
+        <div class="card">
+            <div class="theme-badge">主題：子網路可用 IP 數量</div>
+            <div class="question">88. 若 ISP 提供 16 個同網段之 ADSL 固定 IP 位址，則使用者實際可用之上網 IP 位址（不含 Gateway）共有幾個？</div>
+            <div class="options">
+                <div class="option">① 16</div>
+                <div class="option">② 15</div>
+                <div class="option">③ 14</div>
+                <div class="option">④ 13</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>當電信業者 (ISP) 配發一個包含 16 個 IP 的實體網段給企業時，並非所有 IP 都能分配給電腦使用。必須扣除以下三個必要的保留位址：<br>
+                            1. <strong>Network ID (網路位址)</strong>：佔用 1 個 (網段第一個 IP)。<br>
+                            2. <strong>Broadcast ID (廣播位址)</strong>：佔用 1 個 (網段最後一個 IP)。<br>
+                            3. <strong>Gateway (預設閘道)</strong>：ISP 的路由器閘道必須佔用 1 個 (用以連通外網)。<br>
+                            因此，實際能給企業內部電腦連線上網的 IP 數量為：16 - 1 - 1 - 1 = <strong>13 個</strong>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 16：</strong>錯誤。未扣除任何系統保留位址。</li>
+                            <li class="wrong-opt"><strong>② 15：</strong>錯誤。只扣除 1 個，不正確。</li>
+                            <li class="wrong-opt"><strong>③ 14：</strong>錯誤。這是只扣除了網路位址與廣播位址，忘記扣掉 Gateway 路由器本身佔用的 1 個。</li>
+                            <li class="correct-opt"><strong>④ 13：</strong>正確。精確扣除網路、廣播、及 Gateway 後的可用數量。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第89題 -->
+        <div class="card">
+            <div class="theme-badge">主題：DNS 系統架構</div>
+            <div class="question">89. DNS 網域名稱服務系統是下列何種資料庫型態的應用？</div>
+            <div class="options">
+                <div class="option">① 單一檔案式資料庫</div>
+                <div class="option">② 多檔案式資料庫</div>
+                <div class="option">③ 分散式資料庫</div>
+                <div class="option">④ 集中式資料庫</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>網際網路的網域名稱系統 (DNS) 負責將網址 (如 tw.yahoo.com) 解析為 IP 位址。全世界有數十億個網址，不可能全部存在同一台伺服器裡。因此，DNS 採用了層層授權的 <strong>分散式資料庫 (Distributed Database)</strong> 架構。從 Root (.)、頂級網域 (如 .com, .tw) 到次級網域，資料分散在全世界各地的 DNS 伺服器中，共同合作完成查詢。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 單一檔案式資料庫：</strong>錯誤。這會導致全球網路癱瘓。</li>
+                            <li class="wrong-opt"><strong>② 多檔案式資料庫：</strong>錯誤。不足以形容其全球架構。</li>
+                            <li class="correct-opt"><strong>③ 分散式資料庫：</strong>正確。DNS 是全球最大且最典型的階層分散式資料庫系統。</li>
+                            <li class="wrong-opt"><strong>④ 集中式資料庫：</strong>錯誤。DNS 是分散的，而非集中於一點。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第90題 -->
+        <div class="card">
+            <div class="theme-badge">主題：錯誤偵測技術</div>
+            <div class="question">90. 下列何者可用來檢測資料傳輸的錯誤？</div>
+            <div class="options">
+                <div class="option">① TCP</div>
+                <div class="option">② UDP</div>
+                <div class="option">③ CRC</div>
+                <div class="option">④ SMTP</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在數位網路傳輸中，為了確認收到的封包位元是否在傳遞過程中因為雜訊干擾而產生翻轉錯誤，發送端會進行一連串複雜的多項式運算，將餘數附加在封包尾端。這個極其重要且廣泛被使用 (如乙太網路的 FCS 欄位) 的演算法就是 <strong>CRC (Cyclic Redundancy Check，循環冗餘核對碼)</strong>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① TCP：</strong>錯誤。它是第四層協定，雖然內部有使用 Checksum 來檢查，但它本身是一個協定而非單純的檢測演算法。</li>
+                            <li class="wrong-opt"><strong>② UDP：</strong>錯誤。同樣是第四層協定。</li>
+                            <li class="correct-opt"><strong>③ CRC：</strong>正確。此為標準且專職的資料錯誤檢測技術。</li>
+                            <li class="wrong-opt"><strong>④ SMTP：</strong>錯誤。這是寄送電子郵件的應用層協定。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第91題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IPv6 位址格式</div>
+            <div class="question">91. IPv6 的 IP 位址表示，是以：符號將之分成幾個區域，而每個區域又各有幾個位元？</div>
+            <div class="options">
+                <div class="option">① 4 個區域，8 個位元</div>
+                <div class="option">② 4 個區域，16 個位元</div>
+                <div class="option">③ 8 個區域，8 個位元</div>
+                <div class="option">④ 8 個區域，16 個位元</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>IPv6 為了解決 IP 枯竭問題，將位址總長度擴增至 128 位元 (bits)。在標準的十六進位文字表示法中，它是以冒號 (:) 來做為分隔符號，總共切分為 <strong>8 個區塊 (hextets)</strong>。每一個區塊包含了 4 個十六進位字元，而每一個十六進位字元等於 4 bits，因此每個區塊的大小為 4 × 4 = <strong>16 個位元 (bits)</strong>。8 × 16 剛好等於總長度 128。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 4 個區域，8 個位元：</strong>錯誤。這是 IPv4 的架構 (以小數點分隔 4 塊，每塊 8 bits)。</li>
+                            <li class="wrong-opt"><strong>② 4 個區域，16 個位元：</strong>錯誤。長度不符。</li>
+                            <li class="wrong-opt"><strong>③ 8 個區域，8 個位元：</strong>錯誤。長度不符。</li>
+                            <li class="correct-opt"><strong>④ 8 個區域，16 個位元：</strong>正確。完美描述了 IPv6 的標準切割格式。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第92題 -->
+        <div class="card">
+            <div class="theme-badge">主題：MAC 位址結構</div>
+            <div class="question">92. MAC 位址的前幾個位元是用來代表廠商代號？</div>
+            <div class="options">
+                <div class="option">① 3</div>
+                <div class="option">② 4</div>
+                <div class="option">③ 24</div>
+                <div class="option">④ 32</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>乙太網路的實體 MAC 位址總長度固定為 48 bits (6 Bytes)。為確保全球每張網卡都不重複，IEEE 制定了嚴格的分配規則：<br>
+                            - **前半段的 24 個位元 (前 3 個 Bytes)**：稱為 OUI (組織唯一識別碼)，由 IEEE 統一核發給各大網路設備製造商，代表「廠商代號」。<br>
+                            - 後半段的 24 個位元 (後 3 個 Bytes)：由廠商自行編編配的產品硬體出廠流水號。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 3：</strong>錯誤。陷阱題，是前 3 個「位元組 (Bytes)」，而非 3 個「位元 (Bits)」。</li>
+                            <li class="wrong-opt"><strong>② 4：</strong>錯誤。</li>
+                            <li class="correct-opt"><strong>③ 24：</strong>正確。3 Bytes = 24 bits，此為 OUI 廠商代碼的精確長度。</li>
+                            <li class="wrong-opt"><strong>④ 32：</strong>錯誤。這是 IPv4 位址的總長度。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第93題 -->
+        <div class="card">
+            <div class="theme-badge">主題：網路診斷指令</div>
+            <div class="question">93. 欲得知由主機 X 到主機 Y 需經過的路由器，從主機 X 執行下列哪一個指令？</div>
+            <div class="options">
+                <div class="option">① ping</div>
+                <div class="option">② telnet</div>
+                <div class="option">③ tracert</div>
+                <div class="option">④ ipconfig</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>當網路連線不通，或者你想知道封包傳遞到目的地中間到底「繞了哪些路」時，可以利用路由追蹤指令。在 Windows 系統中，此指令為 <strong>`tracert` (Trace Route)</strong>；在 Linux/Mac 中則為 `traceroute`。它會利用 ICMP 或 UDP 封包的 TTL (存活時間) 遞增原理，把沿途經過的每一個路由器的 IP 與反應時間全部列印出來。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① ping：</strong>錯誤。只能測試目的地「通不通」以及總回應時間，無法顯示中間節點。</li>
+                            <li class="wrong-opt"><strong>② telnet：</strong>錯誤。用來遠端登入主機或測試特定 TCP 埠號是否開啟。</li>
+                            <li class="correct-opt"><strong>③ tracert：</strong>正確。專門用來追蹤路由路徑與經過的路由器。</li>
+                            <li class="wrong-opt"><strong>④ ipconfig：</strong>錯誤。用來查詢本機的 IP 與網卡設定資訊。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第94題 -->
+        <div class="card">
+            <div class="theme-badge">主題：SNMP 網路管理協定</div>
+            <div class="question">94. SNMP 中預設使用下列哪一埠號接收自代管裝置的 Trap 訊息？</div>
+            <div class="options">
+                <div class="option">① UDP port 162</div>
+                <div class="option">② UDP port 161</div>
+                <div class="option">③ TCP port 162</div>
+                <div class="option">④ TCP port 161</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>SNMP (簡單網路管理協定) 大量依賴無連線的 UDP 協定來進行溝通以減少設備負擔。它使用兩個主要的連接埠：<br>
+                            1. **UDP 161**：網管伺服器用來主動向交換器或路由器「輪詢 (Polling)」要資料的埠號。<br>
+                            2. **UDP 162**：當網路設備發生異常(如風扇故障、線路斷線)時，會化被動為主動，發送緊急的 <strong>Trap (陷阱/警報) 訊息</strong> 到網管伺服器的 UDP Port 162。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① UDP port 162：</strong>正確。此為接收設備主動發出之 Trap 警報的標準埠。</li>
+                            <li class="wrong-opt"><strong>② UDP port 161：</strong>錯誤。這是伺服器主動抓取 SNMP 數據用的。</li>
+                            <li class="wrong-opt"><strong>③ TCP port 162：</strong>錯誤。SNMP 預設不使用 TCP。</li>
+                            <li class="wrong-opt"><strong>④ TCP port 161：</strong>錯誤。SNMP 預設不使用 TCP。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第95題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Wi-Fi 頻道規劃</div>
+            <div class="question">95. 使用 IEEE 802.11b 無線區域網路時，一般會使用下列哪 3 個頻道？</div>
+            <div class="options">
+                <div class="option">① 1、3、5</div>
+                <div class="option">② 2、4、6</div>
+                <div class="option">③ 1、11、21</div>
+                <div class="option">④ 1、6、11</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>IEEE 802.11b (與 802.11g) 使用 2.4GHz 頻段，該頻段通常被切割為 11 到 14 個頻道 (視國家而定)。每個頻道需要約 22MHz 的頻寬，但相鄰頻道的中心頻率只相差 5MHz，這導致相鄰的頻道彼此會嚴重重疊與干擾。<br>
+                            為了在同一個區域內部署多台基地台 (AP) 而不互相干擾，我們必須挑選「完全不重疊 (Non-overlapping)」的頻道，最標準的黃金組合就是 <strong>1、6、11</strong> 這三個頻道。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 1、3、5：</strong>錯誤。頻道距離太近，會產生嚴重干擾。</li>
+                            <li class="wrong-opt"><strong>② 2、4、6：</strong>錯誤。同樣彼此重疊干擾。</li>
+                            <li class="wrong-opt"><strong>③ 1、11、21：</strong>錯誤。2.4GHz 根本沒有頻道 21。</li>
+                            <li class="correct-opt"><strong>④ 1、6、11：</strong>正確。此為間隔最完美的無干擾標準規劃組合。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第96題 -->
+        <div class="card">
+            <div class="theme-badge">主題：OSPF 路由協定</div>
+            <div class="question">96. 當路由器執行 OSPF 時，會送出下列哪一種封包與鄰近的路由器間保持連線？</div>
+            <div class="options">
+                <div class="option">① Hello 封包</div>
+                <div class="option">② OSP 封包</div>
+                <div class="option">③ Ping 封包</div>
+                <div class="option">④ ICMP 封包</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>OSPF (開放式最短路徑優先) 是一種強大的內部網域路由協定 (Link-State)。當兩台 OSPF 路由器剛接上線時，它們必須先確認對方是否也是 OSPF 路由器並建立鄰居關係 (Adjacency)。此時它們會每隔一小段時間向群播位址發送 <strong>Hello 封包 (Hello Packet)</strong> 互打招呼。這就像在說：「哈囉，我還活著，你也還在嗎？」，用以動態維持與監控連線狀態。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① Hello 封包：</strong>正確。這是 OSPF 建立與維護鄰居關係的專屬封包。</li>
+                            <li class="wrong-opt"><strong>② OSP 封包：</strong>錯誤。沒有這種專有封包名稱。</li>
+                            <li class="wrong-opt"><strong>③ Ping 封包：</strong>錯誤。Ping 是網管人員手動測試用的工具，非路由協定背景運作機制。</li>
+                            <li class="wrong-opt"><strong>④ ICMP 封包：</strong>錯誤。這用來傳遞網路基礎錯誤訊息，不是 OSPF 用來保持連線的協定。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第97題 -->
+        <div class="card">
+            <div class="theme-badge">主題：VLAN Trunk 協定標準</div>
+            <div class="question">97. 可選用下列哪一種 IEEE 協定來規劃 VLAN Trunk？</div>
+            <div class="options">
+                <div class="option">① 802.1P</div>
+                <div class="option">② 802.1Q</div>
+                <div class="option">③ 802.1X</div>
+                <div class="option">④ 802.3X</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在交換器網路中，若要讓一條實體網路線 (Trunk 線) 同時傳遞多個不同 VLAN (虛擬區域網路) 的資料而不致混亂，就必須在封包內加入「標籤 (Tag)」來辨識它是屬於哪一個 VLAN 的。定義這種 VLAN 標記封裝格式的國際標準規範就是 <strong>IEEE 802.1Q</strong> (常簡稱為 dot1q)。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 802.1P：</strong>錯誤。這是規範網路流量優先權等級 (QoS) 的協定。</li>
+                            <li class="correct-opt"><strong>② 802.1Q：</strong>正確。這是業界通用的 VLAN Trunk 封裝標準。</li>
+                            <li class="wrong-opt"><strong>③ 802.1X：</strong>錯誤。這是一種針對網路連接埠進行身分認證的安全標準。</li>
+                            <li class="wrong-opt"><strong>④ 802.3X：</strong>錯誤。這是全雙工乙太網路的流量控制 (Flow Control) 標準。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第98題 -->
+        <div class="card">
+            <div class="theme-badge">主題：VoIP 網路語音協定</div>
+            <div class="question">98. VoIP 不使用下列哪一種協定？</div>
+            <div class="options">
+                <div class="option">① RTCP</div>
+                <div class="option">② H.323</div>
+                <div class="option">③ SIP</div>
+                <div class="option">④ SSL</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>VoIP (Voice over IP) 網路電話是透過網路傳送即時語音的技術，它依賴特定的協定來建立通話與傳送聲音：<br>
+                            - SIP 與 H.323 負責打電話時的「連線建立與掛斷 (Signaling)」。<br>
+                            - RTP 負責傳送實際語音，RTCP 負責即時監控語音傳輸品質。<br>
+                            而 <strong>SSL (Secure Sockets Layer)</strong> 是用來加密網頁瀏覽 (如 HTTPS) 或資料傳輸的安全協定，並非標準 VoIP 運作所必須原生使用的核心協定。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① RTCP：</strong>錯誤。即時傳輸控制協定，用來監控 VoIP 語音傳輸品質。</li>
+                            <li class="wrong-opt"><strong>② H.323：</strong>錯誤。早期由 ITU 提出的 VoIP 多媒體會議連線標準。</li>
+                            <li class="wrong-opt"><strong>③ SIP：</strong>錯誤。目前最主流的 VoIP 通話建立/信令協定。</li>
+                            <li class="correct-opt"><strong>④ SSL：</strong>正確 (應選此項)。主要用於 Web 安全加密，不屬於原生 VoIP 架構協定。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第99題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Linux 系統指令</div>
+            <div class="question">99. 在 CentOS Linux 環境中，下列哪一種指令可查詢作業系統之類型與版本？</div>
+            <div class="options">
+                <div class="option">① whois</div>
+                <div class="option">② nslookup</div>
+                <div class="option">③ traceroute</div>
+                <div class="option">④ cat /etc/os-release</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>現代多數 Linux 系統 (包含 CentOS 7 / 8 / 9 等) 都遵循系統規格標準，會將作業系統的名稱、版本號碼、代號等詳細資訊儲存在 `/etc/os-release` 這個文字檔中。因此，使用 <strong>`cat /etc/os-release`</strong> 指令來讀取該檔案內容，是目前最標準且通用用來查詢 Linux 系統版本的方法。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① whois：</strong>錯誤。用來查詢網域名稱 (Domain Name) 的註冊者與擁有者資訊。</li>
+                            <li class="wrong-opt"><strong>② nslookup：</strong>錯誤。用來查詢 DNS 伺服器，解析網址與 IP 的對應。</li>
+                            <li class="wrong-opt"><strong>③ traceroute：</strong>錯誤。用來追蹤網路封包傳遞經過的路由器路徑。</li>
+                            <li class="correct-opt"><strong>④ cat /etc/os-release：</strong>正確。此指令可直接印出系統版本資訊檔。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第100題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Windows 網路狀態指令</div>
+            <div class="question">100. Windows 系統中，可使用下列哪一個指令來檢視系統所使用的 TCP/UDP 埠號？</div>
+            <div class="options">
+                <div class="option">① netstat -np</div>
+                <div class="option">② netstat -na</div>
+                <div class="option">③ netstat -nr</div>
+                <div class="option">④ netstat -n0</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在 Windows 的命令提示字元中，`netstat` (Network Statistics) 是檢查本機網路連線狀態最強大的工具。參數解說如下：<br>
+                            - **`-a` (All)**：顯示本機電腦目前所有建立連線中的狀態，以及「所有正在聆聽 (Listening) 的 TCP/UDP 連接埠」。<br>
+                            - **`-n` (Numeric)**：強制以「數字 IP 與數字埠號」顯示，不要花時間將 IP 反查成英文主機名稱或將埠號轉成服務名稱，可加快顯示速度。<br>
+                            組合起來 <strong>`netstat -na`</strong> 即為資安網管人員最常用來檢查電腦開了哪些連線與埠號的起手式。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① netstat -np：</strong>錯誤。`-p` 參數通常需搭配特定的通訊協定名稱 (如 `-p TCP`) 使用。</li>
+                            <li class="correct-opt"><strong>② netstat -na：</strong>正確。能以全數字格式顯示所有的連線與聆聽中的通訊埠。</li>
+                            <li class="wrong-opt"><strong>③ netstat -nr：</strong>錯誤。`-r` 參數是用來顯示本機的「路由表 (Routing Table)」。</li>
+                            <li class="wrong-opt"><strong>④ netstat -n0：</strong>錯誤。`netstat` 指令並無此標準參數。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <!-- JavaScript 動態控制 -->
+    <script>
+        let isExpanded = false;
+        function toggleAll() {
+            const detailsElements = document.querySelectorAll('.qa-details');
+            const toggleBtn = document.getElementById('toggleBtn');
+            
+            isExpanded = !isExpanded;
+            
+            detailsElements.forEach(detail => {
+                if (isExpanded) {
+                    detail.setAttribute('open', '');
+                } else {
+                    detail.removeAttribute('open');
+                }
+            });
+            
+            if (isExpanded) {
+                toggleBtn.innerText = '收合所有解析';
+                toggleBtn.style.backgroundColor = '#e74c3c';
+            } else {
+                toggleBtn.innerText = '展開所有解析';
+                toggleBtn.style.backgroundColor = '#27ae60';
+            }
+        }
+    </script>
+</body>
+</html>

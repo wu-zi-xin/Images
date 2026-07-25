@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路乙級架設解析 - 工作項目4 (51-75題 綜合解析修訂版)</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .toggle-btn:hover { background-color: #219150; }
+
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative;
+        }
+        
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+
+        .question { 
+            font-size: 1.15em; 
+            font-weight: bold; 
+            color: #34495e; 
+            margin-bottom: 15px; 
+            line-height: 1.5; 
+        }
+        
+        /* 選項樣式 */
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            margin-bottom: 20px; 
+        }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+        
+        /* 純HTML 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { 
+            padding: 20px; 
+            background: #f4fcf7; 
+            border-top: 1px solid #dfe6e9; 
+        }
+        .answer-title { 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            color: #27ae60; 
+            margin-bottom: 15px; 
+        }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+
+        .explanation { 
+            color: #4b6584; 
+            font-size: 1em; 
+            line-height: 1.7; 
+        }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        .opt-list { 
+            margin: 0; 
+            padding-left: 0; 
+            list-style: none; 
+        }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級 工作項目04</h1>
+        <p>第 51 - 75 題 (綜合解析與各選項詳解 修訂版)</p>
+        <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+        
+        <!-- 第51題 -->
+        <div class="card">
+            <div class="theme-badge">主題：MAC 位址表示法</div>
+            <div class="question">51. 乙太網路所使用的實體位址中，以何種符號區隔兩個位元組？</div>
+            <div class="options">
+                <div class="option">① .</div>
+                <div class="option">② ;</div>
+                <div class="option">③ :</div>
+                <div class="option">④ ,</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>乙太網路的實體位址 (MAC Address) 總共 48 bits (6 Bytes)。在標準的十六進位表示法中，通常每兩個十六進位字元 (即 1 Byte) 為一組，並且使用冒號「<code>:</code>」或連字號「<code>-</code>」來做為區隔符號，例如 <code>00:1A:2B:3C:4D:5E</code>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① .：</strong>錯誤。句點通常用來區隔 IPv4 位址的四個十進位數字。</li>
+                            <li class="wrong-opt"><strong>② ;：</strong>錯誤。分號不使用於網路位址的區隔。</li>
+                            <li class="correct-opt"><strong>③ :：</strong>正確。冒號是 MAC 位址以及 IPv6 位址標準的區隔符號。</li>
+                            <li class="wrong-opt"><strong>④ ,：</strong>錯誤。逗號不使用於網路位址的區隔。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第52題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IEEE 802.11 無線網路速率</div>
+            <div class="question">52. 下列哪一種 IEEE Wireless LAN 標準的傳輸速率最高？</div>
+            <div class="options">
+                <div class="option">① 802.11a</div>
+                <div class="option">② 802.11b</div>
+                <div class="option">③ 802.11g</div>
+                <div class="option">④ 802.11n</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在早期常見的 IEEE 802.11 家族中，各版本的最高理論速率為：<br>
+                            - 802.11b：11 Mbps<br>
+                            - 802.11a / 802.11g：54 Mbps<br>
+                            - 802.11n (Wi-Fi 4)：透過 MIMO 多天線技術，最高可達 600 Mbps。<br>
+                            因此，在選項提供的標準中，802.11n 的傳輸速率是最高的。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 802.11a：</strong>錯誤。最高為 54 Mbps。</li>
+                            <li class="wrong-opt"><strong>② 802.11b：</strong>錯誤。最高為 11 Mbps。</li>
+                            <li class="wrong-opt"><strong>③ 802.11g：</strong>錯誤。最高為 54 Mbps。</li>
+                            <li class="correct-opt"><strong>④ 802.11n：</strong>正確。最高可達 600 Mbps，為選項中最高者。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第53題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IEEE 802.11 無線網路速率</div>
+            <div class="question">53. 下列哪一種 IEEE Wireless LAN 標準的傳輸速率最低？</div>
+            <div class="options">
+                <div class="option">① 802.11a</div>
+                <div class="option">② 802.11b</div>
+                <div class="option">③ 802.11g</div>
+                <div class="option">④ 802.11n</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>接續上題的數據，802.11b 雖然是早期非常普及的無線標準 (使用 2.4GHz 頻段)，但其採用的 DSSS 調變技術使其理論極速僅能達到 11 Mbps。相較於後來推出的 a/g (54 Mbps) 以及 n (600 Mbps)，802.11b 毫無疑問是選項中傳輸速率最低的標準。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 802.11a：</strong>錯誤。最高 54 Mbps。</li>
+                            <li class="correct-opt"><strong>② 802.11b：</strong>正確。最高僅 11 Mbps，為選項中最低者。</li>
+                            <li class="wrong-opt"><strong>③ 802.11g：</strong>錯誤。最高 54 Mbps。</li>
+                            <li class="wrong-opt"><strong>④ 802.11n：</strong>錯誤。最高可達 600 Mbps。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第54題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IEEE 802.11 無線網路頻段</div>
+            <div class="question">54. IEEE 802.11a 標準所使用的頻段為何？</div>
+            <div class="options">
+                <div class="option">① 2.5GHz</div>
+                <div class="option">② 5GHz</div>
+                <div class="option">③ 2.3GHz</div>
+                <div class="option">④ 2.4GHz</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>IEEE 802.11a 是一個專門運行於 <strong>5GHz 頻段</strong> 的無線網路標準。雖然它與 802.11b 幾乎同時期推出，但因為 5GHz 頻段受到的家電與藍牙干擾較少，提供了更純淨的通道，最高速率可達 54 Mbps。缺點是高頻率的電波穿牆能力較弱。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 2.5GHz：</strong>錯誤。無此標準 Wi-Fi 頻段。</li>
+                            <li class="correct-opt"><strong>② 5GHz：</strong>正確。此為 802.11a 專屬運行的頻段。</li>
+                            <li class="wrong-opt"><strong>③ 2.3GHz：</strong>錯誤。無此標準 Wi-Fi 頻段。</li>
+                            <li class="wrong-opt"><strong>④ 2.4GHz：</strong>錯誤。這是 802.11b / 802.11g 所使用的頻段。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第55題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IEEE 802.11 無線網路頻段</div>
+            <div class="question">55. IEEE 802.11g 標準所使用的頻段為何？</div>
+            <div class="options">
+                <div class="option">① 5GHz</div>
+                <div class="option">② 2.5GHz</div>
+                <div class="option">③ 2.3GHz</div>
+                <div class="option">④ 2.4GHz</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>IEEE 802.11g 是為了解決 802.11b 速度過慢而開發的升級版標準。為了向下相容舊有的 802.11b 設備，802.11g 繼續使用了相同的 <strong>2.4GHz 頻段</strong>，但改採 OFDM 調變技術，成功將傳輸速率從 11 Mbps 大幅拉升至與 802.11a 相同的 54 Mbps。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 5GHz：</strong>錯誤。這是 802.11a 與 802.11ac/ax 使用的頻段。</li>
+                            <li class="wrong-opt"><strong>② 2.5GHz：</strong>錯誤。無此頻段。</li>
+                            <li class="wrong-opt"><strong>③ 2.3GHz：</strong>錯誤。無此頻段。</li>
+                            <li class="correct-opt"><strong>④ 2.4GHz：</strong>正確。802.11g 與 802.11b 皆運行於 2.4GHz。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第56題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IEEE 802.11g 傳輸速率</div>
+            <div class="question">56. IEEE 802.11g 標準的最高傳輸速率為多少？</div>
+            <div class="options">
+                <div class="option">① 11Mbps</div>
+                <div class="option">② 54Mbps</div>
+                <div class="option">③ 5.5Mbps</div>
+                <div class="option">④ 25Mbps</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>如同前題所述，IEEE 802.11g 是 802.11b 的進化版本。透過引進 OFDM (正交分頻多工) 技術，在 2.4GHz 頻段中將最高理論傳輸速率推升至 <strong>54 Mbps</strong>，成為當時最普及的家用無線網路標準。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 11Mbps：</strong>錯誤。這是較舊的 802.11b 最高速率。</li>
+                            <li class="correct-opt"><strong>② 54Mbps：</strong>正確。802.11g (與 802.11a) 的最高理論傳輸速率即為 54 Mbps。</li>
+                            <li class="wrong-opt"><strong>③ 5.5Mbps：</strong>錯誤。這是 802.11b 降速連線時的其中一個檔位。</li>
+                            <li class="wrong-opt"><strong>④ 25Mbps：</strong>錯誤。無此標準無線極速。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第57題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IEEE 802.11b 傳輸速率</div>
+            <div class="question">57. IEEE 802.11b 標準的最高傳輸速率為多少？</div>
+            <div class="options">
+                <div class="option">① 5.5Mbps</div>
+                <div class="option">② 11Mbps</div>
+                <div class="option">③ 54Mbps</div>
+                <div class="option">④ 25Mbps</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>IEEE 802.11b 是第一個廣泛被大眾與筆記型電腦採用的 Wi-Fi 標準。它運作在 2.4GHz 頻段，受到技術限制，其理論最高傳輸速率僅為 <strong>11 Mbps</strong>。當訊號品質不佳時，它會自動將速率降為 5.5、2 或 1 Mbps 以確保連線不斷線。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 5.5Mbps：</strong>錯誤。這是 802.11b 的次高降速檔位。</li>
+                            <li class="correct-opt"><strong>② 11Mbps：</strong>正確。此即為 802.11b 的最高理論傳輸速率。</li>
+                            <li class="wrong-opt"><strong>③ 54Mbps：</strong>錯誤。這是 802.11a 或 802.11g 的極速。</li>
+                            <li class="wrong-opt"><strong>④ 25Mbps：</strong>錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第58題 -->
+        <div class="card">
+            <div class="theme-badge">主題：CRC 循環冗餘核對計算</div>
+            <div class="question">58. 位元串使用循環冗餘核對 (Cyclic Redundancy Check,CRC) 作錯誤檢測，產生器多項式 (Generator polynomial) 為 x⁴+x+1，計算位元串 011100101010 之 CRC 為</div>
+            <div class="options">
+                <div class="option">① 0000</div>
+                <div class="option">② 1101</div>
+                <div class="option">③ 1110</div>
+                <div class="option">④ 1100</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>這是一道二進位模二除法 (XOR) 的計算題：<br>
+                            1. 將產生器多項式 x⁴+x+1 轉為二進位：次方代表位元位置，因此除數為 <code>10011</code> (最高為 4 次方，故 CRC 餘數長度為 4 碼)。<br>
+                            2. 原始位元串：<code>011100101010</code> (最前面的 0 不影響運算，可視為 <code>11100101010</code>)。<br>
+                            3. 在位元串尾端補上 4 個零 (因為最高次方為 4)：變成被除數 <code>111001010100000</code>。<br>
+                            4. 使用 10011 進行互斥或 (XOR) 長除法：不斷對齊最高位的 1 進行 XOR 抵銷，最後算得的 4 位餘數即為 <strong>1100</strong>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 0000：</strong>錯誤。計算結果不符。</li>
+                            <li class="wrong-opt"><strong>② 1101：</strong>錯誤。計算結果不符。</li>
+                            <li class="wrong-opt"><strong>③ 1110：</strong>錯誤。計算結果不符。</li>
+                            <li class="correct-opt"><strong>④ 1100：</strong>正確。經由標準模二除法 XOR 運算後，最終的 CRC 餘數確實為 1100。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第59題 -->
+        <div class="card">
+            <div class="theme-badge">主題：TCP/UDP Well-Known 埠號</div>
+            <div class="question">59. TCP 及 UDP 之 Well-Known 埠號範圍為</div>
+            <div class="options">
+                <div class="option">① 0~1023</div>
+                <div class="option">② 0~65535</div>
+                <div class="option">③ 1024~65535</div>
+                <div class="option">④ 0~255</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在 TCP/IP 協定中，通訊埠號 (Port Number) 總共有 65536 個 (0 ~ 65535)。IANA 將其劃分為三大區塊：<br>
+                            1. <strong>周知埠 (Well-Known Ports)</strong>：範圍 <strong>0 ~ 1023</strong>，保留給最重要的系統級網路服務使用 (如 HTTP: 80, FTP: 21, DNS: 53)。<br>
+                            2. 註冊埠 (Registered Ports)：範圍 1024 ~ 49151。<br>
+                            3. 動態/私有埠 (Dynamic/Private Ports)：範圍 49152 ~ 65535，供終端軟體隨機分配使用。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① 0~1023：</strong>正確。此為標準 Well-Known 埠號的官方定義範圍。</li>
+                            <li class="wrong-opt"><strong>② 0~65535：</strong>錯誤。這是「所有」可用埠號的總範圍。</li>
+                            <li class="wrong-opt"><strong>③ 1024~65535：</strong>錯誤。這是非周知埠 (註冊與動態埠) 的範圍。</li>
+                            <li class="wrong-opt"><strong>④ 0~255：</strong>錯誤。太小，不符合 IANA 的定義標準。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第60題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IPv6 位址長度</div>
+            <div class="question">60. 一個 IPv6 位址是由多少位元所組成？</div>
+            <div class="options">
+                <div class="option">① 32</div>
+                <div class="option">② 64</div>
+                <div class="option">③ 128</div>
+                <div class="option">④ 1024</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>傳統的 IPv4 位址長度為 32 位元，因為 IP 數量枯竭，所以發展出了新一代的 IPv6。IPv6 的位址長度大幅擴增為 <strong>128 位元 (bits)</strong>，這意味著它可以提供 2¹²⁸ 個可用位址，足以分配給地球上的每一粒沙子，徹底解決了 IP 枯竭的問題。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 32：</strong>錯誤。這是舊版 IPv4 的長度。</li>
+                            <li class="wrong-opt"><strong>② 64：</strong>錯誤。這是 IPv6 位址中「主機介面識別碼 (Interface ID)」的部分長度，非總長度。</li>
+                            <li class="correct-opt"><strong>③ 128：</strong>正確。IPv6 的總長度為 128 位元。</li>
+                            <li class="wrong-opt"><strong>④ 1024：</strong>錯誤。無此誇張的長度規範。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第61題 -->
+        <div class="card">
+            <div class="theme-badge">主題：應用層協定預設埠號</div>
+            <div class="question">61. FTP 連上伺服器之預設埠號為何？</div>
+            <div class="options">
+                <div class="option">① 110</div>
+                <div class="option">② 25</div>
+                <div class="option">③ 80</div>
+                <div class="option">④ 21</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>檔案傳輸協定 (File Transfer Protocol, FTP) 是一個非常經典的 TCP 服務。它預設使用兩個連接埠來運作：Port 20 用於傳輸實際的「資料 (Data)」，而 <strong>Port 21</strong> 則是用戶端剛連上伺服器時，用來發送登入帳號密碼與各種控制指令的「控制 (Control)」連接埠。考題中問連上伺服器的預設埠號，即是指 Port 21。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 110：</strong>錯誤。這是 POP3 接收電子郵件的埠號。</li>
+                            <li class="wrong-opt"><strong>② 25：</strong>錯誤。這是 SMTP 發送電子郵件的埠號。</li>
+                            <li class="wrong-opt"><strong>③ 80：</strong>錯誤。這是 HTTP 網頁伺服器的埠號。</li>
+                            <li class="correct-opt"><strong>④ 21：</strong>正確。此為 FTP 伺服器接受控制指令的預設埠號。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第62題 -->
+        <div class="card">
+            <div class="theme-badge">主題：位址轉換協定 (ARP)</div>
+            <div class="question">62. 下列哪一種通訊協定可將 IP 位址轉換成 MAC 位址？</div>
+            <div class="options">
+                <div class="option">① ARP</div>
+                <div class="option">② RARP</div>
+                <div class="option">③ DNS</div>
+                <div class="option">④ ICMP</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在區域網路中通訊時，主機必須知道目的地的實體 MAC 位址才能正確傳送封包。<strong>ARP (Address Resolution Protocol，位址解析協定)</strong> 就是專門用來廣播詢問「請問這個 IP 的擁有者，你的 MAC 位址是多少？」的關鍵協定，藉此將邏輯 IP 位址成功對應為實體 MAC 位址。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① ARP：</strong>正確。由 IP 查詢 MAC 的標準協定。</li>
+                            <li class="wrong-opt"><strong>② RARP：</strong>錯誤。這是反向位址解析協定 (Reverse ARP)，用於由 MAC 反查 IP。</li>
+                            <li class="wrong-opt"><strong>③ DNS：</strong>錯誤。負責網域名稱 (如 www.google.com) 與 IP 之間的轉換。</li>
+                            <li class="wrong-opt"><strong>④ ICMP：</strong>錯誤。主要用於傳遞網路錯誤與控制訊息 (如 Ping 指令)。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第63題 -->
+        <div class="card">
+            <div class="theme-badge">主題：PPP 通訊協定架構</div>
+            <div class="question">63. 使用 PPP 設定 WAN 的連線時，何種通訊協定負責建立與組態設定 PPP ？</div>
+            <div class="options">
+                <div class="option">① NCP</div>
+                <div class="option">② CDP</div>
+                <div class="option">③ X.25</div>
+                <div class="option">④ CHAP</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>PPP (Point-to-Point Protocol) 架構包含幾個重要元件。其中，用以建立、組態及測試底層資料鏈路的協定是 LCP (未在選項中)；而負責在 PPP 連線上進一步<strong>建立與組態設定網路層協定</strong> (例如 IP 或 IPX) 的元件，就是 <strong>NCP (Network Control Protocol，網路控制協定)</strong>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① NCP：</strong>正確。負責協商並設定要在 PPP 之上跑的網路層通訊協定狀態。</li>
+                            <li class="wrong-opt"><strong>② CDP：</strong>錯誤。Cisco 發現協定，用於收集相鄰 Cisco 設備的資訊。</li>
+                            <li class="wrong-opt"><strong>③ X.25：</strong>錯誤。這是一種早期的分封交換廣域網路協定。</li>
+                            <li class="wrong-opt"><strong>④ CHAP：</strong>錯誤。這是 PPP 建立時用來進行「密碼身分驗證 (Authentication)」的協定，而非網路組態設定。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第64題 -->
+        <div class="card">
+            <div class="theme-badge">主題：T1 專線速率計算</div>
+            <div class="question">64. 使用部分（Fractional） T1 電路中之 3 個 channel，其連接速率（bps）為何？</div>
+            <div class="options">
+                <div class="option">① 1,536,000</div>
+                <div class="option">② 192,000</div>
+                <div class="option">③ 320,000</div>
+                <div class="option">④ 64,000</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>北美標準的 T1 專線是由 24 個獨立的資料通道 (DS0 Channel) 所組成。每一個 Channel 的基礎傳輸速率皆為 <strong>64 kbps (64,000 bps)</strong>。<br>
+                            若企業申請「部分 T1 (Fractional T1)」並只租用了其中的 3 個 Channel，總頻寬即為：<br>
+                            3 × 64,000 bps = <strong>192,000 bps</strong>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 1,536,000：</strong>錯誤。這是 T1 完整 24 個 Channel 的淨資料傳輸率 (24 × 64kbps)。</li>
+                            <li class="correct-opt"><strong>② 192,000：</strong>正確。精確符合 3 個 Channel 的乘積。</li>
+                            <li class="wrong-opt"><strong>③ 320,000：</strong>錯誤。這是 5 個 Channel 的速率。</li>
+                            <li class="wrong-opt"><strong>④ 64,000：</strong>錯誤。這只是單一 1 個 Channel 的速率。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第65題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IPv6 網路除錯指令</div>
+            <div class="question">65. IPv6 網路中的電腦無法存取網路時，除錯之第一步為 ping local host 或 loop back 位址，所使用的指令為何？</div>
+            <div class="options">
+                <div class="option">① ping ipv6127.0.0.1</div>
+                <div class="option">② ping 0.0.0.0</div>
+                <div class="option">③ ping ipv6::1</div>
+                <div class="option">④ ping ipv60:0</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在網路除錯的標準流程中，第一步永遠是檢查本機的網路卡堆疊與 TCP/IP 協定是否正常安裝運作。<br>
+                            在舊版 IPv4 中，迴環位址 (Loopback) 為 <code>127.0.0.1</code>。而在新版 IPv6 中，迴環位址被定義為 <code>0000:0000:0000:0000:0000:0000:0000:0001</code>，經過零壓縮簡寫後即為 <strong><code>::1</code></strong>。搭配命令列工具，一般可用 <code>ping ipv6::1</code> 或是 <code>ping ::1</code> 來進行測試。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① ping ipv6127.0.0.1：</strong>錯誤。把 IPv4 位址混搭 IPv6 指令，語法不通。</li>
+                            <li class="wrong-opt"><strong>② ping 0.0.0.0：</strong>錯誤。這是 IPv4 的未指定位址，無法用來測試。</li>
+                            <li class="correct-opt"><strong>③ ping ipv6::1：</strong>正確。(部分考題圖檔因印刷可能缺漏冒號，但觀念上 <code>::1</code> 就是標準的 IPv6 迴環位址)。</li>
+                            <li class="wrong-opt"><strong>④ ping ipv60:0：</strong>錯誤。無此 IP 格式寫法。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第66題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IPv6 EUI-64 介面識別碼</div>
+            <div class="question">66. 對 IPv6 網路中的一台主機檢視自動組態的 IPv6 位址，得到 MAC 位址為 0010:AB23:4567，下列何者是採用 EUI-64 產生的 global-unicast interface identifier？</div>
+            <div class="options">
+                <div class="option">① 0010:ABFF:FE23:4567</div>
+                <div class="option">② 0210:ABFF:FE23:4567</div>
+                <div class="option">③ 0010:AB23:4567</div>
+                <div class="option">④ 0000:0010:AB23:4567</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>EUI-64 自動轉換機制的計算步驟如下：<br>
+                            1. 將原 48 bits MAC 位址 <code>0010:AB23:4567</code> 從正中間剖半。<br>
+                            2. 在中間硬性插入 <code>FF:FE</code>：變成 <code>0010:ABFF:FE23:4567</code>。<br>
+                            3. 將最前面的第一個 Byte 的「第 7 個位元」進行反轉 (0 變 1)。首字節 <code>00</code> (即二進位 00000000) 變為 00000010，也就是十六進位的 <code>02</code>。<br>
+                            最終得出的介面識別碼即為 <code>0210:ABFF:FE23:4567</code>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 0010:ABFF:FE23:4567：</strong>錯誤。未完成最關鍵的第 7 位元反轉。</li>
+                            <li class="correct-opt"><strong>② 0210:ABFF:FE23:4567：</strong>正確。完全符合 EUI-64 規範計算出的結果。</li>
+                            <li class="wrong-opt"><strong>③ 0010:AB23:4567：</strong>錯誤。這是原封不動的 MAC。</li>
+                            <li class="wrong-opt"><strong>④ 0000:0010:AB23:4567：</strong>錯誤。無此轉換法。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第67題 -->
+        <div class="card">
+            <div class="theme-badge">主題：OSI 模型與通訊協定</div>
+            <div class="question">67. DNS 工作於</div>
+            <div class="options">
+                <div class="option">① 網路層 (Network Layer)</div>
+                <div class="option">② 傳輸層 (Transport Layer)</div>
+                <div class="option">③ 會談層 (Session Layer)</div>
+                <div class="option">④ 應用層 (Application Layer)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>網域名稱系統 (Domain Name System, DNS) 是用來將人類易讀的網址 (如 www.google.com) 轉換為機器底層使用的 IP 位址。它直接提供給使用者的瀏覽器或其他應用程式查詢使用，屬於 OSI 參考模型中最頂層的 <strong>應用層 (Application Layer)</strong> 服務。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 網路層：</strong>錯誤。此層負責 IP 邏輯定址與路由 (如 IP, ICMP)。</li>
+                            <li class="wrong-opt"><strong>② 傳輸層：</strong>錯誤。此層負責端點連線與可靠性傳輸 (如 TCP, UDP)。</li>
+                            <li class="wrong-opt"><strong>③ 會談層：</strong>錯誤。負責管理交談連線狀態。</li>
+                            <li class="correct-opt"><strong>④ 應用層：</strong>正確。DNS, HTTP, FTP 等直接服務應用程式的協定皆屬此層。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第68題 -->
+        <div class="card">
+            <div class="theme-badge">主題：DHCP 協定運作原理</div>
+            <div class="question">68. DHCP 用戶端使用何目的位址以申請其 IP 位址？</div>
+            <div class="options">
+                <div class="option">① 127.0.0.1</div>
+                <div class="option">② 10.0.0.1</div>
+                <div class="option">③ 0.0.0.0</div>
+                <div class="option">④ 255.255.255.255</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>當一台電腦剛開機，想要透過 DHCP 動態獲取 IP 時，它自己還沒有 IP 位址 (此時來源 IP 為 0.0.0.0)，也根本不知道 DHCP 伺服器在哪裡。因此，它只能大喊：「網段內的 DHCP 伺服器在嗎？」。這種對區網內所有主機發送訊息的行為稱為廣播 (Broadcast)，使用的目的 IP 位址即為全球通用廣播位址 <strong>255.255.255.255</strong>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 127.0.0.1：</strong>錯誤。這是本機迴環位址。</li>
+                            <li class="wrong-opt"><strong>② 10.0.0.1：</strong>錯誤。這只是一個普通的私有 IP。</li>
+                            <li class="wrong-opt"><strong>③ 0.0.0.0：</strong>錯誤。在申請時，0.0.0.0 是作為 DHCP 請求封包的「來源位址」。</li>
+                            <li class="correct-opt"><strong>④ 255.255.255.255：</strong>正確。這是向全網段尋找 DHCP 伺服器的受限廣播位址。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第69題 -->
+        <div class="card">
+            <div class="theme-badge">主題：TCP 與 UDP 協定應用</div>
+            <div class="question">69. 下列哪一個通訊協定同時使用 TCP 與 UDP 協定？</div>
+            <div class="options">
+                <div class="option">① FTP</div>
+                <div class="option">② SMTP</div>
+                <div class="option">③ Telnet</div>
+                <div class="option">④ DNS</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在網路協定中，<strong>DNS (Domain Name System)</strong> 是一個非常特別的存在，它同時運行在 Port 53 的 TCP 與 UDP 上：<br>
+                            1. <strong>UDP Port 53</strong>：用於一般的用戶端網址查詢 (如輸入網址按 Enter)，因為查詢封包小且需要極快反應。<br>
+                            2. <strong>TCP Port 53</strong>：用於伺服器與伺服器之間的「區域轉移 (Zone Transfer)」大筆資料同步，需要確保資料完全無誤的可靠傳輸。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① FTP：</strong>錯誤。純粹使用 TCP (Port 20, 21) 保證檔案傳輸正確。</li>
+                            <li class="wrong-opt"><strong>② SMTP：</strong>錯誤。純粹使用 TCP (Port 25) 保證信件不會寄丟。</li>
+                            <li class="wrong-opt"><strong>③ Telnet：</strong>錯誤。純粹使用 TCP (Port 23) 保證指令連線不中斷。</li>
+                            <li class="correct-opt"><strong>④ DNS：</strong>正確。根據不同情境需求，會交替使用 UDP 與 TCP。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第70題 -->
+        <div class="card">
+            <div class="theme-badge">主題：網路連線測試與 Ping 指令</div>
+            <div class="question">70. 某電腦組態之 IP:192.168.1.30、Subnet mask：255.255.255.0、Default gateway：192.168.1.254、DNS：192.168.1.1，若只要測試電腦網路卡而不測試網路，應採用下列何種指令？</div>
+            <div class="options">
+                <div class="option">① ping 127.0.0.1</div>
+                <div class="option">② ping 192.168.1.30</div>
+                <div class="option">③ ping 192.168.1.254</div>
+                <div class="option">④ ping 192.168.1.1</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>網路障礙排除有嚴格的順序：<br>
+                            1. <code>ping 127.0.0.1</code>：僅能測試電腦系統內部的 TCP/IP 軟體是否正常載入，訊號不會經過實體網卡。<br>
+                            2. <strong><code>ping 自己的 IP (192.168.1.30)</code></strong>：訊號會確實送到本機的「實體網路卡硬體」處理再繞回來，若成功代表網卡硬體與驅動皆正常運作，且不會把訊號丟到外部纜線上。<br>
+                            3. <code>ping 預設閘道 (192.168.1.254)</code>：開始測試外部線路與交換器是否通暢。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① ping 127.0.0.1：</strong>錯誤。這只測試軟體堆疊，無法驗證實體網路卡的運作。</li>
+                            <li class="correct-opt"><strong>② ping 192.168.1.30：</strong>正確。Ping 自己的 IP 是驗證實體網路卡是否正常綁定與運作的標準方法。</li>
+                            <li class="wrong-opt"><strong>③ ping 192.168.1.254：</strong>錯誤。這已經在測試外部區域網路了。</li>
+                            <li class="wrong-opt"><strong>④ ping 192.168.1.1：</strong>錯誤。同上，這也是在測試與伺服器間的連線。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第71題 -->
+        <div class="card">
+            <div class="theme-badge">主題：基礎網路通訊觀念</div>
+            <div class="question">71. 下列何者正確？</div>
+            <div class="options">
+                <div class="option">① 訊號雜訊比 (Signal to Noise Ratio, SNR) 定義為訊號功率除以雜訊功率</div>
+                <div class="option">② 傳輸介質中電纜線的通訊距離最長</div>
+                <div class="option">③ OSI 參考模型中第四層是表現層</div>
+                <div class="option">④ 通訊端可以接收及發送資料，但一次只能做一個動作，不能同時收發稱為多工</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在通訊原理中，<strong>訊號雜訊比 (SNR, Signal-to-Noise Ratio)</strong> 是評估連線品質好壞的最關鍵指標，其定義公式非常明確：就是「有用訊號的功率」除以「背景雜訊的功率」。數值越大，代表訊號越清晰、連線品質越高。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① SNR 定義為訊號功率除以雜訊功率：</strong>正確。此為標準工程學定義。</li>
+                            <li class="wrong-opt"><strong>② 傳輸介質中電纜線的通訊距離最長：</strong>錯誤。光纖的通訊距離遠大於銅製電纜。</li>
+                            <li class="wrong-opt"><strong>③ 第四層是表現層：</strong>錯誤。OSI 第四層是「傳輸層 (Transport)」，表現層是第六層。</li>
+                            <li class="wrong-opt"><strong>④ 不能同時收發稱為多工：</strong>錯誤。可以收發但一次只能做一個動作稱為「半雙工 (Half-Duplex)」。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第72題 -->
+        <div class="card">
+            <div class="theme-badge">主題：TCP/IP 協定特性</div>
+            <div class="question">72. 下列對於 TCP/IP 通訊協定之敘述，何者不正確？</div>
+            <div class="options">
+                <div class="option">① 由 IETF 組織負責建立與管理</div>
+                <div class="option">② 為現實網路中普遍使用之通訊協定</div>
+                <div class="option">③ 為某家特定廠商所發表的通訊協定</div>
+                <div class="option">④ 與 OSI 參考模型相同，擁有分層概念</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>TCP/IP (Transmission Control Protocol / Internet Protocol) 最初是美國國防部的高等研究計畫署 (ARPA) 所資助開發的，現今已交由國際組織 IETF 負責管理。它是開放的、公共的網際網路骨幹標準，絕對<strong>不是</strong>被任何單一商業廠商所私有或獨佔發表的。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 由 IETF 組織負責建立與管理：</strong>敘述正確 (不選)。</li>
+                            <li class="wrong-opt"><strong>② 為現實網路中普遍使用之通訊協定：</strong>敘述正確 (不選)。</li>
+                            <li class="correct-opt"><strong>③ 為某家特定廠商所發表的通訊協定：</strong>敘述錯誤 (應選此項)。TCP/IP 是開放標準，不受任何廠商控制。</li>
+                            <li class="wrong-opt"><strong>④ 擁有分層概念：</strong>敘述正確 (不選)。它擁有四或五層的分層架構。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第73題 -->
+        <div class="card">
+            <div class="theme-badge">主題：通訊系統雜訊類型</div>
+            <div class="question">73. 下列何者不是通訊系統中的雜訊？</div>
+            <div class="options">
+                <div class="option">① 熱雜訊（Thermal noise）</div>
+                <div class="option">② 調變間雜訊（Intermodulation noise）</div>
+                <div class="option">③ 串音（Crosstalk）</div>
+                <div class="option">④ 多重路徑（Multipath）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在資料傳輸中，干擾來源可分為不同類型：<br>
+                            「雜訊 (Noise)」指的是傳輸過程中不期望出現的額外電子訊號，如設備溫度改變引起的熱雜訊、頻率互相干擾的調變間雜訊、鄰近線路干擾的串音等。<br>
+                            而<strong>「多重路徑 (Multipath)」</strong>是指無線電波在空氣中傳播時，因建築物反射而產生多條路徑，導致訊號到達接收端的時間不一致所引起的「衰落或失真 (Fading/Distortion)」，它在學理上不歸類為「雜訊 (Noise)」。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 熱雜訊：</strong>屬於標準電子雜訊。</li>
+                            <li class="wrong-opt"><strong>② 調變間雜訊：</strong>屬於傳輸干擾雜訊。</li>
+                            <li class="wrong-opt"><strong>③ 串音：</strong>屬於纜線間的電磁干擾雜訊。</li>
+                            <li class="correct-opt"><strong>④ 多重路徑：</strong>正確 (應選此項)。這是一種傳播延遲失真現象，並非雜訊。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第74題 -->
+        <div class="card">
+            <div class="theme-badge">主題：無線電波傳輸特性</div>
+            <div class="question">74. 下列對於無線電波的傳輸方式，何者不正確？</div>
+            <div class="options">
+                <div class="option">① 大氣層中的電離層將電波反射，使訊號透過反射傳送至接收端</div>
+                <div class="option">② 無線電波的傳輸，不會受到障礙物干擾</div>
+                <div class="option">③ 無線電波傳輸，隨著距離增加而衰減</div>
+                <div class="option">④ 無線電波如同光一樣，也會產生散射</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>無線電波在實體環境中傳播時，本質上就是一種電磁波。它在遇到山脈、牆壁、金屬等實體障礙物時，必然會發生吸收、反射、折射等現象，導致訊號衰減甚至完全阻斷。因此說「不會受到障礙物干擾」是完全違背物理常識的。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 電離層反射：</strong>敘述正確 (不選)。中短波及部分高頻電波常依賴電離層進行遠距傳輸。</li>
+                            <li class="correct-opt"><strong>② 不會受到障礙物干擾：</strong>敘述錯誤 (應選此項)。無線訊號極易受到障礙物阻擋與干擾。</li>
+                            <li class="wrong-opt"><strong>③ 隨著距離增加而衰減：</strong>敘述正確 (不選)。符合物理學的平方反比定律。</li>
+                            <li class="wrong-opt"><strong>④ 如同光一樣，也會產生散射：</strong>敘述正確 (不選)。高頻電波在遇到小微粒障礙時會產生散射。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第75題 -->
+        <div class="card">
+            <div class="theme-badge">主題：訊號功率減損因素</div>
+            <div class="question">75. 通訊的訊號功率減損，不包含下列哪一種？</div>
+            <div class="options">
+                <div class="option">① 減弱失真（Attenuation distortion）</div>
+                <div class="option">② 延遲失真（Delay distortion）</div>
+                <div class="option">③ 多重路徑（Multipath）</div>
+                <div class="option">④ 雜訊（Noise）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在傳統資料通訊概論中，造成線路「傳輸減損 (Transmission Impairment)」的三大基本類別為：<br>
+                            1. **衰減與減弱失真 (Attenuation distortion)**：訊號隨距離變弱。<br>
+                            2. **延遲失真 (Delay distortion)**：不同頻率到達時間不一導致變形。<br>
+                            3. **雜訊 (Noise)**：額外混入的雜亂干擾。<br>
+                            「多重路徑 (Multipath)」特指無線網路中電波反射抵達時間差的現象，並不被歸類於通訊原理中最基礎的三大有線傳輸功率減損類型中。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 減弱失真：</strong>屬於傳輸減損的基本類型。</li>
+                            <li class="wrong-opt"><strong>② 延遲失真：</strong>屬於傳輸減損的基本類型。</li>
+                            <li class="correct-opt"><strong>③ 多重路徑：</strong>正確 (應選此項)。這是無線電波的傳播特性現象，不列在基本的三大傳輸減損類型內。</li>
+                            <li class="wrong-opt"><strong>④ 雜訊：</strong>屬於傳輸減損的基本類型。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <!-- JavaScript 動態控制 -->
+    <script>
+        let isExpanded = false;
+        function toggleAll() {
+            const detailsElements = document.querySelectorAll('.qa-details');
+            const toggleBtn = document.getElementById('toggleBtn');
+            
+            isExpanded = !isExpanded;
+            
+            detailsElements.forEach(detail => {
+                if (isExpanded) {
+                    detail.setAttribute('open', '');
+                } else {
+                    detail.removeAttribute('open');
+                }
+            });
+            
+            if (isExpanded) {
+                toggleBtn.innerText = '收合所有解析';
+                toggleBtn.style.backgroundColor = '#e74c3c';
+            } else {
+                toggleBtn.innerText = '展開所有解析';
+                toggleBtn.style.backgroundColor = '#27ae60';
+            }
+        }
+    </script>
+</body>
+</html>
