@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路架設 乙級 工作項目03 第151 - 175 題</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body { font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px 10px; line-height: 1.6; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { background-color: #27ae60; color: white; border: none; padding: 10px 20px; font-size: 1em; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-weight: bold; margin-bottom: 10px; }
+        .toggle-btn:hover { background-color: #219150; }
+        
+        .card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+        
+        /* 卡片樣式 */
+        .card { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); border: 1px solid #eaeaea; position: relative; }
+        
+        /* 主題標籤 (針對複選題優化) */
+        .theme-badge { display: inline-block; background-color: #e8f4fd; color: #2980b9; padding: 5px 12px; border-radius: 20px; font-size: 0.9em; font-weight: bold; margin-bottom: 15px; border: 1px solid #b3d7f2; }
+        .theme-badge-multi { background-color: #fcf3cf; color: #d35400; border: 1px solid #f9e79f; }
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; color: #555; font-size: 1.05em; border-left: 3px solid #cbd5e1; }
+        
+        /* 純HTML 摺疊特效設計 */
+        details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+        summary { background: #3498db; color: #ffffff; padding: 12px; font-weight: bold; font-size: 1.05em; text-align: center; cursor: pointer; list-style: none; transition: background 0.3s; }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { background: #eef2f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #34495e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        .explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+        .exp-subtitle { color: #2c3e50; font-weight: bold; margin-bottom: 10px; display: block; border-bottom: 1px dashed #cbd5e1; padding-bottom: 3px; }
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { margin-bottom: 8px; background: #ffffff; padding: 10px; border-radius: 6px; border-left: 4px solid #3498db; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級 工作項目03 第151 - 175 題</h1>
+    <p>綜合解析與各選項詳解版 (皆為複選題)</p>
+    <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 151題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：通訊網路系統 (複選題)</span>
+        <div class="question">151. 關於通訊網路系統，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 系統是指能對輸入訊號進行處理，並產生輸出訊號的裝置</div>
+            <div class="option">② 傳送端將欲傳送的訊息送入編碼器（Encoder）進行編碼，編碼器會執行訊源編碼（Source Coding）及通道編碼（Channel Coding）</div>
+            <div class="option">③ 濾波器是指能限制訊號頻譜於某個特定頻率的裝置</div>
+            <div class="option">④ 調變是指在接收端恢復原來的基頻訊號</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>通訊系統由發射端、傳輸通道與接收端組成。傳送端的編碼器負責「訊源編碼」（壓縮資料）與「通道編碼」（加入偵錯碼），接著透過「調變（Modulation）」將基頻訊號轉換為適合通道傳輸的高頻載波訊號。到了接收端，才進行「解調（Demodulation）」來恢復原始的基頻訊號。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。此為通訊系統最基本的物理定義。</li>
+                        <li class="correct-opt">② 正確。編碼器同時負責壓縮(Source Coding)與抗干擾(Channel Coding)的功能。</li>
+                        <li class="correct-opt">③ 正確。濾波器(Filter)用來濾除不需要的頻段，保留特定頻率。</li>
+                        <li class="wrong-opt">④ 錯誤。調變（Modulation）是在「發送端」進行的；在「接收端」恢復原基頻訊號的動作稱為解調（Demodulation）。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 152題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：光纖通訊量測 (複選題)</span>
+        <div class="question">152. 下列哪些是 OTDR 所用到的光學理論？</div>
+        <div class="options">
+            <div class="option">① 瑞利散射（Rayleigh backscattering）</div>
+            <div class="option">② 繞射（Diffraction）</div>
+            <div class="option">③ 菲涅爾反射（Fresnel reflection）</div>
+            <div class="option">④ 干涉測量（Interferometry）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>光時域反射儀（OTDR）是利用兩種主要的光學現象來檢測光纖狀態：第一是利用「瑞利散射（Rayleigh Backscattering）」計算光纖整體的連續衰減損耗；第二是利用「菲涅爾反射（Fresnel Reflection）」，當光遇到折射率劇烈改變的介面（如斷點、接頭）時產生強烈反光，藉此定位光纖故障點。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 瑞利散射：正確。用來量測光纖本身的衰減（Attenuation）。</li>
+                        <li class="wrong-opt">② 繞射：錯誤。光波遇到障礙物偏折的現象，非 OTDR 原理。</li>
+                        <li class="correct-opt">③ 菲涅爾反射：正確。用來定位光纖的斷點或接頭等折射率突變處。</li>
+                        <li class="wrong-opt">④ 干涉測量：錯誤。這是用來量測光波相位的技術，非 OTDR 的基礎原理。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 153題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：光纖通訊量測 (複選題)</span>
+        <div class="question">153. 關於 OTDR 的參數，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 脈衝寬度與盲區無關</div>
+            <div class="option">② 脈衝寬度愈短，雜訊愈大</div>
+            <div class="option">③ 脈衝寬度愈長，量測出來的曲線愈平滑</div>
+            <div class="option">④ 測試波長愈短，對光纖彎曲愈敏感</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>操作 OTDR 時，脈衝寬度（Pulse Width）的設定是一大關鍵。脈衝寬度愈長，射入光纖的光能量愈大，量測距離愈遠且訊雜比好（曲線平滑），但缺點是「盲區（Dead Zone）」會變大，無法分辨相近的事件。另外，波長愈長（例如 1550nm），對光纖的宏觀彎曲（Macrobending）損耗才會愈敏感。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 錯誤。脈衝寬度直接影響盲區大小（脈衝愈長、盲區愈大）。</li>
+                        <li class="correct-opt">② 正確。脈衝愈短，注入的光能量較少，反映回來的訊雜比較差（雜訊大）。</li>
+                        <li class="correct-opt">③ 正確。脈衝愈長，能量愈足夠，反射回來的曲線看起來就會更平滑。</li>
+                        <li class="wrong-opt">④ 錯誤。測試波長愈「長」（例如 1550nm 相比 1310nm），對彎曲才愈敏感。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 154題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：網路通訊原理 (複選題)</span>
+        <div class="question">154. 訊號之傳輸有下列哪些方式？</div>
+        <div class="options">
+            <div class="option">① 全雙工</div>
+            <div class="option">② 半雙工</div>
+            <div class="option">③ 單工</div>
+            <div class="option">④ 半單工</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>通訊系統依據傳輸方向的特性，被嚴格劃分為三種模式：<br>
+                    1. 單工（Simplex）：只能單向傳輸（如電視廣播）。<br>
+                    2. 半雙工（Half-duplex）：雙向皆可傳輸，但同一時間只能有一方傳或收（如無線電對講機）。<br>
+                    3. 全雙工（Full-duplex）：雙方可同時進行發送與接收（如行動電話）。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 全雙工：正確。允許同時雙向傳輸。</li>
+                        <li class="correct-opt">② 半雙工：正確。允許雙向傳輸但需分時進行。</li>
+                        <li class="correct-opt">③ 單工：正確。僅允許單向傳輸。</li>
+                        <li class="wrong-opt">④ 半單工：錯誤。通訊理論中不存在「半單工」這種名詞。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 155題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：無線通訊技術 (複選題)</span>
+        <div class="question">155. 下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 紅外線資料傳輸是以點對點的方式進行</div>
+            <div class="option">② 藍牙技術無法同時傳輸語音及數據資料</div>
+            <div class="option">③ 紅外線無法穿透障礙物</div>
+            <div class="option">④ 藍牙是一種短距離、低功率、低成本的無線通訊技術</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>紅外線（IrDA）屬於光波傳輸，具有方向性，必須直線對準且無法穿透實體障礙物，通常為點對點連線。而藍牙（Bluetooth）技術採用 2.4GHz 無線電波，可穿透非金屬障礙物，是一種低功耗、短距離的通訊技術，並且其設計(如 SCO 和 ACL 連結)本來就支援同時傳輸語音與數據資料。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。紅外線通訊必須視距內無阻擋，採點對點傳輸。</li>
+                        <li class="wrong-opt">② 錯誤。藍牙技術支援同時傳輸語音（如無線耳機通話）及數據資料。</li>
+                        <li class="correct-opt">③ 正確。紅外線為光波，無法穿透牆壁或障礙物。</li>
+                        <li class="correct-opt">④ 正確。藍牙的定位即是短距離、低功耗且低成本的無線電通訊。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 156題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：調變技術 (複選題)</span>
+        <div class="question">156. 線性調變技術包含下列哪些方式？</div>
+        <div class="options">
+            <div class="option">① 雙邊帶抑制載波（Double Sideband Suppressed Carrier, DSB-SC）</div>
+            <div class="option">② 殘留邊帶（Vestigial Sideband, VSB）</div>
+            <div class="option">③ 無邊帶（Non-sideband, NSB）</div>
+            <div class="option">④ 單邊帶（Single-sideband, SSB）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>線性調變主要指的是振幅調變（AM）家族的技術。為了節省發射功率與頻寬，演化出多種變形：包含最基礎包含兩個邊帶的 DSB、抑制載波的 DSB-SC、只傳送單一邊帶的 SSB，以及傳送一個邊帶加上部分另一邊帶的 VSB（常用於傳統類比電視）。通訊中並沒有「無邊帶(NSB)」的調變技術。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① DSB-SC：正確。屬於線性調變技術。</li>
+                        <li class="correct-opt">② VSB：正確。殘留邊帶屬於線性調變的變形。</li>
+                        <li class="wrong-opt">③ NSB：錯誤。沒有「無邊帶」這種通訊調變標準。</li>
+                        <li class="correct-opt">④ SSB：正確。單邊帶調變能最有效利用頻寬，屬於線性調變。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 157題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：區域網路實體媒介 (複選題)</span>
+        <div class="question">157. 下列哪些為乙太網路 Ethernet 的傳輸媒介？</div>
+        <div class="options">
+            <div class="option">① 光纖</div>
+            <div class="option">② 雙絞線</div>
+            <div class="option">③ 同軸電纜</div>
+            <div class="option">④ 磁帶</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>乙太網路（Ethernet, IEEE 802.3）自發展以來，支援多種實體傳輸媒介：早期的 10Base-2/5 使用「同軸電纜」；後來普及的 10Base-T、100Base-TX 使用「雙絞線」；而骨幹網路與高速網路（100Base-FX、Gigabit）則廣泛使用「光纖」。磁帶是資料儲存媒體，無法用於網路即時通訊傳輸。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 光纖：正確。高速乙太網路的常見媒介。</li>
+                        <li class="correct-opt">② 雙絞線：正確。目前最普及的乙太網傳輸線材（如 Cat5e/Cat6）。</li>
+                        <li class="correct-opt">③ 同軸電纜：正確。早期乙太網路的標準媒介。</li>
+                        <li class="wrong-opt">④ 磁帶：錯誤。用於資料冷儲存或備份，非網路通訊線材。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 158題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：無線網路分類 (複選題)</span>
+        <div class="question">158. 無線網路可依據傳輸距離的遠近作為區分，下列哪些<span style="color:red">不正確</span>？</div>
+        <div class="options">
+            <div class="option">① 無線都會區網路（Wireless Metropolitan Area Network, WMAN）可用以聯繫座落於不同區域的辦公大樓或校區</div>
+            <div class="option">② 無線區域網路（Wireless Local Area Network, WLAN）適用於單一建築物或辦公室之內，傳輸範圍僅限於 10 公尺內</div>
+            <div class="option">③ 無線個人網路（Wireless Personal Area Network, WPAN）的主要用途是讓個人使用的資訊裝置可互相通訊及資料交換</div>
+            <div class="option">④ 無線廣域網路（Wireless Wide Area Network, WWAN）的傳輸範圍只限跨越不同城市，無法跨越不同國家之間的網路</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、④ (選出不正確者)</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>請注意題目要求選出「不正確」的敘述。<br>
+                    WLAN（如 Wi-Fi）的傳輸範圍通常可達數十至百公尺，不僅限於 10 公尺內（10公尺內通常是 WPAN 藍牙的範圍）。WWAN（如 4G/5G 行動通訊網路）的覆蓋範圍極廣，不僅能跨城市，亦能透過國際漫遊或海底電纜串接跨越不同國家。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 正確敘述（不選）。WMAN 確實用於涵蓋城市或校區等級的範圍。</li>
+                        <li class="correct-opt">② 不正確敘述（應選）。WLAN 傳輸距離遠大於 10 公尺。</li>
+                        <li class="wrong-opt">③ 正確敘述（不選）。WPAN 主要是藍牙等個人近距通訊。</li>
+                        <li class="correct-opt">④ 不正確敘述（應選）。WWAN 能夠跨越國家界線進行全球通訊。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 159題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：無線通訊特性 (複選題)</span>
+        <div class="question">159. 關於無線電微波（Microwave），下列哪些<span style="color:red">不正確</span>？</div>
+        <div class="options">
+            <div class="option">① 頻率範圍在 20 GHz 到 1000 GHz 之間</div>
+            <div class="option">② 通常適用於寬頻（Wideband）及雷達（Radar）系統</div>
+            <div class="option">③ 微波是一種直線波，並不沿著地球曲面傳送</div>
+            <div class="option">④ 傳輸的衰減只需考慮實際使用的頻段，不需考慮天線兩端的距離</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、④ (選出不正確者)</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>請注意題目要求選出「不正確」的敘述。<br>
+                    微波（Microwave）在通訊上的定義通常指頻率介於 1GHz 到 300GHz（甚至有些定義至 30GHz 左右）的電磁波，並非由 20GHz 起跳。此外，電磁波在自由空間中傳輸，必然會隨著傳播距離的平方成反比而發生自由空間路徑損耗（FSPL），所以「不需考慮天線兩端距離」是非常錯誤的觀念。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 不正確敘述（應選）。微波頻率下限約從 1GHz 或 3GHz 開始，並非 20GHz。</li>
+                        <li class="wrong-opt">② 正確敘述（不選）。微波具有高頻寬特性，廣泛用於雷達與寬頻通訊。</li>
+                        <li class="wrong-opt">③ 正確敘述（不選）。微波波長短，具高度方向性，屬直線傳輸，無法像短波那樣沿地表繞射。</li>
+                        <li class="correct-opt">④ 不正確敘述（應選）。無線電傳輸的衰減絕對與傳輸距離息息相關。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 160題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：藍牙網路架構 (複選題)</span>
+        <div class="question">160. 關於藍牙（Bluetooth）協定，下列哪些<span style="color:red">不正確</span>？</div>
+        <div class="options">
+            <div class="option">① 基本網路架構為星狀，其形態是各個從裝置（Slave Device）都會與 1 個主裝置（Master Device）連接</div>
+            <div class="option">② 形成網路的基本單位稱為微網（Piconet），1 個微網內的裝置數目並無限制</div>
+            <div class="option">③ 若多個微網（Piconet）之間有共用的裝置，則所形成的網路稱為擴散網（Scatternet）</div>
+            <div class="option">④ 1 個微網（Piconet）至少包含 1 個主裝置（Master Device）及無數個從裝置（Slave Device）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、④ (選出不正確者)</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>藍牙網路的基本結構是「微網（Piconet）」，它是以一顆 Master（主裝置）為中心所形成的星狀網路。然而，規格中明確規定一個微網內，主動連線的從裝置（Active Slave）最多只能有 7 個，並非沒有限制或無數個。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 正確敘述（不選）。微網架構為星狀，由主裝置掌控連線。</li>
+                        <li class="correct-opt">② 不正確敘述（應選）。微網內的活躍裝置數量有嚴格限制（最多 7 個 Slave）。</li>
+                        <li class="wrong-opt">③ 正確敘述（不選）。多個微網可透過橋接節點組合成 Scatternet。</li>
+                        <li class="correct-opt">④ 不正確敘述（應選）。不可能有「無數個」從裝置同時連線運作。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 161題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：藍牙通訊協定 (複選題)</span>
+        <div class="question">161. 關於藍牙封包格式的標頭欄位，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 藍牙封包的標頭碼共有 12 個位元</div>
+            <div class="option">② 封包類型（Type）代表此封包的種類及所使用的時槽個數</div>
+            <div class="option">③ 標頭錯誤檢查（Header Error Check, HEC）用以檢查標頭在傳送過程中是否發生錯誤</div>
+            <div class="option">④ 序列號碼（Sequence Number, SEQN）是在接收端收到封包時，用以判斷封包是否重複</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>標準的藍牙封包格式包含 Access Code、Header（標頭）與 Payload 三部分。其中，標頭（Header）本身包含了 LT_ADDR、Type、FLOW、ARQN、SEQN 以及 HEC 共 18 個位元（編碼後為 54 bits），絕非只有 12 個位元。而其中的 Type 定義封包類型、HEC 用於標頭錯誤校驗、SEQN 用以防範封包重複接收，皆為正確描述。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 錯誤。藍牙標頭碼實際為 18 bits，經過 FEC 1/3 編碼後佔用 54 bits。</li>
+                        <li class="correct-opt">② 正確。Type 欄位指示此為 SCO 還是 ACL 連線，以及佔用幾個時槽。</li>
+                        <li class="correct-opt">③ 正確。HEC 提供標頭內容的完整性檢查。</li>
+                        <li class="correct-opt">④ 正確。SEQN 為 1 bit 的序列號，用來過濾重複接收的封包。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 162題 (本題已修復補上) -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：無線網路架構 (複選題)</span>
+        <div class="question">162. 關於無線隨意網路（Wireless Ad Hoc Network）的特性，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 無線隨意網路具有高移動性</div>
+            <div class="option">② 每個節點不可隨時移動</div>
+            <div class="option">③ 不會受到不法竊聽或遭受惡性堵塞（Jam）與欺騙（Spoof）</div>
+            <div class="option">④ 封包由來源端（Source）傳輸至目的端（Destination），可經多個中繼節點進行轉送</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>無線隨意網路（Ad Hoc Network）是一種沒有固定基礎設施（如 AP 或路由器）的分散式無線網路。它的核心特性是節點具有「高移動性」，可以隨時加入、移動或離開網路。此外，封包傳輸不依賴固定路由設備，而是透過節點之間的互相中繼（Multi-hop）傳送到目的地。正是因為無線開放且沒有集中管理，它反而「容易」受到竊聽、干擾或欺騙等資安攻擊。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。節點可以自由移動，網路拓撲隨時都在動態變化。</li>
+                        <li class="wrong-opt">② 錯誤。隨意網路中的節點具有高度行動力，可隨時移動。</li>
+                        <li class="wrong-opt">③ 錯誤。由於缺乏集中式安全管理及無線廣播特性，反而更容易受到竊聽與惡意攻擊。</li>
+                        <li class="correct-opt">④ 正確。封包依賴其他節點作為中繼進行多步（Multi-hop）轉送。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 163題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：無線網路架構 (複選題)</span>
+        <div class="question">163. 關於無線網狀網路（Wireless Mesh Network, WMN），下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 採用網狀拓撲技術</div>
+            <div class="option">② 節點不具有行動能力</div>
+            <div class="option">③ 由許多環狀的路由器所組成</div>
+            <div class="option">④ 節點通常可提供網路存取服務予多個使用者</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>無線網狀網路（WMN）是由網狀路由器（Mesh Router）與網狀客戶端構成。它的核心是「網狀拓撲」，路由器彼此互相連結建立多條路徑的骨幹。雖然部分終端客戶節點可移動，但骨幹節點大多為固定式；且其架構為「網狀（Mesh）」而非「環狀（Ring）」。Mesh 節點的用途就是提供穩定的網路存取服務給廣大用戶。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。名稱即說明了其採用 Mesh 網狀拓撲技術。</li>
+                        <li class="wrong-opt">② 錯誤。WMN 的客戶端節點（Mesh Client）是可以自由移動的。</li>
+                        <li class="wrong-opt">③ 錯誤。它是由「網狀」互相交織連接的路由器組成，不是單純的環狀。</li>
+                        <li class="correct-opt">④ 正確。骨幹節點可作為 AP，服務底下的多個使用者連網。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 164題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：網路存取技術 (複選題)</span>
+        <div class="question">164. 關於時間分割多重存取（Time Division Multiple Access, TDMA），下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 允許多個使用者使用相同的頻率來存取媒介</div>
+            <div class="option">② 每個訊框的第 1 號時槽會組成第 1 號頻道，其餘則以此類推</div>
+            <div class="option">③ 每頻道可供多位使用者同時使用，且不同使用者的信號不會重疊</div>
+            <div class="option">④ 在時間軸上劃分多個等長訊框（Frame），在每個訊框中再細分多個等長時槽（Time Slot）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>TDMA 的核心精神是「頻率共用，時間分割」。它讓多個使用者在同一個載波頻率上傳輸，但把時間軸精準切割成多個訊框（Frame）與時槽（Slot），每個用戶輪流分配到專屬的時槽來發送資料。因為時間上已經錯開，所以同一個時槽（頻道）瞬間只能由「一位」使用者使用。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。所有人共用相同頻率，僅在時間上做區分。</li>
+                        <li class="correct-opt">② 正確。跨訊框的相同編號時槽，邏輯上會組合成該用戶的連續通訊頻道。</li>
+                        <li class="wrong-opt">③ 錯誤。一個時槽（頻道）在「同一瞬間」只能供單一使用者使用，否則會發生碰撞。</li>
+                        <li class="correct-opt">④ 正確。此為 TDMA 時間切割的最基本架構。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 165題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：數位調變技術 (複選題)</span>
+        <div class="question">165. 關於調變技術，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 二元相移鍵控（Binary Phase Shift Keying, BPSK）調變使用相對的弦波表示每個位元</div>
+            <div class="option">② 頻移鍵控（Frequency Shift Keying, FSK）調變以較高的頻率表示位元 0，較低的頻率表示位元 1</div>
+            <div class="option">③ 差動相移鍵控（Differential Phase Shift Keying, DPSK）調變將信號相位與前 1 個位元的信號相位比較，若相同視為 1，不同則視為 0</div>
+            <div class="option">④ 幅移鍵控（Amplitude Shift Keying, ASK）調變輸出為二位元字串，使用固定振幅的載波表示位元 1，使用無振幅的載波表示位元 0</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>BPSK 是藉由載波相位的倒轉（0度與180度）來表示 0 與 1。ASK 中最典型的 OOK（On-Off Keying）則是有訊號振幅代表 1、無振幅代表 0。至於 FSK，高低頻代表 0 或 1 取決於具體協議設計，並非絕對規則；DPSK 一般的定義為相位變換代表 1、無變換代表 0（或相反），但題庫判定 ③ 敘述不符合其標準答案設定。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。BPSK 使用相位相反（差180度）的弦波來區分 0 與 1。</li>
+                        <li class="wrong-opt">② 錯誤。FSK 用不同頻率代表 0 與 1，但誰高誰低並非硬性定理。</li>
+                        <li class="wrong-opt">③ 錯誤。DPSK 的邏輯判斷依設計有別，此敘述在題庫中被判定為不正確選項。</li>
+                        <li class="correct-opt">④ 正確。此為 ASK 中 On-Off Keying (OOK) 的精確運作方式。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 166題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：多重存取技術 (複選題)</span>
+        <div class="question">166. 關於無線存取（Wireless Access）技術之敘述，下列哪些<span style="color:red">不正確</span>？</div>
+        <div class="options">
+            <div class="option">① 展頻多重存取（Spread Spectrum Multiple Access, SSMA）技術比非展頻技術需要更大的使用頻寬</div>
+            <div class="option">② 時間分割多重存取（Time Division Multiple Access, TDMA）技術，每個時槽內允許多個用戶傳送或接收資料</div>
+            <div class="option">③ 空間分割多重存取（Space Division Multiple Access, SDMA）技術，可控制涵蓋範圍內用戶的發射功率</div>
+            <div class="option">④ 頻率分割多重存取（Frequency Division Multiple Access, FDMA）技術，係將通訊系統的總頻段分割成若干個不等間隔的頻道</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、④ (選出不正確者)</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>請注意題目要求選出「不正確」的敘述。<br>
+                    在 TDMA 系統中，為了避免碰撞，一個時槽（Time Slot）在同時間只能專屬於「一個」使用者，不能允許多個用戶同時傳送。而 FDMA 在切割總頻段時，為了頻譜規劃的規範性與避免干擾，必須將頻段切割為若干個「等間隔（Equal Bandwidth）」的頻道，而非不等間隔。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 正確敘述（不選）。展頻技術（如 CDMA）本質上就會刻意擴大傳輸頻寬以抗干擾。</li>
+                        <li class="correct-opt">② 不正確敘述（應選）。每個時槽內僅允許「單一」用戶傳送資料。</li>
+                        <li class="wrong-opt">③ 正確敘述（不選）。SDMA 運用智慧天線等技術，可精確控制不同空間方位的發射功率。</li>
+                        <li class="correct-opt">④ 不正確敘述（應選）。FDMA 頻道必須是「等間隔」切割。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 167題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：OSI 網路七層模型 (複選題)</span>
+        <div class="question">167. 關於 OSI 七層架構的功能之敘述，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 傳輸層（Transport Layer）負責可靠的端對端訊息傳送</div>
+            <div class="option">② 資料鏈路層（Data Link Layer）負責網路相連及訊息流通控制</div>
+            <div class="option">③ 應用層（Application Layer）負責節點上應用系統之間的溝通</div>
+            <div class="option">④ 實體層（Physical Layer）負責定義實際傳輸資訊的硬體設備規範</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>檢視 OSI 模型的各層功能：<br>
+                    • L1 實體層：負責硬體與電子訊號。<br>
+                    • L2 資料鏈結層：負責相鄰節點間的實體位置定址（MAC）與錯誤偵測。<br>
+                    • L3 網路層：負責「網路相連」與跨網段的「路徑選擇（路由）」。<br>
+                    • L4 傳輸層：負責端對端（End-to-end）的可靠連線。<br>
+                    • L7 應用層：提供網路服務給終端應用程式。<br>
+                    選項 ② 錯置了「網路相連及路由」的功能，這應屬於第三層「網路層」。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。傳輸層(如TCP)確保端點間資料的可靠傳遞。</li>
+                        <li class="wrong-opt">② 錯誤。「網路互連與訊息流通控制(路由)」是第三層網路層(Network Layer)的工作。</li>
+                        <li class="correct-opt">③ 正確。應用層提供介面讓應用系統取得網路服務。</li>
+                        <li class="correct-opt">④ 正確。實體層定義了線材、接腳、電壓等物理硬體規範。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 168題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：區域網路特性 (複選題)</span>
+        <div class="question">168. 下列哪些為區域網路（Local Area Networks, LAN）的基本要求？</div>
+        <div class="options">
+            <div class="option">① 在高負載時具有穩定性</div>
+            <div class="option">② 鋪設距離最長為 100 公里</div>
+            <div class="option">③ 應易於安裝及維護</div>
+            <div class="option">④ 資料傳輸速率沒有上限</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>區域網路（LAN）的設計初衷是為了在「小範圍地理區域」（如辦公室、學校建築）內，提供易於架設且穩定高速的連線。因此，它的鋪設距離有嚴格限制（例如標準雙絞線通常限制在 100 公尺），且任何網路硬體技術的傳輸速率絕對存在物理上限。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。必須能處理辦公室內多人同時存取的高負載穩定性。</li>
+                        <li class="wrong-opt">② 錯誤。100 公里屬於都會網路（MAN）或廣域網路（WAN）的範疇，LAN 距離很短。</li>
+                        <li class="correct-opt">③ 正確。應使用標準化線材與設備，方便企業內部人員安裝維護。</li>
+                        <li class="wrong-opt">④ 錯誤。任何通訊介質的資料傳輸速率皆受物理極限與設備規格限制。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 169題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：資料通訊設備 (複選題)</span>
+        <div class="question">169. 關於資料通訊系統，下列哪些<span style="color:red">不正確</span>？</div>
+        <div class="options">
+            <div class="option">① 資料交換設備（Data Switching Equipment, DSE）負責轉換信號的節點</div>
+            <div class="option">② 資料終端設備（Data Terminal Equipment, DTE）負責實際傳送或接收資料的節點</div>
+            <div class="option">③ 資料通訊設備（Data Communication Equipment, DCE）不負責轉換信號與資料傳送</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、③ (選出不正確者)</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>請注意題目要求選出「不正確」的敘述。<br>
+                    在經典通訊模型中：<br>
+                    • **DTE（終端設備）**：是資料的發源或接收端，如電腦。<br>
+                    • **DCE（通訊設備）**：負責在 DTE 和傳輸線路之間進行「信號轉換（如數位轉類比）與資料傳送」，例如數據機（Modem）。<br>
+                    • **DSE（交換設備）**：負責網路中的路徑切換與交換封包，不是負責信號轉換。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 不正確敘述（應選）。DSE 是交換節點，信號轉換是 DCE 的責任。</li>
+                        <li class="wrong-opt">② 正確敘述（不選）。DTE 確實是資料的終端發送/接收者。</li>
+                        <li class="correct-opt">③ 不正確敘述（應選）。DCE 的核心功能正是「轉換信號與資料傳送」。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 170題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：NAT 網路定址轉譯 (複選題)</span>
+        <div class="question">170. 關於網路位址轉譯（Network Address Translation, NAT），下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 可減少使用之公共 IP 位址</div>
+            <div class="option">② 增強網路的安全性</div>
+            <div class="option">③ 增加連上網路的速度</div>
+            <div class="option">④ 降低使用通道的複雜度</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>NAT 最主要的貢獻是允許多部內部主機共用少數（甚至一個）公共 IP 上網，大幅減緩了 IPv4 位址枯竭的問題。同時，因為外部網路無法直接看到內部主機的真實私有 IP，形成了天然的防火牆屏障，增強了安全性。但 NAT 路由器需要運算時間來拆解並修改封包標頭，因此不會增加網路速度，反而會增加設備的處理複雜度。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。多部主機共用 Public IP，節省位址資源。</li>
+                        <li class="correct-opt">② 正確。隱藏內部網路結構，避免外部直接攻擊。</li>
+                        <li class="wrong-opt">③ 錯誤。NAT 轉換耗費 CPU 資源，不可能提升實體網路速度。</li>
+                        <li class="wrong-opt">④ 錯誤。路由器需維護狀態表並重寫封包，反而增加了網路底層的複雜度。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 171題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：廣域網路通訊技術 (複選題)</span>
+        <div class="question">171. 關於分封交換網路，下列哪些<span style="color:red">不正確</span>？</div>
+        <div class="options">
+            <div class="option">① 需要固定的永久連線</div>
+            <div class="option">② 傳送封包的網路無法共享</div>
+            <div class="option">③ 不易受抖動（Jitter）影響</div>
+            <div class="option">④ 封包無法經過多台路由器</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、④ (選出不正確者)</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>請注意題目要求選出「不正確」的敘述。<br>
+                    分封交換（Packet Switching，例如網際網路 IP）的特性是：不需要事先建立專屬連線路徑、線路頻寬由眾多用戶動態「共享」、且每個封包可以透過「多台不同的路由器」動態尋找最佳路徑抵達目的地。<br>
+                    由於各封包走的路徑與排隊時間不同，分封交換網路其實「容易」受抖動（Jitter，延遲時間不一致）影響（特別是對語音/視訊而言）。<br>
+                    ※ 註：依據官方題庫標準答案為 124，意即題庫將 ③「不易受抖動影響」視為正確描述而不選，此屬題庫既有爭議設定，作答時請依循官方給定之答案 124。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 不正確敘述（應選）。電路交換才需要永久連線，分封交換不用。</li>
+                        <li class="correct-opt">② 不正確敘述（應選）。分封交換的最大優點就是網路資源可以高度共享。</li>
+                        <li class="wrong-opt">③ 爭議保留（不選）。理論上分封交換易受抖動影響，但官方題庫未將其列入不正確選項。</li>
+                        <li class="correct-opt">④ 不正確敘述（應選）。封包當然會經過網路上多台路由器進行轉發。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 172題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：資料通訊設備 (複選題)</span>
+        <div class="question">172. 下列哪些選項不屬於資料通訊設備（Data Communications Equipment, DCE）？</div>
+        <div class="options">
+            <div class="option">① 數據機</div>
+            <div class="option">② 路由器</div>
+            <div class="option">③ 乙太網路交換器</div>
+            <div class="option">④ 訊框中繼交換器</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在傳統的廣域網路概念中，設備分為 DTE（資料終端設備，產生資料）與 DCE（資料通訊設備，提供時脈與信號轉換接入網路）。<br>
+                    「數據機（Modem）」是最標準的 DCE。而「路由器（Router）」連接至廣域網路時通常扮演 DTE 的角色；「乙太網交換器」與「訊框中繼交換器」則是網路核心的交換設備或區域網路 DTE 延伸，不屬傳統邊界轉換信號的 DCE。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 錯誤。數據機是正宗的 DCE 設備。</li>
+                        <li class="correct-opt">② 正確。路由器通常在串列連線中被定義為 DTE 端。</li>
+                        <li class="correct-opt">③ 正確。區域網路交換器不屬於廣域網介面的 DCE。</li>
+                        <li class="correct-opt">④ 正確。屬於電信商端點或核心交換網路設備。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 173題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：藍牙通訊協定 (複選題)</span>
+        <div class="question">173. 藍牙（Bluetooth）封包格式，包括下列哪幾個欄位？</div>
+        <div class="options">
+            <div class="option">① 存取碼（Access code）</div>
+            <div class="option">② 序列號碼（SEQuence Number）</div>
+            <div class="option">③ 標頭（Header）</div>
+            <div class="option">④ 負載（Payload）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>從最高層級來看，一個完整的標準藍牙傳輸封包被劃分為三大區塊結構：<br>
+                    1. 存取碼（Access Code）：用於同步、直流偏移補償與微網識別。<br>
+                    2. 標頭（Header）：包含連線位址、封包類型與控制資訊。<br>
+                    3. 負載（Payload）：真正攜帶的語音或數據資料。<br>
+                    至於「序列號碼（SEQN）」只是包含在「標頭」裡面的其中一個 1-bit 小參數，不屬於封包的最外層三大區塊分類。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 存取碼：正確。為封包三大主要部分之一。</li>
+                        <li class="wrong-opt">② 序列號碼：錯誤。這只是包含在標頭內部的一個控制位元。</li>
+                        <li class="correct-opt">③ 標頭：正確。為封包三大主要部分之一。</li>
+                        <li class="correct-opt">④ 負載：正確。為封包三大主要部分之一。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 174題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：藍牙硬體規格 (複選題)</span>
+        <div class="question">174. 藍牙（Bluetooth）之最大發射功率可分為哪幾種？</div>
+        <div class="options">
+            <div class="option">① 100mW（20dBm）</div>
+            <div class="option">② 2.5mW（4dBm）</div>
+            <div class="option">③ 2.0mW（3dBm）</div>
+            <div class="option">④ 1mW（0dBm）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>根據藍牙設備的硬體規範，發射功率被分為三個標準等級（Class）：<br>
+                    • Class 1：最大功率 100 mW (20 dBm)，有效距離約 100 公尺。<br>
+                    • Class 2：最大功率 2.5 mW (4 dBm)，有效距離約 10 公尺（最常見於手機）。<br>
+                    • Class 3：最大功率 1 mW (0 dBm)，有效距離約 1 公尺。<br>
+                    選項③的 2.0mW (3dBm) 並非規範中定義的發射功率類別。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。對應 Class 1 標準。</li>
+                        <li class="correct-opt">② 正確。對應 Class 2 標準。</li>
+                        <li class="wrong-opt">③ 錯誤。非標準定義功率。</li>
+                        <li class="correct-opt">④ 正確。對應 Class 3 標準。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 175題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：物聯網無線標準 (複選題)</span>
+        <div class="question">175. IEEE 802.15.4 標準之主要優點為何？</div>
+        <div class="options">
+            <div class="option">① 固定的資料潛伏期（Data latency）</div>
+            <div class="option">② 具備彈性的網路架構</div>
+            <div class="option">③ 低複雜度的軟硬體設計架構</div>
+            <div class="option">④ 支援不同的資料傳輸安全層級</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>IEEE 802.15.4 是一種專為低速無線個人區域網路（如 ZigBee）設計的底層協定。它的設計初衷就是應用在感測器網路中，擁有極低的耗電量、低硬體成本（低複雜度）、支援多種彈性拓撲（星狀、樹狀、網狀），並且內建 AES 等多層級的資訊安全機制。而其封包傳輸因為採用碰撞避免機制與休眠喚醒，延遲時間是「彈性/浮動」的，而非固定。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 錯誤。無線環境下資料潛伏期（延遲）會因網路狀態與休眠機制而變化，並非固定。</li>
+                        <li class="correct-opt">② 正確。支援星狀、點對點與網狀等多種彈性架構。</li>
+                        <li class="correct-opt">③ 正確。專注於低功耗、低成本，因此軟硬體複雜度極低。</li>
+                        <li class="correct-opt">④ 正確。MAC 層內建了多種安全套件以保護傳輸機密性。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<script>
+    let isExpanded = false;
+    function toggleAll() {
+        const detailsElements = document.querySelectorAll('.qa-details');
+        const toggleBtn = document.getElementById('toggleBtn');
+        isExpanded = !isExpanded;
+        
+        detailsElements.forEach(detail => {
+            if (isExpanded) {
+                detail.setAttribute('open', '');
+            } else {
+                detail.removeAttribute('open');
+            }
+        });
+        
+        if (isExpanded) {
+            toggleBtn.innerText = '收合所有解析';
+            toggleBtn.style.backgroundColor = '#e74c3c';
+        } else {
+            toggleBtn.innerText = '展開所有解析';
+            toggleBtn.style.backgroundColor = '#27ae60';
+        }
+    }
+</script>
+
+</body>
+</html>

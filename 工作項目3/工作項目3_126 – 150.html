@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路架設 乙級 工作項目03 第126 - 150 題</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body { font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px 10px; line-height: 1.6; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+		.responsive-img {
+			max-width: 100%; /* 圖片最大寬度為容器的 100% */
+			height: auto;    /* 高度自動等比例調整，避免變形 */
+			display: block;  /* 消除圖片下方預留的空白縫隙 */
+		}
+		
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { background-color: #27ae60; color: white; border: none; padding: 10px 20px; font-size: 1em; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-weight: bold; margin-bottom: 10px; }
+        .toggle-btn:hover { background-color: #219150; }
+        
+        .card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+        
+        /* 卡片樣式 */
+        .card { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); border: 1px solid #eaeaea; position: relative; }
+        
+        /* 主題標籤 */
+        .theme-badge { display: inline-block; background-color: #e8f4fd; color: #2980b9; padding: 5px 12px; border-radius: 20px; font-size: 0.9em; font-weight: bold; margin-bottom: 15px; border: 1px solid #b3d7f2; }
+        .theme-badge-multi { background-color: #fcf3cf; color: #d35400; border: 1px solid #f9e79f; }
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; color: #555; font-size: 1.05em; border-left: 3px solid #cbd5e1; }
+        
+        /* 純HTML 摺疊特效設計 */
+        details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+        summary { background: #3498db; color: #ffffff; padding: 12px; font-weight: bold; font-size: 1.05em; text-align: center; cursor: pointer; list-style: none; transition: background 0.3s; }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { background: #eef2f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #34495e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        .explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+        .exp-subtitle { color: #2c3e50; font-weight: bold; margin-bottom: 10px; display: block; border-bottom: 1px dashed #cbd5e1; padding-bottom: 3px; }
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { margin-bottom: 8px; background: #ffffff; padding: 10px; border-radius: 6px; border-left: 4px solid #3498db; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級 工作項目03 第126 - 150 題</h1>
+    <p>綜合解析與各選項詳解版 (包含單選與複選題)</p>
+    <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 126題 -->
+    <div class="card">
+        <span class="theme-badge">主題：網路通訊理論</span>
+        <div class="question">126. 無線傳輸速率可根據 Shannon 公式計算出其理論最大值，W = H log₂(1 + S/N)，其中 H 所代表意義為何？</div>
+        <div class="options">
+            <div class="option">① 位元傳輸速率</div>
+            <div class="option">② 波長</div>
+            <div class="option">③ 頻寬</div>
+            <div class="option">④ 訊雜比</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>根據夏農定理（Shannon Theorem），通道在有雜訊的情況下，其最大理論傳輸速率公式通常表示為 C = B × log₂(1 + S/N)。在此題的表示法 W = H × log₂(1 + S/N) 中，W 代表最大傳輸速率（Capacity），S/N 代表訊雜比，而 H 則代表了通道的頻寬（Bandwidth）。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 位元傳輸速率：錯誤。這對應的是公式中的 W（或傳統公式中的 C）。</li>
+                        <li class="wrong-opt">② 波長：錯誤。Shannon 公式中並未直接包含波長變數。</li>
+                        <li class="correct-opt">③ 頻寬：正確。H 對應的是通道的頻率寬度（Bandwidth）。</li>
+                        <li class="wrong-opt">④ 訊雜比：錯誤。訊雜比在公式中是以 S/N 來表示。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 127題 -->
+    <div class="card">
+        <span class="theme-badge">主題：無線網路協定</span>
+        <div class="question">127. 下列何者非 IEEE 802.15.4 實體層通訊協定所定義之操作頻段？</div>
+        <div class="options">
+            <div class="option">① 868MHz</div>
+            <div class="option">② 915MHz</div>
+            <div class="option">③ 2.4GHz</div>
+            <div class="option">④ 3GHz</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>IEEE 802.15.4 是一項為低速率無線個人區域網路（LR-WPAN）制定的標準（如 ZigBee 所基於的底層）。它在實體層主要定義了三個免執照的 ISM 頻段供全球不同地區使用：包含歐洲使用的 868 MHz、美洲使用的 915 MHz，以及全球通用的 2.4 GHz。3GHz 並非其規範的操作頻段。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 868MHz：錯誤。這是規範定義的頻段（主要在歐洲）。</li>
+                        <li class="wrong-opt">② 915MHz：錯誤。這是規範定義的頻段（主要在北美）。</li>
+                        <li class="wrong-opt">③ 2.4GHz：錯誤。這是規範定義的全球通用頻段。</li>
+                        <li class="correct-opt">④ 3GHz：正確。IEEE 802.15.4 並未定義 3GHz 為其操作頻段。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 128題 -->
+    <div class="card">
+        <span class="theme-badge">主題：無線網路架構</span>
+        <div class="question">128. ZigBee 網路層支援之主要網路架構中，不包含下列何種拓蹼？</div>
+        <div class="options">
+            <div class="option">① 星狀（Star topology）</div>
+            <div class="option">② 匯流排（Bus topology）</div>
+            <div class="option">③ 樹狀（Tree topology）</div>
+            <div class="option">④ 網狀（Mesh topology）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>ZigBee 網路協定為了適應各種物聯網的應用情境，其網路層原生支援了三種主要的無線網路拓撲結構：星狀（Star）、樹狀（Tree）與網狀（Mesh）。「匯流排拓撲（Bus）」通常見於早期的有線區域網路（如 10Base-2 乙太網路），在無線感測網路的 ZigBee 中並不支援。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 星狀（Star topology）：錯誤。ZigBee 支援星狀拓撲。</li>
+                        <li class="correct-opt">② 匯流排（Bus topology）：正確。ZigBee 不支援此種拓撲。</li>
+                        <li class="wrong-opt">③ 樹狀（Tree topology）：錯誤。ZigBee 支援樹狀拓撲。</li>
+                        <li class="wrong-opt">④ 網狀（Mesh topology）：錯誤。ZigBee 支援網狀拓撲，這也是其最大特色。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 129題 -->
+    <div class="card">
+        <span class="theme-badge">主題：無線網路協定</span>
+        <div class="question">129. ZigBee 協定中，由下到上之層別為何？</div>
+        <div class="options">
+            <div class="option">① 網路層（NWK）、媒體存取層（MAC）、應用層（APL）、實體層（PHY）</div>
+            <div class="option">② 媒體存取層（MAC）、應用層（APL）、實體層（PHY）、網路層（NWK）</div>
+            <div class="option">③ 實體層（PHY）、媒體存取層（MAC）、網路層（NWK）、應用層（APL）</div>
+            <div class="option">④ 媒體存取層（MAC）、應用層（APL）、網路層（NWK）、實體層（PHY）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>與常見的 OSI 模型類似，網路通訊協定皆由最底層的硬體逐步往上堆疊至軟體層。ZigBee 的協定架構由底層到高層依序為：實體層（PHY，處理硬體無線電波）→ 媒體存取控制層（MAC）→ 網路層（NWK，處理路由）→ 應用層（APL，處理最終端應用與設定）。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 順序錯誤。實體層應在最底層。</li>
+                        <li class="wrong-opt">② 順序錯誤。實體層應在最底層。</li>
+                        <li class="correct-opt">③ 實體層（PHY）→ 媒體存取層（MAC）→ 網路層（NWK）→ 應用層（APL）：正確。</li>
+                        <li class="wrong-opt">④ 順序錯誤。實體層應在最底層。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 130題 -->
+    <div class="card">
+        <span class="theme-badge">主題：物聯網資安</span>
+        <div class="question">130. 下列何種裝置可用於保護物聯網（IoT）系統，以免遭受網路駭客攻擊？</div>
+        <div class="options">
+            <div class="option">① 感應器</div>
+            <div class="option">② 防火牆</div>
+            <div class="option">③ 檔案伺服器</div>
+            <div class="option">④ 纜線數據機</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在物聯網系統中，為了防止未授權的外部存取與網路攻擊，必須在系統與網際網路的邊界部署「防火牆（Firewall）」。防火牆可以監控進出網路的封包流量，並依據既定的安全規則阻擋可疑或惡意的連線。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 感應器：錯誤。這是用來收集環境數據的終端設備。</li>
+                        <li class="correct-opt">② 防火牆：正確。用來防禦駭客攻擊與過濾不當流量。</li>
+                        <li class="wrong-opt">③ 檔案伺服器：錯誤。提供檔案儲存與共享，非資安防護設備。</li>
+                        <li class="wrong-opt">④ 纜線數據機：錯誤。提供連網硬體轉換，本身不具備高級資安防護功能。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 131題 -->
+    <div class="card">
+        <span class="theme-badge">主題：物聯網開發平台</span>
+        <div class="question">131. 下列何種控制平台可協助研發者建立接收感應器輸入的互動式物件，並使用此輸入來控制燈光、電動機或其他實體物件？</div>
+        <div class="options">
+            <div class="option">① Maker Media</div>
+            <div class="option">② ZigBee</div>
+            <div class="option">③ Arduino</div>
+            <div class="option">④ Packet Tracer</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>Arduino 是一個廣受歡迎的開源微控制器硬體與軟體平台。它可以輕鬆讀取來自各種感應器（如溫度、光線感測器）的輸入訊號，並透過簡單的程式語言輸出訊號去控制實體裝置（如 LED 燈、馬達驅動器等），是物聯網與創客（Maker）領域最常見的控制平台。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① Maker Media：錯誤。這是一家推廣創客文化的媒體公司。</li>
+                        <li class="wrong-opt">② ZigBee：錯誤。這是一種無線通訊協定，而非控制平台。</li>
+                        <li class="correct-opt">③ Arduino：正確。為接收輸入並控制實體輸出的開源微控制器平台。</li>
+                        <li class="wrong-opt">④ Packet Tracer：錯誤。這是 Cisco 推出的網路模擬與測試軟體。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 132題 -->
+    <div class="card">
+        <span class="theme-badge">主題：物聯網與 M2M</span>
+        <div class="question">132. 下列何者是機器對機器（M2M）系統的範例？</div>
+        <div class="options">
+            <div class="option">① 公共停車場中，某人使用 App 確定何處可停車</div>
+            <div class="option">② 發電廠間使用智慧電網技術調度電力</div>
+            <div class="option">③ 監控中心安裝高解析度攝影機</div>
+            <div class="option">④ 緊急應變中心使用通訊軟體調派員工</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>M2M（Machine to Machine）的核心概念在於「機器設備之間能自主進行數據交換與動作控制，無需人為干預」。在智慧電網中，發電設備、電表與變電站設備會互相傳遞電力消耗數據並自動調度供電，這是非常典型的 M2M 應用。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 某人使用 App 確定何處可停車：錯誤。牽涉到人為操作，屬於人機互動（H2M）。</li>
+                        <li class="correct-opt">② 發電廠間使用智慧電網技術調度電力：正確。機器間自動交換數據並控制調度。</li>
+                        <li class="wrong-opt">③ 監控中心安裝高解析度攝影機：錯誤。僅是單向影像傳輸供人觀看。</li>
+                        <li class="wrong-opt">④ 緊急應變中心使用通訊軟體調派員工：錯誤。屬於人與人之間的通訊。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 133題 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖通訊特性</span>
+        <div class="question">133. 光在光纖傳遞過程中，相同波長的光在不同模態中傳播時，所產生的色散現象（Chromatic dispersion），係指何種色散？</div>
+        <div class="options">
+            <div class="option">① 模態色散（Modal dispersion）</div>
+            <div class="option">② 零色散（Zero dispersion）</div>
+            <div class="option">③ 波導色散（Waveguide dispersion）</div>
+            <div class="option">④ 材料色散（Material dispersion）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在多模光纖中，即便光源是單一波長，光線也會以不同的角度（不同模態路徑）進入並反射。因為不同路徑的光行走路程長短不一，導致它們到達接收端的時間出現差異，這種造成光脈衝展寬的現象稱為「模態色散（Modal dispersion）」。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 模態色散（Modal dispersion）：正確。由不同模態路徑差異所造成。</li>
+                        <li class="wrong-opt">② 零色散（Zero dispersion）：錯誤。指特定波長下色散效應為零的現象。</li>
+                        <li class="wrong-opt">③ 波導色散（Waveguide dispersion）：錯誤。這與光在纖核與包層分佈比例有關。</li>
+                        <li class="wrong-opt">④ 材料色散（Material dispersion）：錯誤。這是由於材料對不同波長折射率不同而產生。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 134題 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖通訊特性</span>
+        <div class="question">134. 光在光纖傳遞過程中，不同波長的光在同一模態中傳播時，所造成的色散現象（Chromatic dispersion），係指何種色散？</div>
+        <div class="options">
+            <div class="option">① 模態色散（Modal dispersion）</div>
+            <div class="option">② 零色散（Zero dispersion）</div>
+            <div class="option">③ 波導色散（Waveguide dispersion）</div>
+            <div class="option">④ 材料色散（Material dispersion）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當不同波長的光在光纖的「同一模態」中傳播時（如單模光纖），光脈衝展寬（色度色散 Chromatic dispersion）的成因主要有兩個：材料色散與波導色散。官方題庫本題之標準解答為「波導色散（Waveguide dispersion）」，其定義在於光波量在核心與包層分佈因波長而異，導致群速度變化而產生的色散。（註：實務上色度色散包含材料與波導色散，請依題庫標準答案作答）。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 模態色散：錯誤。這發生在不同模態之間。</li>
+                        <li class="wrong-opt">② 零色散：錯誤。非指色散原因。</li>
+                        <li class="correct-opt">③ 波導色散（Waveguide dispersion）：正確。符合題庫標準答案。</li>
+                        <li class="wrong-opt">④ 材料色散：錯誤。雖亦屬同模態下不同波長之色散，但依官方題庫給定答案為③。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 135題 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖傳輸原理</span>
+        <div class="question">135. 光在光纖中之傳導，係應用下列何種方式進行？</div>
+        <div class="options">
+            <div class="option">① 半反射</div>
+            <div class="option">② 全反射</div>
+            <div class="option">③ 散射</div>
+            <div class="option">④ 繞射</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>光纖的結構中心為高折射率的纖核（Core），外層被低折射率的包層（Cladding）包覆。當光線射入的角度大於臨界角時，光線不會穿透到包層，而是會在纖核與包層交界面產生「全反射（Total Internal Reflection）」，使得光信號能在光纖內部不斷向前傳導而不衰減漏失。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 半反射：錯誤。會造成能量外洩。</li>
+                        <li class="correct-opt">② 全反射：正確。光纖傳導光信號的物理基礎。</li>
+                        <li class="wrong-opt">③ 散射：錯誤。會導致光束發散與衰減（如瑞利散射）。</li>
+                        <li class="wrong-opt">④ 繞射：錯誤。光波遇到障礙物邊緣的現象。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 136題 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖傳輸原理</span>
+        <div class="question">136. 光波從一種介質（折射率 n₁）傳播到另一介質（折射率 n₂）時，所產生的折射現象，其入射角 θ₁ 與折射角 θ₂ 間之關係為 n₁sinθ₁ = n₂sinθ₂。此原理稱之為？</div>
+        <div class="options">
+            <div class="option">① 高斯定律（Gauss's law）</div>
+            <div class="option">② 費馬原理（Fermat principle）</div>
+            <div class="option">③ 比爾定律（Beer's Law）</div>
+            <div class="option">④ 司乃耳定律（Snell's Law）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>司乃耳定律（Snell's Law）是幾何光學中描述光在兩種不同介質交界面發生折射現象的基本定律。公式 n₁sinθ₁ = n₂sinθ₂ 準確說明了入射角與折射角和兩種介質折射率之間的關係，也是推導光纖全反射臨界角的基礎理論。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 高斯定律：錯誤。與電磁場的電通量有關。</li>
+                        <li class="wrong-opt">② 費馬原理：錯誤。指光線傳播會走所需時間極值（最短）的路徑。</li>
+                        <li class="wrong-opt">③ 比爾定律：錯誤。描述光吸收程度與溶液濃度的關係。</li>
+                        <li class="correct-opt">④ 司乃耳定律（Snell's Law）：正確。為描述折射角度關係之物理定律。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 137題 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖材料</span>
+        <div class="question">137. 下列何種材料最適勇於大容量、長距離的光訊號傳輸介質？</div>
+        <div class="options">
+            <div class="option">① 塑膠纖維</div>
+            <div class="option">② 高分子光導纖維</div>
+            <div class="option">③ 石英玻璃</div>
+            <div class="option">④ 多成分玻璃</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>長距離、大容量的光纖通訊要求傳輸介質必須具有極低的衰減率和高透明度。目前電信等級的光纖皆以「石英玻璃（二氧化矽, Silica glass）」為主要材料，因為其雜質極少，在特定波長（如1310nm、1550nm）下的損耗最低，最適合長距傳輸。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 塑膠纖維：錯誤。損耗較大，多用於短距離傳輸（如家用音響線）。</li>
+                        <li class="wrong-opt">② 高分子光導纖維：錯誤。同樣適用於短距，不適合長距離骨幹網路。</li>
+                        <li class="correct-opt">③ 石英玻璃：正確。低損耗與高純度，是大容量長距光纖的最佳材料。</li>
+                        <li class="wrong-opt">④ 多成分玻璃：錯誤。雜質較石英玻璃多，損耗較大。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 138題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：無線網路協定 (複選題)</span>
+        <div class="question">138. 下列哪幾種類段開放供無線區域網路使用？</div>
+        <div class="options">
+            <div class="option">① 2.4GHz</div>
+            <div class="option">② 5GHz</div>
+            <div class="option">③ 1.8GHz</div>
+            <div class="option">④ 3GHz</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為了使一般無線設備能順利運作而不需要申請專屬無線電執照，國際上劃分了 ISM (工業、科學、醫療) 頻段供大眾免執照使用。無線區域網路（WLAN，即大家熟知的 Wi-Fi）主要就是運作在開放的 2.4 GHz 及 5 GHz 這兩個頻段。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 2.4GHz：正確。為 802.11b/g/n 等標準開放使用的 ISM 頻段。</li>
+                        <li class="correct-opt">② 5GHz：正確。為 802.11a/n/ac/ax 等標準開放使用的 ISM 頻段。</li>
+                        <li class="wrong-opt">③ 1.8GHz：錯誤。不屬於免執照的 WLAN 開放頻段（多為蜂巢式行動通訊使用）。</li>
+                        <li class="wrong-opt">④ 3GHz：錯誤。非 WLAN 定義之操作頻段。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 139題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：無線網路協定 (複選題)</span>
+        <div class="question">139. 下列哪些無線區域網路規格可提供 54Mbps（含）以上傳輸速率？</div>
+        <div class="options">
+            <div class="option">① IEEE 802.11a</div>
+            <div class="option">② IEEE 802.11b</div>
+            <div class="option">③ IEEE 802.11g</div>
+            <div class="option">④ IEEE 802.11n</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>檢視各種 Wi-Fi 標準的最大理論傳輸速率：<br>
+                    • 802.11a：最高 54 Mbps<br>
+                    • 802.11b：最高 11 Mbps<br>
+                    • 802.11g：最高 54 Mbps<br>
+                    • 802.11n：最高可達 600 Mbps<br>
+                    因此，除了早期的 802.11b 之外，其餘規格皆具備 54Mbps（含）以上的傳輸能力。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① IEEE 802.11a：正確。最高可達 54Mbps。</li>
+                        <li class="wrong-opt">② IEEE 802.11b：錯誤。最高僅達 11Mbps。</li>
+                        <li class="correct-opt">③ IEEE 802.11g：正確。最高可達 54Mbps。</li>
+                        <li class="correct-opt">④ IEEE 802.11n：正確。最高可達 600Mbps，超過 54Mbps。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 140題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：無線網路頻道規劃 (複選題)</span>
+        <div class="question">140. 若 AP (Access Point)之規格為 IEEE 802.11b/g，則同時使用下列哪 3 個 Channel 可能會造成干擾？</div>
+        <div class="options">
+            <div class="option">① Channel 1、Channel 6、Channel 11</div>
+            <div class="option">② Channel 1、Channel 5、Channel 9</div>
+            <div class="option">③ Channel 1、Channel 3、Channel 7</div>
+            <div class="option">④ Channel 3、Channel 7、Channel 11</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在 2.4GHz 頻段中（802.11b/g），每個頻道會佔用 22MHz 的頻寬，但相鄰頻道的中心頻率僅相差 5MHz。為了確保頻道之間「完全不重疊」而不產生干擾，頻道編號必須至少相隔 5（例如經典的 1、6、11 組合）。若未能保持足夠間隔（如選項 2、3、4），頻道波形就會互相重疊並造成鄰頻干擾（Co-channel Interference）。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① Channel 1、6、11：錯誤（不會造成干擾）。這是三個完全獨立、不重疊的頻道組合。</li>
+                        <li class="correct-opt">② Channel 1、5、9：正確。1 與 5 只差 4 個頻道，會造成重疊干擾。</li>
+                        <li class="correct-opt">③ Channel 1、3、7：正確。1 與 3 距離過近，頻譜會嚴重重疊。</li>
+                        <li class="correct-opt">④ Channel 3、7、11：正確。3 與 7 距離僅差 4，頻譜會重疊造成干擾。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 141題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：無線網路協定 (複選題)</span>
+        <div class="question">141. 下列無線區域網路規格，哪些可使用 2.4GHz 頻段？</div>
+        <div class="options">
+            <div class="option">① IEEE 802.11a</div>
+            <div class="option">② IEEE 802.11b</div>
+            <div class="option">③ IEEE 802.11g</div>
+            <div class="option">④ IEEE 802.11n</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>檢視各種 Wi-Fi 標準支援的通訊頻段：<br>
+                    • 802.11a：專屬運作於 5 GHz 頻段。<br>
+                    • 802.11b：運作於 2.4 GHz 頻段。<br>
+                    • 802.11g：運作於 2.4 GHz 頻段（向下相容 b）。<br>
+                    • 802.11n：雙頻設計，可運作於 2.4 GHz 或 5 GHz 頻段。<br>
+                    因此，能夠使用 2.4GHz 的規格為 b、g 以及 n。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① IEEE 802.11a：錯誤。僅能在 5GHz 運作。</li>
+                        <li class="correct-opt">② IEEE 802.11b：正確。在 2.4GHz 頻段運作。</li>
+                        <li class="correct-opt">③ IEEE 802.11g：正確。在 2.4GHz 頻段運作。</li>
+                        <li class="correct-opt">④ IEEE 802.11n：正確。支援雙頻，包含 2.4GHz。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 142題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：無線網路協定 (複選題)</span>
+        <div class="question">142. 下列無線區域網路規格，哪些可使用 5GHz 頻段？</div>
+        <div class="options">
+            <div class="option">① IEEE 802.11a</div>
+            <div class="option">② IEEE 802.11b</div>
+            <div class="option">③ IEEE 802.11g</div>
+            <div class="option">④ IEEE 802.11n</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>接續上題的觀念，5GHz 頻段具有干擾較少、頻寬更寬的優勢。早期的 802.11a 即是設計運作在 5GHz；而較新的 802.11n 標準也將 5GHz 納入支援（雙頻段）；b 與 g 則是被限制在擁擠的 2.4GHz 頻段中。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① IEEE 802.11a：正確。專屬在 5GHz 頻段運作。</li>
+                        <li class="wrong-opt">② IEEE 802.11b：錯誤。僅能在 2.4GHz 運作。</li>
+                        <li class="wrong-opt">③ IEEE 802.11g：錯誤。僅能在 2.4GHz 運作。</li>
+                        <li class="correct-opt">④ IEEE 802.11n：正確。支援雙頻，包含 5GHz。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 143題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：IP 網路定址與子網路切割 (複選題)</span>
+        <div class="question">143. 若 IP 位址為 161.61.16.85/25，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 「/25」表示子網路遮罩中共有 25 個 1 位元</div>
+            <div class="option">② 該 IP 所在子網路的廣播 IP 為 161.61.16.127</div>
+            <div class="option">③ 該 IP 與 161.61.16.128 在同一子網路中</div>
+            <div class="option">④ 該 IP 所在的子網路之 IP 為 161.61.16.0</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>解析 161.61.16.85/25 網段：<br>
+                    1. 「/25」即代表子網路遮罩共有 25 個 1，換算十進位為 255.255.255.128。<br>
+                    2. 主機位元剩下 32 - 25 = 7 位元，每個子網路有 2⁷ = 128 個 IP 位址。<br>
+                    3. 第 4 個八位元的劃分為：0~127 為第一個子網路；128~255 為第二個子網路。<br>
+                    4. 尾數 .85 落於 0~127 區間，因此網路位址(Network ID)為 161.61.16.0，廣播位址(Broadcast)為 161.61.16.127。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。CIDR 標記法「/25」指的就是連續 25 個 bit 為 1。</li>
+                        <li class="correct-opt">② 正確。由於網段範圍是 0~127，廣播位址即為最後一個可用 IP .127。</li>
+                        <li class="wrong-opt">③ 錯誤。IP .128 剛好是下一個新網段的起始點(網路位址)，與 .85 不在同一子網路。</li>
+                        <li class="correct-opt">④ 正確。子網路的起始位址即為網路位址 .0。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 144題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：廣域網路連線技術 (複選題)</span>
+        <div class="question">144. 欲利用有線路由連接網際網路，用戶可向電信業者申裝下列哪些電信終端設備？</div>
+        <div class="options">
+            <div class="option">① 非對稱數位用戶迴路（ADSL）數據機</div>
+            <div class="option">② 纜線數據機（Cable Modem）</div>
+            <div class="option">③ 一般電話機</div>
+            <div class="option">④ 光纖網路終端設備（Optical Network Unit, ONU）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>用戶端若要透過實體線路進行網際網路存取，必須使用對應的「數據機」來進行數位訊號與實體介質之間的轉換。常見的技術包含走傳統電話線的 ADSL 數據機、走第四台同軸電纜的 Cable Modem，以及現今普及的 FTTH（光纖到府）所需之 ONU（光纖網路終端設備）。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① ADSL 數據機：正確。提供銅線寬頻上網的設備。</li>
+                        <li class="correct-opt">② 纜線數據機 (Cable Modem)：正確。透過有線電視纜線提供寬頻上網。</li>
+                        <li class="wrong-opt">③ 一般電話機：錯誤。這只能傳輸類比語音訊號，無法直接連接網際網路。</li>
+                        <li class="correct-opt">④ 光纖網路終端設備 (ONU)：正確。為光纖到府用戶端的轉換設備。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 145題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：OSI 模型與網路障礙排除 (複選題)</span>
+        <div class="question">145. 哪些網路問題的原因涉及到實體層？</div>
+        <div class="options">
+            <div class="option">① 纜線及接頭損壞</div>
+            <div class="option">② IP 位址錯誤</div>
+            <div class="option">③ 網路遮罩錯誤</div>
+            <div class="option">④ 網路卡損壞</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在 OSI 網路七層模型中，「實體層（Physical Layer）」負責定義硬體設備規格、接腳、電壓以及電子訊號的傳輸。任何硬體、線材的物理性損壞（如網線斷裂、接頭氧化、網卡硬體故障），皆歸咎於實體層故障；而 IP 設定、路由設定則屬於第三層「網路層」的邏輯問題。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 纜線及接頭損壞：正確。纜線與接頭屬於實體層的硬體組件。</li>
+                        <li class="wrong-opt">② IP 位址錯誤：錯誤。IP 屬於第三層（網路層）設定問題。</li>
+                        <li class="wrong-opt">③ 網路遮罩錯誤：錯誤。網路遮罩屬於第三層（網路層）設定問題。</li>
+                        <li class="correct-opt">④ 網路卡損壞：正確。網路卡硬體本體故障歸屬於實體層範圍。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 146題 -->
+    <div class="card">
+
+        <img src="https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE3/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE3_146.png?raw=true" alt="範例圖片" class="responsive-img">
+		<span class="theme-badge theme-badge-multi">主題：數位訊號編碼技術 (複選題)</span>
+        <div class="question">146. 下圖兩波形表示二進制資料之編碼方式，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 上方波形表示使用歸零（Return-to-zero, RZ）編碼</div>
+            <div class="option">② 上方波形表示使用不歸零（Non-return-to-zero, NRZ）編碼</div>
+            <div class="option">③ 下方波形表示使用信號交替反轉碼（Alternative mark inversion, AMI）編碼</div>
+            <div class="option">④ 下方波形表示使用不歸零反轉（Non-return-to-zero inverted, NRZI）編碼</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>根據數位編碼理論（題庫附圖對應之觀念）：<br>
+                    • <b>NRZ（不歸零）</b>：電位在整個位元週期內維持不變，不回到零電位。高電位表示 1（或 0），低電位表示 0（或 1）。對應上方波形。<br>
+                    • <b>NRZI（不歸零反轉碼）</b>：以「電位是否發生改變」來表示資料。若遇到資料 1 則電位反轉；遇到 0 則保持原電位。對應下方波形特徵。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 錯誤。上方波形並未在單一位元週期中間歸零。</li>
+                        <li class="correct-opt">② 正確。上方波形為典型的高低電位對應二進制的 NRZ 編碼。</li>
+                        <li class="wrong-opt">③ 錯誤。AMI 編碼中會出現正、負、零三種電位，與一般 NRZ/NRZI 波形不同。</li>
+                        <li class="correct-opt">④ 正確。下方波形遇到特定資料（如1）時產生邊緣轉態，符合 NRZI 特性。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 147題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：數位訊號編碼技術 (複選題)</span>
+        <div class="question">147. 關於差分曼徹斯特編碼（Differential Manchester encoding），下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 各位元時間中都有電位高低轉換，產生自同步（Self synchronization）</div>
+            <div class="option">② IEEE802.3 CSMA/CD 網路中使用</div>
+            <div class="option">③ 若資料值為 "0"，則在位元時間的開始及中間都有電位轉換</div>
+            <div class="option">④ 若資料值為 "1"，則只在位元時間中間有電位轉換</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>差分曼徹斯特編碼是一種強健的編碼方式。它的核心特徵為：每一個位元週期的「正中間」一定會有電位翻轉（以提供時鐘信號達到自同步）。<br>
+                    其資料編碼規則取決於「位元週期起始處」是否有轉態：<br>
+                    • 若資料為 0：位元起始處會發生轉態（因此起始與中間皆有轉換）。<br>
+                    • 若資料為 1：位元起始處不轉態（只有中間發生轉換）。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 正確。位元中間強制轉態能提供時鐘訊號，具備自同步特性。</li>
+                        <li class="wrong-opt">② 錯誤。IEEE 802.3 乙太網路使用的是「標準曼徹斯特編碼」，而非差分版。</li>
+                        <li class="correct-opt">③ 正確。資料為 0 時，週期起始點與中心點皆會發生電位轉態。</li>
+                        <li class="correct-opt">④ 正確。資料為 1 時，週期起始點不轉態，僅中心點進行轉態。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 148題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：數位訊號編碼技術 (複選題)</span>
+        <div class="question">148. 關於曼徹斯特編碼（Manchester encoding），下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 非自同步（Self synchronization）編碼</div>
+            <div class="option">② IEEE802.3 CSMA/CD 網路中使用</div>
+            <div class="option">③ 在位元時間中間由正電位轉換到負電位表示 "0"，在位元時間中間由負電位轉換到正電位表示 "1"</div>
+            <div class="option">④ 在位元時間中間由正電位轉換到負電位表示 "1"，在位元時間中間由負電位轉換到正電位表示 "0"</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>標準的曼徹斯特編碼，其特徵是在每一個位元的中間都會發生高低電位的跳變，此跳變邊緣讓接收端得以提取同步時脈（因此它是自同步編碼）。此技術被廣泛應用在 IEEE 802.3 (傳統 10Mbps 乙太網路) 中。<br>
+                    關於信號表示，根據 IEEE 802.3 標準的定義約定：「高電位轉低電位」代表邏輯 "0"；「低電位轉高電位」代表邏輯 "1"。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 錯誤。曼徹斯特編碼正是典型的「自同步編碼」。</li>
+                        <li class="correct-opt">② 正確。廣泛使用於 IEEE 802.3 區域網路標準中。</li>
+                        <li class="correct-opt">③ 正確。依循 IEEE 802.3 規範，正轉負為 0，負轉正為 1。</li>
+                        <li class="wrong-opt">④ 錯誤。這與 IEEE 802.3 規範定義顛倒（此定義通常見於 G.E. 湯瑪斯約定，但在本題庫中③為標準解答）。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 149題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：光纖通訊量測 (複選題)</span>
+        <div class="question">149. 下列哪些是 OTDR 量測光纖時所使用的波長（nm）？</div>
+        <div class="options">
+            <div class="option">① 1310</div>
+            <div class="option">② 1350</div>
+            <div class="option">③ 1510</div>
+            <div class="option">④ 1550</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>光時域反射儀（Optical Time Domain Reflectometer, OTDR）用來測測光纖的衰減、接頭損耗以及尋找斷點。在檢測單模光纖時，為了符合實際傳輸環境，OTDR 會發射與一般通訊網路相同波長的測試光源，即最常使用的兩個傳輸波段：1310 nm 與 1550 nm。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 1310 nm：正確。為單模光纖色散最低的光通訊窗口，是標準測試波長之一。</li>
+                        <li class="wrong-opt">② 1350 nm：錯誤。非光通訊常規測試窗口。</li>
+                        <li class="wrong-opt">③ 1510 nm：錯誤。非光通訊常規測試窗口。</li>
+                        <li class="correct-opt">④ 1550 nm：正確。為單模光纖衰減最低的光通訊窗口，是標準測試波長之一。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 150題 -->
+    <div class="card">
+        <span class="theme-badge theme-badge-multi">主題：光纖網路元件 (複選題)</span>
+        <div class="question">150. 下列哪些屬於光纖連接器的類型？</div>
+        <div class="options">
+            <div class="option">① FC</div>
+            <div class="option">② SC</div>
+            <div class="option">③ ST</div>
+            <div class="option">④ FT</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在光纖網路佈線中，為了方便光纖的插拔與連接，會使用標準化的光纖連接器。市面上常見的三大傳統光纖連接器類型包含：<br>
+                    • FC 接頭（金屬圓型螺紋式接頭）<br>
+                    • SC 接頭（塑膠方型卡榫式接頭）<br>
+                    • ST 接頭（金屬圓型卡口式接頭）<br>
+                    至於 FT，並非業界定義的標準光纖連接器名稱。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① FC：正確。金屬製螺紋接頭，多用於光纖配線箱。</li>
+                        <li class="correct-opt">② SC：正確。方型插拔接頭，廣泛用於網路設備介面。</li>
+                        <li class="correct-opt">③ ST：正確。彈簧卡口接頭，常用於多模光纖網路。</li>
+                        <li class="wrong-opt">④ FT：錯誤。不存在 FT 這種標準光纖連接器名稱。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<script>
+    let isExpanded = false;
+    function toggleAll() {
+        const detailsElements = document.querySelectorAll('.qa-details');
+        const toggleBtn = document.getElementById('toggleBtn');
+        isExpanded = !isExpanded;
+        
+        detailsElements.forEach(detail => {
+            if (isExpanded) {
+                detail.setAttribute('open', '');
+            } else {
+                detail.removeAttribute('open');
+            }
+        });
+        
+        if (isExpanded) {
+            toggleBtn.innerText = '收合所有解析';
+            toggleBtn.style.backgroundColor = '#e74c3c';
+        } else {
+            toggleBtn.innerText = '展開所有解析';
+            toggleBtn.style.backgroundColor = '#27ae60';
+        }
+    }
+</script>
+
+</body>
+</html>

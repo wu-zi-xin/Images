@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路架設 乙級 工作項目03 第101 - 125 題</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body { font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px 10px; line-height: 1.6; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { background-color: #27ae60; color: white; border: none; padding: 10px 20px; font-size: 1em; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-weight: bold; margin-bottom: 10px; }
+        .toggle-btn:hover { background-color: #219150; }
+        
+        .card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+        
+        /* 卡片樣式 */
+        .card { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); border: 1px solid #eaeaea; position: relative; }
+        
+        /* 主題標籤 */
+        .theme-badge { display: inline-block; background-color: #e8f4fd; color: #2980b9; padding: 5px 12px; border-radius: 20px; font-size: 0.9em; font-weight: bold; margin-bottom: 15px; border: 1px solid #b3d7f2; }
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; color: #555; font-size: 1.05em; border-left: 3px solid #cbd5e1; }
+        
+        /* 純HTML 摺疊特效設計 */
+        details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+        summary { background: #3498db; color: #ffffff; padding: 12px; font-weight: bold; font-size: 1.05em; text-align: center; cursor: pointer; list-style: none; transition: background 0.3s; }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { background: #eef2f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #34495e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        .explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+        .exp-subtitle { color: #2c3e50; font-weight: bold; margin-bottom: 10px; display: block; border-bottom: 1px dashed #cbd5e1; padding-bottom: 3px; }
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { margin-bottom: 8px; background: #ffffff; padding: 10px; border-radius: 6px; border-left: 4px solid #3498db; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級 工作項目03 第101 - 125 題</h1>
+    <p>綜合解析與各選項詳解版</p>
+    <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 101題 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖通訊規範</span>
+        <div class="question">101. 依 ANSI/TIA/EIA-568-B3 規範，單模光纖轉接器或面板的顏色為何？</div>
+        <div class="options">
+            <div class="option">① 米黃色</div>
+            <div class="option">② 紅色</div>
+            <div class="option">③ 綠色</div>
+            <div class="option">④ 藍色</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>根據 ANSI/TIA/EIA-568-B.3 規範，為了區分不同類型的光纖轉接器（Adapter）或面板，有其標準的顏色定義：單模光纖（Single-mode）通常使用藍色標示；多模光纖（Multimode）通常使用米黃色（Beige）標示。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 米黃色：錯誤。這是多模光纖轉接器或面板的規範顏色。</li>
+                        <li class="wrong-opt">② 紅色：錯誤。不是規範所定義的單模光纖標準色。</li>
+                        <li class="wrong-opt">③ 綠色：錯誤。綠色通常用於 APC（角度物理接觸）研磨的單模光纖接頭。</li>
+                        <li class="correct-opt">④ 藍色：正確。符合規範中單模光纖轉接器或面板的顏色。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 102題 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖通訊規範</span>
+        <div class="question">102. 依 ANSI/TIA/EIA-568-B3 規範，多模光纖轉接器或面板的顏色為何？</div>
+        <div class="options">
+            <div class="option">① 米黃色</div>
+            <div class="option">② 紅色</div>
+            <div class="option">③ 綠色</div>
+            <div class="option">④ 藍色</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>同上題所述，依據 ANSI/TIA/EIA-568-B.3 光纖佈線組件規範，多模光纖（Multimode fiber）的接頭及轉接面板在業界標準中指定使用米黃色（Beige）以作為快速辨識的標準。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 米黃色：正確。為規範中多模光纖轉接器或面板的顏色。</li>
+                        <li class="wrong-opt">② 紅色：錯誤。無此標準定義。</li>
+                        <li class="wrong-opt">③ 綠色：錯誤。多為單模 APC 接頭使用。</li>
+                        <li class="wrong-opt">④ 藍色：錯誤。藍色為一般單模光纖（UPC）的規範顏色。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 103題 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖傳輸特性</span>
+        <div class="question">103. 光纖接合（熔接或機械式迅接）後，最大光纖衰減值（dB）為下列何者？</div>
+        <div class="options">
+            <div class="option">① 0.2</div>
+            <div class="option">② 0.3</div>
+            <div class="option">③ 0.4</div>
+            <div class="option">④ 0.5</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>光纖在進行接合（Splice）時，無可避免會產生接合衰減（Insertion Loss）。根據 TIA/EIA 規範要求，無論是熱熔接或機械式接合，每一個接合點的最大容許光纖衰減值皆不得超過 0.3 dB。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 0.2：錯誤。數值低於規範上限，但最大容許值為 0.3。</li>
+                        <li class="correct-opt">② 0.3：正確。最大光纖衰減值規範為 0.3 dB。</li>
+                        <li class="wrong-opt">③ 0.4：錯誤。超出接合衰減規範允許的最大值。</li>
+                        <li class="wrong-opt">④ 0.5：錯誤。超出接合衰減規範允許的最大值。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 104題 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖傳輸特性</span>
+        <div class="question">104. 多模光纖在光纖接合（熔接或機械式迅接）後，最小回傳損失（Return loss）（dB）為下列何者？</div>
+        <div class="options">
+            <div class="option">① 18</div>
+            <div class="option">② 20</div>
+            <div class="option">③ 24</div>
+            <div class="option">④ 26</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>回傳損失（Return Loss）代表反射光功率與入射光功率的比值，數值越大代表反射回來的光越少、連線品質越好。在佈線規範中，多模光纖的最小回傳損失要求較單模光纖寬鬆，必須大於或等於 20 dB。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 18：錯誤。低於規範的最小要求。</li>
+                        <li class="correct-opt">② 20：正確。多模光纖接合的最小回傳損失規範為 20 dB。</li>
+                        <li class="wrong-opt">③ 24：錯誤。非規範標準值。</li>
+                        <li class="wrong-opt">④ 26：錯誤。26 dB 為單模光纖的最小回傳損失要求。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 105題 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖傳輸特性</span>
+        <div class="question">105. 單模光纖在光纖接合（熔接或機械式迅接）後，最小回傳損失（Return loss）（dB）為下列何者？</div>
+        <div class="options">
+            <div class="option">① 18</div>
+            <div class="option">② 20</div>
+            <div class="option">③ 24</div>
+            <div class="option">④ 26</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>相較於多模光纖，單模光纖因為雷射光源且傳輸距離更遠，對反射光更為敏感。為確保高速長距傳輸的穩定性，規範中要求單模光纖接合後的最小回傳損失必須大於或等於 26 dB。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 18：錯誤。不符合要求。</li>
+                        <li class="wrong-opt">② 20：錯誤。20 dB 是多模光纖的要求。</li>
+                        <li class="wrong-opt">③ 24：錯誤。非規範標準值。</li>
+                        <li class="correct-opt">④ 26：正確。單模光纖接合的最小回傳損失規範為 26 dB。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 106題 -->
+    <div class="card">
+        <span class="theme-badge">主題：無線網路架構</span>
+        <div class="question">106. 無線區域網路架構下，以何者識別網路節點？</div>
+        <div class="options">
+            <div class="option">① 服務組識別碼（Service Set Identifier，SSID）</div>
+            <div class="option">② MAC 位址</div>
+            <div class="option">③ Port 編號</div>
+            <div class="option">④ IP 位址</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在無線區域網路 (WLAN) 中，SSID（服務組識別碼）是用來區分並識別不同的無線網路邏輯節點/群組。使用者藉由選擇不同的 SSID 來連接對應的無線存取點 (AP) 與網路環境。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 服務組識別碼（SSID）：正確。用以識別 WLAN 中的無線網路群組/節點。</li>
+                        <li class="wrong-opt">② MAC 位址：錯誤。硬體實體層的設備識別碼，非用來區分無線網路服務。</li>
+                        <li class="wrong-opt">③ Port 編號：錯誤。傳輸層中用來識別應用程式或服務。</li>
+                        <li class="wrong-opt">④ IP 位址：錯誤。網路層中用來識別網路裝置的邏輯位址。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 107題 -->
+    <div class="card">
+        <span class="theme-badge">主題：雲端運算架構</span>
+        <div class="question">107. 下列何者不是雲端運算的基本部署模型（Deployment model）？</div>
+        <div class="options">
+            <div class="option">① Private cloud</div>
+            <div class="option">② Home cloud</div>
+            <div class="option">③ Public cloud</div>
+            <div class="option">④ Hybrid cloud</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>根據 NIST 針對雲端運算的標準定義，雲端的基本部署模型共有四種：公有雲（Public cloud）、私有雲（Private cloud）、混合雲（Hybrid cloud）與社群雲（Community cloud）。Home cloud 並非規範中的標準部署模型。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① Private cloud：錯誤。私有雲是標準的部署模型之一。</li>
+                        <li class="correct-opt">② Home cloud：正確。家庭雲不是 NIST 定義的標準雲端部署模型。</li>
+                        <li class="wrong-opt">③ Public cloud：錯誤。公有雲是標準的部署模型之一。</li>
+                        <li class="wrong-opt">④ Hybrid cloud：錯誤。混合雲是標準的部署模型之一。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 108題 -->
+    <div class="card">
+        <span class="theme-badge">主題：資訊安全憑證</span>
+        <div class="question">108. 電腦中所使用的憑證（Certificate）採用下列何種標準？</div>
+        <div class="options">
+            <div class="option">① ISO/IEC 15408</div>
+            <div class="option">② X.509v3</div>
+            <div class="option">③ BS 7799</div>
+            <div class="option">④ ISO/IEC 27001</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>數位憑證（Digital Certificate）主要用於驗證公鑰與實體的綁定關係。目前網際網路上廣泛使用的公鑰基礎設施（PKI）數位憑證格式，皆遵循 ITU-T 所制定的 X.509 標準（目前最常見的版本為 X.509v3）。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① ISO/IEC 15408：錯誤。這是資訊安全評估的共同準則（Common Criteria）。</li>
+                        <li class="correct-opt">② X.509v3：正確。為電腦網路中數位憑證的標準格式。</li>
+                        <li class="wrong-opt">③ BS 7799：錯誤。是英國標準協會制定的資訊安全管理系統標準（後演進為 ISO 27001）。</li>
+                        <li class="wrong-opt">④ ISO/IEC 27001：錯誤。為資訊安全管理系統的國際標準，與憑證格式無關。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 109題 -->
+    <div class="card">
+        <span class="theme-badge">主題：資訊安全與管理</span>
+        <div class="question">109. 數位資料管理者之角色不包括？</div>
+        <div class="options">
+            <div class="option">① 回復遺失的資料</div>
+            <div class="option">② 定期備份資料</div>
+            <div class="option">③ 規定資料的保存期限</div>
+            <div class="option">④ 確保資料的可用性</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在資安與資料治理中，資料管理者（Data Custodian/Administrator）主要負責技術與維運面的操作，如備份、復原及確保系統與資料的可用性。「規定資料的保存期限」牽涉到業務規範與法規要求，通常由資料擁有者（Data Owner）或高層管理單位負責決定。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 回復遺失的資料：錯誤。這是管理者的日常運維職責。</li>
+                        <li class="wrong-opt">② 定期備份資料：錯誤。這是管理者的常規工作。</li>
+                        <li class="correct-opt">③ 規定資料的保存期限：正確。制定策略和保存期限屬於資料擁有者（Data Owner）的責任。</li>
+                        <li class="wrong-opt">④ 確保資料的可用性：錯誤。維護資料的可用性是管理者的職責。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 110題 -->
+    <div class="card">
+        <span class="theme-badge">主題：網路通訊技術</span>
+        <div class="question">110. 在相同實體媒介中，同時傳送多個訊號是屬於下列哪一項技術？</div>
+        <div class="options">
+            <div class="option">① 數位傳輸</div>
+            <div class="option">② 多工</div>
+            <div class="option">③ 非同步傳輸</div>
+            <div class="option">④ 基頻技術</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>多工（Multiplexing）是指將多個低速的資料來源或訊號，合併到單一個高速的共用實體通訊媒介上同時進行傳輸的技術，藉此大幅提升線路的使用效率。常見包含分頻多工（FDM）及分時多工（TDM）等。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 數位傳輸：錯誤。泛指以離散訊號傳輸資料的過程。</li>
+                        <li class="correct-opt">② 多工：正確。是在同一媒介中同時傳送多個訊號的技術。</li>
+                        <li class="wrong-opt">③ 非同步傳輸：錯誤。是指發送與接收端不依賴共同時脈的一種資料傳輸方式。</li>
+                        <li class="wrong-opt">④ 基頻技術：錯誤。指訊號不經載波調變，直接以原頻率在媒介上傳送的技術。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 111題 -->
+    <div class="card">
+        <span class="theme-badge">主題：雲端運算計費</span>
+        <div class="question">111. 下列哪一項不是 SaaS 可行的計費方法？</div>
+        <div class="options">
+            <div class="option">① 使用人數</div>
+            <div class="option">② 使用時間</div>
+            <div class="option">③ 使用路由器數量</div>
+            <div class="option">④ 使用頻寬</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>SaaS（軟體即服務）是面向最終用戶的雲端軟體服務。其常見的計費模型包括以使用者帳號數（使用人數）、訂閱時長（使用時間）、存儲空間或網路流量（頻寬）計價。底層網路設備如路由器的建置與管理是由雲端服務提供商負責，使用者無需依設備數量付費。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 使用人數：錯誤。依帳戶數量計費是 SaaS 最常見的計價方式。</li>
+                        <li class="wrong-opt">② 使用時間：錯誤。按月或按年訂閱也是 SaaS 常見計價方式。</li>
+                        <li class="correct-opt">③ 使用路由器數量：正確。基礎設施設備屬服務商管理，非 SaaS 用戶計費指標。</li>
+                        <li class="wrong-opt">④ 使用頻寬：錯誤。部分 SaaS 服務會針對大流量或高頻寬使用進行額外收費。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 112題 -->
+    <div class="card">
+        <span class="theme-badge">主題：雲端運算安全</span>
+        <div class="question">112. 下列哪一項是 SaaS 使用者必須注意的項目？</div>
+        <div class="options">
+            <div class="option">① 伺服器作業系統</div>
+            <div class="option">② 伺服器設備</div>
+            <div class="option">③ 異地備份系統</div>
+            <div class="option">④ 使用者瀏覽器安全</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在共擔責任模型中，SaaS 的雲端服務提供商負責處理基礎設施、作業系統及軟體應用的安全性與備份機制。SaaS 用戶主要是透過網頁瀏覽器或客戶端應用來存取服務，因此用戶端的防護（如瀏覽器安全、帳號密碼保護）是使用者自身必須承擔並注意的重點。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 伺服器作業系統：錯誤。由 SaaS 服務提供商維護。</li>
+                        <li class="wrong-opt">② 伺服器設備：錯誤。由 SaaS 服務提供商維護。</li>
+                        <li class="wrong-opt">③ 異地備份系統：錯誤。由 SaaS 服務提供商實作與維護。</li>
+                        <li class="correct-opt">④ 使用者瀏覽器安全：正確。終端設備與瀏覽器的存取安全屬使用者的責任範圍。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 113題 -->
+    <div class="card">
+        <span class="theme-badge">主題：雲端運算應用</span>
+        <div class="question">113. 下列哪一類型軟體最適合做為 Public SaaS 使用？</div>
+        <div class="options">
+            <div class="option">① Business logic 軟體</div>
+            <div class="option">② Real time 軟體</div>
+            <div class="option">③ Bulk consumer data 軟體</div>
+            <div class="option">④ Critical 軟體</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>公有雲軟體即服務（Public SaaS）通常提供標準化、多租戶共享的應用，適合處理一般業務邏輯（Business logic），如 CRM 客戶關係管理、ERP 系統或辦公室協作軟體。而高度要求低延遲（Real time）或關鍵核心（Critical）的系統，通常會部署在地端或私有雲環境以確保穩定性及安全性。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① Business logic 軟體：正確。這類標準化商業邏輯軟體最適合公有雲 SaaS 交付。</li>
+                        <li class="wrong-opt">② Real time 軟體：錯誤。即時控制軟體對延遲極為敏感，公有網路可能無法保障。</li>
+                        <li class="wrong-opt">③ Bulk consumer data 軟體：錯誤。大量消費者資料可能涉及隱私合規與搬移成本。</li>
+                        <li class="wrong-opt">④ Critical 軟體：錯誤。涉及生命財產或高度機密的關鍵系統較少以公有 SaaS 呈現。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 114題 -->
+    <div class="card">
+        <span class="theme-badge">主題：雲端運算角色</span>
+        <div class="question">114. 下列何者為 IaaS 的消費者？</div>
+        <div class="options">
+            <div class="option">① 程式設計師</div>
+            <div class="option">② 系統管理者</div>
+            <div class="option">③ 終端使用者</div>
+            <div class="option">④ 業務人員</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>雲端服務不同模型的目標客群有所不同：IaaS（基礎設施即服務）提供虛擬機、網路與儲存，主要由「系統管理者」用來建置底層架構；PaaS（平台即服務）提供開發環境，主要消費者為「程式設計師」；SaaS 則主要由「終端使用者」或「業務人員」直接操作軟體。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 程式設計師：錯誤。程式設計師較多是 PaaS 服務的消費者。</li>
+                        <li class="correct-opt">② 系統管理者：正確。需要配置虛擬機及網路架構，是 IaaS 的主要使用者。</li>
+                        <li class="wrong-opt">③ 終端使用者：錯誤。一般為 SaaS 軟體服務的消費者。</li>
+                        <li class="wrong-opt">④ 業務人員：錯誤。偏向 SaaS （如 CRM 軟體）的終端使用者。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 115題 -->
+    <div class="card">
+        <span class="theme-badge">主題：雲端運算資源</span>
+        <div class="question">115. 下列何者不是 IaaS 的消費者可以取得的資源？</div>
+        <div class="options">
+            <div class="option">① 網路防火牆</div>
+            <div class="option">② 組態服務</div>
+            <div class="option">③ 存取虛擬主機</div>
+            <div class="option">④ 實體硬體</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>IaaS 模式的核心精神是將運算資源「虛擬化」。雲端服務提供商會管理與維護資料中心的「實體硬體」，而消費者只能透過管理介面取得並操作虛擬化資源（如虛擬機器、虛擬網路防火牆等），無法直接碰觸或管理實體硬體設備。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 網路防火牆：錯誤。IaaS 消費者可配置虛擬網路的防火牆規則。</li>
+                        <li class="wrong-opt">② 組態服務：錯誤。IaaS 消費者可以管理相關虛擬資源的組態。</li>
+                        <li class="wrong-opt">③ 存取虛擬主機：錯誤。提供虛擬主機是 IaaS 服務的最基本功能。</li>
+                        <li class="correct-opt">④ 實體硬體：正確。實體機房與硬體設備由服務商控管，消費者無法直接取得。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 116題 -->
+    <div class="card">
+        <span class="theme-badge">主題：雲端運算架構</span>
+        <div class="question">116. IaaS 提供者對下列何者具有管理控制權？</div>
+        <div class="options">
+            <div class="option">① 使用者 Middleware</div>
+            <div class="option">② 使用者作業系統</div>
+            <div class="option">③ 使用者虛擬主機</div>
+            <div class="option">④ 使用者應用系統</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在 IaaS 架構下，雲端提供商負責維運底層基礎設施（如伺服器硬體、網路、儲存與虛擬化層/Hypervisor），亦即負責配置與管理「虛擬主機」的基礎硬體資源分配。而虛擬主機內部安裝的作業系統（OS）、中介軟體（Middleware）及應用系統，則全權交由使用者自行管理。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 使用者 Middleware：錯誤。虛擬機內部安裝的中介軟體由使用者管理。</li>
+                        <li class="wrong-opt">② 使用者作業系統：錯誤。消費者有最高權限自行安裝與配置 Guest OS。</li>
+                        <li class="correct-opt">③ 使用者虛擬主機：正確。提供商管理分配這些虛擬化硬體資源及運行平台。</li>
+                        <li class="wrong-opt">④ 使用者應用系統：錯誤。部署何種應用程式為使用者的責任。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 117題 -->
+    <div class="card">
+        <span class="theme-badge">主題：雲端運算服務模型</span>
+        <div class="question">117. 下列何者不是雲端運算的基本服務模型（Service Model）？</div>
+        <div class="options">
+            <div class="option">① Software as a Service（SaaS）</div>
+            <div class="option">② Platform as a Service（PaaS）</div>
+            <div class="option">③ Information as a Service（IaaS）</div>
+            <div class="option">④ Infrastructure as a Service（IaaS）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>NIST 定義了雲端運算的三大核心服務模型（SPI 模式），分別為軟體即服務（SaaS）、平台即服務（PaaS）以及基礎設施即服務（IaaS）。選項③ 的縮寫雖為 IaaS，但全名 "Information" as a Service 屬於非標準稱呼，正確應為 "Infrastructure"。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① SaaS：錯誤。為標準的雲端服務模型之一。</li>
+                        <li class="wrong-opt">② PaaS：錯誤。為標準的雲端服務模型之一。</li>
+                        <li class="correct-opt">③ Information as a Service（IaaS）：正確。這不是標準的 SPI 服務模型全稱。</li>
+                        <li class="wrong-opt">④ Infrastructure as a Service（IaaS）：錯誤。為標準的雲端服務模型之一。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 118題 -->
+    <div class="card">
+        <span class="theme-badge">主題：網路傳輸協定</span>
+        <div class="question">118. 線性遞增倍數遞減（Additive Increase Multiplicative Decrease, AIMD）控制定律使用於下列哪個協定之何種用途？</div>
+        <div class="options">
+            <div class="option">① TCP 之錯誤檢查</div>
+            <div class="option">② TCP 之擁塞控制</div>
+            <div class="option">③ IP 之擁塞控制</div>
+            <div class="option">④ UDP 之流量控制</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>AIMD 演算法是 TCP 傳輸控制協定中實作「擁塞控制（Congestion Control）」的重要機制。在傳輸順利時，TCP 視窗會以線性遞增（Additive Increase）的方式探測最大頻寬；一旦發生封包遺失被視為網路擁塞，視窗大小就會折半進行倍數遞減（Multiplicative Decrease）以減輕網路負載。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① TCP 之錯誤檢查：錯誤。TCP 的錯誤檢查依賴校驗和（Checksum）。</li>
+                        <li class="correct-opt">② TCP 之擁塞控制：正確。AIMD 是 TCP 控制網路擁塞的核心演算法。</li>
+                        <li class="wrong-opt">③ IP 之擁塞控制：錯誤。IP 屬網路層，並不具備端到端的主動擁塞控制機制。</li>
+                        <li class="wrong-opt">④ UDP 之流量控制：錯誤。UDP 為非可靠傳輸協定，無內建流量與擁塞控制。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 119題 -->
+    <div class="card">
+        <span class="theme-badge">主題：網路編碼技術</span>
+        <div class="question">119. 典型乙太網路（Ethernet）使用 Manchester 編碼。典型 10Mbps 乙太網路的鮑率（Baud/sec）為多少？</div>
+        <div class="options">
+            <div class="option">① 5M</div>
+            <div class="option">② 10M</div>
+            <div class="option">③ 20M</div>
+            <div class="option">④ 40M</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>曼徹斯特（Manchester）編碼的特色是每一個位元（bit）週期的中間一定會發生一次電位轉換，這代表著要傳輸 1 個 bit 的資料，需要使用 2 個信號變化狀態（Baud）。因此，10Mbps 的資料傳輸速率，其線路上的鮑率（Baud rate）會是資料率的兩倍，即 10M × 2 = 20M Baud/sec。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 5M：錯誤。計算不符曼徹斯特特性。</li>
+                        <li class="wrong-opt">② 10M：錯誤。這等同於資料率，未考慮編碼的電位轉換率。</li>
+                        <li class="correct-opt">③ 20M：正確。Manchester編碼鮑率為資料率的兩倍。</li>
+                        <li class="wrong-opt">④ 40M：錯誤。數值過高。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 120題 -->
+    <div class="card">
+        <span class="theme-badge">主題：網際網路協定</span>
+        <div class="question">120. IPv6 標頭（Header）之長度為多少個位元組（Byte）？</div>
+        <div class="options">
+            <div class="option">① 128</div>
+            <div class="option">② 56</div>
+            <div class="option">③ 40</div>
+            <div class="option">④ 32</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為了加快路由器的處理效率與封包轉發速度，IPv6 捨棄了 IPv4 可變長度標頭的設計。IPv6 的基本標頭（Base Header）被精簡為固定長度，剛好佔用 40 個位元組（Bytes）。任何附加功能都會透過擴充標頭（Extension Headers）串接於基本標頭之後。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 128：錯誤。這是 IPv6 位址的長度（位元 bit），而非標頭位元組長度。</li>
+                        <li class="wrong-opt">② 56：錯誤。不符合 IPv6 規範。</li>
+                        <li class="correct-opt">③ 40：正確。IPv6 的固定基本標頭長度為 40 Bytes。</li>
+                        <li class="wrong-opt">④ 32：錯誤。這是 IPv4 位址的長度（位元 bit）。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 121題 -->
+    <div class="card">
+        <span class="theme-badge">主題：資訊安全加密技術</span>
+        <div class="question">121. 假設量子密碼學（Quantum Cryptography） 能被實際應用，則下列哪個加密系統能提供較難以破解的密文？</div>
+        <div class="options">
+            <div class="option">① OTP（One-time Pad）</div>
+            <div class="option">② AES（Advanced Encryption Standard）</div>
+            <div class="option">③ DES（Data Encryption Standard）</div>
+            <div class="option">④ RSA</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>一次性密碼本（OTP）是目前唯一在資訊理論上被證明為「絕對安全」且無法被破解的加密法，條件是金鑰長度必須大於等於明文、完全隨機，且絕不重複使用。過去因金鑰分發困難而難以實用，但量子金鑰分發（QKD）技術正好能提供絕對安全的隨機金鑰傳輸通道，使 OTP 理論得以完美實現。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① OTP（One-time Pad）：正確。結合量子密碼學分發金鑰，可達成無法破解的理論安全。</li>
+                        <li class="wrong-opt">② AES：錯誤。AES 的安全性基於計算複雜度，面對未來量子電腦（如 Shor 演算法）可能面臨挑戰。</li>
+                        <li class="wrong-opt">③ DES：錯誤。金鑰過短，現今傳統電腦已可破解，更遑論量子時代。</li>
+                        <li class="wrong-opt">④ RSA：錯誤。非對稱加密基於大數分解難題，極易被量子電腦的 Shor 演算法破解。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 122題 -->
+    <div class="card">
+        <span class="theme-badge">主題：通訊理論與頻寬計算</span>
+        <div class="question">122. 於 6kHz 通道發送二進制訊號，若訊雜比（Signal-to-noise ratio）為 20 分貝（dB），則根據 Shannon 定理可達成的最大資料速率為何？（可能需要資料：log2 1001 = 9.967、log2 101 = 6.658、log2 51 = 5.67）</div>
+        <div class="options">
+            <div class="option">① 59.802kbps</div>
+            <div class="option">② 19.974kbps</div>
+            <div class="option">③ 39.948kbps</div>
+            <div class="option">④ 34.02kbps</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>根據夏農定理（Shannon Theorem），最大資料傳輸率 C = B × log2(1 + S/N)。<br>
+                    步驟1：將分貝（dB）轉換回純功率比（S/N）。<br>
+                    20 dB = 10 × log10(S/N)，故 S/N = 10² = 100。<br>
+                    步驟2：代入公式，B = 6000 Hz。<br>
+                    C = 6000 × log2(1 + 100) = 6000 × log2(101)。<br>
+                    依提示資料，log2(101) = 6.658，故 C = 6000 × 6.658 = 39948 bps = 39.948 kbps。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 59.802kbps：錯誤。若套錯公式將 S/N 誤算則可能得到此錯誤數值。</li>
+                        <li class="wrong-opt">② 19.974kbps：錯誤。數值不符計算結果。</li>
+                        <li class="correct-opt">③ 39.948kbps：正確。符合 Shannon 理論極限速率的計算結果。</li>
+                        <li class="wrong-opt">④ 34.02kbps：錯誤。若套錯公式，如誤用 log2(51) 則得出此誤值。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 123題 -->
+    <div class="card">
+        <span class="theme-badge">主題：網路定址與路由</span>
+        <div class="question">123. 具備 IP 智慧感應器的設定中，為何需要預設閘道位址？</div>
+        <div class="options">
+            <div class="option">① 在感應器發生故障時，能緊急丟棄封包</div>
+            <div class="option">② 允許感應器將 URL 解析為 IP 位址</div>
+            <div class="option">③ 使感應器能夠試圖將資料傳送到遠端目的地</div>
+            <div class="option">④ 允許感應器與未啟用 IP 的裝置通訊</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在 TCP/IP 網路架構中，任何主機（包含 IP 智慧感應器）欲將封包發送到「非同一個子網路（即遠端目的地）」時，都必須將封包先傳交給預設閘道（Default Gateway，通常是當地的路由器），由它代為轉送到其他網路。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 在感應器發生故障時，能緊急丟棄封包：錯誤。閘道不是用來處理故障丟棄的。</li>
+                        <li class="wrong-opt">② 允許感應器將 URL 解析為 IP 位址：錯誤。這是 DNS 伺服器的功能。</li>
+                        <li class="correct-opt">③ 使感應器能夠試圖將資料傳送到遠端目的地：正確。跨網段傳輸必須依賴預設閘道路由。</li>
+                        <li class="wrong-opt">④ 允許感應器與未啟用 IP 的裝置通訊：錯誤。非 IP 通訊不透過 IP 閘道處理。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 124題 -->
+    <div class="card">
+        <span class="theme-badge">主題：網路通訊服務</span>
+        <div class="question">124. 在物聯網（IoT）實作中，哪種伺服器將為感應器等終端設備提供 IP 定址資訊？</div>
+        <div class="options">
+            <div class="option">① 檔案伺服器</div>
+            <div class="option">② Web 伺服器</div>
+            <div class="option">③ DNS 伺服器</div>
+            <div class="option">④ DHCP 伺服器</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>動態主機設定協定（Dynamic Host Configuration Protocol, DHCP）是用來集中化並自動分配 IP 位址、子網路遮罩及預設閘道等網路參數的服務。物聯網環境中終端設備眾多，透過 DHCP 伺服器自動獲取 IP，能大幅簡化設備上網的配置繁瑣度。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 檔案伺服器：錯誤。提供檔案儲存與共享服務（如 FTP/SMB）。</li>
+                        <li class="wrong-opt">② Web 伺服器：錯誤。提供網頁瀏覽服務（HTTP/HTTPS）。</li>
+                        <li class="wrong-opt">③ DNS 伺服器：錯誤。負責將網域名稱解析轉換成 IP 位址。</li>
+                        <li class="correct-opt">④ DHCP 伺服器：正確。負責自動派發 IP 定址資訊給網路設備。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+    
+    <!-- 125題 -->
+    <div class="card">
+        <span class="theme-badge">主題：網際網路協定與定址</span>
+        <div class="question">125. IP 位址的用途是什麼？</div>
+        <div class="options">
+            <div class="option">① 用於標識資料中心的實體位置</div>
+            <div class="option">② 用於標識執行程式的記憶體中的位置</div>
+            <div class="option">③ 用於標識對電子郵件訊息做出應答的回覆地址</div>
+            <div class="option">④ 用於標識網路上資料封包的來源位址和目的位址</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>IP（Internet Protocol）位址是 TCP/IP 網路架構中，用來識別網路設備的邏輯位址。在網際網路的網路層（Network Layer）中，所有傳輸的資料都會被封裝成封包（Packet），而 IP 位址最核心的用途，就是標明該資料封包的「來源位址（Source Address）」與「目的位址（Destination Address）」，確保路由器能依此將資料準確無誤地送達目的地。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 用於標識資料中心的實體位置：錯誤。IP 為邏輯位址，無法直接標識實體的地理位置。</li>
+                        <li class="wrong-opt">② 用於標識執行程式的記憶體中的位置：錯誤。這是作業系統中記憶體位址（Memory Address）的功能，與網路通訊無關。</li>
+                        <li class="wrong-opt">③ 用於標識對電子郵件訊息做出應答的回覆地址：錯誤。電子郵件回覆地址是由 Email Address（如 user@domain.com）來標識。</li>
+                        <li class="correct-opt">④ 用於標識網路上資料封包的來源位址和目的位址：正確。此為 IP 位址在網路層中最基本且主要的功能。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<script>
+    let isExpanded = false;
+    function toggleAll() {
+        const detailsElements = document.querySelectorAll('.qa-details');
+        const toggleBtn = document.getElementById('toggleBtn');
+        isExpanded = !isExpanded;
+        
+        detailsElements.forEach(detail => {
+            if (isExpanded) {
+                detail.setAttribute('open', '');
+            } else {
+                detail.removeAttribute('open');
+            }
+        });
+        
+        if (isExpanded) {
+            toggleBtn.innerText = '收合所有解析';
+            toggleBtn.style.backgroundColor = '#e74c3c';
+        } else {
+            toggleBtn.innerText = '展開所有解析';
+            toggleBtn.style.backgroundColor = '#27ae60';
+        }
+    }
+</script>
+
+</body>
+</html>
