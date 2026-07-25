@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>網路架設佈線 互動測驗 (工作項目03: 153-183題 複選版)</title>
+<style>
+    /* 基礎與排版設定 */
+    body {
+        font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+        background-color: #f4f7f6;
+        color: #333;
+        margin: 0;
+        padding: 20px 10px;
+        line-height: 1.6;
+    }
+    .header { text-align: center; margin-bottom: 20px; }
+    .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+    .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; }
+    
+    #quiz-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        border: 1px solid #eaeaea;
+    }
+
+    /* 進度與標籤 */
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .multiple-choice-tag {
+        background-color: #e74c3c;
+        color: white;
+        font-size: 0.85em;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+    #progress-text {
+        font-size: 0.95em;
+        color: #95a5a6;
+        font-weight: bold;
+    }
+
+    /* 題目區 */
+    #question-text {
+        font-size: 1.25em;
+        font-weight: bold;
+        color: #34495e;
+        margin-bottom: 20px;
+    }
+
+    /* 選項區 */
+    .option-btn {
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: #f8f9fa;
+        border: 2px solid #dfe6e9;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        font-size: 1.05em;
+        color: #555;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .option-btn:hover:not(:disabled) {
+        background: #eef2f5;
+        border-color: #b2bec3;
+    }
+    
+    /* 複選選取狀態 */
+    .option-btn.selected:not(:disabled) {
+        background: #e0f2fe;
+        border-color: #3498db;
+        color: #0c5460;
+        font-weight: bold;
+    }
+
+    .option-btn:disabled { cursor: default; }
+
+    /* 答對答錯的顏色標示 (批改後) */
+    .correct {
+        background-color: #d4edda !important;
+        border-color: #2ecc71 !important;
+        color: #27ae60 !important;
+        font-weight: bold;
+    }
+    .incorrect {
+        background-color: #f8d7da !important;
+        border-color: #e74c3c !important;
+        color: #c0392b !important;
+        text-decoration: line-through;
+    }
+    .missed {
+        background-color: #f9fbf9 !important;
+        border-color: #2ecc71 !important;
+        border-style: dashed !important;
+        border-width: 2px !important;
+        color: #27ae60 !important;
+    }
+
+    /* 按鈕區 */
+    #submit-btn {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1em;
+        background-color: #e67e22;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background 0.3s;
+    }
+    #submit-btn:hover { background-color: #d35400; }
+
+    /* 解析區 */
+    #feedback-container {
+        display: none;
+        margin-top: 25px;
+        padding: 20px;
+        background: #f4fcf7;
+        border-left: 5px solid #27ae60;
+        border-radius: 5px;
+    }
+    .explanation-title {
+        font-weight: bold;
+        color: #27ae60;
+        margin-bottom: 10px;
+    }
+
+    /* 導覽按鈕區 */
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+    }
+    .nav-btn {
+        padding: 10px 25px;
+        font-size: 1em;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+    .nav-btn:hover:not(:disabled) { background-color: #2980b9; }
+    .nav-btn:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級 測驗系統</h1>
+    <p>工作項目 03：第 153 ~ 183 題 (全複選題)</p>
+</div>
+
+<div id="quiz-container">
+    <div class="top-bar">
+        <span class="multiple-choice-tag">✔️ 複選題 (請選取多項)</span>
+        <div id="progress-text">題號： 1 / 31</div>
+    </div>
+    <div id="question-text">載入中...</div>
+    
+    <div id="options-container">
+        <!-- 選項按鈕會透過 JS 自動產生在這 -->
+    </div>
+
+    <button id="submit-btn" onclick="submitAnswer()">確認送出 (批改)</button>
+
+    <div id="feedback-container">
+        <div class="explanation-title">💡 深度解析：</div>
+        <div id="explanation-text">解析內容</div>
+    </div>
+
+    <div class="nav-container">
+        <button id="prev-btn" class="nav-btn" onclick="prevQuestion()" disabled>◀ 上一題</button>
+        <button id="next-btn" class="nav-btn" onclick="nextQuestion()">下一題 ▶</button>
+    </div>
+</div>
+
+<script>
+    // 題庫資料：工作項目 03 (第 153-183 題)
+    // ans 陣列代表正確選項的索引 (0代表①, 1代表②, 2代表③, 3代表④)
+    const questions = [
+        {
+            q: "153. 關於 OTDR 的參數，下列哪些正確？",
+            options: ["①脈衝寬度與盲區無關", "②脈衝寬度愈短，雜訊愈大", "③脈衝寬度愈長，量測出來的曲線愈平滑", "④測試波長愈短，對光纖彎曲愈敏感"],
+            ans: [1, 2],
+            exp: "①脈衝寬度會直接決定盲區大小。②脈衝短，打入能量小，雜訊相對變大(正確)。③脈衝長，能量大，雜訊小曲線平滑(正確)。④波長愈長對彎曲才愈敏感(如1550nm比1310nm敏感)。"
+        },
+        {
+            q: "154. 訊號之傳輸有下列哪些方式？",
+            options: ["①全雙工", "②半雙工", "③單工", "④半單工"],
+            ans: [1, 2],
+            exp: "通訊傳輸的標準方式分為單工(只能單向傳送)、半雙工(可雙向但不能同時)、全雙工(可雙向且同時)。學理上並無「半單工」這種名詞。"
+        },
+        {
+            q: "155. 下列哪些正確？",
+            options: ["①紅外線資料傳輸是以點對點的方式進行", "②藍牙技術無法同時傳輸語音及數據資料", "③紅外線無法穿透障礙物", "④藍牙是一種短距離、低功率、低成本的無線通訊技術"],
+            ans: [2, 3],
+            exp: "②藍牙技術打從設計之初就可以「同時」傳輸語音與數據。紅外線因為具備光學特性，有強烈方向性且無法穿牆，藍牙則是為短距低功耗互連所生。"
+        },
+        {
+            q: "156. 線性調變技術包含下列哪些方式？",
+            options: ["①雙邊帶抑制載波（Double Sideband Suppressed Carrier, DSB-SC）", "②殘留邊帶（Vestigial Sideband, VSB）", "③無邊帶（Non-sideband, NSB）", "④單邊帶（Single-sideband, SSB）"],
+            ans: [1, 3],
+            exp: "AM(振幅調變)系列為線性調變，包含DSB-SC(雙邊帶抑制載波)、VSB(殘留邊帶)、SSB(單邊帶)。通訊中並無 NSB(無邊帶) 這種技術。"
+        },
+        {
+            q: "157. 下列哪些為乙太網路 Ethernet 的傳輸媒介？",
+            options: ["①光纖", "②雙絞線", "③同軸電纜", "④磁帶"],
+            ans: [1, 2],
+            exp: "乙太網路歷代的傳輸媒介包含光纖(如10Base-F)、雙絞線(如10Base-T)、早期使用的同軸電纜(如10Base2)。磁帶是資料備份儲存的媒體，不用於傳輸。"
+        },
+        {
+            q: "158. 無線網路可依據傳輸距離的遠近作為區分，下列哪些不正確？",
+            options: ["①無線都會區網路（WMAN）可用以聯繫座落於不同區域的辦公大樓或校區", "②無線區域網路（WLAN）適用於單一建築物或辦公室之內，傳輸範圍僅限於 10 公尺內", "③無線個人網路（WPAN）的主要用途是讓個人使用的資訊裝置可互相通訊及資料交換", "④無線廣域網路（WWAN）的傳輸範圍只限跨越不同城市，無法跨越不同國家之間的網路"],
+            ans: [1, 3],
+            exp: "題幹詢問「不正確」者。②WLAN(Wi-Fi)傳輸範圍可達數十至百公尺，非僅限10公尺。④WWAN(廣域網路)可透過跨國電信或衛星跨越不同國家。"
+        },
+        {
+            q: "159. 關於無線電微波（Microwave），下列哪些不正確？",
+            options: ["①頻率範圍在 20 GHz 到 1000 GHz 之間", "②通常適用於寬頻(Wideband)及雷達(Radar)系統", "③微波是一種直線波，並不沿著地球曲面傳送", "④傳輸的衰減只需考慮實際使用的頻段，不需考慮天線兩端的距離"],
+            ans: [3],
+            exp: "題幹詢問「不正確」者。①微波頻率約界於 300MHz~300GHz 之間。④無線電波在空氣中傳輸的衰減(自由空間損耗)絕對與「距離」息息相關，必定要考慮距離。"
+        },
+        {
+            q: "160. 關於藍牙（Bluetooth）協定，下列哪些不正確？",
+            options: ["①基本網路架構為星狀，其形態是各個從裝置（Slave Device）都會與 1 個主裝置（Master Device）連接", "②形成網路的基本單位稱為微網（Piconet），1 個微網內的裝置數目並無限制", "③若多個微網（Piconet）之間有共用的裝置，則所形成的網路稱為擴散網（Scatternet）", "④1 個微網（Piconet）至少包含 1 個主裝置（Master Device）及無數個從裝置（Slave Device）"],
+            ans: [1, 3],
+            exp: "題幹詢問「不正確」者。②與④皆錯在「無限制/無數個」。藍牙的微網(Piconet)是由1個主裝置，最多同時連結 7個活躍的從裝置，因此裝置數目是有限制的。"
+        },
+        {
+            q: "161. 關於藍芽封包格式的標頭欄位，下列哪些正確？",
+            options: ["①藍牙封包的標頭碼共有 12 個位元", "②封包類型（Type）代表此封包的種類及所使用的時槽個數", "③標頭錯誤檢查（Header Error Check, HEC）用以檢查標頭在傳送過程中是否發生錯誤", "④序列號碼（Sequence Number, SEQN）是在接收端收到封包時，用以判斷封包是否重複"],
+            ans: [1-3],
+            exp: "①藍牙基礎封包標頭碼原始為 18 位元(通常編碼3次變成 54 位元)，並非 12 位元。其餘選項對各欄位的解釋皆為正確。"
+        },
+        {
+            q: "162. 關於無線隨意網路（Wireless Ad Hoc Network）的特性，下列哪些正確？",
+            options: ["①無線隨意網路具有高移動性", "②每個節點不可隨時移動", "③不會受到不法竊聽或遭受惡性堵塞（Jam）與欺騙（Spoof）", "④封包由來源端（Source）傳輸至目的端（Destination），可經多個中繼節點進行轉送"],
+            ans: [3],
+            exp: "Ad Hoc 是無中心基礎建設的網路。②節點「可以」隨時移動。③無線電波暴露在空氣中，當然「會」受到竊聽、干擾或欺騙的威脅。"
+        },
+        {
+            q: "163. 關於無線網狀網路（Wireless Mesh Network, WMN），下列哪些正確？",
+            options: ["①採用網狀拓撲技術", "②節點不具有行動能力", "③由許多環狀的路由器所組成", "④節點通常可提供網路存取服務予多個使用者"],
+            ans: [3],
+            exp: "WMN 具有高備援特性。②底層的終端節點(Client)具備行動能力。③顧名思義是「網狀」而非「環狀(Ring)」路由器組成。"
+        },
+        {
+            q: "164. 關於時間分割多重存取（Time Division Multiple Access, TDMA），下列哪些正確？",
+            options: ["①允許多個使用者使用相同的頻率來存取媒介", "②每個訊框的第 1 號時槽會組成第 1 號頻道，其餘則以此類推", "③每頻道可供多位使用者同時使用，且不同使用者的信號不會重疊", "④在時間軸上劃分多個等長訊框（Frame），在每個訊框中再細分多個等長時槽（Time Slot）"],
+            ans: [1, 3],
+            exp: "③錯在「同時使用」。TDMA 是將時間切成時槽，讓用戶「輪流」發射訊號，所以在物理的時間軸上絕對不是「同時」，而是交錯發射。"
+        },
+        {
+            q: "165. 關於調變技術，下列哪些正確？",
+            options: ["①二元相移鍵控（Binary Phase Shift Keying, BPSK）調變使用相對的弦波表示每個位元", "②頻移鍵控（Frequency Shift Keying, FSK）調變以較高的頻率表示位元 0，較低的頻率表示位元 1", "③差動相移鍵控（Differential Phase Shift Keying, DPSK）調變將信號相位與前 1 個位元的信號相位比較，若相同視為 1，不同則視為 0", "④幅移鍵控（Amplitude Shift Keying, ASK）調變輸出為二位元字串，使用固定振幅的載波表示位元 1，使用無振幅的載波表示位元 0"],
+            ans: [3],
+            exp: "②FSK 業界標準通常是以「較高」頻率表示 1，「較低」頻率表示 0。③DPSK 是比較前後相位，若發生相位轉換代表 1，未發生轉換代表 0 (或反之，依規範而定，但題庫將此敘述列為錯)。"
+        },
+        {
+            q: "166. 關於無線存取(Wireless Access)技術之敘述，下列哪些不正確？",
+            options: ["①展頻多重存取(SSMA)技術比非展頻技術需要更大的使用頻寬", "②時間分割多重存取(TDMA)技術，每個時槽內允許許多個用戶傳送或接收資料", "③空間分割多重存取(SDMA)技術，可控制涵蓋範圍內用戶的發射功率", "④頻率分割多重存取(FDMA)技術，係將通訊系統的總頻段分割成若干個不等間隔的頻道"],
+            ans: [1, 3],
+            exp: "題幹詢問「不正確」者。②TDMA 每一時槽「僅允許單一用戶」傳輸，否則會撞車。④FDMA 是將總頻段分割成「相等間隔(等寬)」之頻道分配給用戶。"
+        },
+        {
+            q: "167. 關於 OSI 七層架構的功能之敘述，下列哪些正確？",
+            options: ["①傳輸層(Transport Layer)負責可靠的端對端訊息傳送", "②資料鏈路層(Data Link Layer)負責網路路由及訊息流通控制", "③應用層(Application Layer)負責節點上應用系統之間的溝通", "④實體層(Physical Layer)負責定義實際傳輸資訊的硬體設備規範"],
+            ans: [2, 3],
+            exp: "②錯誤。「網路路由(Routing)」是第三層「網路層 (Network Layer)」的核心功能，資料鏈結層主要負責 MAC 定址與實體媒介存取。"
+        },
+        {
+            q: "168. 下列哪些為區域網路(Local Area Networks, LAN)的基本要求？",
+            options: ["①在高負載時具有穩定性", "②鋪設距離最長為 100 公里", "③應易於安裝及維護", "④資料傳輸速率沒有上限"],
+            ans: [2],
+            exp: "②區域網路(LAN)範圍通常在數公里內(一棟樓或校區)，長達 100 公里的規模屬於都會網路(MAN)或廣域網路(WAN)。④資料傳輸絕對有實體線材與硬體的速率上限。"
+        },
+        {
+            q: "169. 關於資料通訊系統，下列哪些不正確？",
+            options: ["①資料交換設備(Data Switching Equipment, DSE)負責轉換信號的節點", "②資料終端設備(Data Terminal Equipment, DTE)負責實際傳送或接收資料的節點", "③資料通訊設備(Data Communication Equipment, DCE)不負責轉送資料", "④資料傳輸媒介(Transmission Medium)不影響傳輸品質與速率"],
+            ans: [2],
+            exp: "題幹為不正確選項。(圖缺但可推論)①DSE負責路徑切換，DCE(如數據機)才負責轉換信號。③DCE(如數據機)的存在就是要負責轉送信號。④傳輸媒介(如光纖或銅線)絕對會影響品質與速率。"
+        },
+        {
+            q: "170. 關於網路位址轉譯（Network Address Translation, NAT），下列哪些正確？",
+            options: ["①可減少使用之公共 IP 位址", "②增強網路的安全性", "③增加連上網路的速度", "④降低使用通道的複雜度"],
+            ans: [1],
+            exp: "NAT 讓內網多台電腦共用一個對外 IP，節省了公有 IP 且隱藏內網結構具防火牆效果。但轉換過程會消耗路由器 CPU，微幅增加延遲，並「增加」了點對點通訊協定的複雜度。"
+        },
+        {
+            q: "171. 關於分封交換網路，下列哪些不正確？",
+            options: ["①需要固定的永久連線", "②傳送封包的網路無法共享", "③不易受抖動（Jitter）影響", "④封包無法經過多台路由器"],
+            ans: [1, 3],
+            exp: "分封交換(Packet Switching)像寄明信片，①不需固定連線(電路交換才需要)，②頻寬是由所有用戶「共享」，④封包在網際網路一定會經過多台路由器跳躍轉送。"
+        },
+        {
+            q: "172. 下列哪些選項不屬於資料通訊設備（Data Communications Equipment, DCE）？",
+            options: ["①數據機", "②路由器", "③乙太網路交換器", "④訊框中繼交換器"],
+            ans: [1-3],
+            exp: "傳統廣域網路定義中，DCE 指的是電信端提供的數據機或 CSU/DSU。路由器扮演 DTE (終端)，交換器是區域網路設備，訊框中繼交換器則是雲端骨幹設備。"
+        },
+        {
+            q: "173. 藍牙（Bluetooth）封包格式，包括下列哪幾個欄位？",
+            options: ["①存取碼（Access code）", "②序列號碼（SEQuence Number）", "③標頭（Header）", "④負載（Payload）"],
+            ans: [2, 3],
+            exp: "藍牙在空中傳送的基頻封包三大主結構為：存取碼(前方)、標頭(中間)、負載(後方)。②序列號碼(SEQN)是「包含在標頭內部」的一個微小位元，不屬於大結構欄位。"
+        },
+        {
+            q: "174. 藍牙（Bluetooth）之最大發射功率可分為哪幾種？",
+            options: ["①100mW（20dBm）", "②2.5mW（4dBm）", "③2.0mW（3dBm）", "④1mW（0dBm）"],
+            ans: [1, 3],
+            exp: "藍牙發射功率分三級：Class 1(100mW/100公尺)、Class 2(2.5mW/10公尺, 最常見)、Class 3(1mW/1公尺)。規範中沒有 2.0mW 這一級。"
+        },
+        {
+            q: "175. IEEE 802.15.4 標準之主要優點為何？",
+            options: ["①固定的資料潛伏期（Data latency）", "②具備彈性的網路架構", "③低複雜度的軟硬體設計架構", "④支援不同的資料傳輸安全層級"],
+            ans: [1-3],
+            exp: "802.15.4 (ZigBee底層) 專為低功耗物聯網設計，硬體簡單、拓撲彈性且安全。但一般在 CSMA/CA 競爭模式下，封包的潛伏期(延遲時間)是變動的，並非固定。"
+        },
+        {
+            q: "176. ZigBee 網路裝置包含下列哪些主要角色？",
+            options: ["①協調器（Coordinator）", "②路由器（Router）", "③終端裝置（End Device）", "④控制器（Controller）"],
+            ans: [1, 2],
+            exp: "ZigBee 設備依能力劃分為三種：ZC(協調器，負責建網)、ZR(路由器，轉發延伸)、ZED(終端裝置，只收資料可休眠省電)。無控制器角色。"
+        },
+        {
+            q: "177. 下列何者為 IEEE 802.15.4 實體層之主要功能？",
+            options: ["①啟動及停止無線電收發器", "②建立通道", "③儲存能量", "④傳送及接收封包"],
+            ans: [3],
+            exp: "實體層(PHY)最基礎的工作就是開關硬體無線電晶片，以及實際負責電磁波(封包位元)的空中收發。②建立通道是 MAC 層的協商工作。"
+        },
+        {
+            q: "178. IEEE 802.15.4 實體層訊框（PHY frame）包含下列哪些欄位？",
+            options: ["①同步標頭（Synchronization header）", "②實體層標頭（PHY header）", "③實體層資料承載（PHY payload）", "④邏輯鏈結（Logical link）"],
+            ans: [1, 2],
+            exp: "實體層訊框依序為 SHR(同步前導碼)、PHR(指示長度的標頭)、PSDU(實際負載資料)。④邏輯鏈結(LLC)是屬於 OSI 第二層上半部，無關實體層。"
+        },
+        {
+            q: "179. IEEE 802.15.4 之 Superframe 架構係由 Beacon 中的兩參數（Beacon Order, BO）與（Superframe Order, SO）控制，下列哪些正確？",
+            options: ["①BO 無法決定 Superframe 的長度", "②SO 決定 Superframe 中活躍部分（Active portion）的長度", "③BO 與 SO 滿足不等式：0≦SO≦BO≦14", "④當 SO=15 時，可使用 Superframe 架構"],
+            ans: [1, 2],
+            exp: "①BO 正是決定整個 Superframe 總週期長度的參數。②SO 決定清醒活躍的時間。③邏輯上活躍期不能大於總週期，最大值為14。④規範明定 SO/BO=15 時代表「不使用」超訊框架構。"
+        },
+        {
+            q: "180. 無線隨意網路（Wireless Ad Hoc Network）之主動式路由協定，主要使用下列哪些路由方法？",
+            options: ["①距離向量（Distance vector）", "②動態來源路由（Dynamic source routing）", "③區域路由（Zone routing）", "④鏈結狀態（Link state）"],
+            ans: [3],
+            exp: "「主動式」會平時就建好整張地圖，如 DSDV (基於距離向量) 與 OLSR (基於鏈結狀態)。②DSR 為需要才找路的「被動/反應式」。③ZRP 為混合式。"
+        },
+        {
+            q: "181. 光在光纖傳遞過程中，訊號逐漸擴散重疊而變寬的色散現象（Chromatic dispersion），主要包含下列哪幾種？",
+            options: ["①模態色散（Modal dispersion）", "②零色散（Zero dispersion）", "③波導色散（Waveguide dispersion）", "④材料色散（Material dispersion）"],
+            ans: [2, 3],
+            exp: "色散的實體成因有：多模光纖的①模態色散、單模光纖主要受幾何結構造成的③波導色散，以及石英玻璃本身折射率差異造成的④材料色散。②零色散是一種理想狀態，非色散成因。"
+        },
+        {
+            q: "182. 光纖通訊系統至少需包含下列哪些主要構成實體？",
+            options: ["①發射器（Transmitter）", "②光纜（Fiber-optic cable）", "③接收器（Receiver）", "④橋接器（Bridge）"],
+            ans: [1, 2],
+            exp: "物理傳輸系統的三要素：發出訊號的發射器(電轉光)、傳遞訊號的媒介光纜、接收訊號的接收器(光轉電)。橋接器是 Layer 2 交換設備，並非光纖傳輸的底層必備實體。"
+        },
+        {
+            q: "183. 下列哪些是酒廠模型中機器對機器（M2M）互動的範例？",
+            options: ["①溫度和容量感應器警示釀酒師一桶酒的狀態", "②灌裝感應器感應裝瓶已滿時，通知控制器將酒瓶推出輸送機", "③發酵罐溫度感應器控制加熱器以維持發酵溫度", "④釀酒師就葡萄採收時間與果農協同合作"],
+            ans: [1, 2],
+            exp: "M2M(機器對機器)強調設備自動化溝通，完全「無人類介入」。②感應器通知推酒機、③感應器控制加熱器，皆為純機器互動。①與④牽涉釀酒師/果農，非純 M2M。"
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    
+    // 記錄使用者的答題狀態
+    // 格式: null (未答) 或 { selected: [2], submitted: true }
+    let userAnswers = new Array(questions.length).fill(null); 
+    
+    // 暫存當前題目的勾選狀態
+    let currentSelection = []; 
+
+    const questionText = document.getElementById("question-text");
+    const optionsContainer = document.getElementById("options-container");
+    const feedbackContainer = document.getElementById("feedback-container");
+    const explanationText = document.getElementById("explanation-text");
+    const progressText = document.getElementById("progress-text");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const submitBtn = document.getElementById("submit-btn");
+
+    function loadQuestion(index) {
+        const qData = questions[index];
+        progressText.innerText = `題號： ${index + 1} / ${questions.length}`;
+        questionText.innerHTML = qData.q;
+        
+        feedbackContainer.style.display = "none";
+        optionsContainer.innerHTML = "";
+
+        // 讀取這題的答題紀錄
+        let isSubmitted = false;
+        if (userAnswers[index] !== null) {
+            isSubmitted = userAnswers[index].submitted;
+            currentSelection = [...userAnswers[index].selected];
+        } else {
+            currentSelection = [];
+        }
+
+        // 生成選項按鈕
+        qData.options.forEach((optText, i) => {
+            const btn = document.createElement("button");
+            btn.className = "option-btn";
+            btn.innerHTML = optText;
+            
+            if (isSubmitted) {
+                btn.disabled = true; // 鎖定
+                // 批改顏色標示
+                const isSelected = currentSelection.includes(i);
+                const isCorrectAns = qData.ans.includes(i);
+                
+                if (isSelected && isCorrectAns) {
+                    btn.classList.add("correct"); // 答對的選取
+                } else if (isSelected && !isCorrectAns) {
+                    btn.classList.add("incorrect"); // 選錯的干擾項
+                } else if (!isSelected && isCorrectAns) {
+                    btn.classList.add("missed"); // 漏選的正確答案
+                }
+            } else {
+                // 還沒送出，提供選取功能
+                if (currentSelection.includes(i)) {
+                    btn.classList.add("selected");
+                }
+                btn.onclick = () => toggleSelection(i, btn);
+            }
+            optionsContainer.appendChild(btn);
+        });
+
+        // 按鈕與解析顯示邏輯
+        if (isSubmitted) {
+            submitBtn.style.display = "none";
+            explanationText.innerHTML = qData.exp;
+            feedbackContainer.style.display = "block";
+        } else {
+            submitBtn.style.display = "block";
+        }
+
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === questions.length - 1;
+    }
+
+    function toggleSelection(i, btn) {
+        const idx = currentSelection.indexOf(i);
+        if (idx > -1) {
+            currentSelection.splice(idx, 1);
+            btn.classList.remove("selected");
+        } else {
+            currentSelection.push(i);
+            btn.classList.add("selected");
+        }
+    }
+
+    function submitAnswer() {
+        if (currentSelection.length === 0) {
+            alert("請至少選擇一個選項再送出喔！");
+            return;
+        }
+
+        const qData = questions[currentQuestionIndex];
+        
+        // 記錄為已送出
+        userAnswers[currentQuestionIndex] = {
+            selected: [...currentSelection],
+            submitted: true
+        };
+
+        const btns = optionsContainer.getElementsByClassName("option-btn");
+        
+        // 批改動畫與標示
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].disabled = true; // 鎖定按鈕
+            btns[i].classList.remove("selected"); // 移除預設的藍色選取狀態
+            
+            const isSelected = currentSelection.includes(i);
+            const isCorrectAns = qData.ans.includes(i);
+            
+            if (isSelected && isCorrectAns) {
+                btns[i].classList.add("correct");
+            } else if (isSelected && !isCorrectAns) {
+                btns[i].classList.add("incorrect");
+            } else if (!isSelected && isCorrectAns) {
+                btns[i].classList.add("missed");
+            }
+        }
+
+        // 隱藏送出紐，顯示解析
+        submitBtn.style.display = "none";
+        explanationText.innerHTML = qData.exp;
+        feedbackContainer.style.display = "block";
+    }
+
+    function prevQuestion() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion(currentQuestionIndex);
+        }
+    }
+
+    function nextQuestion() {
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion(currentQuestionIndex);
+        }
+    }
+
+    // 初始化載入第一題
+    loadQuestion(0);
+
+</script>
+
+</body>
+</html>
