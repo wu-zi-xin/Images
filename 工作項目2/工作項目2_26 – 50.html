@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作項目02 (26-50題)</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px 10px; line-height: 1.6; }
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+.header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+.toggle-btn { background-color: #27ae60; color: white; border: none; padding: 10px 20px; font-size: 1em; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-weight: bold; margin-bottom: 10px; }
+.toggle-btn:hover { background-color: #219150; }
+.card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+.card { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); border: 1px solid #eaeaea; position: relative; }
+.theme-badge { display: inline-block; background-color: #e8f4fd; color: #2980b9; padding: 5px 12px; border-radius: 20px; font-size: 0.9em; font-weight: bold; margin-bottom: 15px; border: 1px solid #b3d7f2; }
+.question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+.options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.option { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; color: #555; font-size: 1.05em; border-left: 3px solid #cbd5e1; }
+details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+summary { background: #3498db; color: #ffffff; padding: 12px; font-weight: bold; font-size: 1.05em; text-align: center; cursor: pointer; list-style: none; transition: background 0.3s; }
+summary:hover { background: #2980b9; }
+summary::-webkit-details-marker { display: none; }
+.answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+.answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+.comprehensive-exp { background: #eef2f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #34495e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+.comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+.explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+.exp-subtitle { color: #2c3e50; font-weight: bold; margin-bottom: 10px; display: block; border-bottom: 1px dashed #cbd5e1; padding-bottom: 3px; }
+.opt-list { margin: 0; padding-left: 0; list-style: none; }
+.opt-list li { margin-bottom: 8px; background: #ffffff; padding: 10px; border-radius: 6px; border-left: 4px solid #3498db; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+.wrong-opt { border-left-color: #e74c3c !important; }
+@media (max-width: 600px) { .card { padding: 15px; } .header h1 { font-size: 1.5em; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級 工作項目 02：作業準備 (26-50題)</h1>
+    <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 26 -->
+    <div class="card">
+        <span class="theme-badge">主題：總配線箱容量規格</span>
+        <div class="question">26. 依據「建築物屋內外電信設備設置技術規範」規定，總配線箱最小型號 A-04-1，於用戶側單獨收容端子之對數為？</div>
+        <div class="options">
+            <div class="option">① 20 對</div>
+            <div class="option">② 40 對</div>
+            <div class="option">③ 50 對</div>
+            <div class="option">④ 60 對</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>總配線箱（A系列箱體）是建築物電信設備中作為連接外部與內部的樞紐。其中 A-04-1 是最小型的規格，法規明訂其在用戶側單獨收容端子的標準容量下限為 40對。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 20 對：容量過小，通常小型透天接線盒才會使用此對數，不符A-04-1標準。</li>
+                    <li class="correct-opt">② 40 對：正確。A-04-1型箱體的標準用戶側收容容量。</li>
+                    <li class="wrong-opt">③ 50 對：非A-04-1型的標準容量（這通常是 B-54 型主配線箱的容量）。</li>
+                    <li class="wrong-opt">④ 60 對：不符此型號標準。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 27 -->
+    <div class="card">
+        <span class="theme-badge">主題：總配線箱材質與構造</span>
+        <div class="question">27. 依據「建築物屋內外電信設備設置技術規範」規定，關於總配線箱材質，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 應採用至少 1.6 mm以上厚度經防銹面漆處理之鐵板或不銹鋼板製造</div>
+            <div class="option">② 應附裝活葉式箱門</div>
+            <div class="option">③ 應附裝啟閉門栓把手</div>
+            <div class="option">④ 應使用防火塑膠門</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>總配線箱主要用於收容重要通訊設備，需具備高度防護、結構強度與防焰能力。規範嚴格要求箱體包含箱門都須由至少 1.6mm 厚的金屬板（鐵板或不銹鋼板）製成，嚴禁使用結構脆弱的防火塑膠門。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 敘述正確。1.6mm 厚的金屬板為確保結構不變形與防護的基本要求。</li>
+                    <li class="wrong-opt">② 敘述正確。活葉式箱門方便工程人員開啟與維護。</li>
+                    <li class="wrong-opt">③ 敘述正確。啟閉門栓把手為確保箱門可正常鎖固的必備硬體。</li>
+                    <li class="correct-opt">④ 不正確。為確保整體機械強度與防護等級，不應採用塑膠門。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 28 -->
+    <div class="card">
+        <span class="theme-badge">主題：總配線箱箱內底面規定</span>
+        <div class="question">28. 依據「建築物屋內外電信設備設置技術規範」規定，關於總配線箱箱內底面，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 須裝設與底面積相當之底板</div>
+            <div class="option">② 須裝設活動底板</div>
+            <div class="option">③ 須裝設不可燃性之底板</div>
+            <div class="option">④ 須裝設固定底板</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>總配線箱的底面（背板）是用來牢固鎖附端子板及各式電信元件的。若底板不穩固，在插拔線纜或打線時會造成設備晃動，因此必須裝設固定且不可燃的底板，絕不能使用「活動底板」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 敘述正確。底板面積須與箱底相當以提供足夠安裝空間。</li>
+                    <li class="correct-opt">② 不正確。不能裝設容易晃動的活動底板，必須為固定式。</li>
+                    <li class="wrong-opt">③ 敘述正確。基於消防與電氣安全，底板材質必須為不可燃性。</li>
+                    <li class="wrong-opt">④ 敘述正確。底板必須牢加固定在箱體背部。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 29 -->
+    <div class="card">
+        <span class="theme-badge">主題：主配線箱容量規格</span>
+        <div class="question">29. 依據「建築物屋內外電信設備設置技術規範」規定，種類為 B-54 之主配線箱，其單獨收容端子之對數為？</div>
+        <div class="options">
+            <div class="option">① 10 對</div>
+            <div class="option">② 30 對</div>
+            <div class="option">③ 50 對</div>
+            <div class="option">④ 70 對</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>主配線箱（B系列）有多種型號以對應不同樓層或區塊的容量需求。依據技術規範標準，型號 B-54 主配線箱的設計就是用來單獨收容 50對 的端子。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 10 對：容量過低，屬小型出線匣或宅內箱。</li>
+                    <li class="wrong-opt">② 30 對：不符 B-54 規範之容量。</li>
+                    <li class="correct-opt">③ 50 對：正確。為 B-54 型號的標準收容端子對數。</li>
+                    <li class="wrong-opt">④ 70 對：容量超出 B-54 標準。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 30 -->
+    <div class="card">
+        <span class="theme-badge">主題：主配線箱內部尺寸</span>
+        <div class="question">30. 依據「建築物屋內外電信設備設置技術規範」規定，種類為 B-54 之主配線箱，其內部寬度為？</div>
+        <div class="options">
+            <div class="option">① 24 cm</div>
+            <div class="option">② 48 cm</div>
+            <div class="option">③ 56 cm</div>
+            <div class="option">④ 72 cm</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為了妥善容納 50對端子區塊，並保留足夠的兩側線纜迴轉與施工打線空間，規範對於 B-54 型主配線箱制定了嚴格的尺寸標準，其內部寬度必須達到 56 cm。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 24 cm：尺寸太窄，無法容納 50對端子板及雙側走線。</li>
+                    <li class="wrong-opt">② 48 cm：略窄，不符合 B-54 規範定值。</li>
+                    <li class="correct-opt">③ 56 cm：正確。為 B-54 主配線箱的法定內部寬度標準。</li>
+                    <li class="wrong-opt">④ 72 cm：尺寸過大，通常對應更大容量型號的箱體。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 31 -->
+    <div class="card">
+        <span class="theme-badge">主題：主配線箱收容管數</span>
+        <div class="question">31. 依據「建築物屋內外電信設備設置技術規範」規定，種類為 B-54 之主配線箱，其收容垂直管數量為？</div>
+        <div class="options">
+            <div class="option">① 1 管</div>
+            <div class="option">② 2 管</div>
+            <div class="option">③ 3 管</div>
+            <div class="option">④ 4 管</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>B-54 主配線箱位於大樓的主幹路徑上，必須承接來自總配線架的上行纜線、通往其他樓層的下行纜線，以及預留擴充備用管路。因此，規範要求其箱體必須具備收容 4管 垂直管的開孔與空間能力。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 1 管：數量嚴重不足以應付主幹上下行與備用需求。</li>
+                    <li class="wrong-opt">② 2 管：不符規範最低管數要求，缺乏擴充彈性。</li>
+                    <li class="wrong-opt">③ 3 管：不符 B-54 箱體的標準設計。</li>
+                    <li class="correct-opt">④ 4 管：正確。為 B-54 箱體垂直管收容的標準數量規定。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 32 -->
+    <div class="card">
+        <span class="theme-badge">主題：主配線箱容量規格</span>
+        <div class="question">32. 依據「建築物屋內外電信設備設置技術規範」規定，種類為 B-12 之主配線箱，其單獨收容端子之對數為？</div>
+        <div class="options">
+            <div class="option">① 8 對</div>
+            <div class="option">② 10 對</div>
+            <div class="option">③ 12 對</div>
+            <div class="option">④ 20 對</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>主配線箱（B系列）會依據不同空間的需求設計不同容量的型號。B-12 型為較小容量之配線箱，依據技術規範標準，其用戶側單獨收容端子之標準對數為 10 對。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 8 對：無此標準容量。</li>
+                    <li class="correct-opt">② 10 對：正確。B-12 型號箱體的標準收容容量。</li>
+                    <li class="wrong-opt">③ 12 對：容易被型號「12」誤導，實際上並非指 12 對。</li>
+                    <li class="wrong-opt">④ 20 對：容量較大，對應其他型號的箱體。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 33 -->
+    <div class="card">
+        <span class="theme-badge">主題：主配線箱內部尺寸</span>
+        <div class="question">33. 依據「建築物屋內外電信設備設置技術規範」規定，種類為 B-12 之主配線箱，其內部寬度為？</div>
+        <div class="options">
+            <div class="option">① 20cm</div>
+            <div class="option">② 30cm</div>
+            <div class="option">③ 38cm</div>
+            <div class="option">④ 48cm</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為了配合收容 10 對端子模塊並保留雙側打線與走線的施作空間，技術規範明定 B-12 型主配線箱的內部寬度必須為 30 公分 (cm)。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 20cm：寬度過窄，不利於線纜的彎曲與維護。</li>
+                    <li class="correct-opt">② 30cm：正確。為 B-12 型主配線箱法定內部寬度。</li>
+                    <li class="wrong-opt">③ 38cm：屬於較大容量配線箱的寬度。</li>
+                    <li class="wrong-opt">④ 48cm：屬於大型配線箱的寬度規格。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 34 -->
+    <div class="card">
+        <span class="theme-badge">主題：主配線箱收容管數</span>
+        <div class="question">34. 依據「建築物屋內外電信設備設置技術規範」規定，種類為 B-12 之主配線箱，其收容垂直管數量為？</div>
+        <div class="options">
+            <div class="option">① 1 管</div>
+            <div class="option">② 2 管</div>
+            <div class="option">③ 3 管</div>
+            <div class="option">④ 4 管</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>B-12 箱體通常用於單一樓層或較小區塊的分線點。為了應付主幹進出並保持至少一條備用管路的彈性，規範要求其箱體設計能收容的垂直管數量為 2 管。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 1 管：無法滿足一用一備的基本管路擴充需求。</li>
+                    <li class="correct-opt">② 2 管：正確。為 B-12 箱體垂直幹管的標準收容數量。</li>
+                    <li class="wrong-opt">③ 3 管：不符 B-12 箱體設計。</li>
+                    <li class="wrong-opt">④ 4 管：對應容量較大的主配線箱（如 B-54 型）的開孔數。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 35 -->
+    <div class="card">
+        <span class="theme-badge">主題：地下電纜引進管容量</span>
+        <div class="question">35. 依據「建築物屋內外電信設備設置技術規範」規定，地下電纜引進管管徑 41 ㎜(1 1/2 〞)，引進線纜最多對數為？</div>
+        <div class="options">
+            <div class="option">① 20 對</div>
+            <div class="option">② 30 對</div>
+            <div class="option">③ 50 對</div>
+            <div class="option">④ 100 對</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>引進管的管徑決定了能穿過的電纜粗細，必須考量到穿線率，以免拉斷線纜。依技術規範，管徑 41 mm (1.5 吋) 的地下引進管，其安全容許的最多引進線纜對數為 30 對。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 20 對：低於該管徑的容許上限。</li>
+                    <li class="correct-opt">② 30 對：正確。41 mm 管徑的安全引進對數上限。</li>
+                    <li class="wrong-opt">③ 50 對：線徑過大，容易在 41mm 管內卡死。</li>
+                    <li class="wrong-opt">④ 100 對：需使用更粗的管路才能容納。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 36 -->
+    <div class="card">
+        <span class="theme-badge">主題：地下電纜引進管容量</span>
+        <div class="question">36. 依據「建築物屋內外電信設備設置技術規範」規定，地下電纜引進管管徑 52 ㎜(2〞)，引進線纜最多對數為？</div>
+        <div class="options">
+            <div class="option">① 20 對</div>
+            <div class="option">② 50 對</div>
+            <div class="option">③ 200 對</div>
+            <div class="option">④ 300 對</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當建築物所需的通信對數較大時，必須選用更大的引進管。管徑為 52 mm (2 吋) 的地下電纜引進管，規範明定其容許的最多引進線纜對數大幅提升至 200 對。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 20 對：遠低於管徑容許上限。</li>
+                    <li class="wrong-opt">② 50 對：遠低於管徑容許上限。</li>
+                    <li class="correct-opt">③ 200 對：正確。52 mm (2吋) 管徑的最大引進對數規範。</li>
+                    <li class="wrong-opt">④ 300 對：超出 52 mm 管徑的安全穿線率，需更粗的管徑。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 37 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纜引進管管徑限制</span>
+        <div class="question">37. 依據「建築物屋內外電信設備設置技術規範」規定，引進光纜之心數超過 96 心者，其引進管管徑應採？</div>
+        <div class="options">
+            <div class="option">① 28 ㎜(1〞)</div>
+            <div class="option">② 41 ㎜(1 1/2 〞)</div>
+            <div class="option">③ 52 ㎜(2〞)</div>
+            <div class="option">④ 80 ㎜(3〞)</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>光纜由於內部材質為玻璃纖維，對彎曲半徑與拉伸應力極為敏感。若引進的光纜總心數超過 96 心，線纜外徑較粗且較硬，為確保佈纜安全，技術規範強制要求引進管徑至少應採用 52 mm (2 吋)。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 28 ㎜(1〞)：管徑過小，佈放 96 心光纜易造成折損。</li>
+                    <li class="wrong-opt">② 41 ㎜(1.5〞)：適用於心數較少的光纜。</li>
+                    <li class="correct-opt">③ 52 ㎜(2〞)：正確。超過 96 心光纜的法定最低要求管徑。</li>
+                    <li class="wrong-opt">④ 80 ㎜(3〞)：為更大型多主幹佈纜才會用到的超大管徑。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 38 -->
+    <div class="card">
+        <span class="theme-badge">主題：電信插座安裝高度</span>
+        <div class="question">38. 依據「建築物屋內外電信設備設置技術規範」規定，直式電信插座（JACK），離地板高度應為？</div>
+        <div class="options">
+            <div class="option">① 30 ㎝</div>
+            <div class="option">② 80 ㎝</div>
+            <div class="option">③ 120 ㎝</div>
+            <div class="option">④ 130 ㎝</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>一般資訊或電話插座常設於踢腳板上方（約離地 30cm）。但「直式電信插座」專指設計用來掛載壁掛式電話機的接線座，為了配合一般成人站立時視線與手部操作的高度，規範要求其離地板高度應為 130 公分。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 30 ㎝：這是一般橫式、低位資訊/電力插座的高度。</li>
+                    <li class="wrong-opt">② 80 ㎝：高度不符，非壁掛電話操作最適高度。</li>
+                    <li class="wrong-opt">③ 120 ㎝：高度略低，不符規範之標準。</li>
+                    <li class="correct-opt">④ 130 ㎝：正確。直式壁掛電信插座的標準安裝高度。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 39 -->
+    <div class="card">
+        <span class="theme-badge">主題：總配線架容量命名規則</span>
+        <div class="question">39. 依據「建築物屋內外電信設備設置技術規範」規定，總配線架（MDF）之設置容量，應依引進電纜對數（或稱經營者引進電纜容量）和配線對數設計，選用適當型式之總配線架，MDF-6 型式引進對數為？</div>
+        <div class="options">
+            <div class="option">① 400 對</div>
+            <div class="option">② 600 對</div>
+            <div class="option">③ 1200 對</div>
+            <div class="option">④ 2000 對</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>總配線架 (MDF) 是電信機房的核心設備。在國內的電信規範中，MDF 的型號命名數字與其「引進電纜對數」容量有直接關係。因此，MDF-6 型式就代表其設計之引進電纜端子容量為 600 對。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 400 對：對應更小型的配線設備。</li>
+                    <li class="correct-opt">② 600 對：正確。MDF-6 名稱中的「6」即代表 600 對容量。</li>
+                    <li class="wrong-opt">③ 1200 對：這是 MDF-12 的容量。</li>
+                    <li class="wrong-opt">④ 2000 對：這是 MDF-20 的容量。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 40 -->
+    <div class="card">
+        <span class="theme-badge">主題：總配線架(MDF)縱架數</span>
+        <div class="question">40. 依據「建築物屋內外電信設備設置技術規範」規定，總配線架（MDF）之設置容量，應依引進電纜對數（或稱經營者引進電纜容量）和配線對數設計，選用適當型式之總配線架，MDF-6 型式選用單側 MDF 時所需縱架數為？</div>
+        <div class="options">
+            <div class="option">① 3 架</div>
+            <div class="option">② 4 架</div>
+            <div class="option">③ 5 架</div>
+            <div class="option">④ 8 架</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>大型建築物的總配線架（MDF）設計需考量端子的排列密度與跳線管理。MDF-6 型式在採用單側配置（僅使用機架的單面安裝端子）時，為提供足夠的收容與跳線整理空間，法定需求為 5架 縱架。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 3 架：縱架數量不足，無法容納 MDF-6 的端子量。</li>
+                    <li class="wrong-opt">② 4 架：縱架數量不足。</li>
+                    <li class="correct-opt">③ 5 架：正確。為 MDF-6 型單側配置的標準縱架數量。</li>
+                    <li class="wrong-opt">④ 8 架：數量超出 MDF-6 單側配置之標準。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 41 -->
+    <div class="card">
+        <span class="theme-badge">主題：總配線架(MDF)引進對數</span>
+        <div class="question">41. 依據「建築物屋內外電信設備設置技術規範」規定，總配線架（MDF）之設置容量，應依引進電纜對數（或稱經營者引進電纜容量）和配線對數設計，選用適當型式之總配線架，MDF-36 型式引進對數為？</div>
+        <div class="options">
+            <div class="option">① 2400 對</div>
+            <div class="option">② 8600 對</div>
+            <div class="option">③ 7200 對</div>
+            <div class="option">④ 3600 對</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在電信規範中，MDF 的型號命名通常與其容納對數（容量）存在直接的邏輯關聯，MDF-36 型式所對應的引進電纜容量標準即為 3600對，以此類推。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 2400 對：對應較小型的 MDF（如 MDF-24）。</li>
+                    <li class="wrong-opt">② 8600 對：超出 MDF-36 之容量。</li>
+                    <li class="wrong-opt">③ 7200 對：超出 MDF-36 之容量。</li>
+                    <li class="correct-opt">④ 3600 對：正確。MDF-36 型號代表的引進對數即為 3600對。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 42 -->
+    <div class="card">
+        <span class="theme-badge">主題：光終端配線架機櫃型式</span>
+        <div class="question">42. 依據「建築物屋內外電信設備設置技術規範」規定，光終端配線架之機櫃區分為？</div>
+        <div class="options">
+            <div class="option">① 機架型與組合型</div>
+            <div class="option">② 組合型與壁掛型</div>
+            <div class="option">③ 壁掛式與地板型</div>
+            <div class="option">④ 落地型與壁掛式</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>光終端配線架（OLDF）因應不同電信室空間與光纜對數的需求，其機櫃在外觀與安裝方式上，法規明確將其區分為置於地面的「落地型」（適合機房/電信室等大容量情境）與懸掛於牆面的「壁掛式」（適合各樓層或小容量情境）兩種標準型式。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 機架型與組合型：非光終端配線架專屬的法定兩大分類。</li>
+                    <li class="wrong-opt">② 組合型與壁掛型：分類名稱不精確。</li>
+                    <li class="wrong-opt">③ 壁掛式與地板型：「地板型」並非法定標準用詞，規範上稱為「落地型」。</li>
+                    <li class="correct-opt">④ 落地型與壁掛式：正確。為光終端配線架的兩種標準安裝機櫃型式。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 43 -->
+    <div class="card">
+        <span class="theme-badge">主題：住宅建築電信線對數估計</span>
+        <div class="question">43. 依據「建築物屋內外電信設備設置技術規範」規定，建築物用途為住宅用（含透天式獨戶店鋪、透天式獨戶住宅）建築，未引進光纜建築物之電纜線對數，其電纜電信線對數估計係數值為？</div>
+        <div class="options">
+            <div class="option">① 0.01p/m²</div>
+            <div class="option">② 0.02p/m²</div>
+            <div class="option">③ 0.03p/m²</div>
+            <div class="option">④ 0.04p/m²</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在傳統銅纜佈線規劃中，為了保障住宅用戶的通話與基本寬頻（ADSL/VDSL）擴充需求，規範對於純住宅用建築（未引進光纜者），規定其電纜對數估計的基準係數為每平方公尺 0.03對（0.03p/m²），以便建商預留足夠容量的管線與配線箱。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 0.01p/m²：係數過低，容易造成日後擴充時無空線可用的窘境。</li>
+                    <li class="wrong-opt">② 0.02p/m²：低於法規對住宅的安全估計下限。</li>
+                    <li class="correct-opt">③ 0.03p/m²：正確。住宅用建築的電信線對數標準估計係數值。</li>
+                    <li class="wrong-opt">④ 0.04p/m²：通常對應通訊需求更高的商辦大樓或特定營業場所。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 44 -->
+    <div class="card">
+        <span class="theme-badge">主題：宅內配線系統架構</span>
+        <div class="question">44. 依據「建築物屋內外電信設備設置技術規範」規定，下列何者不是宅內配線系統架構之配線方式？</div>
+        <div class="options">
+            <div class="option">① 一般宅內配線</div>
+            <div class="option">② 多使用者出線匣配線</div>
+            <div class="option">③ 集中轉接點配線</div>
+            <div class="option">④ 間接接續配線</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>宅內配線（Horizontal Cabling）是負責將樓層配線架網路連接到各工作區資訊插座的系統。法規所列之標準配線架構包含：星狀的「一般宅內配線」、適合開放辦公區的「多使用者出線匣 (MUTOA) 配線」，以及提供彈性區域重劃的「集中轉接點 (CP) 配線」。「間接接續配線」並不存在於宅內配線的專有名詞定義中。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 一般宅內配線：為規範內最標準的一對一星狀佈線方式。</li>
+                    <li class="wrong-opt">② 多使用者出線匣配線：為開放式辦公空間常見的標準配線法。</li>
+                    <li class="wrong-opt">③ 集中轉接點配線：為提供彈性佈線，允許線路中繼的標準架構之一。</li>
+                    <li class="correct-opt">④ 間接接續配線：不正確。非規範內之法定宅內配線方式名稱。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 45 -->
+    <div class="card">
+        <span class="theme-badge">主題：主幹配線預留長度</span>
+        <div class="question">45. 依據「建築物屋內外電信設備設置技術規範」規定，採對絞型數據電纜作為主幹配線，佈放時兩端應預留多少距離？</div>
+        <div class="options">
+            <div class="option">① 30cm</div>
+            <div class="option">② 25cm</div>
+            <div class="option">③ 20cm</div>
+            <div class="option">④ 15cm</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>雙絞線電纜（如 Cat 5e/Cat 6）在進行端接（Punch down）至資訊插座或配線架時，需要撥除外皮並將心線分配打入端子模塊。為了方便工程人員施工、減少線路拉扯應力，以及提供未來若需剪除重打線的餘裕長度，規範嚴格要求佈放時兩端應至少預留 30cm 的距離。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 30cm：正確。為法規要求確保施工品質的標準預留長度。</li>
+                    <li class="wrong-opt">② 25cm：預留略嫌不足。</li>
+                    <li class="wrong-opt">③ 20cm：預留過短，二次施工容易發生長度不夠的狀況。</li>
+                    <li class="wrong-opt">④ 15cm：預留太短，端接打線施工時會非常困難且易拉扯受損。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 46 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖接續作業注意事項</span>
+        <div class="question">46. 依據「建築物屋內外電信設備設置技術規範」規定，關於光纖配接線接續作業應注意事項，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 應注意使切面平滑及垂直</div>
+            <div class="option">② 接續場所嚴禁煙火</div>
+            <div class="option">③ 單模多模光纜可混用</div>
+            <div class="option">④ 嚴禁使用去漬油、柴油清洗裸光纖</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>單模光纖 (SM, 核心約 9μm) 和多模光纖 (MM, 核心約 50μm 或 62.5μm) 的核心直徑與內部折射率設計完全不同，若將兩者強制熔接或對接，光信號在介面處會產生極嚴重的散射與巨大衰減，導致網路斷線。因此兩種光纖絕對不可混用。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 敘述正確。光纖切斷面必須保持絕對平滑與垂直，是確保熔接或接續品質的關鍵。</li>
+                    <li class="wrong-opt">② 敘述正確。光纖清潔時需使用高純度酒精，其具高度易燃性，故現場嚴禁煙火。</li>
+                    <li class="correct-opt">③ 不正確。單模與多模光纖物理特性不同，嚴禁混用。</li>
+                    <li class="wrong-opt">④ 敘述正確。必須使用專用無水酒精清潔，去漬油或柴油含有雜質，會嚴重汙染破壞光纖。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 47 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纖接續後處理注意事項</span>
+        <div class="question">47. 依據「建築物屋內外電信設備設置技術規範」規定，關於光纖接續後之處理，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 將接好之光纖盤繞於收容盒，將接續點置於槽流內</div>
+            <div class="option">② 依序將接好之光纖及接續點固定於收容盒</div>
+            <div class="option">③ 無須依原設計方式固定收容盒</div>
+            <div class="option">④ 將收容盒蓋上，不可壓到光纖</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>裸光纖在接續後極為脆弱，且對彎曲半徑（Bending Radius）有嚴格限制以防止光洩漏。接續完成後，光纖收容盒必須嚴格「依原設計方式」或製造商規範妥善固定，若隨意安置極易導致光纖受到環境震動擠壓而斷裂，或產生微彎損耗。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 敘述正確。接續後須依規定盤繞並妥善安置接續保護套管。</li>
+                    <li class="wrong-opt">② 敘述正確。接續點與光纖盤繞圈均須固定以防扯動。</li>
+                    <li class="correct-opt">③ 不正確。必須嚴格依照原設計方式與規範確實固定收容盒，不可隨意放置。</li>
+                    <li class="wrong-opt">④ 敘述正確。蓋上收容盒時必須仔細檢查，避免夾傷光纖造成永久損壞。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 48 -->
+    <div class="card">
+        <span class="theme-badge">主題：主幹配線設計原則</span>
+        <div class="question">48. 依據「建築物屋內外電信設備設置技術規範」規定，關於主幹配線設計原則，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 建築物內主幹線纜之對數，依各層樓主配線箱之配線對數之累計值設計</div>
+            <div class="option">② PE-PVC 電纜配線方式，原則上自底層開始依心線編號順序連續配接，不得重複</div>
+            <div class="option">③ 主幹線纜應順序編號，按電纜配接至 MDF（或總配線箱）內之順序排列</div>
+            <div class="option">④ 每一區分所有權之主出線匣須註明對數及電纜編號</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在建築物垂直主幹電纜的配接實務中，為確保心線編號管理的一致性、預防跳號，以及符合電信查修的邏輯，PE-PVC 電纜的配接原則上應從「頂層」開始往下依次編號連續配接，而非從底層開始。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 敘述正確。主幹線纜總對數是基於各樓層實際需求的累加值進行設計。</li>
+                    <li class="correct-opt">② 不正確。依規範，配接順序原則上應自「頂層」開始向下連續配接，不可由底層開始。</li>
+                    <li class="wrong-opt">③ 敘述正確。為利於維護管理，纜線必須有系統地順序編號並整齊排列。</li>
+                    <li class="wrong-opt">④ 敘述正確。標示清楚是後續維護、查修與責任劃分的基本要求。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 49 -->
+    <div class="card">
+        <span class="theme-badge">主題：垂直幹管設計原則</span>
+        <div class="question">49. 依據「建築物屋內外電信設備設置技術規範」規定，關於垂直幹管設計原則，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 垂直幹管每一路由至少須設計二管（含預備管一管）</div>
+            <div class="option">② 總管數最多六管（不含接地導線用 PVC 管或 CD/PF 管）</div>
+            <div class="option">③ 垂直幹管設計管數超過六管時，應設計電信專用管道間或於公共管道間內預留電信專用位置</div>
+            <div class="option">④ 建議光纜與其他電纜佈放於同一垂直幹管</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>光纜的外被覆與內部的玻璃纖維較為脆弱，如果與重量沉重的市話大對數銅纜或其他金屬電纜同管佈放，極易在穿線拉扯過程，或垂直懸垂的壓迫下被擠壓損壞斷裂。因此，規範強烈建議光纜應單獨穿管，不應與其他電纜混放於同一垂直幹管。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 敘述正確。至少兩管（一使用、一預備）是維持未來擴充彈性的基本標準。</li>
+                    <li class="wrong-opt">② 敘述正確。總配管數上限為六管，接地管路另計。</li>
+                    <li class="wrong-opt">③ 敘述正確。當需求過大（逾六管）時，單純配管已不敷使用，應升級為專用管道間處理。</li>
+                    <li class="correct-opt">④ 不正確。為保護脆弱的光纜，不應將光纜與沉重的金屬電纜佈放於同一管內。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 50 -->
+    <div class="card">
+        <span class="theme-badge">主題：垂直幹管設計原則</span>
+        <div class="question">50. 依據「建築物屋內外電信設備設置技術規範」規定，關於垂直幹管之設計，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 垂直幹管每一路由各層服務面積以不超過 990m²（300 坪）為原則</div>
+            <div class="option">② 路由型態自底樓至頂樓，原則上應採取垂直直通設計</div>
+            <div class="option">③ (原圖片截斷，選項文字缺失)</div>
+            <div class="option">④ (原圖片截斷，選項文字缺失，為本題標準答案)</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據電信技術規範，垂直幹管為維持網路與市話訊號的穩定涵蓋，單一路由的服務面積確實以 990平方公尺（約300坪）為規劃上限，超過則需增設路由。同時路由應盡量保持垂直以利穿線。因來源圖片於此題下半部被截斷，無法呈現選項③與④之完整文字，但依原官方題庫標準，選項④為該題設定之錯誤敘述。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 敘述正確。單一路由服務面積上限確實為 990m² (300坪)。</li>
+                    <li class="wrong-opt">② 敘述正確。幹管路由應盡可能保持垂直直通，減少彎折阻力。</li>
+                    <li class="wrong-opt">③ （圖片資料缺失，無法提供進一步解析）</li>
+                    <li class="correct-opt">④ （為本題官方標準答案之不正確敘述選項）</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<script>
+    let isExpanded = false;
+    function toggleAll() {
+        const detailsElements = document.querySelectorAll('.qa-details');
+        const toggleBtn = document.getElementById('toggleBtn');
+        isExpanded = !isExpanded;
+        detailsElements.forEach(detail => {
+            if (isExpanded) {
+                detail.setAttribute('open', '');
+            } else {
+                detail.removeAttribute('open');
+            }
+        });
+        if (isExpanded) {
+            toggleBtn.innerText = '收合所有解析';
+            toggleBtn.style.backgroundColor = '#e74c3c';
+        } else {
+            toggleBtn.innerText = '展開所有解析';
+            toggleBtn.style.backgroundColor = '#27ae60';
+        }
+    }
+</script>
+
+</body>
+</html>

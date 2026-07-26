@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作項目02 (76-100題)</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px 10px; line-height: 1.6; }
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+.header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+.toggle-btn { background-color: #27ae60; color: white; border: none; padding: 10px 20px; font-size: 1em; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-weight: bold; margin-bottom: 10px; }
+.toggle-btn:hover { background-color: #219150; }
+.card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+.card { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); border: 1px solid #eaeaea; position: relative; }
+.theme-badge { display: inline-block; background-color: #e8f4fd; color: #2980b9; padding: 5px 12px; border-radius: 20px; font-size: 0.9em; font-weight: bold; margin-bottom: 15px; border: 1px solid #b3d7f2; }
+.theme-badge.multiple { background-color: #fbeeb8; color: #d35400; border-color: #fde3a7; }
+.question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+.options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.option { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; color: #555; font-size: 1.05em; border-left: 3px solid #cbd5e1; }
+details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+summary { background: #3498db; color: #ffffff; padding: 12px; font-weight: bold; font-size: 1.05em; text-align: center; cursor: pointer; list-style: none; transition: background 0.3s; }
+summary:hover { background: #2980b9; }
+summary::-webkit-details-marker { display: none; }
+.answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+.answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+.comprehensive-exp { background: #eef2f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #34495e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+.comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+.explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+.exp-subtitle { color: #2c3e50; font-weight: bold; margin-bottom: 10px; display: block; border-bottom: 1px dashed #cbd5e1; padding-bottom: 3px; }
+.opt-list { margin: 0; padding-left: 0; list-style: none; }
+.opt-list li { margin-bottom: 8px; background: #ffffff; padding: 10px; border-radius: 6px; border-left: 4px solid #3498db; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+.wrong-opt { border-left-color: #e74c3c !important; }
+@media (max-width: 600px) { .card { padding: 15px; } .header h1 { font-size: 1.5em; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級 工作項目 02：作業準備 (76-100題)</h1>
+    <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 76 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纜引進規定</span>
+        <div class="question">76. 依據「建築物電信設備及空間設置使用管理規則」規定，何種新建建築物須引進光纜？</div>
+        <div class="options">
+            <div class="option">① 學校教職員宿舍</div>
+            <div class="option">② 單戶透天住宅</div>
+            <div class="option">③ 公有建築物</div>
+            <div class="option">④ 總樓地板面積在 1000m² 以下之商辦大樓</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為推動國家寬頻基礎建設（FTTH），法規強制要求具備特定規模或公共性質的「新建建築物」必須引進光纜。其中「公有建築物」無論面積大小，皆為法定的指標性建築，依法必須強制引進光纜配置。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 學校教職員宿舍：一般宿舍若未達特定規模或戶數，非強制規範對象。</li>
+                    <li class="wrong-opt">② 單戶透天住宅：單戶透天建築尚無強制引進光纜之絕對要求（視建商規劃）。</li>
+                    <li class="correct-opt">③ 公有建築物：正確。依法規明定新建公有建築物必須引進光纜。</li>
+                    <li class="wrong-opt">④ 總樓地板面積 1000m² 以下商辦大樓：商業大樓須達 1000 平方公尺「以上」才達強制門檻。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 77 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纜引進設備配置</span>
+        <div class="question">77. 依據「建築物電信設備及空間設置使用管理規則」規定，須引進光纜之建築物，非必要增設之設備為何？</div>
+        <div class="options">
+            <div class="option">① 光終端配線架</div>
+            <div class="option">② 用戶側光纜配線箱</div>
+            <div class="option">③ 宅內配線、出線匣及資訊插座等設備</div>
+            <div class="option">④ OTDR</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>引進光纜的建築物必須具備能收容、分配及終端連接光纖的硬體設備，如光終端配線架 (OLDF)、配線箱及宅內基礎線路。而 OTDR（光時域反射儀）是工程人員用來「測試光纖衰減與斷點」的電子測量儀器，它不是建築物內需長久安裝的固定電信設備。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 光終端配線架：必要設備，用於機房端收容外部光纜。</li>
+                    <li class="wrong-opt">② 用戶側光纜配線箱：必要設備，作為光纜進入各樓層/用戶的分配點。</li>
+                    <li class="wrong-opt">③ 宅內配線等設備：必要設備，為連接終端設備的基本基礎建設。</li>
+                    <li class="correct-opt">④ OTDR：正確。為測試儀器，並非建築物須增設之常駐設備。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 78 -->
+    <div class="card">
+        <span class="theme-badge">主題：電信管箱設備定義</span>
+        <div class="question">78. 依據「建築物屋內外電信設備設置技術規範」規定，下列何種設備不屬電信及有線廣播電視管箱設備？</div>
+        <div class="options">
+            <div class="option">① 總配線箱</div>
+            <div class="option">② 光終端配線架</div>
+            <div class="option">③ 光資訊插座</div>
+            <div class="option">④ 地板線槽</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在電信法規的專有名詞定義中，「管箱設備」指的是用來保護、收容與支撐線纜的硬體結構，如配線箱、金屬架、線槽與管路等。而「光資訊插座」屬於使用者連接設備的「配線（端點）設備」，並不歸類於基礎的「管箱設備」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 總配線箱：為典型的管箱（箱體）設備。</li>
+                    <li class="wrong-opt">② 光終端配線架：為大型的金屬支撐架構，歸類為管箱設備。</li>
+                    <li class="correct-opt">③ 光資訊插座：正確。為網路端點設備，非提供線路收容路徑的管箱設備。</li>
+                    <li class="wrong-opt">④ 地板線槽：為引導線路走向的實體槽路，屬於管箱設備。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 79 -->
+    <div class="card">
+        <span class="theme-badge">主題：公有建築物光纜設備</span>
+        <div class="question">79. 依據「建築物電信設備及空間設置使用管理規則」規定，公有建築物引進光纜，不須增設之電信設備為何？</div>
+        <div class="options">
+            <div class="option">① 光終端配線架</div>
+            <div class="option">② 配線箱間之光纜</div>
+            <div class="option">③ 用戶側光纜配線箱</div>
+            <div class="option">④ OTDR</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>此題與第 77 題概念完全相同。法規所規範應增設之「電信設備」皆指長期建置於建築物內以維持通訊運作的實體硬體。OTDR (Optical Time Domain Reflectometer) 為檢修與驗收用的攜帶式測試儀器，不屬於建築物固定設備。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 光終端配線架：引進光纜之機房必備設備。</li>
+                    <li class="wrong-opt">② 配線箱間之光纜：大樓內部光纖網路通訊必備之主幹線材。</li>
+                    <li class="wrong-opt">③ 用戶側光纜配線箱：提供終端分歧光纖的必備箱體。</li>
+                    <li class="correct-opt">④ OTDR：正確。屬於測試儀錶，非大樓須建置之設備。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 80 -->
+    <div class="card">
+        <span class="theme-badge">主題：總配線箱容量與光纖心數</span>
+        <div class="question">80. 依據「建築物屋內外電信設備設置技術規範」規定，A-4 總配線箱，其收容之端子數及用戶側光纜心數為何？</div>
+        <div class="options">
+            <div class="option">① 100/200P+24C</div>
+            <div class="option">② 200/400P+24C</div>
+            <div class="option">③ 100/200P+36C</div>
+            <div class="option">④ 200/400P+36C</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電信箱體的型號皆對應明確的容納標準。依技術規範，A-4 型總配線箱為中型箱體，其設計要求可收容的銅纜端子對數(P)為引進側100對/用戶側200對 (100/200P)，同時需具備收容 24心(24C) 光纜模組的空間能力。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 100/200P+24C：正確。為 A-4 箱體的法定標準收容容量。</li>
+                    <li class="wrong-opt">② 200/400P+24C：銅纜端子數量過大，通常屬於更大型的箱體 (如 A-5)。</li>
+                    <li class="wrong-opt">③ 100/200P+36C：光纜心數 36C 不符 A-4 規格。</li>
+                    <li class="wrong-opt">④ 200/400P+36C：銅纜與光纖容量皆不符合。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 81 -->
+    <div class="card">
+        <span class="theme-badge">主題：小型總配線箱容量與光纖心數</span>
+        <div class="question">81. 依據「建築物屋內外電信設備設置技術規範」規定，A-04-1 總配線箱，其收容之端子數及用戶側光纜心數為何？</div>
+        <div class="options">
+            <div class="option">① 10/20P+6C</div>
+            <div class="option">② 20/40P+6C</div>
+            <div class="option">③ 10/20P+8C</div>
+            <div class="option">④ 30/60P+8C</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>A-04-1 為容量極小的微型總配線箱（常用於極小型建案或特殊小區塊）。依技術規範標準定值，其設計收容銅纜端子對數為 10對(引進)/20對(用戶)，同時需能提供 8心(8C) 的用戶側光纖收容空間。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 10/20P+6C：光纜 6C 不符法定 8C 標準。</li>
+                    <li class="wrong-opt">② 20/40P+6C：銅纜容量過大且光纜不符。</li>
+                    <li class="correct-opt">③ 10/20P+8C：正確。A-04-1 規格為 10/20對銅纜端子與 8心光纖。</li>
+                    <li class="wrong-opt">④ 30/60P+8C：銅纜對數不符 A-04-1 規格。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 82 -->
+    <div class="card">
+        <span class="theme-badge">主題：單模光纖國際規範</span>
+        <div class="question">82. 依據「建築物屋內外電信設備設置技術規範」規定，屋內光纜使用單模光纖者，其規格應符合何種規範？</div>
+        <div class="options">
+            <div class="option">① ITU-T G.652D/657A</div>
+            <div class="option">② ITU-T E.212</div>
+            <div class="option">③ ISO 50220</div>
+            <div class="option">④ ETSI EN 300 437</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>ITU-T（國際電信聯盟電信標準化部門）是制定光纖特性的權威機構。G.652D 為目前最廣泛使用的常規單模光纖標準（消除了水峰損耗），而 G.657A 則是專為室內 FTTH 佈線設計的「抗彎折」單模光纖。我國法規明定屋內單模光纖須符合這兩項標準的其中之一。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① ITU-T G.652D/657A：正確。為國際通用的單模及抗彎折單模光纖標準。</li>
+                    <li class="wrong-opt">② ITU-T E.212：為國際行動通訊（如 IMSI）識別碼的編配規範，與光纖無關。</li>
+                    <li class="wrong-opt">③ ISO 50220：非光纖之相關標準。</li>
+                    <li class="wrong-opt">④ ETSI EN 300 437：歐洲電信標準，不屬於光纖介質特性的核心規範。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 83 -->
+    <div class="card">
+        <span class="theme-badge">主題：光終端配線架(OLDF)容量</span>
+        <div class="question">83. 依據「建築物屋內外電信設備設置技術規範」規定，光終端配線架採 OLDF-3 者，可引進之光纖心數為何？</div>
+        <div class="options">
+            <div class="option">① 300</div>
+            <div class="option">② 400</div>
+            <div class="option">③ 450</div>
+            <div class="option">④ 800</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>如同 MDF（總配線架）的命名規則，OLDF（光終端配線架）的型號數字通常與其收容心數呈百倍的對應關係。OLDF-3 的設計就是為了收容 300 心 的光纜，以此類推（例如 OLDF-8 就是 800 心）。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 300：正確。OLDF-3 型號代表容量即為 300 心。</li>
+                    <li class="wrong-opt">② 400：為 OLDF-4 的容量。</li>
+                    <li class="wrong-opt">③ 450：非標準百位數的常規型號容量。</li>
+                    <li class="wrong-opt">④ 800：為 OLDF-8 的容量。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 84 -->
+    <div class="card">
+        <span class="theme-badge">主題：被動光纖網路(PON)分類</span>
+        <div class="question">84. 被動光纖網路（Passive optical network, PON），不包括下列何者？</div>
+        <div class="options">
+            <div class="option">① ATM-PON</div>
+            <div class="option">② Broadband-PON</div>
+            <div class="option">③ Ethernet-PON</div>
+            <div class="option">④ Next-PON</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>PON (被動光纖網路) 依據底層封包封裝技術的不同，歷史上發展出以 ATM 為基礎的 APON、改良後的寬頻 BPON，以及目前最普及的基於乙太網的 EPON 和基於超千兆的 GPON（Gigabit-capable PON）。「Next-PON」並非一個標準的專門網路技術名詞。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① ATM-PON：簡稱 APON，為早期以 ATM 細胞傳輸的 PON 標準。</li>
+                    <li class="wrong-opt">② Broadband-PON：簡稱 BPON，為 APON 的擴展升級版。</li>
+                    <li class="wrong-opt">③ Ethernet-PON：簡稱 EPON，以 Ethernet 封包為基礎，現今極為普遍。</li>
+                    <li class="correct-opt">④ Next-PON：不包含。此為創造出來的干擾名詞，非真實標準 PON 技術。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 85 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：電信設備設置架構</span>
+        <div class="question">85. 依據「建築物屋內外電信設備設置技術規範」規定，建築物電信設備設置架構，主要包括哪些？</div>
+        <div class="options">
+            <div class="option">① 引進設施</div>
+            <div class="option">② 配線箱/室</div>
+            <div class="option">③ 主幹配線系統</div>
+            <div class="option">④ 宅內配線系統</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>完整的建築物電信網路必須從室外銜接至室內終端，法規定義其四大骨幹架構包含：1. 將外部訊號帶入建築的「引進設施」；2. 集中與管理設備的「配線箱/室」；3. 連接樓層與機房的「主幹配線系統」；4. 將訊號分配至各房間資訊插座的「宅內配線系統」。四者缺一不可。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 引進設施：正確。</li>
+                    <li class="correct-opt">② 配線箱/室：正確。</li>
+                    <li class="correct-opt">③ 主幹配線系統：正確。</li>
+                    <li class="correct-opt">④ 宅內配線系統：正確。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 86 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：專供業者設置之空間</span>
+        <div class="question">86. 依據「建築物屋內外電信設備設置技術規範」規定，專供市內網路業務經營者引接線纜及設置電信設備之空間，包括哪些？</div>
+        <div class="options">
+            <div class="option">① 電信室</div>
+            <div class="option">② 總配線箱</div>
+            <div class="option">③ 集中總箱</div>
+            <div class="option">④ 宅內配線箱</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「專供市內網路業務經營者（如中華電信）使用」的空間，通常位於建築物共用區域且屬機房端或主幹端，由電信業者進行外線引接。這包含：電信室、總配線箱及集中總箱。而「宅內配線箱」是位於住戶家中的私有財產，供住戶自行分配網路，不屬於專供業者設置之公共空間。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 電信室：正確。為業者置放大型機櫃的專用房間。</li>
+                    <li class="correct-opt">② 總配線箱：正確。引進線纜銜接內部的第一道關卡。</li>
+                    <li class="correct-opt">③ 集中總箱：正確。由多個配線箱集中組成，供業者引接用。</li>
+                    <li class="wrong-opt">④ 宅內配線箱：為住戶宅內私有，非「專供業者」使用之空間。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 87 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：主幹配線系統分類</span>
+        <div class="question">87. 依據「建築物屋內外電信設備設置技術規範」規定，主幹配線系統為星狀架構，其配線系統之組成，包括哪些？</div>
+        <div class="options">
+            <div class="option">① 垂直主幹配線系統</div>
+            <div class="option">② 水平主幹配線系統</div>
+            <div class="option">③ 宅內配線系統</div>
+            <div class="option">④ 混合主幹配線系統</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「主幹配線系統」(Backbone Cabling) 負責建築物大架構的連接，分為連接各樓層電信室的「垂直主幹配線系統」，以及在同樓層中連接主配線室與次配線室（或分區配線箱）的「水平主幹配線系統」。宅內配線為另一獨立子系統，而混合主幹並非法定分類名稱。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 垂直主幹配線系統：正確。連接上下樓層的主幹網路。</li>
+                    <li class="correct-opt">② 水平主幹配線系統：正確。連接同樓層中各配線區塊的主幹網路。</li>
+                    <li class="wrong-opt">③ 宅內配線系統：此為自配線箱到資訊插座的末端系統，不屬主幹。</li>
+                    <li class="wrong-opt">④ 混合主幹配線系統：非規範中定義的系統名稱。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 88 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：主幹配線配接方式</span>
+        <div class="question">88. 依據「建築物屋內外電信設備設置技術規範」規定，主幹配線系統架構之配接方式，包括哪些？</div>
+        <div class="options">
+            <div class="option">① 直接接續</div>
+            <div class="option">② 分歧接續</div>
+            <div class="option">③ 中間交接</div>
+            <div class="option">④ 混合接續</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>主幹纜線在到達各樓層或各配線箱時，依據現場環境與擴充需求可採三種合法的配接工法：「直接接續」（不經跳線直連）、「分歧接續」（大對數纜線剝皮分出少數對接出）以及「中間交接」（打在跳線板上，用跳線靈活連接）。法規中無「混合接續」之名詞。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 直接接續：正確。將主幹纜線直接端接至目的端子。</li>
+                    <li class="correct-opt">② 分歧接續：正確。將主幹大纜線部份心線拉出分歧處理。</li>
+                    <li class="correct-opt">③ 中間交接：正確。透過跳線面板(Patch Panel)提供靈活的中介轉接。</li>
+                    <li class="wrong-opt">④ 混合接續：非規範中明列的主幹配接標準工法。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 89 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：長距離引進線纜防火要求</span>
+        <div class="question">89. 依據「建築物屋內外電信設備設置技術規範」規定，建築物之引進屋內線纜超過 15m 者，該引進屋內線纜之屋內段，應全部採用何種材質收容？</div>
+        <div class="options">
+            <div class="option">① 電線用鋼管</div>
+            <div class="option">② 密閉式不燃性線槽</div>
+            <div class="option">③ 硬質 PVC 厚管</div>
+            <div class="option">④ PVC 厚管</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為了防止室外引進的 PE 纜線（外皮具可燃性）在發生火災時成為引導火勢蔓延進入屋內的導火線，法規嚴格要求：若屋內段長度超過 15 公尺，必須使用具備絕對阻燃能力的「金屬材質」進行密封收容，也就是「電線用鋼管」或「密閉式不燃性線槽」，不能僅使用 PVC 塑膠管。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 電線用鋼管：正確。金屬材質不燃且抗高溫。</li>
+                    <li class="correct-opt">② 密閉式不燃性線槽：正確。能阻隔氧氣與火源接觸。</li>
+                    <li class="wrong-opt">③ 硬質 PVC 厚管：雖厚但仍為塑膠材質，火災高溫下會熔毀並散發毒氣，不符超過 15m 的防護標準。</li>
+                    <li class="wrong-opt">④ PVC 厚管：理由同上。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 90 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：電信設備繪製圖</span>
+        <div class="question">90. 依據「建築物屋內外電信設備設置技術規範」規定，下列哪些屬於電信設備繪製圖？</div>
+        <div class="options">
+            <div class="option">① 建築物基地位置圖</div>
+            <div class="option">② 垂直昇位圖</div>
+            <div class="option">③ 平面配置圖</div>
+            <div class="option">④ 水平昇位圖</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>申請建築物電信設備審查時，需檢附標準圖說以供審驗。法定圖說包含顯示外部環境的「建築物基地位置圖」、表現各樓層配管與設備水平位置的「平面配置圖」，以及展現跨樓層垂直主幹與管道間設計的「垂直昇位圖」。「水平昇位圖」為自創名詞，實務上並不存在。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 建築物基地位置圖：正確。標示電信外部引進點與周邊道路關係。</li>
+                    <li class="correct-opt">② 垂直昇位圖：正確。展示各樓層主幹管道與機箱串連關係的立面透視。</li>
+                    <li class="correct-opt">③ 平面配置圖：正確。展示單一樓層內各資訊插座與水平管線走向。</li>
+                    <li class="wrong-opt">④ 水平昇位圖：錯誤。無此工程圖學名詞。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 91 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：住宅單位電信配置</span>
+        <div class="question">91. 依據「建築物屋內外電信設備設置技術規範」規定，住宅用建築物於每一「單位」應至少設置 1 個出線匣及 2 個電信插座；其中「單位」包括哪些？</div>
+        <div class="options">
+            <div class="option">① 客廳</div>
+            <div class="option">② 臥室</div>
+            <div class="option">③ 書房</div>
+            <div class="option">④ 廁所</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為確保現代住宅基本的生活通訊與寬頻上網品質，法規定義需要長時間人員停留且有通訊需求的空間為「單位」，強制建商必須預留資訊與電話孔位。包含客廳、臥室及書房。而廁所/浴室不屬於須強制設置數據孔的「單位」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 客廳：正確。家庭活動與影音娛樂中心，屬法定單位。</li>
+                    <li class="correct-opt">② 臥室：正確。個人生活與上網空間，屬法定單位。</li>
+                    <li class="correct-opt">③ 書房：正確。辦公與學習空間，屬法定單位。</li>
+                    <li class="wrong-opt">④ 廁所：通常不強制要求網路與電話預留（除特殊緊急求救鈕外），不屬電信規範基本單位。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 92 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：資訊插座種類</span>
+        <div class="question">92. 依據「建築物屋內外電信設備設置技術規範」規定，下列哪些屬於資訊插座？</div>
+        <div class="options">
+            <div class="option">① 埋入式資訊插座</div>
+            <div class="option">② 明線式資訊插座</div>
+            <div class="option">③ 混合式資訊插座</div>
+            <div class="option">④ 暗線式資訊插座</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>資訊插座（Information Outlet/Keystone Jack）在安裝方式上，法規將其區分為安裝於牆壁內底盒的「埋入式」（美觀且最常見）與直接安裝於牆面外的「明線式」（常搭配壓條使用，稱為表面安裝盒 Surface Mount Box）兩種。「混合式」與「暗線式」非標準分類用語。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 埋入式資訊插座：正確。與開關面板齊平，藏於牆內。</li>
+                    <li class="correct-opt">② 明線式資訊插座：正確。安裝於牆外表面。</li>
+                    <li class="wrong-opt">③ 混合式資訊插座：非規範專有名詞。</li>
+                    <li class="wrong-opt">④ 暗線式資訊插座：通常業界稱「暗管/暗盒」，但法規正式名稱為「埋入式」。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 93 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：電信保安接地電阻標準</span>
+        <div class="question">93. 依據「建築物屋內外電信設備設置技術規範」規定，建築物內設置之電信管線，應附設電信保安接地設備，關於其接地電阻值，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 一般建築物須在 25Ω以下</div>
+            <div class="option">② 設置電信室之建築物須在 10Ω以下</div>
+            <div class="option">③ 一般建築物須在 15Ω以下</div>
+            <div class="option">④ 設置電信室之建築物須在 5Ω以下</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為排除雷擊與漏電保障設備與人員安全，不同等級的建築對接地電阻的要求不同：規模較小的「一般建築物」（無電信機房者）只需維持在 25歐姆 (Ω) 以下；而設備密集且重要的「設置電信室之建築物」則採用嚴格標準，必須將接地電阻降至 10歐姆 (Ω) 以下。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 一般建築物須在 25Ω以下：正確。</li>
+                    <li class="correct-opt">② 設置電信室之建築物須在 10Ω以下：正確。</li>
+                    <li class="wrong-opt">③ 一般建築物須在 15Ω以下：標準錯誤，應為 25Ω。</li>
+                    <li class="wrong-opt">④ 設置電信室之建築物須在 5Ω以下：綜合接地/特高壓要求才會低至 5Ω以下，電信室單純保安接地標準為 10Ω。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 94 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：配管材質規定</span>
+        <div class="question">94. 依據「建築物屋內外電信設備設置技術規範」規定，建築物內之主幹配管和宅內配管，可使用下列哪些材質？</div>
+        <div class="options">
+            <div class="option">① 導電線用聚氯乙烯（PVC）硬質管（E）</div>
+            <div class="option">② 電線用鋼管</div>
+            <div class="option">③ 合成樹脂可撓電線導管</div>
+            <div class="option">④ 導電線用聚氯乙烯（PVC）軟質管</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>建築物內的網路管線需要承受水泥灌漿的壓力與日常抗拉扯。法規允許使用高強度的「硬質 PVC 管」、防火防爆的「鋼管」，以及適合轉彎段的「CD管/PF管（合成樹脂可撓管）」。一般的「PVC 軟質管」因強度極弱，灌漿時會被壓扁，且穿線摩擦力大，嚴禁做為主幹或宅內配管。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① PVC硬質管（E管）：正確。最普遍的塑膠配管。</li>
+                    <li class="correct-opt">② 電線用鋼管：正確。具最高機械強度與防火能力。</li>
+                    <li class="correct-opt">③ 合成樹脂可撓電線導管：正確。即俗稱之 CD 管 或 PF 管，具彈性。</li>
+                    <li class="wrong-opt">④ PVC軟質管：材質過軟，不耐壓且易卡線，法規不允許使用。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 95 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：宅內配線施工原則</span>
+        <div class="question">95. 依據「建築物屋內外電信設備設置技術規範」規定，關於宅內配線施作，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 電信配管內除佈放電信線路外，不可與其他線路共用</div>
+            <div class="option">② 線纜兩端及兩端之接續硬體詳加標示識別號碼</div>
+            <div class="option">③ 宅內線纜（不含兩端跳接線）最大配線長度為 90 m</div>
+            <div class="option">④ 宅內配線得有接續點或 T 接的情形</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>宅內水平配線（Horizontal Cabling）必須確保傳輸品質，故嚴禁與強電線路共管以防干擾。佈線應符合國際標準：單段固網線材（Solid cable）最長 90公尺，並要求雙端打標籤。最重要的是，宅內配線必須「一線到底（星狀直連）」，絕對「不得」出現影響阻抗的接續點或 T型分接。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 正確。不可與電力或瓦斯等其他線路共管。</li>
+                    <li class="correct-opt">② 正確。清楚標籤為維護查修的基礎。</li>
+                    <li class="correct-opt">③ 正確。符合 EIA/TIA 標準，水平段最長 90m (留10m 給兩端跳線)。</li>
+                    <li class="wrong-opt">④ 不正確。宅內網路配線「嚴禁」T接或中途接續。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 96 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：宅內配管彎曲限制</span>
+        <div class="question">96. 依據「建築物屋內外電信設備設置技術規範」規定，關於建築物宅內管線施工工法，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 配線管道之彎曲處內側半徑應為管外徑 6 倍以上</div>
+            <div class="option">② 彎曲角度不得大於 90 度</div>
+            <div class="option">③ 彎曲點不得超過 3 處</div>
+            <div class="option">④ 應注意公眾及工作人員之安全</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為避免管路彎曲造成穿線困難或損壞線材，配線管道的彎曲半徑必須和緩（至少外徑6倍），且一次彎角不能過急（不大於90度）。同時，法規規定連續管路之彎曲點不得超過「2處」（若達 2處以上須設拖線箱），選項 ③ 寫 3處 是錯的。所有施工皆須注重工安。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 正確。保持管路平緩的法定要求。</li>
+                    <li class="correct-opt">② 正確。超過90度的死角會嚴重卡線。</li>
+                    <li class="wrong-opt">③ 不正確。法規標準為不得超過「2處」。</li>
+                    <li class="correct-opt">④ 正確。施工安全為最基本要求。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 97 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：WLAN 連線組件</span>
+        <div class="question">97. 客戶端（Client）於 WLAN 中連線，需具有哪些組件？</div>
+        <div class="options">
+            <div class="option">① 無線滑鼠</div>
+            <div class="option">② 無線網路卡</div>
+            <div class="option">③ 客戶端無線連線軟體</div>
+            <div class="option">④ 無線基地台（AP）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>要讓客戶端裝置（如筆電、手機）加入無線區域網路 (WLAN)，必須具備收發射頻的「無線網路卡」，並由作業系統內的「連線軟體(驅動與管理介面)」控制，同時空間中必須有負責發送訊號的「無線基地台(AP)」。無線滑鼠屬藍牙或2.4G周邊，與 WLAN 連線無關。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 無線滑鼠：此為電腦輸入周邊設備，與 Wi-Fi 連線無關。</li>
+                    <li class="correct-opt">② 無線網路卡：正確。連線的硬體基礎。</li>
+                    <li class="correct-opt">③ 客戶端無線連線軟體：正確。連線的軟體/作業系統介面。</li>
+                    <li class="correct-opt">④ 無線基地台（AP）：正確。提供訊號覆蓋的網路基礎設施。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 98 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：電腦周邊設備分類</span>
+        <div class="question">98. 下列哪些為電腦週邊輸出設備？</div>
+        <div class="options">
+            <div class="option">① 條碼讀取器</div>
+            <div class="option">② 數位相機</div>
+            <div class="option">③ 耳機</div>
+            <div class="option">④ 印表機</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電腦周邊設備分為輸入(Input)與輸出(Output)。將電腦內的數位資料轉換成人類可接收的聲光、文字實體的設備稱為輸出設備。耳機將數位音訊轉成聲音，印表機將檔案轉為實體文件，兩者皆為輸出。條碼機與相機則是將外部資訊掃描存入電腦，屬於輸入設備。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 條碼讀取器：負責將條碼轉為文字輸入電腦，為輸入設備。</li>
+                    <li class="wrong-opt">② 數位相機：拍攝影像並輸入至電腦，為輸入設備。</li>
+                    <li class="correct-opt">③ 耳機：電腦輸出聲音，為輸出設備。</li>
+                    <li class="correct-opt">④ 印表機：電腦輸出畫面至紙張，為輸出設備。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 99 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：光纖網路綜合知識</span>
+        <div class="question">99. 關於光纖網路，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 熔接式光纖接續比機械式光纖接續插入損失大</div>
+            <div class="option">② 光纖接續插入損失及反射損失皆越低越好</div>
+            <div class="option">③ 光時域反射計（OTDR）可用來測量光纖之長度及衰減量</div>
+            <div class="option">④ 單模光纖的核心直徑比多模光纖大</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>光纖傳輸極重視訊號的衰減問題，所有連接處產生的損失（Insertion Loss / Return Loss）皆越低越好；實務上利用高溫放電的「熔接式」損失遠小於冷接的「機械式」；測試時會使用 OTDR 精密測量。另外單模光纖(約 9μm) 的核心直徑遠「小於」多模光纖(約 50μm 或 62.5μm)。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 熔接式損失較大：錯誤。熔接式（Splicing）是將玻璃融為一體，其損失極小（通常小於0.02dB），機械式接續損失反而較大。</li>
+                    <li class="correct-opt">② 損失越低越好：正確。任何衰減與反射皆不利於光訊號傳輸。</li>
+                    <li class="correct-opt">③ OTDR 可測長度與衰減：正確。這是光時域反射儀的主要用途。</li>
+                    <li class="wrong-opt">④ 單模核心比多模大：錯誤。單模纖核極細以限定單一路徑，比多模小非常多。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 100 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：光纖元件特性</span>
+        <div class="question">100. 關於光纖元件，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 光纖耦合器（Coupler）可將多道光耦合在一起</div>
+            <div class="option">② 光纖耦合器（Coupler）可將一道光分成多道光輸出</div>
+            <div class="option">③ 光纖連接器（Connector）為光纖與光纖間活動式接續元件</div>
+            <div class="option">④ 分波多工器（Wavelength Division Multiplexer）使光纖的折射率產生忽大忽小的變化</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>光纖通訊仰賴各種被動元件：光纖耦合器(Coupler / Splitter) 可以合光也能分光，是 PON 網路的核心元件；光纖連接器(Connector, 如 SC/LC) 則是可供隨時插拔的活動接點。分波多工器(WDM) 是利用不同「波長(頻率)」來合成或分離光訊號以增加單一光纖的傳輸容量，並非改變物理介質的折射率。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 耦合器可將多道光耦合：正確。</li>
+                    <li class="correct-opt">② 耦合器可分光：正確。常見的光分歧器(Splitter)即是利用此原理。</li>
+                    <li class="correct-opt">③ 連接器為活動接續元件：正確。方便機房人員插拔跳線。</li>
+                    <li class="wrong-opt">④ WDM 改變折射率：錯誤。WDM 技術是把不同波長的光混合在同一根光纖傳輸，並未改變玻璃的折射率。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<script>
+    let isExpanded = false;
+    function toggleAll() {
+        const detailsElements = document.querySelectorAll('.qa-details');
+        const toggleBtn = document.getElementById('toggleBtn');
+        isExpanded = !isExpanded;
+        detailsElements.forEach(detail => {
+            if (isExpanded) {
+                detail.setAttribute('open', '');
+            } else {
+                detail.removeAttribute('open');
+            }
+        });
+        if (isExpanded) {
+            toggleBtn.innerText = '收合所有解析';
+            toggleBtn.style.backgroundColor = '#e74c3c';
+        } else {
+            toggleBtn.innerText = '展開所有解析';
+            toggleBtn.style.backgroundColor = '#27ae60';
+        }
+    }
+</script>
+
+</body>
+</html>

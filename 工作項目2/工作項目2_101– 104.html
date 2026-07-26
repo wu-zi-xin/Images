@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作項目02 (101-104題)</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px 10px; line-height: 1.6; }
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+.header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+.toggle-btn { background-color: #27ae60; color: white; border: none; padding: 10px 20px; font-size: 1em; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-weight: bold; margin-bottom: 10px; }
+.toggle-btn:hover { background-color: #219150; }
+.card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+.card { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); border: 1px solid #eaeaea; position: relative; }
+.theme-badge { display: inline-block; background-color: #e8f4fd; color: #2980b9; padding: 5px 12px; border-radius: 20px; font-size: 0.9em; font-weight: bold; margin-bottom: 15px; border: 1px solid #b3d7f2; }
+.theme-badge.multiple { background-color: #fbeeb8; color: #d35400; border-color: #fde3a7; }
+.question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+.options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.option { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; color: #555; font-size: 1.05em; border-left: 3px solid #cbd5e1; }
+details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+summary { background: #3498db; color: #ffffff; padding: 12px; font-weight: bold; font-size: 1.05em; text-align: center; cursor: pointer; list-style: none; transition: background 0.3s; }
+summary:hover { background: #2980b9; }
+summary::-webkit-details-marker { display: none; }
+.answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+.answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+.comprehensive-exp { background: #eef2f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #34495e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+.comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+.explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+.exp-subtitle { color: #2c3e50; font-weight: bold; margin-bottom: 10px; display: block; border-bottom: 1px dashed #cbd5e1; padding-bottom: 3px; }
+.opt-list { margin: 0; padding-left: 0; list-style: none; }
+.opt-list li { margin-bottom: 8px; background: #ffffff; padding: 10px; border-radius: 6px; border-left: 4px solid #3498db; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+.wrong-opt { border-left-color: #e74c3c !important; }
+@media (max-width: 600px) { .card { padding: 15px; } .header h1 { font-size: 1.5em; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級 工作項目 02：作業準備 (101-104題)</h1>
+    <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 101 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：USB 介面特性</span>
+        <div class="question">101. 關於通用串列匯流排（Universal Serial Bus, USB）介面，下列哪些正確？</div>
+        <div class="options">
+            <div class="option">① 可連接無限多個周邊裝置</div>
+            <div class="option">② 即插即用（Plug-and-play），並能自動偵測及配置系統資源</div>
+            <div class="option">③ 具熱插拔特性</div>
+            <div class="option">④ USB 3.0 傳輸速率可支援達 5.0Gbps</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>USB（通用串列匯流排）是現代電腦中最普及的周邊連接介面，具備隨插即用（PnP）與熱插拔功能。雖然 USB 可以透過集線器（Hub）擴充，但它並不能連接「無限多個」裝置，一個 USB 主控制器最多只能定址並連接 127 個裝置。傳輸速度方面，USB 3.0（即 SuperSpeed）的理論傳輸率最高可達 5.0 Gbps。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 錯誤。USB 理論上最多只能支援串接 127 個裝置，並非無限多個。</li>
+                    <li class="correct-opt">② 正確。隨插即用，作業系統會自動載入驅動程式配置資源。</li>
+                    <li class="correct-opt">③ 正確。支援開機狀態下直接拔插，不需關機（熱插拔）。</li>
+                    <li class="correct-opt">④ 正確。USB 3.0 規範的速率為 5.0 Gbps（約 625 MB/s）。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 102 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：光纖傳輸優點</span>
+        <div class="question">102. 下列哪些為光纖之優點？</div>
+        <div class="options">
+            <div class="option">① 通訊量大</div>
+            <div class="option">② 高損耗</div>
+            <div class="option">③ 重量輕</div>
+            <div class="option">④ 價格較便宜</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>光纖通訊利用光波在玻璃纖維中全反射傳輸，其最大的優勢在於頻寬極大（通訊量大）、不受電磁波干擾、體積小且重量輕、以及傳輸「低損耗」（可長距離傳輸）。相對的缺點則是線材與終端設備成本較高，且接續施工技術門檻較高（需專用熔接機）。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 通訊量大：正確。光波頻率極高，可提供極大的傳輸頻寬與資料量。</li>
+                    <li class="wrong-opt">② 高損耗：錯誤。光纖的特色是極低的衰減率（低損耗），適合長途佈線。</li>
+                    <li class="correct-opt">③ 重量輕：正確。相對於笨重的多蕊銅纜，光纜細如毛髮，重量極輕。</li>
+                    <li class="wrong-opt">④ 價格較便宜：錯誤。光纖線材與兩端光電轉換設備的整體成本，仍比一般雙絞線（銅纜）昂貴。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 103 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：網路基本傳輸線材</span>
+        <div class="question">103. 下列哪些為網路連接之基本線材？</div>
+        <div class="options">
+            <div class="option">① 單心電纜</div>
+            <div class="option">② 光纖</div>
+            <div class="option">③ 同軸電纜</div>
+            <div class="option">④ 雙絞線</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②、③、④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在電腦網路佈線發展史上，最常使用的三大實體傳輸介質為：早期的同軸電纜（Coaxial Cable，如 10Base2/10Base5）、當今最普及的雙絞線（Twisted Pair，如 Cat 5e/Cat 6 等乙太網路線），以及用於骨幹與高速傳輸的光纖（Optical Fiber）。單心電纜（單芯線）主要用於一般電力配線或接地，無法用於高速網路數據傳輸。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 單心電纜：錯誤。無法抵抗串音干擾，主要做為電力傳輸，非網路通訊線材。</li>
+                    <li class="correct-opt">② 光纖：正確。骨幹與長距離高速網路標準線材。</li>
+                    <li class="correct-opt">③ 同軸電纜：正確。早期匯流排拓樸乙太網路及現今 Cable Modem 寬頻之線材。</li>
+                    <li class="correct-opt">④ 雙絞線：正確。目前最普及的區域網路（LAN）連接線材。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 104 -->
+    <div class="card">
+        <span class="theme-badge multiple">【複選題】主題：網路通訊傳輸基本概念</span>
+        <div class="question">104. 下列敘述哪些正確？</div>
+        <div class="options">
+            <div class="option">① 傳統電視機是屬於單工傳輸工具</div>
+            <div class="option">② 資料在經過網路傳送前，必須先轉換成訊號</div>
+            <div class="option">③ 增加頻寬可以增加資料傳輸速率</div>
+            <div class="option">④ 雙絞線適合長距離傳輸，因為不易受到電磁波的干擾</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①、②、③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>通訊傳輸基礎概念中：單向發送不回傳稱為「單工」（如傳統電視廣播）。電腦內的數位「資料」（0與1）必須轉換為物理「訊號」（如電壓高低或光束明暗）才能在傳輸線上傳遞。通訊介質的頻寬越大，能承載的資料傳輸速率就越高。然而，雙絞線的最大致命傷就是容易受電磁干擾（EMI）且衰減快，因此標準長度限制在 100 公尺以內，並不適合長距離傳輸（長距離應改用光纖）。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 正確。傳統電視只能單向接收廣播台的訊號，無法回傳，屬「單工傳輸」。</li>
+                    <li class="correct-opt">② 正確。OSI 實體層的作用就是將數位資料調變或編碼為實體訊號來傳送。</li>
+                    <li class="correct-opt">③ 正確。頻寬就像高速公路的車道數，車道越多，單位時間內能通過的車流（資料速率）就越大。</li>
+                    <li class="wrong-opt">④ 錯誤。雙絞線（特別是無遮蔽的 UTP）極易受電磁波干擾，且信號衰減嚴重，僅適合「短距離」（如 100m 內）傳輸。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<script>
+    let isExpanded = false;
+    function toggleAll() {
+        const detailsElements = document.querySelectorAll('.qa-details');
+        const toggleBtn = document.getElementById('toggleBtn');
+        isExpanded = !isExpanded;
+        detailsElements.forEach(detail => {
+            if (isExpanded) {
+                detail.setAttribute('open', '');
+            } else {
+                detail.removeAttribute('open');
+            }
+        });
+        if (isExpanded) {
+            toggleBtn.innerText = '收合所有解析';
+            toggleBtn.style.backgroundColor = '#e74c3c';
+        } else {
+            toggleBtn.innerText = '展開所有解析';
+            toggleBtn.style.backgroundColor = '#27ae60';
+        }
+    }
+</script>
+
+</body>
+</html>
