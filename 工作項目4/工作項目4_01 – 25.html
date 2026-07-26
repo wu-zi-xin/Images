@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路乙級架設解析 - 工作項目4 (01-25題 綜合解析版)</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .toggle-btn:hover { background-color: #219150; }
+
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative;
+        }
+        
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+
+        .question { 
+            font-size: 1.15em; 
+            font-weight: bold; 
+            color: #34495e; 
+            margin-bottom: 15px; 
+            line-height: 1.5; 
+        }
+        
+        /* 選項樣式 */
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            margin-bottom: 20px; 
+        }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+        
+        /* 純HTML 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { 
+            padding: 20px; 
+            background: #f4fcf7; 
+            border-top: 1px solid #dfe6e9; 
+        }
+        .answer-title { 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            color: #27ae60; 
+            margin-bottom: 15px; 
+        }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+
+        .explanation { 
+            color: #4b6584; 
+            font-size: 1em; 
+            line-height: 1.7; 
+        }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        .opt-list { 
+            margin: 0; 
+            padding-left: 0; 
+            list-style: none; 
+        }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級 工作項目04</h1>
+        <p>第 01 - 25 題 (綜合解析與各選項詳解版)</p>
+        <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+        
+        <!-- 第1題 -->
+        <div class="card">
+            <div class="theme-badge">主題：網路定址與私有 IP 範圍</div>
+            <div class="question">1. 下列何者是 IANA 保留供私人（Private）使用之 IP 位址？</div>
+            <div class="options">
+                <div class="option">① 172.32.1.34</div>
+                <div class="option">② 172.15.2.43</div>
+                <div class="option">③ 172.20.23.186</div>
+                <div class="option">④ 192.169.0.1</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>根據 RFC 1918 規範，IANA 保留給內部區域網路免費使用的私有 IP (Private IP) 範圍有三個區段：<br>
+                            Class A：10.0.0.0 ~ 10.255.255.255<br>
+                            Class B：172.16.0.0 ~ 172.31.255.255<br>
+                            Class C：192.168.0.0 ~ 192.168.255.255</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 172.32.1.34：</strong>錯誤。172.32 已超出 Class B 私有 IP 的上限 (172.31)，此為公有 IP。</li>
+                            <li class="wrong-opt"><strong>② 172.15.2.43：</strong>錯誤。172.15 低於 Class B 私有 IP 的下限 (172.16)，此為公有 IP。</li>
+                            <li class="correct-opt"><strong>③ 172.20.23.186：</strong>正確。此位址落在 Class B 的 172.16.0.0 ~ 172.31.255.255 範圍內，是合法的私有 IP。</li>
+                            <li class="wrong-opt"><strong>④ 192.169.0.1：</strong>錯誤。192.169 已超出 Class C 私有 IP 的上限 (192.168)，此為公有 IP。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第2題 -->
+        <div class="card">
+            <div class="theme-badge">主題：網路定址與私有 IP 範圍</div>
+            <div class="question">2. 下列何者不是 IANA 保留供私人（Private）使用之 IP 位址？</div>
+            <div class="options">
+                <div class="option">① 10.23.123.54</div>
+                <div class="option">② 192.168.0.34</div>
+                <div class="option">③ 172.18.168.23</div>
+                <div class="option">④ 172.32.45.127</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>私有 IP 僅限於內部區域網路使用，無法直接路由上網際網路。判斷時請牢記三大私有 IP 區段：10.x.x.x、172.16.x.x~172.31.x.x、以及 192.168.x.x。只要不在這些範圍內的 IP 就是需要在網際網路上註冊的公有 IP。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 10.23.123.54：</strong>屬於 Class A 私有 IP。</li>
+                            <li class="wrong-opt"><strong>② 192.168.0.34：</strong>屬於 Class C 私有 IP。</li>
+                            <li class="wrong-opt"><strong>③ 172.18.168.23：</strong>屬於 Class B 私有 IP。</li>
+                            <li class="correct-opt"><strong>④ 172.32.45.127：</strong>正確。172.32.x.x 超出了 Class B 私有 IP (172.16~172.31) 的範圍，屬於需要在網際網路上使用的「公有 IP」。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第3題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Class B 私有 IP 範圍</div>
+            <div class="question">3. IANA 保留 Class B 供私人使用之 IP 位址範圍為何？</div>
+            <div class="options">
+                <div class="option">① 172.1.0.0~172.31.255.255</div>
+                <div class="option">② 172.16.0.0~172.31.255.255</div>
+                <div class="option">③ 172.32.0.0~172.63.255.255</div>
+                <div class="option">④ 172.16.0.0~172.32.255.255</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>根據 IANA (網際網路號碼分配局) 的規定，Class B 的私有 IP 網段是從 172.16.0.0 開始，一直到 172.31.255.255 結束，這是網管人員必須背誦的基礎常識。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 172.1.0.0~：</strong>錯誤。起點不正確，172.1 屬於公有 IP。</li>
+                            <li class="correct-opt"><strong>② 172.16.0.0~172.31.255.255：</strong>正確。此為標準 Class B 私有 IP 的精確範圍。</li>
+                            <li class="wrong-opt"><strong>③ 172.32.0.0~：</strong>錯誤。起點與終點皆不正確，這段全數為公有 IP。</li>
+                            <li class="wrong-opt"><strong>④ ~172.32.255.255：</strong>錯誤。終點多算了 172.32 網段。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第4題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Class C 私有 IP 範圍</div>
+            <div class="question">4. IANA 保留 Class C 供私人使用之 IP 位址範圍為何？</div>
+            <div class="options">
+                <div class="option">① 192.168.1.0~192.168.1.254</div>
+                <div class="option">② 192.168.0.0~192.168.0.255</div>
+                <div class="option">③ 192.168.0.0~192.168.255.255</div>
+                <div class="option">④ 192.168.10.0~192.168.10.255</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>Class C 的私有 IP 網段是大家最常在家庭路由器或辦公室區域網路中看到的。其保留範圍是從 192.168.0.0 一直到 192.168.255.255，共有 256 個連續的 C 級網路可供使用。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 192.168.1.0~：</strong>錯誤。這只是其中的「一個」子網路，並非完整保留區段。</li>
+                            <li class="wrong-opt"><strong>② 192.168.0.0~0.255：</strong>錯誤。這同樣也只是一個 C 級網段。</li>
+                            <li class="correct-opt"><strong>③ 192.168.0.0~192.168.255.255：</strong>正確。此為標準 Class C 私有 IP 的完整範圍。</li>
+                            <li class="wrong-opt"><strong>④ 192.168.10.0~：</strong>錯誤。這只涵蓋了單一子網路。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第5題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Class A 私有 IP 範圍</div>
+            <div class="question">5. IANA 保留 Class A 供私人使用之 IP 位址範圍為何？</div>
+            <div class="options">
+                <div class="option">① 10.0.0.0~10.0.255.255</div>
+                <div class="option">② 10.10.0.0~10.10.255.255</div>
+                <div class="option">③ 100.0.0.0~100.100.255.255</div>
+                <div class="option">④ 10.0.0.0~10.255.255.255</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>Class A 的私有 IP 是保留給大型企業架設內部網路使用的，它僅佔用一個完整的 A 級網段，也就是網路 ID 固定為 10，後面的三個位元組 (24 bits) 皆可供主機自由分配。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 10.0.0.0~10.0.255.255：</strong>錯誤。範圍太小，只涵蓋了部分網段。</li>
+                            <li class="wrong-opt"><strong>② 10.10.0.0~：</strong>錯誤。範圍太小，這只是其中的子網段。</li>
+                            <li class="wrong-opt"><strong>③ 100.0.0.0~：</strong>錯誤。100.x.x.x 屬於公有網際網路 IP 範圍。</li>
+                            <li class="correct-opt"><strong>④ 10.0.0.0~10.255.255.255：</strong>正確。這涵蓋了整個 10.x.x.x 網段，是完整的 Class A 私有位址空間。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第6題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Class B 私有網路數量</div>
+            <div class="question">6. IANA 保留幾個 Class B 網路供私人使用？</div>
+            <div class="options">
+                <div class="option">① 8</div>
+                <div class="option">② 16</div>
+                <div class="option">③ 24</div>
+                <div class="option">④ 32</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>Class B 私有網路的範圍是 <code>172.16.0.0</code> 到 <code>172.31.0.0</code>。這意味著第二個位元組從 16 變化到 31。計算數量的方式是：31 - 16 + 1 = 16，代表共有 16 個獨立的 Class B 網路被保留下來。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 8：</strong>錯誤數值。</li>
+                            <li class="correct-opt"><strong>② 16：</strong>正確。涵蓋從 172.16 到 172.31 總共 16 個網段。</li>
+                            <li class="wrong-opt"><strong>③ 24：</strong>錯誤數值。</li>
+                            <li class="wrong-opt"><strong>④ 32：</strong>錯誤數值。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第7題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Class A 私有網路數量</div>
+            <div class="question">7. IANA 保留幾個 Class A 網路供私人使用？</div>
+            <div class="options">
+                <div class="option">① 1</div>
+                <div class="option">② 4</div>
+                <div class="option">③ 128</div>
+                <div class="option">④ 256</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>Class A 網路是利用第一個位元組（前 8 個位元）來區分不同的網路 ID。而在私有 IP 定義中，IANA 僅保留了 <code>10.0.0.0</code> 這單一個網路 ID 給私人內部網路使用。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① 1：</strong>正確。只有「10」這一個 Class A 網段被保留為私有。</li>
+                            <li class="wrong-opt"><strong>② 4：</strong>錯誤數值。</li>
+                            <li class="wrong-opt"><strong>③ 128：</strong>錯誤。這是 Class A 總共可以產生的網路 ID 數量。</li>
+                            <li class="wrong-opt"><strong>④ 256：</strong>錯誤數值。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第8題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Class C 私有網路數量</div>
+            <div class="question">8. IANA 保留幾個 Class C 網路供私人使用？</div>
+            <div class="options">
+                <div class="option">① 1</div>
+                <div class="option">② 4</div>
+                <div class="option">③ 128</div>
+                <div class="option">④ 256</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>Class C 私有網路的範圍是 <code>192.168.0.0</code> 到 <code>192.168.255.0</code>。這意味著第三個位元組可以從 0 變化到 255。計算數量的方式是：255 - 0 + 1 = 256，代表共有 256 個獨立的 Class C 網路被保留下來供小型區網使用。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 1：</strong>錯誤。這是 Class A 私有網路的數量。</li>
+                            <li class="wrong-opt"><strong>② 4：</strong>錯誤數值。</li>
+                            <li class="wrong-opt"><strong>③ 128：</strong>錯誤數值。</li>
+                            <li class="correct-opt"><strong>④ 256：</strong>正確。涵蓋 192.168.0 ~ 192.168.255 總共 256 個網段。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第9題 -->
+        <div class="card">
+            <div class="theme-badge">主題：CIDR 與子網路運算</div>
+            <div class="question">9. 200.12.34.53/29 所在的網路中，第一個可指定給設備使用之 IP 位址為何？</div>
+            <div class="options">
+                <div class="option">① 200.12.34.1</div>
+                <div class="option">② 200.12.34.49</div>
+                <div class="option">③ 200.12.34.17</div>
+                <div class="option">④ 200.12.34.53</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>計算步驟如下：<br>
+                            1. <code>/29</code> 的遮罩對應的區塊大小為 2³ = 8 個 IP。<br>
+                            2. 觀察來源 IP 的第四區段 <code>.53</code>。尋找能被 8 整除且最接近 53 的起點數字：48。<br>
+                            3. 因此該子網路的範圍是從 <code>.48</code> 到 <code>.55</code> (48+8-1)。<br>
+                            4. <code>.48</code> 是代表整個網段的網路位址 (Network IP) 不可指派給主機。所以「第一個」可用的主機 IP 是 48 + 1 = <code>.49</code>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① .1：</strong>錯誤。這是 .0~.7 網段的第一個 IP。</li>
+                            <li class="correct-opt"><strong>② .49：</strong>正確。網段 .48~.55 中的第一個可用 IP 即為 49。</li>
+                            <li class="wrong-opt"><strong>③ .17：</strong>錯誤。這是 .16~.23 網段的第一個 IP。</li>
+                            <li class="wrong-opt"><strong>④ .53：</strong>錯誤。這是目前主機正在使用的 IP，並非該區段的「第一個」IP。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第10題 -->
+        <div class="card">
+            <div class="theme-badge">主題：CIDR 與子網路運算</div>
+            <div class="question">10. 200.12.34.53/26 所在的網路中，最後一個可指定給設備使用之 IP 位址為何？</div>
+            <div class="options">
+                <div class="option">① 200.12.34.62</div>
+                <div class="option">② 200.12.34.82</div>
+                <div class="option">③ 200.12.34.78</div>
+                <div class="option">④ 200.12.34.54</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>計算步驟如下：<br>
+                            1. <code>/26</code> 的遮罩對應的區塊大小為 2⁶ = 64 個 IP。<br>
+                            2. 觀察來源 IP <code>.53</code>，它落在 <code>0 ~ 63</code> 的這個子網路區間內。<br>
+                            3. 該區間的最後一個數字 <code>.63</code> 是廣播位址 (Broadcast IP)，用來對全網段廣播，不可指派給主機使用。<br>
+                            4. 因此「最後一個」可指派的主機 IP 是廣播位址減 1，即 63 - 1 = <code>.62</code>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① .62：</strong>正確。0~63 網段的最後一個可用 IP 即為 62。</li>
+                            <li class="wrong-opt"><strong>② .82：</strong>錯誤。超出目前網段，位於 64~127 網段中。</li>
+                            <li class="wrong-opt"><strong>③ .78：</strong>錯誤。超出目前網段，位於 64~127 網段中。</li>
+                            <li class="wrong-opt"><strong>④ .54：</strong>錯誤。這只是 .53 的下一個 IP，並非整個子網路的最後一個。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第11題 -->
+        <div class="card">
+            <div class="theme-badge">主題：子網路與可用 IP 計算</div>
+            <div class="question">11. 179.34.42.7/23 所在的網路中，最後一個可指定給設備使用之 IP 位址為何？</div>
+            <div class="options">
+                <div class="option">① 179.34.42.254</div>
+                <div class="option">② 179.34.43.254</div>
+                <div class="option">③ 179.34.42.255</div>
+                <div class="option">④ 179.34.43.255</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>CIDR 為 <code>/23</code> 代表子網路遮罩為 <code>255.255.254.0</code>。這表示第三個位元組 (Octet) 借了 7 個 bit 作為網路段 (254 的二進位是 11111110)，主機段 (Host ID) 佔了最後的 9 個 bit (即第三位元組的最後 1 個 bit 加上第四位元組的 8 個 bit)。<br>
+                            我們來計算 <code>179.34.42.7</code> 所在的網段範圍：<br>
+                            1. 網路位址 (Network ID)：將 42 (二進位 00101010) 與遮罩 254 (11111110) 進行 AND 運算，得 42 (00101010)。所以網路位址為 <strong>179.34.42.0</strong>。<br>
+                            2. 廣播位址 (Broadcast ID)：將主機段的 9 個 bit 全部填滿 1。第三個位元組會變成 00101011 (即 43)，第四個位元組會變成 11111111 (即 255)。所以廣播位址為 <strong>179.34.43.255</strong>。<br>
+                            3. 最後一個可用 IP：即廣播位址減 1，為 <strong>179.34.43.254</strong>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 179.34.42.254：</strong>錯誤。這只是前一個 C Class 網段的最後一個可用 IP，/23 網段包含了 42 與 43 兩個部分。</li>
+                            <li class="correct-opt"><strong>② 179.34.43.254：</strong>正確。此為該 /23 網段的最後一個可用主機 IP。</li>
+                            <li class="wrong-opt"><strong>③ 179.34.42.255：</strong>錯誤。在 /23 網段中，.42.255 只是一個普通可用的主機 IP，不是廣播位址。</li>
+                            <li class="wrong-opt"><strong>④ 179.34.43.255：</strong>錯誤。這是保留給系統用的「廣播位址」，不可指定給設備(主機)使用。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第12題 -->
+        <div class="card">
+            <div class="theme-badge">主題：廣播位址與可用 IP 判斷</div>
+            <div class="question">12. 下列哪一個 IP 位址可指定給設備使用？</div>
+            <div class="options">
+                <div class="option">① 145.23.22.255/23</div>
+                <div class="option">② 34.234.123.47/29</div>
+                <div class="option">③ 160.68.255.255/16</div>
+                <div class="option">④ 190.43.23.159/27</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>要判斷一個 IP 是否能「指定給設備使用 (即有效的主機 IP)」，重點在於它<strong>不能是「網路位址 (Host ID 全為 0)」</strong>，也<strong>不能是「廣播位址 (Host ID 全為 1)」</strong>。我們必須逐一計算每個選項的主機段是否全為 1 或 0。<br>
+                            選項 ①：<code>145.23.22.255/23</code>。/23 代表主機段為最後 9 個 bits。其網路位址為 145.23.22.0，廣播位址為 145.23.23.255。所以 <code>.22.255</code> 落在可用範圍內，它是合法的設備 IP！(不要看到結尾 255 就以為一定是廣播位址)</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① 145.23.22.255/23：</strong>正確。此 IP 的 Host ID 部分並非全為 1，它是該網段中合法可用的設備 IP。</li>
+                            <li class="wrong-opt"><strong>② 34.234.123.47/29：</strong>錯誤。/29 區塊大小為 8。網段為 .40 ~ .47，因此 <code>.47</code> 是該網段的廣播位址，不可用。</li>
+                            <li class="wrong-opt"><strong>③ 160.68.255.255/16：</strong>錯誤。/16 的主機段為後面 16 bits，<code>.255.255</code> 代表 Host ID 全為 1，是該網段的廣播位址，不可用。</li>
+                            <li class="wrong-opt"><strong>④ 190.43.23.159/27：</strong>錯誤。/27 區塊大小為 32。網段涵蓋 .128 ~ .159，因此 <code>.159</code> 是該網段的廣播位址，不可用。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第13題 -->
+        <div class="card">
+            <div class="theme-badge">主題：子網路切割與遮罩計算</div>
+            <div class="question">13. 若要將 IP 位址為 56.78.0.0/20 之網路分成 8 個子網路，其子網路遮罩為何？</div>
+            <div class="options">
+                <div class="option">① 255.255.255.224</div>
+                <div class="option">② 255.255.224.0</div>
+                <div class="option">③ 255.255.254.0</div>
+                <div class="option">④ 255.255.248.0</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>這是一道標準的子網路切割計算題：<br>
+                            1. 原始網路遮罩為 <code>/20</code>。<br>
+                            2. 題目要求切割出 <strong>8 個</strong> 子網路。因為 2³ = 8，所以我們必須向 Host ID 借 <strong>3 個 bit</strong> 來當作新的 Network ID。<br>
+                            3. 新的網路遮罩位元數為 20 + 3 = <strong>23 (即 /23)</strong>。<br>
+                            4. 將 /23 轉換為十進位格式：前面 16 個 bits 是 255.255，第三個位元組有 7 個 1 (11111110)，轉換為十進位是 254，最後一個位元組全為 0。因此新遮罩為 <strong>255.255.254.0</strong>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 255.255.255.224：</strong>錯誤。這是 /27 的子網路遮罩。</li>
+                            <li class="wrong-opt"><strong>② 255.255.224.0：</strong>錯誤。這是 /19 的子網路遮罩。</li>
+                            <li class="correct-opt"><strong>③ 255.255.254.0：</strong>正確。此即為 /23 的十進位表示法。</li>
+                            <li class="wrong-opt"><strong>④ 255.255.248.0：</strong>錯誤。這是 /21 的子網路遮罩。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第14題 -->
+        <div class="card">
+            <div class="theme-badge">主題：子網路切割與位址推算</div>
+            <div class="question">14. 若要將 IP 位址為 56.78.5.34/20 之網路分成 8 個子網路，其第 3 個子網路 IP 位址為何？</div>
+            <div class="options">
+                <div class="option">① 56.78.7.0/23</div>
+                <div class="option">② 56.78.12.0/23</div>
+                <div class="option">③ 56.78.8.0/23</div>
+                <div class="option">④ 56.78.4.0/23</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>步驟 1：找原始網路起點。<br>
+                            <code>/20</code> 的區塊大小是 16。第三個區段 <code>.5</code> 除以 16 餘數為 5，表示它落在 0~15 網段，所以母網路起點是 <code>56.78.0.0/20</code>。<br>
+                            步驟 2：切出新網段。<br>
+                            分為 8 個子網路需借 3 bit，變成 <code>/23</code>。<code>/23</code> 區塊大小是 2 (256 - 254)。<br>
+                            步驟 3：列出所有子網段的網路 IP。<br>
+                            第 1 個：56.78.0.0/23<br>
+                            第 2 個：56.78.2.0/23<br>
+                            第 3 個：<strong>56.78.4.0/23</strong></p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 56.78.7.0/23：</strong>錯誤。此非網路位址的合法起點 (尾數為單數)。</li>
+                            <li class="wrong-opt"><strong>② 56.78.12.0/23：</strong>錯誤。這是第 7 個子網路。</li>
+                            <li class="wrong-opt"><strong>③ 56.78.8.0/23：</strong>錯誤。這是第 5 個子網路。</li>
+                            <li class="correct-opt"><strong>④ 56.78.4.0/23：</strong>正確。嚴格推算後，第 3 個子網路就是從 4.0 開始。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第15題 -->
+        <div class="card">
+            <div class="theme-badge">主題：子網路切割與最後可用 IP 推算</div>
+            <div class="question">15. 若要將 IP 位址為 56.78.10.34/20 之網路分成 8 個子網路，其第 4 個子網路中最後一個可指定給設備使用之 IP 位址為何？</div>
+            <div class="options">
+                <div class="option">① 56.78.4.127</div>
+                <div class="option">② 56.78.7.254</div>
+                <div class="option">③ 56.78.8.254</div>
+                <div class="option">④ 56.78.12.254</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>步驟 1：找母網路。<br>
+                            <code>/20</code> 對應區塊 16。<code>.10</code> 落在 0~15，故母網路起點仍為 <code>56.78.0.0/20</code>。<br>
+                            步驟 2：找第 4 個子網段。<br>
+                            切為 8 段即變成 <code>/23</code> (區塊大小為 2)。子網路為：第 1(0.0)、第 2(2.0)、第 3(4.0)、<strong>第 4 個是 56.78.6.0/23</strong>。<br>
+                            步驟 3：算最後可用 IP。<br>
+                            第 4 個網段從 <code>6.0</code> 跨越到 <code>7.255</code> (因為第 5 個從 8.0 開始)。該網段的廣播位址為 <code>.7.255</code>，因此最後一個可指派的主機 IP 即為廣播減 1 ＝ <code>56.78.7.254</code>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 56.78.4.127：</strong>錯誤。</li>
+                            <li class="correct-opt"><strong>② 56.78.7.254：</strong>正確。嚴格推算後，第 4 個子網段的結尾可用 IP 即為此值。</li>
+                            <li class="wrong-opt"><strong>③ 56.78.8.254：</strong>錯誤。這已經進入到第 5 個子網路的範圍了。</li>
+                            <li class="wrong-opt"><strong>④ 56.78.12.254：</strong>錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第16題 -->
+        <div class="card">
+            <div class="theme-badge">主題：子網路切割與可用 IP 數量計算</div>
+            <div class="question">16. 若要將 IP 位址為 25.178.10.34/20 之網路分成 8 個子網路，其每個子網路中共有幾個 IP 位址可指定給設備使用？</div>
+            <div class="options">
+                <div class="option">① 512</div>
+                <div class="option">② 511</div>
+                <div class="option">③ 510</div>
+                <div class="option">④ 509</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>這是一題單純的可用主機數量計算：<br>
+                            1. 原始為 <code>/20</code>，切成 8 (2³) 個子網路代表要向主機位元借 3 個 bit，因此新網路的遮罩變成了 <code>/23</code>。<br>
+                            2. 總共 32 位元減掉網路位元 23，剩餘的「主機位元」為 9 個。<br>
+                            3. 該網段的總 IP 數為 2⁹ = 512。<br>
+                            4. 「可指定給設備使用」的 IP 必須扣除頭尾 (即網路位址與廣播位址)，因此為 512 - 2 = 510 個。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 512：</strong>錯誤。這是總 IP 數量，忘記扣除頭尾不可用的保留位址。</li>
+                            <li class="wrong-opt"><strong>② 511：</strong>錯誤。只扣除了一個。</li>
+                            <li class="correct-opt"><strong>③ 510：</strong>正確。512 減去 2 等於 510。</li>
+                            <li class="wrong-opt"><strong>④ 509：</strong>錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第17題 -->
+        <div class="card">
+            <div class="theme-badge">主題：子網路切割與可用 IP 數量計算</div>
+            <div class="question">17. 若要將 IP 位址為 65.8.20.34/20 所在之網路分成 16 個子網路，其每個子網路中共有幾個 IP 位址可指定給設備使用？</div>
+            <div class="options">
+                <div class="option">① 252</div>
+                <div class="option">② 254</div>
+                <div class="option">③ 255</div>
+                <div class="option">④ 256</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>計算方式如同上題：<br>
+                            1. 原始為 <code>/20</code>，切割為 16 (2⁴) 個子網路，代表要借 4 個位元。新遮罩變成 20 + 4 = <code>/24</code>。<br>
+                            2. 新的網路其主機位元剩下 32 - 24 = 8 個 bit。<br>
+                            3. 該網段總 IP 數為 2⁸ = 256 個。<br>
+                            4. 扣掉網路位址與廣播位址後，可用主機數為 256 - 2 = 254 個。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 252：</strong>錯誤。</li>
+                            <li class="correct-opt"><strong>② 254：</strong>正確。256 減去 2 即得 254。</li>
+                            <li class="wrong-opt"><strong>③ 255：</strong>錯誤。</li>
+                            <li class="wrong-opt"><strong>④ 256：</strong>錯誤。這是未扣除頭尾的總數量。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第18題 -->
+        <div class="card">
+            <div class="theme-badge">主題：子網路遮罩延伸切割</div>
+            <div class="question">18. 若要將子網路遮罩為 255.255.252.0 之網路再分成 16 個子網路，其子網路遮罩為何？</div>
+            <div class="options">
+                <div class="option">① 255.255.255.0</div>
+                <div class="option">② 255.255.255.192</div>
+                <div class="option">③ 255.255.255.224</div>
+                <div class="option">④ 255.255.255.240</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>1. 先將原始十進位遮罩轉為 CIDR：<code>255.255.252.0</code> 中，252 對應 6 個 1 (128+64+32+16+8+4)。因此原始遮罩為 8+8+6 = <code>/22</code>。<br>
+                            2. 欲分成 16 (2⁴) 個子網路，必須向右再借 4 個 bit。<br>
+                            3. 新的遮罩將成為 22 + 4 = <code>/26</code>。<br>
+                            4. 將 /26 轉換回十進位：前三個 Byte 皆為 255，第四個 Byte 借了 2 個位元 (128+64 = 192)。故答案為 <code>255.255.255.192</code>。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 255.255.255.0：</strong>錯誤。這是 /24 遮罩，只分成 4 個子網路。</li>
+                            <li class="correct-opt"><strong>② 255.255.255.192：</strong>正確。此即為精確計算後的 /26 新遮罩。</li>
+                            <li class="wrong-opt"><strong>③ 255.255.255.224：</strong>錯誤。這是 /27 遮罩。</li>
+                            <li class="wrong-opt"><strong>④ 255.255.255.240：</strong>錯誤。這是 /28 遮罩。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第19題 -->
+        <div class="card">
+            <div class="theme-badge">主題：網路級別與子網路切割對應</div>
+            <div class="question">19. 一個 Class A 網路最多可分成幾個相當於 Class B 大小的子網路？</div>
+            <div class="options">
+                <div class="option">① 128</div>
+                <div class="option">② 256</div>
+                <div class="option">③ 512</div>
+                <div class="option">④ 64</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>標準的 Class A 網路預設遮罩是 <code>/8</code> (只有第一個 Byte 是網路 ID)。而標準的 Class B 網路預設遮罩是 <code>/16</code> (前兩個 Byte 是網路 ID)。<br>
+                            要把 A 級網路切成 B 級的大小，等於要將網路遮罩從 /8 擴張到 /16。這中間向主機借用的位元數為 16 - 8 = 8 個 bits。<br>
+                            8 個位元可以產生 2⁸ = 256 種組合，因此可切出 256 個子網路。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 128：</strong>錯誤。算成 2⁷ 了。</li>
+                            <li class="correct-opt"><strong>② 256：</strong>正確。2⁸ 等於 256。</li>
+                            <li class="wrong-opt"><strong>③ 512：</strong>錯誤。</li>
+                            <li class="wrong-opt"><strong>④ 64：</strong>錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第20題 -->
+        <div class="card">
+            <div class="theme-badge">主題：網路級別與子網路切割對應</div>
+            <div class="question">20. 一個 Class A 網路最多可分成幾個相當於 Class C 大小的子網路？</div>
+            <div class="options">
+                <div class="option">① 65535</div>
+                <div class="option">② 32768</div>
+                <div class="option">③ 65534</div>
+                <div class="option">④ 65536</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>這題概念與上一題相同：<br>
+                            Class A 預設為 <code>/8</code>。Class C 預設為 <code>/24</code>。<br>
+                            要把 /8 變成 /24，必須借用 24 - 8 = 16 個位元。<br>
+                            這 16 個位元可以創造出 2¹⁶ = 65,536 個獨立的子網段 (在現代 CIDR 標準中，全 0 與全 1 的子網段皆可合法使用)。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 65535：</strong>錯誤。</li>
+                            <li class="wrong-opt"><strong>② 32768：</strong>錯誤。這是 2¹⁵。</li>
+                            <li class="wrong-opt"><strong>③ 65534：</strong>錯誤。早期舊設備可能不支援頭尾網段而需扣除 2，但在現代考題與實務中，子網段總數不需扣除 2。</li>
+                            <li class="correct-opt"><strong>④ 65536：</strong>正確。2¹⁶ 完整計算結果為 65,536 個。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第21題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IP 位址級別與主機數量</div>
+            <div class="question">21. 下列何種 Class 之網路可指定給設備使用之 IP 位址數量最多？</div>
+            <div class="options">
+                <div class="option">① Class A</div>
+                <div class="option">② Class B</div>
+                <div class="option">③ Class C</div>
+                <div class="option">④ Class D</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>IP 網路等級是依照前導位元來決定規模的：<br>
+                            - Class A：有 24 bits 留給主機 (單一網段可容納約 1677 萬台設備)，容量最龐大。<br>
+                            - Class B：有 16 bits 留給主機 (約容納 65534 台)。<br>
+                            - Class C：僅有 8 bits 留給主機 (容納 254 台)。<br>
+                            - Class D：特殊用途，專供「群播 (Multicast)」使用，並不配發給單一終端設備。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt"><strong>① Class A：</strong>正確。其主機空間最大，單一網路內可指派的 IP 數量最多。</li>
+                            <li class="wrong-opt"><strong>② Class B：</strong>錯誤。居於中等規模。</li>
+                            <li class="wrong-opt"><strong>③ Class C：</strong>錯誤。規模最小的常規網段。</li>
+                            <li class="wrong-opt"><strong>④ Class D：</strong>錯誤。非供單機指定的 IP。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第22題 -->
+        <div class="card">
+            <div class="theme-badge">主題：IP 位址級別與網路數量</div>
+            <div class="question">22. 下列何種 Class 之網路數量最多？</div>
+            <div class="options">
+                <div class="option">① Class A</div>
+                <div class="option">② Class B</div>
+                <div class="option">③ Class C</div>
+                <div class="option">④ Class D</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>這題問的是「整個網際網路中，哪一級的網路段『數量』最多」，與上一題剛好相反。<br>
+                            - Class A 網路 ID 僅用 8 bits，因此全球只有 128 個 A 級網段。<br>
+                            - Class B 網路 ID 用了 16 bits，約有 1.6 萬個網段。<br>
+                            - Class C 網路 ID 用了高達 24 bits，扣除前置位元後，全球總共可以切割出高達 200 多萬個獨立的 C 級網段。<br>
+                            因此，雖然 Class C 單個網段的主機數最少，但其「網段總數量」卻是全球最多的。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① Class A：</strong>錯誤。其網段總數最少 (僅 128 個)。</li>
+                            <li class="wrong-opt"><strong>② Class B：</strong>錯誤。</li>
+                            <li class="correct-opt"><strong>③ Class C：</strong>正確。因為其網路 ID 佔用的位元數最多，故組合出來的網段總數也最龐大。</li>
+                            <li class="wrong-opt"><strong>④ Class D：</strong>錯誤。群播無區分一般網段的概念。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第23題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Class A 網路總數計算</div>
+            <div class="question">23. Class A 之網路數量共有幾個？</div>
+            <div class="options">
+                <div class="option">① 2⁸</div>
+                <div class="option">② 2⁷</div>
+                <div class="option">③ 2⁶</div>
+                <div class="option">④ 2⁹</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在 IPv4 標準中，Class A 網段的特徵是：<br>
+                            1. 網路 ID 佔用第一個 Byte (共 8 個 bits)。<br>
+                            2. 但規定其「最左邊的第一個位元」必須永遠固定為 <code>0</code>。<br>
+                            既然有 1 個位元被固定綁死了，代表真正可以自由變動來產生不同網路 ID 的位元數只剩下 8 - 1 = 7 個 bits。因此，Class A 網路的理論總數為 2⁷ = 128 個 (實務上需保留全0與全1，但考題通常以理論公式值為主)。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 2⁸：</strong>錯誤。這未將 Class A 強制固定為 0 的首位元扣除。</li>
+                            <li class="correct-opt"><strong>② 2⁷：</strong>正確。扣除 1 個固定位元後，剩餘組合為 2⁷ 個。</li>
+                            <li class="wrong-opt"><strong>③ 2⁶：</strong>錯誤。</li>
+                            <li class="wrong-opt"><strong>④ 2⁹：</strong>錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第24題 -->
+        <div class="card">
+            <div class="theme-badge">主題：Class B 網路總數計算</div>
+            <div class="question">24. Class B 之網路數量共有幾個？</div>
+            <div class="options">
+                <div class="option">① 2¹⁶</div>
+                <div class="option">② 2¹⁵</div>
+                <div class="option">③ 2¹⁴</div>
+                <div class="option">④ 2¹³</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>如同上一題的邏輯，Class B 網段的特徵是：<br>
+                            1. 網路 ID 佔用前兩個 Byte (共 16 個 bits)。<br>
+                            2. 規定其「最左邊的前兩個位元」必須永遠固定為 <code>10</code>。<br>
+                            16 個位元中扣除 2 個固定不動的位元後，真正可自由變化的剩餘位元數為 16 - 2 = 14 個 bits。因此，Class B 網路的理論總數為 2¹⁴ 個。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 2¹⁶：</strong>錯誤。未扣除固定位元。</li>
+                            <li class="wrong-opt"><strong>② 2¹⁵：</strong>錯誤。只扣除了 1 個位元。</li>
+                            <li class="correct-opt"><strong>③ 2¹⁴：</strong>正確。精確扣除 2 個固定首位元後得到的結果。</li>
+                            <li class="wrong-opt"><strong>④ 2¹³：</strong>錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第25題 -->
+        <div class="card">
+            <div class="theme-badge">主題：網路數量與 CIDR 計算</div>
+            <div class="question">25. Class C之網路數量共有幾個？</div>
+            <div class="options">
+                <div class="option">① 2²⁴</div>
+                <div class="option">② 2²³</div>
+                <div class="option">③ 2²²</div>
+                <div class="option">④ 2²¹</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="explanation">
+                        <div class="comprehensive-exp">
+                            <strong>【綜合解析】</strong>
+                            <p>在 IPv4 標準中，Class C 網段的特徵是網路 ID 佔用前 3 個 Byte (共 24 個 bits)。但是，國際規範要求 Class C 的前 3 個位元必須永遠固定為 <code>110</code>。因此，真正可以自由變更來產生不同網路 ID 的位元數只剩下 24 - 3 = 21 個 bits。所以 Class C 的網路總數量為 2²¹ 個。</p>
+                        </div>
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt"><strong>① 2²⁴：</strong>錯誤。未扣除 Class C 的 3 個固定首位元。</li>
+                            <li class="wrong-opt"><strong>② 2²³：</strong>錯誤。計算位元有誤。</li>
+                            <li class="wrong-opt"><strong>③ 2²²：</strong>錯誤。計算位元有誤。</li>
+                            <li class="correct-opt"><strong>④ 2²¹：</strong>正確。精確扣除 3 個固定首位元後得到的結果。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <!-- JavaScript 動態控制 -->
+    <script>
+        let isExpanded = false;
+        function toggleAll() {
+            const detailsElements = document.querySelectorAll('.qa-details');
+            const toggleBtn = document.getElementById('toggleBtn');
+            
+            isExpanded = !isExpanded;
+            
+            detailsElements.forEach(detail => {
+                if (isExpanded) {
+                    detail.setAttribute('open', '');
+                } else {
+                    detail.removeAttribute('open');
+                }
+            });
+            
+            if (isExpanded) {
+                toggleBtn.innerText = '收合所有解析';
+                toggleBtn.style.backgroundColor = '#e74c3c';
+            } else {
+                toggleBtn.innerText = '展開所有解析';
+                toggleBtn.style.backgroundColor = '#27ae60';
+            }
+        }
+    </script>
+</body>
+</html>
