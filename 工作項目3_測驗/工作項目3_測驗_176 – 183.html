@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作項目3_176-183題_互動測驗</title>
+    <style>
+        /* 基礎與排版設定 */
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-top: 0;
+        }
+
+        #quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eaeaea;
+        }
+
+        /* 進度與標籤 */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .multiple-choice-tag {
+            background-color: #e74c3c;
+            color: white;
+            font-size: 0.85em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        #progress-text {
+            font-size: 0.95em;
+            color: #95a5a6;
+            font-weight: bold;
+        }
+
+        /* 題目區 */
+        #question-text {
+            font-size: 1.25em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+
+        /* 選項區 */
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #f8f9fa;
+            border: 2px solid #dfe6e9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-size: 1.05em;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: #eef2f5;
+            border-color: #b2bec3;
+        }
+
+        /* 複選選取狀態 */
+        .option-btn.selected:not(:disabled) {
+            background: #e0f2fe;
+            border-color: #3498db;
+            color: #0c5460;
+            font-weight: bold;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        /* 批改狀態顏色 */
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #2ecc71 !important;
+            color: #27ae60 !important;
+            font-weight: bold;
+        }
+
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #e74c3c !important;
+            color: #c0392b !important;
+            text-decoration: line-through;
+        }
+
+        .missed {
+            background-color: #fff3cd !important;
+            border-color: #ffc107 !important;
+            border-style: dashed !important;
+            border-width: 2px !important;
+            color: #856404 !important;
+            font-weight: bold;
+        }
+
+        /* 按鈕區 */
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1em;
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        #submit-btn:hover {
+            background-color: #d35400;
+        }
+
+        /* 解析區 */
+        #feedback-container {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: #f4fcf7;
+            border-left: 5px solid #27ae60;
+            border-radius: 5px;
+        }
+
+        .explanation-title {
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        /* 導覽按鈕區 */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 10px 25px;
+            font-size: 1em;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: #2980b9;
+        }
+
+        .nav-btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        /* 重新測驗按鈕特殊顏色 */
+        #restart-btn {
+            background-color: #27ae60;
+        }
+
+        #restart-btn:hover {
+            background-color: #2ecc71;
+        }
+
+        /* 手機版自適應 */
+        @media (max-width: 600px) {
+            #quiz-container {
+                padding: 20px;
+            }
+            .nav-btn {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級 測驗系統</h1>
+        <p>工作項目 03：網路架設佈線 第 176 ~ 183 題 (全複選題)</p>
+    </div>
+
+    <div id="quiz-container">
+        <div class="top-bar">
+            <span class="multiple-choice-tag">✔ 複選題 (請選取多項)</span>
+            <span id="progress-text">題號： 1 / 8</span>
+        </div>
+
+        <div id="question-text">載入中...</div>
+        
+        <div id="options-container">
+            <!-- 選項按鈕會透過 JS 自動產生在這 -->
+        </div>
+
+        <button id="submit-btn" onclick="submitAnswer()">確認送出 (批改)</button>
+
+        <div id="feedback-container">
+            <div class="explanation-title">💡 深度解析：</div>
+            <div id="explanation-text">解析內容</div>
+        </div>
+
+        <div class="nav-container">
+            <button id="prev-btn" class="nav-btn" onclick="prevQuestion()">◀ 上一題</button>
+            <button id="next-btn" class="nav-btn" onclick="nextQuestion()">▶ 下一題</button>
+            <!-- 重新測驗按鈕，預設隱藏 -->
+            <button id="restart-btn" class="nav-btn" onclick="restartQuiz()" style="display: none;">↻ 重新測驗</button>
+        </div>
+    </div>
+
+    <script>
+        // 題庫資料：工作項目03 (第176-183 題)
+        // 陣列 ans 對應選項的數字: 1代表①, 2代表②, 3代表③, 4代表④ (已標註正確答案供您確認)
+        const questions = [
+            {
+                q: "176. ZigBee 網路裝置包含下列哪些主要角色？",
+                options: [
+                    "①協調器（Coordinator）",
+                    "②路由器（Router）",
+                    "③終端裝置（End Device）",
+                    "④控制器（Controller）"
+                ],
+                ans: [1,2,3], // 正確答案：(123)
+                exp: "<b>綜合解析：</b>ZigBee 網路架構中定義了三種主要邏輯設備角色。<br><br><b>【各選項解析】</b><br>① 正確：協調器負責建立與管理網路。<br>② 正確：路由器負責資料轉發與路徑尋找。<br>③ 正確：終端裝置為感測或控制節點，通常具備低功耗特性。<br>④ 錯誤：控制器並非 ZigBee 標準定義的標準主要角色名稱。"
+            },
+            {
+                q: "177. 下列何者為 IEEE 802.15.4 實體層之主要功能？",
+                options: [
+                    "①啟動及停止無線電收發器",
+                    "②建立通道",
+                    "③儲存能量",
+                    "④傳送及接收封包"
+                ],
+                ans: [1, 4], // 正確答案：(14)
+                exp: "<b>綜合解析：</b>IEEE 802.15.4 實體層 (PHY) 負責最底層的無線電信號傳輸與硬體控制。<br><br><b>【各選項解析】</b><br>① 正確：實體層負責控制硬體無線電收發器的啟動與停止。<br>② 錯誤：建立通道與存取控制主要由 MAC 層負責。<br>③ 錯誤：儲存能量屬於硬體電池與電源管理機制，非通訊協定 PHY 層的功能。<br>④ 正確：實體層最根本的核心功能即是在實體介質上傳送與接收資料封包。"
+            },
+            {
+                q: "178. IEEE 802.15.4 實體層訊框（PHY frame）包含下列哪些欄位？",
+                options: [
+                    "①同步標頭（Synchronization header）",
+                    "②實體層標頭（PHY header）",
+                    "③實體層資料承載（PHY payload）",
+                    "④邏輯鏈結（Logical link）"
+                ],
+                ans: [1,2,3], // 正確答案：(123)
+                exp: "<b>綜合解析：</b>IEEE 802.15.4 的 PHY 訊框 (PPDU) 格式有固定的欄位設計，以確保信號同步與資料順利傳遞。<br><br><b>【各選項解析】</b><br>① 正確：同步標頭 (SHR) 用於接收端與發送端的時脈與信號同步。<br>② 正確：實體層標頭 (PHR) 包含訊框長度等重要參數。<br>③ 正確：實體層資料承載 (PHY payload) 即為上層 (MAC) 傳遞下來的實際資料。<br>④ 錯誤：邏輯鏈結控制 (LLC) 屬於資料鏈結層的子層，並非 PHY 訊框中的一個實體欄位。"
+            },
+            {
+                q: "179. IEEE 802.15.4 之 Superframe 架構係由 Beacon 中的兩參數（Beacon Order, BO）與（Superframe Order, SO）控制，下列哪些正確？",
+                options: [
+                    "①BO 無法決定 Superframe 的長度",
+                    "②SO 決定 Superframe 中活躍部分（Active portion）的長度",
+                    "③BO 與 SO 滿足不等式：0 ≤ SO ≤ BO ≤ 14",
+                    "④當 SO=15 時，可使用 Superframe 架構"
+                ],
+                ans: [2, 3], // 正確答案：(23)
+                exp: "<b>綜合解析：</b>IEEE 802.15.4 MAC 層的超訊框 (Superframe) 結構由信標 (Beacon) 內的 BO 和 SO 參數定義與控制。<br><br><b>【各選項解析】</b><br>① 錯誤：BO (Beacon Order) 決定了兩次 Beacon 之間的間隔，也就是 Superframe 的總長度。<br>② 正確：SO (Superframe Order) 決定了超訊框中設備處於活躍狀態 (Active portion) 的時間長度。<br>③ 正確：標準規範 SO 必須小於或等於 BO，且最大值限制為 14。<br>④ 錯誤：當 SO=15 時代表不具有活躍部分，無法使用常規的 Superframe 架構 (同理 BO=15 代表不發送 Beacon)。"
+            },
+            {
+                q: "180. 無線隨意網路（Wireless Ad Hoc Network）之主動式路由協定，主要使用下列哪些路由方法？",
+                options: [
+                    "①距離向量（Distance vector）",
+                    "②動態來源路由（Dynamic source routing）",
+                    "③區域路由（Zone routing）",
+                    "④鏈結狀態（Link state）"
+                ],
+                ans: [1, 4], // 正確答案：(14)
+                exp: "<b>綜合解析：</b>Ad Hoc 網路的主動式 (Proactive) 路由協定會主動定期交換路由表，以隨時維護全網拓樸。<br><br><b>【各選項解析】</b><br>① 正確：距離向量 (Distance Vector) 演算法 (例如 DSDV) 是常見的主動式路由基礎。<br>② 錯誤：DSR (Dynamic Source Routing) 屬於被動式 (Reactive/On-demand) 路由協定，只有需要時才尋找路由。<br>③ 錯誤：Zone Routing Protocol (ZRP) 屬於混合式 (Hybrid) 路由協定。<br>④ 正確：鏈結狀態 (Link State) 演算法 (例如 OLSR) 也是主動式路由的主要方法之一。"
+            },
+            {
+                q: "181. 光在光纖傳遞過程中，訊號逐漸擴散重疊而變寬的色散現象（Chromatic dispersion），主要包含下列哪幾種？",
+                options: [
+                    "①模態色散（Modal dispersion）",
+                    "②零色散（Zero dispersion）",
+                    "③波導色散（Waveguide dispersion）",
+                    "④材料色散（Material dispersion）"
+                ],
+                ans: [1,3, 4], // 正確答案：(134)
+                exp: "<b>綜合解析：</b>光纖中的色度色散（Chromatic dispersion）會造成光脈衝變寬，主要由材料與波導兩種因素引起。<br><br><b>【各選項解析】</b><br>① 正確：模態色散屬於「模間色散」(Intermodal dispersion)，不包含在色度色散 (Chromatic dispersion) 中。<br>② 錯誤：零色散是指特定波長下色散值為零的「狀態」，並非色散的一種類型。<br>③ 正確：波導色散起因於光纖結構的物理設計 (如纖核與纖殼的折射率分佈與尺寸)，屬於色度色散的一種。<br>④ 正確：材料色散起因於光纖材料本身對不同波長的光會有不同的折射率而導致，亦屬於色度色散的一種。"
+            },
+            {
+                q: "182. 光纖通訊系統至少需包含下列哪些主要構成實體？",
+                options: [
+                    "①發射器（Transmitter）",
+                    "②光纜（Fiber-optic cable）",
+                    "③接收器（Receiver）",
+                    "④橋接器（Bridge）"
+                ],
+                ans: [1,2,3], // 正確答案：(123)
+                exp: "<b>綜合解析：</b>光纖通訊系統的基本架構涵蓋了電光轉換、傳輸介質與光電轉換三個最核心的部分。<br><br><b>【各選項解析】</b><br>① 正確：發射器 (Transmitter) 負責將電信號轉換為光信號並打入光纖。<br>② 正確：光纜 (Fiber-optic cable) 為提供光信號傳輸的實體通道媒介。<br>③ 正確：接收器 (Receiver) 負責捕捉光信號並將其還原為電信號。<br>④ 錯誤：橋接器 (Bridge) 屬於區域網路第二層的網路設備，非構成基礎「光纖物理通訊系統」的必備實體元件。"
+            },
+            {
+                q: "183. 下列哪些是酒廠模型中機器對機器（M2M）互動的範例？",
+                options: [
+                    "①溫度和容量感應器警示釀酒師一桶酒的狀態",
+                    "②灌裝感應器感應裝瓶已滿時，通知控制器將酒瓶推出輸送機",
+                    "③發酵罐溫度感應器控制加熱器以維持發酵溫度",
+                    "④釀酒師就葡萄採收時間與果農協同合作"
+                ],
+                ans: [2, 3], // 正確答案：(23)
+                exp: "<b>綜合解析：</b>機器對機器 (M2M) 強調設備與設備之間自動進行資料交換與控制，過程中無須人工介入。<br><br><b>【各選項解析】</b><br>① 錯誤：感應器警示「釀酒師(人)」，這是機器對人 (M2P) 的互動，而非 M2M。<br>② 正確：感應器 (機器) 通知控制器 (機器) 做出動作，是標準的 M2M 自動化範例。<br>③ 正確：溫度感應器 (機器) 連動加熱器 (機器) 進行溫度控制，是典型的 M2M 範例。<br>④ 錯誤：釀酒師與果農的合作屬於人與人 (P2P) 或傳統商業互動，完全不涉及機器間的通訊。"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        // 記錄使用者的答題狀態： null 代表未答，若已答則為 { selected: [], submitted: true }
+        let userAnswers = new Array(questions.length).fill(null);
+        // 暫存當前畫面的勾選狀態
+        let currentSelection = [];
+
+        const questionText = document.getElementById("question-text");
+        const optionsContainer = document.getElementById("options-container");
+        const feedbackContainer = document.getElementById("feedback-container");
+        const explanationText = document.getElementById("explanation-text");
+        const progressText = document.getElementById("progress-text");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        const submitBtn = document.getElementById("submit-btn");
+        const restartBtn = document.getElementById("restart-btn"); // 重新測驗按鈕
+
+        // 載入題目
+        function loadQuestion(index) {
+            const qData = questions[index];
+            progressText.innerText = `題號： ${index + 1} / ${questions.length}`;
+            questionText.innerHTML = qData.q;
+            feedbackContainer.style.display = "none";
+            optionsContainer.innerHTML = "";
+
+            // 判斷該題是否已提交
+            let isSubmitted = false;
+            if (userAnswers[index] !== null) {
+                isSubmitted = userAnswers[index].submitted;
+                currentSelection = [...userAnswers[index].selected];
+            } else {
+                currentSelection = [];
+            }
+
+            // 動態生成選項按鈕
+            qData.options.forEach((optText, i) => {
+                const optValue = i + 1; // 讓索引從 1 開始 (1代表①, 2代表②, 3代表③, 4代表④)
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerHTML = optText;
+
+                if (isSubmitted) {
+                    btn.disabled = true; // 已批改即鎖定
+                    const isSelected = currentSelection.includes(optValue);
+                    const isCorrectAns = qData.ans.includes(optValue);
+
+                    if (isSelected && isCorrectAns) {
+                        btn.classList.add("correct");
+                        btn.innerHTML += " <span style='float:right'>✔</span>";
+                    } else if (isSelected && !isCorrectAns) {
+                        btn.classList.add("incorrect");
+                        btn.innerHTML += " <span style='float:right'>✘</span>";
+                    } else if (!isSelected && isCorrectAns) {
+                        // 漏選的正確答案：加上虛線框、特殊顏色與圖示提示
+                        btn.classList.add("missed");
+                        btn.innerHTML += " <span style='float:right'>❗ (漏選的正確答案)</span>";
+                    }
+                } else {
+                    // 若還沒送出，套用選取狀態
+                    if (currentSelection.includes(optValue)) {
+                        btn.classList.add("selected");
+                    }
+                    btn.onclick = () => toggleSelection(optValue, btn);
+                }
+                optionsContainer.appendChild(btn);
+            });
+
+            // 控制按鈕與解析區的顯示
+            if (isSubmitted) {
+                submitBtn.style.display = "none";
+                explanationText.innerHTML = qData.exp;
+                feedbackContainer.style.display = "block";
+            } else {
+                submitBtn.style.display = "block";
+            }
+
+            // 上下題及重新測驗導覽鈕狀態
+            prevBtn.disabled = index === 0;
+            
+            // 如果是最後一題，隱藏「下一題」，顯示「重新測驗」
+            if (index === questions.length - 1) {
+                nextBtn.style.display = "none";
+                restartBtn.style.display = "block";
+            } else {
+                nextBtn.style.display = "block";
+                restartBtn.style.display = "none";
+            }
+        }
+
+        // 點擊選項邏輯 (切換選取狀態)
+        function toggleSelection(optValue, btn) {
+            const idx = currentSelection.indexOf(optValue);
+            if (idx > -1) {
+                currentSelection.splice(idx, 1);
+                btn.classList.remove("selected");
+            } else {
+                currentSelection.push(optValue);
+                btn.classList.add("selected");
+            }
+        }
+
+        // 送出答案批改
+        function submitAnswer() {
+            if (currentSelection.length === 0) {
+                alert("請至少選擇一個選項再送出喔！");
+                return;
+            }
+
+            const qData = questions[currentQuestionIndex];
+            userAnswers[currentQuestionIndex] = { selected: [...currentSelection], submitted: true };
+
+            const btns = optionsContainer.getElementsByClassName("option-btn");
+
+            // 鎖定按鈕並上色
+            for (let i = 0; i < btns.length; i++) {
+                const optValue = i + 1; // 對應選項的 1, 2, 3, 4
+                btns[i].disabled = true;
+                btns[i].classList.remove("selected");
+
+                const isSelected = currentSelection.includes(optValue);
+                const isCorrectAns = qData.ans.includes(optValue);
+
+                if (isSelected && isCorrectAns) {
+                    btns[i].classList.add("correct");
+                    btns[i].innerHTML += " <span style='float:right'>✔</span>";
+                } else if (isSelected && !isCorrectAns) {
+                    btns[i].classList.add("incorrect");
+                    btns[i].innerHTML += " <span style='float:right'>✘</span>";
+                } else if (!isSelected && isCorrectAns) {
+                    btns[i].classList.add("missed");
+                    btns[i].innerHTML += " <span style='float:right'>❗ (漏選的正確答案)</span>";
+                }
+            }
+
+            // 隱藏送出紐，並展開解析
+            submitBtn.style.display = "none";
+            explanationText.innerHTML = qData.exp;
+            feedbackContainer.style.display = "block";
+        }
+
+        // 導覽至上一題
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion(currentQuestionIndex);
+            }
+        }
+
+        // 導覽至下一題
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
+            }
+        }
+
+        // 重新測驗功能
+        function restartQuiz() {
+            if (confirm("確定要清除所有作答紀錄並重新開始測驗嗎？")) {
+                currentQuestionIndex = 0; // 重置到第一題
+                userAnswers = new Array(questions.length).fill(null); // 清空作答紀錄
+                currentSelection = []; // 清空當前選取
+                loadQuestion(currentQuestionIndex); // 重新載入
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // 平滑捲動到畫面最上方
+            }
+        }
+
+        // 初始化
+        loadQuestion(0);
+    </script>
+</body>
+</html>
