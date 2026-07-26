@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路架設 乙級 工作項目05 (126-150題)</title>
+    <style>
+        /* 基礎與排版設定 */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+        
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+        
+        /* 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { 
+            background: #eef2f5; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #34495e; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        
+        .explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #3498db; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級 工作項目05：網路規劃與管理</h1>
+        <p>(第126 - 150題)</p>
+        <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+
+        <!-- 題目 126 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路安全與攻擊</span>
+            <div class="question">126. DNS Cache poisoning 攻擊會對使用者造成甚麼後果？</div>
+            <div class="options">
+                <div class="option">①使用者 IP 位址被刪除</div>
+                <div class="option">②使用者無法透過本身 IP 位址連線到目的網頁</div>
+                <div class="option">③使用者被連線到錯誤的目的網頁</div>
+                <div class="option">④使用者存取遠端伺服器被拒絕</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>DNS 快取中毒（DNS Cache poisoning）是一種極具威脅的網路攻擊。駭客利用漏洞將偽造的 DNS 紀錄注入到本機或 ISP 的 DNS 伺服器快取中。當使用者輸入正確的網址（如銀行網站）時，中毒的 DNS 伺服器會將使用者導向駭客偽造的惡意 IP 位址，導致使用者不知不覺間連線到了「錯誤（釣魚）的目的網頁」。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①使用者 IP 位址被刪除：DNS 中毒影響的是網域名稱解析，不影響使用者本機的 IP 設定。</li>
+                            <li class="wrong-opt">②無法透過本身 IP 位址連線到目的網頁：使用者仍可發送連線，只是目標錯了，而非斷線。</li>
+                            <li class="correct-opt">③使用者被連線到錯誤的目的網頁：正確，這是快取中毒的主要攻擊目的。</li>
+                            <li class="wrong-opt">④使用者存取遠端伺服器被拒絕：這是阻斷服務攻擊（DoS）或存取控制設定所致，非 DNS 中毒直接結果。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 127 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路安全與攻擊 (DDoS)</span>
+            <div class="question">127. 下列哪一項最能描述 DDoS（分散式阻斷服務）攻擊的主要特徵？</div>
+            <div class="options">
+                <div class="option">①攻擊由單一主機發起，透過竊取使用者憑證登入系統後造成資源耗盡</div>
+                <div class="option">②由大量受感染或被控制的裝置（Botnet）同時向目標發送海量流量或請求，使服務無法提供給合法使用者</div>
+                <div class="option">③利用應用程式的加密實作漏洞直接竊取資料庫內容</div>
+                <div class="option">④在受害主機本地安裝後門以便長期竊取機敏資料</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>DDoS（Distributed Denial of Service，分散式阻斷服務）的核心特徵在於「分散式」。駭客會事先控制成千上萬台遭感染的殭屍電腦（Botnet），在同一時間對單一目標伺服器發動巨量的網路連線請求或垃圾封包，導致目標伺服器的頻寬或運算資源耗盡，進而癱瘓，無法再服務正常用戶。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①攻擊由單一主機發起：這是傳統的 DoS（單一阻斷服務），而非「分散式」DDoS。</li>
+                            <li class="correct-opt">②由大量受感染裝置同時向目標發送海量流量：正確，這完美描述了 Botnet 與 DDoS 的運作。</li>
+                            <li class="wrong-opt">③利用漏洞竊取資料庫內容：這屬於 SQL 隱碼攻擊或資料外洩攻擊，非癱瘓服務。</li>
+                            <li class="wrong-opt">④安裝後門以長期竊取資料：這屬於木馬（Trojan）或 APT（進階持續性威脅）攻擊。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 128 -->
+        <div class="card">
+            <span class="theme-badge">主題：加密演算法</span>
+            <div class="question">128. DES 的金鑰有效長度是多少位元？</div>
+            <div class="options">
+                <div class="option">①56 位元</div>
+                <div class="option">②64 位元</div>
+                <div class="option">③128 位元</div>
+                <div class="option">④512 位元</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>DES（資料加密標準，Data Encryption Standard）是一種老牌的對稱式加密演算法。它的金鑰在實體傳輸與儲存時長度是 64 位元，但其中有 8 個位元是被用來作為同位元檢查（Parity Check），不參與實際的加密運算。因此，DES 真正用於加密強度的「有效長度」只有 56 位元。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①56 位元：正確，這是 DES 的實際有效加密位元長度。</li>
+                            <li class="wrong-opt">②64 位元：這是包含同位檢查碼的總長度，非有效長度。</li>
+                            <li class="wrong-opt">③128 位元：現代 AES 加密演算法的基礎長度之一。</li>
+                            <li class="wrong-opt">④512 位元：常用於 RSA 等非對稱式加密或雜湊長度。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 129 -->
+        <div class="card">
+            <span class="theme-badge">主題：DHCP 協定運作</span>
+            <div class="question">129. DHCP 探索（Discover）訊息中之目的地（Destination）及來源（Source）位址各為何？</div>
+            <div class="options">
+                <div class="option">①目的地：0.0.0.0，來源：0.0.0.0</div>
+                <div class="option">②目的地：255.255.255.255，來源：0.0.0.0</div>
+                <div class="option">③目的地：255.255.255.255，來源：255.255.255.255</div>
+                <div class="option">④目的地：0.0.0.0，來源：255.255.255.255</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>當一台電腦剛開機，想要透過 DHCP 伺服器取得 IP 時，它本身還沒有任何可用的 IP，因此封包的「來源 IP 會填寫 0.0.0.0（代表無位址）」。又因為它不知道 DHCP 伺服器在哪裡，所以它必須向整個區域網段大吼發問，因此「目的地 IP 會填寫 255.255.255.255（代表受限廣播位址）」。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①目的地：0.0.0.0，來源：0.0.0.0：目的地錯誤，無法寄達。</li>
+                            <li class="correct-opt">②目的地：255.255.255.255，來源：0.0.0.0：正確，無 IP 狀態下發送全網廣播。</li>
+                            <li class="wrong-opt">③目的地：255.255.255.255，來源：255.255.255.255：來源不能是廣播位址。</li>
+                            <li class="wrong-opt">④目的地：0.0.0.0，來源：255.255.255.255：完全相反且不合邏輯。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 130 -->
+        <div class="card">
+            <span class="theme-badge">主題：廣域網路技術 (MPLS)</span>
+            <div class="question">130. 關於多重通訊協定標籤交換（Multi Protocol Label Switching, MPLS）協定之敘述，下列何者不正確？</div>
+            <div class="options">
+                <div class="option">①於路由器中，會先檢查 IP 位址，再根據標籤值轉送 IP 封包至輸出介面</div>
+                <div class="option">②於路由器中，同一封包經 MPLS 轉送與經 IP 轉送之下個中繼點(Hop)可能不同</div>
+                <div class="option">③MPLS 使用固定長度標籤轉送 IP 封包</div>
+                <div class="option">④當鏈路(Link)故障時，使用 MPLS 重新繞送流量比使用 IP 重新繞送快</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>MPLS 技術設計的最大初衷，就是為了「加速路由轉送」。在純 IP 網路中，路由器必須拆開封包檢查長度變動的 IP 標頭以決定路徑。但在 MPLS 網路核心（LSR）中，路由器只需要看封包外面附加的「固定長度短標籤（Label）」，就能直接進行硬體等級的高速轉送，**根本不需要再去檢查內部的 IP 位址**。因此選項 ① 敘述錯誤。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①於路由器中，會先檢查 IP，再根據標籤值轉送：錯誤，核心路由器只看標籤，不看 IP。</li>
+                            <li class="wrong-opt">②MPLS 與 IP 轉送的下個 Hop 可能不同：正確，MPLS 支援流量工程（TE），可強制指定非預設路徑。</li>
+                            <li class="wrong-opt">③MPLS 使用固定長度標籤轉送 IP 封包：正確，固定長度的標籤讓硬體交換速度極快。</li>
+                            <li class="wrong-opt">④鏈路故障時，MPLS 重新繞送較快：正確，MPLS 有快速重路由（FRR）保護機制，通常在 50ms 內切換。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 131 -->
+        <div class="card">
+            <span class="theme-badge">主題：IP 封包分段 (Fragmentation)</span>
+            <div class="question">131. 考量發送 1 個 6000 位元組的資料包（Datagram）到具有 1000 位元組最大傳輸大小（MTU）的鏈路（Link），假設每個資料包之表頭（Header）為 20 個位元組，則此資料包需產生多少個分段（Fragment）？</div>
+            <div class="options">
+                <div class="option">①5</div>
+                <div class="option">②6</div>
+                <div class="option">③7</div>
+                <div class="option">④8</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>1. 原始資料包總長度為 6000 bytes，扣掉原本的表頭 20 bytes，代表真正的<strong>資料淨載（Data）長度為 5980 bytes</strong>。<br>
+                        2. 該網路的 MTU（最大傳輸單位）是 1000 bytes。因為每個分段出去的封包都必須帶有 20 bytes 的新表頭，所以每個分段<strong>最多只能裝 980 bytes 的資料</strong> (1000 - 20 = 980)。<br>
+                        3. 計算分段數：將總資料量除以每個分段能裝的容量：<br>
+                           5980 ÷ 980 = 6 ... 餘 100。<br>
+                        4. 也就是說，前 6 個封包各裝滿了 980 bytes，剩下的 100 bytes 資料還需要再裝入第 7 個封包。因此總共需要 <strong>7 個分段</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①5：計算錯誤，遠遠裝不下。</li>
+                            <li class="wrong-opt">②6：若直接用 6000 / 1000 = 6 是陷阱，忽略了每個封包都要扣除表頭，以及原始資料是 5980。</li>
+                            <li class="correct-opt">③7：正確，5980 bytes / 980 bytes = 6.1，進位為 7 個分段。</li>
+                            <li class="wrong-opt">④8：計算錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 132 -->
+        <div class="card">
+            <span class="theme-badge">主題：NAT 網路位址轉換</span>
+            <div class="question">132. 網路位址轉譯（NAT），將各向外發送之封包的來源位址轉換成下列何種網路位址及埠號？</div>
+            <div class="options">
+                <div class="option">①不同外部網路位址，同一埠號</div>
+                <div class="option">②同一外部網路位址，同一埠號</div>
+                <div class="option">③不同外部網路位址，不同埠號</div>
+                <div class="option">④同一外部網路位址，不同埠號</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>這裡題意指的是企業或家庭最常使用的 <strong>PAT (Port Address Translation)</strong> 或稱 <strong>NAPT (Network Address Port Translation)</strong>。它的原理是將內部所有電腦（私有 IP）的對外連線，統一轉換為路由器上的「<strong>同一個合法外部 IP 位址</strong>」。為了區分回來時封包該還給哪一台內部電腦，NAT 路由器會給這些連線分配「<strong>不同的埠號 (Port)</strong>」來做為辨識標籤。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①不同外部位址，同一埠號：無法節省 IP 且會造成衝突。</li>
+                            <li class="wrong-opt">②同一外部位址，同一埠號：NAT 路由器會無法區別回傳封包該給誰。</li>
+                            <li class="wrong-opt">③不同外部位址，不同埠號：這是浪費公有 IP 的做法。</li>
+                            <li class="correct-opt">④同一外部位址，不同埠號：正確，這就是 PAT/NAPT 的核心運作機制。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 133 -->
+        <div class="card">
+            <span class="theme-badge">主題：衛星通訊傳輸延遲</span>
+            <div class="question">133. 地球同步衛星（GEO）高度為 35,800 公里，其封包端對端（End-to-end）往返傳輸時間為多少？（光速=300,000 km/sec）</div>
+            <div class="options">
+                <div class="option">①0.1193 秒</div>
+                <div class="option">②0.179 秒</div>
+                <div class="option">③0.2387 秒</div>
+                <div class="option">④0.358 秒</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>1. 端對端（發送站 到 接收站）的通訊路徑，必須先從地球「打上衛星」，再從衛星「打下地球」。<br>
+                        2. 在這題目的術語中，所謂的「往返」指的是這段 <strong>地球(上) -> 衛星 -> (下)地球</strong> 的單趟通訊旅程，它總共經過了兩段高度距離。<br>
+                        3. 總傳輸距離 = 35,800 公里 × 2 段 = 71,600 公里。<br>
+                        4. 傳播時間 = 距離 ÷ 速度 = 71,600 km ÷ 300,000 km/sec = 0.23866... 秒。<br>
+                        5. 四捨五入後得到 <strong>0.2387 秒</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①0.1193 秒：這只是單趟上行或下行（1段）的時間。</li>
+                            <li class="wrong-opt">②0.179 秒：計算無意義。</li>
+                            <li class="correct-opt">③0.2387 秒：正確，為 2 段距離（上下）的總時間。</li>
+                            <li class="wrong-opt">④0.358 秒：計算無意義。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 134 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路封包傳輸效能</span>
+            <div class="question">134. 假設系統使用最大長度 250 位元組（Byte）的封包傳送資料，其中每個封包之額外負擔（Overhead）（標頭及標尾）合計 25 位元組，因此封包之資料酬載（Data Payload）最大長度為 225 位元組。經由此系統傳送 850 位元組之資料訊息，請問其整體額外負擔為何？</div>
+            <div class="options">
+                <div class="option">①10%</div>
+                <div class="option">②11.11%</div>
+                <div class="option">③10.53%</div>
+                <div class="option">④12%</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>1. 要傳送的總資料量為 850 Bytes，每個封包的資料容量(Payload)只有 225 Bytes。<br>
+                        2. <strong>計算需要幾個封包</strong>：850 ÷ 225 = 3.77...，因為不能切割一半，所以需要 <strong>4 個封包</strong> 來傳送。<br>
+                        3. <strong>計算總額外負擔</strong>：每個封包有 25 Bytes 的表頭，4 個封包就是 25 × 4 = <strong>100 Bytes</strong>。<br>
+                        4. <strong>計算實際線上傳輸的總長度</strong>：真正資料 (850) + 總額外負擔 (100) = <strong>950 Bytes</strong>。<br>
+                        5. <strong>計算整體額外負擔比例</strong>：總額外負擔 ÷ 總長度 = 100 ÷ 950 = 0.10526...，換算百分比約為 <strong>10.53%</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①10%：錯誤（若用 100 / 1000 算出來的）。</li>
+                            <li class="wrong-opt">②11.11%：錯誤（若用 100 / 900 算出來的）。</li>
+                            <li class="correct-opt">③10.53%：正確，100 / 950。</li>
+                            <li class="wrong-opt">④12%：錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 135 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路傳輸時間計算</span>
+            <div class="question">135. 有一 1600×1200 像素（Pixel）之影像，其中每個像素以 3 位元組（Byte）表示。使用 64kbps 的數據機傳輸該影像。若未進行壓縮，需花多少時間傳輸該影像？</div>
+            <div class="options">
+                <div class="option">①102.86 秒</div>
+                <div class="option">②411.43 秒</div>
+                <div class="option">③720 秒</div>
+                <div class="option">④1645.71 秒</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>這題要注意「Byte (位元組)」與網路傳輸速度「bps (bits per second, 位元/秒)」之間的轉換（1 Byte = 8 bits）。<br>
+                        1. <strong>計算影像總位元組大小</strong>：1600 × 1200 × 3 Bytes = 5,760,000 Bytes。<br>
+                        2. <strong>轉換為位元(bits)</strong>：5,760,000 Bytes × 8 = 46,080,000 bits。<br>
+                        3. <strong>確認網路速度</strong>：64 kbps 代表每秒可傳輸 64,000 bits（在電信傳輸學科中，k 通常以 1000 計，非 1024）。<br>
+                        4. <strong>計算傳輸時間</strong>：總位元數 ÷ 傳輸速度 = 46,080,000 ÷ 64,000 = <strong>720 秒</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①102.86 秒：計算錯誤。</li>
+                            <li class="wrong-opt">②411.43 秒：計算錯誤。</li>
+                            <li class="correct-opt">③720 秒：正確，46080000 / 64000 得出。</li>
+                            <li class="wrong-opt">④1645.71 秒：計算錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 136 -->
+        <div class="card">
+            <span class="theme-badge">主題：衛星通訊 (Iridium Project)</span>
+            <div class="question">136. 銥計畫（Iridium Project）中的 66 低軌道衛星分為 6 個繞地球的環。於這些衛星的高度，其繞行週期為 90 分鐘。地面固定發射站（Stationary Transmitter）的換手（Handoff）平均間隔時間為多少？</div>
+            <div class="options">
+                <div class="option">①6 分 21 秒</div>
+                <div class="option">②7 分 30 秒</div>
+                <div class="option">③8 分 11 秒</div>
+                <div class="option">④8 分 21 秒</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>1. 整個銥計畫有 66 顆衛星，平均分布在 6 個軌道面上。因此，<strong>每個軌道面上有 11 顆衛星</strong> (66 ÷ 6 = 11)。<br>
+                        2. 這些衛星在同一個軌道環上等距排列，跟隨地球自轉。一整個環（11 顆衛星）轉完一圈需要 90 分鐘。<br>
+                        3. 對於地面上一個固定不動的發射站來說，兩顆相鄰衛星飛越它頭頂的「時間間隔（換手時間）」 = 總週期 ÷ 軌道上的衛星數量。<br>
+                        4. 換手時間 = 90 分鐘 ÷ 11 顆 = 8.1818... 分鐘。<br>
+                        5. 換算為分與秒：0.1818 分鐘 × 60 秒 ≈ 10.9 秒。所以大約是 <strong>8 分 11 秒</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①6 分 21 秒：計算錯誤。</li>
+                            <li class="wrong-opt">②7 分 30 秒：計算錯誤。</li>
+                            <li class="correct-opt">③8 分 11 秒：正確，90/11 的精準換算結果。</li>
+                            <li class="wrong-opt">④8 分 21 秒：計算錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 137 -->
+        <div class="card">
+            <span class="theme-badge">主題：傳輸協定效率 (Stop-and-Wait)</span>
+            <div class="question">137. 通道之傳輸速率為 6 kbps 而其傳播延遲（Propagation Delay）為 15msec。訊框大小大於多少位元時，可使暫停並等待（Stop-and-wait）機制達到至少 50%的效率？（1msec = 0.001 second）</div>
+            <div class="options">
+                <div class="option">①120 位元</div>
+                <div class="option">②150 位元</div>
+                <div class="option">③180 位元</div>
+                <div class="option">④240 位元</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>在 Stop-and-wait 機制中，發送端送出資料後必須等待 ACK 回傳才能送下一筆。<br>
+                        1. 效率公式：Efficiency = 傳輸時間 / (傳輸時間 + 來回傳播延遲)。<br>
+                        2. 要達到 ≥ 50% 的效率，意味著 <strong>傳輸時間（T_trans） 必須 ≥ 往返傳播延遲（2 × T_prop）</strong>。<br>
+                        3. 往返傳播延遲 = 15ms × 2 = 30ms = <strong>0.03 秒</strong>。<br>
+                        4. 傳輸時間（T_trans）的公式是：訊框長度(L) / 頻寬(R)。<br>
+                        5. 建立不等式：L / 6000 bps ≥ 0.03 秒。<br>
+                        6. 求解 L：L ≥ 0.03 × 6000 = <strong>180 位元 (bits)</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①120 位元：效率會低於 50%。</li>
+                            <li class="wrong-opt">②150 位元：效率會低於 50%。</li>
+                            <li class="correct-opt">③180 位元：正確，剛好達成 50% 效率的臨界點。</li>
+                            <li class="wrong-opt">④240 位元：效率會高於 50%，但題目問「大於多少位元時可使...」，臨界點為 180。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 138 -->
+        <div class="card">
+            <span class="theme-badge">主題：錯誤偵測與更正 (Hamming Code)</span>
+            <div class="question">138. 使用漢明碼（Hamming Code）傳輸 16 位元之訊息，為確保接收器可偵測並校正單一位元錯誤，至少需使用多少個檢查位元？</div>
+            <div class="options">
+                <div class="option">①6</div>
+                <div class="option">②5</div>
+                <div class="option">③4</div>
+                <div class="option">④3</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>漢明碼（Hamming Code）的檢查位元數量必須符合以下不等式條件才能具備校正 1 bit 錯誤的能力：<br>
+                        <strong>2^r ≥ m + r + 1</strong>  (其中 r 是檢查位元數，m 是資料位元數)。<br>
+                        已知 m = 16，我們代入選項來測試：<br>
+                        - 假設 r = 4，左邊 = 2⁴ = 16；右邊 = 16 + 4 + 1 = 21。 (16 不大於 21，失敗)<br>
+                        - 假設 r = 5，左邊 = 2⁵ = 32；右邊 = 16 + 5 + 1 = 22。 (32 ≥ 22，成功成立)<br>
+                        因此至少需要 <strong>5 個檢查位元</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①6：太多了，不是「至少」所需的數量。</li>
+                            <li class="correct-opt">②5：正確，為滿足漢明碼不等式的最小正整數。</li>
+                            <li class="wrong-opt">③4：不足以涵蓋所有錯誤位置的可能性。</li>
+                            <li class="wrong-opt">④3：不足以涵蓋所有錯誤位置的可能性。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 139 -->
+        <div class="card">
+            <span class="theme-badge">主題：TCP 傳輸效能與使用率</span>
+            <div class="question">139. 某 TCP 設備經由 1Gbps 通道持續發送大小為 65535 位元組之一序列訊窗（Window）。假設通道之單向傳播延遲為 10 msec，則該通道的使用率是多少？</div>
+            <div class="options">
+                <div class="option">①1.33%</div>
+                <div class="option">②2.62%</div>
+                <div class="option">③5.24%</div>
+                <div class="option">④10.48%</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>TCP 傳送整個 Window 然後等待 ACK，其粗略的通道使用率 (Utilization) 計算公式為：<br>
+                        <strong>U = Window Size / (頻寬 R × 往返時間 RTT)</strong><br>
+                        1. <strong>Window Size (W)</strong>：65535 Bytes = 65535 × 8 bits = 524,280 bits。<br>
+                        2. <strong>RTT (往返時間)</strong>：單向延遲為 10ms，所以 RTT = 20ms = 0.02 秒。<br>
+                        3. <strong>頻寬 (R)</strong>：1 Gbps = 1,000,000,000 bps。<br>
+                        4. <strong>計算使用率</strong>：524,280 / (1,000,000,000 × 0.02) = 524,280 / 20,000,000 = 0.026214。<br>
+                        5. 換算為百分比即為 <strong>2.62%</strong>。這顯示了即使頻寬很大，若 Window Size 不夠大且延遲偏高，線路使用率會非常低。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①1.33%：若將 RTT 算成 40ms 或其他錯誤數值會得到此結果。</li>
+                            <li class="correct-opt">②2.62%：正確，套用標準 TCP Window 傳輸效能公式結果。</li>
+                            <li class="wrong-opt">③5.24%：若忘記將單向延遲 ×2 (只算 10ms)，會得到此兩倍大的錯誤答案。</li>
+                            <li class="wrong-opt">④10.48%：計算錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 140 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路流量與定律</span>
+            <div class="question">140. 分析網頁造訪比例時，第 k 個受歡迎網頁之比例大約是 C/k，其中C=1/(1+1/2+1/3+…+1/N)，此規律名稱為何？</div>
+            <div class="options">
+                <div class="option">①律夫（Zipf）定律</div>
+                <div class="option">②長尾（Long Tail）理論</div>
+                <div class="option">③摩爾（Moore）定律</div>
+                <div class="option">④比爾（Bill）定律</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>這個用以描述頻率與排名呈現反比關係的數學模型，稱為「<strong>齊普夫定律（Zipf's Law，音譯律夫定律）</strong>」。在網際網路中，它常被用來解釋網頁存取的分佈：排名第 2 名的網頁，其造訪量大約是第 1 名的 1/2；第 3 名大約是 1/3，依此類推。少數幾個網站佔據了絕大部分的流量。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①律夫（Zipf）定律：正確，描述頻率與名次成反比的冪律分佈。</li>
+                            <li class="wrong-opt">②長尾（Long Tail）理論：探討冷門商品總和不亞於熱門商品的商業模式，雖與此分佈相關，但公式本身屬 Zipf。</li>
+                            <li class="wrong-opt">③摩爾（Moore）定律：描述積體電路上可容納的電晶體數目每18到24個月增加一倍的硬體發展定律。</li>
+                            <li class="wrong-opt">④比爾（Bill）定律：無此標準通訊或統計定律。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 141 -->
+        <div class="card">
+            <span class="theme-badge">主題：社交網路理論</span>
+            <div class="question">141. 假設世界上所有互不相識的人只需要很少中間人就能建立聯繫的理論，此理論名稱為何？</div>
+            <div class="options">
+                <div class="option">①四度分隔理論（Four Degrees of Separation）</div>
+                <div class="option">②六度分隔理論（Six Degrees of Separation）</div>
+                <div class="option">③七度分隔理論（Seven Degrees of Separation）</div>
+                <div class="option">④八度分隔理論（Eight Degrees of Separation）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>「<strong>六度分隔理論（Six Degrees of Separation）</strong>」是 20 世紀提出的一個經典社會學假說。該理論指出，世界上任何兩個互不相識的人，平均只需要透過「最多 5 個中間人（即 6 個連結步驟）」就能夠建立起聯繫。這也是現代社群網路（如 Facebook, LinkedIn）背後核心的人際關係數學模型概念。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①四度分隔理論：非標準假說名稱。（儘管 Facebook 曾研究指出目前社群距離約為 3.5 到 4.7 之間）。</li>
+                            <li class="correct-opt">②六度分隔理論：正確，這是在社會學與網路科學上最著名的經典理論名稱。</li>
+                            <li class="wrong-opt">③七度分隔理論：無此理論。</li>
+                            <li class="wrong-opt">④八度分隔理論：無此理論。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 142 -->
+        <div class="card">
+            <span class="theme-badge">主題：社交網路理論 (鄧巴數)</span>
+            <div class="question">142. 英國心理學家羅賓鄧巴（Robin Dunbar）認為人類智力允許人類擁有穩定社交網路的人數，稱為鄧巴數。此鄧巴數大約為多少？</div>
+            <div class="options">
+                <div class="option">①50</div>
+                <div class="option">②100</div>
+                <div class="option">③150</div>
+                <div class="option">④200</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>「<strong>鄧巴數 (Dunbar's number)</strong>」是由人類學家羅賓·鄧巴所提出的概念。他根據靈長類動物大腦新皮層的尺寸，推算出人類大腦的認知能力極限，大約只能維持 <strong>150 人</strong> 左右的有意義、穩定的社交關係（即知道對方是誰、並了解對方與其他人的關係）。超過這個數字，社群的維持通常就需要更嚴格的階級規則或規範來管理。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①50：鄧巴研究中，這是較親密的小型群體數字。</li>
+                            <li class="wrong-opt">②100：非鄧巴數代表值。</li>
+                            <li class="correct-opt">③150：正確，150 人是鄧巴數最經典的代表上限。</li>
+                            <li class="wrong-opt">④200：非鄧巴數代表值。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 143 -->
+        <div class="card">
+            <span class="theme-badge">主題：電子商務與網路理論</span>
+            <div class="question">143. 許多小市場之總和大於或等於大市場之現象，經常用以描述亞馬遜及 Netflix 等電子商務網站之營運模式。此現象之名稱為何？</div>
+            <div class="options">
+                <div class="option">①律夫（Zipf）定律</div>
+                <div class="option">②長尾（Long Tail）理論</div>
+                <div class="option">③摩爾（Moore）定律</div>
+                <div class="option">④比爾（Bill）定律</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>「<strong>長尾理論（Long Tail）</strong>」描述了在網際網路時代，由於實體貨架空間與庫存成本限制的消失，企業可以提供數量龐大、極其冷門的商品（即分佈曲線上的「長尾巴」）。雖然單一冷門商品的銷量很低，但將這些成千上萬的冷門商品銷量加總起來，其利潤總和甚至能與少數幾款暢銷商品的利潤媲美，Amazon 和 Netflix 就是典型的成功案例。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①律夫（Zipf）定律：雖為長尾現象的數學基礎，但描述這種商業模式的專有名詞是長尾理論。</li>
+                            <li class="correct-opt">②長尾（Long Tail）理論：正確，完美詮釋聚沙成塔的網路電商效應。</li>
+                            <li class="wrong-opt">③摩爾（Moore）定律：關於電晶體密度的硬體定律。</li>
+                            <li class="wrong-opt">④比爾（Bill）定律：無此定律。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 144 -->
+        <div class="card">
+            <span class="theme-badge">主題：物聯網 (IoT) 架構</span>
+            <div class="question">144. 下列何者為物聯網（Internet of Things, IoT）之網路層主要功能？</div>
+            <div class="options">
+                <div class="option">①針對不同的情境產生感知與監控資料</div>
+                <div class="option">②具有感測及辨識能力</div>
+                <div class="option">③將感知層收集的資料傳輸至應用層</div>
+                <div class="option">④將感測及辨識之資料進行跨行業的技術融合</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>物聯網（IoT）的架構通常分為三大層：感知層、網路層、應用層。<br>
+                        - <strong>感知層</strong>：負責收集數據（如感測器、RFID）。<br>
+                        - <strong>網路層</strong>：負責將感知層收集到的龐大資料，透過 4G/5G、Wi-Fi 等傳輸技術，安全且可靠地「傳送（搬運）」到雲端或應用層伺服器。<br>
+                        - <strong>應用層</strong>：負責將數據做智慧分析與各行業的應用融合。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①針對不同的情境產生感知與監控資料：這是「感知層」的功能。</li>
+                            <li class="wrong-opt">②具有感測及辨識能力：這是「感知層」的功能。</li>
+                            <li class="correct-opt">③將感知層收集的資料傳輸至應用層：正確，這是「網路層」扮演的資料搬運工角色。</li>
+                            <li class="wrong-opt">④將資料進行跨行業的技術融合：這是「應用層」的功能。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 145 -->
+        <div class="card">
+            <span class="theme-badge">主題：物聯網 (IoT) 架構</span>
+            <div class="question">145. 下列何者為物聯網（Internet of Things, IoT）之應用層主要功能？</div>
+            <div class="options">
+                <div class="option">①針對不同的情境產生感知與監控資料</div>
+                <div class="option">②具有感測及辨識能力</div>
+                <div class="option">③將感知層收集的資料傳輸至應用層</div>
+                <div class="option">④將感測及辨識之資料進行跨行業的技術融合</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>接續上一題的概念，IoT 架構的最頂層為「<strong>應用層（Application Layer）</strong>」。應用層是物聯網與使用者或企業系統互動的介面，其核心任務是將網路層傳送上來的海量資料，利用大數據或 AI 進行分析，並將其與各行各業（如智慧交通、智慧醫療、智慧家居等）的需求進行深度的「技術融合」，產生實際的商業與服務價值。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①針對不同的情境產生感知與監控資料：屬於「感知層」。</li>
+                            <li class="wrong-opt">②具有感測及辨識能力：屬於「感知層」。</li>
+                            <li class="wrong-opt">③將感知層收集的資料傳輸至應用層：屬於「網路層」。</li>
+                            <li class="correct-opt">④將感測及辨識之資料進行跨行業的技術融合：正確，此為「應用層」的核心任務。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 146 -->
+        <div class="card">
+            <span class="theme-badge">主題：物聯網感測技術</span>
+            <div class="question">146. 物聯網（Internet of Things, IoT）感知層之「感測技術」，關於陀螺儀（Gyroscope）之敘述，下列何者不正確？</div>
+            <div class="options">
+                <div class="option">①可協助駕駛維持航行的平衡與姿態</div>
+                <div class="option">②可協助控制載具的平衡</div>
+                <div class="option">③常用於直升機及遙控車</div>
+                <div class="option">④可偵測三軸之加速度</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在感測元件中，<strong>陀螺儀 (Gyroscope)</strong> 是用來測量物體的「角速度 (旋轉角度與方向)」，藉此維持姿態與平衡；而「三軸之加速度 (直線移動的快慢)」則是由另一種元件 <strong>加速度計 (Accelerometer)</strong> 來負責偵測。選項 ④ 錯把加速度計的功能張冠李戴給了陀螺儀。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①可協助駕駛維持航行的平衡與姿態：敘述正確。</li>
+                            <li class="wrong-opt">②可協助控制載具的平衡：敘述正確（如空拍機、平衡車）。</li>
+                            <li class="wrong-opt">③常用於直升機及遙控車：敘述正確。</li>
+                            <li class="correct-opt">④可偵測三軸之加速度：敘述錯誤，偵測加速度的是「加速度計」，陀螺儀是偵測角速度。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 147 -->
+        <div class="card">
+            <span class="theme-badge">主題：物聯網 (IoT) 應用</span>
+            <div class="question">147. 物聯網（Internet of Things, IoT）應用中之智慧電網，下列何者為其感知層元件？</div>
+            <div class="options">
+                <div class="option">①LED 燈泡</div>
+                <div class="option">②智慧電表</div>
+                <div class="option">③太陽能發電機</div>
+                <div class="option">④風力發電機</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>「智慧電網 (Smart Grid)」是透過物聯網技術來進行電力調度與監控的系統。其架構中最前端、安裝在用戶家裡負責「感知與收集」用電度數資料，並具備通訊功能傳回電力公司的核心感知層元件，就是 <strong>智慧電表 (Smart Meter)</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①LED 燈泡：為耗電終端設備，非感測電網的主力元件。</li>
+                            <li class="correct-opt">②智慧電表：正確，負責收集用戶端用電數據，是標準的感知層設備。</li>
+                            <li class="wrong-opt">③太陽能發電機：為電力生產來源設備。</li>
+                            <li class="wrong-opt">④風力發電機：為電力生產來源設備。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 148 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算服務模式</span>
+            <div class="question">148. 下列何者屬於雲端運算中之軟體即服務（Software as a Service, SaaS）？</div>
+            <div class="options">
+                <div class="option">①Google Compute Engine</div>
+                <div class="option">②Google Storage</div>
+                <div class="option">③Google App Engine</div>
+                <div class="option">④Google Apps</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>雲端運算的 SaaS (軟體即服務) 模式，是指雲端供應商直接將「現成的軟體應用程式」透過瀏覽器提供給終端使用者，用戶不需自行安裝任何軟體。<strong>Google Apps (現名為 Google Workspace，包含 Gmail, Docs, Drive等)</strong> 就是標準的 SaaS 服務。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①Google Compute Engine：提供虛擬機器，屬於 IaaS (基礎設施即服務)。</li>
+                            <li class="wrong-opt">②Google Storage：提供純雲端儲存空間，屬於 IaaS 的範疇。</li>
+                            <li class="wrong-opt">③Google App Engine：提供開發者部署程式碼的平台環境，屬於 PaaS (平台即服務)。</li>
+                            <li class="correct-opt">④Google Apps：正確，為終端消費者直接使用的套裝軟體應用，屬於 SaaS。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 149 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算服務模式 (IaaS)</span>
+            <div class="question">149. 下列雲端服務中，何者可提供「企業使用處理、儲存、網路及各種基礎運算資源，以部署與執行作業系統或應用程式等各種軟體」之相關服務？</div>
+            <div class="options">
+                <div class="option">①IaaS</div>
+                <div class="option">②PaaS</div>
+                <div class="option">③SaaS</div>
+                <div class="option">④XaaS</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>雲端服務分層中，提供最底層「基礎硬體資源（如 CPU、記憶體、硬碟儲存空間、網路架構）」，讓用戶能像租用實體主機一樣，在上面自由安裝任何「作業系統 (OS)」的服務，稱為 <strong>IaaS（基礎設施即服務, Infrastructure as a Service）</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①IaaS：正確，提供基礎設施資源以部署作業系統。</li>
+                            <li class="wrong-opt">②PaaS：平台即服務，OS 已由供應商管好，用戶只負責傳上程式碼。</li>
+                            <li class="wrong-opt">③SaaS：軟體即服務，用戶直接使用軟體功能，不接觸底層。</li>
+                            <li class="wrong-opt">④XaaS：一切即服務，為所有雲端服務統稱的廣義名詞。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 150 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算服務模式 (PaaS)</span>
+            <div class="question">150. 下列雲端服務中，何者可提供「企業部署與建立雲端基礎設施至用戶端，供客戶使用程式語言及程式庫等」之相關服務？</div>
+            <div class="options">
+                <div class="option">①IaaS</div>
+                <div class="option">②PaaS</div>
+                <div class="option">③SaaS</div>
+                <div class="option">④XaaS</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>當雲端供應商不僅提供硬體，還把作業系統、資料庫、網頁伺服器環境都架設好，提供一個完善的「開發平台」。開發者（客戶）只需要專注於「使用程式語言與程式庫」來撰寫與上傳程式碼，這種服務模式被稱為 <strong>PaaS（平台即服務, Platform as a Service）</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①IaaS：基礎設施即服務，不包辦程式語言環境，需用戶自行從 OS 裝起。</li>
+                            <li class="correct-opt">②PaaS：正確，提供給開發者程式語言與函式庫的運行環境。</li>
+                            <li class="wrong-opt">③SaaS：軟體即服務，直接給一般終端用戶使用現成軟體。</li>
+                            <li class="wrong-opt">④XaaS：為各類雲端服務的統稱概念。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <script>
+        let isExpanded = false;
+        function toggleAll() {
+            const detailsElements = document.querySelectorAll('.qa-details');
+            const toggleBtn = document.getElementById('toggleBtn');
+            isExpanded = !isExpanded;
+            
+            detailsElements.forEach(detail => {
+                if (isExpanded) {
+                    detail.setAttribute('open', '');
+                } else {
+                    detail.removeAttribute('open');
+                }
+            });
+            
+            if (isExpanded) {
+                toggleBtn.innerText = '收合所有解析';
+                toggleBtn.style.backgroundColor = '#e74c3c';
+            } else {
+                toggleBtn.innerText = '展開所有解析';
+                toggleBtn.style.backgroundColor = '#27ae60';
+            }
+        }
+    </script>
+
+</body>
+</html>

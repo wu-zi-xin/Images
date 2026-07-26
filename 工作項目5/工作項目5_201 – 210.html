@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路架設 乙級 工作項目05 (201-210題)</title>
+    <style>
+        /* 基礎與排版設定 */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+        
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+        
+        /* 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { 
+            background: #eef2f5; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #34495e; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        
+        .explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #3498db; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級 工作項目05：網路規劃與管理</h1>
+        <p>(第201 - 210題 / 皆為多選題)</p>
+        <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+
+        <!-- 題目 201 -->
+        <div class="card">
+            <span class="theme-badge">主題：物聯網 (IoT) 感知層功能</span>
+            <div class="question">201. 下列何者為物聯網（Internet of Things, IoT）之感知層主要功能？（多選題）</div>
+            <div class="options">
+                <div class="option">①針對不同的情境產生感知與監控資料</div>
+                <div class="option">②具有感測及辨識能力</div>
+                <div class="option">③將感知層收集的資料傳輸至應用層</div>
+                <div class="option">④將感測及辨識之資料進行跨行業的技術融合</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、② (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>感知層 (Perception Layer) 是物聯網的最底層，就如同人類的五官，負責在實體環境中接收與收集資料，並辨識物體的身分（如使用 RFID 或各種感測器）。而「傳輸資料」是中間「網路層」的工作；「跨行業的技術融合與服務」則是頂端「應用層」的功能。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①針對不同的情境產生感知與監控資料：正確，這是感知層的核心工作。</li>
+                            <li class="correct-opt">②具有感測及辨識能力：正確，利用感測元件與辨識標籤來達成。</li>
+                            <li class="wrong-opt">③將感知層收集的資料傳輸至應用層：錯誤，這是「網路層」的任務。</li>
+                            <li class="wrong-opt">④進行跨行業的技術融合：錯誤，資料的融合與應用屬於「應用層」。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 202 -->
+        <div class="card">
+            <span class="theme-badge">主題：物聯網感知層 (感測技術)</span>
+            <div class="question">202. 關於物聯網（Internet of Things, IoT）感知層之「感測技術」，下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①使智慧物件具有感測環境變化或物體移動的能力</div>
+                <div class="option">②常用於嵌入式感測元件，包括紅外線、溫度、濕度、亮度、壓力、三軸加速度等感測器</div>
+                <div class="option">③常見感測元件為 RFID 讀取器</div>
+                <div class="option">④將 RFID 的標籤嵌入物體，使物體可以記錄及回報其身分或狀態</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、② (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在物聯網的感知層中，技術可細分為「感測技術」與「辨識技術」。<br>
+                        - <strong>感測技術</strong>：用來感知實體環境的物理量變化，例如溫度、濕度、壓力、加速度等。<br>
+                        - <strong>辨識技術</strong>：用來確認物體的「身分證」，例如 RFID、條碼。因此，選項中的 RFID 相關敘述屬於辨識技術，不能算在感測技術中。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①使智慧物件具感測環境變化能力：正確，這是感測技術的核心定義。</li>
+                            <li class="correct-opt">②包含紅外線、溫度、濕度等感測器：正確，這些都是典型的感測元件。</li>
+                            <li class="wrong-opt">③常見感測元件為 RFID 讀取器：錯誤，RFID 屬於「辨識技術」。</li>
+                            <li class="wrong-opt">④將 RFID 標籤嵌入物體以記錄身分：錯誤，這同樣是「辨識技術」的應用範疇。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 203 -->
+        <div class="card">
+            <span class="theme-badge">主題：物聯網感知層 (辨識技術)</span>
+            <div class="question">203. 關於物聯網（Internet of Things, IoT）感知層之「辨識技術」，下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①使智慧物件具有感測環境變化或物體移動的能力</div>
+                <div class="option">②常用於嵌入式感測元件，包括紅外線、溫度、濕度、亮度、壓力、三軸加速度等感測器</div>
+                <div class="option">③常見辨識元件為 RFID 標籤</div>
+                <div class="option">④將 RFID 的標籤嵌入物體，使物體可以記錄及回報自己的身分或狀態</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>這題與上一題恰好成對比。「辨識技術」的核心目的是賦予實體物品一個能被機器讀取的「身分證」，讓系統能夠認識它到底是誰。最普遍且典型的技術代表就是 RFID（無線射頻識別）與條碼/QR Code。而量測溫濕度等物理變化則是感測技術的範疇。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①使物件具感測環境變化能力：錯誤，這是「感測技術」。</li>
+                            <li class="wrong-opt">②包含溫度、濕度等感測器：錯誤，這是「感測技術」。</li>
+                            <li class="correct-opt">③常見辨識元件為 RFID 標籤：正確，RFID 是物聯網中最主流的辨識核心。</li>
+                            <li class="correct-opt">④記錄及回報自己的身分或狀態：正確，這就是辨識技術存在的主要目的。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 204 -->
+        <div class="card">
+            <span class="theme-badge">主題：物聯網感測技術 (三軸加速儀)</span>
+            <div class="question">204. 物聯網（Internet of Things, IoT）感知層之「感測技術」，關於三軸加速儀（Triple Axis Accelerometer），下列哪些不正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①可偵測 XYZ 三軸之加速度</div>
+                <div class="option">②可偵測 X 軸之旋轉角度</div>
+                <div class="option">③可偵測 Y 軸之旋轉角度</div>
+                <div class="option">④可偵測 Z 軸之旋轉角度</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p><strong>注意題目是問「哪些不正確」！</strong><br>
+                        三軸加速儀（Accelerometer）顧名思義，只能夠測量裝置在 X、Y、Z 三個「直線方向」上的加速度（包含重力加速度）。它無法直接量測裝置的「旋轉角度」或「角速度」。如果要量測旋轉角度與角速度，必須使用另一種感測器：「陀螺儀（Gyroscope）」。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①可偵測 XYZ 三軸之加速度：這是正確的敘述，因此不符合題目要求選出「不正確」的選項。</li>
+                            <li class="correct-opt">②可偵測 X 軸之旋轉角度：不正確（應為陀螺儀功能），為本題答案。</li>
+                            <li class="correct-opt">③可偵測 Y 軸之旋轉角度：不正確（應為陀螺儀功能），為本題答案。</li>
+                            <li class="correct-opt">④可偵測 Z 軸之旋轉角度：不正確（應為陀螺儀功能），為本題答案。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 205 -->
+        <div class="card">
+            <span class="theme-badge">主題：物聯網辨識技術 (RFID)</span>
+            <div class="question">205. 物聯網（Internet of Things, IoT）感知層之「辨識技術」，關於無線射頻識別（Radio Frequency Identification, RFID），下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①RFID 標籤（Tag），主要功能在於儲存一些個人或商品的資訊，主要可分主動式（Active）標籤及被動式（Passive）標籤二種</div>
+                <div class="option">②RFID 讀寫器（Reader/Writer），主要功能為讀取/寫入標籤中資訊的裝置</div>
+                <div class="option">③RFID 標籤（Tag）及讀寫器（Reader/Writer）需互相配合才可運作</div>
+                <div class="option">④主動式 RFID 標籤（Active Tag）一般不具備獨立電源</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、③ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>一套完整的 RFID 系統由「標籤 (Tag)」與「讀寫器 (Reader)」共同構成。標籤依據供電方式可分為兩大類：<br>
+                        1. <strong>主動式 (Active)</strong>：內部自備電池（有獨立電源），可以主動發射無線電訊號，傳輸距離較遠。<br>
+                        2. <strong>被動式 (Passive)</strong>：沒有電池，必須依靠接收讀寫器發出的電磁波來產生微弱感應電流才能運作，體積小、成本低。選項④的描述恰好與事實相反。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①標籤可分主動式及被動式：正確，此為 RFID 標籤的兩大主流分類。</li>
+                            <li class="correct-opt">②讀寫器為讀寫標籤資訊的裝置：正確，負責發送與接收無線訊號。</li>
+                            <li class="correct-opt">③標籤與讀寫器需互相配合：正確，必須由 Reader 讀取 Tag 才能完成身分辨識。</li>
+                            <li class="wrong-opt">④主動式標籤一般不具備獨立電源：錯誤，主動式 (Active) 標籤必定內建電池（獨立電源），被動式才沒有。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 206 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算部署方式</span>
+            <div class="question">206. 雲端運算包含下列哪幾種部署方式？（多選題）</div>
+            <div class="options">
+                <div class="option">①公有雲（Public Cloud）</div>
+                <div class="option">②私有雲（Private Cloud）</div>
+                <div class="option">③混合雲（Hybrid Cloud）</div>
+                <div class="option">④層積雲（Stratocumulus Cloud）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、③ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>根據 NIST (美國國家標準暨技術研究院) 的規範，雲端運算共有四種部署模式 (Deployment Models)：公有雲、私有雲、混合雲，以及社群雲 (Community Cloud)。選項中的「層積雲」是自然界的一種氣象天氣現象，並非資訊科技的術語。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①公有雲：正確，由第三方供應商提供給大眾使用的雲端資源。</li>
+                            <li class="correct-opt">②私有雲：正確，企業內部專用、完全掌控的雲端基礎架構。</li>
+                            <li class="correct-opt">③混合雲：正確，結合了公有雲與私有雲優點的彈性架構。</li>
+                            <li class="wrong-opt">④層積雲：錯誤，這是一種自然界的天氣雲層名稱。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 207 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算服務模式 (NIST 定義)</span>
+            <div class="question">207. NIST 定義之雲端運算包含下列哪幾種服務模式？（多選題）</div>
+            <div class="options">
+                <div class="option">①軟體即服務（Software as a Service, SaaS）</div>
+                <div class="option">②平台即服務（Platform as a Service, PaaS）</div>
+                <div class="option">③網際網路即服務（Internet as a Service, IaaS）</div>
+                <div class="option">④一切即服務（Everything as a Service, XaaS）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、② (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>美國國家標準暨技術研究院 (NIST) 正式定義的雲端服務模式 (Service Models) 嚴格來說只有三個，俗稱「雲端三層架構」：<br>
+                        1. <strong>SaaS (軟體即服務)</strong><br>
+                        2. <strong>PaaS (平台即服務)</strong><br>
+                        3. <strong>IaaS (基礎設施即服務)</strong>。<br>
+                        選項③錯在把 IaaS 的 'I' 解釋為 Internet（應為 Infrastructure）；選項④的 XaaS 雖然是業界常用的流行語，但並不屬於 NIST 原始定義的三大標準核心模式。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①軟體即服務 (SaaS)：正確，為 NIST 定義之最高層服務。</li>
+                            <li class="correct-opt">②平台即服務 (PaaS)：正確，為 NIST 定義之中間開發平台服務。</li>
+                            <li class="wrong-opt">③網際網路即服務 (Internet as a Service)：錯誤，IaaS 應為「基礎設施 (Infrastructure)」即服務。</li>
+                            <li class="wrong-opt">④一切即服務 (XaaS)：錯誤，此為業界延伸術語，非 NIST 原始定義。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 208 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算基礎設施 (IaaS) 實例</span>
+            <div class="question">208. 下列何種軟體屬於雲端運算中之基礎設施即服務（Infrastructure as a Service, IaaS）？（多選題）</div>
+            <div class="options">
+                <div class="option">①AWS EC2（Elastic Compute Cloud）</div>
+                <div class="option">②Google App Engine</div>
+                <div class="option">③OpenStack</div>
+                <div class="option">④中華電信 Hi Cloud</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>IaaS 的特徵是供應商提供底層的「虛擬伺服器、儲存空間、網路頻寬」給客戶自行安裝作業系統與軟體。<br>
+                        Amazon 的 EC2、中華電信的 Hi Cloud 都是典型的公有雲 IaaS 服務；而 OpenStack 則是用來協助企業在機房內部「搭建私有雲 IaaS」的開源管理平台。唯獨 Google App Engine 是幫開發者準備好環境的 PaaS 服務。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①AWS EC2：正確，提供虛擬主機租用的 IaaS 服務。</li>
+                            <li class="wrong-opt">②Google App Engine：錯誤，提供程式執行環境，為 PaaS 服務。</li>
+                            <li class="correct-opt">③OpenStack：正確，著名的開源 IaaS 雲端基礎架構建置平台。</li>
+                            <li class="correct-opt">④中華電信 Hi Cloud：正確，提供底層運算與儲存資源的本國 IaaS 服務。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 209 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算平台即服務 (PaaS) 實例</span>
+            <div class="question">209. 下列何者屬於雲端運算中之平台即服務（Platform as a Service, PaaS）？（多選題）</div>
+            <div class="options">
+                <div class="option">①Google Compute Engine</div>
+                <div class="option">②Microsoft Azure</div>
+                <div class="option">③OpenStack</div>
+                <div class="option">④RedHat OpenShift</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>PaaS 服務提供開發者可以直接部署應用程式的環境與開發框架，免去管理底層作業系統的麻煩。RedHat OpenShift 是基於 Kubernetes 的容器化 PaaS 平台；Microsoft Azure 是一個綜合雲平台，但在考題分類中，其提供的 App Service 與 SQL Database 等強大開發平台常被作為 PaaS 的代表。Google Compute Engine 屬於 IaaS；OpenStack 也是 IaaS 建置平台。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①Google Compute Engine：錯誤，提供虛擬機器，為 IaaS。</li>
+                            <li class="correct-opt">②Microsoft Azure：正確，提供極為豐富的開發環境與平台服務 (PaaS 代表之一)。</li>
+                            <li class="wrong-opt">③OpenStack：錯誤，為 IaaS 基礎架構建置軟體。</li>
+                            <li class="correct-opt">④RedHat OpenShift：正確，為企業級容器應用的主流 PaaS 平台。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 210 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算基礎設施 (IaaS) 實例 (Google)</span>
+            <div class="question">210. 下列何者屬於雲端運算中之基礎設施即服務（Infrastructure as a Service, IaaS）？（多選題）</div>
+            <div class="options">
+                <div class="option">①Google Compute Engine</div>
+                <div class="option">②Google Storage</div>
+                <div class="option">③Google App Engine</div>
+                <div class="option">④Google Apps</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、② (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>針對 Google 所提供的雲端服務架構分類：<br>
+                        - <strong>IaaS</strong>：提供底層「運算」與「儲存」資源，對應的產品為 Google Compute Engine (虛擬主機) 與 Google Cloud Storage (雲端儲存空間)。<br>
+                        - <strong>PaaS</strong>：提供程式執行與開發環境，對應為 Google App Engine。<br>
+                        - <strong>SaaS</strong>：提供一般使用者直接操作的軟體，對應為 Google Apps (現已改名為 Google Workspace，如 Gmail、Google Docs 等)。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①Google Compute Engine：正確，提供底層虛擬機器運算資源 (IaaS)。</li>
+                            <li class="correct-opt">②Google Storage：正確，提供基礎的物件資料儲存資源 (IaaS)。</li>
+                            <li class="wrong-opt">③Google App Engine：錯誤，提供開發者部署環境，屬於平台即服務 (PaaS)。</li>
+                            <li class="wrong-opt">④Google Apps：錯誤，提供終端線上辦公軟體，屬於軟體即服務 (SaaS)。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <script>
+        let isExpanded = false;
+        function toggleAll() {
+            const detailsElements = document.querySelectorAll('.qa-details');
+            const toggleBtn = document.getElementById('toggleBtn');
+            isExpanded = !isExpanded;
+            
+            detailsElements.forEach(detail => {
+                if (isExpanded) {
+                    detail.setAttribute('open', '');
+                } else {
+                    detail.removeAttribute('open');
+                }
+            });
+            
+            if (isExpanded) {
+                toggleBtn.innerText = '收合所有解析';
+                toggleBtn.style.backgroundColor = '#e74c3c';
+            } else {
+                toggleBtn.innerText = '展開所有解析';
+                toggleBtn.style.backgroundColor = '#27ae60';
+            }
+        }
+    </script>
+
+</body>
+</html>
