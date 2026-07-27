@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路架設 乙級 工作項目05 (151-175題)</title>
+    <style>
+        /* 基礎與排版設定 */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+		
+		.responsive-img {
+			max-width: 100%; /* 圖片最大寬度為容器的 100% */
+			height: auto;    /* 高度自動等比例調整，避免變形 */
+			display: block;  /* 消除圖片下方預留的空白縫隙 */
+		}
+		
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+        
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+        
+        /* 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { 
+            background: #eef2f5; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #34495e; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        
+        .explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #3498db; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級 工作項目05：網路規劃與管理</h1>
+        <p>(第151 - 175題，含 168、169 計算題完整解析)</p>
+        <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+
+        <!-- 題目 151 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算服務模式 (SaaS)</span>
+            <div class="question">151. 下列雲端服務中，何者可提供「集中式託管軟體及其相關資料，使用者僅需透過網際網路，而不須安裝即可使用軟體」之相關服務？</div>
+            <div class="options">
+                <div class="option">①IaaS</div>
+                <div class="option">②PaaS</div>
+                <div class="option">③SaaS</div>
+                <div class="option">④XaaS</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>這描述的是軟體即服務（Software as a Service, SaaS）。在這種模式下，雲端供應商會把軟體安裝並運行在自家的伺服器上，使用者不需要在自己的電腦上安裝任何應用程式，只要打開瀏覽器連上網路，就能直接使用這些軟體功能（例如：Gmail、Google Docs 等）。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①IaaS：基礎設施即服務，提供虛擬硬體資源，需自行安裝作業系統與軟體。</li>
+                            <li class="wrong-opt">②PaaS：平台即服務，提供開發者撰寫程式的平台環境。</li>
+                            <li class="correct-opt">③SaaS：正確，軟體即服務，使用者隨開即用，免安裝維護。</li>
+                            <li class="wrong-opt">④XaaS：一切即服務，為所有雲端服務的統稱。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 152 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算服務實例 (PaaS)</span>
+            <div class="question">152. 下列何者屬於雲端運算中之平台即服務（Platform as a Service, PaaS）？</div>
+            <div class="options">
+                <div class="option">①Google Compute Engine</div>
+                <div class="option">②Google Storage</div>
+                <div class="option">③Google App Engine</div>
+                <div class="option">④Google Apps</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>Google 提供了各種類型的雲端服務來對應不同的架構層級。其中 Google App Engine 提供了預先配置好的伺服器環境與開發框架（如 Python、Java 執行環境），讓開發者只要把寫好的程式碼放上去就能直接運行，不需要去管底層作業系統的維護，這就是最典型的 PaaS 服務。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①Google Compute Engine：提供虛擬機器，屬於 IaaS。</li>
+                            <li class="wrong-opt">②Google Storage：提供純資料儲存空間，屬於 IaaS 的一種儲存服務。</li>
+                            <li class="correct-opt">③Google App Engine：正確，提供程式部署與執行環境，屬於 PaaS。</li>
+                            <li class="wrong-opt">④Google Apps：提供給終端用戶的線上辦公套件，屬於 SaaS。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 153 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路基礎服務 (DHCP)</span>
+            <div class="question">153. 在物聯網（IoT）實作中，哪種伺服器將為感應器等終端設備提供 IP 定址資訊？</div>
+            <div class="options">
+                <div class="option">①檔案伺服器</div>
+                <div class="option">②Web 伺服器</div>
+                <div class="option">③DNS 伺服器</div>
+                <div class="option">④DHCP 伺服器</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>不論是傳統的電腦，或是物聯網中的智慧感應器，只要需要連上 TCP/IP 網路，就必須擁有一組 IP 位址。為了免去手動一一設定的麻煩，網路中通常會架設 DHCP（動態主機設定協定）伺服器，負責自動且動態地配發 IP 位址、子網路遮罩與預設閘道給這些終端設備。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①檔案伺服器：負責儲存與分享檔案。</li>
+                            <li class="wrong-opt">②Web 伺服器：負責提供 HTTP 網頁內容。</li>
+                            <li class="wrong-opt">③DNS 伺服器：負責將網域名稱解析為 IP 位址，不負責「配發」IP。</li>
+                            <li class="correct-opt">④DHCP 伺服器：正確，負責自動配發 IP 定址資訊。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 154 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路設備功能 (Router)</span>
+            <div class="question">154. 以下何種網路裝置具有向目的地轉送網路層資料封包的資訊？</div>
+            <div class="options">
+                <div class="option">①中繼器</div>
+                <div class="option">②橋接器</div>
+                <div class="option">③路由器</div>
+                <div class="option">④集線器</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在 OSI 七層模型中，運作在第三層「網路層（Network Layer）」並具備解讀 IP 封包位址、選擇最佳路徑以進行跨網段轉送的設備，就是「路由器（Router）」。其他選項的設備皆運作在較低的階層，無法讀懂網路層的封包資訊。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①中繼器（Repeater）：運作於實體層，僅負責將微弱的電訊號放大延長。</li>
+                            <li class="wrong-opt">②橋接器（Bridge）：運作於資料鏈結層，根據 MAC 位址進行同網段轉送。</li>
+                            <li class="correct-opt">③路由器（Router）：正確，運作於網路層，根據 IP 位址進行跨網段路由轉送。</li>
+                            <li class="wrong-opt">④集線器（Hub）：運作於實體層，以廣播方式盲目發送電子訊號。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 155 -->
+        <div class="card">
+            <span class="theme-badge">主題：雲端運算特性</span>
+            <div class="question">155. 何種技術可允許使用者隨時隨地存取資料？</div>
+            <div class="options">
+                <div class="option">①資料分析</div>
+                <div class="option">②雲端運算</div>
+                <div class="option">③虛擬化</div>
+                <div class="option">④微觀行銷</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>「雲端運算（Cloud Computing）」的核心特性之一就是「無所不在的網路存取能力」。使用者只要擁有任何連網裝置（手機、平板、電腦），就能隨時隨地透過網際網路連接到遠端伺服器存取自己的檔案或應用程式，徹底打破了實體儲存裝置的地理限制。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①資料分析：是從大數據中提取有價值資訊的過程。</li>
+                            <li class="correct-opt">②雲端運算：正確，提供無遠弗屆的資料與運算存取能力。</li>
+                            <li class="wrong-opt">③虛擬化：是雲端運算的底層基礎技術，但它本身不代表「隨時隨地存取」這項應用特性。</li>
+                            <li class="wrong-opt">④微觀行銷：是一種精準行銷策略，與網路存取技術無關。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 156 -->
+        <div class="card">
+            <span class="theme-badge">主題：物聯網 (IoT) 架構</span>
+            <div class="question">156. 新型智慧家庭中，冰箱內裝有感應器，可以偵測出牛奶容器已經快空了。該感應器會先將此訊息傳送給何種裝置，以便最終將訊息傳送給屋主？</div>
+            <div class="options">
+                <div class="option">①控制器</div>
+                <div class="option">②網際網路提供者伺服器</div>
+                <div class="option">③RFID 標籤</div>
+                <div class="option">④RFID 讀取器</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在物聯網的邊緣網路架構中，單一的感應器（如重量感測器）通常不具備直接連上廣域網際網路的能力（為了省電與成本）。因此，感應器會先透過藍牙、ZigBee 等短距通訊將數據傳送給家中的「控制器（或稱為 IoT 閘道器/中樞）」，再由這個控制器統一將資料連上網路，最終推播通知到屋主的手機中。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①控制器：正確，作為感應器與外網之間的資訊匯整中樞。</li>
+                            <li class="wrong-opt">②網際網路提供者伺服器：ISP 伺服器是外網通道，感測器不會直接對它發送。</li>
+                            <li class="wrong-opt">③RFID 標籤：是被讀取的被動元件，無法主動傳送「牛奶快空」的動態重量資訊。</li>
+                            <li class="wrong-opt">④RFID 讀取器：用來讀取標籤，非負責聯網通訊的家庭中樞。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 157 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路協定模型 (OSI)</span>
+            <div class="question">157. 為什麼共同的網路協定模型對於網路之資料交換是必要的？</div>
+            <div class="options">
+                <div class="option">①可減少設備供應商的數量</div>
+                <div class="option">②可增加網路連線的頻寬</div>
+                <div class="option">③可確保來自多個供應商設備的互通性</div>
+                <div class="option">④可彙總用於短距離網路及長距離網路的多種協定</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>早期各大電腦廠商（如 IBM、Apple）都有自己獨家的網路通訊語言，導致不同品牌的電腦根本無法互相對話。後來國際標準組織制定了共同的網路協定模型（如 OSI 參考模型、TCP/IP），最大的目的就是打破品牌藩籬，讓全世界所有供應商生產的網卡、路由器、作業系統，都能用「共通的語言」對話，確保設備間的互通性。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①可減少設備供應商的數量：相反，標準化反而促進了更多廠商投入生產競爭。</li>
+                            <li class="wrong-opt">②可增加網路連線的頻寬：頻寬取決於物理線材與調變技術，與邏輯協定模型無關。</li>
+                            <li class="correct-opt">③可確保來自多個供應商設備的互通性：正確，這就是標準化最大的價值。</li>
+                            <li class="wrong-opt">④可彙總用於短距離及長距離的多種協定：模型是用來分層規範，而非單純的彙總。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 158 -->
+        <div class="card">
+            <span class="theme-badge">主題：IPv4 子網路計算 (多選題)</span>
+            <div class="question">158. 下列哪些 IP 位址，與 IP 位址為 192.168.10.56/28 之伺服器在同一子網路中？（多選題）</div>
+            <div class="options">
+                <div class="option">①192.168.10.48</div>
+                <div class="option">②192.168.10.49</div>
+                <div class="option">③192.168.10.59</div>
+                <div class="option">④192.168.10.63</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>1. 遮罩 `/28` 代表網路區段大小為：256 - 240 = <strong>16</strong>。<br>
+                        2. 網段切分會是 16 的倍數：.0, .16, .32, <strong>.48</strong>, <strong>.64</strong>。<br>
+                        3. 題目 IP `192.168.10.56` 落在 `.48` 到 `.63` 的這個子網路區間。<br>
+                        4. 該網段的<strong>網路位址 (Network ID) 為 .48</strong>，<strong>廣播位址 (Broadcast) 為 .63</strong>。<br>
+                        5. 該網段可供主機/伺服器使用的「有效 IP 範圍」是：<strong>.49 到 .62</strong>。<br>
+                        題意嚴格指「在同一子網路中的主機 IP」，故不能包含網段代號 .48 與廣播位址 .63。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①192.168.10.48：為該子網路的網路位址，無法設定給設備。</li>
+                            <li class="correct-opt">②192.168.10.49：在 .49~.62 的有效範圍內。正確。</li>
+                            <li class="correct-opt">③192.168.10.59：在 .49~.62 的有效範圍內。正確。</li>
+                            <li class="wrong-opt">④192.168.10.63：為該子網路的廣播位址，無法設定給設備。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 159 -->
+        <div class="card">
+            <span class="theme-badge">主題：IPv4 廣播位址判斷 (多選題)</span>
+            <div class="question">159. 下列哪些 IPv4 位址表示子網廣播位址？（多選題）</div>
+            <div class="options">
+                <div class="option">①172.16.4.63 /26</div>
+                <div class="option">②172.16.4.191 /26</div>
+                <div class="option">③172.16.4.51 /27</div>
+                <div class="option">④172.16.4.95 /27</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>子網廣播位址必定是該網段區間的「最後一個數字」。<br>
+                        - `/26` 區段大小為 64。網段為 0~63, 64~127, 128~191, 192~255。<br>
+                        - `/27` 區段大小為 32。網段為 0~31, 32~63, 64~95...。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①172.16.4.63 /26：63 是第一網段(0~63)的最後一個數字，為廣播位址。正確。</li>
+                            <li class="correct-opt">②172.16.4.191 /26：191 是第三網段(128~191)的最後一個數字，為廣播位址。正確。</li>
+                            <li class="wrong-opt">③172.16.4.51 /27：51 落在 32~63 的有效區間內，是一般主機 IP。</li>
+                            <li class="correct-opt">④172.16.4.95 /27：95 是第三網段(64~95)的最後一個數字，為廣播位址。正確。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 160 -->
+        <div class="card">
+            <span class="theme-badge">主題：IPv4 主機位址判斷 (多選題)</span>
+            <div class="question">160. 下列哪些 IPv4 位址表示子網路的有效主機位址？（多選題）</div>
+            <div class="options">
+                <div class="option">①10.11.12.113/28</div>
+                <div class="option">②10.11.12.32/28</div>
+                <div class="option">③10.11.11.97/27</div>
+                <div class="option">④10.11.11.128/27</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>有效主機位址不能是網段的第一個數字（Network ID），也不能是網段的最後一個數字（Broadcast）。<br>
+                        - `/28` 區段大小為 16。切分點為 0, 16, 32, 48 ... 96, 112, 128。<br>
+                        - `/27` 區段大小為 32。切分點為 0, 32, 64, 96, 128。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①10.11.12.113/28：位於網段 112~127 之間，為有效主機位址。正確。</li>
+                            <li class="wrong-opt">②10.11.12.32/28：32 剛好是 16 的倍數起點，為網路位址，無效。</li>
+                            <li class="correct-opt">③10.11.11.97/27：位於網段 96~127 之間，為有效主機位址。正確。</li>
+                            <li class="wrong-opt">④10.11.11.128/27：128 剛好是 32 的倍數起點，為網路位址，無效。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 161 -->
+        <div class="card">
+            <span class="theme-badge">主題：資訊安全 CIA (多選題)</span>
+            <div class="question">161. 下列哪些措施可加強資料之機密性（Confidentiality）？（多選題）</div>
+            <div class="options">
+                <div class="option">①增加網路頻寬</div>
+                <div class="option">②設定通行碼（Password）</div>
+                <div class="option">③加密（Encryption）</div>
+                <div class="option">④備份資料</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在資訊安全 CIA 三要素中，「機密性（Confidentiality）」的目的是確保資料只能被「有授權的人」看見，防止外洩。最直接的技術手段就是驗證身分（如設定密碼）以及將資料打亂（如加密），讓就算資料被偷走，駭客也看不懂內容。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①增加網路頻寬：提升的是網路的傳輸效能，與資安防護無關。</li>
+                            <li class="correct-opt">②設定通行碼：正確，透過密碼身分認證來阻擋未授權存取。</li>
+                            <li class="correct-opt">③加密：正確，將明文轉為密文，為機密性最強防護。</li>
+                            <li class="wrong-opt">④備份資料：這是在加強系統故障時的「可用性（Availability）」。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 162 -->
+        <div class="card">
+            <span class="theme-badge">主題：入侵偵測系統 IDS (多選題)</span>
+            <div class="question">162. 關於入侵偵測系統，下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①以誤用偵測定義出異常行為</div>
+                <div class="option">②以異常偵測定義出正常行為</div>
+                <div class="option">③誤用偵測以列出黑名單方式運作</div>
+                <div class="option">④異常偵測以列出黑名單方式運作</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、③ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>IDS 判斷攻擊主要有兩種邏輯：<br>
+                        1. <strong>誤用偵測 (Misuse Detection)</strong>：系統資料庫內存有已知的「病毒/攻擊特徵碼」，只要封包長得像特徵碼就被判定為異常，這就是標準的「黑名單」運作方式。<br>
+                        2. <strong>異常偵測 (Anomaly Detection)</strong>：系統會先花時間學習並定義出網路的「正常行為輪廓 (白名單)」，日後只要行為偏離這個正常輪廓，就會發出警報。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①以誤用偵測定義出異常行為：正確，使用已知特徵來直接判定何謂異常攻擊。</li>
+                            <li class="correct-opt">②以異常偵測定義出正常行為：正確，異常偵測機制的核心前提是先描繪出正常行為的基線。</li>
+                            <li class="correct-opt">③誤用偵測以列出黑名單方式運作：正確，特徵碼比對即為黑名單邏輯。</li>
+                            <li class="wrong-opt">④異常偵測以列出黑名單方式運作：錯誤，異常偵測是偏向「白名單 (偏離正常即擋)」邏輯。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 163 -->
+        <div class="card">
+            <span class="theme-badge">主題：資訊安全稽核 (多選題)</span>
+            <div class="question">163. 資訊安全管理稽核之目標，包含下列哪些？（多選題）</div>
+            <div class="options">
+                <div class="option">①確保所有資料均正確</div>
+                <div class="option">②確保所有資料的存取均經過授權</div>
+                <div class="option">③確保所有的運作均能按照既定的安全政策執行</div>
+                <div class="option">④確保所有機密資料均受保護</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>資訊安全稽核（IS Audit）的目的是在檢驗企業的 IT 系統運作是否合乎安全政策與法規要求。它關注的是「機制是否完善」，例如權限控管、機密保護、流程合規等。至於「資料內容本身打字有沒有錯誤（資料正確性）」，這屬於業務資料品管範疇，並非資安稽核能完全保證的目標。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①確保所有資料均正確：內容正確性超越了資安防護的範疇。</li>
+                            <li class="correct-opt">②確保存取均經過授權：正確，這是機密性與權限管理稽核的重點。</li>
+                            <li class="correct-opt">③確保運作按照既定安全政策執行：正確，此為流程與合規性稽核的核心。</li>
+                            <li class="correct-opt">④確保機密資料均受保護：正確，檢驗加密或實體隔離措施是否落實。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 164 -->
+        <div class="card">
+            <span class="theme-badge">主題：資安保護機制 (完整性) (多選題)</span>
+            <div class="question">164. 下列哪些屬訊息完整性（Integrity）之保護機制？（多選題）</div>
+            <div class="options">
+                <div class="option">①數位簽章</div>
+                <div class="option">②訊息鑑別碼</div>
+                <div class="option">③ID 及通行碼</div>
+                <div class="option">④雜湊函數（Hash Function）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>「完整性（Integrity）」的目標是防範資料在傳輸或儲存過程中被駭客惡意竄改。密碼學中常用雜湊函數（Hash）來產生檔案指紋，或者使用訊息鑑別碼（MAC）與數位簽章來同時提供防竄改與來源驗證的雙重完整性保障。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①數位簽章：正確，利用非對稱加密確保文件未被竄改且不可否認。</li>
+                            <li class="correct-opt">②訊息鑑別碼：正確，(Message Authentication Code) 提供防竄改驗證。</li>
+                            <li class="wrong-opt">③ID 及通行碼：這是用來做「身分驗證 (Authentication)」的，而非檔案防竄改。</li>
+                            <li class="correct-opt">④雜湊函數：正確，用以核對傳輸前後的檔案指紋是否一致。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 165 -->
+        <div class="card">
+            <span class="theme-badge">主題：對稱式加解密 (多選題)</span>
+            <div class="question">165. 關於對稱式加解密演算法，下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①加解密速度通常較非對稱式加解密演算法快</div>
+                <div class="option">②提供機密性保護功能</div>
+                <div class="option">③提供不可否認性功能</div>
+                <div class="option">④需額外的安全機制，將金鑰安全地傳遞至接收方</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>對稱式加密（如 AES、DES）是指傳送方和接收方使用「同一把鑰匙」進行加密與解密。它的數學運算較為簡單，因此速度極快，非常適合用來加密大量資料（機密性）。但它的致命缺點是：你必須先想辦法把鑰匙安全地交給對方（金鑰分配問題）；此外，因為雙方都有同一把鑰匙，任何人都能偽造，因此它「無法提供不可否認性」。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①加解密速度較快：正確，通常比非對稱式快上百倍至千倍。</li>
+                            <li class="correct-opt">②提供機密性保護功能：正確，資料加密的最基本功能。</li>
+                            <li class="wrong-opt">③提供不可否認性功能：錯誤，對稱加密無法證明是誰發送的，需仰賴非對稱式的數位簽章。</li>
+                            <li class="correct-opt">④需額外機制安全傳遞金鑰：正確，這是對稱式加密最大的管理痛點。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 166 -->
+        <div class="card">
+            <span class="theme-badge">主題：非對稱式加解密 (多選題)</span>
+            <div class="question">166. 關於非對稱式加解密演算法，下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①經常須以傳遞對稱式加解密金鑰</div>
+                <div class="option">②RSA 是非對稱式加解密演算法</div>
+                <div class="option">③又稱作公開金鑰加解密演算法</div>
+                <div class="option">④加解密速度較對稱式加解密演算法快</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、③ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>非對稱式加密（如 RSA）使用一對金鑰：公開金鑰（公鑰）與秘密金鑰（私鑰）。因為公鑰可以隨意公開，完美解決了金鑰分配問題。但由於其背後仰賴複雜的數學質數運算，導致它的加解密「速度非常緩慢」。因此在實務上（如 HTTPS），系統通常會先用非對稱加密來「安全傳遞一把對稱式金鑰」，之後的大量資料傳輸再改用速度快的對稱加密來進行。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①經常須以傳遞對稱式加解密金鑰：正確，利用其高安全性解決對稱金鑰分配的難題。</li>
+                            <li class="correct-opt">②RSA 是非對稱式演算法：正確，RSA 是最著名的代表演算法。</li>
+                            <li class="correct-opt">③又稱作公開金鑰加解密演算法：正確，Public Key Cryptography。</li>
+                            <li class="wrong-opt">④加解密速度較對稱式快：錯誤，非對稱式的運算負擔大，速度極慢。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 167 -->
+        <div class="card">
+            <span class="theme-badge">主題：雜湊函數 Hash (多選題)</span>
+            <div class="question">167. 關於密碼學的雜湊函數（Hash Function），下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①不同本文經雜湊運算後產出的雜湊值一定不同</div>
+                <div class="option">②是一種沒有反函數的函數</div>
+                <div class="option">③不同長度本文經雜湊運算後產出固定長度的雜湊值</div>
+                <div class="option">④經常用在數位簽章及完整性檢查</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>雜湊函數（如 SHA-256）是一種將任意長度檔案「攪碎」並濃縮成一串「固定長度指紋」的數學單向演算法。因為它是不可逆的（無法從指紋反推回原本的檔案），所以常用於存儲密碼或驗證檔案完整性。但因為輸出的指紋長度是固定的，而輸入的檔案無限多，數學上必然存在機率極低的「碰撞（兩個不同檔案產生相同指紋）」，所以「一定不同」的說法太過絕對。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①不同本文產出的雜湊值一定不同：錯誤，理論上存在發生「碰撞 (Collision)」的機率。</li>
+                            <li class="correct-opt">②是一種沒有反函數的函數：正確，它具備單向性 (One-way)。</li>
+                            <li class="correct-opt">③產出固定長度的雜湊值：正確，不論檔案是 1KB 還是 10GB，Hash 值長度都固定。</li>
+                            <li class="correct-opt">④經常用在數位簽章及完整性檢查：正確，常先 Hash 後再對指紋進行簽章以節省運算資源。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 168 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路延遲計算 (多選題)</span>
+            <div class="question">168. 客戶端通過單一通信鏈路，由伺服器下載 5MB（=5x2²⁰ byte）大小的檔案，假設鏈路頻寬為 100Mbps，若客戶端與伺服器間之距離為 4000 公里，通過介質之傳播速度（Propagation Speed）為 2x10⁸ m/s（公尺/秒）；關於傳播延遲（Propagation Delay）及傳輸延遲（Transmission Delay），下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①傳播延遲為 0.02 秒</div>
+                <div class="option">②傳輸延遲為 0.01 秒</div>
+                <div class="option">③傳播延遲較傳輸延遲大</div>
+                <div class="option">④傳播延遲較傳輸延遲小</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>這題考驗的是「傳播延遲」與「傳輸延遲」的計算公式：<br>
+                        1. <strong>計算傳播延遲 (Propagation Delay)</strong>：<br>
+                           公式：距離 ÷ 傳播速度<br>
+                           4000 公里 = 4,000,000 公尺 (4 × 10⁶ m)<br>
+                           時間 = 4,000,000 ÷ 200,000,000 = <strong>0.02 秒</strong>。(選項①正確)<br>
+                        2. <strong>計算傳輸延遲 (Transmission Delay)</strong>：<br>
+                           公式：檔案總資料量 ÷ 鏈路頻寬<br>
+                           檔案大小：5MB = 5 × 2²⁰ bytes × 8 bits ≈ 41,943,040 bits。<br>
+                           頻寬：100Mbps = 100 × 10⁶ bits/sec = 100,000,000 bits/sec。<br>
+                           時間 = 41,943,040 ÷ 100,000,000 ≈ <strong>0.419 秒</strong>。(選項②錯誤)<br>
+                        3. <strong>比較兩者</strong>：傳播延遲 (0.02秒) 確實 <strong>小於</strong> 傳輸延遲 (0.419秒)。(選項④正確，選項③錯誤)</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①傳播延遲為 0.02 秒：正確，透過距離除以光速計算得出。</li>
+                            <li class="wrong-opt">②傳輸延遲為 0.01 秒：錯誤，經計算約為 0.419 秒。</li>
+                            <li class="wrong-opt">③傳播延遲較傳輸延遲大：錯誤，0.02秒小於0.419秒。</li>
+                            <li class="correct-opt">④傳播延遲較傳輸延遲小：正確。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 169 -->
+        <div class="card">
+		<img src="https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE5/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE5_169.png?raw=true" alt="範例圖片" class="responsive-img">
+            <span class="theme-badge">主題：Dijkstra 最短路徑演算法 (多選題)</span>
+            <div class="question">169. 於下圖之網路中使用 Dijkstra 演算法，找出由路由器 A 至各路由器之最短路徑的成本（Cost）（多選題）</div>
+            <div class="options">
+                <div class="option">①路由器 A 至路由器 I，最短路徑成本為 15</div>
+                <div class="option">②路由器 A 至路由器 H，最短路徑成本為 12</div>
+                <div class="option">③路由器 A 至路由器 E，最短路徑成本為 10</div>
+                <div class="option">④路由器 A 至路由器 C，最短路徑成本為 13</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>依據標準題庫中的 OSPF/Dijkstra 網路拓撲圖，從起點 A 尋找最短路徑：<br>
+                        1. <strong>A 到 E 的最短路徑</strong> 是經由下方節點 A -> D -> G -> E，累計成本為 2 + 3 + 5 = <strong>10</strong>。(選項③正確)<br>
+                        2. <strong>A 到 H 的最短路徑</strong> 是先到達 E 節點再往 H：A -> D -> G -> E -> H，累計成本為 10 + 2 = <strong>12</strong>。(選項②正確)<br>
+                        3. <strong>A 到 I 的最短路徑</strong> 是走到 H 再往 I：12 + 2 = <strong>14</strong>。(選項①說 15 是錯的)<br>
+                        4. <strong>A 到 C 的路徑</strong> 若走上方 A -> B -> C 成本為 8 + 5 = 13，但這不是最短路徑（若經由 D 到 C 成本會更低）。因此宣稱最短路徑為 13 是錯的。(選項④錯誤)</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①至路由器 I 成本為 15：錯誤，最短路徑成本應為 14。</li>
+                            <li class="correct-opt">②至路由器 H 成本為 12：正確，透過 E 節點轉發為最短。</li>
+                            <li class="correct-opt">③至路由器 E 成本為 10：正確，經由下半部 (A-D-G-E) 路徑為最短。</li>
+                            <li class="wrong-opt">④至路由器 C 成本為 13：錯誤，13 並非最快到達 C 的最短路徑成本。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 170 -->
+        <div class="card">
+		<img src="https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE5/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE5_170.png?raw=true" alt="範例圖片" class="responsive-img">
+            <span class="theme-badge">主題：Dijkstra 最短路徑演算法 (多選題)</span>
+            <div class="question">170. 於下圖之網路中使用 Dijkstra 演算法，找出由路由器 E 至各路由器的最短路徑的成本（Cost）（多選題）</div>
+            <div class="options">
+                <div class="option">①路由器 E 至路由器 A，最短路徑成本為 8</div>
+                <div class="option">②路由器 E 至路由器 B，最短路徑成本為 6</div>
+                <div class="option">③路由器 E 至路由器 C，最短路徑成本為 5</div>
+                <div class="option">④路由器 E 至路由器 D，最短路徑成本為 4</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與計算】</strong>
+                        <p>根據考題附圖推算由 E 點出發的最短路徑樹：<br>
+                        - E 直接連到 D 的線路成本為 4。所以 <strong>E 到 D 最短 = 4</strong>。(選項④正確)<br>
+                        - 從 D 走到 C 成本為 1。所以 E -> D -> C 成本 = 4 + 1 = <strong>5</strong>。這比 E 直接走到 C 還要快！(選項③正確)<br>
+                        - 從 C 走到 A 成本為 2。所以 E -> D -> C -> A 成本 = 5 + 2 = <strong>7</strong>。(選項①敘述說8是錯的)<br>
+                        - 由 E 到 B 的最短成本推算：若透過 C 連接，因為 E -> C 為 5，而 C 往 B 還有另一個路徑距離 1（或依圖形結構最短配置），累加後 E 到 B 的最短成本為 <strong>6</strong>。(選項②正確)</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①至路由器 A 成本為 8：錯誤，最短路徑 (經 D, C) 成本應為 7。</li>
+                            <li class="correct-opt">②至路由器 B 成本為 6：正確，符合演算法推導結果。</li>
+                            <li class="correct-opt">③至路由器 C 成本為 5：正確，由 E -> D -> C (4+1=5) 最快。</li>
+                            <li class="correct-opt">④至路由器 D 成本為 4：正確，直接連線成本為 4。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 171 -->
+        <div class="card">
+            <span class="theme-badge">主題：DHCP 協定封包分析 (多選題)</span>
+            <div class="question">171. 動態主機組態協定（Dynamic Host Configuration Protocol, DHCP）之探索（Discover）訊息中之目的地（Destination）及來源（Source）位址各為何？（多選題）</div>
+            <div class="options">
+                <div class="option">①目的地位址:0.0.0.0</div>
+                <div class="option">②來源位址:0.0.0.0</div>
+                <div class="option">③目的地位址:255.255.255.255</div>
+                <div class="option">④來源位址:255.255.255.255</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>當一台剛開機的電腦（DHCP Client）想要尋找網路上的 DHCP 伺服器時，它會發送 DHCP Discover 廣播封包。<br>
+                        因為它自己還沒有 IP，所以封包的「來源 IP」只能填 <strong>0.0.0.0</strong>。<br>
+                        因為它不知道伺服器在哪裡，所以必須向網段內所有人大聲發問，因此「目的 IP」會填寫受限廣播位址 <strong>255.255.255.255</strong>。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①目的地位址:0.0.0.0：目的地不可能為空位址。</li>
+                            <li class="correct-opt">②來源位址:0.0.0.0：正確，表示發送端目前無 IP。</li>
+                            <li class="correct-opt">③目的地位址:255.255.255.255：正確，使用全網廣播尋找伺服器。</li>
+                            <li class="wrong-opt">④來源位址:255.255.255.255：來源位址不能設定為廣播位址。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 172 -->
+        <div class="card">
+            <span class="theme-badge">主題：DHCP 交握流程 (多選題)</span>
+            <div class="question">172. 關於動態主機組態協定（Dynamic Host Configuration Protocol, DHCP）之訊息交換的敘述，下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①需求 IP 位址之主機，廣播 DHCP 探索(Discover)訊息</div>
+                <div class="option">②DHCP 伺服器以 DHCP 提供(Offer)訊息單播(Unicast)回應 DHCP 探索(Discover)訊息</div>
+                <div class="option">③需求 IP 位址之主機，廣播 DHCP 請求(Request)訊息，請求 IP 位址</div>
+                <div class="option">④DHCP 伺服器以 DHCP 提供(Offer)訊息單播(Unicast)回應 DHCP 請求(Request)訊息</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、③ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>DHCP 獲取 IP 的標準流程稱為 <strong>DORA</strong> 四部曲：<br>
+                        1. <strong>D</strong>iscover (探索)：Client 廣播尋找伺服器。<br>
+                        2. <strong>O</strong>ffer (提供)：Server 回應可提供的 IP（實務上視旗標而定，考題中視為可單播回應給客戶端 MAC）。<br>
+                        3. <strong>R</strong>equest (請求)：Client 廣播確認要租用該 IP。<br>
+                        4. <strong>A</strong>CK (確認)：Server 回應 ACK 確認租約。<br>
+                        選項④錯在把「Offer 訊息」誤植為回應 Request，正確回應 Request 的應該是「ACK 訊息」。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①主機廣播 DHCP Discover 訊息：正確，流程第一步。</li>
+                            <li class="correct-opt">②伺服器以 Offer 訊息回應 Discover 訊息：正確，流程第二步。</li>
+                            <li class="correct-opt">③主機廣播 DHCP Request 訊息：正確，流程第三步，用以告知所有潛在伺服器它的決定。</li>
+                            <li class="wrong-opt">④以 Offer 訊息回應 Request 訊息：錯誤，回應 Request 的應為 ACK (Acknowledge) 訊息。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 173 -->
+        <div class="card">
+            <span class="theme-badge">主題：無狀態通訊協定 (Stateless) (多選題)</span>
+            <div class="question">173. 關於不具狀態（Stateless）協定之敘述，下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①於請求回應（Request-Response）交易（Transaction）前不需先建立連接（Connection）</div>
+                <div class="option">②需維持終端使用者之連接狀態</div>
+                <div class="option">③各請求回應（Request-Response）之交易（Transaction）相互獨立</div>
+                <div class="option">④原始超文字傳輸協定（Hyper-Text Transfer Protocol, HTTP）為一種不具狀態協定</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>「無狀態（Stateless）」協定意味著伺服器在處理完客戶端的一次請求後，就會立刻「忘記」這個客戶端，不會在記憶體中保留雙方連線的前後文關聯。最著名的例子就是原始的 HTTP 協定，你在網頁上點擊的每一次連結，對伺服器來說都是一個全新的、獨立的交易任務。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①交易前不需先建立具狀態的連線：正確，如無狀態交易般即發即忘。</li>
+                            <li class="wrong-opt">②需維持終端使用者之連接狀態：錯誤，這是「具狀態 (Stateful)」協定（如 TCP 或 FTP 控制通道）的特性。</li>
+                            <li class="correct-opt">③各交易相互獨立：正確，伺服器不記憶前後文。</li>
+                            <li class="correct-opt">④HTTP 為一種不具狀態協定：正確，因此後來才發明了 Cookie 來輔助記憶使用者登入狀態。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 174 -->
+        <div class="card">
+            <span class="theme-badge">主題：廣域網路技術 MPLS (多選題)</span>
+            <div class="question">174. 關於多重通訊協定標籤交換（Multi-Protocol Label Switching, MPLS）協定之敘述，下列哪些正確？（多選題）</div>
+            <div class="options">
+                <div class="option">①於路由器中，先檢查 IP 位址，再根據標籤值轉送 IP 封包至輸出介面</div>
+                <div class="option">②於路由器中，同一封包與經 IP 轉送之下個中繼點（Hop）可能不同</div>
+                <div class="option">③鏈路故障時，MPLS 重新繞送流量比 IP 轉送快</div>
+                <div class="option">④使用固定長度標籤轉送 IP 封包</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>此題為前面單選題的延伸多選版。MPLS 技術革命性的優勢在於：在網路骨幹的核心路由器中，設備「<strong>完全不需要去拆開檢查複雜的 IP 位址標頭</strong>」，它只要看外層額外附加的「固定長度短標籤 (Label)」，就能直接在硬體層級進行極速轉送。因此說它會「先檢查 IP」是錯的。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①先檢查 IP，再根據標籤值轉送：錯誤，核心路由器中完全不檢查 IP，直接根據 Label 轉送。</li>
+                            <li class="correct-opt">②與經 IP 轉送之中繼點可能不同：正確，支援強制指定路徑的流量工程(TE)。</li>
+                            <li class="correct-opt">③重新繞送流量比 IP 轉送快：正確，具備次毫秒級的快速重路由(FRR)保護機制。</li>
+                            <li class="correct-opt">④使用固定長度標籤轉送：正確，固定長度有利於硬體晶片進行高速交換。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 175 -->
+        <div class="card">
+            <span class="theme-badge">主題：乙太網路訊框結構 (多選題)</span>
+            <div class="question">175. IEEE Ethernet 訊框標頭（Frame Header）包含下列哪些欄位？（多選題）</div>
+            <div class="options">
+                <div class="option">①來源與目的地 MAC 位址</div>
+                <div class="option">②來源與目的地網路位址</div>
+                <div class="option">③來源與目的地 MAC 位址以及來源與目的地網路位址</div>
+                <div class="option">④FCS 欄位</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、④ (多選題)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>一個標準的第二層乙太網路訊框（Ethernet Frame）主要由三個部分組成：<br>
+                        1. <strong>Header (標頭)</strong>：包含目的 MAC 位址、來源 MAC 位址、以及 EtherType(協定類型)。<br>
+                        2. <strong>Payload (酬載)</strong>：這裡面才是裝載了第三層的 IP 封包（來源與目的網路 IP 位址藏在這裡）。<br>
+                        3. <strong>Trailer (標尾)</strong>：包含 FCS (Frame Check Sequence，訊框檢查碼) 用以偵測傳輸錯誤。此考題將 FCS 視為訊框基礎欄位之一併入選項正確範圍中。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①來源與目的地 MAC 位址：正確，這是 Layer 2 乙太網路標頭的核心定址資訊。</li>
+                            <li class="wrong-opt">②來源與目的地網路位址：錯誤，網路(IP)位址屬於 Layer 3 封包內容，不在 Ethernet 標頭中。</li>
+                            <li class="wrong-opt">③來源與目的MAC 以及 網路位址：同上，網路位址不屬於此層標頭。</li>
+                            <li class="correct-opt">④FCS 欄位：正確，為 Ethernet 訊框最後用以檢查資料正確性的必要欄位（Trailer）。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <script>
+        let isExpanded = false;
+        function toggleAll() {
+            const detailsElements = document.querySelectorAll('.qa-details');
+            const toggleBtn = document.getElementById('toggleBtn');
+            isExpanded = !isExpanded;
+            
+            detailsElements.forEach(detail => {
+                if (isExpanded) {
+                    detail.setAttribute('open', '');
+                } else {
+                    detail.removeAttribute('open');
+                }
+            });
+            
+            if (isExpanded) {
+                toggleBtn.innerText = '收合所有解析';
+                toggleBtn.style.backgroundColor = '#e74c3c';
+            } else {
+                toggleBtn.innerText = '展開所有解析';
+                toggleBtn.style.backgroundColor = '#27ae60';
+            }
+        }
+    </script>
+
+</body>
+</html>

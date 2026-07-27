@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路架設 乙級 工作項目05 (51-75題)</title>
+    <style>
+        /* 基礎與排版設定 */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+        
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+        
+        /* 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { 
+            background: #eef2f5; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #34495e; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        
+        .explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #3498db; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級 工作項目05：網路規劃與管理</h1>
+        <p>(第51 - 75題)</p>
+        <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+
+        <!-- 題目 51 -->
+        <div class="card">
+            <span class="theme-badge">主題：線路傳輸品質</span>
+            <div class="question">51. 關於串音（Crosstalk）之敘述，下列何者不正確？</div>
+            <div class="options">
+                <div class="option">①近端串音（Near-end Crosstalk, NEXT）係用以測量串音之參數</div>
+                <div class="option">②近端串音（Near-end Crosstalk, NEXT）之 dB 值越高，代表線路傳輸品質越差</div>
+                <div class="option">③傳輸速率越高，串音造成之問題越嚴重</div>
+                <div class="option">④串音係因導線感應鄰近之導線產生之電磁場所造成</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>近端串音（NEXT）主要是用來測量兩對相鄰導線之間，互相干擾的「信號隔離能力」。這個數值以分貝（dB）為單位，dB 值越大代表「對串音的阻絕能力越強」，因此干擾越小，線路的傳輸品質反而越好。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①近端串音係用以測量串音之參數：正確，這是網路佈線測試的重點參數。</li>
+                            <li class="correct-opt">②近端串音之 dB 值越高，代表品質越差：錯誤，dB 值越高代表隔絕串音能力越強，品質越好。</li>
+                            <li class="wrong-opt">③傳輸速率越高，串音問題越嚴重：正確，高頻訊號會產生更強的電磁感應。</li>
+                            <li class="wrong-opt">④串音因導線感應鄰近導線電磁場造成：正確，這是串音發生的物理原理。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 52 -->
+        <div class="card">
+            <span class="theme-badge">主題：廣域網路協定</span>
+            <div class="question">52. 下列何者是路由器中，PPP 採用之三向交握鑑別協定？</div>
+            <div class="options">
+                <div class="option">①NCP</div>
+                <div class="option">②PAP</div>
+                <div class="option">③CHAP</div>
+                <div class="option">④LCP</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在 PPP（點對點協定）的連線中，主要有兩種身分驗證協定：PAP 與 CHAP。其中 PAP 是簡單的雙向明文驗證；而 CHAP（挑戰握手驗證協定）則使用雜湊加密的「三向交握」（Challenge-Response-Accept/Reject）來進行安全的驗證。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①NCP：網路控制協定，負責與網路層（如 IP）進行協商設定。</li>
+                            <li class="wrong-opt">②PAP：密碼驗證協定，採兩向交握且以明文傳送密碼，安全性較低。</li>
+                            <li class="correct-opt">③CHAP：正確，為加密的三向交握驗證協定。</li>
+                            <li class="wrong-opt">④LCP：鏈結控制協定，用來建立、設定與測試資料鏈結，並非專職驗證。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 53 -->
+        <div class="card">
+            <span class="theme-badge">主題：廣域網路協定</span>
+            <div class="question">53. 欲找出 PPP 中所發生的鑑別失敗，應分析下列何協定來找出來源？</div>
+            <div class="options">
+                <div class="option">①PPPoE</div>
+                <div class="option">②LCP</div>
+                <div class="option">③IPCP</div>
+                <div class="option">④CDP</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在 PPP 連線建立的過程中，首先會由 LCP（鏈結控制協定）進行底層參數的協商，這包含決定接下來要使用何種驗證協定（如 PAP 或 CHAP）。如果發生鑑別失敗，LCP 就會接收到驗證失敗的狀態並發出終止連線（Terminate）的訊息。因此分析 LCP 交換的訊息可有效追蹤鑑別階段的問題。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①PPPoE：這是一種將 PPP 封裝在乙太網路上的通訊協定。</li>
+                            <li class="correct-opt">②LCP：正確，它是管理 PPP 鏈路建立與終止的核心協定。</li>
+                            <li class="wrong-opt">③IPCP：屬於 NCP 的一種，負責在驗證成功後分配 IP 與網路參數。</li>
+                            <li class="wrong-opt">④CDP：Cisco 的專有發現協定，與 PPP 連線無關。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 54 -->
+        <div class="card">
+            <span class="theme-badge">主題：廣域網路協定</span>
+            <div class="question">54. 下列何種 WAN 協定不提供錯誤修正的功能？</div>
+            <div class="options">
+                <div class="option">①SDLC</div>
+                <div class="option">②HDLC</div>
+                <div class="option">③PPP</div>
+                <div class="option">④LAPD</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>HDLC（High-Level Data Link Control，高階資料鏈結控制）主要是透過 FCS（訊框檢查序列）來進行「錯誤偵測」。如果發現資料在傳輸過程中受損，HDLC 會直接將該訊框丟棄，本身並不提供「錯誤修正」的機制，而是依賴上層（如 TCP）來要求重傳。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①SDLC：早期 IBM 開發的協定，是 HDLC 的前身，部分實作提供重傳機制。</li>
+                            <li class="correct-opt">②HDLC：正確，標準的 HDLC 僅做錯誤偵測，無內建修正能力。</li>
+                            <li class="wrong-opt">③PPP：點對點協定，也是做偵測並丟棄，但在傳統題庫中 HDLC 常被列為缺乏修正的代表選項。</li>
+                            <li class="wrong-opt">④LAPD：為 ISDN 的鏈結層協定，有時候可以進行訊框的重傳與流量控制。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 55 -->
+        <div class="card">
+            <span class="theme-badge">主題：寬頻上網技術</span>
+            <div class="question">55. 下列何者為選擇使用數位用戶線路（DSL）之決策的重要考量因素？</div>
+            <div class="options">
+                <div class="option">①來源端與目的端間 Repeater 的數目</div>
+                <div class="option">②來源端與目的端是否直線可見</div>
+                <div class="option">③用戶端到局端的距離</div>
+                <div class="option">④建置成本</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>DSL（例如 ADSL、VDSL）技術是利用現有的傳統電話銅線來傳輸高頻的數位信號。因為高頻信號在銅線中會隨著距離迅速衰減，所以「用戶所在地距離電信機房（局端）的實體線路長度」成為決定 DSL 是否能申裝，以及能達到多高傳輸速率的最關鍵因素。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①來源與目的端間 Repeater 數目：通常 DSL 不太依賴大量中繼器，距離才是硬傷。</li>
+                            <li class="wrong-opt">②來源與目的端是否直線可見：這是無線微波、雷射或紅外線等無線傳輸的考量（Line of Sight）。</li>
+                            <li class="correct-opt">③用戶端到局端的距離：正確，這會直接決定訊號衰減與網路速度。</li>
+                            <li class="wrong-opt">④建置成本：雖是考量，但技術可行性的先決條件在於局端距離。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 56 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路可用性</span>
+            <div class="question">56. MTTR（Mean Time to Repair）及 MTBF（Mean Time Between Failures）將影響網路可用性，下列何者可增加網路的可用性？</div>
+            <div class="options">
+                <div class="option">①降低 MTTR 並增加 MTBF</div>
+                <div class="option">②增加 MTTR 並降低 MTBF</div>
+                <div class="option">③同時降低 MTTR 及 MTBF</div>
+                <div class="option">④同時增加 MTTR 及 MTBF</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>可用性（Availability）的公式為：MTBF ÷ (MTBF + MTTR)。<br>
+                        - <strong>MTTR</strong> 代表「平均修復時間」，也就是故障後花多久修好，這個時間「越短越好」。<br>
+                        - <strong>MTBF</strong> 代表「平均無故障時間」，也就是系統能持續正常運作多久才壞，這個時間「越長越好」。<br>
+                        因此要提升可用性，必須縮短修復時間並延長正常運作時間。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①降低 MTTR 並增加 MTBF：正確，修得快又不容易壞，可用性最高。</li>
+                            <li class="wrong-opt">②增加 MTTR 並降低 MTBF：修很久又容易壞，可用性極低。</li>
+                            <li class="wrong-opt">③同時降低 MTTR 及 MTBF：雖然修得快，但也容易壞。</li>
+                            <li class="wrong-opt">④同時增加 MTTR 及 MTBF：雖然不容易壞，但一旦壞了要修非常久。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 57 -->
+        <div class="card">
+            <span class="theme-badge">主題：RMON 網路監控</span>
+            <div class="question">57. RMON 採用何種方法蒐集遠端資料？</div>
+            <div class="options">
+                <div class="option">①Command</div>
+                <div class="option">②Table</div>
+                <div class="option">③List</div>
+                <div class="option">④Probe</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>RMON（Remote Network Monitoring，遠端網路監控）的運作架構主要依賴部署在各個遠端網路區段上的監測設備或軟體，這些硬體或軟體模組被稱為「探測器（Probe）」。探測器負責擷取並分析流經該網段的封包，再將統計資料回報給中央的網管工作站。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①Command：指的是指令，不是蒐集架構的元件。</li>
+                            <li class="wrong-opt">②Table：雖然 RMON 收集的資料會存成表格，但不是蒐集方法。</li>
+                            <li class="wrong-opt">③List：指的是資料清單形式。</li>
+                            <li class="correct-opt">④Probe：正確，探測器為 RMON 實際執行監聽與蒐集的軟硬體元件。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 58 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路管理通訊協定</span>
+            <div class="question">58. RMON 是何種協定的應用延伸？</div>
+            <div class="options">
+                <div class="option">①SNMP</div>
+                <div class="option">②UDP</div>
+                <div class="option">③IPX</div>
+                <div class="option">④SMTP</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>RMON 本質上是基於 SNMP（簡易網路管理協定）的架構發展出來的擴充標準。早期的 SNMP 大多只能針對單一設備的內部狀態（如 CPU 或 Port 流量）進行監測；而 RMON 擴充了專屬的 MIB 庫，使設備能夠監聽與分析「整個區域網段」的總體流量與對話。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①SNMP：正確，RMON 主要是 SNMP 架構與 MIB 庫的一種擴充應用。</li>
+                            <li class="wrong-opt">②UDP：為傳輸層協定，雖然 SNMP 底層使用它，但 RMON 不是延伸自 UDP。</li>
+                            <li class="wrong-opt">③IPX：為早期的 Novell 網路傳輸層協定。</li>
+                            <li class="wrong-opt">④SMTP：用於電子郵件傳輸的協定。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 59 -->
+        <div class="card">
+            <span class="theme-badge">主題：資訊安全名詞</span>
+            <div class="question">59. 當一事件可能會傷害資訊系統，稱之為</div>
+            <div class="options">
+                <div class="option">①風險（Risk）</div>
+                <div class="option">②威脅（Threat）</div>
+                <div class="option">③脆弱性（Vulnerability）</div>
+                <div class="option">④弱點（Weakness）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在資訊安全領域，名詞有嚴格的定義：<br>
+                        - <strong>威脅（Threat）</strong>：任何「可能」對系統造成危害的外部或內部潛在事件（如駭客攻擊、地震）。<br>
+                        - <strong>脆弱性（Vulnerability）</strong>：系統本身存在的缺陷或漏洞。<br>
+                        - <strong>風險（Risk）</strong>：當威脅利用了脆弱性產生損失的「機率與影響程度」。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①風險（Risk）：是威脅發生並造成損失的可能性。</li>
+                            <li class="correct-opt">②威脅（Threat）：正確，指可能對系統造成傷害的事件。</li>
+                            <li class="wrong-opt">③脆弱性（Vulnerability）：系統內部的設計或防護缺陷。</li>
+                            <li class="wrong-opt">④弱點（Weakness）：同脆弱性，指系統容易被攻擊的缺陷。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 60 -->
+        <div class="card">
+            <span class="theme-badge">主題：資訊安全要求</span>
+            <div class="question">60. 下列何者不屬於 ISO 標準的安全要求？</div>
+            <div class="options">
+                <div class="option">①資料完整性</div>
+                <div class="option">②資料機密性</div>
+                <div class="option">③公證性</div>
+                <div class="option">④不可否認性</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>ISO 標準（如 ISO 7498-2 安全架構）所規範的五大安全服務主要包含：機密性（Confidentiality）、完整性（Integrity）、可用性（Availability）、身分鑑別（Authentication）以及不可否認性（Non-repudiation）。「公證性」並不是官方定義的標準安全要求詞彙。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①資料完整性：確保資料未被未授權地篡改。</li>
+                            <li class="wrong-opt">②資料機密性：確保資料不被未授權者讀取。</li>
+                            <li class="correct-opt">③公證性：正確，這不是 ISO 定義的標準資安要求。</li>
+                            <li class="wrong-opt">④不可否認性：確保發送方與接收方無法否認曾進行過的通訊行為。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 61 -->
+        <div class="card">
+            <span class="theme-badge">主題：虛擬私人網路(VPN)</span>
+            <div class="question">61. 下列何種協定不屬於 IPsec VPN？</div>
+            <div class="options">
+                <div class="option">①L2TP（Layer 2 Tunneling Protocol）</div>
+                <div class="option">②PPTP（Point-to-Point Tunneling Protocol）</div>
+                <div class="option">③SSL（Secure Sockets Layer）</div>
+                <div class="option">④DSS（Digital Signature Services）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>這題的題目用語稍有瑕疵，其原意應為「下列何種協定不屬於 VPN 或加密通道傳輸的協定」。L2TP 與 PPTP 為第二層 VPN 協定（常搭配 IPsec 使用），SSL 為應用層加密通道（SSL VPN）。而 DSS（數位簽章標準）是用於驗證檔案來源與未被篡改的數學演算法，並不屬於建立 VPN 連線的傳輸協定。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①L2TP：一種常與 IPsec 結合運用的第二層隧道協定（L2TP/IPsec）。</li>
+                            <li class="wrong-opt">②PPTP：微軟開發的 VPN 隧道協定。</li>
+                            <li class="wrong-opt">③SSL：用於建立 SSL VPN 通道的加密協定。</li>
+                            <li class="correct-opt">④DSS：正確，這是一種數位簽章演算法標準，與 VPN 傳輸通道無關。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 62 -->
+        <div class="card">
+            <span class="theme-badge">主題：OSI 參考模型</span>
+            <div class="question">62. OSI 七層協定中，哪一層負責切割資料並編定序號？</div>
+            <div class="options">
+                <div class="option">①資料鏈路層（Data Link Layer）</div>
+                <div class="option">②實體層（Physical Layer）</div>
+                <div class="option">③傳輸層（Transport Layer）</div>
+                <div class="option">④應用層（Application Layer）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>傳輸層（Transport Layer，第 4 層）的核心功能在於提供端對端的連線。它會將應用層傳來的大型資料切割成適當大小的區段（Segments），並為每個區段編上序號（Sequence Number），以確保接收端能夠正確無誤地將資料重組復原。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①資料鏈路層：負責網段內節點間的傳遞與 MAC 位址、錯誤偵測。</li>
+                            <li class="wrong-opt">②實體層：負責將資料轉化為電壓或光信號在實體介質傳輸。</li>
+                            <li class="correct-opt">③傳輸層：正確，負責資料的切割、編號及流量控制（如 TCP 協定）。</li>
+                            <li class="wrong-opt">④應用層：提供網路服務介面給使用者應用程式。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 63 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線傳輸技術</span>
+            <div class="question">63. 下列對於藍牙（Bluetooth）之敘述，何者不正確？</div>
+            <div class="options">
+                <div class="option">①於 1994 年由易利信公司最先提出</div>
+                <div class="option">②使用 24GHz 頻段</div>
+                <div class="option">③使用射頻（Radio Frequency, RF）傳輸方式</div>
+                <div class="option">④最初期的設計是用以傳遞語音</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>藍牙（Bluetooth）是一種設計用於短距離無線傳輸的技術。它運作於全球開放免費使用的 ISM 頻段，其確切的頻率範圍是 2.4 GHz（2.402 GHz 至 2.480 GHz），而不是 24 GHz。頻率差了十倍，這也是考題中最常見的陷阱。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①於 1994 年由易利信公司最先提出：敘述正確，為 Ericsson 首創。</li>
+                            <li class="correct-opt">②使用 24GHz 頻段：敘述錯誤，正確應為 2.4GHz。</li>
+                            <li class="wrong-opt">③使用射頻傳輸方式：敘述正確，屬於微波 RF 範疇。</li>
+                            <li class="wrong-opt">④最初設計是用以傳遞語音：敘述正確，初衷為取代 RS-232 電纜及耳機傳輸。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 64 -->
+        <div class="card">
+            <span class="theme-badge">主題：通訊調變技術</span>
+            <div class="question">64. 下列敘述何者不正確？</div>
+            <div class="options">
+                <div class="option">①數位通訊系統中，延遲失真會造成符號間干擾</div>
+                <div class="option">②資料在經過網路傳送前，必須先轉換成訊號</div>
+                <div class="option">③頻寬增加可以增加資料傳輸速率</div>
+                <div class="option">④調頻（Frequency Modulation, FM）的調變方式比調幅（Amplitude Modulation, AM）較容易受到干擾及雜訊的影響</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>自然界中的電磁干擾與雷電雜訊通常會改變電波的「振幅」。AM (調幅) 是靠振幅高低來攜帶資訊，因此非常容易受到外界雜訊干擾。相反的，FM (調頻) 是依靠頻率的疏密來攜帶資訊，對振幅上的雜訊具備極強的抵抗力，所以 FM 其實比 AM 擁有更好的抗干擾能力。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①延遲失真會造成符號間干擾：敘述正確，不同頻率到達時間不同會導致 ISI 干擾。</li>
+                            <li class="wrong-opt">②資料傳送前需轉成訊號：敘述正確，不論光或電，必須轉為實體訊號。</li>
+                            <li class="wrong-opt">③頻寬增加可增加傳輸速率：敘述正確，這符合夏農定理（Shannon Capacity）。</li>
+                            <li class="correct-opt">④FM 比 AM 較易受干擾：敘述錯誤。AM 最容易受雜訊影響，FM 則較抗干擾。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 65 -->
+        <div class="card">
+            <span class="theme-badge">主題：行動通訊系統</span>
+            <div class="question">65. 下列敘述何者不正確？</div>
+            <div class="options">
+                <div class="option">①未經調變的訊號，一般稱為基頻訊號</div>
+                <div class="option">②第二代行動通信系統係使用類比訊號傳送</div>
+                <div class="option">③無線通訊中的多重存取技術（Multiple Access）可以讓多個行動通訊設備共用無線電頻譜</div>
+                <div class="option">④分碼多工存取（Code Division Multiple Access, CDMA）是採用展頻（Spread Spectrum）技術</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>第一代（1G，如 AMPS）行動通訊系統才是使用「類比」訊號傳送語音；而從第二代（2G，如 GSM、CDMA）開始，行動通訊全面轉向「數位」訊號傳輸，藉此提供更清晰的語音、加密功能並開始支援簡訊等數據服務。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①未經調變的訊號稱為基頻：敘述正確，即 Baseband。</li>
+                            <li class="correct-opt">②第二代行動通信系統係使用類比訊號傳送：敘述錯誤，2G 為數位系統。</li>
+                            <li class="wrong-opt">③多重存取讓多設備共用頻譜：敘述正確，如 FDMA, TDMA。</li>
+                            <li class="wrong-opt">④CDMA 採用展頻技術：敘述正確，它將信號擴展至較寬頻帶以降低干擾。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 66 -->
+        <div class="card">
+            <span class="theme-badge">主題：行動通訊系統</span>
+            <div class="question">66. 下列何者為第二代行動通信系統？</div>
+            <div class="options">
+                <div class="option">①寬頻多重分碼存取（Wideband Code Division Multiple Access, WCDMA）</div>
+                <div class="option">②正交分頻多工技術（Orthogonal Frequency Division Multiplexing, OFDM）</div>
+                <div class="option">③全球行動通訊系統（Global System for Mobile Communications, GSM）</div>
+                <div class="option">④全球定位系統（Global Positioning System, GPS）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>GSM（Global System for Mobile Communications）是歷史上最廣泛使用的第二代（2G）數位行動通訊標準，它採用了 TDMA（分時多工存取）技術。而 WCDMA 是 3G 標準，OFDM 則是 4G/5G 廣泛採用的調變技術。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①WCDMA：為 3G (第三代) 通訊技術的標準之一。</li>
+                            <li class="wrong-opt">②OFDM：為 4G (LTE) 與 5G，以及 Wi-Fi 使用的高速多載波技術。</li>
+                            <li class="correct-opt">③GSM：正確，最具代表性的 2G 行動通信系統。</li>
+                            <li class="wrong-opt">④GPS：這是衛星定位系統，並非行動蜂窩通訊系統。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 67 -->
+        <div class="card">
+            <span class="theme-badge">主題：OSI 參考模型</span>
+            <div class="question">67. OSI 七層協定中，負責選擇傳送路徑的是哪一層？</div>
+            <div class="options">
+                <div class="option">①資料鏈路層（Data Link Layer）</div>
+                <div class="option">②實體層（Physical Layer）</div>
+                <div class="option">③傳輸層（Transport Layer）</div>
+                <div class="option">④網路層（Network Layer）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>OSI 模型中，網路層（Network Layer，第 3 層）的兩大核心功能就是「邏輯定址（如 IP 位址）」以及「路由（Routing）」。路由器就是在此層運作，負責根據目的 IP 位址選擇封包傳送的最佳路徑。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①資料鏈路層：負責網段內實體 MAC 定址與錯誤偵測（如 Switch）。</li>
+                            <li class="wrong-opt">②實體層：負責位元流的電氣或光學訊號傳輸。</li>
+                            <li class="wrong-opt">③傳輸層：負責端對端的連線、流量控制與切割。</li>
+                            <li class="correct-opt">④網路層：正確，負責邏輯位址解析並選擇最佳路由路徑。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 68 -->
+        <div class="card">
+            <span class="theme-badge">主題：通訊傳輸模式</span>
+            <div class="question">68. 下列敘述何者不正確？</div>
+            <div class="options">
+                <div class="option">①傳統電視機是屬於單工傳輸工具</div>
+                <div class="option">②家用電話是屬於半雙工傳輸工具</div>
+                <div class="option">③控制載波相位的調變技術稱為相位調變</div>
+                <div class="option">④錯誤偵測與錯誤處理是傳輸層的工作</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>家用電話能夠讓通話雙方「同時」講話並「同時」聽到對方的聲音，這種可以同時進行雙向傳輸的通訊模式稱為「全雙工（Full-Duplex）」。而「半雙工（Half-Duplex）」是指雙向皆可傳輸，但同一時間只能單向傳輸（例如無線電對講機）。因此選項 ② 是錯誤的。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①傳統電視是單工傳輸：正確，電視台只發射，電視機只接收。</li>
+                            <li class="correct-opt">②家用電話是半雙工傳輸：錯誤，家用電話為全雙工通訊。</li>
+                            <li class="wrong-opt">③控制載波相位的稱為相位調變：正確，即 PM (Phase Modulation)。</li>
+                            <li class="wrong-opt">④錯誤偵測處理是傳輸層工作：正確，例如 TCP 會進行錯誤偵測與重傳。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 69 -->
+        <div class="card">
+            <span class="theme-badge">主題：傳輸介質特性</span>
+            <div class="question">69. 下列何者不是光纖的優點？</div>
+            <div class="options">
+                <div class="option">①架設容易</div>
+                <div class="option">②傳輸速度快</div>
+                <div class="option">③抗電磁干擾</div>
+                <div class="option">④傳輸安全性高</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>光纖主要由玻璃或塑膠製成，線材極為細小脆弱，彎曲半徑受到嚴格限制。此外，光纖的熔接需要極其昂貴的高精度機器，接頭製作也需高度的專業技術。相較於傳統銅線網路（如雙絞線的壓接），光纖的施工複雜度與成本都高出許多，因此「架設容易」絕對不是它的優點。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①架設容易：正確，光纖施工門檻高，這不是它的優點。</li>
+                            <li class="wrong-opt">②傳輸速度快：是光纖最大優點，頻寬可達 Gbps 甚至 Tbps。</li>
+                            <li class="wrong-opt">③抗電磁干擾：是光纖優點，利用光波傳遞，完全不受電磁干擾。</li>
+                            <li class="wrong-opt">④傳輸安全性高：是光纖優點，光信號極難被實體側錄與竊聽。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 70 -->
+        <div class="card">
+            <span class="theme-badge">主題：乙太網路存取機制</span>
+            <div class="question">70. 下列何者為乙太網路之抗碰撞機制？</div>
+            <div class="options">
+                <div class="option">①符記匯流排（Token Bus）</div>
+                <div class="option">②符記傳遞（Token Passing）</div>
+                <div class="option">③載波偵測多重存取／碰撞偵測（CSMA/CD）</div>
+                <div class="option">④載波偵測多重存取／碰撞避免（CSMA/CA）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>傳統的有線乙太網路（Ethernet，IEEE 802.3）使用 CSMA/CD 技術。設備在發送前會先「聆聽」線路是否空閒，發送時也會持續偵測。若發生兩設備同時發送信號造成「碰撞」，則會發出壅塞信號並隨機等待一段時間後再重新傳送。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①符記匯流排（Token Bus）：早期的一種網路架構（IEEE 802.4）。</li>
+                            <li class="wrong-opt">②符記傳遞（Token Passing）：Token Ring（IEEE 802.5）與 FDDI 使用的機制。</li>
+                            <li class="correct-opt">③CSMA/CD：正確，傳統有線乙太網路的媒介存取與碰撞偵測機制。</li>
+                            <li class="wrong-opt">④CSMA/CA：無線網路（Wi-Fi, IEEE 802.11）使用的碰撞「避免」機制。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 71 -->
+        <div class="card">
+            <span class="theme-badge">主題：乙太網路傳輸介質</span>
+            <div class="question">71. 下列何種乙太網路的傳輸介質採用光纖？</div>
+            <div class="options">
+                <div class="option">①100Base-TX</div>
+                <div class="option">②10Base-T</div>
+                <div class="option">③100Base-FX</div>
+                <div class="option">④100Base-T4</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在 IEEE 的網路命名規範中，「Base」後面的字母通常代表了傳輸介質類型。字母「T」代表 Twisted pair（雙絞線，如銅線），而字母「F」則代表 Fiber（光纖）。因此 100Base-FX 就是運行在光纖上的 100 Mbps 快速乙太網路。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①100Base-TX：使用兩對 Cat 5 UTP 雙絞線。</li>
+                            <li class="wrong-opt">②10Base-T：使用早期的 UTP 雙絞線，速率 10 Mbps。</li>
+                            <li class="correct-opt">③100Base-FX：正確，F 代表光纖（Fiber）。</li>
+                            <li class="wrong-opt">④100Base-T4：使用四對 Cat 3 UTP 雙絞線。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 72 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線網路標準</span>
+            <div class="question">72. 關於 IEEE 802.11a 之敘述，下列何者正確？</div>
+            <div class="options">
+                <div class="option">①使用 24GHz 頻帶</div>
+                <div class="option">②最大傳輸速率是 128Mbps</div>
+                <div class="option">③和 IEEE 802.11b/g 不相容</div>
+                <div class="option">④擁有 10 條不相互重疊的頻道</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>IEEE 802.11a 是一個運作於 5 GHz 頻段的早期無線網路標準，最高傳輸速率為 54 Mbps。因為它的運作物理頻段（5 GHz）與 IEEE 802.11b 及 802.11g 所使用的 2.4 GHz 完全不同，因此硬體電波上完全無法向下相容與互通。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①使用 24GHz 頻帶：應為 5 GHz 頻段（注意不是 24GHz 而是 5GHz）。</li>
+                            <li class="wrong-opt">②最大傳輸速率是 128Mbps：最大速率為 54 Mbps。</li>
+                            <li class="correct-opt">③和 IEEE 802.11b/g 不相容：正確，因為兩者使用截然不同的頻段（5G vs 2.4G）。</li>
+                            <li class="wrong-opt">④擁有 10 條不相互重疊頻道：頻段數量視各國法規而定（如台灣可開放十幾個非重疊頻道），但並非標準固定的數字10條。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 73 -->
+        <div class="card">
+            <span class="theme-badge">主題：行動通訊頻段</span>
+            <div class="question">73. 下列何者不是全球行動通信系統（Global System for Mobile Communications, GSM）可以應用的頻帶？</div>
+            <div class="options">
+                <div class="option">①1800MHz</div>
+                <div class="option">②1900MHz</div>
+                <div class="option">③900MHz</div>
+                <div class="option">④3600MHz</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>GSM（2G）是全球佈建最廣的通訊技術之一，為了適應不同國家的法規，它發展出了四個主要頻段，分別是 850 MHz、900 MHz、1800 MHz 以及 1900 MHz（常稱為四頻機）。而 3600 MHz（3.6 GHz）頻段主要被用於後期的 WiMAX 或 5G 行動通訊系統中。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①1800MHz：為 GSM 應用頻帶之一（DCS1800）。</li>
+                            <li class="wrong-opt">②1900MHz：為 GSM 應用頻帶之一（多用於美洲）。</li>
+                            <li class="wrong-opt">③900MHz：為 GSM 最基礎也最廣泛應用的頻帶之一。</li>
+                            <li class="correct-opt">④3600MHz：正確，非 GSM 通訊標準頻帶。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 74 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線通訊技術</span>
+            <div class="question">74. 下列敘述何者不正確？</div>
+            <div class="options">
+                <div class="option">①藍牙（Bluetooth）技術是一種短距離的無線傳輸技術</div>
+                <div class="option">②行動通信系統傳輸功率越大，其相對的電磁波也越強</div>
+                <div class="option">③全球行動通信系統（Global System for Mobile Communications, GSM）為第二代行動通訊系統的主要技術</div>
+                <div class="option">④IEEE 802.11g 是使用 24GHz 的頻道</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>IEEE 802.11g 是一個普及度極高的 Wi-Fi 無線網路標準，它的最大特色是相容早期的 802.11b，並且與 11b 一樣運作於 ISM 頻段的 2.4 GHz（2.4~2.4835 GHz），而非極高頻的 24 GHz。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①藍牙是短距離無線傳輸：敘述正確，通常範圍在 10~100 公尺。</li>
+                            <li class="wrong-opt">②傳輸功率越大電磁波越強：敘述正確，功率與電磁波強度成正比。</li>
+                            <li class="wrong-opt">③GSM 為第二代系統主要技術：敘述正確，GSM 就是最經典的 2G 標準。</li>
+                            <li class="correct-opt">④IEEE 802.11g 使用 24GHz 頻道：敘述錯誤，應為 2.4 GHz。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 75 -->
+        <div class="card">
+            <span class="theme-badge">主題：多工傳輸技術</span>
+            <div class="question">75. 下列何種技術，可以使光纖一次傳送不同波長的訊號？</div>
+            <div class="options">
+                <div class="option">①單工</div>
+                <div class="option">②分頻多工</div>
+                <div class="option">③分時多工</div>
+                <div class="option">④分波多工</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>「分波多工」（WDM, Wavelength Division Multiplexing）是專屬於光纖通訊的核心技術。其原理是將多個「不同波長（不同顏色）」的雷射光信號，透過光學多工器合併到同一條光纖中傳輸。這能極大幅度地提昇單一光纖的傳輸容量，而無需鋪設新的實體纜線。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①單工：指僅能單方向傳輸的通訊模式。</li>
+                            <li class="wrong-opt">②分頻多工：FDM，主要用於無線電或銅線（如第四台第四台或廣播），以頻率劃分。</li>
+                            <li class="wrong-opt">③分時多工：TDM，將時間切割成時槽輪流傳送，常用於數位語音（如 T1/E1 專線）。</li>
+                            <li class="correct-opt">④分波多工：正確，WDM 是專門將光波依波長區分傳輸的多工技術。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <script>
+        let isExpanded = false;
+        function toggleAll() {
+            const detailsElements = document.querySelectorAll('.qa-details');
+            const toggleBtn = document.getElementById('toggleBtn');
+            isExpanded = !isExpanded;
+            
+            detailsElements.forEach(detail => {
+                if (isExpanded) {
+                    detail.setAttribute('open', '');
+                } else {
+                    detail.removeAttribute('open');
+                }
+            });
+            
+            if (isExpanded) {
+                toggleBtn.innerText = '收合所有解析';
+                toggleBtn.style.backgroundColor = '#e74c3c';
+            } else {
+                toggleBtn.innerText = '展開所有解析';
+                toggleBtn.style.backgroundColor = '#27ae60';
+            }
+        }
+    </script>
+
+</body>
+</html>

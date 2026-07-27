@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路架設 乙級 工作項目05 (01-25題)</title>
+    <style>
+        /* 基礎與排版設定 */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+        
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+        
+        /* 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { 
+            background: #eef2f5; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #34495e; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        
+        .explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #3498db; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級 工作項目05：網路規劃與管理</h1>
+        <p>(第01 - 25題)</p>
+        <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+
+        <!-- 題目 1 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路效能優化</span>
+            <div class="question">1. 下列何者不是改善網路效能的方法？</div>
+            <div class="options">
+                <div class="option">①儘量將網路各類服務集中在同一台伺服器，避免使用者必須存取多台伺服器</div>
+                <div class="option">②採增加伺服器方式，儘可能讓使用者存取同一區域內之伺服器</div>
+                <div class="option">③採網路資源分散的方式，將部分之網路資源，從原伺服器移至其他伺服器</div>
+                <div class="option">④對經常性跨網段存取其他工作群組的使用者，可移動使用者使所屬的工作群組，以減少跨網段存取</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>改善網路效能通常仰賴「負載平衡」與「資源分散」。將所有服務集中在一台伺服器上會導致該設備負載過高，容易形成網路效能的瓶頸，並提高單點故障的風險，因此這並不是改善效能的好方法。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①儘量將網路各類服務集中在同一台伺服器...：錯誤做法，將服務集中會產生單點瓶頸並增加特定網段壅塞。</li>
+                            <li class="wrong-opt">②採增加伺服器方式...：正確做法，讓使用者存取區域內伺服器可降低骨幹網路流量。</li>
+                            <li class="wrong-opt">③採網路資源分散的方式...：正確做法，透過分散伺服器達到負載平衡。</li>
+                            <li class="wrong-opt">④對經常性跨網段存取...減少跨網段存取：正確做法，減少路由器的處理負擔，提升內部傳輸速度。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 2 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路規劃實務</span>
+            <div class="question">2. 下列何者通常不是在網路規劃時之考慮要素？</div>
+            <div class="options">
+                <div class="option">①環境變數</div>
+                <div class="option">②公司名稱</div>
+                <div class="option">③成本評估</div>
+                <div class="option">④效益評估</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>網路規劃需要對組織的需求進行技術與財務層面的客觀評估，例如實體環境、預算限制和預期產出的效益等。公司名稱純屬商業或品牌識別，與網路實體架構的效能設計無直接關聯。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①環境變數：考量重點，如建築格局與距離等實體限制。</li>
+                            <li class="correct-opt">②公司名稱：與網路規劃架構及成本效益無關，故選此項。</li>
+                            <li class="wrong-opt">③成本評估：考量重點，網路建置需要控管硬體與佈線預算。</li>
+                            <li class="wrong-opt">④效益評估：考量重點，分析技術升級是否值得投資。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 3 -->
+        <div class="card">
+            <span class="theme-badge">主題：網管通訊協定</span>
+            <div class="question">3. 下列何者為網路管理通訊協定？</div>
+            <div class="options">
+                <div class="option">①SMTP</div>
+                <div class="option">②TCP</div>
+                <div class="option">③SNMP</div>
+                <div class="option">④ICMP</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>SNMP（Simple Network Management Protocol，簡易網路管理協定）是網際網路上廣泛用於網路設備管理的標準協定。它能夠自動收集設備狀態並允許網管人員遠端修改設備配置。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①SMTP：簡單郵件傳輸協定，用於發送電子郵件。</li>
+                            <li class="wrong-opt">②TCP：傳輸控制協定，用於提供可靠的資料傳輸。</li>
+                            <li class="correct-opt">③SNMP：正確。專門為了網路管理而設計的通訊協定。</li>
+                            <li class="wrong-opt">④ICMP：網際網路控制訊息協定，用於錯誤報告與網路診斷（如 Ping 測試）。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 4 -->
+        <div class="card">
+            <span class="theme-badge">主題：OSI與TCP/IP模型</span>
+            <div class="question">4. SNMP 協定位於 TCP/IP 模型中的哪一層？</div>
+            <div class="options">
+                <div class="option">①網際網路層（Internet Layer）</div>
+                <div class="option">②應用層（Application Layer）</div>
+                <div class="option">③傳輸層（Transport Layer）</div>
+                <div class="option">④鏈路層（Link Layer）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>TCP/IP 模型由下至上包含：鏈路層、網際網路層、傳輸層、應用層。SNMP 屬於高階的網路通訊協定，直接為網路管理程式與設備代理程式提供互動服務，因此歸類於應用層。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①網際網路層：負責定址與路由，例如 IP、ICMP 協定。</li>
+                            <li class="correct-opt">②應用層：正確。提供高階網路應用服務，SNMP、HTTP、FTP 皆位於此層。</li>
+                            <li class="wrong-opt">③傳輸層：負責端對端的連線服務，例如 TCP、UDP。</li>
+                            <li class="wrong-opt">④鏈路層：處理實體硬體位址與框架傳遞，例如 Ethernet 規範。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 5 -->
+        <div class="card">
+            <span class="theme-badge">主題：傳輸層協定</span>
+            <div class="question">5. SNMP 協定預設使用哪一種傳輸層協定？</div>
+            <div class="options">
+                <div class="option">①TCP</div>
+                <div class="option">②IP</div>
+                <div class="option">③DHCP</div>
+                <div class="option">④UDP</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>SNMP 為了在網路狀態不佳（如壅塞或設備故障）時仍能盡可能發送網管訊息，且減少連線建立的額外負擔，預設情況下採用非連接導向的 UDP（User Datagram Protocol）作為傳輸層協定。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①TCP：具備交握與重傳機制，連線較耗資源，SNMP 預設不採用。</li>
+                            <li class="wrong-opt">②IP：屬於網際網路層（第三層）協定，並非傳輸層。</li>
+                            <li class="wrong-opt">③DHCP：這是一個自動派發 IP 的應用層協定。</li>
+                            <li class="correct-opt">④UDP：正確。SNMP 預設使用 UDP 進行無連線的輕量傳輸。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 6 -->
+        <div class="card">
+            <span class="theme-badge">主題：通訊埠號(Port)</span>
+            <div class="question">6. SNMP 協定使用的傳輸埠號為何？</div>
+            <div class="options">
+                <div class="option">①80/81</div>
+                <div class="option">②443/444</div>
+                <div class="option">③110/111</div>
+                <div class="option">④161/162</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在 SNMP 的標準通訊中，Agent 預設使用 UDP port 161 來接收 Manager 發出的管理請求；而 Manager 則使用 UDP port 162 來接收設備主動發送的 Trap 警告中斷訊息。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①80/81：Port 80 為未加密網頁 HTTP 的標準埠號。</li>
+                            <li class="wrong-opt">②443/444：Port 443 為安全加密網頁 HTTPS 的標準埠號。</li>
+                            <li class="wrong-opt">③110/111：Port 110 為接收郵件 POP3 的標準埠號。</li>
+                            <li class="correct-opt">④161/162：正確。SNMP 代理器與網管系統監聽使用的通訊埠號。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 7 -->
+        <div class="card">
+            <span class="theme-badge">主題：TCP/IP模型</span>
+            <div class="question">7. ICMP 協定屬於 TCP/IP 模型中的哪一層？</div>
+            <div class="options">
+                <div class="option">①網際網路層（Internet Layer）</div>
+                <div class="option">②應用層（Application Layer）</div>
+                <div class="option">③傳輸層（Transport Layer）</div>
+                <div class="option">④鏈路層（Link Layer）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>ICMP（Internet Control Message Protocol）主要用來傳送封包傳遞錯誤訊息及網路運作診斷資訊。它通常被直接封裝在 IP 資料包內部進行路由轉送，因此與 IP 協定同屬於網際網路層。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①網際網路層：正確。處理路徑與診斷控制，如 IP、ICMP 協定。</li>
+                            <li class="wrong-opt">②應用層：為應用軟體服務，如 HTTP、FTP。</li>
+                            <li class="wrong-opt">③傳輸層：提供連線埠轉送，如 TCP、UDP。</li>
+                            <li class="wrong-opt">④鏈路層：負責同網段實體傳輸，如 MAC、ARP。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 8 -->
+        <div class="card">
+            <span class="theme-badge">主題：ISO網路管理標準</span>
+            <div class="question">8. ISO 標準之網路管理功能區分為幾大類？</div>
+            <div class="options">
+                <div class="option">①4</div>
+                <div class="option">②5</div>
+                <div class="option">③6</div>
+                <div class="option">④7</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>國際標準化組織（ISO）定義了網路管理的五大核心功能領域，在業界被稱為「FCAPS」模型，確保網管機制的完整性。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①4：非標準的分類數量。</li>
+                            <li class="correct-opt">②5：正確。包含故障(F)、組態(C)、歸責/計費(A)、效能(P)、安全(S)等 5 大類。</li>
+                            <li class="wrong-opt">③6：非標準的分類數量。</li>
+                            <li class="wrong-opt">④7：OSI 參考模型有 7 層，容易混淆，但網管分類是 5 大類。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 9 -->
+        <div class="card">
+            <span class="theme-badge">主題：ISO網路管理標準</span>
+            <div class="question">9. 下列何者不屬 ISO 標準中網路管理功能的種類？</div>
+            <div class="options">
+                <div class="option">①效能（Performance）管理</div>
+                <div class="option">②歸責（Accounting）管理</div>
+                <div class="option">③流量（Flow）管理</div>
+                <div class="option">④組態（Configuration）管理</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>ISO 定義的 FCAPS 五大網管功能為：Fault (故障)、Configuration (組態)、Accounting (歸責/計費)、Performance (效能) 及 Security (安全)。「流量管理」通常被歸納在效能管理的範疇內，並非獨立的一大類。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①效能（Performance）管理：FCAPS 中的 P。</li>
+                            <li class="wrong-opt">②歸責（Accounting）管理：FCAPS 中的 A。</li>
+                            <li class="correct-opt">③流量（Flow）管理：正確。不屬於五大官方分類。</li>
+                            <li class="wrong-opt">④組態（Configuration）管理：FCAPS 中的 C。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 10 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路效能管理</span>
+            <div class="question">10. 下列何者與網路效能管理無關？</div>
+            <div class="options">
+                <div class="option">①錯誤率</div>
+                <div class="option">②使用率</div>
+                <div class="option">③建置成本</div>
+                <div class="option">④反應時間</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>網路效能管理主要是監視及分析網路即時的傳輸效率，其指標包含吞吐量、使用率、錯誤率、延遲與反應時間等。建置成本屬於初期投資或會計管理的範疇，與日常的效能運作無關。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①錯誤率：效能不佳時常見的現象之一，需被監測。</li>
+                            <li class="wrong-opt">②使用率：監測頻寬是否過載的關鍵效能指標。</li>
+                            <li class="correct-opt">③建置成本：正確。與動態的網路效能維運無關。</li>
+                            <li class="wrong-opt">④反應時間：即延遲時間(Latency)，是使用者對網路效能的最直觀感受。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 11 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路效能與架構</span>
+            <div class="question">11. 下列敘述何者不正確？</div>
+            <div class="options">
+                <div class="option">①網路效能管理與反應時間有關</div>
+                <div class="option">②在設計網路階段，可以用相關設備及網路參數來模擬網路，以預測網路的效能</div>
+                <div class="option">③雙絞線將銅線纏繞的主要原因是要增加拉力</div>
+                <div class="option">④3 個節點以上之全網狀（Full Mesh）拓樸結構中，每個節點均有兩個以上的傳輸路徑可選擇</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>雙絞線（Twisted Pair）中兩根銅線互相纏繞的物理設計，主要原理是為了抵消電磁干擾（EMI）並減少鄰近線對之間的訊號串音（Crosstalk），確保訊號傳遞清晰，而非為了強化線材的物理拉力。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①網路效能管理與反應時間有關：敘述正確。反應時間是效能關鍵指標。</li>
+                            <li class="wrong-opt">②設計階段可用參數模擬網路：敘述正確。模擬可評估負載與效能。</li>
+                            <li class="correct-opt">③雙絞線纏繞是要增加拉力：敘述錯誤。纏繞是為了抗干擾及降低串音現象。</li>
+                            <li class="wrong-opt">④全網狀拓樸每個節點有多路徑：敘述正確。n 個節點會與其餘 (n-1) 個節點連線。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 12 -->
+        <div class="card">
+            <span class="theme-badge">主題：故障管理因素</span>
+            <div class="question">12. 下列何者不是造成網路異常事件的自然因素？</div>
+            <div class="options">
+                <div class="option">①雷擊</div>
+                <div class="option">②病毒</div>
+                <div class="option">③地震</div>
+                <div class="option">④海嘯</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>導致網路中斷的因素大致分為自然環境的天災與人為產生的問題。雷擊、地震、海嘯屬於不可抗力的自然災害因素；而電腦病毒、惡意軟體則屬於人為破壞或系統漏洞所引起的問題。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①雷擊：可能損壞線路設備，屬自然因素。</li>
+                            <li class="correct-opt">②病毒：正確。屬於人為撰寫的惡意程式，非自然現象。</li>
+                            <li class="wrong-opt">③地震：可能震斷光纜，屬自然因素。</li>
+                            <li class="wrong-opt">④海嘯：可能損壞機房或海底電纜，屬自然因素。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 13 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路規劃準則</span>
+            <div class="question">13. 下列敘述何者正確？</div>
+            <div class="options">
+                <div class="option">①在規劃網路時不需要考慮應用系統的可用性（Availability）</div>
+                <div class="option">②網路規劃設計之 80-20 法則是指小於 80%訊務流過骨幹網路，20%訊務侷限在區域性</div>
+                <div class="option">③可以增加伺服器方式來降低網路建置成本</div>
+                <div class="option">④好的網路規劃案，針對管理者應包含完整的教育訓練計劃</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>建構優良的網路環境不只牽涉硬體基礎設施，後續的維護與管理同等重要。因此一個完善的規劃案，必定會涵蓋給 IT 人員的教育訓練，確保系統能正常運行。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①不需要考慮可用性：錯誤。高可用性(HA)是企業網路設計的重要指標。</li>
+                            <li class="wrong-opt">②80-20法則的解釋：錯誤。傳統 80/20 規則是指「80% 的流量在區域網路內，20% 流向骨幹/外部」。</li>
+                            <li class="wrong-opt">③增加伺服器降低建置成本：錯誤。採購伺服器會增加硬體與授權成本。</li>
+                            <li class="correct-opt">④好的規劃案應包含完整的教育訓練：敘述完全正確。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 14 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路設計考量</span>
+            <div class="question">14. 下列何者不是設計網路架構前，應先確定之目標重點？</div>
+            <div class="options">
+                <div class="option">①技術考量</div>
+                <div class="option">②管理考量</div>
+                <div class="option">③公司名稱考量</div>
+                <div class="option">④成本考量</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>設計網路架構時，需要考量頻寬、安全(技術面)，維運監控的難易度(管理面)以及預算限制(成本面)。公司名稱純粹為品牌識別，並不會對網路工程設計帶來技術或結構上的實質影響。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①技術考量：需選擇合適的傳輸介質與網路設備。</li>
+                            <li class="wrong-opt">②管理考量：評估網路是否便於監控與故障排除。</li>
+                            <li class="correct-opt">③公司名稱考量：正確。不影響實體與邏輯網路架構設計。</li>
+                            <li class="wrong-opt">④成本考量：受限於預算範圍，為規劃的關鍵因素。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 15 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路管理機制</span>
+            <div class="question">15. 下列敘述何者正確？</div>
+            <div class="options">
+                <div class="option">①輪詢（Polling）是指當事件發生時才通知管理者的管理機制</div>
+                <div class="option">②提前發現潛在問題、防患於未然並非網管人員的工作</div>
+                <div class="option">③CMIP（Common Management Information Protocol）是目前最常用的網管通訊協定</div>
+                <div class="option">④網路管理系統可以管理到所有支援 SNMP（Simple Network Management Protocol）之網路設備</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>SNMP（簡易網路管理協定）是目前業界的標準通訊協定。任何廠牌的設備，只要實作並支援 SNMP Agent，就能被中央網路管理系統（NMS）所監控和管理。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①輪詢是事件發生才通知：錯誤。輪詢是 NMS「主動且定期」檢查設備狀態。事件發生才通知稱為 Trap。</li>
+                            <li class="wrong-opt">②防患於未然非網管工作：錯誤。監控並預防網路中斷是網管的核心職責。</li>
+                            <li class="wrong-opt">③CMIP 是最常用的通訊協定：錯誤。CMIP 設計過於複雜，目前最廣泛使用的是 SNMP。</li>
+                            <li class="correct-opt">④可管理所有支援 SNMP 的設備：敘述正確。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 16 -->
+        <div class="card">
+            <span class="theme-badge">主題：SNMP 運作架構</span>
+            <div class="question">16. 代理器（Agent）透過哪一種通訊協定，經由網路將資訊傳遞給管理器（Manager）？</div>
+            <div class="options">
+                <div class="option">①TFTP</div>
+                <div class="option">②SMTP</div>
+                <div class="option">③TCP/IP</div>
+                <div class="option">④SNMP</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在標準的網路管理架構中，安裝於受管設備（例如路由器、交換器）上的監控程式稱為代理器（Agent）。Agent 與中央管理伺服器（Manager）之間用來傳遞設備狀態和警報的通訊標準協定，就是 SNMP。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①TFTP：小型檔案傳輸協定，通常用來備份或更新設備韌體。</li>
+                            <li class="wrong-opt">②SMTP：用於發送電子郵件的通訊協定。</li>
+                            <li class="wrong-opt">③TCP/IP：為基礎網路協定族群，但管理訊息專用的應用層協定為 SNMP。</li>
+                            <li class="correct-opt">④SNMP：正確。代理器回傳資訊給管理器所使用的協定。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 17 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路管理系統元件</span>
+            <div class="question">17. 網路管理系統的元件（Component）不包含哪一個？</div>
+            <div class="options">
+                <div class="option">①網路使用者</div>
+                <div class="option">②路由器</div>
+                <div class="option">③代理器（Agent）</div>
+                <div class="option">④管理器（Manager）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>一個標準的網路管理系統（NMS）主要是由硬體與軟體組件構成，包含：管理中心（Manager）、位於設備上的軟體（Agent）、被管理的設備實體（如路由器）及存放資料的 MIB。一般「網路使用者」是被服務的對象，並不屬於管理系統的基礎元件。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①網路使用者：正確。不屬於網管基礎設施元件。</li>
+                            <li class="wrong-opt">②路由器：是被管理的實體設備元件。</li>
+                            <li class="wrong-opt">③代理器（Agent）：收集設備資訊的核心軟體元件。</li>
+                            <li class="wrong-opt">④管理器（Manager）：負責監控及發送指令的中心元件。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 18 -->
+        <div class="card">
+            <span class="theme-badge">主題：ISO 網路管理標準</span>
+            <div class="question">18. 下列何者不屬於 ISO 標準網路管理功能分類？</div>
+            <div class="options">
+                <div class="option">①成本（Cost）管理</div>
+                <div class="option">②安全（Security）管理</div>
+                <div class="option">③效能（Performance）管理</div>
+                <div class="option">④故障（Fault）管理</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>ISO 制定的五大網路管理領域稱為 FCAPS：故障(Fault)、組態(Configuration)、計費/歸責(Accounting)、效能(Performance)、安全(Security)。「成本管理」一詞雖然與會計歸責概念接近，但它並不屬於標準中定義的正式名稱。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①成本（Cost）管理：正確。非 ISO 定義的 FCAPS 名稱。</li>
+                            <li class="wrong-opt">②安全（Security）管理：FCAPS 中的 S。</li>
+                            <li class="wrong-opt">③效能（Performance）管理：FCAPS 中的 P。</li>
+                            <li class="wrong-opt">④故障（Fault）管理：FCAPS 中的 F。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 19 -->
+        <div class="card">
+            <span class="theme-badge">主題：ISO 網路管理標準</span>
+            <div class="question">19. 下列何種 ISO 標準網路管理功能可以設定與修改網路的使用狀態？</div>
+            <div class="options">
+                <div class="option">①故障（Fault）管理</div>
+                <div class="option">②歸責（Accounting）管理</div>
+                <div class="option">③組態（Configuration）管理</div>
+                <div class="option">④效能（Performance）管理</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在 FCAPS 領域中，「組態管理（Configuration Management）」的功能主要是初始化網路設備、修改系統參數、追蹤版本更新以及分配資源，也就是負責「設定與修改網路使用狀態」的核心功能。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①故障管理：專注於網路錯誤的偵測、隔離與修復。</li>
+                            <li class="wrong-opt">②歸責管理：負責記錄與分配網路資源的使用量（計費）。</li>
+                            <li class="correct-opt">③組態管理：正確。負責參數設定與狀態修改。</li>
+                            <li class="wrong-opt">④效能管理：專注於監測傳輸吞吐量及分析瓶頸。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 20 -->
+        <div class="card">
+            <span class="theme-badge">主題：MIB 資訊架構</span>
+            <div class="question">20. 針對標準管理資訊庫（MIB）的敘述，何者不正確？</div>
+            <div class="options">
+                <div class="option">①為存放網路狀態的資訊庫</div>
+                <div class="option">②包含物件的讀寫方式</div>
+                <div class="option">③定義物件的設備廠牌</div>
+                <div class="option">④所有資訊之物件辨別碼以樹狀的資料結構存放</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>管理資訊庫（MIB, Management Information Base）是一種虛擬的階層式資料庫，用以定義受管設備的狀態變數（如流量、錯誤次數等）。標準 MIB 致力於「通用性與標準化」，因此不會去硬性定義特定物件的「設備廠牌」。廠牌差異會透過私有企業 MIB 來補充，但並非標準 MIB 的規範目的。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①存放網路狀態的資訊庫：敘述正確。存放了網路狀態的各種變數。</li>
+                            <li class="wrong-opt">②包含物件的讀寫方式：敘述正確。每個物件有其存取權限（如 Read-only）。</li>
+                            <li class="correct-opt">③定義物件的設備廠牌：敘述錯誤。標準 MIB 不定義廠牌。</li>
+                            <li class="wrong-opt">④以樹狀資料結構存放 OID：敘述正確。OID (物件識別碼) 採階層式數字表示。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 21 -->
+        <div class="card">
+            <span class="theme-badge">主題：RMON 網路監控</span>
+            <div class="question">21. RMON-II 是管理 OSI 網路參考模型第幾層以上的訊務？</div>
+            <div class="options">
+                <div class="option">①第 2 層</div>
+                <div class="option">②第 3 層</div>
+                <div class="option">③第 4 層</div>
+                <div class="option">④第 7 層</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>遠端網路監控（RMON）的第一版主要針對實體層與資料鏈結層（Layer 1 & 2）進行流量統計。為了解決更高層級的可視性，RMON-II 將監控能力往上擴充，能夠剖析 OSI 網路層（Layer 3）及以上的協定，藉此了解封包所屬的 IP 及應用服務型態。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①第 2 層：為 RMON 第一版的管理範圍。</li>
+                            <li class="correct-opt">②第 3 層：正確。RMON-II 監控網路層(Layer 3)以上的訊務。</li>
+                            <li class="wrong-opt">③第 4 層：起點應為第 3 層（網路層）。</li>
+                            <li class="wrong-opt">④第 7 層：包含但不限於此層，其能力涵蓋第 3 至第 7 層。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 22 -->
+        <div class="card">
+            <span class="theme-badge">主題：RMON 網路監控</span>
+            <div class="question">22. RMON 管理 OSI 網路參考模型第幾層以下的訊務？</div>
+            <div class="options">
+                <div class="option">①第 2 層</div>
+                <div class="option">②第 3 層</div>
+                <div class="option">③第 4 層</div>
+                <div class="option">④第 5 層</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>傳統的 RMON（Remote Network Monitoring，常指 RMON-I）主要被設計用來擷取與統計同一個網段上的實體傳輸情況，如廣播封包數、碰撞率與 MAC 位址統計。因此它主要管理的是資料鏈結層（Layer 2）及其以下的訊務。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①第 2 層：正確。RMON 專注於 MAC 層（Layer 2）與實體層的流量分析。</li>
+                            <li class="wrong-opt">②第 3 層：需依賴 RMON-II 才能解析網路層。</li>
+                            <li class="wrong-opt">③第 4 層：超過基礎 RMON 的能力。</li>
+                            <li class="wrong-opt">④第 5 層：超過基礎 RMON 的能力。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 23 -->
+        <div class="card">
+            <span class="theme-badge">主題：SNMP 資料型態</span>
+            <div class="question">23. SNMP 所用的基本型（Primitive Type）資料有幾種？</div>
+            <div class="options">
+                <div class="option">①2 種</div>
+                <div class="option">②3 種</div>
+                <div class="option">③4 種</div>
+                <div class="option">④7 種</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>根據 SNMP 採用的管理資訊結構（SMI），基礎資料型別（Primitive Type）從 ASN.1 中擷取而來，主要有四種形式：整數（INTEGER）、八位元字串（OCTET STRING）、物件識別碼（OBJECT IDENTIFIER）以及空值（NULL）。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①2 種：此為建構型（Constructed Type）的數量。</li>
+                            <li class="wrong-opt">②3 種：數值錯誤。</li>
+                            <li class="correct-opt">③4 種：正確。主要包含 INTEGER, OCTET STRING, OBJECT ID, NULL。</li>
+                            <li class="wrong-opt">④7 種：數值錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 24 -->
+        <div class="card">
+            <span class="theme-badge">主題：SNMP 資料型態</span>
+            <div class="question">24. SNMP 所用的建構型（Constructed Type）資料有幾種？</div>
+            <div class="options">
+                <div class="option">①2 種</div>
+                <div class="option">②3 種</div>
+                <div class="option">③4 種</div>
+                <div class="option">④6 種</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在 SNMP SMI 規範中，為了能夠處理多個基礎資料的組合，定義了建構型資料（Constructed Type）。這些主要用來建構清單或資料表結構，一共只有兩種：SEQUENCE（對應為單一資料列結構）與 SEQUENCE OF（對應為資料表陣列）。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①2 種：正確。即 SEQUENCE 與 SEQUENCE OF。</li>
+                            <li class="wrong-opt">②3 種：數值錯誤。</li>
+                            <li class="wrong-opt">③4 種：這是基本型（Primitive Type）的數量。</li>
+                            <li class="wrong-opt">④6 種：這是衍生型（Application Type）的數量。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 25 -->
+        <div class="card">
+            <span class="theme-badge">主題：SNMP 資料型態</span>
+            <div class="question">25. SNMP 所用的衍生型（Application Type）資料有幾種？</div>
+            <div class="options">
+                <div class="option">①5 種</div>
+                <div class="option">②6 種</div>
+                <div class="option">③7 種</div>
+                <div class="option">④8 種</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>SMI 為了讓網管應用更具語意化，從基本型資料中「衍生」出了特殊的應用型資料。在 SNMPv1 的規範中，衍生型資料總共有 6 種，包含了：NetworkAddress、IpAddress、Counter、Gauge、TimeTicks 以及 Opaque。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①5 種：數值錯誤。</li>
+                            <li class="correct-opt">②6 種：正確。這 6 種為 SNMPv1 定義的重要應用衍生型態。</li>
+                            <li class="wrong-opt">③7 種：數值錯誤。</li>
+                            <li class="wrong-opt">④8 種：數值錯誤。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <script>
+        let isExpanded = false;
+        function toggleAll() {
+            const detailsElements = document.querySelectorAll('.qa-details');
+            const toggleBtn = document.getElementById('toggleBtn');
+            isExpanded = !isExpanded;
+            
+            detailsElements.forEach(detail => {
+                if (isExpanded) {
+                    detail.setAttribute('open', '');
+                } else {
+                    detail.removeAttribute('open');
+                }
+            });
+            
+            if (isExpanded) {
+                toggleBtn.innerText = '收合所有解析';
+                toggleBtn.style.backgroundColor = '#e74c3c';
+            } else {
+                toggleBtn.innerText = '展開所有解析';
+                toggleBtn.style.backgroundColor = '#27ae60';
+            }
+        }
+    </script>
+
+</body>
+</html>
