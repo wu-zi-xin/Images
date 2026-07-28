@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職業安全衛生 - 第51~75題題庫與解析</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .toggle-btn:hover {
+            background-color: #219150;
+        }
+        .card-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        /* 卡片樣式 */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border: 1px solid #eaeaea;
+            position: relative;
+        }
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+        .question {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        /* 選項樣式 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            font-size: 1.05em;
+            border-left: 3px solid #cbd5e1;
+        }
+        /* 純HTML 摺疊特效設計 */
+        details {
+            background: #fdfefe;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        summary {
+            background: #3498db;
+            color: #ffffff;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
+            cursor: pointer;
+            list-style: none;
+            transition: background 0.3s;
+        }
+        summary:hover {
+            background: #2980b9;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        /* 解析內容樣式 */
+        .answer-panel {
+            padding: 20px;
+            background: #f4fcf7;
+            border-top: 1px solid #dfe6e9;
+        }
+        .answer-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+        .explanation {
+            color: #4b6584;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+        .exp-subtitle {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 3px;
+        }
+        .opt-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .opt-list li {
+            margin-bottom: 8px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt {
+            border-left-color: #27ae60 !important;
+            background: #eafaf1 !important;
+        }
+        .wrong-opt {
+            border-left-color: #e74c3c !important;
+        }
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>職業安全衛生共同科目題庫</h1>
+    <p>工作項目 01：職業安全衛生 (第 51 - 75 題)</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 題組 51 -->
+    <div class="card">
+        <span class="theme-badge">主題：化學燒傷急救</span>
+        <div class="question">51. 對於化學燒傷傷患的一般處理原則，下列何者正確？</div>
+        <div class="options">
+            <div class="option">①立即用大量清水沖洗</div>
+            <div class="option">②傷患必須臥下，而且頭、胸部須高於身體其他部位</div>
+            <div class="option">③於燒傷處塗抹油膏、油脂或發酵粉</div>
+            <div class="option">④使用酸鹼中和</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>遇到化學物質（如強酸、強鹼）濺灑引起化學燒傷時，首要且最關鍵的急救步驟是「立即使用大量流動的清水沖洗」至少 15 至 30 分鐘。這可以迅速稀釋化學物質濃度並帶走熱量。切忌使用酸鹼中和法，因為中和反應會產生高熱，反而造成更嚴重的二次燒傷。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 立即用大量清水沖洗：正確，稀釋化學物並降溫是最重要原則。</li>
+                    <li class="wrong-opt">② 傷患必須臥下，而且頭、胸部須高於身體其他部位：非化學燒傷的直接急救原則。</li>
+                    <li class="wrong-opt">③ 於燒傷處塗抹油膏、油脂或發酵粉：錯誤，塗抹油膏會阻礙散熱並干擾後續醫療清創。</li>
+                    <li class="wrong-opt">④ 使用酸鹼中和：錯誤，酸鹼中和會產生大量放熱反應，加劇燒傷程度。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 52 -->
+    <div class="card">
+        <span class="theme-badge">主題：搬運事故預防</span>
+        <div class="question">52. 下列何者非屬防止搬運事故之一般原則？</div>
+        <div class="options">
+            <div class="option">①以機械代替人力</div>
+            <div class="option">②以機動車輛搬運</div>
+            <div class="option">③採取適當之搬運方法</div>
+            <div class="option">④儘量增加搬運距離</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>物料搬運是造成勞工作業傷害（尤其是下背痛、跌倒或壓傷）的常見原因。防範搬運事故的核心原則在於減輕人力負荷與減少搬運過程。因此，應盡可能「縮短」搬運距離，以降低過程中發生意外與勞工疲勞的機率。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 以機械代替人力：正確防護原則，減少人因工程危害。</li>
+                    <li class="wrong-opt">② 以機動車輛搬運：正確防護原則，利用工具提高安全。</li>
+                    <li class="wrong-opt">③ 採取適當之搬運方法：正確防護原則。</li>
+                    <li class="correct-opt">④ 儘量增加搬運距離：錯誤（非屬原則），應儘量「縮短」搬運距離才安全。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 53 -->
+    <div class="card">
+        <span class="theme-badge">主題：脊柱受傷急救</span>
+        <div class="question">53. 對於脊柱或頸部受傷患者，下列何者不是適當的處理原則？</div>
+        <div class="options">
+            <div class="option">①不輕易移動傷患</div>
+            <div class="option">②速請醫師</div>
+            <div class="option">③如無合用的器材，需 2 人作徒手搬運</div>
+            <div class="option">④向急救中心聯絡</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>懷疑患者有脊椎或頸椎受傷時，絕對不能隨意移動，更嚴禁「徒手搬運」。任何不當的彎曲或扭動都可能導致碎骨壓迫脊髓神經，造成患者終身癱瘓甚至死亡。必須由專業救護人員使用長背板與頸圈進行固定後才能搬運。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 不輕易移動傷患：正確處置，避免二次傷害。</li>
+                    <li class="wrong-opt">② 速請醫師：正確處置。</li>
+                    <li class="correct-opt">③ 如無合用的器材，需 2 人作徒手搬運：錯誤處置，絕對禁止徒手搬運脊椎傷患。</li>
+                    <li class="wrong-opt">④ 向急救中心聯絡：正確處置。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 54 -->
+    <div class="card">
+        <span class="theme-badge">主題：道路作業安全防護</span>
+        <div class="question">54. 於使用道路作業之工作場所，為防止工作人員遭車輛撞擊危害，所採取防護措施，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①設置警告標示</div>
+            <div class="option">②置交通引導人員</div>
+            <div class="option">③管制非工作人員不得進入</div>
+            <div class="option">④各包商之車輛一律停放於工地現場</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在道路或工地現場作業，空間往往受限且危險性高。將所有包商的車輛「一律」停放於工地現場，會導致工作動線嚴重受阻，並大幅增加車輛與人員交會撞擊的死角與風險。車輛應依規劃停放於指定區域或外部安全處。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 設置警告標示：正確措施，提醒來車減速。</li>
+                    <li class="wrong-opt">② 置交通引導人員：正確措施，指引交通動線。</li>
+                    <li class="wrong-opt">③ 管制非工作人員不得進入：正確措施，防止無關人員受傷。</li>
+                    <li class="correct-opt">④ 各包商之車輛一律停放於工地現場：錯誤措施，會造成現場擁擠及撞擊風險大增。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 55 -->
+    <div class="card">
+        <span class="theme-badge">主題：防護具使用維護</span>
+        <div class="question">55. 安全帽承受巨大外力衝擊後，雖外觀良好，應採下列何種處理方式？</div>
+        <div class="options">
+            <div class="option">①廢棄</div>
+            <div class="option">②繼續使用</div>
+            <div class="option">③送修</div>
+            <div class="option">④油漆保護</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>安全帽的防護原理是透過帽殼變形及內部懸吊系統來吸收並分散衝擊力。一旦安全帽承受過巨大外力衝擊，其內部結構或材料可能已經產生肉眼無法察覺的微裂紋或疲勞損傷，失去了再次防護的能力。因此，無論外觀是否完好，都必須立即「廢棄」更換。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 廢棄：正確，受過衝擊的安全帽已失效，必須報廢。</li>
+                    <li class="wrong-opt">② 繼續使用：錯誤，極度危險。</li>
+                    <li class="wrong-opt">③ 送修：錯誤，安全帽材質無法修復回原始強度。</li>
+                    <li class="wrong-opt">④ 油漆保護：錯誤，油漆溶劑甚至會腐蝕破壞安全帽的塑膠材質。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 56 -->
+    <div class="card">
+        <span class="theme-badge">主題：職業災害類型</span>
+        <div class="question">56. 因舉重而扭腰係由於身體動作不自然姿勢，動作之反彈，引起扭筋、扭腰及形成類似狀態造成職業災害，其災害類型為下列何者？</div>
+        <div class="options">
+            <div class="option">①不當狀態</div>
+            <div class="option">②不當動作</div>
+            <div class="option">③不當方針</div>
+            <div class="option">④不當設備</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在勞工安全衛生的災害原因分析中，由於勞工本身搬運重物時的姿勢錯誤、施力不當或不自然的身體彎曲所引發的肌肉骨骼傷害（如扭腰），純粹屬於人員操作行為上的失誤，因此分類上屬於「不當動作」（即不安全行為）。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 不當狀態：通常指環境或設備的硬體缺失（不安全環境）。</li>
+                    <li class="correct-opt">② 不當動作：正確，個人施力與姿勢不良即為不當動作。</li>
+                    <li class="wrong-opt">③ 不當方針：屬於管理層面的政策問題。</li>
+                    <li class="wrong-opt">④ 不當設備：指機具本身設計不良或缺乏防護。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 57 -->
+    <div class="card">
+        <span class="theme-badge">主題：工作場所設施規定</span>
+        <div class="question">57. 有關工作場所安全衛生之敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①對於勞工從事其身體或衣著有被污染之虞之特殊作業時，應備置該勞工洗眼、洗澡、漱口、更衣、洗濯等設備</div>
+            <div class="option">②事業單位應備置足夠急救藥品及器材</div>
+            <div class="option">③事業單位應備置足夠的零食自動販賣機</div>
+            <div class="option">④勞工應定期接受健康檢查</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《職業安全衛生設施規則》，雇主有義務針對危害作業提供洗眼、沐浴更衣等衛生設施，並備妥急救藥品器材及落實勞工健檢。但「零食自動販賣機」屬於員工福利設施，法規中並無強制規定事業單位必須備置。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 對於勞工從事其身體或衣著有被污染之虞...：敘述正確，法規要求之衛生設施。</li>
+                    <li class="wrong-opt">② 事業單位應備置足夠急救藥品及器材：敘述正確，法定義務。</li>
+                    <li class="correct-opt">③ 事業單位應備置足夠的零食自動販賣機：敘述錯誤，這非屬安衛法規強制之設備。</li>
+                    <li class="wrong-opt">④ 勞工應定期接受健康檢查：敘述正確，法定勞雇義務。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 58 -->
+    <div class="card">
+        <span class="theme-badge">主題：呼吸防護具選用</span>
+        <div class="question">58. 在地下室從事油漆粉刷作業，可能呼吸到揮發性有機化合物時，下列措施何者恰當？</div>
+        <div class="options">
+            <div class="option">①用手帕遮擋鼻子</div>
+            <div class="option">②配戴防塵口罩</div>
+            <div class="option">③配戴濾毒罐面具</div>
+            <div class="option">④配戴醫用口罩</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>油漆中含有甲苯、二甲苯等揮發性有機化合物（VOCs），這些屬於「有害化學氣體」。一般的防塵口罩、醫用口罩或手帕只能阻擋固體微粒（粉塵、飛沫），對氣體分子毫無防護作用。必須配戴裝有活性碳等吸收劑的「濾毒罐面具（防毒面具）」，才能有效吸附有機蒸氣。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 用手帕遮擋鼻子：無任何過濾毒氣效果。</li>
+                    <li class="wrong-opt">② 配戴防塵口罩：只能過濾固體粉塵，無法防禦有機溶劑氣體。</li>
+                    <li class="correct-opt">③ 配戴濾毒罐面具：正確，能有效吸附並過濾揮發性有機化合物。</li>
+                    <li class="wrong-opt">④ 配戴醫用口罩：防護飛沫病毒用，無法防禦有機氣體。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 59 -->
+    <div class="card">
+        <span class="theme-badge">主題：緊急逃生設施管理</span>
+        <div class="question">59. 安全門或緊急出口平時應維持何狀態？</div>
+        <div class="options">
+            <div class="option">①門可上鎖但不可封死</div>
+            <div class="option">②保持開門狀態以保持逃生路徑暢通</div>
+            <div class="option">③門應關上但不可上鎖</div>
+            <div class="option">④與一般進出門相同，視各樓層規定可開可關</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>安全門（防火門）的兩大核心功能是：一、發生火災時「阻隔火煙蔓延」（因此平時必須保持關閉狀態）；二、人員逃生時「隨時可推開暢通無阻」（因此絕對不可以上鎖）。若保持開門會造成煙囪效應使火災擴大，若上鎖則會導致人員受困罹難。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 門可上鎖但不可封死：錯誤，絕對不可以上鎖。</li>
+                    <li class="wrong-opt">② 保持開門狀態以保持逃生路徑暢通：錯誤，開門會失去防火阻煙功能，火災時極為致命。</li>
+                    <li class="correct-opt">③ 門應關上但不可上鎖：正確，關門阻煙、不上鎖利於逃生。</li>
+                    <li class="wrong-opt">④ 與一般進出門相同...：錯誤，安全門有嚴格的消防法規限制。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 60 -->
+    <div class="card">
+        <span class="theme-badge">主題：聽力防護具</span>
+        <div class="question">60. 下列何種防護具較能消減噪音對聽力的危害？</div>
+        <div class="options">
+            <div class="option">①棉花球</div>
+            <div class="option">②耳塞</div>
+            <div class="option">③耳罩</div>
+            <div class="option">④碎布球</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在所有聽力防護具中，「耳罩」能完整包覆整個耳廓及周圍骨骼，有效阻絕聲波透過空氣及骨傳導進入內耳，其降噪值（NRR）通常優於一般的耳塞。棉花球或碎布球因密度不足，隔音效果極差，無法作為標準防護具。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 棉花球：隔音效果極差。</li>
+                    <li class="wrong-opt">② 耳塞：具一定防護力，但在高分貝環境中，整體防護效能低於耳罩。</li>
+                    <li class="correct-opt">③ 耳罩：正確，包覆性最好，降噪效果最優。</li>
+                    <li class="wrong-opt">④ 碎布球：無實質防護效果。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 61 -->
+    <div class="card">
+        <span class="theme-badge">主題：過勞與職業病</span>
+        <div class="question">61. 勞工若面臨長期工作負荷壓力及工作疲勞累積，沒有獲得適當休息及充足睡眠，便可能影響體能及精神狀態，甚而較易促發下列何種疾病？</div>
+        <div class="options">
+            <div class="option">①皮膚癌</div>
+            <div class="option">②腦心血管疾病</div>
+            <div class="option">③多發性神經病變</div>
+            <div class="option">④肺水腫</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>俗稱的「過勞死」，在醫學與職業病認定上，主要是指因長期的高工作壓力、超時工作與睡眠不足，導致自律神經系統失調及血壓飆升，進而誘發或促發突發性的「腦心血管疾病」（如腦中風、心肌梗塞）。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 皮膚癌：多由長期紫外線或化學致癌物暴露引起。</li>
+                    <li class="correct-opt">② 腦心血管疾病：正確，為過勞促發的典型重大疾病。</li>
+                    <li class="wrong-opt">③ 多發性神經病變：多為特定毒物中毒或代謝性疾病導致。</li>
+                    <li class="wrong-opt">④ 肺水腫：通常為急性有害氣體吸入或心臟衰竭併發症。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 62 -->
+    <div class="card">
+        <span class="theme-badge">主題：腦心血管疾病風險因子</span>
+        <div class="question">62. 「勞工腦心血管疾病發病的風險與年齡、吸菸、總膽固醇數值、家族病史、生活型態、心臟方面疾病」之相關性為何？</div>
+        <div class="options">
+            <div class="option">①無</div>
+            <div class="option">②正</div>
+            <div class="option">③負</div>
+            <div class="option">④可正可負</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>年齡越大、有吸菸習慣、總膽固醇數值越高、有家族病史及不良生活型態等因素存在時，罹患腦心血管疾病的機率就會隨之「增高」。因為自變數增加會導致應變數（發病風險）增加，這在統計學與流行病學上稱為「正相關」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 無：錯誤，醫學證實有強烈關聯。</li>
+                    <li class="correct-opt">② 正：正確，這些危險因子越多，發病機率越高。</li>
+                    <li class="wrong-opt">③ 負：若為負相關，代表危險因子越多反而越不會生病，這不合邏輯。</li>
+                    <li class="wrong-opt">④ 可正可負：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 63 -->
+    <div class="card">
+        <span class="theme-badge">主題：職場不法侵害</span>
+        <div class="question">63. 下列何者非屬職場不法侵害類型？</div>
+        <div class="options">
+            <div class="option">①肢體暴力</div>
+            <div class="option">②語言暴力</div>
+            <div class="option">③家庭暴力</div>
+            <div class="option">④性騷擾</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《職業安全衛生法》預防「執行職務因他人行為遭受身體或精神不法侵害」（即職場暴力）的規定，涵蓋範圍包括同事、主管或外部客戶對勞工施加的肢體暴力、語言暴力（辱罵、恐嚇）與性騷擾。「家庭暴力」發生在私領域的家庭成員之間，不屬於「職場」不法侵害的法規定義範疇。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 肢體暴力：屬於職場暴力範疇。</li>
+                    <li class="wrong-opt">② 語言暴力：屬於精神上的職場暴力範疇。</li>
+                    <li class="correct-opt">③ 家庭暴力：正確，為私領域事件，非職安法指稱之職場不法侵害。</li>
+                    <li class="wrong-opt">④ 性騷擾：屬於職場不法侵害範疇。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 64 -->
+    <div class="card">
+        <span class="theme-badge">主題：職場不法侵害樣態</span>
+        <div class="question">64. 職場內部常見之身體或精神不法侵害，不包含下列何者？</div>
+        <div class="options">
+            <div class="option">①脅迫、名譽損毀、侮辱、嚴重辱罵勞工</div>
+            <div class="option">②強求勞工執行業務上明顯不必要或不可能之工作</div>
+            <div class="option">③過度介入勞工私人事宜</div>
+            <div class="option">④使勞工執行與能力、經驗相符的工作</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>職場不法侵害包含精神攻擊（恐嚇辱罵）、過度要求（刁難）、侵害隱私等行為。「使勞工執行與其能力、經驗相符的工作」是正當且合理的人事管理與職務指派，完全不構成任何不法侵害。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 脅迫、名譽損毀、侮辱、嚴重辱罵勞工：屬於精神不法侵害。</li>
+                    <li class="wrong-opt">② 強求勞工執行業務上明顯不必要或不可能之工作：屬於過度要求之霸凌。</li>
+                    <li class="wrong-opt">③ 過度介入勞工私人事宜：屬於侵害隱私。</li>
+                    <li class="correct-opt">④ 使勞工執行與能力、經驗相符的工作：正確，此為合理管理，不包含在不法侵害內。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 65 -->
+    <div class="card">
+        <span class="theme-badge">主題：工作負荷管理</span>
+        <div class="question">65. 下列何種措施較可避免工作單調重複或負荷過重？</div>
+        <div class="options">
+            <div class="option">①連續夜班</div>
+            <div class="option">②工時過長</div>
+            <div class="option">③排班保有規律性</div>
+            <div class="option">④經常性加班</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為了預防勞工因過勞引發疾病，企業應採取適當的工時與排班管理。保持「排班的規律性」，能讓勞工的生理時鐘穩定，獲得充分的休息。反之，連續夜班、過長工時與經常性加班，都是加重身心負荷的負面因素。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 連續夜班：破壞生理時鐘，加重疲勞。</li>
+                    <li class="wrong-opt">② 工時過長：直接導致負荷過重。</li>
+                    <li class="correct-opt">③ 排班保有規律性：正確，讓勞工有穩定的作息與恢復期。</li>
+                    <li class="wrong-opt">④ 經常性加班：壓縮休息時間，增加過勞風險。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 66 -->
+    <div class="card">
+        <span class="theme-badge">主題：燒燙傷急救處理</span>
+        <div class="question">66. 減輕皮膚燒傷程度之最重要步驟為何？</div>
+        <div class="options">
+            <div class="option">①儘速用清水沖洗</div>
+            <div class="option">②立即刺破水泡</div>
+            <div class="option">③立即在燒傷處塗抹油脂</div>
+            <div class="option">④在燒傷處塗抹麵粉</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>燒燙傷發生時，組織內會殘留大量熱能，持續破壞深層皮膚。因此急救的第一口訣「沖」，也就是「儘速用流動的冷清水沖洗」是最關鍵的步驟，可立即帶走熱量、減輕疼痛並防止燒傷深度繼續惡化。切勿使用任何偏方或刺破水泡。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 儘速用清水沖洗：正確，迅速降溫是減輕燒傷的最重要步驟。</li>
+                    <li class="wrong-opt">② 立即刺破水泡：錯誤，會增加嚴重細菌感染的風險。</li>
+                    <li class="wrong-opt">③ 立即在燒傷處塗抹油脂：錯誤，油脂包覆會讓熱氣悶在皮膚內無法散散。</li>
+                    <li class="wrong-opt">④ 在燒傷處塗抹麵粉：錯誤，民間偏方，會干擾醫療清創及引發感染。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 67 -->
+    <div class="card">
+        <span class="theme-badge">主題：眼部化學傷害急救</span>
+        <div class="question">67. 眼內噴入化學物或其他異物，應立即使用下列何者沖洗眼睛？</div>
+        <div class="options">
+            <div class="option">①牛奶</div>
+            <div class="option">②蘇打水</div>
+            <div class="option">③清水</div>
+            <div class="option">④稀釋的醋</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當化學物質濺入眼內，角膜非常脆弱，可能在幾秒鐘內就發生永久性損傷。唯一正確且安全的急救方式是立即使用大量流動的「清水」沖洗眼睛（撐開眼皮沖洗15分鐘以上），以稀釋並沖走化學物。不可使用任何酸鹼中和劑（如蘇打水、醋），以免放熱反應灼傷眼球。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 牛奶：錯誤，無稀釋沖洗化學物之效能且可能引發感染。</li>
+                    <li class="wrong-opt">② 蘇打水：錯誤，弱鹼性，若為酸性濺入會產生放熱反應。</li>
+                    <li class="correct-opt">③ 清水：正確，最安全且最有效的洗眼液。</li>
+                    <li class="wrong-opt">④ 稀釋的醋：錯誤，弱酸性，會刺激並損傷眼球。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 68 -->
+    <div class="card">
+        <span class="theme-badge">主題：特殊職業病危害 (石綿)</span>
+        <div class="question">68. 石綿最可能引起下列何種疾病？</div>
+        <div class="options">
+            <div class="option">①白指症</div>
+            <div class="option">②心臟病</div>
+            <div class="option">③間皮細胞瘤</div>
+            <div class="option">④巴金森氏症</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>石綿是一種極細小的纖維礦物，被吸入人體後會長久沉積在肺部，無法被巨噬細胞分解。經過數十年的潛伏期，極易引起石綿肺症、肺癌，以及石綿暴露特有的惡性腫瘤——「間皮細胞瘤（Mesothelioma）」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 白指症：為長期操作震動機具（如鏈鋸）引起的局部血液循環障礙。</li>
+                    <li class="wrong-opt">② 心臟病：非石綿粉塵直接引發的疾病。</li>
+                    <li class="correct-opt">③ 間皮細胞瘤：正確，為石綿暴露的指標性惡性腫瘤。</li>
+                    <li class="wrong-opt">④ 巴金森氏症：為神經退化性疾病，與錳中毒有關，與石綿無關。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 69 -->
+    <div class="card">
+        <span class="theme-badge">主題：噪音危害症狀</span>
+        <div class="question">69. 作業場所高頻率噪音較易導致下列何種症狀？</div>
+        <div class="options">
+            <div class="option">①失眠</div>
+            <div class="option">②聽力損失</div>
+            <div class="option">③肺部疾病</div>
+            <div class="option">④腕道症候群</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在強烈或高頻噪音的作業環境中長期暴露，聲波會持續過度刺激內耳耳蝸的毛細胞，導致毛細胞疲勞甚至死亡。這種損害是不可逆的感覺神經性耳聾，醫學上稱為「噪音誘發性聽力損失」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 失眠：噪音可能影響情緒，但其「最直接、主要」的物理性職業病徵是聽力受損。</li>
+                    <li class="correct-opt">② 聽力損失：正確，高頻噪音破壞聽覺神經細胞導致重聽。</li>
+                    <li class="wrong-opt">③ 肺部疾病：為粉塵或有害氣體吸入所致。</li>
+                    <li class="wrong-opt">④ 腕道症候群：為手腕重複性動作造成之人因危害。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 70 -->
+    <div class="card">
+        <span class="theme-badge">主題：通風排氣裝置</span>
+        <div class="question">70. 廚房設置之排油煙機，為下列何者？</div>
+        <div class="options">
+            <div class="option">①整體換氣裝置</div>
+            <div class="option">②局部排氣裝置</div>
+            <div class="option">③吹吸型換氣裝置</div>
+            <div class="option">④排氣煙囪</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>通風裝置分為兩大類：「整體換氣」是稀釋整個室內的空氣；而「局部排氣裝置」則是在有害物質（如油煙、毒氣）產生的「發生源頭」附近設置吸氣罩，直接將其捕捉並抽走，防止其擴散至作業空間。廚房排油煙機正屬於典型的局部排氣裝置。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 整體換氣裝置：如室內天花板的抽風扇，用來稀釋整體空氣。</li>
+                    <li class="correct-opt">② 局部排氣裝置：正確，直接於爐火上方抽走油煙。</li>
+                    <li class="wrong-opt">③ 吹吸型換氣裝置：一端吹風、一端吸風，非一般排油煙機型態。</li>
+                    <li class="wrong-opt">④ 排氣煙囪：僅為導氣管路的一部分，非指整體動力抽氣裝置系統。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 71 -->
+    <div class="card">
+        <span class="theme-badge">主題：防塵口罩選用原則</span>
+        <div class="question">71. 下列何者為選用防塵口罩時，最不重要之考量因素？</div>
+        <div class="options">
+            <div class="option">①捕集效率愈高愈好</div>
+            <div class="option">②吸氣阻抗愈低愈好</div>
+            <div class="option">③重量愈輕愈好</div>
+            <div class="option">④視野愈小愈好</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>優良的防護口罩應具備：過濾粉塵效率高、呼吸阻力小（不易喘）、重量輕（久戴舒適）以及不遮擋工作視線。選項中「視野愈小愈好」完全違背安全原則，因為視野變小會導致工作時容易發生碰撞或操作失誤的危險。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 捕集效率愈高愈好：重要考量，確保不吸入有害粉塵。</li>
+                    <li class="wrong-opt">② 吸氣阻抗愈低愈好：重要考量，降低呼吸費力程度。</li>
+                    <li class="wrong-opt">③ 重量愈輕愈好：重要考量，增加勞工配戴意願。</li>
+                    <li class="correct-opt">④ 視野愈小愈好：正確（最不重要/錯誤之敘述），視野不該縮小，應保持寬廣以策安全。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 72 -->
+    <div class="card">
+        <span class="theme-badge">主題：職場暴力類型</span>
+        <div class="question">72. 若勞工工作性質需與陌生人接觸、工作中需處理不可預期的突發事件或工作場所治安狀況較差，較容易遭遇下列何種危害？</div>
+        <div class="options">
+            <div class="option">①組織內部不法侵害</div>
+            <div class="option">②組織外部不法侵害</div>
+            <div class="option">③多發性神經病變</div>
+            <div class="option">④潛涵症</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>職場不法侵害可分為「內部」與「外部」。內部是指同事、主管之間的霸凌；而「外部」則是指勞工在執行職務時，遭受來自顧客、病患家屬或陌生人（非公司員工）的暴力威脅與攻擊。如超商店員、保全、醫護人員常面臨的即為組織外部不法侵害。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 組織內部不法侵害：指主管或同事的霸凌。</li>
+                    <li class="correct-opt">② 組織外部不法侵害：正確，施暴來源為陌生人或客戶。</li>
+                    <li class="wrong-opt">③ 多發性神經病變：為化學品或代謝引起的疾病。</li>
+                    <li class="wrong-opt">④ 潛涵症：為異常氣壓作業（如潛水）之職業病。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 73 -->
+    <div class="card">
+        <span class="theme-badge">主題：電氣火災原因</span>
+        <div class="question">73. 下列何者不是發生電氣火災的主要原因？</div>
+        <div class="options">
+            <div class="option">①電器接點短路</div>
+            <div class="option">②電氣火花</div>
+            <div class="option">③電纜線置於地上</div>
+            <div class="option">④漏電</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電氣火災的發生多是因為電流異常導致瞬間高熱或火花引燃周遭可燃物。常見主因為：短路、過載、漏電積污導電、接點接觸不良產生火花等。「電纜線置於地上」只要其絕緣外皮完好且無破損漏電，單純放置於地上的行為本身並不會直接引發火災。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 電器接點短路：產生極大電流與高熱，為主因。</li>
+                    <li class="wrong-opt">② 電氣火花：引燃可燃性氣體或物體，為主因。</li>
+                    <li class="correct-opt">③ 電纜線置於地上：正確，絕緣完整下放置地上不會發熱起火。</li>
+                    <li class="wrong-opt">④ 漏電：漏電流流經高電阻物體會產生高熱，為主因。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 74 -->
+    <div class="card">
+        <span class="theme-badge">主題：職業災害保險效力</span>
+        <div class="question">74. 依勞工職業災害保險及保護法規定，職業災害保險之保險效力，自何時開始起算，至離職當日停止？</div>
+        <div class="options">
+            <div class="option">①通知當日</div>
+            <div class="option">②到職當日</div>
+            <div class="option">③雇主訂定當日</div>
+            <div class="option">④勞雇雙方合意之日</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《勞工職業災害保險及保護法》規定，為了全面保障勞工權益，只要勞工受僱報到上班，其職災保險的效力就自「到職當日」起算生效。即使雇主遲延申報，勞工在到職當日發生的職災依然受到法律的保護。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 通知當日：錯誤。</li>
+                    <li class="correct-opt">② 到職當日：正確，法定保險效力起算日。</li>
+                    <li class="wrong-opt">③ 雇主訂定當日：錯誤，不能由雇主片面決定延後。</li>
+                    <li class="wrong-opt">④ 勞雇雙方合意之日：錯誤，社會保險為強制規定，不可私下合意變更。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 75 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞工職災保險辦理機關</span>
+        <div class="question">75. 依勞工職業災害保險及保護法規定，勞工職業災害保險以下列何者為保險人，辦理保險業務？</div>
+        <div class="options">
+            <div class="option">①財團法人職業災害預防及重建中心</div>
+            <div class="option">②勞動部職業安全衛生署</div>
+            <div class="option">③勞動部勞動基金運用局</div>
+            <div class="option">④勞動部勞工保險局</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>我國的社會保險制度中，有關勞工的勞工保險、就業保險以及「勞工職業災害保險」，其承保、保費收繳與各項給付核發等業務（即「保險人」的角色），依法皆由中央主管機關勞動部轄下的「勞動部勞工保險局」負責辦理。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 財團法人職業災害預防及重建中心：負責職災預防與後續職災勞工重建輔導。</li>
+                    <li class="wrong-opt">② 勞動部職業安全衛生署：負責職安法規制定與勞動檢查。</li>
+                    <li class="wrong-opt">③ 勞動部勞動基金運用局：負責各項勞工基金的投資運用。</li>
+                    <li class="correct-opt">④ 勞動部勞工保險局：正確，為法定的職災保險人。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<script>
+    /* JavaScript 動態控制 */
+    let isExpanded = false;
+    function toggleAll() {
+        const detailsElements = document.querySelectorAll('.qa-details');
+        const toggleBtn = document.getElementById('toggleBtn');
+        isExpanded = !isExpanded;
+        
+        detailsElements.forEach(detail => {
+            if (isExpanded) {
+                detail.setAttribute('open', '');
+            } else {
+                detail.removeAttribute('open');
+            }
+        });
+        
+        if (isExpanded) {
+            toggleBtn.innerText = '收合所有解析';
+            toggleBtn.style.backgroundColor = '#e74c3c';
+        } else {
+            toggleBtn.innerText = '展開所有解析';
+            toggleBtn.style.backgroundColor = '#27ae60';
+        }
+    }
+</script>
+
+</body>
+</html>

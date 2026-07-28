@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職業安全衛生 - 第01~25題題庫與解析</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .toggle-btn:hover {
+            background-color: #219150;
+        }
+        .card-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        /* 卡片樣式 */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border: 1px solid #eaeaea;
+            position: relative;
+        }
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+        .question {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        /* 選項樣式 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            font-size: 1.05em;
+            border-left: 3px solid #cbd5e1;
+        }
+        /* 純HTML 摺疊特效設計 */
+        details {
+            background: #fdfefe;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        summary {
+            background: #3498db;
+            color: #ffffff;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
+            cursor: pointer;
+            list-style: none;
+            transition: background 0.3s;
+        }
+        summary:hover {
+            background: #2980b9;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        /* 解析內容樣式 */
+        .answer-panel {
+            padding: 20px;
+            background: #f4fcf7;
+            border-top: 1px solid #dfe6e9;
+        }
+        .answer-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+        .explanation {
+            color: #4b6584;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+        .exp-subtitle {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 3px;
+        }
+        .opt-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .opt-list li {
+            margin-bottom: 8px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt {
+            border-left-color: #27ae60 !important;
+            background: #eafaf1 !important;
+        }
+        .wrong-opt {
+            border-left-color: #e74c3c !important;
+        }
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>職業安全衛生共同科目題庫</h1>
+    <p>工作項目 01：職業安全衛生 (第 01 - 25 題)</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 題組 1 -->
+    <div class="card">
+        <span class="theme-badge">主題：基本工資核計</span>
+        <div class="question">1. 對於核計勞工所得有無低於基本（最低）工資，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①僅計入在正常工時內之報酬</div>
+            <div class="option">②應計入加班費</div>
+            <div class="option">③不計入休假日出勤加給之工資</div>
+            <div class="option">④不計入競賽獎金</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>勞動基準法所稱基本工資，係指勞工在「正常工作時間」內所獲得之報酬。因此加班費（延長工時報酬）不包含在基本工資的核定範圍內。其他如休假日出勤加給、競賽獎金等屬於非經常性或非正常工時之給與，亦不計入基本工資比較範圍。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 僅計入在正常工時內之報酬：敘述正確，核計基本工資僅看正常工時報酬。</li>
+                    <li class="correct-opt">② 應計入加班費：敘述錯誤，加班費為延長工時之報酬，不納入基本工資核計，故本題選此項。</li>
+                    <li class="wrong-opt">③ 不計入休假日出勤加給之工資：敘述正確，非正常工時報酬不計入。</li>
+                    <li class="wrong-opt">④ 不計入競賽獎金：敘述正確，獎金類為非經常性給與，不計入。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 2 -->
+    <div class="card">
+        <span class="theme-badge">主題：平均工資計算</span>
+        <div class="question">2. 下列何者之工資日數得列入計算平均工資？</div>
+        <div class="options">
+            <div class="option">①請事假期間</div>
+            <div class="option">②職災醫療期間</div>
+            <div class="option">③發生計算事由之當日前 6 個月</div>
+            <div class="option">④放無薪假期間</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依勞動基準法第2條第4款規定，平均工資為計算事由發生之當日前6個月內所得工資總額除以該期間之總日數。為避免勞工因特定原因未獲工資而拉低平均工資，如事假、職災醫療、無薪假等特殊期間的日數與工資，依法皆應扣除不予列入計算。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 請事假期間：依法不列入平均工資之計算日數。</li>
+                    <li class="wrong-opt">② 職災醫療期間：依勞基法施行細則規定，不列入計算以保護勞工。</li>
+                    <li class="correct-opt">③ 發生計算事由之當日前 6 個月：正確，為平均工資的法定計算基礎期間。</li>
+                    <li class="wrong-opt">④ 放無薪假期間：依法扣除不計入，以免平均工資被拉低。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 3 -->
+    <div class="card">
+        <span class="theme-badge">主題：例假日規定</span>
+        <div class="question">3. 有關「例假」之敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①每 7 日應有例假 1 日</div>
+            <div class="option">②工資照給</div>
+            <div class="option">③天災出勤時，工資加倍及補休</div>
+            <div class="option">④須給假，不必給工資</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依勞動基準法第39條規定，第36條所定之「例假」、休息日及特別休假，工資應由雇主照給。雇主不得因勞工於例假日休假而扣發當日工資。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 每 7 日應有例假 1 日：敘述正確，勞基法第36條明定每七日應有一日之休息作為例假。</li>
+                    <li class="wrong-opt">② 工資照給：敘述正確，例假日不扣薪。</li>
+                    <li class="wrong-opt">③ 天災出勤時，工資加倍及補休：敘述正確，依勞基法第40條，因天災事變要求出勤應加倍發給工資並給予補休。</li>
+                    <li class="correct-opt">④ 須給假，不必給工資：敘述錯誤，例假應工資照給，故選此項。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 4 -->
+    <div class="card">
+        <span class="theme-badge">主題：責任制與特殊工時</span>
+        <div class="question">4. 勞動基準法第 84 條之 1 規定之工作者，因工作性質特殊，就其工作時間之敘述，下列何者正確？</div>
+        <div class="options">
+            <div class="option">①完全不受限制</div>
+            <div class="option">②無例假與休假</div>
+            <div class="option">③不另給予延時工資</div>
+            <div class="option">④得由勞雇雙方另行約定</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>勞基法第84條之1（俗稱責任制）規定，經核定公告之工作者，得由勞雇雙方另行約定工作時間、例假、休假等，並報請當地主管機關核備。但該約定不得損及勞工之健康及福祉，故並非完全不受限制，超時工作亦須給予加班費。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 完全不受限制：錯誤，仍須參考基準法本意，並受核備之合約限制。</li>
+                    <li class="wrong-opt">② 無例假與休假：錯誤，雙方仍需約定合理的例休假。</li>
+                    <li class="wrong-opt">③ 不另給予延時工資：錯誤，超過約定的正常工時仍應給付加班費。</li>
+                    <li class="correct-opt">④ 得由勞雇雙方另行約定：正確，雙方可依工作性質另行書面約定並送核備。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 5 -->
+    <div class="card">
+        <span class="theme-badge">主題：工資清冊保存</span>
+        <div class="question">5. 依勞動基準法規定，雇主應置備勞工工資清冊並應保存幾年？</div>
+        <div class="options">
+            <div class="option">①1 年</div>
+            <div class="option">②2 年</div>
+            <div class="option">③5 年</div>
+            <div class="option">④10 年</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依勞動基準法第23條第2項規定，雇主應置備勞工工資清冊，將發放工資、工資各項目計算方式明細、工資總額等事項記入。且該工資清冊應保存五年，以供日後查核或勞資爭議時有據可查。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 1 年：錯誤。</li>
+                    <li class="wrong-opt">② 2 年：錯誤。</li>
+                    <li class="correct-opt">③ 5 年：正確，法定保存期限為五年。</li>
+                    <li class="wrong-opt">④ 10 年：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 6 -->
+    <div class="card">
+        <span class="theme-badge">主題：工作規則訂立</span>
+        <div class="question">6. 事業單位僱用勞工多少人以上者，應依勞動基準法規定訂立工作規則？</div>
+        <div class="options">
+            <div class="option">①30 人</div>
+            <div class="option">②50 人</div>
+            <div class="option">③100 人</div>
+            <div class="option">④200 人</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依勞動基準法第70條規定，雇主僱用勞工達三十人以上者，應依其事業性質訂立工作規則，並報請當地主管機關核備後，於事業單位內公開揭示，以明確勞資雙方權利義務。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 30 人：正確，法定人數門檻為30人。</li>
+                    <li class="wrong-opt">② 50 人：錯誤。</li>
+                    <li class="wrong-opt">③ 100 人：錯誤。</li>
+                    <li class="wrong-opt">④ 200 人：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 7 -->
+    <div class="card">
+        <span class="theme-badge">主題：延長工時限制</span>
+        <div class="question">7. 依勞動基準法規定，雇主延長勞工之工作時間連同正常工作時間，每日不得超過多少小時？</div>
+        <div class="options">
+            <div class="option">①10 小時</div>
+            <div class="option">②11 小時</div>
+            <div class="option">③12 小時</div>
+            <div class="option">④15 小時</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依勞動基準法第32條第2項規定，雇主延長勞工之工作時間連同正常工作時間（一般為8小時），一日總計不得超過十二小時；延長之工作時間，一個月不得超過四十六小時（特定條件下可至五十四小時）。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 10 小時：錯誤。</li>
+                    <li class="wrong-opt">② 11 小時：錯誤。</li>
+                    <li class="correct-opt">③ 12 小時：正確，每日工時上限包含加班不得超過12小時。</li>
+                    <li class="wrong-opt">④ 15 小時：錯誤，嚴重超時違法。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 8 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞動契約類型</span>
+        <div class="question">8. 依勞動基準法規定，下列何者屬不定期契約？</div>
+        <div class="options">
+            <div class="option">①臨時性或短期性的工作</div>
+            <div class="option">②季節性的工作</div>
+            <div class="option">③特定性的工作</div>
+            <div class="option">④有繼續性的工作</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依勞動基準法第9條規定，勞動契約分為定期契約及不定期契約。臨時性、短期性、季節性及特定性工作得為定期契約；而「有繼續性」的工作，依法應為不定期契約，以保障勞工工作權。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 臨時性或短期性的工作：屬定期契約。</li>
+                    <li class="wrong-opt">② 季節性的工作：屬定期契約。</li>
+                    <li class="wrong-opt">③ 特定性的工作：屬定期契約。</li>
+                    <li class="correct-opt">④ 有繼續性的工作：正確，具繼續性性質必須簽訂不定期契約。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 9 -->
+    <div class="card">
+        <span class="theme-badge">主題：職業災害通報</span>
+        <div class="question">9. 依職業安全衛生法規定，事業單位勞動場所發生死亡職業災害時，雇主應於多少小時內通報勞動檢查機構？</div>
+        <div class="options">
+            <div class="option">①8 小時</div>
+            <div class="option">②12 小時</div>
+            <div class="option">③24 小時</div>
+            <div class="option">④48 小時</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依職業安全衛生法第37條第2項規定，事業單位勞動場所發生死亡災害、災害罹災人數達三人以上等重大職業災害時，雇主應於「八小時內」通報所在地之勞動檢查機構，以便迅速介入調查與協助。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 8 小時：正確，重大職災法定通報時限為8小時內。</li>
+                    <li class="wrong-opt">② 12 小時：錯誤。</li>
+                    <li class="wrong-opt">③ 24 小時：錯誤。</li>
+                    <li class="wrong-opt">④ 48 小時：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 10 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞資會議</span>
+        <div class="question">10. 有關事業單位之勞資會議主席，下列何者正確？</div>
+        <div class="options">
+            <div class="option">①由企業工會推派之</div>
+            <div class="option">②由產業工會推派之</div>
+            <div class="option">③由勞資雙方協議推派之</div>
+            <div class="option">④由勞資雙方輪流擔任之</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《勞資會議實施辦法》第16條規定，勞資會議之主席，由勞資雙方代表各推派一名「輪流擔任之」。但必要時，得共同推派一人擔任之。法律明定主要運作原則為勞資雙方輪流。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 由企業工會推派之：錯誤，應包含資方代表。</li>
+                    <li class="wrong-opt">② 由產業工會推派之：錯誤。</li>
+                    <li class="wrong-opt">③ 由勞資雙方協議推派之：非主要常態原則。</li>
+                    <li class="correct-opt">④ 由勞資雙方輪流擔任之：正確，展現勞資對等精神。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 11 -->
+    <div class="card">
+        <span class="theme-badge">主題：母性健康保護</span>
+        <div class="question">11. 職業安全衛生法所稱有母性健康危害之虞之工作，不包括下列何種工作型態？</div>
+        <div class="options">
+            <div class="option">①長時間站立姿勢作業</div>
+            <div class="option">②人力提舉、搬運及推拉重物</div>
+            <div class="option">③輪班及工作負荷</div>
+            <div class="option">④駕駛運輸車輛</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《女性勞工母性健康保護實施辦法》，有母性健康危害之虞之工作包括具有鉛等危害性化學品暴露、長時間站立、人力提舉重物、輪班及工作負荷等可能影響妊娠或哺乳之型態。「駕駛運輸車輛」若無伴隨前述危害情形，不直接列入特指之母性危害工作型態。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 長時間站立姿勢作業：屬母性健康危害工作。</li>
+                    <li class="wrong-opt">② 人力提舉、搬運及推拉重物：屬母性健康危害工作。</li>
+                    <li class="wrong-opt">③ 輪班及工作負荷：易造成過勞，屬母性健康危害工作。</li>
+                    <li class="correct-opt">④ 駕駛運輸車輛：正確，此非特指之母性危害工作型態，故選此項。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 12 -->
+    <div class="card">
+        <span class="theme-badge">主題：特別危害健康作業</span>
+        <div class="question">12. 依職業安全衛生法施行細則規定，下列何者非屬特別危害健康之作業？</div>
+        <div class="options">
+            <div class="option">①噪音作業</div>
+            <div class="option">②游離輻射作業</div>
+            <div class="option">③會計作業</div>
+            <div class="option">④粉塵作業</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依職安法相關規定，特別危害健康之作業包含高溫、噪音、游離輻射、異常氣壓、鉛、粉塵、有機溶劑等易對勞工身體造成特殊疾病危害的作業。會計作業屬一般行政內勤工作，無特殊危害。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 噪音作業：屬特別危害健康作業。</li>
+                    <li class="wrong-opt">② 游離輻射作業：屬特別危害健康作業。</li>
+                    <li class="correct-opt">③ 會計作業：正確，屬一般辦公作業，非特別危害健康作業。</li>
+                    <li class="wrong-opt">④ 粉塵作業：屬特別危害健康作業。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 13 -->
+    <div class="card">
+        <span class="theme-badge">主題：作業主管設置</span>
+        <div class="question">13. 從事於易踏穿材料構築之屋頂修繕作業時，應有何種作業主管在場執行主管業務？</div>
+        <div class="options">
+            <div class="option">①施工架組配</div>
+            <div class="option">②擋土支撐組配</div>
+            <div class="option">③屋頂</div>
+            <div class="option">④模板支撐</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《職業安全衛生設施規則》規定，對於在石綿板、鐵皮板、塑膠等易踏穿材料構築之屋頂從事作業，有墜落踏穿之高度危險，雇主應指派「屋頂作業主管」在現場指揮監督作業安全。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 施工架組配：負責鷹架搭設，非屋頂修繕。</li>
+                    <li class="wrong-opt">② 擋土支撐組配：負責地下開挖擋土，非屋頂修繕。</li>
+                    <li class="correct-opt">③ 屋頂：正確，對應屋頂修繕作業。</li>
+                    <li class="wrong-opt">④ 模板支撐：負責混凝土灌漿模板作業。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 14 -->
+    <div class="card">
+        <span class="theme-badge">主題：工讀生勞動權益</span>
+        <div class="question">14. 有關「工讀生」之敘述，下列何者正確？</div>
+        <div class="options">
+            <div class="option">①工資不得低於基本工資之 80 ％</div>
+            <div class="option">②屬短期工作者，加班只能補休</div>
+            <div class="option">③每日正常工作時間得超過 8 小時</div>
+            <div class="option">④國定假日出勤，工資加倍發給</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>工讀生（部分工時勞工）同樣受到《勞動基準法》的完整保障。其時薪不得低於法定基本時薪，每日正常工時不得超過8小時，且若於國定假日出勤，雇主依法應給予雙倍工資（加倍發給）。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 工資不得低於基本工資之 80 ％：錯誤，不得低於基本工資（無80%規定）。</li>
+                    <li class="wrong-opt">② 屬短期工作者，加班只能補休：錯誤，加班依法應給付加班費，除非勞工同意換補休。</li>
+                    <li class="wrong-opt">③ 每日正常工作時間得超過 8 小時：錯誤，單日正常上限仍為8小時。</li>
+                    <li class="correct-opt">④ 國定假日出勤，工資加倍發給：正確，與一般勞工享有同等國定假日權益。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 15 -->
+    <div class="card">
+        <span class="theme-badge">主題：職業災害補償</span>
+        <div class="question">15. 勞工工作時手部嚴重受傷，住院醫療期間公司應按下列何者給予職業災害補償？</div>
+        <div class="options">
+            <div class="option">①前 6 個月平均工資</div>
+            <div class="option">②前 1 年平均工資</div>
+            <div class="option">③原領工資</div>
+            <div class="option">④基本工資</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依勞動基準法第59條第2款規定，勞工因遭受職業災害而在醫療中不能工作時，雇主應按其「原領工資」數額予以補償，以保障其傷病期間的生活維持不變。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 前 6 個月平均工資：一般用於資遣費或退休金計算。</li>
+                    <li class="wrong-opt">② 前 1 年平均工資：錯誤。</li>
+                    <li class="correct-opt">③ 原領工資：正確，職災醫療期間補償基準。</li>
+                    <li class="wrong-opt">④ 基本工資：錯誤，補償不得低於其實際薪資。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 16 -->
+    <div class="card">
+        <span class="theme-badge">主題：終止勞動契約</span>
+        <div class="question">16. 勞工在何種情況下，雇主得不經預告終止勞動契約？</div>
+        <div class="options">
+            <div class="option">①確定被法院判刑 6 個月以內並諭知緩刑超過 1 年以上者</div>
+            <div class="option">②不服指揮對雇主暴力相向者</div>
+            <div class="option">③經常遲到早退者</div>
+            <div class="option">④非連續曠工但 1 個月內累計 3 日者</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依勞動基準法第12條規定，勞工對雇主、雇主家屬或其他共同工作之勞工，實施暴行或有重大侮辱之行為者，屬重大違規，雇主得不經預告逕行終止勞動契約（俗稱開除）。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 確定被法院判刑...：需受有期徒刑以上刑之宣告確定，且未諭知緩刑或未准易科罰金者，雇主才可開除。</li>
+                    <li class="correct-opt">② 不服指揮對雇主暴力相向者：正確，符合實施暴行之解僱條款。</li>
+                    <li class="wrong-opt">③ 經常遲到早退者：屬管理範疇，若未達情節重大，不得直接不經預告解僱。</li>
+                    <li class="wrong-opt">④ 非連續曠工但 1 個月內累計 3 日者：需達一個月內曠工累計達6日（或無正當理由繼續曠工3日）方可開除。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 17 -->
+    <div class="card">
+        <span class="theme-badge">主題：吹哨者保護</span>
+        <div class="question">17. 對於吹哨者保護規定，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①事業單位不得對勞工申訴人終止勞動契約</div>
+            <div class="option">②勞動檢查機構受理勞工申訴必須保密</div>
+            <div class="option">③為實施勞動檢查，必要時得告知事業單位有關勞工申訴人身分</div>
+            <div class="option">④事業單位不得有不利勞工申訴人之處分</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《勞動基準法》及《職業安全衛生法》等吹哨者保護條款規定，主管機關或檢查機構對申訴人之身分應絕對保密，不得向事業單位洩漏，以免申訴勞工遭到雇主報復或不利處分。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 事業單位不得對勞工申訴人終止勞動契約：敘述正確，禁止報復性解僱。</li>
+                    <li class="wrong-opt">② 勞動檢查機構受理勞工申訴必須保密：敘述正確，法定義務。</li>
+                    <li class="correct-opt">③ 為實施勞動檢查，必要時得告知事業單位有關勞工申訴人身分：敘述錯誤，絕對不能告知雇主，故選此項。</li>
+                    <li class="wrong-opt">④ 事業單位不得有不利勞工申訴人之處分：敘述正確，保護申訴勞工權益。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 18 -->
+    <div class="card">
+        <span class="theme-badge">主題：母性健康危害定義</span>
+        <div class="question">18. 職業安全衛生法所稱有母性健康危害之虞之工作，係指對於具生育能力之女性勞工從事工作，可能會導致的一些影響。下列何者除外？</div>
+        <div class="options">
+            <div class="option">①胚胎發育</div>
+            <div class="option">②妊娠期間之母體健康</div>
+            <div class="option">③哺乳期間之嬰兒健康</div>
+            <div class="option">④經期紊亂</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依職安法第30條規定，所謂有母性健康危害之虞之工作，特指對於女性勞工從事可能影響「胚胎發育」、「妊娠期間母體健康」或「哺乳期間之嬰兒健康」之工作，並不包含一般的經期紊亂。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 胚胎發育：屬於母性健康危害範疇。</li>
+                    <li class="wrong-opt">② 妊娠期間之母體健康：屬於母性健康危害範疇。</li>
+                    <li class="wrong-opt">③ 哺乳期間之嬰兒健康：屬於母性健康危害範疇。</li>
+                    <li class="correct-opt">④ 經期紊亂：正確，非職安法特指之母性危害範疇。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 19 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞工法定義務</span>
+        <div class="question">19. 下列何者非屬職業安全衛生法規定之勞工法定義務？</div>
+        <div class="options">
+            <div class="option">①定期接受健康檢查</div>
+            <div class="option">②參加安全衛生教育訓練</div>
+            <div class="option">③實施自動檢查</div>
+            <div class="option">④遵守安全衛生工作守則</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依職安法規定，勞工有遵守雇主所訂工作守則、參加體格/健康檢查以及接受教育訓練的義務。「實施自動檢查」依法屬於雇主的管理義務，而非一般勞工必須承擔的法定義務。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 定期接受健康檢查：為勞工法定義務。</li>
+                    <li class="wrong-opt">② 參加安全衛生教育訓練：為勞工法定義務。</li>
+                    <li class="correct-opt">③ 實施自動檢查：正確，為雇主義務，非勞工一般法定義務。</li>
+                    <li class="wrong-opt">④ 遵守安全衛生工作守則：為勞工法定義務。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 20 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞工健康檢查</span>
+        <div class="question">20. 下列何者非屬應對在職勞工施行之健康檢查？</div>
+        <div class="options">
+            <div class="option">①一般健康檢查</div>
+            <div class="option">②體格檢查</div>
+            <div class="option">③特殊健康檢查</div>
+            <div class="option">④特定對象及特定項目之檢查</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依職安法第20條規定，「體格檢查」是在「僱用」新進勞工時實施，以評估其是否適合該職務；而針對「在職勞工」實施的則是：一般健康檢查、特殊健康檢查、特定對象及特定項目之健康檢查。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 一般健康檢查：針對在職勞工定期實施。</li>
+                    <li class="correct-opt">② 體格檢查：正確，是對新進員工實施，非在職勞工。</li>
+                    <li class="wrong-opt">③ 特殊健康檢查：針對從事特別危害作業之在職勞工實施。</li>
+                    <li class="wrong-opt">④ 特定對象及特定項目之檢查：針對特定在職勞工實施。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 21 -->
+    <div class="card">
+        <span class="theme-badge">主題：防範有害物危害</span>
+        <div class="question">21. 下列何者非為防範有害物食入之方法？</div>
+        <div class="options">
+            <div class="option">①有害物與食物隔離</div>
+            <div class="option">②不在工作場所進食或飲水</div>
+            <div class="option">③常洗手、漱口</div>
+            <div class="option">④穿工作服</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>化學有害物質進入人體有吸入、皮膚接觸、食入等途徑。「穿工作服」主要是防止皮膚沾染或吸收有害物，以及避免將粉塵帶回家中。防範「食入」的方法則聚焦在飲食衛生，如禁止在作業區飲食、接觸後洗手漱口等。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 有害物與食物隔離：可有效防範食入危害。</li>
+                    <li class="wrong-opt">② 不在工作場所進食或飲水：可有效防範食入危害。</li>
+                    <li class="wrong-opt">③ 常洗手、漱口：可有效防範手上殘留物被食入。</li>
+                    <li class="correct-opt">④ 穿工作服：正確，其主要防護皮膚接觸，非針對食入危害。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 22 -->
+    <div class="card">
+        <span class="theme-badge">主題：承攬管理責任</span>
+        <div class="question">22. 原事業單位如有違反職業安全衛生法或有關安全衛生規定，致承攬人所僱勞工發生職業災害時，有關承攬管理責任，下列敘述何者正確？</div>
+        <div class="options">
+            <div class="option">①原事業單位應與承攬人負連帶賠償責任</div>
+            <div class="option">②原事業單位不需負連帶補償責任</div>
+            <div class="option">③承攬廠商應自負職業災害之賠償責任</div>
+            <div class="option">④勞工投保單位即為職業災害之賠償單位</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依職業安全衛生法第26條及勞動基準法第62條規定，原事業單位將事業交由他人承攬，若原事業單位有違反職安法規，致使承攬人的勞工發生職業災害時，原事業單位必須與承攬人負「連帶賠償（補償）責任」，以確保勞工能獲得充分賠償。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 原事業單位應與承攬人負連帶賠償責任：正確。</li>
+                    <li class="wrong-opt">② 原事業單位不需負連帶補償責任：錯誤。</li>
+                    <li class="wrong-opt">③ 承攬廠商應自負職業災害之賠償責任：錯誤，原事業單位有連帶責任。</li>
+                    <li class="wrong-opt">④ 勞工投保單位即為職業災害之賠償單位：錯誤，責任判定非僅看投保單位。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 23 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞工申訴處理</span>
+        <div class="question">23. 依勞動基準法規定，主管機關或檢查機構於接獲勞工申訴事業單位違反本法及其他勞工法令規定後，應為必要之調查，並於幾日內將處理情形，以書面通知勞工？</div>
+        <div class="options">
+            <div class="option">①14 日</div>
+            <div class="option">②20 日</div>
+            <div class="option">③30 日</div>
+            <div class="option">④60 日</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《勞動基準法》第74條第4項規定，主管機關或檢查機構於接獲勞工申訴後，應為必要之調查，並應於六十日內將處理情形，以書面通知勞工，以確保行政效率與勞工知情權。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 14 日：錯誤。</li>
+                    <li class="wrong-opt">② 20 日：錯誤。</li>
+                    <li class="wrong-opt">③ 30 日：錯誤。</li>
+                    <li class="correct-opt">④ 60 日：正確，法定回覆期限為60日。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 24 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞動主管機關</span>
+        <div class="question">24. 我國中央勞動業務主管機關為下列何者？</div>
+        <div class="options">
+            <div class="option">①內政部</div>
+            <div class="option">②勞工保險局</div>
+            <div class="option">③勞動部</div>
+            <div class="option">④經濟部</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《勞動基準法》、《職業安全衛生法》等勞工法令明文規定，我國勞工事務之中央最高主管機關為「勞動部」。勞工保險局為勞動部轄下之三級機關。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 內政部：錯誤，早期勞政曾隸屬內政部，現已獨立。</li>
+                    <li class="wrong-opt">② 勞工保險局：錯誤，隸屬於勞動部，非中央主管機關。</li>
+                    <li class="correct-opt">③ 勞動部：正確，我國勞政中央主管機關。</li>
+                    <li class="wrong-opt">④ 經濟部：錯誤，負責產業經濟事務。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 25 -->
+    <div class="card">
+        <span class="theme-badge">主題：機械設備型式驗證</span>
+        <div class="question">25. 對於勞動部公告列入應實施型式驗證之機械、設備或器具，下列何種情形不得免驗證？</div>
+        <div class="options">
+            <div class="option">①依其他法律規定實施驗證者</div>
+            <div class="option">②供國防軍事用途使用者</div>
+            <div class="option">③輸入僅供科技研發之專用機型</div>
+            <div class="option">④輸入僅供收藏使用之限量品</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依職業安全衛生法第8條規定，應實施型式驗證的機械設備，僅有特定情形（如國防軍事用途、科技研發測試專用、依其他法規已驗證等）可免除驗證。「供收藏使用之限量品」若可能具備危害性，法規並未將其列入免驗證的豁免條款中。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 依其他法律規定實施驗證者：依法得免除重複驗證。</li>
+                    <li class="wrong-opt">② 供國防軍事用途使用者：基於特殊性，依法得免驗證。</li>
+                    <li class="wrong-opt">③ 輸入僅供科技研發之專用機型：屬研發測試，依法得免驗證。</li>
+                    <li class="correct-opt">④ 輸入僅供收藏使用之限量品：正確，法規並無此項豁免，不得免驗證。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<script>
+    /* JavaScript 動態控制 */
+    let isExpanded = false;
+    function toggleAll() {
+        const detailsElements = document.querySelectorAll('.qa-details');
+        const toggleBtn = document.getElementById('toggleBtn');
+        isExpanded = !isExpanded;
+        
+        detailsElements.forEach(detail => {
+            if (isExpanded) {
+                detail.setAttribute('open', '');
+            } else {
+                detail.removeAttribute('open');
+            }
+        });
+        
+        if (isExpanded) {
+            toggleBtn.innerText = '收合所有解析';
+            toggleBtn.style.backgroundColor = '#e74c3c';
+        } else {
+            toggleBtn.innerText = '展開所有解析';
+            toggleBtn.style.backgroundColor = '#27ae60';
+        }
+    }
+</script>
+
+</body>
+</html>
