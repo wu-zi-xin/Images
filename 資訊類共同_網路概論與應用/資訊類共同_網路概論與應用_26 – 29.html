@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>網路概論與應用 第26-29題</title>
+<style>
+/* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+* { box-sizing: border-box; }
+body { 
+    font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+    background-color: #f4f7f6; 
+    color: #333; 
+    margin: 0; 
+    padding: 20px 10px; 
+    line-height: 1.6; 
+}
+
+/* 右下角浮動漢堡選單設計 */
+.fab-btn { 
+    position: fixed; 
+    bottom: 25px; 
+    right: 25px; 
+    z-index: 100; 
+    background-color: #3498db; 
+    color: white; 
+    width: 48px; 
+    height: 48px; 
+    border-radius: 50%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    font-size: 24px; 
+    cursor: pointer; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4); 
+    transition: 0.3s; 
+    user-select: none; 
+}
+.fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+.fab-menu { 
+    position: fixed; 
+    bottom: 85px; 
+    right: 25px; 
+    z-index: 99; 
+    background: #ffffff; 
+    border-radius: 12px; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15); 
+    width: 280px; 
+    padding: 15px; 
+    opacity: 0; 
+    visibility: hidden; 
+    transform: translateY(20px); 
+    transition: all 0.3s ease; 
+    display: flex; 
+    flex-direction: column; 
+    border: 1px solid #dfe6e9; 
+}
+.fab-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.fab-action { 
+    padding: 10px; 
+    margin-bottom: 6px; 
+    background: #f8f9fa; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    text-align: center; 
+    font-weight: bold; 
+    color: #2c3e50; 
+    transition: 0.2s; 
+    border: 1px solid #eee; 
+}
+.fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+.q-grid { 
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 6px; 
+    max-height: 40vh; 
+    overflow-y: auto; 
+    padding-right: 5px; 
+}
+.q-grid-btn { 
+    background: #ecf0f1; 
+    color: #34495e; 
+    border: none; 
+    border-radius: 6px; 
+    padding: 8px 0; 
+    font-size: 0.95em; 
+    cursor: pointer; 
+    transition: 0.2s; 
+    font-weight: bold; 
+}
+.q-grid-btn:hover { background: #3498db; color: white; }
+
+/* 手機版設定調整 */
+@media (max-width: 600px) {
+    .fab-btn { bottom: 15px; right: 15px; width: 42px; height: 42px; font-size: 20px; }
+    .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+    .q-grid { grid-template-columns: repeat(5, 1fr); }
+}
+
+.responsive-img { 
+    max-width: 100%; 
+    height: auto; 
+    display: block; 
+}
+
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+.header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+
+/* JavaScript 按鈕樣式 */
+.toggle-btn { 
+    background-color: #27ae60; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 1em; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: background 0.3s; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+}
+.toggle-btn:hover { background-color: #219150; }
+
+.card-container { 
+    max-width: 800px; 
+    margin: 0 auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 25px; 
+}
+
+/* 卡片樣式 */
+.card { 
+    background: #ffffff; 
+    border-radius: 12px; 
+    padding: 25px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+    border: 1px solid #eaeaea; 
+    position: relative; 
+}
+
+/* 主題標籤 */
+.theme-badge { 
+    display: inline-block; 
+    background-color: #e8f4fd; 
+    color: #2980b9; 
+    padding: 5px 12px; 
+    border-radius: 20px; 
+    font-size: 0.9em; 
+    font-weight: bold; 
+    margin-bottom: 15px; 
+    border: 1px solid #b3d7f2; 
+}
+.question { 
+    font-size: 1.15em; 
+    font-weight: bold; 
+    color: #34495e; 
+    margin-bottom: 15px; 
+    line-height: 1.5; 
+}
+
+/* 選項樣式 */
+.options { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+    margin-bottom: 20px; 
+}
+.option { 
+    background: #f8f9fa; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    color: #555; 
+    font-size: 1.05em; 
+    border-left: 3px solid #cbd5e1; 
+}
+
+/* 純HTML 摺疊特效設計 */
+details { 
+    background: #fdfefe; 
+    border: 1px solid #dfe6e9; 
+    border-radius: 8px; 
+    overflow: hidden; 
+}
+summary { 
+    background: #3498db; 
+    color: #ffffff; 
+    padding: 12px; 
+    font-weight: bold; 
+    font-size: 1.05em; 
+    text-align: center; 
+    cursor: pointer; 
+    list-style: none; 
+    transition: background 0.3s; 
+}
+summary:hover { background: #2980b9; }
+summary::-webkit-details-marker { display: none; }
+
+/* 解析內容樣式 */
+.answer-panel { 
+    padding: 20px; 
+    background: #f4fcf7; 
+    border-top: 1px solid #dfe6e9; 
+}
+.answer-title { 
+    font-size: 1.1em; 
+    font-weight: bold; 
+    color: #27ae60; 
+    margin-bottom: 15px; 
+}
+
+/* 綜合解析區塊樣式 */
+.comprehensive-exp { 
+    background: #eef2f5; 
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    border-left: 4px solid #34495e; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+}
+.comprehensive-exp strong { 
+    color: #2c3e50; 
+    display: block; 
+    margin-bottom: 8px; 
+    font-size: 1.05em; 
+}
+.comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+
+.explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+.exp-subtitle { 
+    color: #2c3e50; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+    display: block; 
+    border-bottom: 1px dashed #cbd5e1; 
+    padding-bottom: 3px; 
+}
+
+.opt-list { margin: 0; padding-left: 0; list-style: none; }
+.opt-list li { 
+    margin-bottom: 8px; 
+    background: #ffffff; 
+    padding: 10px; 
+    border-radius: 6px; 
+    border-left: 4px solid #3498db; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+}
+.correct-opt { 
+    border-left-color: #27ae60 !important; 
+    background: #eafaf1 !important; 
+}
+.wrong-opt { border-left-color: #e74c3c !important; }
+
+/* 手機版自適應優化 */
+@media (max-width: 600px) {
+    .card { padding: 15px; }
+    .header h1 { font-size: 1.5em; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路概論與應用 (第26-29題)</h1>
+    <p>資訊類共同工作項目 不分級</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 題組 26 -->
+    <div class="card" id="q26">
+        <span class="theme-badge">主題：DHCP 伺服器功能</span>
+        <div class="question">26. 下列何者為 DHCP 伺服器之功能？</div>
+        <div class="options">
+            <div class="option">① 提供網路資料庫的管理功能</div>
+            <div class="option">② 提供檔案傳輸的服務</div>
+            <div class="option">③ 提供網頁連結的服務</div>
+            <div class="option">④ 動態的分配 IP 給使用者使用</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>DHCP (Dynamic Host Configuration Protocol，動態主機設定協定) 是一個用於區域網路的網路協定。其核心功能是「自動且動態地分配 IP 位址、子網路遮罩、預設閘道與 DNS 伺服器」等網路參數給客戶端裝置，可以省去網路管理員逐一為電腦設定 IP 的麻煩，並能有效避免 IP 發生衝突。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 提供網路資料庫的管理功能：錯誤，此為資料庫系統 (如 MySQL, SQL Server) 的功能。</li>
+                    <li class="wrong-opt">② 提供檔案傳輸的服務：錯誤，此為 FTP (File Transfer Protocol) 伺服器的功能。</li>
+                    <li class="wrong-opt">③ 提供網頁連結的服務：錯誤，此為 Web 網頁伺服器 (透過 HTTP/HTTPS) 的功能。</li>
+                    <li class="correct-opt">④ 動態的分配 IP 給使用者使用：正確，此正是 DHCP 伺服器的最主要用途。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 27 -->
+    <div class="card" id="q27">
+        <span class="theme-badge">主題：乙太網路 (Ethernet) 特性</span>
+        <div class="question">27. 有關乙太網路(Ethernet)之敘述，下列何者「不正確」？</div>
+        <div class="options">
+            <div class="option">① 是一種區域網路</div>
+            <div class="option">② 採用 CSMA／CD 的通訊協定</div>
+            <div class="option">③ 網路長度可至 2500 公尺</div>
+            <div class="option">④ 傳送時不保證服務品質</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>乙太網路 (Ethernet) 是目前最普遍的區域網路技術 (IEEE 802.3)。傳統乙太網路採用 CSMA/CD 來控制存取，且為「盡力傳送」(Best-effort) 的服務，本身不保證傳輸的服務品質 (QoS)。在實體線路限制上，常見的雙絞線單段最長距離為 100 公尺；即便是早期的粗同軸電纜 (10Base5)，透過中繼器串接極限雖剛好為 2500 公尺，但這不能概括為現代乙太網路的「可達長度特性」(現代光纖網路早已遠超此距離)。因此單純表述「長度可至 2500 公尺」做為其代表特性是不正確的敘述。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 是一種區域網路：敘述正確，Ethernet 是最常見的 LAN (區域網路) 技術。</li>
+                    <li class="wrong-opt">② 採用 CSMA／CD 的通訊協定：敘述正確，這是傳統半雙工乙太網路的載波感測多重存取/碰撞偵測協定。</li>
+                    <li class="correct-opt">③ 網路長度可至 2500 公尺：錯誤敘述，網路長度因實體媒介而異，常見雙絞線為 100 公尺，光纖可達數十公里，2500 公尺僅為早期 10Base5 透過特定規則串連的極限，不可視為乙太網路的通用規範長度。</li>
+                    <li class="wrong-opt">④ 傳送時不保證服務品質：敘述正確，傳統乙太網路不保證封包必定抵達或不延遲 (Best-effort 機制)。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 28 -->
+    <div class="card" id="q28">
+        <span class="theme-badge">主題：IPv4 網路位址計算</span>
+        <div class="question">28. 一個 Class C 類型網路可用的主機位址有多少個？</div>
+        <div class="options">
+            <div class="option">① 254</div>
+            <div class="option">② 256</div>
+            <div class="option">③ 128</div>
+            <div class="option">④ 524</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在標準的 IPv4 網路中，Class C 網路會將最後 8 個位元 (1 Byte) 保留給主機 ID 使用。8 個位元可以產生 2的8次方 (即 256) 個數字組合。但依據規定，主機 ID 全為 0 的位址必須保留給「網路位址 (Network Address)」使用，而主機 ID 全為 1 的位址必須保留給「廣播位址 (Broadcast Address)」使用，因此實際可分配給電腦的有效 IP 位址數量為：256 - 2 = 254 個。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 254：正確，256 減去頭尾 2 個保留位址，剩下 254 個可用主機位址。</li>
+                    <li class="wrong-opt">② 256：錯誤，這是未扣除「網路位址」與「廣播位址」的總數。</li>
+                    <li class="wrong-opt">③ 128：錯誤。</li>
+                    <li class="wrong-opt">④ 524：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 29 -->
+    <div class="card" id="q29">
+        <span class="theme-badge">主題：網際網路服務與通訊埠 (Port)</span>
+        <div class="question">29. 下列何者為正確的 Internet 服務及相對應的預設通訊埠？</div>
+        <div class="options">
+            <div class="option">① TELNET：21</div>
+            <div class="option">② FTP：23</div>
+            <div class="option">③ SMTP：25</div>
+            <div class="option">④ HTTP：82</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在 TCP/IP 協定模型中，各種常見的網路應用程式都會有 IANA 組織統一指派的「知名預設通訊埠 (Well-Known Ports)」，以便客戶端連線。常見的預設埠號包含：HTTP為 80，FTP為 20 及 21，TELNET為 23，SMTP為 25。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① TELNET：21：錯誤，TELNET (遠端登入) 的預設通訊埠為 23。</li>
+                    <li class="wrong-opt">② FTP：23：錯誤，FTP (檔案傳輸協定) 的預設通訊埠通常為 20 (資料) 與 21 (控制)。</li>
+                    <li class="correct-opt">③ SMTP：25：正確，SMTP (簡單郵件傳輸協定) 用於寄送電子郵件，預設通訊埠即為 25。</li>
+                    <li class="wrong-opt">④ HTTP：82：錯誤，HTTP (網頁傳輸協定) 的預設通訊埠為 80。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+<div class="fab-btn" id="fabBtn">☰</div>
+<div class="fab-menu" id="fabMenu">
+    <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+    <div class="fab-action" onclick="forceCollapseAll()">✖ 全部收合</div>
+    <div class="fab-action" onclick="forceExpandAll()">＋ 全部展開</div>
+    <div style="margin-top: 10px; font-size: 0.9em; color: #7f8c8d; text-align: center;">跳轉至指定題號</div>
+    <div class="q-grid" id="qGrid"></div>
+</div>
+
+<script>
+    // 展開/收合所有解析功能
+    let isExpanded = false;
+    function toggleAll() {
+        if (isExpanded) {
+            forceCollapseAll();
+        } else {
+            forceExpandAll();
+        }
+    }
+    
+    // 強制全部展開
+    function forceExpandAll() {
+        document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+        isExpanded = true;
+        updateTopButton();
+        document.getElementById('fabMenu').classList.remove('show');
+    }
+    
+    // 強制全部收合
+    function forceCollapseAll() {
+        document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+        isExpanded = false;
+        updateTopButton();
+        document.getElementById('fabMenu').classList.remove('show');
+    }
+    
+    // 更新頂部按鈕文字與顏色
+    function updateTopButton() {
+        const toggleBtn = document.getElementById('toggleBtn');
+        if(toggleBtn) {
+            if (isExpanded) {
+                toggleBtn.innerText = '收合所有解析';
+                toggleBtn.style.backgroundColor = '#e74c3c';
+            } else {
+                toggleBtn.innerText = '展開所有解析';
+                toggleBtn.style.backgroundColor = '#27ae60';
+            }
+        }
+    }
+
+    // 漢堡選單動態功能與題號按鈕生成
+    document.addEventListener("DOMContentLoaded", function() {
+        const fabBtn = document.getElementById('fabBtn');
+        const fabMenu = document.getElementById('fabMenu');
+        const qGrid = document.getElementById('qGrid');
+        const cards = document.querySelectorAll('.card');
+
+        // 點擊漢堡按鈕切換選單
+        fabBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            fabMenu.classList.toggle('show');
+        });
+
+        // 點擊選單外部時，自動關閉選單
+        document.addEventListener('click', function(e) {
+            if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                fabMenu.classList.remove('show');
+            }
+        });
+
+        // 自動為每題生成跳轉按鈕
+        cards.forEach((card, index) => {
+            const questionElement = card.querySelector('.question');
+            let displayNum = String(index + 1); 
+            if (questionElement) {
+                const text = questionElement.innerText;
+                const match = text.match(/^\s*(\d+)/);
+                if (match && match[1]) {
+                    displayNum = match[1];
+                }
+            }
+            
+            const btn = document.createElement('button');
+            btn.className = 'q-grid-btn';
+            btn.innerText = displayNum;
+            btn.onclick = () => {
+                const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                window.scrollTo({ top: topPos, behavior: 'smooth' });
+                fabMenu.classList.remove('show');
+            };
+            qGrid.appendChild(btn);
+        });
+    });
+
+    // 回到頂部功能
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        document.getElementById('fabMenu').classList.remove('show');
+    }
+</script>
+</body>
+</html>

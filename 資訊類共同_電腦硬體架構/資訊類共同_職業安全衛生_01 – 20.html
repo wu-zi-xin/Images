@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊類 電腦硬體架構 第01-20題</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+        /* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover {
+            background: #f0f3f4;
+            filter: brightness(0.95);
+        }
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px;
+                right: 15px;
+                width: 42px;
+                height: 42px;
+                font-size: 20px;
+            }
+            .fab-menu {
+                bottom: 65px;
+                right: 15px;
+                width: 250px;
+            }
+            .q-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        .responsive-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .toggle-btn:hover {
+            background-color: #219150;
+        }
+
+        .card-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* 卡片樣式 */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border: 1px solid #eaeaea;
+            position: relative;
+        }
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+        .question {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        /* 選項樣式 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            font-size: 1.05em;
+            border-left: 3px solid #cbd5e1;
+        }
+        /* 純HTML 摺疊特效設計 */
+        details {
+            background: #fdfefe;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        summary {
+            background: #3498db;
+            color: #ffffff;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
+            cursor: pointer;
+            list-style: none;
+            transition: background 0.3s;
+        }
+        summary:hover {
+            background: #2980b9;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        /* 解析內容樣式 */
+        .answer-panel {
+            padding: 20px;
+            background: #f4fcf7;
+            border-top: 1px solid #dfe6e9;
+        }
+        .answer-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+        .explanation {
+            color: #4b6584;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+        .exp-subtitle {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 3px;
+        }
+        .opt-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .opt-list li {
+            margin-bottom: 8px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt {
+            border-left-color: #27ae60 !important;
+            background: #eafaf1 !important;
+        }
+        .wrong-opt {
+            border-left-color: #e74c3c !important;
+        }
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card {
+                padding: 15px;
+            }
+            .header h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>資訊相關職類共用工作項目</h1>
+        <p>工作項目 01：電腦硬體架構 (第01 - 20題)</p>
+        <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+
+        <!-- 題組 1 -->
+        <div class="card" id="q1">
+            <span class="theme-badge">主題：輸入設備與媒體</span>
+            <div class="question">1. 在量販店內，商品包裝上所貼的「條碼(Barcode)」係協助結帳及庫存盤點之用，則該條碼在此方面之資料處理作業上係屬於下列何者？</div>
+            <div class="options">
+                <div class="option">①輸入設備</div>
+                <div class="option">②輸入媒體</div>
+                <div class="option">③輸出設備</div>
+                <div class="option">④輸出媒體</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>條碼本身是記載資訊的載具，屬於「輸入媒體」。用來讀取這些條碼的工具（如條碼掃描器）才是「輸入設備」。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①輸入設備：錯誤，設備是讀取媒體的硬體（如掃描器）。</li>
+                        <li class="correct-opt">②輸入媒體：正確，條碼是一種資料載具。</li>
+                        <li class="wrong-opt">③輸出設備：錯誤，輸出設備為螢幕、印表機等。</li>
+                        <li class="wrong-opt">④輸出媒體：錯誤，條碼並非輸出後的資料載體。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 2 -->
+        <div class="card" id="q2">
+            <span class="theme-badge">主題：CPU 及記憶體處理</span>
+            <div class="question">2. 有關「CPU 及記憶體處理」之說明，下列何者「不正確」？</div>
+            <div class="options">
+                <div class="option">①控制單元負責指揮協調各單元運作</div>
+                <div class="option">②I/O 負責算術運算及邏輯運算</div>
+                <div class="option">③ALU 負責算術運算及邏輯運算</div>
+                <div class="option">④記憶單元儲存程式指令及資料</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>中央處理器(CPU)內部主要分為控制單元(CU)與算術邏輯單元(ALU)。ALU才是負責算術與邏輯運算的單元，而I/O代表的是輸入與輸出，並不負責運算。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①控制單元負責指揮協調各單元運作：正確敘述。</li>
+                        <li class="correct-opt">②I/O 負責算術運算及邏輯運算：錯誤敘述，I/O 是負責設備間資料的輸入與輸出。</li>
+                        <li class="wrong-opt">③ALU 負責算術運算及邏輯運算：正確敘述。</li>
+                        <li class="wrong-opt">④記憶單元儲存程式指令及資料：正確敘述。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 3 -->
+        <div class="card" id="q3">
+            <span class="theme-badge">主題：數字系統表示法</span>
+            <div class="question">3. 有關二進位數的表示法，下列何者「不正確」？</div>
+            <div class="options">
+                <div class="option">①101</div>
+                <div class="option">②1A</div>
+                <div class="option">③1</div>
+                <div class="option">④11001</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>二進位系統僅能由數字「0」和「1」組成，絕不會出現 2~9 的數字或英文字母。包含英文字母（如A、B、C等）的通常為十六進位制。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①101：正確表示法（由0與1組成）。</li>
+                        <li class="correct-opt">②1A：錯誤表示法，A屬於十六進位符號，不屬於二進位。</li>
+                        <li class="wrong-opt">③1：正確表示法（單一位元的二進位）。</li>
+                        <li class="wrong-opt">④11001：正確表示法。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 4 -->
+        <div class="card" id="q4">
+            <span class="theme-badge">主題：電腦開機元件</span>
+            <div class="question">4. 負責電腦開機時執行系統自動偵測及支援相關應用程式，具輸入輸出功能的元件為下列何者？</div>
+            <div class="options">
+                <div class="option">①DOS</div>
+                <div class="option">②BIOS</div>
+                <div class="option">③I/O</div>
+                <div class="option">④RAM</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>BIOS (Basic Input/Output System) 稱為基本輸入輸出系統，是寫入主機板晶片內的韌體，負責電腦開機時第一時間的硬體初始化與自動偵測(POST)。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①DOS：錯誤，這是一種磁碟作業系統，須在BIOS啟動完成後才載入。</li>
+                        <li class="correct-opt">②BIOS：正確，為開機偵測與硬體初始化的關鍵元件。</li>
+                        <li class="wrong-opt">③I/O：錯誤，泛指輸入輸出介面。</li>
+                        <li class="wrong-opt">④RAM：錯誤，為隨機存取記憶體。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 5 -->
+        <div class="card" id="q5">
+            <span class="theme-badge">主題：匯流排與記憶體定址</span>
+            <div class="question">5. 在處理器中位址匯流排有 32 條，可以定出多少記憶體位址？</div>
+            <div class="options">
+                <div class="option">①512MB</div>
+                <div class="option">②1GB</div>
+                <div class="option">③2GB</div>
+                <div class="option">④4GB</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>N條位址匯流排可定址的空間大小為 2 的 N 次方。32 條即為 2<sup>32</sup> bytes = 4,294,967,296 bytes = 4GB 的記憶體空間。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①512MB：錯誤，這相當於29條位址線。</li>
+                        <li class="wrong-opt">②1GB：錯誤，這相當於30條位址線。</li>
+                        <li class="wrong-opt">③2GB：錯誤，這相當於31條位址線。</li>
+                        <li class="correct-opt">④4GB：正確，2<sup>32</sup> Bytes 正是 4GB。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 6 -->
+        <div class="card" id="q6">
+            <span class="theme-badge">主題：記憶體種類</span>
+            <div class="question">6. 下列何者屬於揮發性記憶體？</div>
+            <div class="options">
+                <div class="option">①Hard Disk</div>
+                <div class="option">②Flash Memory</div>
+                <div class="option">③ROM</div>
+                <div class="option">④RAM</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>「揮發性記憶體」指的是只要電源被切斷，內部儲存的資料就會完全消失的記憶體，主記憶體 RAM (隨機存取記憶體) 就是最典型的代表。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①Hard Disk：錯誤，硬碟為非揮發性，斷電後資料會保存。</li>
+                        <li class="wrong-opt">②Flash Memory：錯誤，快閃記憶體(如隨身碟)斷電後資料會保存。</li>
+                        <li class="wrong-opt">③ROM：錯誤，唯讀記憶體為非揮發性。</li>
+                        <li class="correct-opt">④RAM：正確，RAM 只要一斷電，資料即刻消失。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 7 -->
+        <div class="card" id="q7">
+            <span class="theme-badge">主題：多核心技術</span>
+            <div class="question">7. 下列技術何者為一個處理器中含有兩個執行單元，可以同時執行兩個並行執行緒，以提升處理器的運算效能與多工作業的能力？</div>
+            <div class="options">
+                <div class="option">①超執行緒(Hyper Thread)</div>
+                <div class="option">②雙核心(Dual Core)</div>
+                <div class="option">③超純量(Super Scalar)</div>
+                <div class="option">④單指令多資料(Single Instruction Multiple Data)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>關鍵字為「含有『兩個執行單元』」(即實體的兩個運算核心)。在一顆實體晶片中封裝兩個獨立的執行單元，這就是「雙核心」技術。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①超執行緒(Hyper Thread)：錯誤，這是單一核心「模擬」出兩個邏輯核心。</li>
+                        <li class="correct-opt">②雙核心(Dual Core)：正確，實體上擁有兩個執行單元。</li>
+                        <li class="wrong-opt">③超純量(Super Scalar)：錯誤，這是讓核心內能同時處理多個指令的管線架構。</li>
+                        <li class="wrong-opt">④單指令多資料(SIMD)：錯誤，是用單一指令同時處理多筆資料的運算方式。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 8 -->
+        <div class="card" id="q8">
+            <span class="theme-badge">主題：處理器模擬技術</span>
+            <div class="question">8. 下列技術何者為將一個處理器模擬成多個邏輯處理器，以提升程式執行之效能？</div>
+            <div class="options">
+                <div class="option">①超執行緒(Hyper Thread)</div>
+                <div class="option">②雙核心(Dual Core)</div>
+                <div class="option">③超純量(Super Scalar)</div>
+                <div class="option">④單指令多資料(Single Instruction Multiple Data)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>與上一題做對比，這裡的關鍵是「模擬成多個邏輯處理器」。超執行緒(Hyper-Threading) 讓作業系統將單一實體核心視為兩個邏輯核心，提高CPU資源的利用率。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①超執行緒(Hyper Thread)：正確，透過模擬方式增加邏輯處理器數量。</li>
+                        <li class="wrong-opt">②雙核心(Dual Core)：錯誤，雙核心是實體上的增加。</li>
+                        <li class="wrong-opt">③超純量(Super Scalar)：錯誤。</li>
+                        <li class="wrong-opt">④單指令多資料(SIMD)：錯誤。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 9 -->
+        <div class="card" id="q9">
+            <span class="theme-badge">主題：記憶體種類特性</span>
+            <div class="question">9. 有關記憶體的敘述，下列何者「不正確」？</div>
+            <div class="options">
+                <div class="option">①CPU 中的暫存器執行速度比主記憶體快</div>
+                <div class="option">②快取磁碟(Disk Cache)是利用記憶體中的快取記憶體(Cache Memory)來存放資料</div>
+                <div class="option">③在系統軟體中，透過軟體與輔助儲存體來擴展主記憶體容量，使數個大型程式得以同時放在主記憶體內執行的技術是虛擬記憶體(Virtual Memory)</div>
+                <div class="option">④個人電腦上大都有 Level 1(L1)及 Level 2(L2)快取記憶體(Cache Memory)，其中 L1 快取的速度較快，但容量較小</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>快取磁碟 (Disk Cache) 實際上是利用系統的「主記憶體 (RAM)」切出一部分空間，用來暫存磁碟中經常讀取的資料，以加速硬碟存取，而非使用 CPU 內的 Cache Memory。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①CPU 中的暫存器執行速度比主記憶體快：正確敘述。</li>
+                        <li class="correct-opt">②快取磁碟(Disk Cache)是利用...快取記憶體來存放資料：錯誤敘述，應該是利用「主記憶體(RAM)」。</li>
+                        <li class="wrong-opt">③...技術是虛擬記憶體(Virtual Memory)：正確敘述。</li>
+                        <li class="wrong-opt">④L1 快取的速度較快，但容量較小：正確敘述。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 10 -->
+        <div class="card" id="q10">
+            <span class="theme-badge">主題：衡量單位</span>
+            <div class="question">10. 有關電腦衡量單位之敘述，下列何者「不正確」？</div>
+            <div class="options">
+                <div class="option">①衡量印表機解析度的單位是 DPI (Dots Per Inch)</div>
+                <div class="option">②磁帶資料儲存密度的單位是 BPI (Bytes Per Inch)</div>
+                <div class="option">③衡量雷射印表機列印速度的單位是 PPM (Pages Per Minute)</div>
+                <div class="option">④通訊線路傳輸速率的單位是 BPS (Bytes Per Second)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>網路與通訊線路的傳輸速率單位 bps 通常代表的是「Bits Per Second（位元/秒）」，而非 Bytes（位元組）。網路傳輸都是以 bit (位元) 為計算基準。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①解析度單位 DPI (Dots Per Inch)：正確敘述。</li>
+                        <li class="wrong-opt">②磁帶儲存密度 BPI (Bytes Per Inch)：正確敘述。</li>
+                        <li class="wrong-opt">③列印速度 PPM (Pages Per Minute)：正確敘述。</li>
+                        <li class="correct-opt">④通訊線路傳輸速率 BPS (Bytes Per Second)：錯誤敘述，B 代表的是 Bits。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 11 -->
+        <div class="card" id="q11">
+            <span class="theme-badge">主題：記憶體容量單位換算</span>
+            <div class="question">11. 有關電腦儲存資料所需記憶體的大小排序，下列何者正確？</div>
+            <div class="options">
+                <div class="option">①1TB＞1GB＞1MB＞1KB</div>
+                <div class="option">②1KB＞1GB＞1MB＞1TB</div>
+                <div class="option">③1GB＞1MB＞1TB＞1KB</div>
+                <div class="option">④1TB＞1KB＞1MB＞1GB</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>電腦容量的單位由大到小排序依序為：TB (TeraByte) > GB (GigaByte) > MB (MegaByte) > KB (KiloByte) > Byte > bit。相鄰單位間進率為 1024 (2<sup>10</sup>)。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①1TB＞1GB＞1MB＞1KB：正確，順序完全符合大到小的關係。</li>
+                        <li class="wrong-opt">②1KB＞1GB＞1MB＞1TB：錯誤，順序混亂。</li>
+                        <li class="wrong-opt">③1GB＞1MB＞1TB＞1KB：錯誤。</li>
+                        <li class="wrong-opt">④1TB＞1KB＞1MB＞1GB：錯誤。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 12 -->
+        <div class="card" id="q12">
+            <span class="theme-badge">主題：電腦系統架構分類</span>
+            <div class="question">12. 以微控制器為核心，並配合適當的周邊設備，以執行特定功能，主要是用來控制、監督或輔助特定設備的裝置，其架構仍屬於一種電腦系統(包含處理器、記憶體、輸入與輸出等硬體元素)，目前最常見的應用有 PDA、手機及資訊家電，這種系統稱為下列何者？</div>
+            <div class="options">
+                <div class="option">①伺服器系統</div>
+                <div class="option">②嵌入式系統</div>
+                <div class="option">③分散式系統</div>
+                <div class="option">④個人電腦系統</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>專門為了執行單一或特定功能而設計，被「嵌入」至大型機械或一般電器內部進行控制的微電腦系統，即稱為「嵌入式系統 (Embedded System)」。智慧家電、汽車電腦等皆是。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①伺服器系統：錯誤，提供網路服務的強大主機。</li>
+                        <li class="correct-opt">②嵌入式系統：正確，控制特定設備的微縮電腦架構。</li>
+                        <li class="wrong-opt">③分散式系統：錯誤，透過網路協同運作的系統。</li>
+                        <li class="wrong-opt">④個人電腦系統：錯誤，為通用型運算設備。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 13 -->
+        <div class="card" id="q13">
+            <span class="theme-badge">主題：硬碟存取效能</span>
+            <div class="question">13. 有 A、B 兩個大小相同的檔案，A 檔案儲存在硬碟連續的位置，而 B 檔案儲存在硬碟分散的位置，因此 A 檔案的存取時間比 B 檔案少，下列何者為主要影響因素？</div>
+            <div class="options">
+                <div class="option">①CPU 執行時間(Execution Time)</div>
+                <div class="option">②記憶體存取時間(Memory Access Time)</div>
+                <div class="option">③傳送時間(Transfer Time)</div>
+                <div class="option">④搜尋時間(Seek Time)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>機械式硬碟存取時，讀寫頭必須實體移動到資料所在的磁軌，這段實體移動時間稱為「搜尋時間 (Seek Time)」。檔案若分散在不同磁區，讀寫頭需反覆移動尋找，耗費的時間最多。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①CPU 執行時間：錯誤，這與硬碟物理讀取無關。</li>
+                        <li class="wrong-opt">②記憶體存取時間：錯誤。</li>
+                        <li class="wrong-opt">③傳送時間：錯誤，傳送資料的時間，分散與連續檔案的傳送時間幾乎相同，差異在找尋的過程。</li>
+                        <li class="correct-opt">④搜尋時間(Seek Time)：正確，讀寫頭頻繁切換磁軌導致費時。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 14 -->
+        <div class="card" id="q14">
+            <span class="theme-badge">主題：資料容量換算</span>
+            <div class="question">14. 有關資料表示，下列何者「不正確」？</div>
+            <div class="options">
+                <div class="option">①1Byte=8bits</div>
+                <div class="option">②1KB=2<sup>10</sup>Bytes</div>
+                <div class="option">③1MB=2<sup>15</sup>Bytes</div>
+                <div class="option">④1GB=2<sup>30</sup>Bytes</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>各級距單位之間的換算是 1024 (也就是 2<sup>10</sup>) 倍。因此 1MB 應為 1024 KB，即 2<sup>10</sup> * 2<sup>10</sup> = 2<sup>20</sup> Bytes。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①1Byte=8bits：正確敘述。</li>
+                        <li class="wrong-opt">②1KB=2<sup>10</sup>Bytes：正確敘述。</li>
+                        <li class="correct-opt">③1MB=2<sup>15</sup>Bytes：錯誤敘述，應該是 2<sup>20</sup> Bytes。</li>
+                        <li class="wrong-opt">④1GB=2<sup>30</sup>Bytes：正確敘述。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 15 -->
+        <div class="card" id="q15">
+            <span class="theme-badge">主題：儲存媒體特性</span>
+            <div class="question">15. 有關資料儲存媒體之敘述，下列何者正確？</div>
+            <div class="options">
+                <div class="option">①儲存資料之光碟片，可以直接用餐巾紙沾水以同心圓擦拭，以保持資料儲存良好狀況</div>
+                <div class="option">②MO (Magnetic Optical)光碟機所使用的光碟片，外型大小及儲存容量均與 CD-ROM 相同</div>
+                <div class="option">③RAM 是一個經設計燒錄於硬體設備之記憶體</div>
+                <div class="option">④可消除及可規劃之唯讀記憶體的縮寫為 EPROM</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>EPROM (Erasable Programmable Read Only Memory) 是一種可以讓使用者利用紫外線照射來抹除資料，並重新寫入(規劃)程式的唯讀記憶體。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①光碟片...以同心圓擦拭：錯誤，保養光碟應從中心向外呈放射狀擦拭，避免刮傷沿著音軌。</li>
+                        <li class="wrong-opt">②MO...與 CD-ROM 相同：錯誤，MO片外層多有塑膠保護殼且儲存容量與CD-ROM不同。</li>
+                        <li class="wrong-opt">③RAM 是一個經設計燒錄於硬體設備之記憶體：錯誤，RAM為揮發性主記憶體；專門用來燒錄的是 ROM。</li>
+                        <li class="correct-opt">④可消除及可規劃之唯讀記憶體為 EPROM：正確敘述。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 16 -->
+        <div class="card" id="q16">
+            <span class="theme-badge">主題：RAID 技術</span>
+            <div class="question">16. 下列何者為 RAID(Redundant Array of Independent Disks)技術的主要用途？</div>
+            <div class="options">
+                <div class="option">①儲存資料</div>
+                <div class="option">②傳輸資料</div>
+                <div class="option">③播放音樂</div>
+                <div class="option">④播放影片</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>RAID 中文譯為「獨立磁碟冗餘陣列」，是將多顆實體硬碟組成一個邏輯儲存單元，主要目的是為「儲存資料」提供更快的存取速度與資料容錯保護機制。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①儲存資料：正確，RAID 屬於儲存設備與技術。</li>
+                        <li class="wrong-opt">②傳輸資料：錯誤，非網路或通訊技術。</li>
+                        <li class="wrong-opt">③播放音樂：錯誤。</li>
+                        <li class="wrong-opt">④播放影片：錯誤。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 17 -->
+        <div class="card" id="q17">
+            <span class="theme-badge">主題：硬碟效能與存取時間</span>
+            <div class="question">17. 硬碟的轉速會影響磁碟機在讀取檔案時所需花的下列何種時間？</div>
+            <div class="options">
+                <div class="option">①旋轉延遲(Rotational Latency)</div>
+                <div class="option">②尋找時間(Seek Time)</div>
+                <div class="option">③資料傳輸(Transfer Time)</div>
+                <div class="option">④磁頭切換(Head Switching)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>讀寫頭抵達目標磁軌後，必須等待硬碟碟片旋轉，讓目標磁區剛好轉到讀寫頭正下方，這段等待時間稱為「旋轉延遲」。因此硬碟轉速（RPM）越高，旋轉延遲時間就越短。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①旋轉延遲(Rotational Latency)：正確，受轉速直接影響。</li>
+                        <li class="wrong-opt">②尋找時間(Seek Time)：錯誤，是讀寫頭臂移動尋找磁軌的時間。</li>
+                        <li class="wrong-opt">③資料傳輸(Transfer Time)：錯誤，指資料轉移到介面的時間。</li>
+                        <li class="wrong-opt">④磁頭切換(Head Switching)：錯誤，切換不同讀寫頭的電子延遲。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 18 -->
+        <div class="card" id="q18">
+            <span class="theme-badge">主題：匯流排架構</span>
+            <div class="question">18. 微處理器與外部連接之各種訊號匯流排，何者具有雙向流通性？</div>
+            <div class="options">
+                <div class="option">①控制匯流排</div>
+                <div class="option">②狀態匯流排</div>
+                <div class="option">③資料匯流排</div>
+                <div class="option">④位址匯流排</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>系統匯流排分為三種：位址匯流排、資料匯流排、控制匯流排。其中「資料匯流排」負責在 CPU 和各組件間傳送資料，CPU 可以寫出資料也可以讀入資料，所以是雙向的；位址匯流排則是單向的（僅由CPU輸出）。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①控制匯流排：錯誤，通常具單向特性，指示動作方向。</li>
+                        <li class="wrong-opt">②狀態匯流排：錯誤。</li>
+                        <li class="correct-opt">③資料匯流排：正確，具備雙向流通性。</li>
+                        <li class="wrong-opt">④位址匯流排：錯誤，為單向（由CPU送出位址）。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 19 -->
+        <div class="card" id="q19">
+            <span class="theme-badge">主題：標準編碼</span>
+            <div class="question">19. 下列何者是「美國標準資訊交換碼」的簡稱？</div>
+            <div class="options">
+                <div class="option">①IEEE</div>
+                <div class="option">②CNS</div>
+                <div class="option">③ASCII</div>
+                <div class="option">④ISO</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>ASCII 的英文全名為 American Standard Code for Information Interchange，中文即為「美國標準資訊交換碼」，是目前電腦用來表示英文字母、數字和標點符號最通用的單字元編碼。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①IEEE：錯誤，這是電機電子工程師學會。</li>
+                        <li class="wrong-opt">②CNS：錯誤，這是中華民國國家標準。</li>
+                        <li class="correct-opt">③ASCII：正確，美國標準資訊交換碼。</li>
+                        <li class="wrong-opt">④ISO：錯誤，這是國際標準化組織。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 20 -->
+        <div class="card" id="q20">
+            <span class="theme-badge">主題：記憶體種類特性</span>
+            <div class="question">20. 下列何者內建於中央處理器(CPU)做為 CPU 暫存資料，以提升電腦的效能？</div>
+            <div class="options">
+                <div class="option">①快取記憶體(Cache)</div>
+                <div class="option">②快閃記憶體(Flash Memory)</div>
+                <div class="option">③靜態隨機存取記憶體(SRAM)</div>
+                <div class="option">④動態隨機存取記憶體(DRAM)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>為了彌補 CPU 高速運算與較慢的主記憶體 (DRAM) 之間的速度落差，會在 CPU 內部建置極高速的記憶體，稱為「快取記憶體 (Cache)」，用來暫存頻繁使用的資料以提升整體效能。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①快取記憶體(Cache)：正確，專門內建於CPU提升效能。</li>
+                        <li class="wrong-opt">②快閃記憶體(Flash Memory)：錯誤，常做為隨身碟或固態硬碟的儲存媒介。</li>
+                        <li class="wrong-opt">③靜態隨機存取記憶體(SRAM)：錯誤，雖然 Cache 多是用 SRAM 製造的，但專有名詞為 Cache。</li>
+                        <li class="wrong-opt">④動態隨機存取記憶體(DRAM)：錯誤，通常作為主記憶體。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <!-- FAB Menu -->
+    <div class="fab-btn" id="fabBtn">☰</div>
+    <div class="fab-menu" id="fabMenu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()">＋ 全部展開</div>
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+    <script>
+        // --- 1. 展開/收合按鈕控制 ---
+        let isExpanded = false;
+
+        function toggleAll() {
+            if (isExpanded) {
+                forceCollapseAll();
+            } else {
+                forceExpandAll();
+            }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if (toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+        // --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function () {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function (e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成跳轉按鈕
+            cards.forEach((card, index) => {
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1);
+
+                if (questionElement) {
+                    const text = questionElement.innerText;
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1];
+                    }
+                }
+                
+                card.id = 'q' + displayNum;
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum;
+                btn.onclick = () => {
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    fabMenu.classList.remove('show');
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+</body>
+</html>

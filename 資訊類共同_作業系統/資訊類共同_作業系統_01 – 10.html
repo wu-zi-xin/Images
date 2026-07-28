@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊類 作業系統 01-10題</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        
+        /* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn { 
+            position: fixed; 
+            bottom: 25px; 
+            right: 25px; 
+            z-index: 100; 
+            background-color: #3498db; 
+            color: white; 
+            width: 48px; 
+            height: 48px; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-size: 24px; 
+            cursor: pointer; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4); 
+            transition: 0.3s; 
+            user-select: none; 
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+        .fab-menu { 
+            position: fixed; 
+            bottom: 85px; 
+            right: 25px; 
+            z-index: 99; 
+            background: #ffffff; 
+            border-radius: 12px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15); 
+            width: 280px; 
+            padding: 15px; 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: translateY(20px); 
+            transition: all 0.3s ease; 
+            display: flex; 
+            flex-direction: column; 
+            border: 1px solid #dfe6e9; 
+        }
+        .fab-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .fab-action { 
+            padding: 10px; 
+            margin-bottom: 6px; 
+            background: #f8f9fa; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            text-align: center; 
+            font-weight: bold; 
+            color: #2c3e50; 
+            transition: 0.2s; 
+            border: 1px solid #eee; 
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+        .q-grid { 
+            display: grid; 
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 6px; 
+            max-height: 40vh; 
+            overflow-y: auto; 
+            padding-right: 5px; 
+        }
+        .q-grid-btn { 
+            background: #ecf0f1; 
+            color: #34495e; 
+            border: none; 
+            border-radius: 6px; 
+            padding: 8px 0; 
+            font-size: 0.95em; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            font-weight: bold; 
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+        
+        /* 手機版設定調整 */
+        @media (max-width: 600px) { 
+            .fab-btn { bottom: 15px; right: 15px; width: 42px; height: 42px; font-size: 20px; } 
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; } 
+            .q-grid { grid-template-columns: repeat(5, 1fr); } 
+        }
+        
+        .responsive-img { max-width: 100%; height: auto; display: block; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        .card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+        
+        /* 純HTML 摺疊特效設計 */
+        details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { 
+            background: #eef2f5; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #34495e; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        
+        .explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #3498db; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>資訊相關職類共用工作項目</h1>
+        <p>工作項目 03：作業系統 (第01 - 10題)</p>
+        <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+        
+        <!-- 題組 1 -->
+        <div class="card">
+            <span class="theme-badge">主題：程式語言翻譯</span>
+            <div class="question">1. 有關使用直譯程式(Interpreter)將程式翻譯成機器語言之敘述，下列何者正確？</div>
+            <div class="options">
+                <div class="option">①直譯程式(Interpreter)與編譯程式(Compiler)翻譯方式一樣</div>
+                <div class="option">②直譯程式每次轉譯一行指令後即執行</div>
+                <div class="option">③直譯程式先執行再翻譯成目的程式</div>
+                <div class="option">④直譯程式先翻譯成目的程式，再執行之</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>直譯程式（Interpreter）會將高階語言的原始碼逐行翻譯，並立刻執行，不會產生目的程式（Object file）。編譯程式（Compiler）則是將全部原始碼翻譯成目的程式後再一次性執行，兩者運作方式截然不同。</p>
+                    </div>
+                    <div class="explanation">
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①直譯程式(Interpreter)與編譯程式(Compiler)翻譯方式一樣：錯誤，直譯與編譯方式不同。</li>
+                            <li class="correct-opt">②直譯程式每次轉譯一行指令後即執行：正確，這是直譯程式的核心運作原理 [1-3]。</li>
+                            <li class="wrong-opt">③直譯程式先執行再翻譯成目的程式：錯誤，必須先翻譯成機器語言才能執行。</li>
+                            <li class="wrong-opt">④直譯程式先翻譯成目的程式，再執行之：錯誤，這是編譯程式（Compiler）的特徵。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 2 -->
+        <div class="card">
+            <span class="theme-badge">主題：程式編譯與連結</span>
+            <div class="question">2. 編譯程式(Compiler)將高階語言翻譯至可執行的過程中，下列何者是連結程式(Linker)負責連結的標的？</div>
+            <div class="options">
+                <div class="option">①目的程式與所需之副程式</div>
+                <div class="option">②原始程式與目的程式</div>
+                <div class="option">③副程式與可執行程式</div>
+                <div class="option">④原始程式與可執行程式</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在程式編譯的過程中，編譯器先將高階原始碼翻譯為目的程式（Object file）。接著，連結程式（Linker）的任務就是將這個目的程式與其他預先編譯好的系統資源、函數庫（副程式）進行連結，最終整合成一個可執行程式。</p>
+                    </div>
+                    <div class="explanation">
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①目的程式與所需之副程式：正確，連結程式負責將目的檔和函數庫進行連結 [1, 2]。</li>
+                            <li class="wrong-opt">②原始程式與目的程式：錯誤，原始程式已被編譯器轉為目的程式。</li>
+                            <li class="wrong-opt">③副程式與可執行程式：錯誤，連結副程式是為了「產生」可執行程式，不是連結可執行程式。</li>
+                            <li class="wrong-opt">④原始程式與可執行程式：錯誤，原始程式並不參與連結階段。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 3 -->
+        <div class="card">
+            <span class="theme-badge">主題：作業系統類型</span>
+            <div class="question">3. Linux 是屬何種系統？</div>
+            <div class="options">
+                <div class="option">①應用系統(Application Systems)</div>
+                <div class="option">②作業系統(Operation Systems)</div>
+                <div class="option">③資料庫系統(Database Systems)</div>
+                <div class="option">④編輯系統(Editor Systems)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>Linux 是一套免費且開源的類 Unix 作業系統。它負責控制與管理電腦硬體資源，為各種應用軟體提供運作平台，因此屬於系統軟體中的作業系統（Operation Systems）。</p>
+                    </div>
+                    <div class="explanation">
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①應用系統(Application Systems)：錯誤，Linux 並非特定應用的軟體。</li>
+                            <li class="correct-opt">②作業系統(Operation Systems)：正確，Linux 本身就是著名的作業系統核心 [1, 2, 4]。</li>
+                            <li class="wrong-opt">③資料庫系統(Database Systems)：錯誤，如 MySQL 或 Oracle 才是資料庫。</li>
+                            <li class="wrong-opt">④編輯系統(Editor Systems)：錯誤，如 Vim 或 Word 才是編輯系統。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 4 -->
+        <div class="card">
+            <span class="theme-badge">主題：作業系統介面</span>
+            <div class="question">4. 下列何種作業系統沒有圖形使用者操作介面？</div>
+            <div class="options">
+                <div class="option">①Linux</div>
+                <div class="option">②Windows Server</div>
+                <div class="option">③Mac OS</div>
+                <div class="option">④MS-DOS</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>圖形使用者介面（GUI）能讓使用者透過滑鼠與圖示來操作電腦。早期的微軟作業系統 MS-DOS 是單純的文字命令列介面（CLI），使用者必須手動輸入指令來操作，原生並不提供圖形介面。</p>
+                    </div>
+                    <div class="explanation">
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①Linux：錯誤，Linux 雖支援文字介面，但也能安裝 X-Window 擁有強大的圖形介面。</li>
+                            <li class="wrong-opt">②Windows Server：錯誤，微軟的伺服器版本具備視窗圖形介面。</li>
+                            <li class="wrong-opt">③Mac OS：錯誤，蘋果的 Mac OS 內建精緻的圖形使用者介面。</li>
+                            <li class="correct-opt">④MS-DOS：正確，MS-DOS 是純文字命令列系統，沒有圖形介面 [1, 2]。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 5 -->
+        <div class="card">
+            <span class="theme-badge">主題：作業系統特性</span>
+            <div class="question">5. 下列何者「不是」多人多工之作業系統？</div>
+            <div class="options">
+                <div class="option">①Linux</div>
+                <div class="option">②Solaris</div>
+                <div class="option">③MS-DOS</div>
+                <div class="option">④Windows Server</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>「多人多工」代表可以有多位使用者同時登入作業系統，並且在同一時間執行多個應用程式。MS-DOS 屬於早期的「單人單工」系統，同一時間只能讓一名使用者執行一個程式。</p>
+                    </div>
+                    <div class="explanation">
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①Linux：錯誤，是典型的高效能多人多工作業系統。</li>
+                            <li class="wrong-opt">②Solaris：錯誤，Unix 的分支，也是多人多工作業系統。</li>
+                            <li class="correct-opt">③MS-DOS：正確，MS-DOS 屬於單人單工作業系統 [1, 2]。</li>
+                            <li class="wrong-opt">④Windows Server：錯誤，專為伺服器設計，支援多人多工。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 6 -->
+        <div class="card">
+            <span class="theme-badge">主題：系統帳號管理</span>
+            <div class="question">6. 下列何者為 Linux 作業系統之「系統管理者」的預設帳號？</div>
+            <div class="options">
+                <div class="option">①administrator</div>
+                <div class="option">②manager</div>
+                <div class="option">③root</div>
+                <div class="option">④supervisor</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>不同作業系統會有不同的預設最高權限帳號。在 Linux 及 Unix-like 系統中，超級使用者（superuser）或系統管理者的預設帳號名稱固定為 <code>root</code>。而 Windows 的預設最高權限帳號則是 Administrator。</p>
+                    </div>
+                    <div class="explanation">
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①administrator：錯誤，這是 Windows 系統的預設管理者帳號。</li>
+                            <li class="wrong-opt">②manager：錯誤，一般無此預設高權限帳號。</li>
+                            <li class="correct-opt">③root：正確，這是 Linux 系統管理者的預設帳號 [1, 2]。</li>
+                            <li class="wrong-opt">④supervisor：錯誤，通常是其他特定應用軟體的最高權限角色稱呼。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 7 -->
+        <div class="card">
+            <span class="theme-badge">主題：系統登入機制</span>
+            <div class="question">7. Windows 登入時，若鍵入的密碼其「大小寫不正確」會導致下列何種結果？</div>
+            <div class="options">
+                <div class="option">①仍可以進入 Windows</div>
+                <div class="option">②進入 Windows 的安全模式</div>
+                <div class="option">③要求重新輸入密碼</div>
+                <div class="option">④Windows 將先關閉，並重新開機</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>Windows 作業系統在進行使用者驗證時，密碼是嚴格區分大小寫的（Case-sensitive）。如果輸入的英文字母大小寫錯誤，系統會視為密碼不符，拒絕登入，並提示使用者重新輸入正確的密碼。</p>
+                    </div>
+                    <div class="explanation">
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①仍可以進入 Windows：錯誤，基於安全機制，密碼錯誤無法登入。</li>
+                            <li class="wrong-opt">②進入 Windows 的安全模式：錯誤，安全模式需透過特殊開機選項進入，與密碼錯誤無關。</li>
+                            <li class="correct-opt">③要求重新輸入密碼：正確，系統會提示密碼錯誤並讓你重試 [4, 5]。</li>
+                            <li class="wrong-opt">④Windows 將先關閉，並重新開機：錯誤，不會因為密碼打錯就導致電腦重啟。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 8 -->
+        <div class="card">
+            <span class="theme-badge">主題：記憶體管理</span>
+            <div class="question">8. 下列何種技術是利用硬碟空間來解決主記憶體空間之不足？</div>
+            <div class="options">
+                <div class="option">①分時技術(Time Sharing)</div>
+                <div class="option">②同步記憶體 (Concurrent Memory)</div>
+                <div class="option">③虛擬記憶體 (Virtual Memory)</div>
+                <div class="option">④多工技術 (Multitasking)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>當電腦在執行較大型的程式，主記憶體（RAM）容量不夠時，作業系統會使用「虛擬記憶體（Virtual Memory）」技術，劃分出部分硬碟空間當作暫存記憶體使用。這可以騙過應用程式，讓它們以為有充足的主記憶體可以使用。</p>
+                    </div>
+                    <div class="explanation">
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①分時技術(Time Sharing)：錯誤，這是 CPU 切割時間給不同程式使用的技術。</li>
+                            <li class="wrong-opt">②同步記憶體 (Concurrent Memory)：錯誤，無此用於解決記憶體不足的標準名詞。</li>
+                            <li class="correct-opt">③虛擬記憶體 (Virtual Memory)：正確，利用硬碟空間擴充主記憶體容量 [4-7]。</li>
+                            <li class="wrong-opt">④多工技術 (Multitasking)：錯誤，這是指 CPU 表面上同時執行多個程式的技術。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 9 -->
+        <div class="card">
+            <span class="theme-badge">主題：系統軟體概念</span>
+            <div class="question">9. 電腦中負責資源管理的軟體是下列何種？</div>
+            <div class="options">
+                <div class="option">①編譯程式 (Compiler)</div>
+                <div class="option">②公用程式 (Utility)</div>
+                <div class="option">③應用程式 (Application)</div>
+                <div class="option">④作業系統 (Operating System)</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>作業系統（Operating System, OS）是電腦最基礎的系統軟體。它的主要功能是作為使用者與硬體之間的橋樑，負責管理包含 CPU 排程、記憶體分配、檔案系統以及周邊輸入輸出裝置等所有電腦資源。</p>
+                    </div>
+                    <div class="explanation">
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①編譯程式 (Compiler)：錯誤，用於將高階語言翻譯為目的碼的工具。</li>
+                            <li class="wrong-opt">②公用程式 (Utility)：錯誤，用來執行維護電腦、掃毒或備份等輔助功能。</li>
+                            <li class="wrong-opt">③應用程式 (Application)：錯誤，滿足使用者特定需求（如文書處理、上網）的軟體。</li>
+                            <li class="correct-opt">④作業系統 (Operating System)：正確，負責統一管理系統各項資源 [4, 5]。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題組 10 -->
+        <div class="card">
+            <span class="theme-badge">主題：檔案系統</span>
+            <div class="question">10. 下列何者為 Linux 系統所採用的檔案系統？</div>
+            <div class="options">
+                <div class="option">①NTFS</div>
+                <div class="option">②XFS</div>
+                <div class="option">③HTFS</div>
+                <div class="option">④vms</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>檔案系統決定了資料在磁碟中如何被存儲和管理。Linux 常見支援的檔案系統包含了 ext 系列（ext2, ext3, ext4）以及高效能的日誌檔案系統如 XFS。相對的，NTFS 則是微軟 Windows 系統的核心檔案系統。</p>
+                    </div>
+                    <div class="explanation">
+                        <span class="exp-subtitle">【各選項解析】</span>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①NTFS：錯誤，這是 Windows NT 核心（Windows 2000, XP, 10, 11等）採用的檔案系統。</li>
+                            <li class="correct-opt">②XFS：正確，這是一個由 SGI 創建的檔案系統，現廣泛應用於多數 Linux 發行版中 [4, 5]。</li>
+                            <li class="wrong-opt">③HTFS：錯誤，並非主流知名的標準檔案系統。</li>
+                            <li class="wrong-opt">④vms：錯誤，OpenVMS 是一套作業系統的名稱，並非 Linux 檔案系統。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <!-- 漢堡選單按鈕與彈出面板 -->
+    <div class="fab-btn" id="fabBtn">☰</div>
+    <div class="fab-menu" id="fabMenu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()">＋ 全部展開</div>
+        <div style="text-align: center; font-size: 0.9em; color: #7f8c8d; margin: 10px 0 5px;">跳轉至指定題號</div>
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+    <script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+
+        function toggleAll() {
+            if (isExpanded) {
+                forceCollapseAll();
+            } else {
+                forceExpandAll();
+            }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+        // --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+                
+                if (questionElement) {
+                    // 2. 抓取題目文字
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[2]) {
+                        displayNum = match[2]; // 成功抓到！把displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如id="q1")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show');
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
