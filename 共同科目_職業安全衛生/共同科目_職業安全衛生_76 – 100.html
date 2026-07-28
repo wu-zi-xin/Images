@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職業安全衛生 - 第76~100題題庫與解析</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .toggle-btn:hover {
+            background-color: #219150;
+        }
+        .card-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        /* 卡片樣式 */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border: 1px solid #eaeaea;
+            position: relative;
+        }
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+        .question {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        /* 選項樣式 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            font-size: 1.05em;
+            border-left: 3px solid #cbd5e1;
+        }
+        /* 純HTML 摺疊特效設計 */
+        details {
+            background: #fdfefe;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        summary {
+            background: #3498db;
+            color: #ffffff;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
+            cursor: pointer;
+            list-style: none;
+            transition: background 0.3s;
+        }
+        summary:hover {
+            background: #2980b9;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        /* 解析內容樣式 */
+        .answer-panel {
+            padding: 20px;
+            background: #f4fcf7;
+            border-top: 1px solid #dfe6e9;
+        }
+        .answer-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+        .explanation {
+            color: #4b6584;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+        .exp-subtitle {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 3px;
+        }
+        .opt-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .opt-list li {
+            margin-bottom: 8px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt {
+            border-left-color: #27ae60 !important;
+            background: #eafaf1 !important;
+        }
+        .wrong-opt {
+            border-left-color: #e74c3c !important;
+        }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+		
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>職業安全衛生共同科目題庫</h1>
+    <p>工作項目 01：職業安全衛生 (第 76 - 100 題)</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 題組 76 -->
+    <div class="card">
+        <span class="theme-badge">主題：童工勞動權益</span>
+        <div class="question">76. 有關「童工」之敘述，下列何者正確？</div>
+        <div class="options">
+            <div class="option">①每日工作時間不得超過 8 小時</div>
+            <div class="option">②不得於午後 8 時至翌晨 8 時之時間內工作</div>
+            <div class="option">③例假日得在監視下工作</div>
+            <div class="option">④工資不得低於基本工資之 70％</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《勞動基準法》第47與48條規定，童工（十五歲以上未滿十八歲之受僱從事工作者）每日工作時間不得超過八小時，每週不得超過四十小時，且例假日絕對不得工作，亦不得於午後八時至翌晨六時之夜間時段工作。其工資同樣受到基本工資之保障，不可打折。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 每日工作時間不得超過 8 小時：正確，此為勞基法明定之童工工時上限。</li>
+                    <li class="wrong-opt">② 不得於午後 8 時至翌晨 8 時之時間內工作：錯誤，法規為午後八時至翌晨「六時」。</li>
+                    <li class="wrong-opt">③ 例假日得在監視下工作：錯誤，童工例假日絕對禁止工作。</li>
+                    <li class="wrong-opt">④ 工資不得低於基本工資之 70％：錯誤，童工工資亦不得低於基本工資（無70%的規定）。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 77 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞動檢查異議處理</span>
+        <div class="question">77. 依勞動檢查法施行細則規定，事業單位如不服勞動檢查結果，應於勞動檢查結果通知書送達之次日起 10 日內，以書面敘明理由向勞動檢查機構提出？</div>
+        <div class="options">
+            <div class="option">①申訴</div>
+            <div class="option">②陳情</div>
+            <div class="option">③抗議</div>
+            <div class="option">④異議</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《勞動檢查法施行細則》第21條規定，事業單位對勞動檢查機構所發之檢查結果通知書有不服時，應於通知書送達之次日起十日內，以書面敘明理由向勞動檢查機構提出「異議」。這是法定的行政救濟與陳述程序。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 申訴：通常為勞工向主管機關提出雇主違法之動作。</li>
+                    <li class="wrong-opt">② 陳情：為一般人民對行政機關的意見表達。</li>
+                    <li class="wrong-opt">③ 抗議：非正式的法律用語。</li>
+                    <li class="correct-opt">④ 異議：正確，為事業單位對檢查結果不服之法定用詞。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 78 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞工訴訟扶助</span>
+        <div class="question">78. 工作者若因雇主違反職業安全衛生法規定而發生職業災害、疑似罹患職業病或身體、精神遭受不法侵害所提起之訴訟，得向勞動部委託之民間團體提出下列何者？</div>
+        <div class="options">
+            <div class="option">①災害理賠</div>
+            <div class="option">②申請扶助</div>
+            <div class="option">③精神補償</div>
+            <div class="option">④國家賠償</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《職業安全衛生法》第50條規定，為保障弱勢勞工權益，勞工因雇主違反職安法規導致發生職業災害、罹患職業病或遭受職場不法侵害，進而依法提起訴訟時，主管機關得委託民間團體提供勞工訴訟及必要生活費用之「扶助」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 災害理賠：為保險公司或職災保險的業務。</li>
+                    <li class="correct-opt">② 申請扶助：正確，指法律訴訟與生活費用的扶助。</li>
+                    <li class="wrong-opt">③ 精神補償：訴訟中可向雇主請求的賠償，非向民間團體申請的項目。</li>
+                    <li class="wrong-opt">④ 國家賠償：當公務員違法執行職務侵害人民權利時方可提出。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 79 -->
+    <div class="card">
+        <span class="theme-badge">主題：加班費核給規定</span>
+        <div class="question">79. 計算平日加班費須按平日每小時工資額加給計算，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①前 2 小時至少加給 1/3 倍</div>
+            <div class="option">②超過 2 小時部分至少加給 2/3 倍</div>
+            <div class="option">③經勞資協商同意後，一律加給 0.5 倍</div>
+            <div class="option">④未經雇主同意給加班費者，一律補休</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《勞動基準法》第24條規定，延長工時（加班）在2小時以內者，按平日每小時工資額加給三分之一以上；再延長工作時間在2小時以內者，按平日每小時工資額加給三分之二以上。加班費換取補休必須經過「勞工個人同意」，雇主絕對不可單方面規定「一律補休」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 前 2 小時至少加給 1/3 倍：為勞基法正確敘述。</li>
+                    <li class="wrong-opt">② 超過 2 小時部分至少加給 2/3 倍：為勞基法正確敘述。</li>
+                    <li class="wrong-opt">③ 經勞資協商同意後，一律加給 0.5 倍：雖法規並無此「一律0.5倍」之彈性（且0.5大於1/3但小於2/3可能觸法），但在考題官方認定中，選項④為最明顯違背補休需勞工同意原則的標準錯誤答案。</li>
+                    <li class="correct-opt">④ 未經雇主同意給加班費者，一律補休：敘述錯誤，加班轉補休需勞工主動同意，雇主不得片面強制一律補休，故選此項。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 80 -->
+    <div class="card">
+        <span class="theme-badge">主題：危險性工作場所</span>
+        <div class="question">80. 下列工作場所何者非屬勞動檢查法所定之危險性工作場所？</div>
+        <div class="options">
+            <div class="option">①農藥製造</div>
+            <div class="option">②金屬表面處理</div>
+            <div class="option">③火藥類製造</div>
+            <div class="option">④從事石油裂解之石化工業 之工作場所。</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《勞動檢查法》第26條規定，所謂的危險性工作場所（分為甲、乙、丙、丁類）包含了：從事石油裂解之石化工業、農藥製造、火藥類製造、爆竹煙火製造、以及高壓氣體製造等極易發生重大爆炸或大範圍毒害之場所。「金屬表面處理」雖有化學危害，但未被列入此特定之高危險性工作場所名單中。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 農藥製造：屬甲類危險性工作場所。</li>
+                    <li class="correct-opt">② 金屬表面處理：正確，非屬勞檢法特指之危險性工作場所。</li>
+                    <li class="wrong-opt">③ 火藥類製造：屬甲類危險性工作場所。</li>
+                    <li class="wrong-opt">④ 從事石油裂解之石化工業 之工作場所：屬甲類危險性工作場所。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 81 -->
+    <div class="card">
+        <span class="theme-badge">主題：電氣安全與感電預防</span>
+        <div class="question">81. 依職業安全衛生設施規則規定，有關電氣安全，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①110 伏特之電壓不致造成人員死亡</div>
+            <div class="option">②電氣室應禁止非工作人員進入</div>
+            <div class="option">③不可以濕手操作電氣開關，且切斷開關應迅速</div>
+            <div class="option">④220 伏特為低壓電</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>感電（觸電）是否致死，取決於通過人體的「電流大小」及「流經路徑」（例如流經心臟）。一般而言，只要幾十毫安培（mA）的電流就足以造成心室纖維顫動而致死。當人體潮濕時電阻極低，110伏特的家用交流電絕對足以產生致命電流，因此「110V不會致死」是非常危險且錯誤的觀念。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 110 伏特之電壓不致造成人員死亡：敘述嚴重錯誤，110V仍可致命，故選此項。</li>
+                    <li class="wrong-opt">② 電氣室應禁止非工作人員進入：敘述正確，防止外人誤觸感電。</li>
+                    <li class="wrong-opt">③ 不可以濕手操作電氣開關，且切斷開關應迅速：敘述正確，濕手會降低電阻，迅速切斷可減少電弧產生。</li>
+                    <li class="wrong-opt">④ 220 伏特為低壓電：敘述正確，法規定義交流電600V以下皆屬低壓。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 82 -->
+    <div class="card">
+        <span class="theme-badge">主題：機械設備分類</span>
+        <div class="question">82. 依職業安全衛生設施規則規定，下列何者非屬於車輛系營建機械？</div>
+        <div class="options">
+            <div class="option">①平土機</div>
+            <div class="option">②堆高機</div>
+            <div class="option">③推土機</div>
+            <div class="option">④鏟土機</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《職業安全衛生設施規則》定義，「車輛系營建機械」係指具有原動機並可自行行駛，用於土木、建築等工程之機械，如推土機、平土機、鏟土機、挖土機等。而「堆高機」的設計用途是貨物的裝卸與堆疊，分類上屬於「車輛系物料搬運機」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 平土機：屬於車輛系營建機械。</li>
+                    <li class="correct-opt">② 堆高機：正確，分類為車輛系物料搬運機，非營建機械。</li>
+                    <li class="wrong-opt">③ 推土機：屬於車輛系營建機械。</li>
+                    <li class="wrong-opt">④ 鏟土機：屬於車輛系營建機械。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 83 -->
+    <div class="card">
+        <span class="theme-badge">主題：職業災害通報規定</span>
+        <div class="question">83. 下列何者非為事業單位勞動場所發生職業災害者，雇主應於 8 小時內通報勞動檢查機構？</div>
+        <div class="options">
+            <div class="option">①發生死亡災害</div>
+            <div class="option">②勞工受傷無須住院治療</div>
+            <div class="option">③發生災害之罹災人數在 3 人以上</div>
+            <div class="option">④發生災害之罹災人數在 1 人以上，且需住院治療</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《職業安全衛生法》第37條第2項規定，事業單位發生下列重大職業災害時，雇主應於八小時內通報檢查機構：1.死亡災害。2.發生災害之罹災人數在三人以上。3.發生災害之罹災人數在一人以上，且需住院治療。輕微受傷「無須住院」者不在此八小時強制通報之列。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 發生死亡災害：屬必須通報之重大職災。</li>
+                    <li class="correct-opt">② 勞工受傷無須住院治療：正確，輕傷未住院不須八小時內依法通報。</li>
+                    <li class="wrong-opt">③ 發生災害之罹災人數在 3 人以上：屬必須通報之重大職災。</li>
+                    <li class="wrong-opt">④ 發生災害之罹災人數在 1 人以上，且需住院治療：屬必須通報之重大職災。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 84 -->
+    <div class="card">
+        <span class="theme-badge">主題：自動檢查種類</span>
+        <div class="question">84. 依職業安全衛生管理辦法規定，下列何者非屬「自動檢查」之內容？</div>
+        <div class="options">
+            <div class="option">①機械之定期檢查</div>
+            <div class="option">②機械、設備之重點檢查</div>
+            <div class="option">③機械、設備之作業檢點</div>
+            <div class="option">④勞工健康檢查</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>《職業安全衛生管理辦法》中所指的「自動檢查」，是指雇主應針對廠內的硬體與作業環境主動進行定期檢查、重點檢查、作業檢點，以確保設備安全無虞。而「勞工健康檢查」是對「人員」進行的醫學監測，屬於勞工健康保護範疇，不包含在硬體的「自動檢查」定義內。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 機械之定期檢查：屬於自動檢查。</li>
+                    <li class="wrong-opt">② 機械、設備之重點檢查：屬於自動檢查。</li>
+                    <li class="wrong-opt">③ 機械、設備之作業檢點：屬於自動檢查（如每日開機前檢查）。</li>
+                    <li class="correct-opt">④ 勞工健康檢查：正確，屬人員健康管理，非設備自動檢查。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 85 -->
+    <div class="card">
+        <span class="theme-badge">主題：機械捲夾防護</span>
+        <div class="question">85. 下列何者係針對於機械操作點的捲夾危害特性可以採用之防護裝置？</div>
+        <div class="options">
+            <div class="option">①設置護圍、護罩</div>
+            <div class="option">②穿戴棉紗手套</div>
+            <div class="option">③穿戴防護衣</div>
+            <div class="option">④強化教育訓練</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>防範機械操作點（如齒輪咬合處、傳動皮帶、切削刃等）發生的捲入或夾傷危害，最優先且最有效的防護層級是工程控制。設置堅固的實體「護圍」或「護罩」，能將人體與危險活動部件完全隔離，防止肢體誤入。旋轉機械不僅不能戴棉紗手套，戴了反而更危險。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 設置護圍、護罩：正確，為防範捲夾的最佳工程防護。</li>
+                    <li class="wrong-opt">② 穿戴棉紗手套：嚴重錯誤，棉手套極易被捲入旋轉機械中導致斷肢。</li>
+                    <li class="wrong-opt">③ 穿戴防護衣：防護衣無法阻擋強大機械動力的捲夾危害。</li>
+                    <li class="wrong-opt">④ 強化教育訓練：屬於行政管理，無法取代實體防護裝置。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 86 -->
+    <div class="card">
+        <span class="theme-badge">主題：起重吊掛災害原因</span>
+        <div class="question">86. 下列何者非屬從事起重吊掛作業導致物體飛落災害之可能原因？</div>
+        <div class="options">
+            <div class="option">①吊鉤未設防滑舌片致吊掛鋼索鬆脫</div>
+            <div class="option">②鋼索斷裂</div>
+            <div class="option">③超過額定荷重作業</div>
+            <div class="option">④過捲揚警報裝置過度靈敏</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>物體飛落通常是因為吊掛不牢（無防滑舌片）、設備損壞（鋼索斷裂）或人為違規（超載導致設備崩壞）引起。「過捲揚預防裝置」是防止吊鉤過度上升撞壞滑輪組的安全防護機制。如果該裝置過度靈敏，只會導致起重機提早煞車停止運作，並不會造成物體飛落的危險。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 吊鉤未設防滑舌片...：吊索易脫落，為主因。</li>
+                    <li class="wrong-opt">② 鋼索斷裂：重物會直接掉落，為主因。</li>
+                    <li class="wrong-opt">③ 超過額定荷重作業：易導致吊具斷裂飛落，為主因。</li>
+                    <li class="correct-opt">④ 過捲揚警報裝置過度靈敏：正確，此為安全裝置，靈敏度過高只會讓設備提早停止，不會導致飛落。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 87 -->
+    <div class="card">
+        <span class="theme-badge">主題：災害原因分析</span>
+        <div class="question">87. 勞工不遵守安全衛生工作守則規定，屬於下列何者？</div>
+        <div class="options">
+            <div class="option">①不安全設備</div>
+            <div class="option">②不安全行為</div>
+            <div class="option">③不安全環境</div>
+            <div class="option">④管理缺陷</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在勞工安全分析（如海因里希骨牌理論）中，導致職業災害的直接原因分為兩大類：「不安全狀況」（物或環境的瑕疵）與「不安全行為」（人的錯誤動作）。勞工違反規定、便宜行事、不戴防護具等，純粹是由「人員」自主操作所產生的失誤，歸類為「不安全行為」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 不安全設備：指機器無護罩、漏電等硬體問題。</li>
+                    <li class="correct-opt">② 不安全行為：正確，人員違規屬人為的不安全動作。</li>
+                    <li class="wrong-opt">③ 不安全環境：指光線昏暗、通風不良等環境問題。</li>
+                    <li class="wrong-opt">④ 管理缺陷：為間接的潛在原因（如教育訓練不足），但違規當下的直接表現是行為。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 88 -->
+    <div class="card">
+        <span class="theme-badge">主題：局限空間作業安全</span>
+        <div class="question">88. 下列何者不屬於局限空間內作業場所應採取之缺氧、中毒等危害預防措施？</div>
+        <div class="options">
+            <div class="option">①實施通風換氣</div>
+            <div class="option">②進入作業許可程序</div>
+            <div class="option">③使用柴油內燃機發電提供照明</div>
+            <div class="option">④測定氧氣、危險物、有害物濃度</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>局限空間（如地下管道、儲槽）原本就通風不良。如果在內部使用「柴油內燃機（發電機）」，引擎燃燒會迅速消耗氧氣，並排出致命的高濃度一氧化碳與廢氣，極短時間內就會導致勞工中毒甚至死亡。局限空間內的照明應使用安全之低壓防爆型電燈。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 實施通風換氣：正確防護，稀釋毒氣補充氧氣。</li>
+                    <li class="wrong-opt">② 進入作業許可程序：正確防護，確認環境安全後才放行。</li>
+                    <li class="correct-opt">③ 使用柴油內燃機發電提供照明：嚴重錯誤，會排放致命廢氣引發中毒，絕不可做。</li>
+                    <li class="wrong-opt">④ 測定氧氣、危險物、有害物濃度：正確防護，入內前必做的氣體監測。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 89 -->
+    <div class="card">
+        <span class="theme-badge">主題：通風換氣目的</span>
+        <div class="question">89. 下列何者非通風換氣之目的？</div>
+        <div class="options">
+            <div class="option">①防止游離輻射</div>
+            <div class="option">②防止火災爆炸</div>
+            <div class="option">③稀釋空氣中有害物</div>
+            <div class="option">④補充新鮮空氣</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>通風換氣是利用空氣流動來帶走氣體、蒸氣或粉塵。這可以稀釋毒氣、補充氧氣並防止可燃氣體累積而發生爆炸。但是，「游離輻射」（如X射線、伽馬射線）是高能量的電磁波或粒子，不受空氣流動影響，必須使用實體高密度材料（如鉛板、厚混凝土）進行「屏蔽」才能防護，通風換氣對防護輻射毫無作用。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 防止游離輻射：正確（非屬目的），輻射需要屏蔽而非通風。</li>
+                    <li class="wrong-opt">② 防止火災爆炸：通風可吹散可燃氣體，達防爆目的。</li>
+                    <li class="wrong-opt">③ 稀釋空氣中有害物：通風之主要目的之一。</li>
+                    <li class="wrong-opt">④ 補充新鮮空氣：通風之主要目的之一。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 90 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞工健康檢查規定</span>
+        <div class="question">90. 已在職之勞工，首次從事特別危害健康作業，應實施下列何種檢查？</div>
+        <div class="options">
+            <div class="option">①一般體格檢查</div>
+            <div class="option">②特殊體格檢查</div>
+            <div class="option">③一般體格檢查及特殊健康檢查</div>
+            <div class="option">④特殊健康檢查</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《勞工健康保護規則》規定，雇主對於「在職勞工」變更工作，首次從事噪音、粉塵、游離輻射等「特別危害健康作業」時，應於其開始從事作業前實施「特殊健康檢查」。這份檢查將作為該勞工暴露於該危害因子前的健康基準資料（Baseline），以便未來追蹤比較。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 一般體格檢查：為新進員工報到時實施。</li>
+                    <li class="wrong-opt">② 特殊體格檢查：針對新進即從事特殊作業者。</li>
+                    <li class="wrong-opt">③ 一般體格檢查及特殊健康檢查：錯誤組合。</li>
+                    <li class="correct-opt">④ 特殊健康檢查：正確，已在職勞工首次接觸特殊危害需做此項基準檢查。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 91 -->
+    <div class="card">
+        <span class="theme-badge">主題：噪音危害預防</span>
+        <div class="question">91. 依職業安全衛生設施規則規定，噪音超過多少分貝之工作場所，應標示並公告噪音危害之預防事項，使勞工周知？</div>
+        <div class="options">
+            <div class="option">①75 分貝</div>
+            <div class="option">②80 分貝</div>
+            <div class="option">③85 分貝</div>
+            <div class="option">④90 分貝</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《職業安全衛生設施規則》第300條規定，工作場所噪音超過「九十分貝（90 dB(A)）」時，雇主除了必須提供耳塞、耳罩等防音防護具，且應強迫勞工確實戴用外，還必須在現場「標示並公告噪音危害之預防事項」，以提醒現場所有勞工注意防護。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 75 分貝：錯誤。</li>
+                    <li class="wrong-opt">② 80 分貝：錯誤。</li>
+                    <li class="wrong-opt">③ 85 分貝：達到85分貝即應啟動聽力保護計畫，但法規明定強制標示公告門檻為90分貝。</li>
+                    <li class="correct-opt">④ 90 分貝：正確，為法定必須標示與公告防護事項之音量門檻。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 92 -->
+    <div class="card">
+        <span class="theme-badge">主題：工作安全分析(JSA)</span>
+        <div class="question">92. 下列何者非屬工作安全分析的目的？</div>
+        <div class="options">
+            <div class="option">①發現並杜絕工作危害</div>
+            <div class="option">②確立工作安全所需工具與設備</div>
+            <div class="option">③懲罰犯錯的員工</div>
+            <div class="option">④作為員工在職訓練的參考</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>工作安全分析（Job Safety Analysis, JSA）的核心精神是「事前預防」。藉由將工作拆解成幾個步驟，分析潛在危險並制定安全對策與工具，最後將其編為安全作業標準供訓練使用。整個職安衛管理的出發點在於保護勞工與改善環境，絕對不是為了找代罪羔羊或「懲罰犯錯的員工」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 發現並杜絕工作危害：為JSA主要目的。</li>
+                    <li class="wrong-opt">② 確立工作安全所需工具與設備：為JSA分析後之產出目的。</li>
+                    <li class="correct-opt">③ 懲罰犯錯的員工：正確（非屬目的），安衛管理旨在預防而非懲罰。</li>
+                    <li class="wrong-opt">④ 作為員工在職訓練的參考：為JSA延伸之重要應用。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 93 -->
+    <div class="card">
+        <span class="theme-badge">主題：勞工健康管理</span>
+        <div class="question">93. 可能對勞工之心理或精神狀況造成負面影響的狀態，如異常工作壓力、超時工作、語言脅迫或恐嚇等，可歸屬於下列何者管理不當？</div>
+        <div class="options">
+            <div class="option">①職業安全</div>
+            <div class="option">②職業衛生</div>
+            <div class="option">③勞工健康</div>
+            <div class="option">④環保</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>現代職安衛法規中（如職安法第6條第2項），特別強調預防異常工作負荷促發疾病（過勞）以及預防職場不法侵害（霸凌、恐嚇）。這些因素直接傷害的是勞工的「心理、精神與生理機能」，因此分類上歸屬於「勞工健康」保護管理的範疇。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 職業安全：偏向預防機械捲夾、墜落、火災等硬體物理性災害。</li>
+                    <li class="wrong-opt">② 職業衛生：偏向處理通風、毒物粉塵、噪音等環境危害因素。</li>
+                    <li class="correct-opt">③ 勞工健康：正確，身心壓力、過勞與暴力侵害防護屬勞工健康管理。</li>
+                    <li class="wrong-opt">④ 環保：處理對廠區外自然環境的影響。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 94 -->
+    <div class="card">
+        <span class="theme-badge">主題：母性健康保護</span>
+        <div class="question">94. 有關女性工作者妊娠期間宜避免作業之敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①避免砷或鉛之暴露</div>
+            <div class="option">②避免每班站立 7 小時以上之作業</div>
+            <div class="option">③避免提舉 1 公斤重物之職務</div>
+            <div class="option">④避免重體力勞動之職務</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《女性勞工母性健康保護實施辦法》，為保護孕婦與胎兒，應避免從事會造成生殖毒性化學品暴露（如鉛）、重體力勞動，或極度消耗體力的不良姿勢（如長時間連續站立）。但是，「提舉1公斤」的物品重量極輕，如同拿起一瓶水，屬日常活動範圍，並無危害，法規不會要求連1公斤的提舉都必須禁止。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 避免砷或鉛之暴露：會導致胎兒畸形，必須避免。</li>
+                    <li class="wrong-opt">② 避免每班站立 7 小時以上之作業：易致早產或靜脈曲張，必須避免。</li>
+                    <li class="correct-opt">③ 避免提舉 1 公斤重物之職務：敘述錯誤，1公斤極輕微，無須刻意避免。</li>
+                    <li class="wrong-opt">④ 避免重體力勞動之職務：易致流產，必須避免。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 95 -->
+    <div class="card">
+        <span class="theme-badge">主題：熱危害症狀</span>
+        <div class="question">95. 熱中暑時，易發生下列何現象？</div>
+        <div class="options">
+            <div class="option">①體溫下降</div>
+            <div class="option">②體溫正常</div>
+            <div class="option">③體溫上升</div>
+            <div class="option">④體溫忽高忽低</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>熱中暑（Heat Stroke）是熱危害中最致命的一種。當人體處於高溫環境，體溫調節中樞因不堪負荷而「當機」，身體停止出汗完全無法散熱，導致核心「體溫急遽上升」（常飆破40°C以上）。此時若不立即降溫急救，將造成腦部及多重器官衰竭。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 體溫下降：失溫症才會出現。</li>
+                    <li class="wrong-opt">② 體溫正常：熱痙攣或較輕微熱衰竭時體溫可能近乎正常，但中暑必然異常。</li>
+                    <li class="correct-opt">③ 體溫上升：正確，熱中暑典型特徵為高熱無汗，體溫飆升。</li>
+                    <li class="wrong-opt">④ 體溫忽高忽低：中暑是持續性體溫危險飆高。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 96 -->
+    <div class="card">
+        <span class="theme-badge">主題：電氣安全異常狀態</span>
+        <div class="question">96. 下列何者不會使電路發生過電流？</div>
+        <div class="options">
+            <div class="option">①電氣設備過載</div>
+            <div class="option">②電路短路</div>
+            <div class="option">③電路漏電</div>
+            <div class="option">④電路斷路</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>過電流是指電路中流過了超過設計安全上限的異常大電流。「斷路（Open Circuit）」指的是電路因為開關關閉、導線斷裂或保險絲燒毀而被切斷，這時電阻無限大，根本沒有電流通過（電流為零），因此絕對不會引發「過電流」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 電氣設備過載：使用過多電器，會產生過電流。</li>
+                    <li class="wrong-opt">② 電路短路：火線與地/中性線直接接觸，產生極大瞬間過電流。</li>
+                    <li class="wrong-opt">③ 電路漏電：電流未循正常路徑流回，可能造成局部過電流發熱。</li>
+                    <li class="correct-opt">④ 電路斷路：正確，斷路時無電流通過，不會發生過電流。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 97 -->
+    <div class="card">
+        <span class="theme-badge">主題：職場尊嚴與不法侵害預防</span>
+        <div class="question">97. 下列何者較屬安全、尊嚴的職場組織文化？</div>
+        <div class="options">
+            <div class="option">①不斷責備勞工</div>
+            <div class="option">②公開在眾人面前長時間責罵勞工</div>
+            <div class="option">③強求勞工執行業務上明顯不必要或不可能之工作</div>
+            <div class="option">④不介入勞工私人事宜</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>健康且具尊嚴的職場文化，建立在勞資雙方與同事間的互相尊重之上。不斷責備、公開辱罵、或強求勞工執行不可能之任務，皆已構成精神層面的職場霸凌（不法侵害）。而「不介入勞工私人事宜」展現了對員工個人隱私的尊重，為健康職場文化之基礎。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 不斷責備勞工：屬精神暴力或霸凌。</li>
+                    <li class="wrong-opt">② 公開在眾人面前長時間責罵勞工：嚴重損害名譽與尊嚴，屬不法侵害。</li>
+                    <li class="wrong-opt">③ 強求勞工執行業務上明顯不必要或不可能之工作：屬刁難與職場霸凌。</li>
+                    <li class="correct-opt">④ 不介入勞工私人事宜：正確，尊重隱私為尊嚴職場的表現。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 98 -->
+    <div class="card">
+        <span class="theme-badge">主題：母性健康保護法規</span>
+        <div class="question">98. 下列何者與職場母性健康保護較不相關？</div>
+        <div class="options">
+            <div class="option">①職業安全衛生法</div>
+            <div class="option">②妊娠與分娩後女性及未滿十八歲勞工禁止從事危險性或有害性工作認定標準</div>
+            <div class="option">③性別平等工作法</div>
+            <div class="option">④動力堆高機型式驗證</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>保護母性勞工（孕婦、產婦、哺乳期女性）健康與權益的法規，包含規範有害作業防護的《職安法》及相關認定標準，以及規範產假、育嬰假及職場防性騷擾的《性別平等工作法》。而「動力堆高機型式驗證」純粹是針對機械設備本體安全的合格檢驗標準，與母性健康無直接關聯。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 職業安全衛生法：法規內有母性健康保護專章。</li>
+                    <li class="wrong-opt">② 妊娠與分娩後女性...認定標準：專為母性與未成年勞工訂定之禁忌作業標準。</li>
+                    <li class="wrong-opt">③ 性別平等工作法：保障母性休假與職場平權。</li>
+                    <li class="correct-opt">④ 動力堆高機型式驗證：正確，為機械設備檢驗標準，無涉母性保護。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 99 -->
+    <div class="card">
+        <span class="theme-badge">主題：塗裝作業防火防爆</span>
+        <div class="question">99. 油漆塗裝工程應注意防火防爆事項，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①確實通風</div>
+            <div class="option">②注意電氣火花</div>
+            <div class="option">③緊密門窗以減少溶劑擴散揮發</div>
+            <div class="option">④嚴禁煙火</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>油漆中含有大量的揮發性有機溶劑（甲苯、二甲苯等），這些氣體具備高度易燃性與易爆性。如果在塗裝時「緊密門窗」，揮發出來的可燃氣體會悶在室內不斷蓄積，一旦濃度達到爆炸下限，即使是一個靜電或開關火花都會引發劇烈爆炸。絕對必須保持「確實通風」將溶劑氣體抽散。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 確實通風：正確安全措施，能稀釋可燃氣體濃度。</li>
+                    <li class="wrong-opt">② 注意電氣火花：正確安全措施，消除潛在引火源。</li>
+                    <li class="correct-opt">③ 緊密門窗以減少溶劑擴散揮發：敘述錯誤，密閉會導致氣體蓄積引發大爆炸，極度危險。</li>
+                    <li class="wrong-opt">④ 嚴禁煙火：正確安全措施，禁絕明火。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 100 -->
+    <div class="card">
+        <span class="theme-badge">主題：危險物料儲存管理</span>
+        <div class="question">100. 依職業安全衛生設施規則規定，雇主對於物料儲存，為防止氣候變化或自然發火發生危險者，下列何者為最佳之採取措施？</div>
+        <div class="options">
+            <div class="option">①保持自然通風</div>
+            <div class="option">②密閉</div>
+            <div class="option">③與外界隔離及溫濕控制</div>
+            <div class="option">④靜置於倉儲區，避免陽光直射</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>對於黃磷、鎂等易燃物或是其他具有「自然發火（自燃）」特性的化學物料，其自燃反應極易受環境的溫濕度波動影響。依《職業安全衛生設施規則》要求，防範此類危險的最佳措施是將物料「與外界隔離」，並實施嚴密的「溫度與濕度控制」，以確保環境不會觸發自燃條件。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 保持自然通風：無法控制極端氣候帶來的高溫或高濕。</li>
+                    <li class="wrong-opt">② 密閉：密閉環境若無空調，夏天內部可能會產生高溫悶燒。</li>
+                    <li class="correct-opt">③ 與外界隔離及溫濕控制：正確，為法規明定防止自燃危險的最佳措施。</li>
+                    <li class="wrong-opt">④ 靜置於倉儲區，避免陽光直射：僅防避日照，仍無法防禦環境的高溫或濕度侵入。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>

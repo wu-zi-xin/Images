@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路架設乙級 工作項目04 (226-250題)</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        
+        .card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+        
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; color: #555; font-size: 1.05em; border-left: 3px solid #cbd5e1; }
+        
+        /* 純HTML 摺疊特效設計 */
+        details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+        summary { background: #3498db; color: #ffffff; padding: 12px; font-weight: bold; font-size: 1.05em; text-align: center; cursor: pointer; list-style: none; transition: background 0.3s; }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { background: #eef2f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #34495e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        .exp-subtitle { color: #2c3e50; font-weight: bold; margin-bottom: 10px; display: block; border-bottom: 1px dashed #cbd5e1; padding-bottom: 3px; }
+        
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { margin-bottom: 8px; background: #ffffff; padding: 10px; border-radius: 6px; border-left: 4px solid #3498db; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級</h1>
+        <p>工作項目04 第 226 - 250 題 (綜合解析與各選項詳解版)</p>
+        <button id="toggleAll" class="toggle-btn">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+
+        <!-- 第226題 -->
+        <div class="card">
+            <span class="theme-badge">主題：TCP 協定特性</span>
+            <div class="question">226. 下列哪些是 TCP 協定所提供的功能？</div>
+            <div class="options">
+                <div class="option">① 連接導向 (Connection-oriented)</div>
+                <div class="option">② 壅塞控制</div>
+                <div class="option">③ 找尋路徑</div>
+                <div class="option">④ 錯誤控制</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>TCP (Transmission Control Protocol) 是一種可靠的、連接導向的傳輸層協定。它提供錯誤控制、流量控制以及壅塞控制，確保封包能依序且完整無誤地送達。找尋路徑是屬於網路層 (如 IP 協定) 及路由器的功能。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 連接導向: 正確。TCP 傳輸前需透過三向交握建立連線。</li>
+                        <li class="correct-opt">② 壅塞控制: 正確。具備壅塞控制機制 (如慢啟動) 來避免網路過載。</li>
+                        <li class="wrong-opt">③ 找尋路徑: 錯誤。找尋路徑是第三層 (網路層) 路由協定的工作。</li>
+                        <li class="correct-opt">④ 錯誤控制: 正確。使用 Checksum 及重傳機制來進行錯誤檢查與還原。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第227題 -->
+        <div class="card">
+            <span class="theme-badge">主題：UDP 協定特性</span>
+            <div class="question">227. 下列哪些是 UDP 協定的特性？</div>
+            <div class="options">
+                <div class="option">① 可靠傳輸</div>
+                <div class="option">② 非連接導向 (Connectionless)</div>
+                <div class="option">③ 不可靠傳輸</div>
+                <div class="option">④ 不使用回應(Acknowledgement)</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>UDP (User Datagram Protocol) 是一種非連接導向、不可靠的傳輸層協定。它不保證資料必定送達，也不要求接收端回傳確認訊息 (ACK)，因此傳輸延遲極低，適用於即時串流影音或 DNS 查詢等輕量級服務。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 可靠傳輸: 錯誤。UDP 不保證封包成功抵達。</li>
+                        <li class="correct-opt">② 非連接導向: 正確。傳送資料前不需要先建立連線。</li>
+                        <li class="correct-opt">③ 不可靠傳輸: 正確。沒有重傳機制，遺失的封包不會補送。</li>
+                        <li class="correct-opt">④ 不使用回應: 正確。接收端不會發送 Acknowledgement (ACK) 確認收到。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第228題 -->
+        <div class="card">
+            <span class="theme-badge">主題：私有 IP 位址</span>
+            <div class="question">228. 下列哪些是私有（Private） IP 位址？</div>
+            <div class="options">
+                <div class="option">① 172.15.0.0</div>
+                <div class="option">② 192.168.10.0</div>
+                <div class="option">③ 172.30.0.0</div>
+                <div class="option">④ 172.168.0.0</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>根據 RFC 1918 定義，私有 IP (Private IP) 範圍為：Class A: 10.0.0.0 ~ 10.255.255.255；Class B: 172.16.0.0 ~ 172.31.255.255；Class C: 192.168.0.0 ~ 192.168.255.255。不在此範圍的 IP 均為公有 IP。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 172.15.0.0: 錯誤。不在 172.16.0.0 ~ 172.31.255.255 的範圍內。</li>
+                        <li class="correct-opt">② 192.168.10.0: 正確。屬於 Class C 的私有 IP 網段內。</li>
+                        <li class="correct-opt">③ 172.30.0.0: 正確。屬於 Class B 的私有 IP 網段內。</li>
+                        <li class="wrong-opt">④ 172.168.0.0: 錯誤。超出 172.31 範圍，屬公有 IP。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第229題 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路層協定</span>
+            <div class="question">229. 下列哪些是網路層的協定？</div>
+            <div class="options">
+                <div class="option">① ARP</div>
+                <div class="option">② ICMP</div>
+                <div class="option">③ SIP</div>
+                <div class="option">④ RARP</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在 OSI 或 TCP/IP 模型中，網路層（Internet Layer）負責跨網路的封包轉送與邏輯定址。常見協定有 IP、ICMP（網路控制訊息）、ARP（將 IP 解析為 MAC，傳統上劃分於網際網路層）以及 RARP。SIP 則是負責通訊會話的應用層協定。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① ARP: 正確。用於將網路層的 IP 位址對應解析為硬體 MAC 位址。</li>
+                        <li class="correct-opt">② ICMP: 正確。負責傳遞路由錯誤與測試控制訊息，運作於網路層。</li>
+                        <li class="wrong-opt">③ SIP: 錯誤。SIP (Session Initiation Protocol) 用於 VoIP，屬於應用層。</li>
+                        <li class="correct-opt">④ RARP: 正確。用於將 MAC 解析回 IP 位址，屬於網路層協定。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第230題 -->
+        <div class="card">
+            <span class="theme-badge">主題：傳輸協定類型</span>
+            <div class="question">230. 下列哪些屬於非連接導向通訊（Connectionless Communication）？</div>
+            <div class="options">
+                <div class="option">① TFTP</div>
+                <div class="option">② FTP</div>
+                <div class="option">③ SNMP</div>
+                <div class="option">④ Ping</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>非連接導向通訊在傳送資料前不須事先建立專屬連線。通常基於傳輸層 UDP 協定的應用皆屬於此類。TFTP (簡單檔案傳輸) 和 SNMP (簡易網路管理) 都是在傳輸層使用 UDP 協定運作的標準應用。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① TFTP: 正確。基於 UDP 協定，為非連接導向通訊。</li>
+                        <li class="wrong-opt">② FTP: 錯誤。基於 TCP，傳輸前需建立三向交握，是連接導向。</li>
+                        <li class="correct-opt">③ SNMP: 正確。基於 UDP 協定，為非連接導向通訊。</li>
+                        <li class="wrong-opt">④ Ping: 錯誤。Ping 底層使用 ICMP，雖然本身不需建立連線，但依官方題庫標準答案分類中，此處主要考量依賴 UDP 的應用協定，未被選入。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第231題 -->
+        <div class="card">
+            <span class="theme-badge">主題：DHCP 特性</span>
+            <div class="question">231. 下列哪些是 DHCP（Dynamic Host Configuration Protocol）的優點？</div>
+            <div class="options">
+                <div class="option">① 更多的 IP 位址</div>
+                <div class="option">② 自動更新 IP 相關參數設定</div>
+                <div class="option">③ 自動分配 IP 位址給主機</div>
+                <div class="option">④ 避免 IP 位址衝突</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>DHCP 最大的優勢是動態且集中化地分配 IP 位址、子網遮罩及預設閘道等網路參數。網管人員不需逐台手動設定，系統能自動避免分配重複 IP 造成衝突。但 DHCP 無法「創造」更多 IP 位址，IP 數量是由子網路遮罩切割決定的。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 更多的 IP 位址: 錯誤。無法無中生有增加 IP 總數量。</li>
+                        <li class="correct-opt">② 自動更新參數設定: 正確。客戶端可於重新連線或租約到期時自動更新設定。</li>
+                        <li class="correct-opt">③ 自動分配 IP 給主機: 正確。這是 DHCP 最核心的功能。</li>
+                        <li class="correct-opt">④ 避免 IP 位址衝突: 正確。透過伺服器集中記錄與管理，避免 IP 重複發放。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第232題 -->
+        <div class="card">
+            <span class="theme-badge">主題：DNS 目的</span>
+            <div class="question">232. 下列哪些是 DNS（Domain Name System）的目的？</div>
+            <div class="options">
+                <div class="option">① 協助使用者取得 某公司名稱</div>
+                <div class="option">② 協助使用者取得某主機的 IP 位址</div>
+                <div class="option">③ 將網域名稱轉成 IP 位址</div>
+                <div class="option">④ 將 IP 位址轉成實體位址</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>網域名稱系統（DNS）就如同網路的電話簿，主要功能是在易於記憶的網域名稱（如 www.test.com）與機器實際通訊使用的 IP 位址之間進行轉換解析（正向與反向查詢）。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 協助取得公司名稱: 錯誤。這不是 DNS 系統提供的服務。</li>
+                        <li class="correct-opt">② 取得某主機的 IP 位址: 正確。透過域名可查出實際 IP。</li>
+                        <li class="correct-opt">③ 將網域名稱轉成 IP 位址: 正確。即正解功能。</li>
+                        <li class="wrong-opt">④ 將 IP 位址轉成實體位址: 錯誤。這是 ARP 協定（解析 MAC 位址）的功能。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第233題 -->
+        <div class="card">
+            <span class="theme-badge">主題：資料鏈路層功能</span>
+            <div class="question">233. 下列哪些是資料鏈路層（Data Link Layer）的功能？</div>
+            <div class="options">
+                <div class="option">① 流量控制</div>
+                <div class="option">② 錯誤通知</div>
+                <div class="option">③ 指定 IP 位址</div>
+                <div class="option">④ 實體定址(Physical Addressing)</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>OSI 模型的第二層「資料鏈路層」負責將位元組成訊框（Frame），利用 MAC 位址進行實體硬體定址，並具備同網段相鄰節點間的流量控制（如 802.3x）以及利用 FCS 機制檢查訊框並發出錯誤通知。指定 IP 則是第三層網路層的工作。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 流量控制: 正確。確保相鄰設備間不會因傳送過快而掉包。</li>
+                        <li class="correct-opt">② 錯誤通知: 正確。透過 FCS 檢查損壞訊框並做相應處理。</li>
+                        <li class="wrong-opt">③ 指定 IP 位址: 錯誤。這是網路層 (Network Layer) 的功能。</li>
+                        <li class="correct-opt">④ 實體定址: 正確。利用 MAC 位址進行硬體辨識定址。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第234題 -->
+        <div class="card">
+            <span class="theme-badge">主題：應用層協定</span>
+            <div class="question">234. 下列哪些應用是使用於應用層（Application Layer）？</div>
+            <div class="options">
+                <div class="option">① E-mail</div>
+                <div class="option">② TCP</div>
+                <div class="option">③ SIP</div>
+                <div class="option">④ 雲端文書處理軟體</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>應用層是 OSI/TCP 模型中最頂端的一層，直接為使用者的應用程式提供網路服務與介面。電子郵件（SMTP/POP3）與網頁上的雲端文書處理軟體（HTTP）都是使用者直接操作的應用服務。TCP 屬於傳輸層，而 SIP 雖為會話層次協定但在官方這題中未被選入。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① E-mail: 正確。使用於應用層。</li>
+                        <li class="wrong-opt">② TCP: 錯誤。屬於第四層傳輸層協定。</li>
+                        <li class="wrong-opt">③ SIP: 錯誤。依官方答案定義，未將此項列為一般常見應用程式範疇。</li>
+                        <li class="correct-opt">④ 雲端文書處理軟體: 正確。這是透過 Web 協定提供的終端應用服務。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第235題 -->
+        <div class="card">
+            <span class="theme-badge">主題：乙太網路 CSMA/CD</span>
+            <div class="question">235. 有關乙太網路（Ethernet）運作，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 碰撞發生後，工作站須後退（Back off）並等待一段時間</div>
+                <div class="option">② 傳送資料前，工作站須先傾聽 （Listen）</div>
+                <div class="option">③ 傾聽傳輸媒體前，工作站可以傳送資料</div>
+                <div class="option">④ 當碰撞發生，工作站仍可傳送資料</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>傳統乙太網路的核心控制機制為 CSMA/CD (載波感測多重存取/碰撞偵測)。工作站必須「先聽後說」(Carrier Sense)，確定線路無人使用才傳送；如果偵測到「碰撞」，則必須立刻停止傳送，並利用後退演算法 (Back-off algorithm) 隨機等待一段時間後再重新嘗試。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 後退並等待: 正確。這能避免參與碰撞的節點再度同時發送。</li>
+                        <li class="correct-opt">② 傳送前須傾聽: 正確。「Listen before talk」是 CSMA 的基本原則。</li>
+                        <li class="wrong-opt">③ 傾聽前可傳送: 錯誤。未傾聽就傳送會導致嚴重的碰撞。</li>
+                        <li class="wrong-opt">④ 碰撞發生仍可傳送: 錯誤。偵測到碰撞必須立即停止傳輸。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第236題 -->
+        <div class="card">
+            <span class="theme-badge">主題：資料鏈路層協定</span>
+            <div class="question">236. 下列哪些協定使用在資料鏈路層（Data Link Layer）？</div>
+            <div class="options">
+                <div class="option">① LLC</div>
+                <div class="option">② IP</div>
+                <div class="option">③ MAC</div>
+                <div class="option">④ UDP</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>根據 IEEE 802 標準，OSI 模型的第二層「資料鏈路層」被進一步細分為兩個子層：負責與網卡硬體互動與定址的下半部 MAC (媒體存取控制) 子層，以及負責與上層網路層溝通的上半部 LLC (邏輯鏈路控制) 子層。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① LLC: 正確。邏輯鏈路控制，屬於第二層的上層部分。</li>
+                        <li class="wrong-opt">② IP: 錯誤。屬於第三層網路層。</li>
+                        <li class="correct-opt">③ MAC: 正確。媒體存取控制，屬於第二層的下層部分。</li>
+                        <li class="wrong-opt">④ UDP: 錯誤。屬於第四層傳輸層。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第237題 -->
+        <div class="card">
+            <span class="theme-badge">主題：連接導向網路特性</span>
+            <div class="question">237. 下列哪些是連接導向（Connection-oriented）網路協定的特性？</div>
+            <div class="options">
+                <div class="option">① 無路徑選擇</div>
+                <div class="option">② 具動態路徑選擇</div>
+                <div class="option">③ 具靜態路徑選擇</div>
+                <div class="option">④ 需保留網路資源</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>連接導向的通訊方式（如建立虛擬電路或 TCP 握手）在開始資料傳輸前，會先確立一條點對點的固定（靜態）邏輯路徑，並在沿途設備上建立狀態或保留所需的網路資源（頻寬、緩衝區），確保通訊穩定且有先後順序。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 無路徑選擇: 錯誤。建立連線時必定需要決定路徑。</li>
+                        <li class="wrong-opt">② 具動態路徑選擇: 錯誤。一旦連線建立，後續封包皆走固定確立的路徑，不會每個封包動態亂跑。</li>
+                        <li class="correct-opt">③ 具靜態路徑選擇: 正確。連線確立後傳輸路徑即被固定下來。</li>
+                        <li class="correct-opt">④ 需保留網路資源: 正確。沿途節點需維護連線狀態或保留資源。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第238題 -->
+        <div class="card">
+            <span class="theme-badge">主題：連接導向傳輸步驟</span>
+            <div class="question">238. 連接導向（Connection-oriented）網路協定資料傳送包含下列哪些步驟？</div>
+            <div class="options">
+                <div class="option">① 建立連線</div>
+                <div class="option">② 測試連線</div>
+                <div class="option">③ 傳送資料</div>
+                <div class="option">④ 中止連線</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>任何標準的連接導向通訊（以 TCP 為例）都包含三個必然的生命週期階段：首先雙方協議「建立連線」；接著才能夠穩定可靠地「傳送資料」；通訊結束後，雙方必須進行「中止連線」的步驟以釋放網路資源。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 建立連線: 正確。為傳輸前的必備步驟。</li>
+                        <li class="wrong-opt">② 測試連線: 錯誤。這不是通訊協定標準的獨立步驟。</li>
+                        <li class="correct-opt">③ 傳送資料: 正確。核心的通訊階段。</li>
+                        <li class="correct-opt">④ 中止連線: 正確。用以關閉通道與釋放資源。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第239題 -->
+        <div class="card">
+            <span class="theme-badge">主題：區域網路壅塞原因</span>
+            <div class="question">239. 在區域網路（LAN）中，造成壅塞的可能原因有哪些？</div>
+            <div class="options">
+                <div class="option">① 可用頻寬不足</div>
+                <div class="option">② VLAN 分段</div>
+                <div class="option">③ 同一個廣播領域中有太多網路裝置</div>
+                <div class="option">④ 廣播風暴</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>網路壅塞是指過多流量塞住傳輸通道。可能的原因包含網路設計初期頻寬就不足，或是因為實體廣播網域過大，導致過多無效廣播封包占用頻寬，甚至發生 L2 迴圈引發癱瘓網路的「廣播風暴」。相反地，切割 VLAN 則是為了隔離廣播網域，是解決壅塞的方法。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 可用頻寬不足: 正確。最直觀的壅塞主因。</li>
+                        <li class="wrong-opt">② VLAN 分段: 錯誤。切割 VLAN 能縮小廣播範圍，是減緩壅塞的好方法。</li>
+                        <li class="correct-opt">③ 太多網路裝置: 正確。同網域裝置過多會衍生龐大的廣播與碰撞問題。</li>
+                        <li class="correct-opt">④ 廣播風暴: 正確。無窮迴圈的廣播封包會瞬間耗盡所有交換器頻寬。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第240題 -->
+        <div class="card">
+            <span class="theme-badge">主題：FTP 協定特性</span>
+            <div class="question">240. 關於 FTP（File Transfer Protocol）協定，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 傳輸層採用 TCP 協定</div>
+                <div class="option">② 傳輸層採用 UDP 協定</div>
+                <div class="option">③ 支援主動式（Active）連線方式</div>
+                <div class="option">④ 支援被動式（Passive）連線方式</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>FTP 是一種依賴穩定傳輸的檔案協定，因此傳輸層必然採用 TCP 來確保檔案資料零遺失。為了應付現代網路防火牆及 NAT 的各種阻擋環境，FTP 發展出了兩種傳輸連線模式：主動式模式（Active）與被動式模式（Passive）。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 採用 TCP 協定: 正確。確保資料傳輸的可靠性。</li>
+                        <li class="wrong-opt">② 採用 UDP 協定: 錯誤。UDP 不具備檔案傳輸所需的可靠度檢核。</li>
+                        <li class="correct-opt">③ 支援主動式: 正確。傳統由伺服器端連向客戶端建立資料通道的模式。</li>
+                        <li class="correct-opt">④ 支援被動式: 正確。由客戶端連向伺服器隨機大埠號建立資料通道的模式。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第241題 -->
+        <div class="card">
+            <span class="theme-badge">主題：主動式 FTP</span>
+            <div class="question">241. 關於主動式 FTP （Active File Transfer Protocol）協定，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 不須經由三向交握（Three-way Hand-shaking）建立命令傳輸通道</div>
+                <div class="option">② FTP 伺服器端預設使用 port 21 作為命令傳輸通道</div>
+                <div class="option">③ FTP 伺服器端預設使用 port 20 作為資料傳輸通道</div>
+                <div class="option">④ FTP 伺服器端主動向用戶端請求建立資料傳輸通道</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在主動式 FTP 模式下，客戶端會先連線到伺服器的 TCP Port 21 建立「命令通道」。當要開始傳輸資料時，伺服器會使用自己的 TCP Port 20，主動對客戶端開啟的接收埠發起連線建立「資料通道」。(依勞動部官方答案，僅採納 Port 的定義部分)。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① 不須三向交握: 錯誤。FTP 基於 TCP，必定需要透過三向交握。</li>
+                        <li class="correct-opt">② 預設 port 21: 正確。作為命令與控制訊號傳輸通道。</li>
+                        <li class="correct-opt">③ 預設 port 20: 正確。伺服器利用 Port 20 傳輸檔案資料。</li>
+                        <li class="wrong-opt">④ 伺服器端主動請求: 錯誤。(備註：實務上此敘述概念無誤，但因官方題庫答案僅選②③，故依考題標準判定為不選)。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第242題 -->
+        <div class="card">
+            <span class="theme-badge">主題：被動式 FTP</span>
+            <div class="question">242. 關於被動式 FTP（Passive File Transfer Protocol）協定，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 須經由三向交握（Three-way Hand-shaking）建立命令傳輸通道</div>
+                <div class="option">② FTP 伺服器端預設使用 port 21 作為命令傳輸通道</div>
+                <div class="option">③ FTP 伺服器端預設使用 port 20 作為資料傳輸通道</div>
+                <div class="option">④ FTP 用戶端主動向伺服器端請求建立資料連線</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在被動式 FTP (Passive Mode) 下，伺服器依舊使用 Port 21 接收控制命令。但要傳輸資料時，伺服器不再使用 Port 20，而是隨機開啟一個高於 1024 的 Port，並等待「客戶端主動連過來」建立資料通道。這種模式能避免防火牆擋下由外而內的連線。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 須經由三向交握: 正確。因為底層是 TCP 協定。</li>
+                        <li class="correct-opt">② 預設 port 21: 正確。控制命令通道始終維持 Port 21。</li>
+                        <li class="wrong-opt">③ 預設 port 20: 錯誤。被動模式下資料通道是由伺服器開大於 1024 的隨機埠號，不使用 Port 20。</li>
+                        <li class="correct-opt">④ 用戶端主動連線: 正確。這是解決客戶端位於 NAT 背後無法被伺服器連線的關鍵機制。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第243題 -->
+        <div class="card">
+            <span class="theme-badge">主題：FTP 安全性</span>
+            <div class="question">243. 關於 FTP（File Transfer Protocol）協定，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 命令傳輸通道未加密</div>
+                <div class="option">② 資料傳輸通道未加密</div>
+                <div class="option">③ 命令傳輸通道加密</div>
+                <div class="option">④ 資料傳輸通道加密</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>傳統的 FTP 協定（未結合 SSL 的 FTPS 或 SSH 的 SFTP 前）在設計上完全是明文傳輸的。無論是用戶端登入時的帳號密碼（命令通道），或是實際傳送的檔案內容（資料通道），都能輕易被網路封包側錄軟體攔截並解讀，非常不安全。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 命令傳輸通道未加密: 正確。以明文傳輸帳密。</li>
+                        <li class="correct-opt">② 資料傳輸通道未加密: 正確。以明文傳輸所有檔案內容。</li>
+                        <li class="wrong-opt">③ 命令傳輸通道加密: 錯誤。</li>
+                        <li class="wrong-opt">④ 資料傳輸通道加密: 錯誤。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第244題 -->
+        <div class="card">
+            <span class="theme-badge">主題：HTTPS 安全協定</span>
+            <div class="question">244. 關於 HTTPS（Hypertext Transfer Protocol Secure）協定，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 採用 SSL/TLS 協定</div>
+                <div class="option">② 採用 SSH 協定</div>
+                <div class="option">③ 支援加密通訊及對網頁伺服器身分的鑑別</div>
+                <div class="option">④ 經常用於全球資訊網敏感訊息的傳輸</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>HTTPS 是一種將 HTTP 運行於安全通道上的協定。它採用了 SSL（或現今更新的 TLS）協定進行資料加密，不僅能確保使用者瀏覽網頁與傳送表單（如密碼、信用卡號）不被中途竊聽，還能透過公開憑證（CA）機制來確認對方伺服器身分是否真實。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 採用 SSL/TLS: 正確。這是 HTTPS 用來加密底層通訊的核心技術。</li>
+                        <li class="wrong-opt">② 採用 SSH: 錯誤。SSH 主要用於系統遠端登入與指令操作，與網頁的 HTTPS 無關。</li>
+                        <li class="correct-opt">③ 支援加密與身分鑑別: 正確。利用非對稱加密與憑證來達成。</li>
+                        <li class="correct-opt">④ 用於傳輸敏感訊息: 正確。現代網站包含購物、登入都強制依賴此標準。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第245題 -->
+        <div class="card">
+            <span class="theme-badge">主題：Telnet 遠端登入</span>
+            <div class="question">245. 關於 Telnet 協定，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 採用 Client-Server 方式運作</div>
+                <div class="option">② 可提供遠端登入之功能</div>
+                <div class="option">③ 可提供加密功能</div>
+                <div class="option">④ 為較不安全之遠端登入服務</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>Telnet 是網路上極早期發展的終端機遠端登入協定。使用者透過 Client 端連線到 Server 端，並在文字介面下操作伺服器。但是它最大缺點是所有資料包含指令、帳號與密碼都是「明文」傳送，不具備任何加密功能，容易被有心人截取。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 採用 Client-Server 方式: 正確。主從架構設計。</li>
+                        <li class="correct-opt">② 可提供遠端登入: 正確。核心用途。</li>
+                        <li class="wrong-opt">③ 可提供加密功能: 錯誤。Telnet 毫無加密能力。</li>
+                        <li class="correct-opt">④ 較不安全: 正確。因為明文傳輸，所以現代已被 SSH 大量取代。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第246題 -->
+        <div class="card">
+            <span class="theme-badge">主題：SSH 安全終端</span>
+            <div class="question">246. 關於 SSH（Secure Shell） 協定，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 採用 Client-Server 方式運作</div>
+                <div class="option">② 可提供遠端登入功能</div>
+                <div class="option">③ 可提供加密功能</div>
+                <div class="option">④ 為安全考量，多數伺服器已停用 SSH 服務</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>SSH (Secure Shell) 被設計用來替換掉不安全的 Telnet。它同樣採用主從架構提供遠端命令列登入，但連線全程都是經過高強度加密的，可防範監聽與中間人攻擊。正因它的安全性極高，現在幾乎所有 Linux 伺服器都「依賴並預設開啟」SSH 以進行遠端管理。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 採用 Client-Server: 正確。具備 SSH 用戶端與伺服器端。</li>
+                        <li class="correct-opt">② 提供遠端登入: 正確。可安全地在終端機操作伺服器。</li>
+                        <li class="correct-opt">③ 提供加密功能: 正確。全程使用公私鑰及對稱加密傳輸。</li>
+                        <li class="wrong-opt">④ 已停用 SSH 服務: 錯誤。停用的是不安全的 Telnet，SSH 反而是必備開啟的服務。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第247題 -->
+        <div class="card">
+            <span class="theme-badge">主題：通訊埠號對應</span>
+            <div class="question">247. 關於通訊協定之敘述，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① HTTPS(Hypertext Transfer Protocol Secure)協定預設採用 port 24</div>
+                <div class="option">② Telnet 協定預設採用 port 23</div>
+                <div class="option">③ SSH(Secure Shell)協定預設採用 port 22</div>
+                <div class="option">④ SMTP(Simple Mail Transfer Protocol)協定預設採用 port 25</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②、③、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>網路應用層服務大多具備國際網路號碼分配局（IANA）統一規定的「知名通訊埠（Well-known Ports）」。這能讓用戶端知道要連向伺服器的哪個門口。其中 HTTPS 正確的預設埠號是 443，其餘選項標示皆正確。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">① HTTPS 採用 port 24: 錯誤。HTTPS 預設的連接埠為 TCP 443。</li>
+                        <li class="correct-opt">② Telnet 採用 port 23: 正確。預設為 TCP 23。</li>
+                        <li class="correct-opt">③ SSH 採用 port 22: 正確。預設為 TCP 22。</li>
+                        <li class="correct-opt">④ SMTP 採用 port 25: 正確。郵件發送服務預設為 TCP 25。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第248題 -->
+        <div class="card">
+            <span class="theme-badge">主題：SMTP 郵件發送</span>
+            <div class="question">248. 關於 SMTP（Simple Mail Transfer Protocol）協定，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 為 Server 與 Server 之間的通訊協定</div>
+                <div class="option">② 可用於傳送（Transfer）電子郵件</div>
+                <div class="option">③ 用戶端可自郵件伺服器接收電子郵件</div>
+                <div class="option">④ 可用於轉送（Relay）電子郵件</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、②、④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>SMTP (簡易郵件傳輸協定) 在電子郵件系統中專門扮演「郵差」的角色。它負責將使用者寄出的信件發送到伺服器，並在不同郵件伺服器之間傳送與轉信（Relay）。但是，它不提供「使用者收信」的功能，收信下載必須依靠 POP3 或 IMAP 協定。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① Server 與 Server 間通訊: 正確。MTA (Mail Transfer Agent) 之間互相傳信就是依靠 SMTP。</li>
+                        <li class="correct-opt">② 傳送電子郵件: 正確。專門用於發送信件。</li>
+                        <li class="wrong-opt">③ 接收電子郵件: 錯誤。Client 接收/下載信件是 POP3/IMAP 的工作。</li>
+                        <li class="correct-opt">④ 轉送電子郵件: 正確。這也就是大家常說的郵件 Relay 轉信。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第249題 -->
+        <div class="card">
+            <span class="theme-badge">主題：POP3 郵件接收</span>
+            <div class="question">249. 關於 POP3（Post Office Protocol - Version 3）協定，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 採用 Client-Server 方式運作</div>
+                <div class="option">② 可用於伺服器間傳送（Transfer）電子郵件</div>
+                <div class="option">③ 用戶端可自郵件伺服器接收電子郵件</div>
+                <div class="option">④ 可用於轉送（Relay）電子郵件</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>POP3 是一種專門用於「收信」的應用層協定。使用者利用郵件軟體（如 Outlook）作為 Client，連線至 POP3 Server，即可將信箱內的電子郵件一次性下載至使用者的電腦中。POP3 不負責信件的發送或伺服器間的轉信作業。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 採用 Client-Server 方式: 正確。由終端軟體連線伺服器取信。</li>
+                        <li class="wrong-opt">② 伺服器間傳送: 錯誤。這是 SMTP 的功能。</li>
+                        <li class="correct-opt">③ 用戶端接收郵件: 正確。即下載郵件。</li>
+                        <li class="wrong-opt">④ 轉送電子郵件: 錯誤。POP3 無 Relay 轉信功能。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- 第250題 -->
+        <div class="card">
+            <span class="theme-badge">主題：IMAP 郵件接收</span>
+            <div class="question">250. 關於 IMAP（Internet Message Access Protocol）協定，下列哪些正確？</div>
+            <div class="options">
+                <div class="option">① 採用 Client-Server 方式運作</div>
+                <div class="option">② 可用於伺服器間傳送（Transfer）電子郵件</div>
+                <div class="option">③ 用戶端可自郵件伺服器接收電子郵件</div>
+                <div class="option">④ 可用於轉送（Relay）電子郵件</div>
+            </div>
+            <details>
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①、③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>IMAP 與 POP3 一樣都是提供用戶端「收信與管理郵件」的協定。其優勢在於用戶端能直接連線到伺服器管理信件狀態（已讀、分類等）而不需強迫下載刪除，方便多種裝置（手機、電腦）同步郵件。但與發送、轉信（SMTP）的功能無關。</p>
+                    </div>
+                    <strong class="exp-subtitle">【各選項解析】</strong>
+                    <ul class="opt-list">
+                        <li class="correct-opt">① 採用 Client-Server 方式: 正確。Client 連線至 Server 端進行同步與讀取。</li>
+                        <li class="wrong-opt">② 伺服器間傳送: 錯誤。屬於 SMTP 的範疇。</li>
+                        <li class="correct-opt">③ 用戶端接收郵件: 正確。用於讀取伺服器上的信件。</li>
+                        <li class="wrong-opt">④ 轉送電子郵件: 錯誤。轉信是 SMTP 的專屬任務。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+    </div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>共同科目_節能減碳 76-100題</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px; }
+
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .toggle-btn:hover { background-color: #219150; }
+
+        .card-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* 卡片樣式 */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border: 1px solid #eaeaea;
+            position: relative;
+        }
+
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+
+        .question {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* 選項樣式 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            font-size: 1.05em;
+            border-left: 3px solid #cbd5e1;
+        }
+
+        /* 純HTML 摺疊特效設計 */
+        details {
+            background: #fdfefe;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        summary {
+            background: #3498db;
+            color: #ffffff;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
+            cursor: pointer;
+            list-style: none;
+            transition: background 0.3s;
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+
+        /* 解析內容樣式 */
+        .answer-panel {
+            padding: 20px;
+            background: #f4fcf7;
+            border-top: 1px solid #dfe6e9;
+        }
+        .answer-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+
+        .exp-subtitle {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 3px;
+        }
+        .opt-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .opt-list li {
+            margin-bottom: 8px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt {
+            border-left-color: #27ae60 !important;
+            background: #eafaf1 !important;
+        }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>節能減碳共同科目 不分級 工作項目 04：節能減碳</h1>
+    <p>(第76 - 100題)</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 題組 76 -->
+    <div class="card">
+        <span class="theme-badge">主題：洗衣機節水</span>
+        <div class="question">76. 下列何種方式有助於節省洗衣機的用水量？</div>
+        <div class="options">
+            <div class="option">① 洗衣機洗滌的衣物盡量裝滿，一次洗完</div>
+            <div class="option">② 購買洗衣機時選購有省水標章的洗衣機，可有效節約用水</div>
+            <div class="option">③ 無需將衣物適當分類</div>
+            <div class="option">④ 洗濯衣物時盡量選擇高水位才洗得乾淨</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>雖然累積足夠衣物再洗是良好的節水習慣，但在所有選項中，從源頭購買具備「省水標章」的洗衣機（代表其設計已針對洗淨力與耗水量進行最佳化）是最根本且直接有效節約用水的具體措施。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 洗衣機洗滌的衣物盡量裝滿，一次洗完：雖有助節水，但過滿反而洗不乾淨，非最佳解答。</li>
+                    <li class="correct-opt">② 購買洗衣機時選購有省水標章的洗衣機，可有效節約用水：正確，從硬體根本上達到省水效能。</li>
+                    <li class="wrong-opt">③ 無需將衣物適當分類：錯誤，會造成洗滌效率低下。</li>
+                    <li class="wrong-opt">④ 洗濯衣物時盡量選擇高水位才洗得乾淨：錯誤，盲目選擇高水位會浪費大量水資源。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 77 -->
+    <div class="card">
+        <span class="theme-badge">主題：水龍頭節水</span>
+        <div class="question">77. 如果水龍頭流量過大，下列何種處理方式錯誤？</div>
+        <div class="options">
+            <div class="option">① 加裝節水墊片或起波器</div>
+            <div class="option">② 加裝可自動關閉水龍頭的自動感應器</div>
+            <div class="option">③ 直接換裝沒有省水標章的水龍頭</div>
+            <div class="option">④ 直接調整水龍頭到適當水量</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>如果為了改善水龍頭流量過大，卻去換裝一個「沒有省水標章」的水龍頭，將無法保證節水效果，甚至可能因設計不良造成更多浪費，這是錯誤的作法。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 加裝節水墊片或起波器：正確作法，能讓水流混入空氣，有效減少實際出水量。</li>
+                    <li class="wrong-opt">② 加裝可自動關閉水龍頭的自動感應器：正確作法，人走水停可大幅減少浪費。</li>
+                    <li class="correct-opt">③ 直接換裝沒有省水標章的水龍頭：錯誤作法，應選購有省水標章的產品才能確保效能。</li>
+                    <li class="wrong-opt">④ 直接調整水龍頭到適當水量：正確作法，為最基礎的節水觀念。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 78 -->
+    <div class="card">
+        <span class="theme-badge">主題：清洗水再利用</span>
+        <div class="question">78. 洗菜水、洗碗水、洗衣水、洗澡水等的清洗水，不可直接利用來做什麼用途？</div>
+        <div class="options">
+            <div class="option">① 洗地板</div>
+            <div class="option">② 沖馬桶</div>
+            <div class="option">③ 澆花</div>
+            <div class="option">④ 飲用水</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>洗滌過的生活雜排水（灰水），通常含有清潔劑、油脂、污垢或細菌，雖然適合回收用於不直接接觸人體的用途，但絕對不可直接做為「飲用水」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 洗地板：可利用，適合資源回收。</li>
+                    <li class="wrong-opt">② 沖馬桶：可利用，這是灰水最常見的節水用途。</li>
+                    <li class="wrong-opt">③ 澆花：部分清洗水（如單純洗菜水）可利用。</li>
+                    <li class="correct-opt">④ 飲用水：不可利用，生飲會對人體健康造成嚴重危害。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 79 -->
+    <div class="card">
+        <span class="theme-badge">主題：馬桶漏水處理</span>
+        <div class="question">79. 如果馬桶有不正常的漏水問題，下列何者處理方式錯誤？</div>
+        <div class="options">
+            <div class="option">① 因為馬桶還能正常使用，所以不用著急，等到不能用時再報修即可</div>
+            <div class="option">② 立刻檢查馬桶水箱零件有無鬆脫，並確認有無漏水</div>
+            <div class="option">③ 滴幾滴食用色素到水箱裡，檢查有無有色水流進馬桶，代表可能有漏水</div>
+            <div class="option">④ 通知水電行或檢修人員來檢修，徹底根絕漏水問題</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>馬桶水箱的漏水通常是無聲無息、24小時持續不斷地流失。一個漏水的馬桶一天可流失上百公升的乾淨自來水，累積起來的資源浪費與水費極為驚人，絕對不能「等到不能用再報修」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 因為馬桶還能正常使用，所以不用著急，等到不能用時再報修即可：錯誤作法，會造成巨大資源浪費。</li>
+                    <li class="wrong-opt">② 立刻檢查馬桶水箱零件有無鬆脫，並確認有無漏水：正確作法，及早發現及早處理。</li>
+                    <li class="wrong-opt">③ 滴幾滴食用色素到水箱裡，檢查有無有色水流進馬桶，代表可能有漏水：正確作法，為檢測馬桶暗漏最有效的方法。</li>
+                    <li class="wrong-opt">④ 通知水電行或檢修人員來檢修，徹底根絕漏水問題：正確作法。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 80 -->
+    <div class="card">
+        <span class="theme-badge">主題：水費計量單位</span>
+        <div class="question">80. 水費的計量單位是「度」，一度水的容量大約有多少？</div>
+        <div class="options">
+            <div class="option">① 2,000 公升</div>
+            <div class="option">② 3000 個 600cc 的寶特瓶</div>
+            <div class="option">③ 1 立方公尺的水量</div>
+            <div class="option">④ 3 立方公尺的水量</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在自來水費的計量標準中，「1度水」的定義即為「1立方公尺」體積的水量，換算為公升即等於 1000 公升（1000 L）。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 2,000 公升：錯誤，1度為1000公升。</li>
+                    <li class="wrong-opt">② 3000 個 600cc 的寶特瓶：錯誤，相當於1800公升。</li>
+                    <li class="correct-opt">③ 1 立方公尺的水量：正確，1度水即為1立方公尺（1000公升）。</li>
+                    <li class="wrong-opt">④ 3 立方公尺的水量：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 81 -->
+    <div class="card">
+        <span class="theme-badge">主題：台灣枯水期</span>
+        <div class="question">81. 臺灣在一年中什麼時期會比較缺水（即枯水期）？</div>
+        <div class="options">
+            <div class="option">① 6 月至 9 月</div>
+            <div class="option">② 9 月至 12 月</div>
+            <div class="option">③ 11 月至次年 4 月</div>
+            <div class="option">④ 臺灣全年不缺水</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>台灣的降雨主要集中在5、6月的梅雨季以及7至10月的颱風季（豐水期）。而從每年11月入冬後，到隔年4月春雨來臨前，降雨相對稀少，此時期即為容易發生缺水危機的「枯水期」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 6 月至 9 月：錯誤，此為梅雨與颱風帶來的豐水期。</li>
+                    <li class="wrong-opt">② 9 月至 12 月：錯誤，秋季仍有少部分颱風或東北季風降雨。</li>
+                    <li class="correct-opt">③ 11 月至次年 4 月：正確，為降雨最少之枯水期。</li>
+                    <li class="wrong-opt">④ 臺灣全年不缺水：錯誤，台灣因地形關係蓄水不易，為缺水高風險地區。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 82 -->
+    <div class="card">
+        <span class="theme-badge">主題：台灣缺水原因</span>
+        <div class="question">82. 下列何種現象「不是」直接造成台灣缺水的原因？</div>
+        <div class="options">
+            <div class="option">① 降雨季節分布不平均，有時候連續好幾個月不下雨，有時又會下起豪大雨</div>
+            <div class="option">② 地形山高坡陡，所以雨一下很快就會流入大海</div>
+            <div class="option">③ 因為民生與工商業用水需求量都愈來愈大，所以缺水季節很容易無水可用</div>
+            <div class="option">④ 台灣地區夏天過熱，致蒸發量過大</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>台灣缺水的核心主因在於客觀地理條件（山高坡陡水急流失、降雨集中特定月份不均）以及需求面（民生與工業用水激增）。夏天高溫致使水分蒸發雖然會耗損水資源，但比起其他三個核心問題，並非「直接」引發整體水荒的主因。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 降雨季節分布不平均...：為造成缺水的核心主因（豐枯不均）。</li>
+                    <li class="wrong-opt">② 地形山高坡陡...：為造成缺水的核心主因（蓄水困難）。</li>
+                    <li class="wrong-opt">③ 因為民生與工商業用水需求量都愈來愈大...：為造成缺水的核心主因（需求過大）。</li>
+                    <li class="correct-opt">④ 台灣地區夏天過熱，致蒸發量過大：非直接造成大規模缺水之主要原因。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 83 -->
+    <div class="card">
+        <span class="theme-badge">主題：冷凍食品退冰</span>
+        <div class="question">83. 冷凍食品該如何讓它退冰，才是既「節能」又「省水」？</div>
+        <div class="options">
+            <div class="option">① 直接用水沖食物強迫退冰</div>
+            <div class="option">② 使用微波爐解凍快速又方便</div>
+            <div class="option">③ 烹煮前盡早拿出來放置退冰</div>
+            <div class="option">④ 用熱水浸泡，每 5 分鐘更換一次</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>最完美的退冰方式是提前將冷凍食品移至冷藏室或室溫自然退冰（放置退冰）。這樣不僅不需耗費自來水沖洗（省水），也不需開啟微波爐（節能），甚至放在冷藏室退冰還能釋放冷能，幫助冰箱減輕降溫負擔。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 直接用水沖食物強迫退冰：錯誤，極度浪費水資源。</li>
+                    <li class="wrong-opt">② 使用微波爐解凍快速又方便：錯誤，耗費電力，不符合節能。</li>
+                    <li class="correct-opt">③ 烹煮前盡早拿出來放置退冰：正確，完全利用自然熱交換，節能又省水。</li>
+                    <li class="wrong-opt">④ 用熱水浸泡，每 5 分鐘更換一次：錯誤，既浪費水又可能破壞食材品質。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 84 -->
+    <div class="card">
+        <span class="theme-badge">主題：洗碗洗菜省水</span>
+        <div class="question">84. 洗碗、洗菜用何種方式可以達到清洗又省水的效果？</div>
+        <div class="options">
+            <div class="option">① 對著水龍頭直接沖洗，且要盡量將水龍頭開大才能確保洗得乾淨</div>
+            <div class="option">② 將適量的水放在盆槽內洗濯，以減少用水</div>
+            <div class="option">③ 把碗盤、菜等浸在水盆裡，再開水龍頭拼命沖水</div>
+            <div class="option">④ 用熱水及冷水大量交叉沖洗達到最佳清洗效果</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在流水下持續沖洗物品（直沖法）會讓大部分的水未發揮清潔功能便直接流進下水道。最佳的節水方法是使用「盆洗法」，先將水蓄積在盆槽中進行主要清潔，最後再用小水流快速沖洗即可。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 對著水龍頭直接沖洗，且要盡量將水龍頭開大...：錯誤，最浪費水的做法。</li>
+                    <li class="correct-opt">② 將適量的水放在盆槽內洗濯，以減少用水：正確，盆洗法是公認的省水妙招。</li>
+                    <li class="wrong-opt">③ 把碗盤、菜等浸在水盆裡，再開水龍頭拼命沖水：錯誤，水龍頭不關仍是浪費。</li>
+                    <li class="wrong-opt">④ 用熱水及冷水大量交叉沖洗達到最佳清洗效果：錯誤，浪費水且浪費加熱能源。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 85 -->
+    <div class="card">
+        <span class="theme-badge">主題：水荒無效對策</span>
+        <div class="question">85. 解決台灣水荒（缺水）問題的無效對策是</div>
+        <div class="options">
+            <div class="option">① 興建水庫、蓄洪（豐）濟枯</div>
+            <div class="option">② 全面節約用水</div>
+            <div class="option">③ 水資源重複利用，海水淡化…等</div>
+            <div class="option">④ 積極推動全民體育運動</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>要解決缺水問題，無非是「開源」（建水庫、海水淡化）與「節流」（節約用水、水資源回收利用）。而「推動全民體育運動」旨在促進國民健康，與水資源的調度或開發完全無關。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 興建水庫、蓄洪（豐）濟枯：為有效的開源對策。</li>
+                    <li class="wrong-opt">② 全面節約用水：為有效的節流對策。</li>
+                    <li class="wrong-opt">③ 水資源重複利用，海水淡化…等：為有效的新興水源開發對策。</li>
+                    <li class="correct-opt">④ 積極推動全民體育運動：為無效對策，與水荒問題毫無關聯。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 86 -->
+    <div class="card">
+        <span class="theme-badge">主題：標章辨識</span>
+        <div class="question">86. 如下圖，這是什麼標章？<br><br>[圖示：水滴笑臉伴隨向上箭頭]</div>
+        <div class="options">
+            <div class="option">① 奈米標章</div>
+            <div class="option">② 環保標章</div>
+            <div class="option">③ 省水標章</div>
+            <div class="option">④ 節能標章</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>圖片中呈現一滴帶著笑臉的水滴，旁邊有一個向上的箭頭，代表推廣節約用水、愛護水資源的意象。這是由經濟部水利署所核發的「省水標章」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 奈米標章：錯誤，圖示不同。</li>
+                    <li class="wrong-opt">② 環保標章：錯誤，圖示為綠葉包覆地球。</li>
+                    <li class="correct-opt">③ 省水標章：正確，為水滴笑臉之圖案。</li>
+                    <li class="wrong-opt">④ 節能標章：錯誤，圖示為愛心包圍火苗與插頭。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 87 -->
+    <div class="card">
+        <span class="theme-badge">主題：澆花適當時間</span>
+        <div class="question">87. 澆花的時間何時較為適當，水分不易蒸發又對植物最好？</div>
+        <div class="options">
+            <div class="option">① 正中午</div>
+            <div class="option">② 下午時段</div>
+            <div class="option">③ 清晨或傍晚</div>
+            <div class="option">④ 半夜十二點</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>清晨或傍晚的氣溫較為涼爽溫和。此時澆水，水分不會被烈日高溫迅速蒸發，能有效保留在土壤中供植物根部緩慢吸收。若在正中午澆水，水滴會形成放大鏡效應灼傷葉片，且大部分水分會瞬間蒸發，造成水資源浪費。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 正中午：錯誤，水分易瞬間蒸發且易燙傷植物。</li>
+                    <li class="wrong-opt">② 下午時段：錯誤，氣溫仍高。</li>
+                    <li class="correct-opt">③ 清晨或傍晚：正確，為兼顧節水與植物生長的最佳時機。</li>
+                    <li class="wrong-opt">④ 半夜十二點：錯誤，視線不佳且土壤過濕易引發植物病害。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 88 -->
+    <div class="card">
+        <span class="theme-badge">主題：洗衣機耗水行為</span>
+        <div class="question">88. 下列何種方式沒有辦法降低洗衣機之使用水量，不建議採用？</div>
+        <div class="options">
+            <div class="option">① 使用低水位清洗</div>
+            <div class="option">② 選擇快洗行程</div>
+            <div class="option">③ 兩、三件衣服也丟洗衣機洗</div>
+            <div class="option">④ 選擇有自動調節水量的洗衣機</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>洗衣機啟動一次，即使設定最低水位，仍需要消耗相當大的基本水量與電力。如果只為清洗兩、三件衣服就開機運轉，平均分攤下來每件衣物耗費的水量極高，是非常嚴重的資源浪費，強烈不建議採用。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 使用低水位清洗：為可節水的建議作法（視衣物量而定）。</li>
+                    <li class="wrong-opt">② 選擇快洗行程：為可節水的建議作法（減少洗滌與注水時間）。</li>
+                    <li class="correct-opt">③ 兩、三件衣服也丟洗衣機洗：為無法降水且極度浪費之不建議作法。</li>
+                    <li class="wrong-opt">④ 選擇有自動調節水量的洗衣機：為可節水的建議作法（智慧偵測適當水位）。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 89 -->
+    <div class="card">
+        <span class="theme-badge">主題：省水馬桶迷思</span>
+        <div class="question">89. 有關省水馬桶的使用方式與觀念認知，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 選用衛浴設備時最好能採用省水標章馬桶</div>
+            <div class="option">② 如果家裡的馬桶是傳統舊式，可以加裝二段式沖水配件</div>
+            <div class="option">③ 省水馬桶因為水量較小，會有沖不乾淨的問題，所以應該多沖幾次</div>
+            <div class="option">④ 因為馬桶是家裡用水的大宗，所以應該儘量採用省水馬桶來節約用水</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>取得「省水標章」的馬桶，皆經過國家標準嚴格的洗淨力測試。它們利用最佳化的水路設計、虹吸或噴射技術，確保只需極少的水量就能一次沖洗乾淨。「水量小沖不乾淨要多沖幾次」是過去對傳統馬桶的錯誤迷思，完全違背省水馬桶的設計初衷。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 選用衛浴設備時最好能採用省水標章馬桶：正確觀念。</li>
+                    <li class="wrong-opt">② 如果家裡的馬桶是傳統舊式，可以加裝二段式沖水配件：正確觀念，能有效分大小號省水。</li>
+                    <li class="correct-opt">③ 省水馬桶因為水量較小，會有沖不乾淨的問題，所以應該多沖幾次：錯誤觀念，設計優良的省水馬桶可一次沖淨。</li>
+                    <li class="wrong-opt">④ 因為馬桶是家裡用水的大宗，所以應該儘量採用省水馬桶來節約用水：正確觀念。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 90 -->
+    <div class="card">
+        <span class="theme-badge">主題：洗車節水方式</span>
+        <div class="question">90. 下列的洗車方式，何者「無法」節約用水？</div>
+        <div class="options">
+            <div class="option">① 使用有開關的水管可以隨時控制出水</div>
+            <div class="option">② 用水桶及海綿抹布擦洗</div>
+            <div class="option">③ 用大口徑強力水注沖洗</div>
+            <div class="option">④ 利用機械自動洗車，洗車水處理循環使用</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>洗車時若使用「大口徑強力水柱」無節制地沖洗，水流量極大且多數的清水未觸及髒污便直接流失，是最浪費水資源的行為。相較之下，用水桶裝水搭配海綿擦洗是傳統最省水的做法。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 使用有開關的水管可以隨時控制出水：可節水，避免水龍頭空流。</li>
+                    <li class="wrong-opt">② 用水桶及海綿抹布擦洗：可大幅節水。</li>
+                    <li class="correct-opt">③ 用大口徑強力水注沖洗：無法節水，水資源流失極快。</li>
+                    <li class="wrong-opt">④ 利用機械自動洗車，洗車水處理循環使用：可節水，商業洗車常具備水回收系統。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 91 -->
+    <div class="card">
+        <span class="theme-badge">主題：漏水判斷現象</span>
+        <div class="question">91. 下列何種現象「無法」看出家裡有漏水的問題？</div>
+        <div class="options">
+            <div class="option">① 水龍頭打開使用時，水表的指針持續在轉動</div>
+            <div class="option">② 牆面、地面或天花板忽然出現潮濕的現象</div>
+            <div class="option">③ 馬桶裡的水常在晃動，或是沒辦法止水</div>
+            <div class="option">④ 水費有大幅度增加</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當「水龍頭打開使用」時，代表家中正在正常消耗用水，此時水表指針跟著轉動是極為正常的計量現象。要利用水表檢查是否漏水，必須確保家中「所有水龍頭皆關閉」，若此時指針仍在轉動，才代表管路有漏水。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 水龍頭打開使用時，水表的指針持續在轉動：為正常現象，無法看出漏水。</li>
+                    <li class="wrong-opt">② 牆面、地面或天花板忽然出現潮濕的現象：為明顯的暗管漏水徵兆。</li>
+                    <li class="wrong-opt">③ 馬桶裡的水常在晃動，或是沒辦法止水：為馬桶水箱漏水徵兆。</li>
+                    <li class="wrong-opt">④ 水費有大幅度增加：為整體嚴重漏水的帳單反映結果。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 92 -->
+    <div class="card">
+        <span class="theme-badge">主題：蓮蓬頭省水對策</span>
+        <div class="question">92. 蓮蓬頭出水量過大時，下列對策何者「無法」達到省水？</div>
+        <div class="options">
+            <div class="option">① 換裝有省水標章的低流量（5～10L/min）蓮蓬頭</div>
+            <div class="option">② 淋浴時水量開大，無需改變使用方法</div>
+            <div class="option">③ 洗澡時間盡量縮短，塗抹肥皂時要把蓮蓬頭關起來</div>
+            <div class="option">④ 調整熱水器水量到適中位置</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>面對蓮蓬頭出水量過大的問題，若採取「水量開大且無需改變使用方法」的態度任其流失，完全是不在乎節約的浪費行為，根本不可能達到任何省水效果。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 換裝有省水標章的低流量（5～10L/min）蓮蓬頭：為極佳之省水對策。</li>
+                    <li class="correct-opt">② 淋浴時水量開大，無需改變使用方法：為毫無作為的浪費行為，無法省水。</li>
+                    <li class="wrong-opt">③ 洗澡時間盡量縮短，塗抹肥皂時要把蓮蓬頭關起來：為良好的省水行為習慣。</li>
+                    <li class="wrong-opt">④ 調整熱水器水量到適中位置：為控制源頭水量的有效方式。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 93 -->
+    <div class="card">
+        <span class="theme-badge">主題：自來水淨水步驟</span>
+        <div class="question">93. 自來水淨水步驟，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 混凝</div>
+            <div class="option">② 沉澱</div>
+            <div class="option">③ 過濾</div>
+            <div class="option">④ 煮沸</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>自來水淨水廠將原水處理為符合飲用水標準的標準作業流程為：取水 → 混凝（加藥讓雜質凝結） → 沉澱 → 過濾 → 消毒（加氯殺菌）。「煮沸」是用戶在家中自行進行的殺菌行為，並非自來水廠的大規模處理步驟。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 混凝：正確，為淨水廠標準步驟。</li>
+                    <li class="wrong-opt">② 沉澱：正確，為淨水廠標準步驟。</li>
+                    <li class="wrong-opt">③ 過濾：正確，為淨水廠標準步驟。</li>
+                    <li class="correct-opt">④ 煮沸：錯誤，非自來水廠製程，耗能過鉅不符效益。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 94 -->
+    <div class="card">
+        <span class="theme-badge">主題：水庫興建位置</span>
+        <div class="question">94. 為了取得良好的水資源，通常在河川的哪一段興建水庫？</div>
+        <div class="options">
+            <div class="option">① 上游</div>
+            <div class="option">② 中游</div>
+            <div class="option">③ 下游</div>
+            <div class="option">④ 下游出口</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>水庫需要龐大的集水區與優良的水質。河川的「上游」地勢較高，通常為未受人類都市、工業、農業大量開發破壞的自然保護區，水質最為清澈潔淨，且深谷地形適合築壩蓄水，是興建水庫的最佳位置。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 上游：正確，水質最佳且具備建壩地形條件。</li>
+                    <li class="wrong-opt">② 中游：錯誤，常已有聚落開發，水質易受污染。</li>
+                    <li class="wrong-opt">③ 下游：錯誤，泥沙淤積嚴重且受人類活動污染最深。</li>
+                    <li class="wrong-opt">④ 下游出口：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 95 -->
+    <div class="card">
+        <span class="theme-badge">主題：辦公室設備節能</span>
+        <div class="question">95. 辦公室常見的設備其節能方式之描述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 影印機、印表機下班及假日關機可以減少待機耗能</div>
+            <div class="option">② 飲水機可以加裝定時器或設定內部定時，降低下班、假日加熱耗能</div>
+            <div class="option">③ 電腦自己會休眠不需要關機</div>
+            <div class="option">④ 冷氣濾網定期清洗，可恢復冷卻能力節省用電</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電腦進入休眠（Sleep/Hibernate）模式後雖然螢幕關閉且耗電量大幅降低，但主機板與記憶體等元件仍需消耗微量電力以維持喚醒狀態。在下班後或假日等長時間不使用的情況下，為求徹底節能與消防安全，應將電腦完全關機，而非依賴休眠。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 影印機、印表機下班及假日關機可以減少待機耗能：正確觀念。</li>
+                    <li class="wrong-opt">② 飲水機可以加裝定時器或設定內部定時，降低下班、假日加熱耗能：正確觀念，防範夜間反覆保溫浪費電力。</li>
+                    <li class="correct-opt">③ 電腦自己會休眠不需要關機：錯誤觀念，休眠仍有待機耗能，長時間不用應徹底關機。</li>
+                    <li class="wrong-opt">④ 冷氣濾網定期清洗，可恢復冷卻能力節省用電：正確觀念。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 96 -->
+    <div class="card">
+        <span class="theme-badge">主題：台灣缺水原因辨析</span>
+        <div class="question">96. 台灣年降雨量是世界平均值的 2.6 倍，卻仍屬缺水地區，下列何者不是真正缺水的原因？</div>
+        <div class="options">
+            <div class="option">① 台灣由於山坡陡峻，以及颱風豪雨雨勢急促，大部分的降雨量皆迅速流入海洋</div>
+            <div class="option">② 降雨量在地域、季節分布極不平均</div>
+            <div class="option">③ 水庫蓋得太少</div>
+            <div class="option">④ 台灣自來水水價過於便宜</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>台灣缺水是由於天然地形限制（山高水急存不住）、氣候極端（豐枯期落差大）以及後天水價過低導致浪費。台灣本島受限於地理面積、破碎地質與生態保育，適宜建置大型水庫的壩址幾乎已經飽和開發，因此不能單純歸咎於「水庫蓋得太少」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 台灣由於山坡陡峻...大部分皆迅速流入海洋：為真正原因。</li>
+                    <li class="wrong-opt">② 降雨量在地域、季節分布極不平均：為真正原因。</li>
+                    <li class="correct-opt">③ 水庫蓋得太少：非真正原因，受限自然條件無法無限制增建。</li>
+                    <li class="wrong-opt">④ 台灣自來水水價過於便宜：為真正原因，缺乏價格誘因導致無感節水。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 97 -->
+    <div class="card">
+        <span class="theme-badge">主題：插座維修安全</span>
+        <div class="question">97. 電源插座堆積灰塵可能引起電氣意外火災，維護保養時的正確做法是？</div>
+        <div class="options">
+            <div class="option">① 可以先用刷子刷去積塵</div>
+            <div class="option">② 直接用吹風機吹開灰塵就可以了</div>
+            <div class="option">③ 應先關閉電源總開關箱內控制該插座的分路開關，然後再清理灰塵</div>
+            <div class="option">④ 可以用金屬接點清潔劑噴在插座中去除銹蝕</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>插座內部含有帶電的高壓金屬銅片，清理灰塵（尤其是因濕氣結合灰塵易引發「積污導電」短路）時，若未斷電，極容易在擦拭或刷洗過程中引發短路走火或人員感電休克。因此唯一正確的安全步驟是「先關閉總電源（分路斷路器），再行清理」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 可以先用刷子刷去積塵：危險，刷毛若含水分或金屬絲易導致短路。</li>
+                    <li class="wrong-opt">② 直接用吹風機吹開灰塵就可以了：治標不治本，且未斷電仍有風險。</li>
+                    <li class="correct-opt">③ 應先關閉電源總開關箱內控制該插座的分路開關，然後再清理灰塵：正確，確保斷電是所有電氣維修的首要守則。</li>
+                    <li class="wrong-opt">④ 可以用金屬接點清潔劑噴在插座中去除銹蝕：危險，若未斷電直接噴灑液體極易引發爆閃。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 98 -->
+    <div class="card">
+        <span class="theme-badge">主題：溫室氣體種類</span>
+        <div class="question">98. 溫室氣體易造成全球氣候變遷的影響，下列何者不屬於溫室氣體？</div>
+        <div class="options">
+            <div class="option">① 二氧化碳（CO2）</div>
+            <div class="option">② 氫氟碳化物（HFCs）</div>
+            <div class="option">③ 甲烷（CH4）</div>
+            <div class="option">④ 氧氣（O2）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>溫室氣體具有吸收地球表面反射出的長波紅外線（熱輻射）之特性。二氧化碳、甲烷、氫氟碳化物皆為京都議定書規範之強效溫室氣體。而「氧氣（O2）」與氮氣一樣，氣體分子結構無法阻擋紅外線散失，不具備溫室效應特性。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 二氧化碳（CO2）：錯誤，為最主要的溫室氣體。</li>
+                    <li class="wrong-opt">② 氫氟碳化物（HFCs）：錯誤，為強效的人造溫室氣體。</li>
+                    <li class="wrong-opt">③ 甲烷（CH4）：錯誤，為暖化潛勢極高的溫室氣體。</li>
+                    <li class="correct-opt">④ 氧氣（O2）：正確，非溫室氣體。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 99 -->
+    <div class="card">
+        <span class="theme-badge">主題：能源效率表示方式</span>
+        <div class="question">99. 就能源管理系統而言，下列何者不是能源效率的表示方式？</div>
+        <div class="options">
+            <div class="option">① 汽車－公里/公升</div>
+            <div class="option">② 照明系統－瓦特/平方公尺（W/m2）</div>
+            <div class="option">③ 冰水主機－千瓦/冷凍噸（kW/RT）</div>
+            <div class="option">④ 冰水主機－千瓦 （kW）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「效率」在科學上的定義為「產出 / 投入（耗能）」。例如汽車每消耗1公升油能跑幾公里，或冰水主機產生1冷凍噸冷氣需耗費多少千瓦電力。選項④的「千瓦（kW）」單純只是描述設備的總消耗功率（耗電量），缺乏「產出」的比值對照，因此無法表示設備的能源效率。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 汽車－公里/公升：正確的效率表示（產出距離/耗能）。</li>
+                    <li class="wrong-opt">② 照明系統－瓦特/平方公尺（W/m2）：正確的效率(密度)表示（耗能/照明面積）。</li>
+                    <li class="wrong-opt">③ 冰水主機－千瓦/冷凍噸（kW/RT）：正確的效率表示（耗能/產出冷能）。</li>
+                    <li class="correct-opt">④ 冰水主機－千瓦 （kW）：錯誤，此僅為耗電功率單位，無法表達效能高低。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 100 -->
+    <div class="card">
+        <span class="theme-badge">主題：設備汰換原則</span>
+        <div class="question">100. 某工廠規劃汰換老舊低效率設備，下列何種做法不恰當？</div>
+        <div class="options">
+            <div class="option">① 可考慮使用較高效率設備產品</div>
+            <div class="option">② 先針對老舊設備建立其「能源指標」或「能源基線」</div>
+            <div class="option">③ 唯恐一直浪費能源，未經評估就馬上將老舊設備汰換掉</div>
+            <div class="option">④ 改善後需進行能源績效評估</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在推動工廠節能工程時，必須經過嚴謹的規劃。若「未經評估就馬上汰換」，極可能因為選錯設備規格、系統匹配不良，導致花費鉅資卻無法達到預期節能效果，甚至引發其他製程問題，這是極度不恰當的做法。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 可考慮使用較高效率設備產品：恰當作法。</li>
+                    <li class="wrong-opt">② 先針對老舊設備建立其「能源指標」或「能源基線」：恰當作法，有助於前後對照成效。</li>
+                    <li class="correct-opt">③ 唯恐一直浪費能源，未經評估就馬上將老舊設備汰換掉：不恰當作法，盲目投資風險極高。</li>
+                    <li class="wrong-opt">④ 改善後需進行能源績效評估：恰當作法，驗證專案投資報酬率。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>

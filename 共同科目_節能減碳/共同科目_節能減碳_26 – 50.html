@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>共同科目_節能減碳 26-50題</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px; }
+
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .toggle-btn:hover { background-color: #219150; }
+
+        .card-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* 卡片樣式 */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border: 1px solid #eaeaea;
+            position: relative;
+        }
+
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+
+        .question {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* 選項樣式 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            font-size: 1.05em;
+            border-left: 3px solid #cbd5e1;
+        }
+
+        /* 純HTML 摺疊特效設計 */
+        details {
+            background: #fdfefe;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        summary {
+            background: #3498db;
+            color: #ffffff;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
+            cursor: pointer;
+            list-style: none;
+            transition: background 0.3s;
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+
+        /* 解析內容樣式 */
+        .answer-panel {
+            padding: 20px;
+            background: #f4fcf7;
+            border-top: 1px solid #dfe6e9;
+        }
+        .answer-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+
+        .exp-subtitle {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 3px;
+        }
+        .opt-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .opt-list li {
+            margin-bottom: 8px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt {
+            border-left-color: #27ae60 !important;
+            background: #eafaf1 !important;
+        }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>節能減碳共同科目 不分級 工作項目 04：節能減碳</h1>
+    <p>(第26 - 50題)</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 題組 26 -->
+    <div class="card">
+        <span class="theme-badge">主題：用電管制措施</span>
+        <div class="question">26. 當用電設備遭遇電源不足或輸配電設備受限制時，導致用戶暫停或減少用電的情形，常以下列何者名稱出現？</div>
+        <div class="options">
+            <div class="option">① 停電</div>
+            <div class="option">② 限電</div>
+            <div class="option">③ 斷電</div>
+            <div class="option">④ 配電</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當電力系統供電能力不足，或是輸配電線路遭遇瓶頸限制時，電力公司為了維持電網整體的穩定與安全，會採取計畫性或緊急性的暫停或減少部分用戶的供電，此措施稱為「限電」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 停電：錯誤，停電通常指無預警的設備故障或天災導致的電力中斷。</li>
+                    <li class="correct-opt">② 限電：正確，為因應電源不足實施之管控措施。</li>
+                    <li class="wrong-opt">③ 斷電：錯誤，通常指關閉開關或遭強制切斷電源之動作。</li>
+                    <li class="wrong-opt">④ 配電：錯誤，配電是將電力分配給用戶的過程。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 27 -->
+    <div class="card">
+        <span class="theme-badge">主題：住宅社區照明節能</span>
+        <div class="question">27. 照明控制可以達到節能與省電費的好處，下列何種方法最適合一般住宅社區兼顧節能、經濟性與實際照明需求？</div>
+        <div class="options">
+            <div class="option">① 加裝 DALI 全自動控制系統</div>
+            <div class="option">② 走廊與地下停車場選用紅外線感應控制電燈</div>
+            <div class="option">③ 全面調低照明需求</div>
+            <div class="option">④ 晚上關閉所有公共區域的照明</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>一般住宅社區的公共空間（如走廊、地下停車場）並非隨時有人活動，若常亮會浪費電力。採用「紅外線感應控制電燈」可達到「人來燈亮、人走燈滅」的效果，安裝成本低且節能效果顯著，兼具經濟性與實用性。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 加裝 DALI 全自動控制系統：錯誤，DALI系統建置成本高，多用於商辦大樓，對一般住宅社區較不具經濟性。</li>
+                    <li class="correct-opt">② 走廊與地下停車場選用紅外線感應控制電燈：正確，最符合經濟效益及節能需求。</li>
+                    <li class="wrong-opt">③ 全面調低照明需求：錯誤，若亮度不足會影響安全與視線。</li>
+                    <li class="wrong-opt">④ 晚上關閉所有公共區域的照明：錯誤，會造成住戶出入的危險及治安死角。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 28 -->
+    <div class="card">
+        <span class="theme-badge">主題：商辦大樓節能措施</span>
+        <div class="question">28. 上班性質的商辦大樓為了降低尖峰時段用電，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 使用儲冰式空調系統減少白天空調用電需求</div>
+            <div class="option">② 白天有陽光照明，所以白天可以將照明設備全關掉</div>
+            <div class="option">③ 汰換老舊電梯馬達並使用變頻控制</div>
+            <div class="option">④ 電梯設定隔層停止控制，減少頻繁啟動</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>商辦大樓的空間通常較深，靠窗處雖然有陽光，但內部核心區域仍非常昏暗。因此白天將照明設備「全關掉」是不切實際且錯誤的做法，應依據採光情況分區控制或調光才正確。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 使用儲冰式空調系統減少白天空調用電需求：正確作法，離峰製冰、尖峰融冰可轉移尖峰用電。</li>
+                    <li class="correct-opt">② 白天有陽光照明，所以白天可以將照明設備全關掉：錯誤作法，室內深處仍需要輔助照明。</li>
+                    <li class="wrong-opt">③ 汰換老舊電梯馬達並使用變頻控制：正確作法，變頻控制可大幅節省馬達耗電。</li>
+                    <li class="wrong-opt">④ 電梯設定隔層停止控制，減少頻繁啟動：正確作法，減少電梯頻繁啟停能有效省電。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 29 -->
+    <div class="card">
+        <span class="theme-badge">主題：節能家電選購</span>
+        <div class="question">29. 為了節能與降低電費的需求，應該如何正確選用家電產品？</div>
+        <div class="options">
+            <div class="option">① 選用高功率的產品效率較高</div>
+            <div class="option">② 優先選用取得節能標章的產品</div>
+            <div class="option">③ 設備沒有壞，還是堪用，繼續用，不會增加支出</div>
+            <div class="option">④ 選用能效分級數字較高的產品，效率較高，5 級的比 1 級的電器產品更省電</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>購買家電產品時，最可靠的節能指標就是認明「節能標章」及「能源效率分級標示」。取得節能標章代表該產品的能源效率高於國家標準，能有效降低日常電費支出。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 選用高功率的產品效率較高：錯誤，高功率僅代表耗電量大或輸出大，不等於能源轉換「效率」高。</li>
+                    <li class="correct-opt">② 優先選用取得節能標章的產品：正確，具認證之產品最省電。</li>
+                    <li class="wrong-opt">③ 設備沒有壞，還是堪用，繼續用，不會增加支出：錯誤，過於老舊的家電效率極差，持續使用反而會產生驚人的電費支出。</li>
+                    <li class="wrong-opt">④ 選用能效分級數字較高的產品，效率較高，5 級的比 1 級的電器產品更省電：錯誤，1級最省電，5級最耗電。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 30 -->
+    <div class="card">
+        <span class="theme-badge">主題：電氣設備選購原則</span>
+        <div class="question">30. 有效而正確的節能從選購產品開始，就一般而言，下列的因素中，何者是選購電氣設備的最優先考量項目？</div>
+        <div class="options">
+            <div class="option">① 用電量消耗電功率是多少瓦攸關電費支出，用電量小的優先</div>
+            <div class="option">② 採購價格比較，便宜優先</div>
+            <div class="option">③ 安全第一，一定要通過安規檢驗合格</div>
+            <div class="option">④ 名人或演藝明星推薦，應該口碑較好</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>任何電器產品在談論節能或價格之前，絕對不能妥協的就是「安全性」。電氣設備若發生短路、漏電或走火，將導致嚴重的財產與生命損失，因此最優先考量必須是通過國家標準的安規檢驗合格。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 用電量消耗電功率是多少瓦攸關電費支出，用電量小的優先：錯誤，節能是次要，安全才是首要。</li>
+                    <li class="wrong-opt">② 採購價格比較，便宜優先：錯誤，便宜但不安全的產品風險極大。</li>
+                    <li class="correct-opt">③ 安全第一，一定要通過安規檢驗合格：正確，安全永遠是選購電器之最優先考量。</li>
+                    <li class="wrong-opt">④ 名人或演藝明星推薦，應該口碑較好：錯誤，代言不能代表產品的安全性與真實品質。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 31 -->
+    <div class="card">
+        <span class="theme-badge">主題：降低照明眩光</span>
+        <div class="question">31. 高效率燈具如果要降低眩光的不舒服，下列何者與降低刺眼眩光影響無關？</div>
+        <div class="options">
+            <div class="option">① 光源下方加裝擴散板或擴散膜</div>
+            <div class="option">② 燈具的遮光板</div>
+            <div class="option">③ 光源的色溫</div>
+            <div class="option">④ 採用間接照明</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>眩光（Glare）是指視野內出現過高的亮度或強烈的亮度對比，引起視覺不適。降低眩光的作法主要是控制「光線的直射與發散角度」。而「光源的色溫」（黃光或白光）改變的是空間的視覺氛圍，對於解決刺眼的「眩光」問題無關。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 光源下方加裝擴散板或擴散膜：有關，可使光線均勻柔和，減少刺眼感。</li>
+                    <li class="wrong-opt">② 燈具的遮光板：有關，可遮擋特定角度的直射強光。</li>
+                    <li class="correct-opt">③ 光源的色溫：無關，色溫僅影響冷暖色調，不影響亮度反差造成的眩光。</li>
+                    <li class="wrong-opt">④ 採用間接照明：有關，利用牆面或天花板反射，是防眩光的優良做法。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 32 -->
+    <div class="card">
+        <span class="theme-badge">主題：電熱加熱效率</span>
+        <div class="question">32. 用電熱爐煮火鍋，採用中溫 50%加熱，比用高溫 100%加熱，將同一鍋水煮開，下列何者是對的？</div>
+        <div class="options">
+            <div class="option">① 中溫 50%加熱比較省電</div>
+            <div class="option">② 高溫 100%加熱比較省電</div>
+            <div class="option">③ 中溫 50%加熱，電流反而比較大</div>
+            <div class="option">④ 兩種方式用電量是一樣的</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>根據熱力學與能量守恆定律，將同質量、同初始溫度的水加熱至沸騰，所需要吸收的總熱量是固定的。電熱爐的電能 100% 轉換為熱能，用中溫加熱只是功率減半、但所需時間會加倍，最終消耗的總電能量（功率 × 時間）在理想狀態下是一樣的。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 中溫 50%加熱比較省電：錯誤，加熱時間拉長，總耗能不變（甚至散失更多熱量）。</li>
+                    <li class="wrong-opt">② 高溫 100%加熱比較省電：錯誤。</li>
+                    <li class="wrong-opt">③ 中溫 50%加熱，電流反而比較大：錯誤，中溫的功率較低，電流較小。</li>
+                    <li class="correct-opt">④ 兩種方式用電量是一樣的：正確，所需的總熱能相同，消耗電度數理論上相等。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 33 -->
+    <div class="card">
+        <span class="theme-badge">主題：電能管理策略</span>
+        <div class="question">33. 台灣電力公司為降低尖峰負載時段超載的停電風險，將尖峰時段電價費率（每度電單價）提高，離峰時段的費率降低，引導用戶轉移部分負載至離峰時段，這種電能管理策略稱為何？</div>
+        <div class="options">
+            <div class="option">① 需量競價</div>
+            <div class="option">② 時間電價</div>
+            <div class="option">③ 可停電力</div>
+            <div class="option">④ 表燈用戶彈性電價</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電力公司透過不同時段（如尖峰、半尖峰、離峰）訂定不同的每度電單價，利用價格誘因促使用戶調整用電習慣（例如在半夜離峰時段洗衣服、充電動車），以抑低尖峰負載，此制度稱為「時間電價」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 需量競價：錯誤，這是電力公司向用戶買回電力的投標機制。</li>
+                    <li class="correct-opt">② 時間電價：正確，以時間區隔費率的電能管理策略。</li>
+                    <li class="wrong-opt">③ 可停電力：錯誤，指用戶同意在缺電時配合停電以換取基本電費折扣。</li>
+                    <li class="wrong-opt">④ 表燈用戶彈性電價：錯誤，非法定專有名詞。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 34 -->
+    <div class="card">
+        <span class="theme-badge">主題：地下停車場通風節能</span>
+        <div class="question">34. 集合式住宅的地下停車場需要維持通風良好的空氣品質，又要兼顧節能效益，下列排風扇控制方式何者不恰當？</div>
+        <div class="options">
+            <div class="option">① 淘汰老舊排風扇，改裝取得節能標章、適當容量的高效率風扇</div>
+            <div class="option">② 兩天一次運轉通風扇就好了</div>
+            <div class="option">③ 結合一氧化碳偵測器，自動啟動/停止控制</div>
+            <div class="option">④ 設定每天早晚二次定期啟動排風扇</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>地下停車場每日都有車輛進出，會產生廢氣與一氧化碳，如果「兩天只運轉一次通風扇」，會導致廢氣嚴重蓄積，危害住戶生命安全，這是極度不恰當且危險的做法。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 淘汰老舊排風扇，改裝取得節能標章、適當容量的高效率風扇：恰當，提升硬體效率。</li>
+                    <li class="correct-opt">② 兩天一次運轉通風扇就好了：不恰當，空氣品質會嚴重惡化，危及健康。</li>
+                    <li class="wrong-opt">③ 結合一氧化碳偵測器，自動啟動/停止控制：恰當，為目前最推薦的智慧節能作法。</li>
+                    <li class="wrong-opt">④ 設定每天早晚二次定期啟動排風扇：恰當，配合車輛進出尖峰時段運作。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 35 -->
+    <div class="card">
+        <span class="theme-badge">主題：電梯節能控制</span>
+        <div class="question">35. 大樓電梯為了節能及生活便利需求，可設定部分控制功能，下列何者是錯誤或不正確的做法？</div>
+        <div class="options">
+            <div class="option">① 加感應開關，無人時自動關閉電燈與通風扇</div>
+            <div class="option">② 縮短每次開門/關門的時間</div>
+            <div class="option">③ 電梯設定隔樓層停靠，減少頻繁啟動</div>
+            <div class="option">④ 電梯馬達加裝變頻控制</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>刻意縮短電梯的開關門時間對於節省電力的幫助微乎其微，反而會造成老人、小孩或行動不便者進出電梯時的危險與不便，因此屬於不正確的做法。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 加感應開關，無人時自動關閉電燈與通風扇：正確作法，可節省待機耗能。</li>
+                    <li class="correct-opt">② 縮短每次開門/關門的時間：錯誤作法，影響安全且非有效節能手段。</li>
+                    <li class="wrong-opt">③ 電梯設定隔樓層停靠，減少頻繁啟動：正確作法，電梯啟動瞬間最耗電，減少啟停次數可省電。</li>
+                    <li class="wrong-opt">④ 電梯馬達加裝變頻控制：正確作法，變頻器能大幅提升馬達運轉效率。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 36 -->
+    <div class="card">
+        <span class="theme-badge">主題：冰箱節能使用原則</span>
+        <div class="question">36. 為了節能及兼顧冰箱的保溫效果，下列何者是錯誤或不正確的做法？</div>
+        <div class="options">
+            <div class="option">① 冰箱內上下層間不要塞滿，以利冷藏對流</div>
+            <div class="option">② 食物存放位置紀錄清楚，一次拿齊食物，減少開門次數</div>
+            <div class="option">③ 冰箱門的密封壓條如果鬆弛，無法緊密關門，應儘速更新修復</div>
+            <div class="option">④ 冰箱內食物擺滿塞滿，效益最高</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>冰箱的冷藏室仰賴冷空氣的循環對流來保持低溫。如果將食物擺滿塞滿，會阻斷冷風的流動，導致內部溫度降不下來，壓縮機必須持續運轉，造成極度耗電，食物也容易腐壞。一般建議冷藏室裝八分滿即可。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 冰箱內上下層間不要塞滿，以利冷藏對流：正確作法，有助於溫度均勻分布。</li>
+                    <li class="wrong-opt">② 食物存放位置紀錄清楚，一次拿齊食物，減少開門次數：正確作法，可減少冷氣外洩。</li>
+                    <li class="wrong-opt">③ 冰箱門的密封壓條如果鬆弛，無法緊密關門，應儘速更新修復：正確作法，防止冷氣流失。</li>
+                    <li class="correct-opt">④ 冰箱內食物擺滿塞滿，效益最高：錯誤作法，會阻礙對流導致過度耗電。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 37 -->
+    <div class="card">
+        <span class="theme-badge">主題：家電節能評比</span>
+        <div class="question">37. 電鍋剩飯持續保溫至隔天再食用，或剩飯先放冰箱冷藏，隔天用微波爐加熱，就加熱及節能觀點來評比，下列何者正確？</div>
+        <div class="options">
+            <div class="option">① 持續保溫較省電</div>
+            <div class="option">② 微波爐再加熱比較省電又方便</div>
+            <div class="option">③ 兩者一樣</div>
+            <div class="option">④ 優先選電鍋保溫方式，因為馬上就可以吃</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電鍋的保溫功能耗電量不小（約40瓦），若持續保溫十幾個小時過夜，累積下來的耗電度數非常可觀。相對而言，先冷藏保存，隔天再用微波爐短時間（約1-2分鐘）加熱，整體消耗的電能遠低於長時間保溫。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 持續保溫較省電：錯誤，長時間保溫累積的耗電量極大。</li>
+                    <li class="correct-opt">② 微波爐再加熱比較省電又方便：正確，短時間加熱整體耗電量低。</li>
+                    <li class="wrong-opt">③ 兩者一樣：錯誤。</li>
+                    <li class="wrong-opt">④ 優先選電鍋保溫方式，因為馬上就可以吃：錯誤，雖方便但不符合節能原則，且飯易變質。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 38 -->
+    <div class="card">
+        <span class="theme-badge">主題：備用電源系統運作</span>
+        <div class="question">38. 不斷電系統 UPS 與緊急發電機的裝置都是應付臨時性供電狀況，停電時，下列敘述何者正確？</div>
+        <div class="options">
+            <div class="option">① 緊急發電機 UPS 立即啟動，不斷電系統延遲啟動</div>
+            <div class="option">② 不斷電系統 UPS 立即啟動，緊急發電機延遲啟動</div>
+            <div class="option">③ 兩者同時啟動</div>
+            <div class="option">④ 不斷電系統 UPS 可以撐比較久</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>停電發生的瞬間，不斷電系統（UPS）會利用內部的蓄電池「立即、無縫」接手供電，保護電腦設備不中斷；而緊急發電機因為涉及引擎啟動與電壓建立的機械過程，會有數十秒的延遲才能接手供電。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 緊急發電機 UPS 立即啟動，不斷電系統延遲啟動：錯誤，發電機無法立即啟動。</li>
+                    <li class="correct-opt">② 不斷電系統 UPS 立即啟動，緊急發電機延遲啟動：正確，UPS零時差供電，發電機隨後啟動接手。</li>
+                    <li class="wrong-opt">③ 兩者同時啟動：錯誤，啟動機制與時間差不同。</li>
+                    <li class="wrong-opt">④ 不斷電系統 UPS 可以撐比較久：錯誤，UPS電池容量有限通常只撐幾十分鐘，發電機只要有油便可持續運轉。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 39 -->
+    <div class="card">
+        <span class="theme-badge">主題：能源種類分辨</span>
+        <div class="question">39. 下列何者為非再生能源？</div>
+        <div class="options">
+            <div class="option">① 地熱能</div>
+            <div class="option">② 焦煤</div>
+            <div class="option">③ 太陽能</div>
+            <div class="option">④ 水力能</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>再生能源是指能在大自然中不斷循環補充的能源。地熱、太陽能、水力皆屬於源源不絕的再生能源；而「焦煤」是埋藏地底千萬年形成的化石燃料，一旦開採燃燒即耗盡，無法在人類壽命尺度內再生，故為非再生能源。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 地熱能：錯誤，為地球內部熱能，屬再生能源。</li>
+                    <li class="correct-opt">② 焦煤：正確，屬化石燃料，為非再生能源。</li>
+                    <li class="wrong-opt">③ 太陽能：錯誤，屬再生能源。</li>
+                    <li class="wrong-opt">④ 水力能：錯誤，利用自然水文循環，屬再生能源。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 40 -->
+    <div class="card">
+        <span class="theme-badge">主題：冷凍冷藏櫃除霜節能</span>
+        <div class="question">40. 有關冷凍冷藏櫃之除霜方式，下列何者最節能？</div>
+        <div class="options">
+            <div class="option">① 電熱除霜</div>
+            <div class="option">② 熱氣除霜</div>
+            <div class="option">③ 用吹風機除霜</div>
+            <div class="option">④ 打開冰箱門除霜</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>商用冷凍冷藏櫃結霜會影響製冷效率。「熱氣除霜」是將壓縮機排出的高溫高壓冷媒廢氣（熱氣）直接導入蒸發器管路中融化結霜，屬於「廢熱回收利用」，不需額外耗電，因此最為節能。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 電熱除霜：錯誤，需要額外開啟電熱管耗費大量電能。</li>
+                    <li class="correct-opt">② 熱氣除霜：正確，利用冷媒廢熱除霜，不需額外耗電。</li>
+                    <li class="wrong-opt">③ 用吹風機除霜：錯誤，人工介入且極度耗電。</li>
+                    <li class="wrong-opt">④ 打開冰箱門除霜：錯誤，會造成冷氣流失，增加後續降溫耗能。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 41 -->
+    <div class="card">
+        <span class="theme-badge">主題：桶裝瓦斯成分</span>
+        <div class="question">41. 一般桶裝瓦斯（液化石油氣）主要成分為丁烷與下列何種成分所組成？</div>
+        <div class="options">
+            <div class="option">① 甲烷</div>
+            <div class="option">② 乙烷</div>
+            <div class="option">③ 丙烷</div>
+            <div class="option">④ 辛烷</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>一般家庭使用的桶裝瓦斯，正確名稱為液化石油氣（LPG, Liquefied Petroleum Gas），其主要化學成分為「丙烷（C3H8）」與「丁烷（C4H10）」的混合氣體。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 甲烷：錯誤，甲烷(CH4)是管線「天然氣(LNG)」的主要成分。</li>
+                    <li class="wrong-opt">② 乙烷：錯誤，並非桶裝瓦斯的主要成分。</li>
+                    <li class="correct-opt">③ 丙烷：正確，與丁烷共同組成液化石油氣。</li>
+                    <li class="wrong-opt">④ 辛烷：錯誤，辛烷多存在於液態汽油中。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 42 -->
+    <div class="card">
+        <span class="theme-badge">主題：暖氣設備能源效率</span>
+        <div class="question">42. 在正常操作，且提供相同暖氣之情形下，下列何種暖氣設備之能源效率最高？</div>
+        <div class="options">
+            <div class="option">① 冷暖氣機</div>
+            <div class="option">② 電熱風扇</div>
+            <div class="option">③ 電熱輻射機</div>
+            <div class="option">④ 電暖爐</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>冷暖氣機使用「熱泵原理」，只需消耗少許電力驅動壓縮機，將室外空氣中的熱能搬移至室內，其能源效率（COP）通常可達 3.0 以上（即耗1份電可產生3份熱）。而電暖爐、電熱風扇等皆是直接將電能轉化為熱能，效率極限永遠小於 1，因此冷暖氣機最為省電高效。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 冷暖氣機：正確，利用熱泵技術，能源轉換效率最高。</li>
+                    <li class="wrong-opt">② 電熱風扇：錯誤，直接電熱轉換，效率低。</li>
+                    <li class="wrong-opt">③ 電熱輻射機：錯誤，效率低。</li>
+                    <li class="wrong-opt">④ 電暖爐：錯誤，耗電極大且供暖範圍小。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 43 -->
+    <div class="card">
+        <span class="theme-badge">主題：熱水器能源費用</span>
+        <div class="question">43. 下列何種熱水器所需能源費用最少？</div>
+        <div class="options">
+            <div class="option">① 電熱水器</div>
+            <div class="option">② 天然瓦斯熱水器</div>
+            <div class="option">③ 柴油鍋爐熱水器</div>
+            <div class="option">④ 熱泵熱水器</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「熱泵熱水器」運作原理與冷氣機類似，它吸收空氣中的免費熱能來加熱水，消耗的少許電能只用來運轉壓縮機，比起直接用電阻加熱的電熱水器，可節省高達75%的電費，是目前能源費用最為節省的熱水設備。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 電熱水器：錯誤，直接用電阻加熱，耗電量極大，費用昂貴。</li>
+                    <li class="wrong-opt">② 天然瓦斯熱水器：錯誤，費用屬中等，不及熱泵節省。</li>
+                    <li class="wrong-opt">③ 柴油鍋爐熱水器：錯誤，燃料成本受油價波動影響大。</li>
+                    <li class="correct-opt">④ 熱泵熱水器：正確，利用大氣環境熱能，運轉費用最低。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 44 -->
+    <div class="card">
+        <span class="theme-badge">主題：企業節能減碳作為</span>
+        <div class="question">44. 某公司希望能進行節能減碳，為地球盡點心力，以下何種作為並不恰當？</div>
+        <div class="options">
+            <div class="option">① 將採購規定列入以下文字：「汰換設備時首先考慮能源效率 1 級或具有節能標章之產品」</div>
+            <div class="option">② 盤查所有能源使用設備</div>
+            <div class="option">③ 實行能源管理</div>
+            <div class="option">④ 為考慮經營成本，汰換設備時採買最便宜的機種</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在推動節能減碳的過程中，若只考慮「初期購買成本」（最便宜的機種）而忽略設備的「長期運轉能源成本」，往往會買到耗電量極大的低效率設備，長期下來不僅墊高公司電費支出，更會增加碳排放，完全背離節能減碳的初衷。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 將採購規定列入以下文字：「汰換設備時首先考慮能源效率 1 級或具有節能標章之產品」：恰當的綠色採購作為。</li>
+                    <li class="wrong-opt">② 盤查所有能源使用設備：恰當，了解耗能現況是節能第一步。</li>
+                    <li class="wrong-opt">③ 實行能源管理：恰當。</li>
+                    <li class="correct-opt">④ 為考慮經營成本，汰換設備時採買最便宜的機種：不恰當，廉價設備通常伴隨高耗能，無助於減碳。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 45 -->
+    <div class="card">
+        <span class="theme-badge">主題：門面設施與冷氣外洩</span>
+        <div class="question">45. 冷氣外洩會造成能源之浪費，下列的入門設施與管理何者最耗能？</div>
+        <div class="options">
+            <div class="option">① 全開式有氣簾</div>
+            <div class="option">② 全開式無氣簾</div>
+            <div class="option">③ 自動門有氣簾</div>
+            <div class="option">④ 自動門無氣簾</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>營業場所若採取大門「全開式」迎客，且未加裝空氣簾（利用強風阻絕內外空氣交換），會導致室內冷氣毫無阻攔地大量流失，同時室外高溫空氣不斷湧入，使得冷氣壓縮機一直處於高負載運轉，是浪費能源、最耗電的情形。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 全開式有氣簾：錯誤，氣簾可阻擋部分冷氣外洩，非最耗能。</li>
+                    <li class="correct-opt">② 全開式無氣簾：正確，門戶洞開毫無遮蔽，冷氣流失最嚴重，最為耗能。</li>
+                    <li class="wrong-opt">③ 自動門有氣簾：錯誤，自動門配合氣簾保冷效果極佳。</li>
+                    <li class="wrong-opt">④ 自動門無氣簾：錯誤，自動門會自動關閉，耗能遠低於全開式。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 46 -->
+    <div class="card">
+        <span class="theme-badge">主題：潔淨能源判定</span>
+        <div class="question">46. 下列何者「不是」潔淨能源？</div>
+        <div class="options">
+            <div class="option">① 風能</div>
+            <div class="option">② 地熱</div>
+            <div class="option">③ 太陽能</div>
+            <div class="option">④ 頁岩氣</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>潔淨能源（綠能）是指在發電過程中不會產生溫室氣體或空氣污染的能源。風能、地熱、太陽能皆屬之。「頁岩氣」本質上是存在於頁岩層中的天然氣，屬於化石燃料，燃燒依然會排放二氧化碳，因此不是潔淨能源。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 風能：錯誤，屬於無碳排的潔淨能源。</li>
+                    <li class="wrong-opt">② 地熱：錯誤，屬於無碳排的潔淨能源。</li>
+                    <li class="wrong-opt">③ 太陽能：錯誤，屬於無碳排的潔淨能源。</li>
+                    <li class="correct-opt">④ 頁岩氣：正確，為化石燃料天然氣的一種，燃燒會排碳，非潔淨能源。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 47 -->
+    <div class="card">
+        <span class="theme-badge">主題：再生能源特性</span>
+        <div class="question">47. 有關再生能源中的風力、太陽能的使用特性中，下列敘述何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 間歇性能源，供應不穩定</div>
+            <div class="option">② 不易受天氣影響</div>
+            <div class="option">③ 需較大的土地面積</div>
+            <div class="option">④ 設置成本較高</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>風力與太陽能發電完全依賴大自然的力量（日照強度、雲層厚度、風速大小）。陰雨天沒有太陽、無風的時候就無法發電，因此它們是「極度容易受天氣影響」的間歇性能源，需要儲能設備或搭配其他發電方式來穩定供電。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 間歇性能源，供應不穩定：正確敘述，無風無陽光就無電。</li>
+                    <li class="correct-opt">② 不易受天氣影響：錯誤敘述，這是風力與太陽能最大的致命傷，極易受天氣影響。</li>
+                    <li class="wrong-opt">③ 需較大的土地面積：正確敘述，能量密度低，需大面積鋪設。</li>
+                    <li class="wrong-opt">④ 設置成本較高：正確敘述，初期設備與併網建置成本高昂。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 48 -->
+    <div class="card">
+        <span class="theme-badge">主題：台灣能源發展挑戰</span>
+        <div class="question">48. 有關台灣能源發展所面臨的挑戰，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 進口能源依存度高，能源安全易受國際影響</div>
+            <div class="option">② 化石能源所占比例高，溫室氣體減量壓力大</div>
+            <div class="option">③ 自產能源充足，不需仰賴進口</div>
+            <div class="option">④ 能源密集度較先進國家仍有改善空間</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>台灣本身缺乏煤、石油、天然氣等礦產資源，國內高達 97% 以上的能源全數仰賴從國外進口，因此「自產能源充足，不需仰賴進口」是完全錯誤的敘述，這也是台灣能源安全最大的隱憂。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 進口能源依存度高，能源安全易受國際影響：正確敘述。</li>
+                    <li class="wrong-opt">② 化石能源所占比例高，溫室氣體減量壓力大：正確敘述，火電佔比仍高。</li>
+                    <li class="correct-opt">③ 自產能源充足，不需仰賴進口：錯誤敘述，台灣能源超過97%仰賴進口。</li>
+                    <li class="wrong-opt">④ 能源密集度較先進國家仍有改善空間：正確敘述，產業結構尚需轉型提效。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 49 -->
+    <div class="card">
+        <span class="theme-badge">主題：瓦斯外洩處理原則</span>
+        <div class="question">49. 若發生瓦斯外洩之情形，下列處理方法何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 應先關閉瓦斯爐或熱水器等開關</div>
+            <div class="option">② 緩慢地打開門窗，讓瓦斯自然飄散</div>
+            <div class="option">③ 開啟電風扇，加強空氣流動</div>
+            <div class="option">④ 在漏氣止住前，應保持警戒，嚴禁煙火</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>瓦斯外洩時，室內充滿易燃氣體，此時若啟動任何電器開關（包括電風扇、抽油煙機、電燈等），開關接點產生的微小電火花極易引燃瓦斯，造成嚴重的氣爆事故。應緩慢推開窗戶讓空氣自然流通即可。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 應先關閉瓦斯爐或熱水器等開關：正確處理方式，切斷漏氣源頭。</li>
+                    <li class="wrong-opt">② 緩慢地打開門窗，讓瓦斯自然飄散：正確處理方式，自然通風最安全。</li>
+                    <li class="correct-opt">③ 開啟電風扇，加強空氣流動：錯誤且致命的作法，電氣火花會引爆瓦斯。</li>
+                    <li class="wrong-opt">④ 在漏氣止住前，應保持警戒，嚴禁煙火：正確處理方式。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 50 -->
+    <div class="card">
+        <span class="theme-badge">主題：全球暖化潛勢比較基準</span>
+        <div class="question">50. 全球暖化潛勢（Global Warming Potential, GWP）是衡量溫室氣體對全球暖化的影響，以何者為比較基準？</div>
+        <div class="options">
+            <div class="option">① CO2</div>
+            <div class="option">② CH4</div>
+            <div class="option">③ SF6</div>
+            <div class="option">④ N2O</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>全球暖化潛勢 (GWP) 是一個指數，用來量化各種不同溫室氣體在特定時間內（通常為100年）吸收熱量的能力。國際間統一將「二氧化碳 (CO2)」的 GWP 值設定為基準 1，再用來換算與比較其他氣體（如甲烷 CH4 的 GWP 約為 28）的暖化影響力。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① CO2：正確，二氧化碳被定為暖化潛勢比較的基準值1。</li>
+                    <li class="wrong-opt">② CH4：錯誤，甲烷的暖化能力約為CO2的數十倍。</li>
+                    <li class="wrong-opt">③ SF6：錯誤，六氟化硫是極強的溫室氣體，潛勢值為CO2的數萬倍。</li>
+                    <li class="wrong-opt">④ N2O：錯誤，氧化亞氮的暖化能力約為CO2的近三百倍。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路架設 乙級 工作項目05 (101-125題)</title>
+    <style>
+        /* 基礎與排版設定 */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+        
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        .question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* 選項樣式 */
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+        
+        /* 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+        
+        /* 解析內容樣式 */
+        .answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+        .answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+        
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { 
+            background: #eef2f5; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #34495e; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+        .comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+        
+        .explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        
+        .opt-list { margin: 0; padding-left: 0; list-style: none; }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #3498db; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+        
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>網路架設 乙級 工作項目05：網路規劃與管理</h1>
+        <p>(第101 - 125題)</p>
+        <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+    </div>
+
+    <div class="card-container">
+
+        <!-- 題目 101 -->
+        <div class="card">
+            <span class="theme-badge">主題：通訊調變技術</span>
+            <div class="question">101. 數位調變與類比調變技術比較，不具有下列哪項特點？</div>
+            <div class="options">
+                <div class="option">①受到雜訊的影響較小</div>
+                <div class="option">②安全性較高</div>
+                <div class="option">③對多媒體的資料多工較容易</div>
+                <div class="option">④訊號較易受干擾</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>與傳統的類比調變相比，數位調變技術是將資料轉換為 0 與 1 的數位訊號來傳輸。數位訊號最大的優勢在於：它能輕易地進行除錯、壓縮、加密，且因為只有高低電位（或特定相位）的區別，所以**極度抗干擾**，受到雜訊的影響非常小。因此宣稱數位調變「較易受干擾」是完全錯誤的。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①受到雜訊的影響較小：這是數位調變的正確優點。</li>
+                            <li class="wrong-opt">②安全性較高：數位訊號容易進行複雜的加密演算法，安全性極高。</li>
+                            <li class="wrong-opt">③對多媒體的資料多工較容易：數位化使得影音、文字可混合打包多工傳輸。</li>
+                            <li class="correct-opt">④訊號較易受干擾：錯誤，數位訊號的抗干擾能力遠大於類比訊號。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 102 -->
+        <div class="card">
+            <span class="theme-badge">主題：行動通訊系統</span>
+            <div class="question">102. 關於全球行動通信系統（Global System for Mobile Communications, GSM），下列何者不正確？</div>
+            <div class="options">
+                <div class="option">①使用數位訊號傳輸</div>
+                <div class="option">②資料傳輸速率在 10Mbps 到 100Mbps 之間</div>
+                <div class="option">③可應用在 900MHz、1800MHz 及 1900MHz</div>
+                <div class="option">④屬於第二代行動通信系統</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>GSM 是最經典的「第二代 (2G)」行動通信技術。2G 時代主要針對語音通話與簡單的文字簡訊設計，其原始的數據傳輸速率非常緩慢，大約只有 9.6 kbps（即使後期的 GPRS 也僅約 114 kbps）。速率能達到 10Mbps 到 100Mbps 是 3G 後期（HSPA+）或 4G（LTE）才有的能力。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①使用數位訊號傳輸：正確，GSM 將 1G 的類比語音轉為數位化。</li>
+                            <li class="correct-opt">②資料傳輸速率在 10Mbps 到 100Mbps 之間：錯誤，GSM 的速度極慢，根本無法達到 Mbps 等級。</li>
+                            <li class="wrong-opt">③可應用在 900MHz、1800MHz 及 1900MHz：正確，為 GSM 常見的運作頻段。</li>
+                            <li class="wrong-opt">④屬於第二代行動通信系統：正確。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 103 -->
+        <div class="card">
+            <span class="theme-badge">主題：行動通訊技術</span>
+            <div class="question">103. 進階長期演進技術（Long Term Evolution Advanced, LTE-Advanced）是第幾代行動通信技術？</div>
+            <div class="options">
+                <div class="option">①第 1 代</div>
+                <div class="option">②第 2 代</div>
+                <div class="option">③第 3 代</div>
+                <div class="option">④第 4 代</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>早期最初版的 LTE 有時被商業行銷稱為 4G，但嚴格來說它只被 ITU 認可為 3.9G。直到「進階長期演進技術（LTE-Advanced）」加入了載波聚合（Carrier Aggregation）等技術，才真正達到了國際電信聯盟（ITU）所定義的 IMT-Advanced 規範，成為名副其實的「第四代（4G）」行動通訊標準。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①第 1 代：為 AMPS 等類比系統。</li>
+                            <li class="wrong-opt">②第 2 代：為 GSM、CDMA 等系統。</li>
+                            <li class="wrong-opt">③第 3 代：為 WCDMA、CDMA2000 等系統。</li>
+                            <li class="correct-opt">④第 4 代：正確，LTE-Advanced 是 4G 的正式標準。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 104 -->
+        <div class="card">
+            <span class="theme-badge">主題：行動通訊系統</span>
+            <div class="question">104. 第三代行動通信系統，不包含下列哪一個系統？</div>
+            <div class="options">
+                <div class="option">①WCDMA</div>
+                <div class="option">②CDMA 2000</div>
+                <div class="option">③TDS-CDMA</div>
+                <div class="option">④GSM</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>國際電信聯盟（ITU）制定的第三代（3G）行動通訊標準（IMT-2000）中，主要包含了三大主流技術：歐洲主導的 WCDMA、北美主導的 CDMA2000，以及中國大陸自行開發的 TD-SCDMA。而 GSM 是前一代（2G）的代表技術，並不屬於 3G。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①WCDMA：為 3G 最廣泛採用的標準。</li>
+                            <li class="wrong-opt">②CDMA 2000：為 3G 標準之一（台灣亞太電信曾使用）。</li>
+                            <li class="wrong-opt">③TDS-CDMA：為中國大陸主導的 3G 標準。</li>
+                            <li class="correct-opt">④GSM：錯誤，GSM 屬於 2G 系統。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 105 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線網路標準</span>
+            <div class="question">105. 下列何種 IEEE 標準未使用正交分頻多工（Orthogonal Frequency Division Multiplexing, OFDM）技術？</div>
+            <div class="options">
+                <div class="option">①802.11a</div>
+                <div class="option">②802.11b</div>
+                <div class="option">③802.11g</div>
+                <div class="option">④802.11n</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>OFDM 是一種能大幅提高傳輸頻寬並抵抗多路徑干擾的先進展頻技術，目前廣泛應用於高速 Wi-Fi 之中（包含 11a、11g、11n 及之後的版本）。而早期的 IEEE 802.11b 為了相容性與當時的技術限制，使用的是較舊的 DSSS（直接序列展頻）與 CCK 調變技術，最高速度僅有 11 Mbps。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①802.11a：使用 OFDM 技術，運作於 5GHz。</li>
+                            <li class="correct-opt">②802.11b：正確，它使用 DSSS/CCK，沒有使用 OFDM。</li>
+                            <li class="wrong-opt">③802.11g：使用 OFDM 技術以達到 54Mbps。</li>
+                            <li class="wrong-opt">④802.11n：使用 OFDM 並結合 MIMO 技術。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 106 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線通訊頻段</span>
+            <div class="question">106. 下列何種系統與 IEEE 802.11g 使用相同頻段？</div>
+            <div class="options">
+                <div class="option">①藍牙（Bluetooth）</div>
+                <div class="option">②全球行動通信（Global System for Mobile Communications, GSM）</div>
+                <div class="option">③全球互通微波存取（Worldwide Interoperability for Microwave Access, WiMAX）</div>
+                <div class="option">④寬頻分碼多重存取（Wide-band Code Division Multiple Access, WCDMA）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>IEEE 802.11g（Wi-Fi）運作在不需申請特許執照的 2.4 GHz ISM 頻段。在選項中，藍牙（Bluetooth）技術同樣也是設計運作在這個 2.4 GHz 的公共頻段上。這也是為什麼當我們在使用 2.4G Wi-Fi 時，旁邊若有藍牙設備傳輸，兩者很容易產生電波互相干擾的原因。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①藍牙（Bluetooth）：正確，與 11g 一樣使用 2.4GHz 頻段。</li>
+                            <li class="wrong-opt">②GSM：使用 900/1800/1900 MHz 等頻段。</li>
+                            <li class="wrong-opt">③WiMAX：通常使用 2.5G、3.5G 或 5.8GHz 頻段。</li>
+                            <li class="wrong-opt">④WCDMA：通常運作在 2.1GHz（2100MHz）頻段。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 107 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線網路分類</span>
+            <div class="question">107. 藍牙（Bluetooth）屬於下列何種網路？</div>
+            <div class="options">
+                <div class="option">①無線校園網路</div>
+                <div class="option">②無線都會網路</div>
+                <div class="option">③無線廣域網路</div>
+                <div class="option">④無線個人區域網路</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>網路的分類主要依據「涵蓋範圍」來決定。藍牙（Bluetooth）的設計初衷是為了取代個人設備（如手機、滑鼠、耳機、電腦）之間的短距離實體纜線，其標準傳輸範圍大約在 10 公尺左右。這種以「個人」為中心、覆蓋極小範圍的無線網路，被標準化歸類為「無線個人區域網路（WPAN, Wireless Personal Area Network）」。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①無線校園網路：屬於較大型的區域網路（WLAN）範疇。</li>
+                            <li class="wrong-opt">②無線都會網路：WMAN（如 WiMAX），範圍可覆蓋一個城市。</li>
+                            <li class="wrong-opt">③無線廣域網路：WWAN（如 4G/5G），範圍可覆蓋全國。</li>
+                            <li class="correct-opt">④無線個人區域網路：正確，WPAN 是藍牙所屬的分類（IEEE 802.15）。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 108 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線通訊頻段</span>
+            <div class="question">108. 藍牙（Bluetooth）是使用哪一個頻段？</div>
+            <div class="options">
+                <div class="option">①2.4GHz</div>
+                <div class="option">②24GHz</div>
+                <div class="option">③240MHz</div>
+                <div class="option">④24MHz</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>藍牙（Bluetooth）運作在全球通用的工業、科學、醫療（ISM）免費頻段，其精確的頻率範圍是 2.402 GHz 到 2.480 GHz。考題中常出現少一個小數點的陷阱（如 24GHz），請務必認明是 2.4 GHz。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①2.4GHz：正確，此為藍牙與主流 Wi-Fi 共用的 ISM 頻段。</li>
+                            <li class="wrong-opt">②24GHz：頻率高出十倍，極高頻微波通常用於汽車雷達等領域。</li>
+                            <li class="wrong-opt">③240MHz：屬於 VHF 頻段，非藍牙使用。</li>
+                            <li class="wrong-opt">④24MHz：屬於短波（HF）頻段。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 109 -->
+        <div class="card">
+            <span class="theme-badge">主題：IEEE 802 系列標準</span>
+            <div class="question">109. 下列何者為無線區域網路所使用的標準？</div>
+            <div class="options">
+                <div class="option">①IEEE 802.15</div>
+                <div class="option">②IEEE 802.16</div>
+                <div class="option">③IEEE 802.3</div>
+                <div class="option">④IEEE 802.11</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在電機電子工程師學會（IEEE）的標準定義中，802 系列專門規範區域網域與都會網路。其中「IEEE 802.11」就是我們日常所熟知的 Wi-Fi（無線區域網路 WLAN）的官方底層技術標準協定。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①IEEE 802.15：為「無線個人區域網路（WPAN）」標準，如藍牙。</li>
+                            <li class="wrong-opt">②IEEE 802.16：為「無線都會網路（WMAN）」標準，如 WiMAX。</li>
+                            <li class="wrong-opt">③IEEE 802.3：為傳統「有線」乙太網路（Ethernet）標準。</li>
+                            <li class="correct-opt">④IEEE 802.11：正確，為無線區域網路（WLAN）的標準。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 110 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線網路分類</span>
+            <div class="question">110. 傳輸範圍可跨越不同城市的無線網路為</div>
+            <div class="options">
+                <div class="option">①無線個人網路</div>
+                <div class="option">②無線區域網路</div>
+                <div class="option">③無線都會網路</div>
+                <div class="option">④無線廣域網路</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>網路範圍從小到大依序為：個人網路(幾公尺內) -> 區域網路(一棟建築或校園) -> 都會網路(單一城市內) -> 廣域網路(跨越城市、國家甚至全球)。因此，能夠「跨越不同城市」進行傳輸的，屬於覆蓋範圍最大的「廣域網路（WWAN, Wireless Wide Area Network）」，最典型的例子就是我們手機使用的 4G/5G 行動通訊網路。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①無線個人網路：範圍極小，如藍牙耳機連接。</li>
+                            <li class="wrong-opt">②無線區域網路：範圍在一棟大樓或校園內，如 Wi-Fi。</li>
+                            <li class="wrong-opt">③無線都會網路：範圍覆蓋單一城市，如 WiMAX。</li>
+                            <li class="correct-opt">④無線廣域網路：正確，範圍可跨越城市與國家界線。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 111 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線區域網路特性</span>
+            <div class="question">111. 下列何者不是無線區域網路的優點？</div>
+            <div class="options">
+                <div class="option">①移動性高</div>
+                <div class="option">②安全性高</div>
+                <div class="option">③不必布線</div>
+                <div class="option">④安裝容易</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>無線區域網路（WLAN）最大的缺點就在於它的「實體媒介是開放的空氣」。這代表任何在電波覆蓋範圍內的人，只要有適當的工具，就能輕易攔截、側錄或干擾網路上傳輸的封包。相較於有線網路必須實體插線才能竊聽，無線網路先天上的「安全性」就比較脆弱，因此「安全性高」絕對不是它的優點。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①移動性高：是無線網路最大的優點。</li>
+                            <li class="correct-opt">②安全性高：錯誤，無線電波容易被側錄，安全性是其弱點。</li>
+                            <li class="wrong-opt">③不必布線：是優點，省去穿牆洗孔的麻煩。</li>
+                            <li class="wrong-opt">④安裝容易：是優點，架設基地台比拉實體線路簡單許多。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 112 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線網路標準</span>
+            <div class="question">112. IEEE 802.11a 與 IEEE 802.11g 的最高傳輸速率為</div>
+            <div class="options">
+                <div class="option">①5.4Mbps</div>
+                <div class="option">②540Mbps</div>
+                <div class="option">③54Mbps</div>
+                <div class="option">④11Mbps</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>雖然 IEEE 802.11a 運作在 5GHz，而 IEEE 802.11g 運作在 2.4GHz，但這兩個標準的共通點是「它們都採用了 OFDM（正交分頻多工）技術」。透過這項技術，兩者的理論最高實體層傳輸速率皆被規範為 54 Mbps。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①5.4Mbps：無此規格。</li>
+                            <li class="wrong-opt">②540Mbps：接近 11n 的最高極限值（600Mbps），非 11a/g 速率。</li>
+                            <li class="correct-opt">③54Mbps：正確，這是 11a 與 11g 的標準最高速率。</li>
+                            <li class="wrong-opt">④11Mbps：這是更早期的 802.11b 的最高速率。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 113 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線通訊頻段</span>
+            <div class="question">113. 下列何種技術不是使用 2.4GHz 的頻段？</div>
+            <div class="options">
+                <div class="option">①藍牙（Bluetooth）</div>
+                <div class="option">②IEEE 802.11a</div>
+                <div class="option">③IEEE 802.11b</div>
+                <div class="option">④IEEE 802.11g</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在早期 Wi-Fi 標準發展的過程中，IEEE 802.11b 與 11g 都選擇了最擁擠的 2.4GHz ISM 頻段。而 IEEE 802.11a 則選擇開發較為乾淨的高頻段「5 GHz」來進行高速傳輸，以避開 2.4GHz 中微波爐、藍牙、無線電話等設備的嚴重干擾。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①藍牙（Bluetooth）：使用 2.4GHz。</li>
+                            <li class="correct-opt">②IEEE 802.11a：正確，它使用的是 5GHz 頻段。</li>
+                            <li class="wrong-opt">③IEEE 802.11b：使用 2.4GHz。</li>
+                            <li class="wrong-opt">④IEEE 802.11g：使用 2.4GHz。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 114 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線網路標準 (802.11n)</span>
+            <div class="question">114. 關於 IEEE 802.11n，下列何者不正確？</div>
+            <div class="options">
+                <div class="option">①可與 IEEE802.11b 相容</div>
+                <div class="option">②傳輸距離可大於 100 公尺</div>
+                <div class="option">③使用多輸入多輸出（Multi-input Multi-output, MIMO）技術</div>
+                <div class="option">④最高傳輸速率為 24Mbps</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>IEEE 802.11n（又稱 Wi-Fi 4）是 Wi-Fi 速度大躍進的重要版本。它引入了 MIMO 技術並將頻道頻寬加倍到 40MHz，使得其單天線最低速率從 72 Mbps 起跳，若搭配多天線滿配，最高甚至可達理論值 600 Mbps。宣稱其最高速率僅為 24 Mbps 是完全低估且錯誤的。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①可與 IEEE802.11b 相容：正確，11n 在 2.4G 模式下可向下相容 11b/g。</li>
+                            <li class="wrong-opt">②傳輸距離可大於 100 公尺：正確，得益於 MIMO 技術，其覆蓋範圍比前代更廣。</li>
+                            <li class="wrong-opt">③使用 MIMO 技術：正確，這是 11n 的核心革命技術。</li>
+                            <li class="correct-opt">④最高傳輸速率為 24Mbps：錯誤，最高傳輸速率遠大於此，可達 600Mbps。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 115 -->
+        <div class="card">
+            <span class="theme-badge">主題：寬頻無線技術</span>
+            <div class="question">115. 關於區域多點分散服務（Local Multipoint Distribution Service, LMDS），下列何者不正確？</div>
+            <div class="options">
+                <div class="option">①部署過程容易</div>
+                <div class="option">②所使用之頻率不需向主管機關申請</div>
+                <div class="option">③具有良好擴充特性（Scalable）</div>
+                <div class="option">④可應用於語音服務</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>LMDS 是一種提供雙向寬頻連線的固接式微波通訊技術。因為它運作於極高頻段（如 26GHz 到 29GHz），這段頻譜資源屬於國家特許管制資產。因此電信業者若要建置 LMDS 網路系統，**必須向 NCC 等國家主管機關繳納規費並申請頻譜執照**，不可私自架設發射。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①部署過程容易：相較於挖馬路鋪光纖，微波對打的部署時間與難度較低。</li>
+                            <li class="correct-opt">②所使用之頻率不需向主管機關申請：錯誤，LMDS 屬於高頻特許頻譜，必須申請執照。</li>
+                            <li class="wrong-opt">③具有良好擴充特性（Scalable）：正確，容易透過增設基地台來擴充容量。</li>
+                            <li class="wrong-opt">④可應用於語音服務：正確，頻寬極大，可傳輸數據、語音與影像。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 116 -->
+        <div class="card">
+            <span class="theme-badge">主題：IEEE 802 系列標準</span>
+            <div class="question">116. 關於 IEEE 802 標準所規範之網路架構，下列敘述何者不正確？</div>
+            <div class="options">
+                <div class="option">①IEEE 802.5 為符記環網路架構</div>
+                <div class="option">②IEEE 802.4 為樹狀網路架構</div>
+                <div class="option">③IEEE 802.11 為無線區域網路架構</div>
+                <div class="option">④IEEE 802.3 為乙太網路架構</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：②</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>IEEE 802.4 標準定義的是「符記匯流排（Token Bus）」網路架構（主要用於早期的工廠自動化環境）。雖然它的邏輯運作類似 Token Ring，但實體層是跑在線性的同軸電纜（Bus）上，並非所謂的「樹狀（Tree）」網路架構。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①IEEE 802.5 為符記環網路架構：正確 (Token Ring)。</li>
+                            <li class="correct-opt">②IEEE 802.4 為樹狀網路架構：錯誤，應為符記匯流排 (Token Bus) 架構。</li>
+                            <li class="wrong-opt">③IEEE 802.11 為無線區域網路架構：正確 (Wi-Fi/WLAN)。</li>
+                            <li class="wrong-opt">④IEEE 802.3 為乙太網路架構：正確 (Ethernet)。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 117 -->
+        <div class="card">
+            <span class="theme-badge">主題：網路安全防護</span>
+            <div class="question">117. 防火牆一般不包括下列何種功能？</div>
+            <div class="options">
+                <div class="option">①身分識別</div>
+                <div class="option">②安全稽核</div>
+                <div class="option">③存取管控</div>
+                <div class="option">④負載平衡</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>傳統防火牆（Firewall）的設計目的是用來區隔內外網，並依據安全政策對進出的網路封包進行「身分識別、存取控制（阻擋或允許）與安全日誌稽核」。而「負載平衡（Load Balancing）」主要是用來將大量連線分散到多台伺服器以避免單機過載，這通常是由專門的負載平衡設備（如 L4/L7 負載平衡器）來負責，不屬於傳統防火牆的核心安全功能。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①身分識別：許多進階防火牆可整合 AD/LDAP 進行用戶識別。</li>
+                            <li class="wrong-opt">②安全稽核：記錄所有違規的連線存取 Log。</li>
+                            <li class="wrong-opt">③存取管控：防火牆最基本的核心功能（Rule/Policy）。</li>
+                            <li class="correct-opt">④負載平衡：錯誤，這不是一般防禦性防火牆的主要功能範疇。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 118 -->
+        <div class="card">
+            <span class="theme-badge">主題：防火牆架構</span>
+            <div class="question">118. 若網路環境中存在防火牆，則對外之 Web 伺服器一般存放於何處？</div>
+            <div class="options">
+                <div class="option">①防火牆主機中</div>
+                <div class="option">②內部網路（Internal Network）</div>
+                <div class="option">③外部網路（External Network）</div>
+                <div class="option">④非軍事區（De-Militarized Zone）</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>企業中負責對外提供服務的主機（如 Web、Email 伺服器）具有極高的被駭客攻擊風險。為了防止這些伺服器淪陷後成為駭客跳板入侵企業內部機密網路，網管人員會利用防火牆劃分出一個隔離的「非軍事區（DMZ）」。將對外伺服器放置於此，就算被攻破，防火牆依然能阻擋它向內部網路（Internal Network）進行滲透。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①防火牆主機中：極度危險且不合理，防火牆本身不應運行其他應用服務。</li>
+                            <li class="wrong-opt">②內部網路：若伺服器被駭，內部所有電腦將直接受威脅。</li>
+                            <li class="wrong-opt">③外部網路：完全暴露在網際網路上，毫無任何防護。</li>
+                            <li class="correct-opt">④非軍事區（DMZ）：正確，此為專門放置對外服務主機的隔離安全區域。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 119 -->
+        <div class="card">
+            <span class="theme-badge">主題：無線網路安全</span>
+            <div class="question">119. 下列哪一種機制無法保護無線網路的安全？</div>
+            <div class="options">
+                <div class="option">①WEP</div>
+                <div class="option">②WPA</div>
+                <div class="option">③SSID</div>
+                <div class="option">④IEEE 802.11x</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>SSID（Service Set Identifier）只是無線網路基地台對外廣播的「網路名稱（如 "My_Home_WiFi"）」，它的作用單純是讓使用者的手機或電腦能在清單中辨識並點擊連線。SSID 本身完全不具備任何密碼驗證或資料加密的功能，因此它無法用來「保護」無線網路的安全。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①WEP：早期的一種弱加密機制，但仍算是一種安全防護。</li>
+                            <li class="wrong-opt">②WPA：目前主流的無線加密機制之一（WPA/WPA2/WPA3）。</li>
+                            <li class="correct-opt">③SSID：正確，它只是網路名稱標籤，無安全防護能力。</li>
+                            <li class="wrong-opt">④IEEE 802.11x：應為 802.1x，是一種企業級的連接埠身分認證標準。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 120 -->
+        <div class="card">
+            <span class="theme-badge">主題：密碼學演算法</span>
+            <div class="question">120. RSA 加密演算法所採用的公開金鑰（n,e）及秘密金鑰（d），必須滿足下列哪一項條件？</div>
+            <div class="options">
+                <div class="option">①e 和 d 都是質數</div>
+                <div class="option">②d 和 n 不互質</div>
+                <div class="option">③ed=1 mod n</div>
+                <div class="option">④(e-1)(d-1)=n</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：① (依官方題庫答案)</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析與特別註解】</strong>
+                        <p>⚠️ <strong>注意：這是一題在業界頗具爭議、有瑕疵的傳統考題。</strong><br>
+                        在真正的 RSA 數學理論中，正確的核心條件是：<code>e × d ≡ 1 mod φ(n)</code>，也就是 e 和 d 在模 φ(n) 之下互為反元素，且 e 必須與 φ(n) 互質。實務上 e 經常挑選質數（如 65537），但 d 絕大多數情況下「不一定」會是質數。<br>
+                        但在這份國家考試的題庫中，選項中沒有給出 <code>mod φ(n)</code> 的正確公式（選項③是錯誤的 <code>mod n</code>），官方標準答案被設定為 <strong>① e 和 d 都是質數</strong>。因此在準備此考試時，遇到此題請務必死記官方答案 ①。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①e 和 d 都是質數：官方指定解答。（儘管數學理論上 d 不須為質數）。</li>
+                            <li class="wrong-opt">②d 和 n 不互質：錯誤，d 會和 φ(n) 產生關聯，n 則是兩個大質數相乘。</li>
+                            <li class="wrong-opt">③ed=1 mod n：公式錯誤，正確應為 ed=1 mod φ(n) 或 mod (p-1)(q-1)。</li>
+                            <li class="wrong-opt">④(e-1)(d-1)=n：毫無根據的錯誤公式。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 121 -->
+        <div class="card">
+            <span class="theme-badge">主題：電子郵件安全</span>
+            <div class="question">121. S/MIME 是依據下列何種標準所建立？</div>
+            <div class="options">
+                <div class="option">①PEM</div>
+                <div class="option">②MOSS</div>
+                <div class="option">③PGP</div>
+                <div class="option">④MIME</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>S/MIME（Secure/Multipurpose Internet Mail Extensions，安全多用途網際網路郵件擴展）顧名思義，它是建立在原有的 <strong>MIME</strong>（允許郵件夾帶圖片、檔案附件的標準）協定之上。S/MIME 為 MIME 加入了 RSA 等數位簽章與加密功能，讓郵件在傳輸時能保障機密性與不可否認性。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①PEM：Privacy-Enhanced Mail，早期提出的另一種郵件加密標準。</li>
+                            <li class="wrong-opt">②MOSS：MIME Object Security Services，早期的另一種安全協定。</li>
+                            <li class="wrong-opt">③PGP：Pretty Good Privacy，非常著名的非對稱加密軟體，但非 S/MIME 建立的底層標準。</li>
+                            <li class="correct-opt">④MIME：正確，S/MIME 就是 MIME 的加密安全延伸版本。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 122 -->
+        <div class="card">
+            <span class="theme-badge">主題：資訊安全 CIA</span>
+            <div class="question">122. 完整性（Integrity）不會保護下列哪一項作為？</div>
+            <div class="options">
+                <div class="option">①資料分析</div>
+                <div class="option">②未授權的變更</div>
+                <div class="option">③蓄意竄改</div>
+                <div class="option">④意外變更</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：①</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在資安三大支柱（CIA）中，「完整性（Integrity）」的目標是確保資料從產生到儲存的過程中，內容是精確無誤且值得信賴的，因此它會防護資料被「未授權變更、蓄意竄改或意外損壞」。而「資料分析」是正常的資料讀取與運算行為，這屬於合法應用，並非完整性機制要去「防護與阻擋」的攻擊作為。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="correct-opt">①資料分析：正確，資料分析是合法行為，不是完整性要去阻擋的威脅。</li>
+                            <li class="wrong-opt">②未授權的變更：此為完整性保護的核心對象。</li>
+                            <li class="wrong-opt">③蓄意竄改：此為完整性保護的核心對象（如駭客修改轉帳金額）。</li>
+                            <li class="wrong-opt">④意外變更：此為完整性保護的核心對象（如硬碟損壞導致位元反轉）。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 123 -->
+        <div class="card">
+            <span class="theme-badge">主題：資訊安全 CIA</span>
+            <div class="question">123. 完整性（Integrity）通常可透過下列何項措施進行強化？</div>
+            <div class="options">
+                <div class="option">①採用實體安全</div>
+                <div class="option">②導入邏輯安全</div>
+                <div class="option">③壓縮</div>
+                <div class="option">④控制存取</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>要防止資料被惡意竄改以維持「完整性」，最基礎且有效的管理手段就是「控制存取（Access Control）」。透過嚴格限制誰有權限讀取、誰有權限「寫入與修改」檔案，可以從根本上降低資料被未授權變更的風險。（另外常見的技術手段還包含數位簽章與雜湊值檢查）。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①採用實體安全：主要用來保護設備不被偷竊破壞，偏向「可用性」與防盜。</li>
+                            <li class="wrong-opt">②導入邏輯安全：概念太過籠統，不如控制存取具體。</li>
+                            <li class="wrong-opt">③壓縮：為節省儲存空間，甚至可能因壓縮錯誤損害完整性。</li>
+                            <li class="correct-opt">④控制存取：正確，透過權限劃分確保只有合法用戶能修改資料。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 124 -->
+        <div class="card">
+            <span class="theme-badge">主題：風險管理</span>
+            <div class="question">124. 風險管理不包括下列哪一項？</div>
+            <div class="options">
+                <div class="option">①風險分析與評估</div>
+                <div class="option">②風險識別</div>
+                <div class="option">③風險接受或轉移</div>
+                <div class="option">④完全消除風險發生</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：④</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>在資安與企業管理的理論中，一個重要的核心概念是：**「風險是永遠不可能被 100% 徹底消除的」**。只要企業有在運作、有連上網路，就一定存在未知漏洞或天災人禍的機率。風險管理的目的是將風險降低至企業可接受的範圍，而非妄想完全消滅它。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①風險分析與評估：為風險管理的標準步驟（計算衝擊與機率）。</li>
+                            <li class="wrong-opt">②風險識別：為風險管理的標準步驟（找出潛在威脅）。</li>
+                            <li class="wrong-opt">③風險接受或轉移：為風險處理策略（如買保險轉移，或評估成本後接受）。</li>
+                            <li class="correct-opt">④完全消除風險發生：正確，這在現實世界中是不可能達成也不屬於管理範疇的。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 題目 125 -->
+        <div class="card">
+            <span class="theme-badge">主題：資訊安全名詞</span>
+            <div class="question">125. 資訊資產盤點時，發現機房中消防滅火系統失效，最適合以下列哪一項特徵表示？</div>
+            <div class="options">
+                <div class="option">①安全</div>
+                <div class="option">②威脅</div>
+                <div class="option">③弱點</div>
+                <div class="option">④機會</div>
+            </div>
+            <details class="qa-details">
+                <summary>💡 點擊展開解答與解析</summary>
+                <div class="answer-panel">
+                    <div class="answer-title">✅ 正確答案：③</div>
+                    <div class="comprehensive-exp">
+                        <strong>【綜合解析】</strong>
+                        <p>釐清資安名詞的定義非常重要：<br>
+                        - <strong>威脅（Threat）</strong>：可能造成傷害的外在事件（如：機房發生火災）。<br>
+                        - <strong>弱點（Vulnerability）</strong>：系統本身內部的防護缺陷或設備故障。<br>
+                        消防系統失效代表的是企業內部設施「失去了抵禦火災的能力」，這屬於內部防護的缺失，因此定義上屬於「弱點」。</p>
+                    </div>
+                    <div class="explanation">
+                        <strong class="exp-subtitle">【各選項解析】</strong>
+                        <ul class="opt-list">
+                            <li class="wrong-opt">①安全：系統失效明顯是不安全的。</li>
+                            <li class="wrong-opt">②威脅：火災本身才是威脅，系統失效不是事件而是狀態。</li>
+                            <li class="correct-opt">③弱點：正確，防護設備故障是系統內在的脆弱之處。</li>
+                            <li class="wrong-opt">④機會：這是 SWOT 分析中對企業有利的外在因素，與此情境無關。</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>
