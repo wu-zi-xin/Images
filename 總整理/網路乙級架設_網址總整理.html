@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路乙級題庫分類</title>
+    <style>
+        /* 深色主題與顏色設定 */
+        :root {
+            --bg-color: #121212;
+            --text-color: #f5f5f5;
+            --primary-color: #1e1e1e;
+            --secondary-color: #2c3e50;
+            --accent-color: #3498db;
+            --hover-color: #2980b9;
+            --link-bg: #2a2a2a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            font-size: 18px; 
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            font-size: 2.5em;
+            margin-bottom: 40px;
+        }
+
+        /* --------------------------- */
+        /* 第一層：大標題按鈕 (解析/測驗) */
+        /* --------------------------- */
+        .main-accordion {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            cursor: pointer;
+            padding: 25px;
+            width: 100%;
+            border: 2px solid var(--secondary-color);
+            border-radius: 12px;
+            text-align: left;
+            outline: none;
+            font-size: 2.2em;
+            font-weight: bold;
+            transition: 0.3s;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+        }
+
+        .main-accordion:hover, .main-accordion.active {
+            background-color: #252525;
+            border-color: var(--accent-color);
+        }
+
+        /* 展開狀態下取消底部圓角，讓它跟下方區塊連在一起 */
+        .main-accordion.active {
+            margin-bottom: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: none;
+        }
+
+        .main-accordion::after {
+            content: '\25BC'; /* 向下箭頭 */
+            font-size: 0.7em;
+            color: var(--accent-color);
+            transition: transform 0.3s;
+        }
+
+        .main-accordion.active::after {
+            transform: rotate(-180deg); /* 箭頭反轉 */
+        }
+
+        /* 大組題展開後的內容區塊 */
+        .main-panel {
+            display: none; /* 預設收合 */
+            background-color: var(--primary-color);
+            border: 2px solid var(--accent-color);
+            border-top: none;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            padding: 20px 25px 30px 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+        }
+
+        .main-panel.show {
+            display: block; /* 展開時顯示 */
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --------------------------- */
+        /* 第二層：小標題按鈕 (工作項目) */
+        /* --------------------------- */
+        .accordion {
+            background-color: var(--secondary-color);
+            color: #fff;
+            cursor: pointer;
+            padding: 20px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion:hover, .accordion.active {
+            background-color: var(--hover-color);
+        }
+
+        .accordion::after {
+            content: '\002B'; /* 加號 */
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .accordion.active::after {
+            content: '\2212'; /* 減號 */
+        }
+
+        /* 面板內部連結列表 */
+        .panel {
+            padding: 0 15px;
+            background-color: transparent;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .panel ul {
+            list-style: none;
+            padding: 15px 0;
+            margin: 0;
+        }
+
+        .panel li {
+            margin: 12px 0;
+        }
+
+        .panel a {
+            display: block;
+            padding: 18px;
+            background-color: var(--link-bg);
+            color: #81ecec; 
+            text-decoration: none;
+            font-size: 1.25em;
+            border-radius: 8px;
+            transition: 0.3s;
+            border-left: 6px solid transparent;
+            word-break: break-all;
+        }
+
+        .panel a:hover {
+            background-color: #3a3a3a;
+            border-left: 6px solid var(--accent-color);
+            color: #ffffff;
+            padding-left: 25px;
+        }
+
+        /* 空白預留區提示文字 */
+        .empty-msg {
+            font-size: 1.3em;
+            color: #999;
+            padding: 20px;
+            font-style: italic;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        /* 回到頂部按鈕樣式 */
+        #scrollTopBtn {
+            display: none; 
+            position: fixed; 
+            bottom: 25px; 
+            right: 25px; 
+            z-index: 99; 
+            border: none; 
+            outline: none; 
+            background-color: var(--accent-color); 
+            color: white; 
+            cursor: pointer; 
+            border-radius: 50%; 
+            font-size: 18px; /* 電腦版字體縮小 */
+            width: 45px;     /* 電腦版寬度縮小 */
+            height: 45px;    /* 電腦版高度縮小 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none; 
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        #scrollTopBtn.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #scrollTopBtn:hover {
+            background-color: var(--hover-color); 
+            transform: scale(1.1); 
+        }
+
+        /* 手機版自適應設定 */
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            .main-accordion { font-size: 1.8em; padding: 20px; }
+            .accordion { font-size: 1.3em; padding: 15px; }
+            .panel a { font-size: 1.15em; padding: 15px; }
+            
+            /* 特別針對手機版將回到頂部按鈕改得更小 */
+            #scrollTopBtn {
+                bottom: 15px;  /* 貼近底部邊緣 */
+                right: 15px;   /* 貼近右側邊緣 */
+                width: 38px;   /* 寬度大幅縮小 */
+                height: 38px;  /* 高度大幅縮小 */
+                font-size: 16px; /* 箭頭符號縮小 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>網路乙級題庫 系統目錄</h1>
+
+    <!-- 【大標題一：工作項目解析】 -->
+    <button class="main-accordion">📋 工作項目解析</button>
+    <div class="main-panel">
+        
+        <!-- 工作項目 1 -->
+        <button class="accordion">工作項目 1</button>
+        <div class="panel">
+            <ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目1/工作項目1_01%20–%2025.html" target="_blank">【 第 1 組：1 - 25 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目1/工作項目1_26%20–%2038.html" target="_blank">【 第 2 組：26 - 38 】<br>&emsp;(12 個)</a></li>
+            </ul>
+        </div>
+
+        <!-- 工作項目 2 -->
+        <button class="accordion">工作項目 2</button>
+        <div class="panel">
+            <ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目2/工作項目2_01%20–%2025.html" target="_blank">【 第 1 組：1 - 25 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目2/工作項目2_26%20–%2050.html" target="_blank">【 第 2 組：26 - 50 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目2/工作項目2_51–%2075.html" target="_blank">【 第 3 組：51 - 75 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目2/工作項目2_76–%20100.html" target="_blank">【 第 4 組：76 - 100 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目2/工作項目2_101–%20104.html" target="_blank">【 第 5 組：101 - 104 】<br>&emsp;(4 個)</a></li>
+            </ul>
+        </div>
+
+        <!-- 工作項目 3 -->
+        <button class="accordion">工作項目 3</button>
+        <div class="panel">
+            <ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目3/工作項目3_01%20–%2025.html" target="_blank">【 第 1 組：1 - 25 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目3/工作項目3_26%20–%2050.html" target="_blank">【 第 2 組：26 - 50 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目3/工作項目3_51%20–%2075.html" target="_blank">【 第 3 組：51 - 75 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目3/工作項目3_76%20–%20100.html" target="_blank">【 第 4 組：76 - 100 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目3/工作項目3_101%20–%20125.html" target="_blank">【 第 5 組：101 - 125 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目3/工作項目3_126%20–%20150.html" target="_blank">【 第 6 組：126 - 150 】<br> &emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目3/工作項目3_151%20–%20175.html" target="_blank">【 第 7 組：151 - 175 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目3/工作項目3_176%20–%20183.html" target="_blank">【 第 8 組：176 - 183 】<br>&emsp;(8 個)</a></li>
+            </ul>
+        </div>
+
+        <!-- 工作項目 4 -->
+        <button class="accordion">工作項目 4</button>
+        <div class="panel">
+            <ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_01%20–%2025.html" target="_blank">【 第 1 組：1 - 25 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_26%20–%2050.html" target="_blank">【 第 2 組：26 - 50 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_51%20–%2075.html" target="_blank">【 第 3 組：51 - 75 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_76%20–%20100.html" target="_blank">【 第 4 組：76 - 100 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_101%20–%20125.html" target="_blank">【 第 5 組：101 - 125 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_126%20–%20150.html" target="_blank">【 第 6 組：126 - 150 】<br> &emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_151%20–%20175.html" target="_blank">【 第 7 組：151 - 175 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_176%20–%20200.html" target="_blank">【 第 8 組：176 - 200 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_201%20–%20225.html" target="_blank">【 第 9 組：201 - 225 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_226%20–%20250.html" target="_blank">【 第 10 組：226 - 250 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_251%20–%20275.html" target="_blank">【 第 11 組：251 - 275 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_276%20–%20300.html" target="_blank">【 第 12 組：276 - 300 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_301%20–%20325.html" target="_blank">【 第 13 組：301 - 325 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目4/工作項目4_326%20–%20339.html" target="_blank">【 第 14 組：326 - 339 】<br>&emsp;(最後剩 14 個)</a></li>
+            </ul>
+        </div>
+
+        <!-- 工作項目 5 -->
+        <button class="accordion">工作項目 5</button>
+        <div class="panel">
+            <ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目5/工作項目5_01%20–%2025.html" target="_blank">【 第 1 組：1 - 25 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目5/工作項目5_26%20–%2050.html" target="_blank">【 第 2 組：26 - 50 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目5/工作項目5_51%20–%2075.html" target="_blank">【 第 3 組：51 - 75 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目5/工作項目5_76%20–%20100.html" target="_blank">【 第 4 組：76 - 100 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目5/工作項目5_101%20–%20125.html" target="_blank">【 第 5 組：101 - 125 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目5/工作項目5_126%20–%20150.html" target="_blank">【 第 6 組：126 - 150 】<br> &emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目5/工作項目5_151%20–%20175.html" target="_blank">【 第 7 組：151 - 175 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目5/工作項目5_176%20–%20200.html" target="_blank">【 第 8 組：176 - 200 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/工作項目5/工作項目5_201%20–%20210.html" target="_blank">【第 9 組：201 - 210】<br>&emsp;(10 個)</a></li>
+            </ul>
+        </div>	
+    </div> <!-- 第一部分 main-panel 結束 -->
+
+    <!-- 【大標題二：共同科目解析】 -->
+    <button class="main-accordion">📋 共同科目解析</button>
+    <div class="main-panel">
+        
+        <!-- 職業安全衛生 -->
+        <button class="accordion">職業安全衛生</button>
+        <div class="panel">
+            <ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_職業安全衛生/共同科目_職業安全衛生_01%20–%2025.html" target="_blank">【 第 1 組：1 - 25 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_職業安全衛生/共同科目_職業安全衛生_26%20–%2050.html" target="_blank">【 第 2 組：26 - 50 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_職業安全衛生/共同科目_職業安全衛生_51%20–%2075.html" target="_blank">【 第 3 組：51 - 75 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_職業安全衛生/共同科目_職業安全衛生_76%20–%20100.html" target="_blank">【 第 4 組：76 - 100 】<br>&emsp;(25 個)</a></li>
+            </ul>
+        </div>
+
+        <!-- 工作倫理與職業道德 -->
+        <button class="accordion">工作倫理與職業道德</button>
+        <div class="panel">
+            <ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_%20工作倫理與職業道德/工作倫理與職業道德_01%20–%2025.html" target="_blank">【 第 1 組：1 - 25 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_%20工作倫理與職業道德/工作倫理與職業道德_26%20–%2050.html" target="_blank">【 第 2 組：26 - 50 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_%20工作倫理與職業道德/工作倫理與職業道德_51%20–%2075.html" target="_blank">【 第 3 組：51 - 75 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_%20工作倫理與職業道德/工作倫理與職業道德_76%20–%20100.html" target="_blank">【 第 4 組：76 - 100 】<br>&emsp;(25 個)</a></li>
+            </ul>
+        </div>
+
+        <!-- 環境保護 -->
+        <button class="accordion">環境保護</button>
+        <div class="panel">
+            <ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_環境保護/共同科目_環境保護_01%20–%2025.html" target="_blank">【 第 1 組：1 - 25 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_環境保護/共同科目_環境保護_26%20–%2050.html" target="_blank">【 第 2 組：26 - 50 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_環境保護/共同科目_環境保護_51%20–%2075.html" target="_blank">【 第 3 組：51 - 75 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_環境保護/共同科目_環境保護_76%20–%20100.html" target="_blank">【 第 4 組：76 - 100 】<br>&emsp;(25 個)</a></li>              
+            </ul>
+        </div>
+
+        <!-- 節能減碳 -->
+        <button class="accordion">節能減碳</button>
+        <div class="panel">
+            <ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_節能減碳/共同科目_節能減碳_01%20–%2025.html" target="_blank">【 第 1 組：1 - 25 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_節能減碳/共同科目_節能減碳_26%20–%2050.html" target="_blank">【 第 2 組：26 - 50 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_節能減碳/共同科目_節能減碳_51%20–%2075.html" target="_blank">【 第 3 組：51 - 75 】<br>&emsp;(25 個)</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/wu-zi-xin/Images/blob/main/共同科目_節能減碳/共同科目_節能減碳_76%20–%20100.html" target="_blank">【 第 4 組：76 - 100 】<br>&emsp;(25 個)</a></li>
+            </ul>
+        </div>
+    </div> <!-- 第二部分 main-panel 結束 -->
+
+    <!-- 【大標題二：測驗】 -->
+    <button class="main-accordion">📝 共同科目測驗</button>
+    <div class="main-panel">
+        <!-- 空白區塊，供日後填入小標題 -->
+        <div class="empty-msg">
+            測驗小組題準備中，敬請期待...
+        </div>
+    </div> <!-- 第二部分 main-panel 結束 -->
+
+</div>
+
+<!-- 回到頂部按鈕 -->
+<div id="scrollTopBtn" title="回到頂部">▲</div>
+
+<!-- JavaScript 控制區塊 -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. 第一層大標題 (解析/測驗) 的點擊展開/收合
+        var mainAcc = document.getElementsByClassName("main-accordion");
+        for (var i = 0; i < mainAcc.length; i++) {
+            mainAcc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.classList.contains("show")) {
+                    panel.classList.remove("show");
+                } else {
+                    panel.classList.add("show");
+                }
+            });
+        }
+
+        // 2. 第二層小標題 (工作項目) 的點擊展開/收合
+        var acc = document.getElementsByClassName("accordion");
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+
+        // 3. 回到頂部按鈕功能
+        var topButton = document.getElementById("scrollTopBtn");
+        window.onscroll = function() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                topButton.classList.add("show");
+            } else {
+                topButton.classList.remove("show");
+            }
+        };
+
+        topButton.addEventListener("click", function() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
