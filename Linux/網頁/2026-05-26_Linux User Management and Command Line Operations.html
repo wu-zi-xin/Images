@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux 系統管理與指令操作指南</title>
+    <style>
+        /* 基礎設定 */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 18px; }
+        body { 
+            font-family: 'Segoe UI', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif; 
+            background-color: #f0f2f5; /* 保留原本右側主畫面底色 */
+            display: flex; 
+            min-height: 100vh; 
+            color: #0f172a; 
+        }
+
+        /* 左側邊欄設計 (桌面版) - 暗色透明毛玻璃風加特效 */
+        .sidebar { 
+            width: 320px; 
+            background: rgba(15, 23, 42, 0.88); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            color: #cbd5e1; 
+            display: flex; 
+            flex-direction: column; 
+            flex-shrink: 0; 
+            position: fixed; 
+            height: 100vh; 
+            z-index: 100; 
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .sidebar-header { 
+            padding: 22px 20px; 
+            font-size: 1.2rem; 
+            font-weight: 800; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            color: #ffffff; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+            background: rgba(2, 6, 23, 0.6);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+
+        /* 桌面版固定在左側的工具列區塊 */
+        .sidebar-toolbar {
+            padding: 16px 20px;
+            background: rgba(30, 41, 59, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar-toolbar .toolbar-actions {
+            display: flex;
+            gap: 6px;
+            justify-content: space-between;
+        }
+        .sidebar-toolbar .toolbar-btn {
+            flex: 1;
+            padding: 8px 6px;
+            background: rgba(51, 65, 85, 0.7);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-toolbar .toolbar-btn:hover {
+            background: #3b82f6;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+        }
+        .sidebar-toolbar .toolbar-btn:active {
+            transform: scale(0.95);
+        }
+        .sidebar-search {
+            width: 100%;
+            padding: 9px 12px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .sidebar-search:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            background: rgba(15, 23, 42, 0.9);
+        }
+        .sidebar-search::placeholder {
+            color: #64748b;
+        }
+
+        /* 選單滾動區塊 */
+        .sidebar-menu-scroll {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .sidebar-menu-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar-menu-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+        }
+
+        /* 導覽群組與風琴選單 */
+        .nav-group {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background 0.3s;
+        }
+        
+        /* 大標題樣式 */
+        .nav-group-header {
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: #e2e8f0;
+            font-weight: 700;
+            font-size: 1.02rem;
+            letter-spacing: 0.3px;
+            background: transparent;
+            transition: all 0.25s ease;
+        }
+        .nav-group-header:hover {
+            background: rgba(255, 255, 255, 0.07);
+            color: #ffffff;
+            padding-left: 24px;
+        }
+        .nav-group-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .nav-group.open .nav-group-header {
+            background: rgba(59, 130, 246, 0.15);
+            color: #ffffff;
+        }
+        .nav-group.open .nav-group-header .arrow {
+            transform: rotate(180deg);
+            color: #60a5fa;
+        }
+        
+        /* 標籤容器與下方標籤樣式 */
+        .nav-group-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(2, 6, 23, 0.4);
+        }
+        .nav-group.open .nav-group-content {
+            max-height: 300px;
+        }
+        .nav-sub-item {
+            padding: 14px 20px 14px 38px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            border-left: 4px solid transparent;
+            transition: all 0.25s ease;
+        }
+        .nav-sub-item:hover {
+            color: #f1f5f9;
+            background: rgba(255, 255, 255, 0.08);
+            padding-left: 42px;
+        }
+        
+        /* 當前所在標籤高亮特效 */
+        .nav-sub-item.active {
+            color: #ffffff;
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.95), rgba(59, 130, 246, 0.5));
+            border-left: 6px solid #60a5fa;
+            font-weight: bold;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 130, 246, 0.5);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 10px rgba(59, 130, 246, 0.4); }
+            100% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 22px rgba(59, 130, 246, 0.8); }
+        }
+
+        /* 行動版頂部導覽列與漢堡按鈕 */
+        .mobile-navbar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            color: white;
+            z-index: 1000;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .mobile-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .hamburger-btn:active {
+            transform: scale(0.85);
+        }
+
+        /* 行動版抽屜選單 (Drawer) */
+        .mobile-drawer {
+            position: fixed;
+            top: 60px;
+            left: -100%;
+            width: 100%;
+            height: calc(100vh - 60px);
+            background: rgba(15, 23, 42, 0.96);
+            backdrop-filter: blur(16px);
+            z-index: 999;
+            transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .mobile-drawer.open {
+            left: 0;
+        }
+        
+        /* 抽屜頂部固定工具列 */
+        .drawer-toolbar {
+            padding: 16px 20px;
+            background: rgba(30, 41, 59, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .toolbar-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: space-between;
+        }
+        .toolbar-btn {
+            flex: 1;
+            padding: 8px 10px;
+            background: rgba(51, 65, 85, 0.7);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .toolbar-btn:hover {
+            background: #3b82f6;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+        }
+        .search-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .search-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* 右側主內容區 (維持原本風格) */
+        .main-content { 
+            margin-left: 320px; 
+            padding: 50px 60px; 
+            flex: 1; 
+            max-width: 100%; 
+        }
+        .content-card { 
+            background-color: white; 
+            border-radius: 14px; 
+            padding: 60px; 
+            box-shadow: 0 6px 24px rgba(0,0,0,0.05); 
+            display: none; 
+            max-width: 1100px; 
+            margin: 0 auto; 
+        }
+        .content-card.active { 
+            display: block; 
+            animation: fadeIn 0.4s ease; 
+        }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* 標題與段落樣式 */
+        .theme-title { 
+            font-size: 2rem; 
+            color: #020617; 
+            margin-bottom: 45px; 
+            padding-bottom: 20px; 
+            border-bottom: 3px solid #475569; 
+            font-weight: 800; 
+            letter-spacing: 1px; 
+        }
+        .section-heading { 
+            font-size: 1.35rem; 
+            color: #0f172a; 
+            margin: 45px 0 25px 0; 
+            display: flex; 
+            align-items: center; 
+            font-weight: bold; 
+            border-left: 6px solid #2563eb; 
+            padding-left: 15px; 
+            line-height: 1.2; 
+        }
+
+        /* 動作目的區塊 */
+        .purpose-box { 
+            background-color: #e0eaf5; 
+            color: #1e293b; 
+            padding: 30px 35px; 
+            border-radius: 10px; 
+            line-height: 1.85; 
+            margin-bottom: 40px; 
+            font-size: 1.1rem; 
+            font-weight: 500; 
+            border: 1px solid #cbd5e1; 
+        }
+
+        /* 步驟與指令結構 */
+        .step-block { 
+            margin-bottom: 45px; 
+            background-color: #fafafa; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px; 
+            padding: 35px; 
+        }
+        .step-title { 
+            font-size: 1.2rem; 
+            font-weight: bold; 
+            color: #1e3a8a; 
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: center; 
+        }
+        .step-title::before { 
+            content: '📌'; 
+            margin-right: 10px; 
+        }
+        .step-desc { 
+            line-height: 2; 
+            color: #334155; 
+            font-size: 1.05rem; 
+            margin-bottom: 25px; 
+            padding-left: 10px; 
+        }
+
+        /* 行內程式碼 */
+        code.inline { 
+            background-color: #f1f5f9; 
+            color: #b91c1c; 
+            padding: 2px 6px; 
+            border-radius: 4px; 
+            font-family: 'Consolas', monospace; 
+            font-size: 0.95em; 
+        }
+
+        /* 程式碼區塊與複製按鈕 */
+        .code-container { 
+            position: relative; 
+            background-color: #1e293b; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            margin-top: 15px; 
+        }
+        .code-block { 
+            margin: 0; 
+            padding: 25px; 
+            overflow-x: auto; 
+            color: #e2e8f0; 
+            font-family: 'Consolas', 'Courier New', monospace; 
+            font-size: 1rem; 
+            line-height: 1.6; 
+        }
+        .copy-btn { 
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            background-color: #3b82f6; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 0.95rem; 
+            font-weight: bold; 
+            transition: all 0.2s; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+        }
+        .copy-btn:hover { 
+            background-color: #1d4ed8; 
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        .copy-btn.copied { 
+            background-color: #10b981; 
+        }
+        .cite { 
+            color: #64748b; 
+            font-size: 0.85em; 
+            font-weight: normal; 
+        }
+
+        /* 自適應設定 (Responsive Design) */
+        @media (max-width: 950px) {
+            body { 
+                flex-direction: column; 
+                padding-top: 60px; 
+            }
+            .sidebar { 
+                display: none; 
+            }
+            .mobile-navbar {
+                display: flex;
+            }
+            .main-content { 
+                margin-left: 0; 
+                padding: 25px; 
+            }
+            .content-card { padding: 40px 30px; }
+            .step-block { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 行動版頂部導覽列 -->
+    <div class="mobile-navbar">
+        <div class="mobile-title">🐧 Linux 系統管理指南</div>
+        <button class="hamburger-btn" onclick="toggleMobileDrawer()">☰</button>
+    </div>
+
+    <!-- 行動版抽屜選單 -->
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div class="drawer-toolbar">
+            <div class="toolbar-actions">
+                <button class="toolbar-btn" onclick="goHome('mobile')">🏠 首頁</button>
+                <button class="toolbar-btn" onclick="collapseAll('mobile')">收回全部</button>
+                <button class="toolbar-btn" onclick="expandAll('mobile')">全部展開</button>
+            </div>
+            <input type="text" id="mobileSearchInput" class="search-input" placeholder="🔍 搜尋標題與指令..." oninput="filterNavigation(this.value, 'mobile')">
+        </div>
+        <div id="mobileNavContainer">
+            <!-- 動態同步內容 -->
+        </div>
+    </div>
+
+    <!-- 左側導覽列 (桌面版) -->
+    <div class="sidebar">
+        <div class="sidebar-header">🐧 Linux 終端管理指南</div>
+        
+        <!-- 桌面版固定工具列與搜尋 -->
+        <div class="sidebar-toolbar">
+            <div class="toolbar-actions">
+                <button class="toolbar-btn" onclick="goHome('desktop')">🏠 首頁</button>
+                <button class="toolbar-btn" onclick="collapseAll('desktop')">收回全部</button>
+                <button class="toolbar-btn" onclick="expandAll('desktop')">全部展開</button>
+            </div>
+            <input type="text" id="desktopSearchInput" class="sidebar-search" placeholder="🔍 搜尋標題與指令..." oninput="filterNavigation(this.value, 'desktop')">
+        </div>
+
+        <!-- 側邊欄選單捲動區塊 -->
+        <div class="sidebar-menu-scroll" id="desktopNavContainer">
+            <!-- 主題一 -->
+            <div class="nav-group open" data-group="theme1">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>1. 系統基礎與快捷操作</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item active" onclick="switchTheme('theme1', this)">系統基礎與快捷操作總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題二 -->
+            <div class="nav-group" data-group="theme2">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>2. 目錄、檔案與權限</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme2', this)">目錄、檔案與權限總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題三 -->
+            <div class="nav-group" data-group="theme3">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>3. 帳號與密碼管理</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme3', this)">帳號與密碼管理總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題四 -->
+            <div class="nav-group" data-group="theme4">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>4. 遠端登入與安全設定</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme4', this)">遠端登入與安全設定總覽</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右側主要內容 -->
+    <div class="main-content">
+
+        <!-- 主題一 -->
+        <div id="theme1" class="content-card active">
+            <h1 class="theme-title">主題一：系統基礎與快捷操作</h1>
+            <div class="purpose-box">
+                <strong>動作目的：</strong><br>
+                掌握 Linux 的系統開機指令，學會善用手冊查詢指令功能，並熟悉能大幅提升工作效率的終端機快捷鍵，降低重複輸入的麻煩 <span class="cite">[1-4]</span>。
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 1：重新啟動系統</div>
+                <div class="step-desc">
+                    使用 <code class="inline">reboot</code> 指令可以直接將 Linux 系統重新開機 (boot 意為開機，reboot 為重開機) <span class="cite">[1]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 重新啟動 Linux 系統
+reboot</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：查詢系統說明手冊</div>
+                <div class="step-desc">
+                    使用 <code class="inline">man</code> (manual) 可以查閱指令的使用手冊；使用 <code class="inline">apropos</code> 可以用「關鍵字」在手冊資料庫中進行全域搜尋。初次使用前必須先用 <code class="inline">mandb</code> 建立資料庫 <span class="cite">[2, 4-6]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 1. 更新或建立手冊資料庫 (需 Root 權限)
+mandb
+
+# 2. 用關鍵字搜尋與 user 相關的指令
+apropos user
+
+# 3. 查詢 useradd 指令的詳細手冊 (按 Q 離開)
+man useradd</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 3：終端機高效率快捷鍵</div>
+                <div class="step-desc">
+                    利用 <code class="inline">Tab</code> 自動補齊指令；用 <code class="inline">history</code> 查詢指令紀錄；用 <code class="inline">Ctrl + L</code> 清空畫面；按下 <code class="inline">ESC</code> 再按 <code class="inline">.</code> 可以直接貼上前一個指令的最後一個參數 <span class="cite">[3, 7-9]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 顯示過去所有執行過的指令歷史紀錄
+history
+
+# 清除目前終端機畫面 (快捷鍵功能，無實際輸入指令)
+# 鍵盤按下：Ctrl + L
+
+# 自動帶入前一個指令的最後參數 (快捷鍵)
+# 鍵盤按下：ESC 接著按 .</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題二 -->
+        <div id="theme2" class="content-card">
+            <h1 class="theme-title">主題二：目錄、檔案與權限</h1>
+            <div class="purpose-box">
+                <strong>動作目的：</strong><br>
+                理解 Linux 單一根目錄 (/) 結構，學會切換目錄、列出目錄與檔案權限詳細資訊，並利用管線結合搜尋功能精準找到所需資料 <span class="cite">[10-15]</span>。
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 1：目錄切換與顯示當前路徑</div>
+                <div class="step-desc">
+                    使用 <code class="inline">pwd</code> (print working directory) 顯示目前所在絕對路徑。使用 <code class="inline">cd</code> (change directory) 切換到目標目錄 <span class="cite">[12, 16, 17]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 切換到根目錄下的 home 目錄 (存放所有使用者家目錄的地方)
+cd /home
+
+# 顯示目前所在的絕對路徑，確認是否成功切換
+pwd</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：查看詳細檔案清單與權限</div>
+                <div class="step-desc">
+                    <code class="inline">ll</code> 是 <code class="inline">ls -l</code> 的別名 (alias)。可用來詳細列出檔案資訊，最左邊的 <code class="inline">d</code> 代表目錄，後方九碼分別代表擁有者、群組、其他人的讀 (r)、寫 (w)、執行 (x) 權限 <span class="cite">[13-15]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 查詢目前系統設定的所有指令別名 (綽號)
+alias
+
+# 顯示當前目錄下的詳細檔案與權限清單 (等同於 ls -l)
+ll</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 3：讀取檔案與管線搜尋</div>
+                <div class="step-desc">
+                    使用 <code class="inline">cat</code> 將檔案內容印出在螢幕上。配合管線符號 <code class="inline">|</code> 可以將輸出結果丟給 <code class="inline">grep</code> 進行特定字串的搜尋 <span class="cite">[10, 11, 18, 19]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 讀取系統帳號檔，並過濾出包含 "n11" 的資料行
+cat /etc/passwd | grep n11</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題三 -->
+        <div id="theme3" class="content-card">
+            <h1 class="theme-title">主題三：帳號與密碼管理</h1>
+            <div class="purpose-box">
+                <strong>動作目的：</strong><br>
+                學會以系統管理員身分新增、徹底刪除使用者，掌握變更密碼的權限差異與限制，以及如何正確地切換使用者並套用其環境設定 <span class="cite">[2, 6, 20-22]</span>。
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 1：新增與刪除帳號</div>
+                <div class="step-desc">
+                    使用 <code class="inline">useradd</code> 新增帳號 (系統會自動在 /home 建立專屬家目錄)。刪除時使用 <code class="inline">userdel</code>，若要連同家目錄一起徹地刪除，必須加上 <code class="inline">-r</code> (remove) 參數 <span class="cite">[2, 6, 19, 21, 23, 24]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 新增一個名為 n11 的使用者帳號
+useradd n11
+
+# 刪除帳號 n11，並且連同其專屬家目錄一併徹底移除
+userdel -r n11</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：設定與修改密碼</div>
+                <div class="step-desc">
+                    使用 <code class="inline">passwd</code> 設定密碼。Root 修改密碼無需舊密碼且無複雜度限制；一般使用者需先驗證舊密碼，且新密碼長度需滿8碼、不能太簡單或與舊密碼相同 <span class="cite">[9, 21, 22, 25]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># Root 幫使用者 n16 設定密碼 (不須舊密碼，不受複雜度限制)
+passwd n16
+
+# 一般使用者登入後幫自己修改密碼
+passwd</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 3：切換使用者與登出</div>
+                <div class="step-desc">
+                    使用 <code class="inline">su - [帳號]</code> 切換身分。務必加上減號 <code class="inline">-</code>，這樣不僅會切換身分，還會套用該帳號的環境，並自動跳轉至該使用者的家目錄 (以 ~ 符號表示)。登出則使用 <code class="inline">exit</code> <span class="cite">[16, 17, 20, 24, 26]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 切換至使用者 n11，並套用其環境與進入家目錄
+su - n11
+
+# 從目前的帳號登出，退回上一個使用者狀態
+exit</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題四 -->
+        <div id="theme4" class="content-card">
+            <h1 class="theme-title">主題四：遠端登入與安全設定</h1>
+            <div class="purpose-box">
+                <strong>動作目的：</strong><br>
+                學習如何透過 SSH (Secure Shell) 加密協定跨設備遠端操控伺服器，並透過修改系統設定檔，改變預設阻擋 Root 遠端登入的安全性限制 <span class="cite">[27-37]</span>。
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 1：一般帳號遠端登入</div>
+                <div class="step-desc">
+                    利用 <code class="inline">ssh</code> 進行遠端連線。您可以利用 <code class="inline">-l</code> 參數指定帳號，或者使用類似 Email (<code class="inline">帳號@IP</code>) 的格式進行連線。基於安全，SSH 預設拒絕 root 直接遠端登入 <span class="cite">[27-30]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 語法一：使用 -l 參數指定帳號 (以 n17 登入 192.168.x.11)
+ssh -l n17 192.168.x.11
+
+# 語法二：使用 Email 格式指定帳號
+ssh n17@192.168.x.11</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：修改 SSH 允許 Root 登入</div>
+                <div class="step-desc">
+                    透過 <code class="inline">vi</code> 編輯器修改 <code class="inline">/etc/ssh/sshd_config</code>。利用 <code class="inline">/Root</code> 搜尋，按 <code class="inline">i</code> 進入插入模式，將 <code class="inline">#PermitRootLogin</code> 刪除註解符號 <code class="inline">#</code> 並將值改為 <code class="inline">yes</code>，最後按 <code class="inline">ESC</code> 離開插入，輸入 <code class="inline">:wq</code> 存檔 <span class="cite">[32-35]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 使用 vi 編輯器開啟 SSH 伺服器主要設定檔
+vi /etc/ssh/sshd_config
+
+# 於檔案內部搜尋並修改成如下：
+PermitRootLogin yes</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 3：重啟 SSH 服務套用設定</div>
+                <div class="step-desc">
+                    修改設定檔後不會立即生效，必須使用系統控制指令 <code class="inline">systemctl</code> 針對 <code class="inline">sshd</code> (SSH 伺服器服務) 執行 <code class="inline">restart</code> 重啟，Root 才能成功遠端連線 <span class="cite">[36, 37]</span>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre class="code-block"><code># 重新啟動 SSH 服務，使新設定檔強制生效
+systemctl restart sshd
+
+# 從另一台機器測試 Root 是否能成功遠端登入
+ssh root@192.168.x.11</code></pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript 互動功能 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const desktopNavContainer = document.getElementById('desktopNavContainer');
+            const mobileNavContainer = document.getElementById('mobileNavContainer');
+            
+            // 初始化複製內容到行動版抽屜選單
+            const groups = desktopNavContainer.querySelectorAll('.nav-group');
+            groups.forEach(group => {
+                const clone = group.cloneNode(true);
+                const header = clone.querySelector('.nav-group-header');
+                header.setAttribute('onclick', 'toggleAccordion(this)');
+                
+                const subItems = clone.querySelectorAll('.nav-sub-item');
+                subItems.forEach(sub => {
+                    const themeId = sub.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    sub.setAttribute('onclick', `switchThemeMobile('${themeId}', this)`);
+                });
+                
+                mobileNavContainer.appendChild(clone);
+            });
+        });
+
+        function toggleAccordion(headerElement) {
+            const group = headerElement.parentElement;
+            group.classList.toggle('open');
+        }
+
+        function toggleMobileDrawer() {
+            const drawer = document.getElementById('mobileDrawer');
+            drawer.classList.toggle('open');
+        }
+
+        function goHome(mode) {
+            const firstSubItem = document.querySelector('.sidebar-menu-scroll .nav-sub-item');
+            
+            document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
+            document.querySelectorAll('#desktopNavContainer .nav-group')[0].classList.add('open');
+            document.querySelectorAll('#mobileNavContainer .nav-group')[0].classList.add('open');
+            
+            switchTheme('theme1', firstSubItem);
+            
+            if (mode === 'mobile') {
+                document.getElementById('mobileDrawer').classList.remove('open');
+            }
+        }
+
+        function collapseAll(mode) {
+            const containerSelector = mode === 'desktop' ? '#desktopNavContainer' : '#mobileNavContainer';
+            document.querySelectorAll(`${containerSelector} .nav-group`).forEach(g => g.classList.remove('open'));
+        }
+
+        function expandAll(mode) {
+            const containerSelector = mode === 'desktop' ? '#desktopNavContainer' : '#mobileNavContainer';
+            document.querySelectorAll(`${containerSelector} .nav-group`).forEach(g => g.classList.add('open'));
+        }
+
+        function filterNavigation(keyword, mode) {
+            const term = keyword.trim().toLowerCase();
+            const containerSelector = mode === 'desktop' ? '#desktopNavContainer' : '#mobileNavContainer';
+            const groups = document.querySelectorAll(`${containerSelector} .nav-group`);
+            
+            groups.forEach(group => {
+                const headerText = group.querySelector('.nav-group-header span').innerText.toLowerCase();
+                const subItem = group.querySelector('.nav-sub-item');
+                const subText = subItem ? subItem.innerText.toLowerCase() : '';
+                
+                if (headerText.includes(term) || subText.includes(term) || term === '') {
+                    group.style.display = 'block';
+                    if (term !== '') {
+                        group.classList.add('open');
+                    }
+                } else {
+                    group.style.display = 'none';
+                }
+            });
+            
+            // 同步另外一個平台的搜尋框文字
+            if (mode === 'desktop') {
+                document.getElementById('mobileSearchInput').value = keyword;
+            } else {
+                document.getElementById('desktopSearchInput').value = keyword;
+            }
+        }
+
+        function switchTheme(themeId, element) {
+            // 同步所有平台相同 themeId 標籤的 active 狀態
+            document.querySelectorAll('.nav-sub-item').forEach(item => item.classList.remove('active'));
+            
+            document.querySelectorAll('.nav-sub-item').forEach(item => {
+                if (item.getAttribute('onclick').includes(themeId)) {
+                    item.classList.add('active');
+                }
+            });
+
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach(card => card.classList.remove('active'));
+            
+            const targetCard = document.getElementById(themeId);
+            if (targetCard) {
+                targetCard.classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchThemeMobile(themeId, element) {
+            switchTheme(themeId, element);
+            toggleMobileDrawer();
+        }
+
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling.querySelector('code');
+            const text = codeBlock.innerText;
+
+            navigator.clipboard.writeText(text).then(() => {
+                button.innerText = 'Copied!';
+                button.classList.add('copied');
+
+                setTimeout(() => {
+                    button.innerText = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed', err);
+            });
+        }
+    </script>
+</body>
+</html>

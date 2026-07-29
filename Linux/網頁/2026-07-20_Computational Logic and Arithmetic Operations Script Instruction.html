@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shell Script 與系統管理實戰指南</title>
+    <style>
+        /* 基礎設定 */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 18px; }
+        body { 
+            font-family: 'Segoe UI', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif; 
+            background-color: #f0f2f5; 
+            display: flex; 
+            min-height: 100vh; 
+            color: #0f172a; 
+        }
+
+        /* 左側邊欄設計 (桌面版) - 暗色透明毛玻璃風加特效 */
+        .sidebar { 
+            width: 320px; 
+            background: rgba(15, 23, 42, 0.88); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            color: #cbd5e1; 
+            display: flex; 
+            flex-direction: column; 
+            flex-shrink: 0; 
+            position: fixed; 
+            height: 100vh; 
+            z-index: 100; 
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease;
+        }
+        .sidebar-header { 
+            padding: 22px 20px; 
+            font-size: 1.2rem; 
+            font-weight: 800; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            color: #ffffff; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+            background: rgba(2, 6, 23, 0.6);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+
+        /* 桌面版固定在左側的工具列區塊 */
+        .sidebar-toolbar {
+            padding: 16px 20px;
+            background: rgba(30, 41, 59, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar-toolbar .toolbar-actions {
+            display: flex;
+            gap: 6px;
+            justify-content: space-between;
+        }
+        .sidebar-toolbar .toolbar-btn {
+            flex: 1;
+            padding: 8px 6px;
+            background: rgba(51, 65, 85, 0.7);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-toolbar .toolbar-btn:hover {
+            background: #3b82f6;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+        }
+        .sidebar-toolbar .toolbar-btn:active {
+            transform: scale(0.95);
+        }
+        .sidebar-search {
+            width: 100%;
+            padding: 9px 12px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .sidebar-search:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            background: rgba(15, 23, 42, 0.9);
+        }
+        .sidebar-search::placeholder {
+            color: #64748b;
+        }
+
+        /* 選單滾動區塊 */
+        .sidebar-menu-scroll {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .sidebar-menu-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar-menu-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+        }
+
+        /* 導覽群組與風琴選單 */
+        .nav-group {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background 0.3s;
+        }
+        
+        /* 大標題樣式 */
+        .nav-group-header {
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: #e2e8f0;
+            font-weight: 700;
+            font-size: 1.02rem;
+            letter-spacing: 0.3px;
+            background: transparent;
+            transition: all 0.25s ease;
+        }
+        .nav-group-header:hover {
+            background: rgba(255, 255, 255, 0.07);
+            color: #ffffff;
+            padding-left: 24px;
+        }
+        .nav-group-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .nav-group.open .nav-group-header {
+            background: rgba(59, 130, 246, 0.15);
+            color: #ffffff;
+        }
+        .nav-group.open .nav-group-header .arrow {
+            transform: rotate(180deg);
+            color: #60a5fa;
+        }
+        
+        /* 標籤容器與下方標籤樣式 */
+        .nav-group-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(2, 6, 23, 0.4);
+        }
+        .nav-group.open .nav-group-content {
+            max-height: 300px;
+        }
+        .nav-sub-item {
+            padding: 14px 20px 14px 38px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            border-left: 4px solid transparent;
+            transition: all 0.25s ease;
+        }
+        .nav-sub-item:hover {
+            color: #f1f5f9;
+            background: rgba(255, 255, 255, 0.08);
+            padding-left: 42px;
+        }
+        
+        /* 當前所在標籤高亮特效 */
+        .nav-sub-item.active {
+            color: #ffffff;
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.95), rgba(59, 130, 246, 0.5));
+            border-left: 6px solid #60a5fa;
+            font-weight: bold;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 130, 246, 0.5);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 10px rgba(59, 130, 246, 0.4); }
+            100% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 22px rgba(59, 130, 246, 0.8); }
+        }
+
+        /* 行動版頂部導覽列與漢堡按鈕 */
+        .mobile-navbar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            color: white;
+            z-index: 1000;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .mobile-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .hamburger-btn:active {
+            transform: scale(0.85);
+        }
+
+        /* 行動版抽屜選單 (Drawer) */
+        .mobile-drawer {
+            position: fixed;
+            top: 60px;
+            left: -100%;
+            width: 100%;
+            height: calc(100vh - 60px);
+            background: rgba(15, 23, 42, 0.96);
+            backdrop-filter: blur(16px);
+            z-index: 999;
+            transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .mobile-drawer.open {
+            left: 0;
+        }
+        
+        /* 抽屜頂部固定工具列 */
+        .drawer-toolbar {
+            padding: 16px 20px;
+            background: rgba(30, 41, 59, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .toolbar-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: space-between;
+        }
+        .toolbar-btn {
+            flex: 1;
+            padding: 8px 10px;
+            background: rgba(51, 65, 85, 0.7);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .toolbar-btn:hover {
+            background: #3b82f6;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+        }
+        .search-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .search-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* 右側主內容區 */
+        .main-content { 
+            margin-left: 320px; 
+            padding: 50px 60px; 
+            flex: 1; 
+            max-width: 1100px; 
+            width: 100%;
+        }
+        .content-card { 
+            background-color: white; 
+            border-radius: 14px; 
+            padding: 60px; 
+            box-shadow: 0 6px 24px rgba(0,0,0,0.05); 
+            display: none; 
+            margin: 0 auto; 
+        }
+        .content-card.active { 
+            display: block; 
+            animation: fadeIn 0.4s ease; 
+        }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* 標題與段落樣式 */
+        .theme-title { 
+            font-size: 2rem; 
+            color: #020617; 
+            margin-bottom: 45px; 
+            padding-bottom: 20px; 
+            border-bottom: 3px solid #475569; 
+            font-weight: 800; 
+            letter-spacing: 1px; 
+        }
+        .section-heading { 
+            font-size: 1.35rem; 
+            color: #0f172a; 
+            margin: 45px 0 25px 0; 
+            display: flex; 
+            align-items: center; 
+            font-weight: bold; 
+            border-left: 6px solid #2563eb; 
+            padding-left: 15px; 
+            line-height: 1.2; 
+        }
+
+        /* 動作目的區塊 */
+        .purpose-box { 
+            background-color: #e0eaf5; 
+            color: #1e293b; 
+            padding: 30px 35px; 
+            border-radius: 10px; 
+            line-height: 1.85; 
+            margin-bottom: 40px; 
+            font-size: 1.1rem; 
+            font-weight: 500; 
+            border: 1px solid #cbd5e1; 
+        }
+
+        /* 步驟與指令結構 */
+        .step-block { 
+            margin-bottom: 45px; 
+            background-color: #fafafa; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px; 
+            padding: 35px; 
+        }
+        .step-title { 
+            font-size: 1.2rem; 
+            font-weight: bold; 
+            color: #1e3a8a; 
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: center; 
+        }
+        .step-title::before { 
+            content: '📌'; 
+            margin-right: 10px; 
+        }
+        .step-desc { 
+            line-height: 2; 
+            color: #334155; 
+            font-size: 1.05rem; 
+            margin-bottom: 25px; 
+            padding-left: 10px; 
+        }
+
+        /* 行內程式碼 */
+        code.inline { 
+            background-color: #f1f5f9; 
+            color: #b91c1c; 
+            padding: 4px 10px; 
+            border-radius: 6px; 
+            font-family: 'Consolas', 'Courier New', monospace; 
+            font-size: 0.95em; 
+            font-weight: bold; 
+            margin: 0 4px; 
+        }
+
+        /* 深色程式碼終端機 */
+        .code-container { 
+            background-color: #0f172a; 
+            border-radius: 10px; 
+            position: relative; 
+            padding: 30px 25px; 
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3); 
+            margin-top: 15px;
+        }
+        .code-container pre { 
+            color: #f8fafc; 
+            font-family: 'Consolas', 'Courier New', monospace; 
+            font-size: 1.05rem; 
+            line-height: 1.7; 
+            overflow-x: auto; 
+            margin: 0;
+        }
+        .copy-btn { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            background-color: #2563eb; 
+            color: white; 
+            border: none; 
+            padding: 8px 16px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 0.9rem; 
+            font-weight: bold; 
+            transition: all 0.2s; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+        }
+        .copy-btn:hover { 
+            background-color: #1d4ed8; 
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        .copy-btn.copied { background-color: #10b981; }
+
+        .cite { color: #64748b; font-size: 0.85em; font-weight: normal; }
+
+        /* 自適應設定 (Responsive Design) */
+        @media (max-width: 950px) {
+            body { 
+                flex-direction: column; 
+                padding-top: 60px; 
+            }
+            .sidebar { 
+                display: none; 
+            }
+            .mobile-navbar {
+                display: flex;
+            }
+            .main-content { 
+                margin-left: 0; 
+                padding: 25px; 
+            }
+            .content-card { padding: 40px 30px; }
+            .step-block { padding: 25px; }
+        }
+
+        /* 手機版頂部 Header 顯示切換 */
+        .mobile-navbar { display: none; }
+        @media (max-width: 950px) {
+            .mobile-navbar { display: flex; }
+            .sidebar.open {
+                display: flex;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 60px);
+                z-index: 999;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 行動版頂部導覽列 -->
+    <div class="mobile-navbar">
+        <div class="mobile-title">🐧 邏輯運算與實戰指南</div>
+        <button class="hamburger-btn" onclick="toggleMobileSidebar()">☰</button>
+    </div>
+
+    <!-- 左側導覽列 (桌面版與手機版共用容器) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">🐧 邏輯運算與實戰指南</div>
+        
+        <!-- 桌面版固定工具列與搜尋 -->
+        <div class="sidebar-toolbar">
+            <div class="toolbar-actions">
+                <button class="toolbar-btn" onclick="goHome()">🏠 首頁</button>
+                <button class="toolbar-btn" onclick="collapseAll()">收回全部</button>
+                <button class="toolbar-btn" onclick="expandAll()">全部展開</button>
+            </div>
+            <input type="text" id="sidebarSearchInput" class="sidebar-search" placeholder="🔍 搜尋主題與指令..." oninput="filterNavigation(this.value)">
+        </div>
+
+        <!-- 側邊欄選單捲動區塊 (風琴結構) -->
+        <div class="sidebar-menu-scroll" id="desktopNavContainer">
+            <!-- 主題一 -->
+            <div class="nav-group open" data-group="theme1">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>主題一：FTP 綁定 IP</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item active" onclick="switchTheme('theme1', this)">FTP 綁定 IP 總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題二 -->
+            <div class="nav-group" data-group="theme2">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>主題二：對談式輸入</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme2', this)">對談式輸入總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題三 -->
+            <div class="nav-group" data-group="theme3">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>主題三：數學算術運算</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme3', this)">數學算術運算總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題四 -->
+            <div class="nav-group" data-group="theme4">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>主題四：檔案屬性測試</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme4', this)">檔案屬性測試總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題五 -->
+            <div class="nav-group" data-group="theme5">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>主題五：外部參數與判斷</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme5', this)">外部參數與判斷總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題六 -->
+            <div class="nav-group" data-group="theme6">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>主題六：網路偵測與別名</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme6', this)">網路偵測與別名總覽</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右側主要內容 -->
+    <div class="main-content">
+
+        <!-- 主題一 -->
+        <div id="theme1" class="content-card active">
+            <h1 class="theme-title">主題一：架設多個 FTP 伺服器 (綁定不同 IP)</h1>
+            
+            <div class="section-heading">動作目的</div>
+            <div class="purpose-box">
+                在同一台主機上，利用多個不同的 IP 位址（例如 .91 與 .93）架設各自獨立的 FTP 伺服器，並提供不同的專屬登入畫面以利辨識連線狀態 <span class="cite"></span>。
+            </div>
+
+            <div class="section-heading">執行步驟與指令範例</div>
+            
+            <div class="step-block">
+                <div class="step-title">步驟 1：修改設定檔並指定 IP</div>
+                <div class="step-desc">為了讓 FTP 伺服器綁定特定 IP，需修改 <code class="inline">vsftpd.conf</code>，設定 <code class="inline">listen=YES</code> 並關閉 IPv6 監聽。最關鍵的是使用 <code class="inline">listen_address</code> 指定 IPv4 的專屬 IP 位址 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code>listen=YES
+listen_ipv6=NO
+listen_address=192.168.1.91</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：設定專屬歡迎詞 (Banner)</div>
+                <div class="step-desc">透過 <code class="inline">banner_file</code> 指令，將登入畫面指向特定的純文字檔（例如 <code class="inline">ban5.txt</code>），讓使用者一登入就能看見該 IP 專屬的文字，確認是否連對伺服器 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code>banner_file=/etc/vsftpd/ban5.txt</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 3：使用個別設定檔啟動服務</div>
+                <div class="step-desc">若之前曾用預設的 <code class="inline">systemctl</code> 啟動過，必須先將其完全停止，否則直接用個別設定檔啟動時會發生衝突而失敗。停止後，再呼叫個別的設定檔啟動對應的 FTP 服務 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 1. 停用預設的全局啟動
+systemctl stop vsftpd
+
+# 2. 以個別的設定檔啟動專屬的 FTP 伺服器
+# /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
+systemctl stop vsftpd@vsftpd
+
+# /usr/sbin/vsftpd /etc/vsftpd/vsftpd2.conf
+systemctl stop vsftpd@vsftpd2
+
+# 3. 停用這些個別啟動的也要個別關閉
+systemctl stop vsftpd@vsftpd
+systemctl stop vsftpd@vsftpd2
+</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題二 -->
+        <div id="theme2" class="content-card">
+            <h1 class="theme-title">主題二：Shell Script 基礎與 read 對談式輸入</h1>
+            
+            <div class="section-heading">動作目的</div>
+            <div class="purpose-box">
+                撰寫互動式腳本，學習如何在螢幕輸出反斜線特殊字元，以及透過問答的方式等待使用者輸入，並將資料存入變數中進行後續處理 <span class="cite"></span>。
+            </div>
+
+            <div class="section-heading">執行步驟與指令範例</div>
+            
+            <div class="step-block">
+                <div class="step-title">步驟 1：使用 echo 處理特殊字元</div>
+                <div class="step-desc">指令 <code class="inline">echo -e</code> 允許解析字串中的反斜線特殊符號。例如 <code class="inline">\n</code> 代表換行。若不加 <code class="inline">-e</code>，系統會將其當作純文字直接印出，不會產生換行效果 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 加上 -e 讓 \n 生效產生換行
+echo -e "Hello World\n"</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：賦予腳本執行權限</div>
+                <div class="step-desc">剛建立的腳本預設是沒有執行權限的。需使用 <code class="inline">chmod u+x</code> 給予擁有者執行權限，檔案變色後即可透過 <code class="inline">./</code> 的方式來執行腳本 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code>chmod u+x script.sh
+./script.sh</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 3：使用 read 製作互動輸入</div>
+                <div class="step-desc">指令 <code class="inline">read -p</code> 會在螢幕印出提示 (prompt)，使用者輸入內容並按下 Enter 後，系統會將資料存入指定的變數 (如 fname)，後續可利用變數組合輸出結果 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 詢問名字並存入 fname 變數
+read -p "Please input your first name: " fname
+# 詢問姓氏並存入 lname 變數
+read -p "Please input your last name: " lname
+
+# 組合變數輸出
+echo -e "Your full name is: ${fname} ${lname}"</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題三 -->
+        <div id="theme3" class="content-card">
+            <h1 class="theme-title">主題三：數學算術運算</h1>
+            
+            <div class="section-heading">動作目的</div>
+            <div class="purpose-box">
+                讓 Shell Script 具備處理加法 (+)、減法 (-)、乘法 (*)、除法取商數 (/) 與除法取餘數 (%) 的計算能力 <span class="cite"></span>。
+            </div>
+
+            <div class="section-heading">執行步驟與指令範例</div>
+            
+            <div class="step-block">
+                <div class="step-title">步驟 1：使用算術運算語法 $(( ))</div>
+                <div class="step-desc">在 Shell 中，變數預設都會被當作「純字串」。要進行數學運算，必須將算式用前置號加兩對小括號 <code class="inline">$(( 算式 ))</code> 完整包覆。若漏掉括號，系統只會印出字串（例如 "8*3"） <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code>read -p "First number: " first
+read -p "Second number: " second
+
+# 將兩數相乘，必須使用 $(( ))
+total=$(($first * $second))
+echo "Result: $first * $second = $total"</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：執行多重算術運算 (商數與餘數)</div>
+                <div class="step-desc">除法運算中，使用 <code class="inline">/</code> 會取得「商數」，而使用 <code class="inline">%</code> (百分比符號) 則會取得「餘數」。可以將這些運算符號連續應用在變數上以實現計算機功能 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 取得除法的商數與餘數
+quotient=$(($first / $second))
+remainder=$(($first % $second))
+
+echo "商數為: $quotient , 餘數為: $remainder"</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題四 -->
+        <div id="theme4" class="content-card">
+            <h1 class="theme-title">主題四：檔案屬性測試與權限判斷 (test)</h1>
+            
+            <div class="section-heading">動作目的</div>
+            <div class="purpose-box">
+                檢查特定檔案或目錄的存在狀態與類型，並檢測其所擁有的讀、寫、執行權限以及特殊權限 (SUID/SGID/Sticky Bit) <span class="cite"></span>。
+            </div>
+
+            <div class="section-heading">執行步驟與指令範例</div>
+            
+            <div class="step-block">
+                <div class="step-title">步驟 1：檢查變數是否為空字串 (-z)</div>
+                <div class="step-desc">指令 <code class="inline">test -z</code> (zero) 用來檢查變數長度是否為空。這常作為防呆機制，當使用者沒有輸入檔名直接按下 Enter 時，捕捉該狀態並提早結束程式 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code>read -p "Input file name: " filename
+# 若為空字串，發出警告並離開
+test -z "$filename" && echo "You must input file name!" && exit 0</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：檢查檔案是否存在 (! -e) 與類型 (-f / -d)</div>
+                <div class="step-desc"><code class="inline">-e</code> (exist) 檢查檔案是否存在，加上驚嘆號 <code class="inline">! -e</code> 代表「不存在」。存在後，可利用 <code class="inline">-f</code> 判斷是否為一般檔案，或利用 <code class="inline">-d</code> 判斷是否為目錄 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 檢查檔案是否不存在
+test ! -e "$filename" && echo "File does not exist" && exit 0
+
+# 檢查檔案類型
+test -f "$filename" && filetype="regular file"
+test -d "$filename" && filetype="directory"
+echo "This is a $filetype"</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 3：測試基本與特殊權限</div>
+                <div class="step-desc">除了用 <code class="inline">-r</code>、<code class="inline">-w</code>、<code class="inline">-x</code> 檢查基本權限外，也可檢查特權：<code class="inline">-u</code> (測 SUID)、<code class="inline">-g</code> (測 SGID)、<code class="inline">-k</code> (測 Sticky Bit) <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 檢查是否具有讀取權限與 SUID 特殊權限
+test -r "$filename" && perm="readable"
+test -u "$filename" && perm="$perm SUID"
+
+echo "Permissions: $perm"</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題五 -->
+        <div id="theme5" class="content-card">
+            <h1 class="theme-title">主題五：接收外部參數與 if 條件判斷</h1>
+            
+            <div class="section-heading">動作目的</div>
+            <div class="purpose-box">
+                讓腳本能接收執行時從外部指令列傳入的參數，並透過 if-elif-else 進行多重條件分支的邏輯判斷處理 <span class="cite"></span>。
+            </div>
+
+            <div class="section-heading">執行步驟與指令範例</div>
+            
+            <div class="step-block">
+                <div class="step-title">步驟 1：接收與計算外部參數</div>
+                <div class="step-desc">腳本內建變數處理參數：<code class="inline">$0</code> 代表腳本檔名，<code class="inline">$1</code> 代表第一個參數。<code class="inline">$#</code> 代表參數的總數量，<code class="inline">$@</code> 則代表所有參數的完整集合 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 執行範例： ./script.sh A B
+echo "Script 名稱是: $0"
+echo "總共傳入了 $# 個參數"
+echo "第一個參數是 $1，完整參數為: $@"</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：使用中括號 [ ] 與邏輯 OR (-o)</div>
+                <div class="step-desc">使用中括號 <code class="inline">[ ]</code> 包覆判斷條件時，內側必須保留空白字元。<code class="inline">-o</code> 代表邏輯 OR (或)，只要其中一個條件成立即視為成立 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code>read -p "Continue? (Y/N): " yn
+# 若輸入大寫 Y 或小寫 y 皆成立
+if [ "$yn" == "Y" -o "$yn" == "y" ]; then
+    echo "OK, continue"
+fi</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 3：if-elif-else 多重判斷結構</div>
+                <div class="step-desc">依序檢查多個條件。若 <code class="inline">if</code> 不成立，檢查 <code class="inline">elif</code>；若皆不成立則執行 <code class="inline">else</code>。結構必須以 <code class="inline">fi</code> (if 倒寫) 作為結尾 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 簡易對話判斷
+if [ "$1" == "hello" ]; then
+    echo "Hello, how are you"
+elif [ -z "$1" ]; then
+    echo "You must input a parameter"
+else
+    echo "See you later, goodbye"
+fi</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題六 -->
+        <div id="theme6" class="content-card">
+            <h1 class="theme-title">主題六：網路服務偵測與 Alias (別名) 設定</h1>
+            
+            <div class="section-heading">動作目的</div>
+            <div class="purpose-box">
+                利用指令偵測系統開啟的網路服務 (如 HTTP、FTP)，並透過自訂別名 (Alias) 將長串的檢測與啟動指令簡化為極短的自訂字元 <span class="cite"></span>。
+            </div>
+
+            <div class="section-heading">執行步驟與指令範例</div>
+            
+            <div class="step-block">
+                <div class="step-title">步驟 1：使用 netstat 偵測 Port 號</div>
+                <div class="step-desc">指令 <code class="inline">netstat -tuln</code> 用來偵測網路狀態。常見的 Port 包括 21(FTP)、22(SSH)、25(SMTP)、53(DNS)、80(HTTP) <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 查看目前系統中正在監聽的所有 TCP/UDP Port 號
+netstat -tuln</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：利用轉存 (>) 與過濾 (grep) 自動判斷</div>
+                <div class="step-desc">將 <code class="inline">netstat</code> 的輸出利用 <code class="inline">></code> 轉存至文字檔。接著利用 <code class="inline">$()</code> 執行 <code class="inline">grep</code> 搜尋特定 Port 號 (如 :80)，藉此自動判斷服務是否啟動 <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 將結果轉存
+netstat -tuln > testfile
+
+# 搜尋 testfile 中是否包含 :80
+testing=$(grep ":80 " testfile)
+if [ "$testing" != "" ]; then
+    echo "WWW is running in your system"
+fi</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 3：設定 Alias 別名</div>
+                <div class="step-desc">將簡化指令寫入隱藏檔 <code class="inline">~/.bashrc</code> 中。修改後需重啟分頁才能生效。可使用分號 <code class="inline">;</code> 將多個指令串聯（例如啟動後立刻檢測） <span class="cite"></span>。</div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    <pre><code># 編輯 ~/.bashrc 寫入 Alias (完成後需開新分頁)
+alias A1='sh /root/W9/netstate.sh'
+alias A2='systemctl start httpd; A1'
+alias A7='systemctl stop httpd'</code></pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript 互動功能 -->
+    <script>
+        // 初始化：動態複製桌面版選單結構至手機抽屜中
+        document.addEventListener("DOMContentLoaded", function() {
+            const desktopNavContainer = document.getElementById('desktopNavContainer');
+            const mobileNavContainer = document.getElementById('mobileNavContainer');
+            
+            const groups = desktopNavContainer.querySelectorAll('.nav-group');
+            groups.forEach(group => {
+                const clone = group.cloneNode(true);
+                const header = clone.querySelector('.nav-group-header');
+                header.setAttribute('onclick', 'toggleAccordion(this)');
+                
+                const subItems = clone.querySelectorAll('.nav-sub-item');
+                subItems.forEach(sub => {
+                    const themeId = sub.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    sub.setAttribute('onclick', `switchThemeMobile('${themeId}', this)`);
+                });
+                
+                mobileNavContainer.appendChild(clone);
+            });
+        });
+
+        // 風琴選單展開與收合控制
+        function toggleAccordion(headerElement) {
+            const group = headerElement.parentElement;
+            group.classList.toggle('open');
+        }
+
+        // 手機版側邊欄切換
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // 回到首頁功能
+        function goHome() {
+            const firstSubItem = document.querySelector('.sidebar-menu-scroll .nav-sub-item');
+            document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
+            document.querySelectorAll('.nav-group')[0].classList.add('open');
+            switchTheme('theme1', firstSubItem);
+            if (window.innerWidth <= 950) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+
+        // 收回全部選單
+        function collapseAll() {
+            document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
+        }
+
+        // 全部展開選單
+        function expandAll() {
+            document.querySelectorAll('.nav-group').forEach(g => g.classList.add('open'));
+        }
+
+        // 即時搜尋與過濾標題/指令
+        function filterNavigation(keyword) {
+            const term = keyword.trim().toLowerCase();
+            const groups = document.querySelectorAll('.nav-group');
+            
+            groups.forEach(group => {
+                const headerText = group.querySelector('.nav-group-header span').innerText.toLowerCase();
+                const subItem = group.querySelector('.nav-sub-item');
+                const subText = subItem ? subItem.innerText.toLowerCase() : '';
+                
+                if (headerText.includes(term) || subText.includes(term) || term === '') {
+                    group.style.display = 'block';
+                    if (term !== '') {
+                        group.classList.add('open');
+                    }
+                } else {
+                    group.style.display = 'none';
+                }
+            });
+        }
+
+        // 切換主題卡片的函式
+        function switchTheme(themeId, element) {
+            // 移除導覽列 active 狀態
+            const navItems = document.querySelectorAll('.nav-sub-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            // 點擊項目加上 active
+            element.classList.add('active');
+            
+            // 隱藏所有卡片
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach(card => card.classList.remove('active'));
+            
+            // 顯示目標卡片
+            document.getElementById(themeId).classList.add('active');
+
+            // 如果是手機版，點擊後自動收起側邊欄
+            if (window.innerWidth <= 950) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 行動版點擊子選單時切換並收起側邊欄
+        function switchThemeMobile(themeId, element) {
+            switchTheme(themeId, element);
+            toggleMobileSidebar();
+        }
+
+        // 複製代碼函式
+        function copyCode(btn) {
+            const preElement = btn.nextElementSibling;
+            const textToCopy = preElement.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '已複製！';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('複製失敗:', err);
+                btn.textContent = '複製失敗';
+            });
+        }
+    </script>
+</body>
+</html>
