@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作項目02 (01-25題)</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px 10px; line-height: 1.6; }
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+.header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+.toggle-btn { background-color: #27ae60; color: white; border: none; padding: 10px 20px; font-size: 1em; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-weight: bold; margin-bottom: 10px; }
+.toggle-btn:hover { background-color: #219150; }
+.card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+.card { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); border: 1px solid #eaeaea; position: relative; }
+.theme-badge { display: inline-block; background-color: #e8f4fd; color: #2980b9; padding: 5px 12px; border-radius: 20px; font-size: 0.9em; font-weight: bold; margin-bottom: 15px; border: 1px solid #b3d7f2; }
+.question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+.options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.option { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; color: #555; font-size: 1.05em; border-left: 3px solid #cbd5e1; }
+details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+summary { background: #3498db; color: #ffffff; padding: 12px; font-weight: bold; font-size: 1.05em; text-align: center; cursor: pointer; list-style: none; transition: background 0.3s; }
+summary:hover { background: #2980b9; }
+summary::-webkit-details-marker { display: none; }
+.answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+.answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+.comprehensive-exp { background: #eef2f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #34495e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+.comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+.explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+.exp-subtitle { color: #2c3e50; font-weight: bold; margin-bottom: 10px; display: block; border-bottom: 1px dashed #cbd5e1; padding-bottom: 3px; }
+.opt-list { margin: 0; padding-left: 0; list-style: none; }
+.opt-list li { margin-bottom: 8px; background: #ffffff; padding: 10px; border-radius: 6px; border-left: 4px solid #3498db; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+.wrong-opt { border-left-color: #e74c3c !important; }
+
+/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+@media (max-width: 600px) { .card { padding: 15px; } .header h1 { font-size: 1.5em; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級 工作項目 02：作業準備 (01-25題)</h1>
+    <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 01 -->
+    <div class="card">
+        <span class="theme-badge">主題：電信設備專用空間</span>
+        <div class="question">1. 依據「建築物電信設備及空間設置使用管理規則」規定，建築物內專供市內網路業務經營者引接線纜及設置電信設備之專用空間，稱為？</div>
+        <div class="options">
+            <div class="option">① 配線室</div>
+            <div class="option">② 電信機械室</div>
+            <div class="option">③ 電信室</div>
+            <div class="option">④ 工作室</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依照「建築物電信設備及空間設置使用管理規則」的法規定義，為因應市內網路業務之設備安裝及線纜引接需求，此專用空間專有名詞被明定為「電信室」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 配線室：通常指輔助總配線架或放置樓層線纜的中繼空間，並非法規所定專門引接市網業者設備的主要電信空間。</li>
+                    <li class="wrong-opt">② 電信機械室：為早期或不同情境下的稱呼，非現行法規標準用語。</li>
+                    <li class="correct-opt">③ 電信室：正確。此為專供網路業務經營者設置電信設備的專用空間。</li>
+                    <li class="wrong-opt">④ 工作室：一般辦公或作業場所，不具備特定電信專用空間的法律定義。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 02 -->
+    <div class="card">
+        <span class="theme-badge">主題：屋外電信管線設施</span>
+        <div class="question">2. 依據「建築物電信設備及空間設置使用管理規則」規定，屋外電信管線設施，不含下列何者？</div>
+        <div class="options">
+            <div class="option">① 建築基地內建築物間之架空管線設備</div>
+            <div class="option">② 建築基地內建築物間之地下電信線路設備</div>
+            <div class="option">③ 建築基地內建築物間地下管路管線設備</div>
+            <div class="option">④ 建築基地外建築物間之地上電信線路設備</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>法規所規範之「建築物屋外電信管線設施」，主要限定在「建築基地內」的相關設備（包含架空與地下），若設備位於「建築基地外」，則屬於業者外線或公有設施範疇，不含在此規則的建築物管線設施定義中。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 屬於建築基地內之架空設備，包含在內。</li>
+                    <li class="wrong-opt">② 屬於建築基地內之地下線路設備，包含在內。</li>
+                    <li class="wrong-opt">③ 屬於建築基地內之地下管路設備，包含在內。</li>
+                    <li class="correct-opt">④ 建築基地「外」之設備已超出建築物屋外電信管線設施涵蓋範圍，故不包含。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 03 -->
+    <div class="card">
+        <span class="theme-badge">主題：建築物電信設備相關規定</span>
+        <div class="question">3. 「建築物電信設備及空間設置使用管理規則」關於建築物電信設備之規定，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 建築物建造時，起造人應依規定設置屋內外電信設備，並預留裝置電信設備之電信室及其他空間</div>
+            <div class="option">② 電信設備，包括電信引進管、總配線箱、用戶端子板、電信管箱、電信線纜及其他因用戶電信服務需求須由用戶配合設置責任分界點以內之設備</div>
+            <div class="option">③ 既存建築物之電信設備不足或供裝置電信設備之空間不足，致不敷該建築物之電信服務需求時，應由所有人與提供電信服務之市內網路業務經營者協商，並由所有人增設</div>
+            <div class="option">④ 依規定設置專供該建築物使用之電信設備及空間，應按該建築物用戶之電信服務需求，由各市內網路業務經營者依規定收費連接及使用</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>該法規設計的核心在於保障用戶通訊權益，為建築物預留專供電信使用的空間，依法這些空間和設備是供經營者「免費」連接與使用（或依規定無須另外收取高額租金費用）以服務用戶，故稱「收費連接及使用」的敘述並不正確。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 敘述正確。起造人確實必須在建築時預留電信設備及電信室空間。</li>
+                    <li class="wrong-opt">② 敘述正確。責任分界點以內的相關基礎設備，應由用戶/起造人配合設置。</li>
+                    <li class="wrong-opt">③ 敘述正確。若空間不足，需由所有人主動與業者協商並進行增設。</li>
+                    <li class="correct-opt">④ 不正確。依法不應強制或普遍由業者對空間使用進行收費連接，應是無償提供空間以利電信接取。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 04 -->
+    <div class="card">
+        <span class="theme-badge">主題：電信引進設施定義</span>
+        <div class="question">4. 依據「建築物電信設備及空間設置使用管理規則」規定，以架空或地下方式引進電信電纜或光纜至建築物內總配線箱或電信室之電信管道，稱為？</div>
+        <div class="options">
+            <div class="option">① 電信機械設備管</div>
+            <div class="option">② 電信引進管</div>
+            <div class="option">③ 屋外電信管線</div>
+            <div class="option">④ 屋內電信管線</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>用於從戶外將電信電纜或光纜「引進」至室內電信室或總配線箱的管路，法規中統一稱為「電信引進管」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 無此標準法定名詞。</li>
+                    <li class="correct-opt">② 電信引進管：正確。是連接戶外與室內第一道設備點的專屬管道。</li>
+                    <li class="wrong-opt">③ 屋外電信管線：指單純敷設於戶外之管線，未強調「引進」室內之連接段。</li>
+                    <li class="wrong-opt">④ 屋內電信管線：指已進入室內後的佈線管路。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 05 -->
+    <div class="card">
+        <span class="theme-badge">主題：設備責任分界點</span>
+        <div class="question">5. 「建築物電信設備及空間設置使用管理規則」關於建築物電信設備連接市內網路業務經營者之電信網路設備之責任分界點規定，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 建築物電信設備連接市內網路業務經營者之電信網路設備，應設有明確之責任分界點</div>
+            <div class="option">② 建築物引進電纜者，建築物未設置用戶側端子板設備者，以市內網路業務經營者設置於業者機房端子板之電介接端子為責任分界</div>
+            <div class="option">③ 建築物引進電纜者，建築物設置用戶側端子板設備者，以用戶側端子板之電介接端子為責任分界</div>
+            <div class="option">④ 建築物引進光纜者，建築物設置光終端配線架者，以光終端配線架用戶側光配線箱之光介接端子為責任分界</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>有關責任分界，通常會落在建築物的「保安器」或「引進點」的端子處，而絕對不會直接將責任分界延伸至遠端「業者機房端子板」。這樣會導致沿途所有局外線路都成為用戶的責任，完全不符合法理邏輯。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 敘述正確。必須有明確責任分界點以釐清維修責任。</li>
+                    <li class="correct-opt">② 不正確。未設置用戶側端子板時，通常依引進設施接續點或保安器界定，並非以遠端的「機房端子板」為界。</li>
+                    <li class="wrong-opt">③ 敘述正確。若有用戶側端子板，便以此端子板為責任分界。</li>
+                    <li class="wrong-opt">④ 敘述正確。光纜架構下，則以光終端配線架的介接端子為責任分界。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 06 -->
+    <div class="card">
+        <span class="theme-badge">主題：建築物電信室設置標準</span>
+        <div class="question">6. 依據「建築物電信設備及空間設置使用管理規則」規定，地上層五樓以上，且設有地下室之新建建築物為收容市內網路業務經營者之電信設備，供該建築物用戶通信之需要，引進電纜總對數最多為多少對以下者，可不設置電信室？</div>
+        <div class="options">
+            <div class="option">① 20 對</div>
+            <div class="option">② 30 對</div>
+            <div class="option">③ 40 對</div>
+            <div class="option">④ 60 對</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據法規，五樓以上且有地下室之新建建築，若引進電纜總對數在 20對 以下，因設備規模與空間需求極小，得依法免設置專用的電信室。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 20 對：為法規明訂可免設電信室的門檻上限。</li>
+                    <li class="wrong-opt">② 30 對：超過免設標準，依法必須設置。</li>
+                    <li class="wrong-opt">③ 40 對：超過免設標準。</li>
+                    <li class="wrong-opt">④ 60 對：超過免設標準。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 07 -->
+    <div class="card">
+        <span class="theme-badge">主題：建築物電信室設置條件</span>
+        <div class="question">7. 依據「建築物電信設備及空間設置使用管理規則」規定，新建建築物為收容市內網路業務經營者之電信設備，供該建築物用戶通信之需要，一般有下列情形者，應設置電信室？</div>
+        <div class="options">
+            <div class="option">① 用戶側光纜總心數超過 12 心者</div>
+            <div class="option">② 地上層 5 樓以上且設有地下室之建築物，引進電纜總對數超過 20 對以上者</div>
+            <div class="option">③ 地上層 3 樓以上且設有地下室之建築物</div>
+            <div class="option">④ 地上層 5 樓以上不論是否設有地下室之建築物</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>延續免設門檻的概念，凡地上5層樓以上且有地下室的建築物，當引進的電纜總對數「超過 20對」時，為了容納較大體積之配線設備，法規強制必須設置專用電信室。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 用戶側光纜總心數超過 12 心者：非設置電信室的唯一判斷標準。</li>
+                    <li class="correct-opt">② 地上層 5 樓以上且設有地下室之建築物，引進電纜總對數超過 20 對以上者：正確，完全符合法規規定之設置條件。</li>
+                    <li class="wrong-opt">③ 樓層數條件不符法規（應為5樓以上）。</li>
+                    <li class="wrong-opt">④ 忽略了引進線纜對數多寡的決定性條件。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 08 -->
+    <div class="card">
+        <span class="theme-badge">主題：電信室面積規定</span>
+        <div class="question">8. 依據「建築物電信設備及空間設置使用管理規則」規定，引進電纜總對數 4001～6000 對者，其電信室面積最小為？</div>
+        <div class="options">
+            <div class="option">① 14m² 以上</div>
+            <div class="option">② 30m² 以上</div>
+            <div class="option">③ 43m² 以上</div>
+            <div class="option">④ 54m² 以上</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電信室的法定面積大小與引進電纜之總對數呈正比。根據法規標準，當引進電纜數達 4001至6000對 級距時，需要容納大量配線架及設備空間，故明定電信室面積至少須為 43平方公尺(m²)。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 14m² 以上：對應較少對數引進電纜的最低面積標準。</li>
+                    <li class="wrong-opt">② 30m² 以上：對應較少對數引進電纜的最低面積標準。</li>
+                    <li class="correct-opt">③ 43m² 以上：正確。符合4001~6000對電纜規模的法定面積下限。</li>
+                    <li class="wrong-opt">④ 54m² 以上：對應更大規模引進電纜(>6000對)的要求。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 09 -->
+    <div class="card">
+        <span class="theme-badge">主題：建築物電信空間使用權益</span>
+        <div class="question">9. 「建築物電信設備及空間設置使用管理規則」關於建築物電信設備連接市內網路業務經營者之電信網路設備之規定，下列何者正確？</div>
+        <div class="options">
+            <div class="option">① 市內網路業務經營者為建設其電信網路之需要，得無償使用建築物空間設置集線室及集線電信設備</div>
+            <div class="option">② 建築物所有人所設置之電信設備雖不符 NCC 規則之規定，於建築物所有人改善或增設前，市內網路業務經營者仍可予銜接提供服務</div>
+            <div class="option">③ 市內網路業務經營者為建設其電信網路之需要，得有償使用建築物空間設置集線室及集線電信設備</div>
+            <div class="option">④ 連接第一類電信事業之建築物責任分界點以內之所有電信設備，為節省經費，可交由非電信工程業者，亦非電器承裝業者施工及維護</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>法規為兼顧大樓產權與電信網路建設之需求，明訂若市內網路業務經營者基於「建設其自身對外電信網路」之需要，要在建築物內設置集線室與設備，屬於營利性基礎建設，必須以「有償」方式(如付費租賃)來使用建築物空間。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 錯誤。作為業者對外網路節點的集線空間，不得無償強制使用。</li>
+                    <li class="wrong-opt">② 錯誤。若用戶端設備不符法規標準，基於安全考量，業者不得銜接提供服務。</li>
+                    <li class="correct-opt">③ 正確。業者為自身網路建設需要，必須有償使用私人建築物空間。</li>
+                    <li class="wrong-opt">④ 錯誤。責任分界點內的通訊設備，依法規依然必須由合格的電信工程或電器承裝業者進行施工與維護。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 10 -->
+    <div class="card">
+        <span class="theme-badge">主題：電信管線材質限制</span>
+        <div class="question">10. 依據「建築物屋內外電信設備設置技術規範」規定，主幹配線系統之水平及垂直幹管電信配管器材規格，其材質不得採用？</div>
+        <div class="options">
+            <div class="option">① 導電線用聚氯乙烯（PVC）硬質管</div>
+            <div class="option">② 電線用鋼管</div>
+            <div class="option">③ 合成樹脂可撓電線導管</div>
+            <div class="option">④ 導電線用聚氯乙烯（PVC）軟質管</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>主幹配線系統負責承載大樓內重要的通信骨幹，必須具備足夠的抗壓與防護能力。PVC「軟質管」的機械強度太差，容易因外力擠壓而變形，且管路不通暢會造成穿線困難，故技術規範明定不得作為水平或垂直幹管之電信配管使用。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① PVC硬質管：抗壓強度足夠，為法規允許之常見配管材質。</li>
+                    <li class="wrong-opt">② 電線用鋼管：強度極佳，並具備優良的防護與屏蔽能力，為優選材質。</li>
+                    <li class="wrong-opt">③ 合成樹脂可撓電線導管：具備一定機械強度且施工具彈性，部分管段可合法採用。</li>
+                    <li class="correct-opt">④ PVC軟質管：正確。因強度不足且易變形，嚴禁使用於通信主幹配管。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 11 -->
+    <div class="card">
+        <span class="theme-badge">主題：光纜規格</span>
+        <div class="question">11. 依據「建築物屋內外電信設備設置技術規範」規定，屋內主幹光纜使用之光纖不包括下列何者？</div>
+        <div class="options">
+            <div class="option">① 單模光纖</div>
+            <div class="option">② 30/125 μm 多模光纖</div>
+            <div class="option">③ 50/125 μm 多模光纖</div>
+            <div class="option">④ 62.5/125 μm 多模光纖</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據技術規範及國際光纖製造標準，常見的多模光纖核心/包層直徑規格為 50/125μm 及 62.5/125μm。並不存在 30/125μm 此種標準規格。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 單模光纖：為標準主幹光纖之一（如 9/125μm），適用長距離傳輸。</li>
+                    <li class="correct-opt">② 30/125 μm 多模光纖：錯誤規格，不包括在規範內。</li>
+                    <li class="wrong-opt">③ 50/125 μm 多模光纖：常見的標準多模光纖。</li>
+                    <li class="wrong-opt">④ 62.5/125 μm 多模光纖：常見的標準多模光纖（如 OM1）。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 12 -->
+    <div class="card">
+        <span class="theme-badge">主題：雙絞線傳輸頻率</span>
+        <div class="question">12. 依據「建築物屋內外電信設備設置技術規範」規定，建築物屋內外電信設備設置技術規範規定 Cat 5e 等級配線規範的最高頻率為？</div>
+        <div class="options">
+            <div class="option">① 100MHz</div>
+            <div class="option">② 125MHz</div>
+            <div class="option">③ 25MHz</div>
+            <div class="option">④ 250MHz</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在網路配線規範中，Category 5e（Cat 5e）雙絞線的測試與傳輸最高頻率標準為 100 MHz，可支援達 Gigabit Ethernet (1000BASE-T) 傳輸。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 100MHz：正確，Cat 5 及 Cat 5e 的標準頻寬。</li>
+                    <li class="wrong-opt">② 125MHz：並非常見之認證頻寬標準。</li>
+                    <li class="wrong-opt">③ 25MHz：頻率過低（類似早期 Cat 3 的 16MHz 標準附近）。</li>
+                    <li class="wrong-opt">④ 250MHz：為 Cat 6 的傳輸頻寬標準。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 13 -->
+    <div class="card">
+        <span class="theme-badge">主題：雙絞線傳輸頻率</span>
+        <div class="question">13. 依據「建築物屋內外電信設備設置技術規範」規定，建築物屋內外電信設備設置技術規範規定 Cat 6 等級配線規範的最高頻率為？</div>
+        <div class="options">
+            <div class="option">① 100MHz</div>
+            <div class="option">② 125MHz</div>
+            <div class="option">③ 250MHz</div>
+            <div class="option">④ 300MHz</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>Category 6（Cat 6）雙絞線標準相比 Cat 5e 有更嚴格的串擾限制，且其認證的最高傳輸頻率為 250 MHz。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 100MHz：為 Cat 5e 的標準頻率。</li>
+                    <li class="wrong-opt">② 125MHz：非標準的通訊線纜傳輸頻率分類。</li>
+                    <li class="correct-opt">③ 250MHz：正確，Cat 6 的認證最高頻率。</li>
+                    <li class="wrong-opt">④ 300MHz：非此規範分類；Cat 6A 為 500MHz。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 14 -->
+    <div class="card">
+        <span class="theme-badge">主題：電纜特性阻抗</span>
+        <div class="question">14. 依據「建築物屋內外電信設備設置技術規範」規定，建築物屋內外電信設備設置技術規範規定 UTP 及 SCTP 之電纜引線特性阻抗標稱值為？</div>
+        <div class="options">
+            <div class="option">① 50Ω</div>
+            <div class="option">② 75Ω</div>
+            <div class="option">③ 100Ω</div>
+            <div class="option">④ 200Ω</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>UTP (無遮蔽雙絞線) 與 SCTP (網狀遮蔽雙絞線) 等乙太網路通信用電纜，其標準特性阻抗（Characteristic Impedance）均被設計並規範為 100 歐姆（Ω）。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 50Ω：多為早期基頻同軸電纜（如 10Base2 薄纜）或無線射頻電纜的阻抗值。</li>
+                    <li class="wrong-opt">② 75Ω：多為有線電視 (CATV) 或寬頻同軸電纜的阻抗值。</li>
+                    <li class="correct-opt">③ 100Ω：正確，為通訊雙絞線的標準特性阻抗。</li>
+                    <li class="wrong-opt">④ 200Ω：非標準雙絞線特性阻抗標稱值。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 15 -->
+    <div class="card">
+        <span class="theme-badge">主題：主幹配線架構</span>
+        <div class="question">15. 依據「建築物屋內外電信設備設置技術規範」規定，建築物主幹配線系統架構之配接方式不包括？</div>
+        <div class="options">
+            <div class="option">① 直接接續</div>
+            <div class="option">② 分歧接續</div>
+            <div class="option">③ 中間交接</div>
+            <div class="option">④ 間接交接</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在建築物的電信設備設置技術規範中，配線方式有其專有名詞。主幹配線的配接方式包含直接接續、分歧接續與中間交接（Cross-connect），但並沒有「間接交接」此一名詞分類。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 直接接續：為規範包含之標準配接法。</li>
+                    <li class="wrong-opt">② 分歧接續：為規範包含之標準配接法。</li>
+                    <li class="wrong-opt">③ 中間交接：利用跳線面板作交接，亦為標準配接法。</li>
+                    <li class="correct-opt">④ 間接交接：非規範內所列之標準配接術語。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 16 -->
+    <div class="card">
+        <span class="theme-badge">主題：電信設備架構組成</span>
+        <div class="question">16. 依據「建築物屋內外電信設備設置技術規範」規定，建築物電信設備之設置架構組成不包括？</div>
+        <div class="options">
+            <div class="option">① 引進設施、配線箱（室）</div>
+            <div class="option">② 主幹配線系統</div>
+            <div class="option">③ 宅內配線系統</div>
+            <div class="option">④ 宅外配線系統</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>建築物內部電信設備之設置架構，從引進點進入室內後，依序包含引進設施與配線箱(室)、主幹配線系統、以及分配至各戶的宅內配線系統。並不涵蓋建築物外的「宅外配線系統」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 引進設施、配線箱（室）：屬建築物電信架構的第一部分。</li>
+                    <li class="wrong-opt">② 主幹配線系統：負責大樓樓層或各區域間的骨幹連接。</li>
+                    <li class="wrong-opt">③ 宅內配線系統：將網路或電信引至個別房間或座位。</li>
+                    <li class="correct-opt">④ 宅外配線系統：非建築物「內部」設置架構的範疇。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 17 -->
+    <div class="card">
+        <span class="theme-badge">主題：配線介面設備</span>
+        <div class="question">17. 依據「建築物屋內外電信設備設置技術規範」規定，設置於建築物電信室內之金屬組合架，作為引進管線及主幹管線間之介面稱為？</div>
+        <div class="options">
+            <div class="option">① 光終端配線架</div>
+            <div class="option">② 總配線板</div>
+            <div class="option">③ 總配線架</div>
+            <div class="option">④ 總接地箱</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在電信室中，最核心的介面即為「總配線架」(MDF, Main Distribution Frame)，主要功能就是將來自外部的引進管線與建築物內部的主幹管線進行交接與整理。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 光終端配線架：專用於光纖的收容與介接，非指整體引進與主幹管線的通用金屬組合架。</li>
+                    <li class="wrong-opt">② 總配線板：多指較小型的板狀配線單元，而非大型組合架。</li>
+                    <li class="correct-opt">③ 總配線架：正確。電信室內連接內外的核心大型組合架。</li>
+                    <li class="wrong-opt">④ 總接地箱：負責接地安全及防雷等用途，並無管線交接介面的功能。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 18 -->
+    <div class="card">
+        <span class="theme-badge">主題：配線介面設備</span>
+        <div class="question">18. 依據「建築物屋內外電信設備設置技術規範」規定，設置建築物配線室內之金屬組合架，輔助電信室之總配線架，作為樓層配線間之介面，並可與其他樓層配線架互相連接，稱為？</div>
+        <div class="options">
+            <div class="option">① 樓層配線架</div>
+            <div class="option">② 配線板</div>
+            <div class="option">③ 光終端配線架</div>
+            <div class="option">④ 電信機械設備</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>從總配線架拉出至各樓層後，各樓層配線室會設置一個輔助的介接設備，用於將主幹系統轉接至該樓層的水平佈線，此金屬組合架稱為「樓層配線架」(IDF, Intermediate Distribution Frame)。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 樓層配線架：正確。負責樓層內水平佈線與垂直主幹間的轉換介面。</li>
+                    <li class="wrong-opt">② 配線板：為配線架內部的組件。</li>
+                    <li class="wrong-opt">③ 光終端配線架：專指光纖收容架。</li>
+                    <li class="wrong-opt">④ 電信機械設備：為設備總稱，非此特指之組合架名詞。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 19 -->
+    <div class="card">
+        <span class="theme-badge">主題：電信空間名稱</span>
+        <div class="question">19. 依據「建築物電信設備及空間設置使用管理規則」規定，於建築物內除既有電信室外，專供市內網路業務經營者引接線纜及設置集線電信設備之專用空間稱為？</div>
+        <div class="options">
+            <div class="option">① 主配線室</div>
+            <div class="option">② 集線室</div>
+            <div class="option">③ 拖線箱</div>
+            <div class="option">④ 總配線箱</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據管理規則，除了主「電信室」以外，為了收容與安置「集線電信設備」所劃分的次要或專用空間，法規上被定義為「集線室」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 主配線室：非法定專用名詞。</li>
+                    <li class="correct-opt">② 集線室：正確，對應設置集線設備的空間。</li>
+                    <li class="wrong-opt">③ 拖線箱：為管路中協助拉線的過渡箱體，非空間名稱。</li>
+                    <li class="wrong-opt">④ 總配線箱：為收容配線端子的箱體，並非指一個完整的室內空間。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 20 -->
+    <div class="card">
+        <span class="theme-badge">主題：電纜材質規格</span>
+        <div class="question">20. 依據「建築物屋內外電信設備設置技術規範」規定，FS-JF-LAP 市內電纜係？</div>
+        <div class="options">
+            <div class="option">① 發泡聚乙烯雙層絕緣充膠積層被覆之簇型電纜</div>
+            <div class="option">② 彩色聚乙烯絕緣被覆之簇型星絞電纜</div>
+            <div class="option">③ 絕緣聚氯乙烯被覆之簇型星絞電纜</div>
+            <div class="option">④ 絕緣鋁箔低煙無毒聚乙烯被覆之簇型星絞電纜</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>該名詞的縮寫來自其結構與材質：FS代表 Foam Skin（發泡/固態雙層絕緣）、JF代表 Jelly Filled（充膠，用於阻水）、LAP代表 Laminated Aluminum Polyethylene（積層鋁聚乙烯被覆）。綜合即為「發泡聚乙烯雙層絕緣充膠積層被覆之簇型電纜」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 完全符合 FS (Foam Skin)、JF (Jelly Filled)、LAP (積層被覆) 的翻譯與技術特性。</li>
+                    <li class="wrong-opt">② 無充膠及雙層發泡絕緣的敘述。</li>
+                    <li class="wrong-opt">③ 聚氯乙烯（PVC）不符合 LAP 之 PE (聚乙烯) 特性。</li>
+                    <li class="wrong-opt">④ 低煙無毒（LSNH）係另種特殊規格，非 JF-LAP 之定義。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 21 -->
+    <div class="card">
+        <span class="theme-badge">主題：線架材質限制</span>
+        <div class="question">21. 依據「建築物屋內外電信設備設置技術規範」規定，電信線架材質不應採用何種材質製作？</div>
+        <div class="options">
+            <div class="option">① 聚氯乙烯</div>
+            <div class="option">② 鍍鋅碳鋼</div>
+            <div class="option">③ 不銹鋼</div>
+            <div class="option">④ 鋁合金</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電信線架負責承載大量且沈重的通訊線纜，必須具備極高的金屬機械強度與耐用性。聚氯乙烯（PVC）為塑膠材質，硬度與支撐力不足，且遇熱易變形，故不允許用作電信線架材質。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 聚氯乙烯：塑膠材質，不符合線架承重強度需求。</li>
+                    <li class="wrong-opt">② 鍍鋅碳鋼：堅固且防鏽，為常見金屬材質。</li>
+                    <li class="wrong-opt">③ 不銹鋼：堅固且防鏽能力佳。</li>
+                    <li class="wrong-opt">④ 鋁合金：重量輕但強度足夠，亦為合格金屬材質。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 22 -->
+    <div class="card">
+        <span class="theme-badge">主題：宅內配線選用</span>
+        <div class="question">22. 依據「建築物屋內外電信設備設置技術規範」規定，下列哪一種電纜不適用於建築物內宅內配線？</div>
+        <div class="options">
+            <div class="option">① FS-JF-LAP 市內電纜</div>
+            <div class="option">② PE-PVC 屋內數位電纜</div>
+            <div class="option">③ PE-PVC 屋內電纜</div>
+            <div class="option">④ FRPE-LSNHPE 屋內電纜</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>FS-JF-LAP 內部充滿阻水膏（Jelly Filled），主要是為了在戶外管路中防潮與防水。如果在室內（宅內）使用，接續時處理防水膠極為不便，且一旦流出會污染環境，同時其外皮材質的防火等級通常不符合屋內消防標準，故不得用於宅內配線。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① FS-JF-LAP 市內電纜：含防水膏，設計用於戶外防潮，不適合室內使用。</li>
+                    <li class="wrong-opt">② PE-PVC 屋內數位電纜：標準室內用線。</li>
+                    <li class="wrong-opt">③ PE-PVC 屋內電纜：標準室內用線。</li>
+                    <li class="wrong-opt">④ FRPE-LSNHPE 屋內電纜：具低煙無毒特性，為優良的室內用線。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 23 -->
+    <div class="card">
+        <span class="theme-badge">主題：箱體材質與厚度</span>
+        <div class="question">23. 依據「建築物屋內外電信設備設置技術規範」規定，總配線箱應採用經防銹面漆處理之鐵板或不銹鋼板製造，其厚度至少採？</div>
+        <div class="options">
+            <div class="option">① 1.2mm</div>
+            <div class="option">② 1.4mm</div>
+            <div class="option">③ 1.6mm</div>
+            <div class="option">④ 1.8mm</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>總配線箱體積較大，必須承擔線纜拉力及保護內部設備，因此技術規範明文要求其箱體鋼板厚度必須大於或等於 1.6mm，以確保結構強韌不變形。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 1.2mm：厚度過薄，多為小型接線盒或開關箱規格。</li>
+                    <li class="wrong-opt">② 1.4mm：不符規範最低要求。</li>
+                    <li class="correct-opt">③ 1.6mm：正確，總配線箱的鋼板厚度下限標準。</li>
+                    <li class="wrong-opt">④ 1.8mm：雖更堅固，但法規最低標為 1.6mm。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 24 -->
+    <div class="card">
+        <span class="theme-badge">主題：室內引進線纜收容</span>
+        <div class="question">24. 依據「建築物屋內外電信設備設置技術規範」規定，建築物引進屋內線纜之屋內段超過多少距離者，應全部採用鋼管或密閉式不燃性線槽收容？</div>
+        <div class="options">
+            <div class="option">① 10m</div>
+            <div class="option">② 15m</div>
+            <div class="option">③ 20m</div>
+            <div class="option">④ 25m</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>從戶外引入建築物的線纜，其外皮材質有時可能不具備高度防燃特性（如室外PE被覆）。基於消防安全，規範要求引進室內的部分若長度超過 15公尺，必須全程使用具有防火阻燃能力的鋼管或密閉不燃性線槽來收容隔離。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 10m：不符規範距離。</li>
+                    <li class="correct-opt">② 15m：正確標準限制距離。</li>
+                    <li class="wrong-opt">③ 20m：超出規範距離，會提高火險疑慮。</li>
+                    <li class="wrong-opt">④ 25m：超出規範距離。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 25 -->
+    <div class="card">
+        <span class="theme-badge">主題：總配線箱容量規格</span>
+        <div class="question">25. 依據「建築物屋內外電信設備設置技術規範」規定，總配線箱最大型號 A-4，於用戶側單獨收容端子之對數為？</div>
+        <div class="options">
+            <div class="option">① 200 對</div>
+            <div class="option">② 400 對</div>
+            <div class="option">③ 600 對</div>
+            <div class="option">④ 1200 對</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>標準的總配線箱有不同型號對應不同容量，A-4 型是較大的壁掛或嵌入式箱體，其規範針對用戶側單獨收容的最大容量設定為 400 對。若需求超過此容量，通常會改用落地型總配線架 (MDF) 處理。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 200 對：通常為 A-2 或較小型號的端子容量。</li>
+                    <li class="correct-opt">② 400 對：正確，A-4 型箱體用戶側設計容量。</li>
+                    <li class="wrong-opt">③ 600 對：超出壁掛式 A-4 箱體的標準收容容量。</li>
+                    <li class="wrong-opt">④ 1200 對：這類超大容量需使用落地式大型總配線架。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+</body>
+</html>

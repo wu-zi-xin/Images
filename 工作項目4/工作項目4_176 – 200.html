@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作項目4：176-200題 (綜合解析版)</title>
+<style>
+/* 基礎與排版設定 */
+* { box-sizing: border-box; }
+body { 
+    font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+    background-color: #f4f7f6; 
+    color: #333; 
+    margin: 0; 
+    padding: 20px 10px; 
+    line-height: 1.6; 
+}
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+.header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+
+/* JavaScript 按鈕樣式 */
+.toggle-btn { 
+    background-color: #27ae60; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 1em; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: background 0.3s; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+}
+.toggle-btn:hover { background-color: #219150; }
+.card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+
+/* 卡片樣式 */
+.card { 
+    background: #ffffff; 
+    border-radius: 12px; 
+    padding: 25px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+    border: 1px solid #eaeaea; 
+    position: relative; 
+}
+
+/* 主題標籤 */
+.theme-badge { 
+    display: inline-block; 
+    background-color: #e8f4fd; 
+    color: #2980b9; 
+    padding: 5px 12px; 
+    border-radius: 20px; 
+    font-size: 0.9em; 
+    font-weight: bold; 
+    margin-bottom: 15px; 
+    border: 1px solid #b3d7f2; 
+}
+.question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+
+/* 選項樣式 */
+.options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.option { 
+    background: #f8f9fa; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    color: #555; 
+    font-size: 1.05em; 
+    border-left: 3px solid #cbd5e1; 
+}
+
+/* 摺疊特效設計 */
+details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+summary { 
+    background: #3498db; 
+    color: #ffffff; 
+    padding: 12px; 
+    font-weight: bold; 
+    font-size: 1.05em; 
+    text-align: center; 
+    cursor: pointer; 
+    list-style: none; 
+    transition: background 0.3s; 
+}
+summary:hover { background: #2980b9; }
+summary::-webkit-details-marker { display: none; }
+
+/* 解析內容樣式 */
+.answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+.answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+
+/* 綜合解析區塊樣式 */
+.comprehensive-exp { 
+    background: #eef2f5; 
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    border-left: 4px solid #34495e; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+}
+.comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+.comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+.explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+.exp-subtitle { 
+    color: #2c3e50; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+    display: block; 
+    border-bottom: 1px dashed #cbd5e1; 
+    padding-bottom: 3px; 
+}
+.opt-list { margin: 0; padding-left: 0; list-style: none; }
+.opt-list li { 
+    margin-bottom: 8px; 
+    background: #ffffff; 
+    padding: 10px; 
+    border-radius: 6px; 
+    border-left: 4px solid #3498db; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+}
+.correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+.wrong-opt { border-left-color: #e74c3c !important; }
+
+/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+
+/* 手機版自適應優化 */
+@media (max-width: 600px) { 
+    .card { padding: 15px; } 
+    .header h1 { font-size: 1.5em; } 
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級</h1>
+    <p>工作項目04 第 176 - 200 題 (綜合解析與各選項詳解版)</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 176題 -->
+    <div class="card">
+        <div class="theme-badge">物聯網感知層</div>
+        <div class="question">176. 物聯網（IoT）的架構可分為應用層、網路層及感知層，其中感知層不包含以下哪一項？</div>
+        <div class="options">
+            <div class="option">① 無線射頻識別（RFID）</div>
+            <div class="option">② 次世代網路</div>
+            <div class="option">③ 感測器裝置</div>
+            <div class="option">④ 移動通訊裝置</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>物聯網的感知層（感知與辨識）主要負責收集實體世界的資料，常見的技術與裝置包含 RFID、感測器、條碼以及作為收集數據節點的移動通訊裝置等。而「次世代網路」（Next Generation Network）主要是負責資料的長途傳輸與交換，屬於「網路層」的範疇。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。RFID 負責標籤辨識，是感知層的核心技術之一。</li>
+                    <li class="correct-opt">② 正確。次世代網路（NGN）負責傳輸與路由，屬於網路層。</li>
+                    <li class="wrong-opt">③ 錯誤。感測器負責收集環境數據，屬於感知層。</li>
+                    <li class="wrong-opt">④ 錯誤。移動通訊設備常作為讀取或傳遞感測資料的邊緣設備，可歸類於感知層的數據獲取節點。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 177題 -->
+    <div class="card">
+        <div class="theme-badge">物聯網感知層</div>
+        <div class="question">177. 感測器（Sensor）量測資訊並傳輸至網路節點，其與網路節點連結的硬體單元稱為？</div>
+        <div class="options">
+            <div class="option">① 資料感測單元</div>
+            <div class="option">② 資料蒐集單元</div>
+            <div class="option">③ 資料收發單元</div>
+            <div class="option">④ 資料處理單元</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>感測器在量測到物理環境的變化後，必須將這些訊號轉換並傳送出去，這負責向外連繫及接收指令的硬體通訊介面，被稱為「資料收發單元」（Transceiver Unit）。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。資料感測單元是指實際量測物理量（如溫度、光線）的探頭部分。</li>
+                    <li class="wrong-opt">② 錯誤。資料蒐集單元通常指匯整多個感測器資訊的後端設備。</li>
+                    <li class="correct-opt">③ 正確。資料收發單元是負責與網路節點通訊的硬體介面。</li>
+                    <li class="wrong-opt">④ 錯誤。資料處理單元（如微控制器）負責運算，非專職對外連結。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 178題 -->
+    <div class="card">
+        <div class="theme-badge">物聯網感測器</div>
+        <div class="question">178. 關於物聯網中感測器，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 可用於偵測環境中的特定參數</div>
+            <div class="option">② 消耗功率低</div>
+            <div class="option">③ 通常可在惡劣的氣候中運作</div>
+            <div class="option">④ 無法重複使用</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>物聯網感測器為了滿足大規模且長期的部署需求，通常被設計為低功耗、具有環境適應能力，並且「能夠長時間、反覆不斷地」進行環境資料的收集。因此，說它無法重複使用是不正確的。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。感測器的本質就是用來偵測特定的環境參數（如溫度、濕度、壓力等）。</li>
+                    <li class="wrong-opt">② 錯誤。為延長電池壽命並支援廣泛部署，低功耗是 IoT 感測器的重要特性。</li>
+                    <li class="wrong-opt">③ 錯誤。許多感測器（如農業、工業用）都具有防水防塵設計，能適應惡劣環境。</li>
+                    <li class="correct-opt">④ 正確（本題選不正確者）。感測器並非拋棄式，它們通常可長時間且重複地收集資料。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 179題 -->
+    <div class="card">
+        <div class="theme-badge">智慧居家應用</div>
+        <div class="question">179. 關於無線感測網路在居家環境的應用，通常不包含下列哪一項？</div>
+        <div class="options">
+            <div class="option">① 居家防盜監控</div>
+            <div class="option">② 居家監控</div>
+            <div class="option">③ 網路訂票</div>
+            <div class="option">④ 家庭自動化</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>無線感測網路（WSN）在智慧家庭中主要被用來收集實體環境的變化（如門窗開關、煙霧偵測、溫濕度控制等）。「網路訂票」屬於一般網際網路的電子商務與資訊應用，與感測環境無直接關係。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。防盜監控大量使用門窗感測器與紅外線感測器。</li>
+                    <li class="wrong-opt">② 錯誤。居家監控（如溫溼度、長者照護）是典型應用。</li>
+                    <li class="correct-opt">③ 正確。網路訂票是軟體應用服務，不依賴居家的環境感測器。</li>
+                    <li class="wrong-opt">④ 錯誤。家庭自動化需要感測器聯動家電。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 180題 -->
+    <div class="card">
+        <div class="theme-badge">HTTPS與資訊安全</div>
+        <div class="question">180. 利用超文字傳輸安全協定（Hypertext Transfer Protocol Secure, HTTPS）進行網路傳輸時，下列何者並非其優點？</div>
+        <div class="options">
+            <div class="option">① 可預防電腦病毒</div>
+            <div class="option">② 正確的身分驗證</div>
+            <div class="option">③ 安全的資料傳輸</div>
+            <div class="option">④ 可搭配不同的加密機制</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>HTTPS 的作用在於透過 SSL/TLS 為傳輸通道進行加密並驗證伺服器身分，確保資料在傳遞中不被竊聽或竄改。然而，若伺服器本身傳送的檔案中夾帶病毒，HTTPS 無法檢查或阻擋，因此「無法」預防電腦病毒。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確（非優點）。HTTPS 只是加密通道，沒有防毒掃描的功能。</li>
+                    <li class="wrong-opt">② 錯誤。HTTPS 使用憑證，能驗證網站的真實身分。</li>
+                    <li class="wrong-opt">③ 錯誤。HTTPS 確保封包加密，提供安全的資料傳輸。</li>
+                    <li class="wrong-opt">④ 錯誤。HTTPS 支援多種不同的密碼套件（Cipher Suites）以進行加密協商。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 181題 -->
+    <div class="card">
+        <div class="theme-badge">電子郵件加密</div>
+        <div class="question">181. 下列何者不可用於加密電子郵件？</div>
+        <div class="options">
+            <div class="option">① PGP （Pretty Good Privacy）</div>
+            <div class="option">② HTTP（Hypertext Transfer Protocol）</div>
+            <div class="option">③ S/MIME（Secure/Multipurpose Internet Mail Extension）</div>
+            <div class="option">④ 數位簽章</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>HTTP 是一種基礎的網頁超文字「明文」傳輸協定，本身不具備任何加密功能。相反地，PGP 和 S/MIME 皆為標準的電子郵件加密與安全技術；而數位簽章也能結合加密來確保郵件不可否認性。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。PGP 是被廣泛用於保護電子郵件機密性的加密軟體。</li>
+                    <li class="correct-opt">② 正確。HTTP 是未加密的網頁傳輸協定，不可用於加密電子郵件。</li>
+                    <li class="wrong-opt">③ 錯誤。S/MIME 是基於公鑰基礎建設的標準郵件加密協定。</li>
+                    <li class="wrong-opt">④ 錯誤。數位簽章使用非對稱加密技術，常用於確保郵件的完整性與來源。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 182題 -->
+    <div class="card">
+        <div class="theme-badge">資訊安全防護</div>
+        <div class="question">182. 資訊安全的防護重點項目，不包含下列哪一項？</div>
+        <div class="options">
+            <div class="option">① 防毒</div>
+            <div class="option">② 環保</div>
+            <div class="option">③ 防災</div>
+            <div class="option">④ 防竊</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>資訊安全的三大核心（CIA Triad）包含機密性、完整性與可用性。實務的防護重點涵蓋防範病毒破壞（防毒）、防範資料被竊取（防竊）以及確保系統在天災發生時能恢復（防災）。「環保」雖然重要，但不屬於傳統資訊安全的範疇。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。防範惡意程式碼是資安的核心。</li>
+                    <li class="correct-opt">② 正確。環保為企業社會責任，非資安直接重點。</li>
+                    <li class="wrong-opt">③ 錯誤。防災（異地備援、災難復原）是確保系統「可用性」的關鍵。</li>
+                    <li class="wrong-opt">④ 錯誤。防護資料被竊取是確保「機密性」的關鍵。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 183題 -->
+    <div class="card">
+        <div class="theme-badge">資訊安全管理</div>
+        <div class="question">183. 「資訊系統應具備唯一識別及鑑別機關使用者之代號，不應有共用帳號之行為」，此敘述屬於下列哪一項資訊安全項目？</div>
+        <div class="options">
+            <div class="option">① 使用者之識別與鑑別</div>
+            <div class="option">② 裝置之識別與鑑別</div>
+            <div class="option">③ 鑑別資訊管理</div>
+            <div class="option">④ 鑑別資訊回饋</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>給予每一位人員專屬的帳號（唯一識別代號），是為了在系統中清楚辨識是「誰」登入並進行操作，以利於後續的權限控管與稽核追蹤。這項原則在資安管理規範中隸屬於「使用者的識別（Identification）與鑑別（Authentication）」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。確保人員不共用帳號，精確定位個人身分。</li>
+                    <li class="wrong-opt">② 錯誤。裝置鑑別是針對硬體（如憑證、MAC 位址），而非「使用者代號」。</li>
+                    <li class="wrong-opt">③ 錯誤。鑑別資訊管理偏向於密碼或憑證的生命週期（如換密碼週期）管理。</li>
+                    <li class="wrong-opt">④ 錯誤。資安規範中無此標準分類。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 184題 -->
+    <div class="card">
+        <div class="theme-badge">網路通訊安全</div>
+        <div class="question">184. 網站的網址以 https://開始，表示該網站可能使用下列何種機制？</div>
+        <div class="options">
+            <div class="option">① 使用 SET 安全機制</div>
+            <div class="option">② 使用 TLS 安全機制</div>
+            <div class="option">③ 使用防毒機制</div>
+            <div class="option">④ 使用 XOOPS 架設機制</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>HTTPS 中的「S」代表 Secure，其底層是透過 SSL（Secure Sockets Layer）或更現代的標準 TLS（Transport Layer Security）協定，將網頁資料加密後再進行傳輸，以保障連線過程的安全。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。SET 是專門用於線上信用卡交易的安全協定，並非加密網址。</li>
+                    <li class="correct-opt">② 正確。HTTPS 底層就是使用 TLS（或 SSL）加密協定。</li>
+                    <li class="wrong-opt">③ 錯誤。HTTPS 僅提供傳輸加密，不包含防毒掃描。</li>
+                    <li class="wrong-opt">④ 錯誤。XOOPS 是一套架站軟體（CMS），與網址是否為 https 無直接關係。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 185題 -->
+    <div class="card">
+        <div class="theme-badge">資訊安全措施</div>
+        <div class="question">185. 資訊中心為確保電腦作業安全而採取之即時防護措施，不包含下列哪一項？</div>
+        <div class="options">
+            <div class="option">① 實體防護</div>
+            <div class="option">② 資料防護</div>
+            <div class="option">③ 程式防護</div>
+            <div class="option">④ 使用者登錄紀錄</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「即時防護措施」強調的是當下阻斷風險，如限制人員進出（實體）、傳輸加密（資料）或防毒軟體阻擋（程式）。而「使用者登錄紀錄（Log）」主要是發生安全事件後，用來追蹤、舉證的「事後稽核」手段，本身無法「即時阻擋」入侵。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。實體防護（如門禁）可即時阻擋未授權者接觸設備。</li>
+                    <li class="wrong-opt">② 錯誤。資料防護（如加密、即時備份）是保護資料的即時手段。</li>
+                    <li class="wrong-opt">③ 錯誤。程式防護（如防毒軟體、防火牆）能即時攔截惡意攻擊。</li>
+                    <li class="correct-opt">④ 正確。紀錄主要用於事後審查，非即時防禦措施。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 186題 -->
+    <div class="card">
+        <div class="theme-badge">網站身分鑑別</div>
+        <div class="question">186. SSL（Secure Sockets Layer）協定是使用下列哪一項資訊進行網站身分鑑別？</div>
+        <div class="options">
+            <div class="option">① 電腦名稱</div>
+            <div class="option">② IP 位址</div>
+            <div class="option">③ 數位憑證（Digital Certificate）</div>
+            <div class="option">④ 使用者帳號及密碼</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當用戶端瀏覽器與伺服器建立 SSL/TLS 安全連線時，伺服器必須出示一張由具公信力的憑證授權中心（CA）核發的「數位憑證」。憑證中包含了該網站的公鑰及身分資訊，以此來證明網站的真實身分。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。電腦名稱可以輕易被竄改或偽造，無法作為信賴依據。</li>
+                    <li class="wrong-opt">② 錯誤。IP 位址可能變更或遭受劫持。</li>
+                    <li class="correct-opt">③ 正確。利用具公信力的數位憑證來鑑別伺服器的真實身分。</li>
+                    <li class="wrong-opt">④ 錯誤。帳號密碼是網站用來鑑別「訪客」，而非訪客用來鑑別「網站」。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 187題 -->
+    <div class="card">
+        <div class="theme-badge">網路終端設備</div>
+        <div class="question">187. 以下哪項是終端設備的特性？</div>
+        <div class="options">
+            <div class="option">① 終端設備可經由中間設備連上網際網路</div>
+            <div class="option">② 所有終端設備都是網路流量的來源</div>
+            <div class="option">③ 發生連結故障時，終端設備會將流量指向備用路徑</div>
+            <div class="option">④ 終端設備必須經由有線傳輸網路才能連上網際網路</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>終端設備（End Device，如個人電腦、智慧手機、伺服器）位於網路架構的最末端，負責發送與接收資料。它們必須透過「中間設備」（如交換器、路由器、無線 AP）的橋接及轉發，才能順利連上廣大的網際網路。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。終端設備透過路由器等中間設備與外界溝通。</li>
+                    <li class="wrong-opt">② 錯誤。中間設備（如路由器發送路由更新表）本身也會產生網路流量。</li>
+                    <li class="wrong-opt">③ 錯誤。動態變更備用路徑（路由選擇）主要是路由器等網路層中間設備的工作。</li>
+                    <li class="wrong-opt">④ 錯誤。終端設備也能透過 Wi-Fi 或 4G/5G 等無線方式連網。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 188題 -->
+    <div class="card">
+        <div class="theme-badge">數位資料表示法</div>
+        <div class="question">188. 物聯網（IoT）中的數位資料應如何表示？</div>
+        <div class="options">
+            <div class="option">① 使用英數字元</div>
+            <div class="option">② 數字 0 到 9</div>
+            <div class="option">③ 1 和 0</div>
+            <div class="option">④ 色彩條</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>不論是傳統的電腦還是現代的物聯網裝置，底層處理的電子訊號皆為數位邏輯。因此，任何影像、聲音或文字的「數位資料（Digital Data）」，最底層都是透過二進位制（Binary）的 `1` 和 `0` 來表示並進行傳輸的。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。字元最終必須被編碼為位元（0 與 1）。</li>
+                    <li class="wrong-opt">② 錯誤。計算機硬體並不直接識別十進制數字。</li>
+                    <li class="correct-opt">③ 正確。二進制的 1 和 0 是數位資料最基礎的表示法。</li>
+                    <li class="wrong-opt">④ 錯誤。色彩條只是視覺上的表現形式。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 189題 -->
+    <div class="card">
+        <div class="theme-badge">巨量資料 (Big Data)</div>
+        <div class="question">189. 何謂「巨量資料」？</div>
+        <div class="options">
+            <div class="option">① 指 IoT 中由中間裝置產生的超大封包</div>
+            <div class="option">② 指為滿足資料的需要，會不斷增加終端裝置、伺服器及路由器的數量</div>
+            <div class="option">③ 指來自雲端運算應用程式的資料</div>
+            <div class="option">④ 指收集及分析大量的資料，可以為決策者提供深入資訊</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>巨量資料（Big Data，大數據）強調的是面臨海量、生成速度快且格式繁雜的數據集時，利用大數據分析技術進行整理與探勘，從中找出隱藏的關聯、趨勢與行為模式，進而輔助商業或科學上的決策判斷。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。與網路傳輸封包（Packet）的大小無關。</li>
+                    <li class="wrong-opt">② 錯誤。這描述的是硬體基礎設施的擴充性（Scalability），非資料本身。</li>
+                    <li class="wrong-opt">③ 錯誤。巨量資料的來源極廣，不侷限於單一雲端程式。</li>
+                    <li class="correct-opt">④ 正確。收集並分析海量資訊以產生深入決策洞見，即為大數據核心價值。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 190題 -->
+    <div class="card">
+        <div class="theme-badge">網路傳輸協定</div>
+        <div class="question">190. 網際網路中，使用何種協定組合傳輸資料？</div>
+        <div class="options">
+            <div class="option">① TCP/IP</div>
+            <div class="option">② ZigBee</div>
+            <div class="option">③ Z-Wave</div>
+            <div class="option">④ Bluetooth</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>TCP/IP（傳輸控制協定 / 網際網路協定）是全球網際網路（Internet）最基礎的核心通訊標準。任何裝置只要具備了相容的 IP 位址與 TCP/IP 堆疊，便能在廣大的網際網路上互相傳遞封包。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。TCP/IP 是網際網路的基礎標準協定。</li>
+                    <li class="wrong-opt">② 錯誤。ZigBee 是低功耗、短距離的物聯網專用無線協定。</li>
+                    <li class="wrong-opt">③ 錯誤。Z-Wave 主要用於智慧家庭的短距離無線控制協定。</li>
+                    <li class="wrong-opt">④ 錯誤。Bluetooth 也是短距個人區域網路技術，無法直接構建網際網路。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 191題 -->
+    <div class="card">
+        <div class="theme-badge">物聯網發展</div>
+        <div class="question">191. 引發物聯網（IoT）爆炸式成長，最主要的原因是何種裝置普及化所造成？</div>
+        <div class="options">
+            <div class="option">① 智慧型手機</div>
+            <div class="option">② 電腦</div>
+            <div class="option">③ 致動器</div>
+            <div class="option">④ 感應器</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>物聯網（Internet of Things）的核心概念是「萬物相連」。近年來，體積微小、價格低廉且耗電極低的各類「感應器（Sensor）」大量普及，使得各種傳統生活物件（如冰箱、路燈、手錶）都能感知環境並連上網路，這正是推動物聯網爆炸性成長的最大推手。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。智慧手機帶動了「行動網路」的發展，但物聯網的基礎更在於微小感測器。</li>
+                    <li class="wrong-opt">② 錯誤。電腦帶動了早期的網際網路。</li>
+                    <li class="wrong-opt">③ 錯誤。致動器是接收指令後產生動作的裝置，其普及仰賴感測器的前端數據收集。</li>
+                    <li class="correct-opt">④ 正確。感測技術的成熟與廉價化，造就了萬物皆可感知並連網。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 192題 -->
+    <div class="card">
+        <div class="theme-badge">機器間通訊 (M2M)</div>
+        <div class="question">192. 以下何項是機器間（M2M）通訊的範例？</div>
+        <div class="options">
+            <div class="option">① 某人從資料庫取得資訊或進行複雜分析</div>
+            <div class="option">② 兩個人透過即時訊息應用程式相互通訊</div>
+            <div class="option">③ 垃圾桶的感應器發出垃圾已滿的訊號至垃圾車的 GPS 相關系統，以調整路線</div>
+            <div class="option">④ 家用電冰箱傳送電子郵件給屋主，以提醒屋主購買牛奶</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>機器間通訊（Machine to Machine, M2M）指的是資料在不同的硬體設備或系統間自動傳輸並引發反應，過程中不需（或極少）人類的直接介入。垃圾桶感測器自動聯繫垃圾車系統調整路線，是純機器對機器的自主互動。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。牽涉人員主動查詢，為 人員對機器（Human-to-Machine）。</li>
+                    <li class="wrong-opt">② 錯誤。牽涉兩人互動，為 人對人（Person-to-Person）。</li>
+                    <li class="correct-opt">③ 正確。感測器直接與 GPS 系統通訊，全程自動化，屬純 M2M。</li>
+                    <li class="wrong-opt">④ 錯誤。機器發訊息提醒屋主，為 機器對人員（Machine-to-Human）。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 193題 -->
+    <div class="card">
+        <div class="theme-badge">機器間通訊 (M2M)</div>
+        <div class="question">193. 自動化生產線上感應器偵測到異常狀況時，感應器會與控制器通訊，致使控制器自動暫停生產線並啟動警示。此情境係何種類型的通訊？</div>
+        <div class="options">
+            <div class="option">① 機器到人員（M2P）</div>
+            <div class="option">② 機器間（M2M）</div>
+            <div class="option">③ 人員間（P2P）</div>
+            <div class="option">④ 人員到機器（P2M）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>承上題概念，生產線上的感應器（機器）偵測到問題後，直接將訊號發送給中央控制器（機器），控制器再自動決定暫停生產。由於整個流程完全由自動化設備自行交握處理，因此屬於標準的 M2M（機器間）通訊。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。這個流程是先停機再警示，核心判斷是在設備間完成，不是等待人員下令。</li>
+                    <li class="correct-opt">② 正確。感應器與控制器皆為自動化設備，互相溝通即為 M2M。</li>
+                    <li class="wrong-opt">③ 錯誤。與人員間通訊無關。</li>
+                    <li class="wrong-opt">④ 錯誤。與人員下令給機器的情境相反。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 194題 -->
+    <div class="card">
+        <div class="theme-badge">資訊安全</div>
+        <div class="question">194. 使用下列何種過程進行資訊編碼，可確保資訊安全？</div>
+        <div class="options">
+            <div class="option">① 驗證</div>
+            <div class="option">② 授權</div>
+            <div class="option">③ 加密</div>
+            <div class="option">④ 極化</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為了防止資料在傳輸或存放時被有心人士竊聽或竊取，我們必須將原始的明文進行特殊演算法的「編碼轉換」成為密文，這個過程稱為「加密（Encryption）」，是維持資訊機密性最直接的手段。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。驗證（Authentication）是確認使用者身分，但不涉及對資料內容的編碼。</li>
+                    <li class="wrong-opt">② 錯誤。授權（Authorization）是賦予使用者適當存取權限。</li>
+                    <li class="correct-opt">③ 正確。加密是一種演算法轉換過程，確保資訊即使外流也無法被讀懂。</li>
+                    <li class="wrong-opt">④ 錯誤。極化（Polarization）通常指物理界電磁波的方向特性，無關資安編碼。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 195題 -->
+    <div class="card">
+        <div class="theme-badge">網頁程式設計</div>
+        <div class="question">195. 以下哪項電腦程式可使用 JavaScript 語言編碼？</div>
+        <div class="options">
+            <div class="option">① Microsoft Word</div>
+            <div class="option">② iPad 的 App 遊戲</div>
+            <div class="option">③ Android 手機上的系統軟體</div>
+            <div class="option">④ 網頁上的貸款月付款小算盤</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>JavaScript 是網際網路前端開發最重要的腳本語言，所有現代瀏覽器都內建支援。舉凡網頁上的動態圖表、表單驗證、即時計算工具等互動功能，幾乎都是由 JavaScript 編寫而成的。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。大型桌面軟體通常由 C++ 或 C# 等編譯語言開發。</li>
+                    <li class="wrong-opt">② 錯誤。iOS 遊戲通常以 Swift 或 Objective-C（以及跨平台引擎如 Unity）開發。</li>
+                    <li class="wrong-opt">③ 錯誤。Android 系統與原生應用主要以 Java 或 Kotlin 開發。</li>
+                    <li class="correct-opt">④ 正確。網頁上的互動計算工具正是 JavaScript 最典型且核心的應用場景。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 196題 -->
+    <div class="card">
+        <div class="theme-badge">IPv6 位址類型</div>
+        <div class="question">196. (複選題) IPv6 位址包含哪些種類？</div>
+        <div class="options">
+            <div class="option">① 單播（Unicast）位址</div>
+            <div class="option">② 廣播（Broadcast）位址</div>
+            <div class="option">③ 多播（Multicast）位址</div>
+            <div class="option">④ 任播（Anycast）位址</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：① ③ ④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>IPv6 為了解決網路壅塞與廣播風暴的問題，全面取消了傳統 IPv4 中的「廣播（Broadcast）」位址，改由更有效率的「多播（Multicast）」來替代其功能。因此 IPv6 位址的分類僅有：單播（Unicast）、多播（Multicast）以及新增的任播（Anycast）。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。單播用於一對一的資料傳輸。</li>
+                    <li class="wrong-opt">② 錯誤。IPv6 架構中已經廢除了廣播位址的設計。</li>
+                    <li class="correct-opt">③ 正確。多播用於一對多的資料傳輸。</li>
+                    <li class="correct-opt">④ 正確。任播會將封包傳送到網路上距離最近的一個目標群組節點。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 197題 -->
+    <div class="card">
+        <div class="theme-badge">IPv6 單播位址</div>
+        <div class="question">197. (複選題) 下列哪些屬於 IPv6 位址之單播（Unicast）位址？</div>
+        <div class="options">
+            <div class="option">① 鏈路（Link）位址</div>
+            <div class="option">② 鏈路-本地（Link-Local）位址</div>
+            <div class="option">③ 站台（Site）位址</div>
+            <div class="option">④ 唯一-本地（Unique-Local）位址</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：② ④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>IPv6 單播位址最常見的分類包含：全域單播（Global Unicast，可連網際網路）、鏈路本地單播（Link-Local Unicast，僅限同一網段互通，如 fe80::/10）以及唯一本地單播（Unique-Local Unicast，用於私人區域網，如 fc00::/7）。選項中的「站台本地（Site-Local）」因設計瑕疵早已被 IETF 廢棄不用。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。名稱不精確，標準術語應為 Link-Local。</li>
+                    <li class="correct-opt">② 正確。鏈路本地位址（Link-Local）為 IPv6 單播的一種。</li>
+                    <li class="wrong-opt">③ 錯誤。站台本地位址（Site-Local, fec0::）已經被標準組織正式廢除。</li>
+                    <li class="correct-opt">④ 正確。唯一本地位址（Unique-Local）被用來替代舊的站台本地位址。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 198題 -->
+    <div class="card">
+        <div class="theme-badge">IPv6 動態位址取得</div>
+        <div class="question">198. (複選題) 下列哪些方法可以讓 PC 動態取得 IPv6 位址？</div>
+        <div class="options">
+            <div class="option">① 具狀態自動組態（Stateful Autoconfiguration）</div>
+            <div class="option">② 具狀態（Stateful）DHCP</div>
+            <div class="option">③ 無狀態自動組態（Stateless Autoconfiguration）</div>
+            <div class="option">④ 無狀態（Stateless）DHCP</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：② ③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>IPv6 的動態獲取 IP 方式非常具有彈性，主要可透過：<br>1. 「無狀態自動組態（SLAAC）」：主機利用路由器發送的 RA 訊息結合自身網卡 MAC，自動合成一組 IP（不需向伺服器登記）。<br>2. 「具狀態的 DHCPv6（Stateful DHCP）」：與 IPv4 類似，由伺服器統一管理與配發可用的 IP 位址。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。沒有將「具狀態」與「自動組態」結合的這種專用名詞。</li>
+                    <li class="correct-opt">② 正確。具狀態 DHCPv6 會由伺服器發派並記錄分配出去的 IP 位址。</li>
+                    <li class="correct-opt">③ 正確。SLAAC 允許主機自行衍生 IP，無需向伺服器報備。</li>
+                    <li class="wrong-opt">④ 錯誤。無狀態 DHCP 雖然存在，但它「不發配 IP」，只負責提供 DNS 等額外網路參數。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 199題 -->
+    <div class="card">
+        <div class="theme-badge">IPv6 路由協定</div>
+        <div class="question">199. (複選題) 下列哪些路由協定（Routing Protocol）可以支援 IPv6？</div>
+        <div class="options">
+            <div class="option">① OSPFv2</div>
+            <div class="option">② RIPv1</div>
+            <div class="option">③ OSPFv3</div>
+            <div class="option">④ RIPng</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③ ④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>因為 IPv6 的位址長度從 32 位元大幅擴增至 128 位元，舊版的路由通訊協定已無法解析與傳遞。因此網路界推出了升級版的路由協定來專門處理 IPv6 封包，例如 OSPF 第三版（OSPFv3）以及新一代的 RIP（RIPng）。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。OSPFv2 是專門為 IPv4 設計的。</li>
+                    <li class="wrong-opt">② 錯誤。RIPv1 是非常老舊且針對 IPv4（無類別）所設計的協定。</li>
+                    <li class="correct-opt">③ 正確。OSPFv3 被擴充以支援 IPv6 路由。</li>
+                    <li class="correct-opt">④ 正確。RIPng (next generation) 支援 IPv6 路由。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 200題 -->
+    <div class="card">
+        <div class="theme-badge">VPN 網路安全</div>
+        <div class="question">200. (複選題) 下列哪些是 Site-to-Site VPN 的目的？</div>
+        <div class="options">
+            <div class="option">① 資料完整性</div>
+            <div class="option">② 鑑別性（Authentication）</div>
+            <div class="option">③ 私密性（Privacy）</div>
+            <div class="option">④ 防毒（Antivirus）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：① ② ③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>VPN（虛擬私人網路）的作用是在不安全的公用網際網路上打通一條安全的加密隧道。透過底層的 IPSec 等技術，可以保障資料傳遞過程不被篡改（完整性）、不被窺探（私密性/機密性），並確認連線兩端身分合法（鑑別性）。但 VPN 無法剖析內容封包是否藏有病毒。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。能確保資料在傳遞中未被任何第三方更動。</li>
+                    <li class="correct-opt">② 正確。確保建立隧道連線的雙方身分（設備或人員）都是合法授權的。</li>
+                    <li class="correct-opt">③ 正確。將資料封包進行高度加密，保障企業私密資料安全。</li>
+                    <li class="wrong-opt">④ 錯誤。防毒掃描是防毒軟體或閘道防火牆的職責，與建立 VPN 的通道目的無關。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>

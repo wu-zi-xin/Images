@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作項目4：101-125題 (綜合解析版)</title>
+<style>
+/* 基礎與排版設定 (復刻 GitHub 來源樣式) */
+* { box-sizing: border-box; }
+body { 
+    font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+    background-color: #f4f7f6; 
+    color: #333; 
+    margin: 0; 
+    padding: 20px 10px; 
+    line-height: 1.6; 
+}
+
+.fab-action.danger {
+    color: #e74c3c; /* 紅色 */
+}
+.fab-action.success {
+    color: #27ae60; /* 綠色 */
+}
+
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+.header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+
+/* JavaScript 按鈕樣式 */
+.toggle-btn { 
+    background-color: #27ae60; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 1em; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: background 0.3s; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+}
+.toggle-btn:hover { background-color: #219150; }
+.card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+
+/* 卡片樣式 */
+.card { 
+    background: #ffffff; 
+    border-radius: 12px; 
+    padding: 25px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+    border: 1px solid #eaeaea; 
+    position: relative; 
+}
+
+/* 主題標籤 */
+.theme-badge { 
+    display: inline-block; 
+    background-color: #e8f4fd; 
+    color: #2980b9; 
+    padding: 5px 12px; 
+    border-radius: 20px; 
+    font-size: 0.9em; 
+    font-weight: bold; 
+    margin-bottom: 15px; 
+    border: 1px solid #b3d7f2; 
+}
+.question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+
+/* 選項樣式 */
+.options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.option { 
+    background: #f8f9fa; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    color: #555; 
+    font-size: 1.05em; 
+    border-left: 3px solid #cbd5e1; 
+}
+
+/* 摺疊特效設計 */
+details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+summary { 
+    background: #3498db; 
+    color: #ffffff; 
+    padding: 12px; 
+    font-weight: bold; 
+    font-size: 1.05em; 
+    text-align: center; 
+    cursor: pointer; 
+    list-style: none; 
+    transition: background 0.3s; 
+}
+summary:hover { background: #2980b9; }
+summary::-webkit-details-marker { display: none; }
+
+/* 解析內容樣式 */
+.answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+.answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+
+/* 綜合解析區塊樣式 */
+.comprehensive-exp { 
+    background: #eef2f5; 
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    border-left: 4px solid #34495e; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+}
+.comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+.comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+.explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+.exp-subtitle { 
+    color: #2c3e50; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+    display: block; 
+    border-bottom: 1px dashed #cbd5e1; 
+    padding-bottom: 3px; 
+}
+.opt-list { margin: 0; padding-left: 0; list-style: none; }
+.opt-list li { 
+    margin-bottom: 8px; 
+    background: #ffffff; 
+    padding: 10px; 
+    border-radius: 6px; 
+    border-left: 4px solid #3498db; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+}
+.correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+.wrong-opt { border-left-color: #e74c3c !important; }
+
+/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+
+/* 手機版自適應優化 */
+@media (max-width: 600px) { 
+    .card { padding: 15px; } 
+    .header h1 { font-size: 1.5em; } 
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級</h1>
+    <p>工作項目04 第 101 - 125 題 (綜合解析與各選項詳解版)</p>
+    <button class="toggle-btn" id="toggleBtn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 101題 -->
+    <div class="card">
+        <div class="theme-badge">網路協定</div>
+        <div class="question">101. DHCP 用戶端，在開機時使用下列哪一種方式請求分配 IP？</div>
+        <div class="options">
+            <div class="option">① 傳送要求 IP 訊息給路由器</div>
+            <div class="option">② 於網路中廣播要求 IP 訊息</div>
+            <div class="option">③ 直接傳送要求 IP 訊息給 DHCP 伺服器</div>
+            <div class="option">④ 傳送要求 IP 訊息給另一個 DHCP 用戶端</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>DHCP（Dynamic Host Configuration Protocol）用戶端在剛開機時尚未獲取自己的 IP 位址，也還不知道 DHCP 伺服器的所在位置。因此，它會使用「廣播」（Broadcast，發送 DHCPDISCOVER 封包）的方式，在區域網路內尋找可用的 DHCP 伺服器來請求分配 IP [1][2]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。DHCP 請求並非專門發給路由器，而是發給區網內所有的設備以尋找 DHCP 伺服器。</li>
+                    <li class="correct-opt">② 正確。在網路上進行廣播，尋找能配發 IP 的 DHCP 伺服器。</li>
+                    <li class="wrong-opt">③ 錯誤。此時用戶端還不知道 DHCP 伺服器的位址，無法使用單播「直接傳送」。</li>
+                    <li class="wrong-opt">④ 錯誤。另一台 DHCP 用戶端並沒有配發 IP 位址的權限。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 102題 -->
+    <div class="card">
+        <div class="theme-badge">網路協定</div>
+        <div class="question">102. IEEE 802.1X 使用下列哪一種協定？</div>
+        <div class="options">
+            <div class="option">① WEP</div>
+            <div class="option">② SCP</div>
+            <div class="option">③ EAP</div>
+            <div class="option">④ RTP</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>IEEE 802.1X 是一種基於通訊埠的網路存取控制（Port-based Network Access Control）標準。它負責控制存取權限，並透過封裝 EAP（Extensible Authentication Protocol，可延伸認證協定）來進行實際的身分驗證訊息傳輸 [1]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。WEP 是一種老舊且易被破解的無線網路加密協定。</li>
+                    <li class="wrong-opt">② 錯誤。SCP 是基於 SSH 的安全檔案複製協定。</li>
+                    <li class="correct-opt">③ 正確。802.1X 使用 EAP 作為傳遞認證資訊的協定。</li>
+                    <li class="wrong-opt">④ 錯誤。RTP 是用於網際網路上針對多媒體（音訊、視訊）資料的即時傳輸協定。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 103題 -->
+    <div class="card">
+        <div class="theme-badge">CentOS 指令</div>
+        <div class="question">103. 下列 CentOS Linux 指令，何者可用來判斷是否已經安裝 Apache 伺服器？</div>
+        <div class="options">
+            <div class="option">① rpm -i httpd</div>
+            <div class="option">② rpm -e httpd</div>
+            <div class="option">③ rpm -q httpd</div>
+            <div class="option">④ rpm -v httpd</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在 CentOS 系統中，Apache 伺服器的套件名稱為 `httpd`。若要確認某個套件是否已經安裝，可使用 `rpm` 指令的 `-q` 參數（Query，查詢）來查詢該套件的狀態 [1]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。-i 代表 Install，用於安裝套件。</li>
+                    <li class="wrong-opt">② 錯誤。-e 代表 Erase，用於解除安裝（移除）套件。</li>
+                    <li class="correct-opt">③ 正確。-q 代表 Query，用以查詢該軟體套件是否安裝及版本資訊。</li>
+                    <li class="wrong-opt">④ 錯誤。-v 代表 Verbose，用於顯示詳細指令執行過程，不會單獨用於查詢是否安裝。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 104題 -->
+    <div class="card">
+        <div class="theme-badge">CentOS 指令</div>
+        <div class="question">104. 若 CentOS Linux 系統中未安裝 Apache 伺服器，下列 Linux 指令何者可線上安裝 Apache 伺服器？</div>
+        <div class="options">
+            <div class="option">① yum remove httpd</div>
+            <div class="option">② yum info httpd</div>
+            <div class="option">③ yum update httpd</div>
+            <div class="option">④ yum install httpd</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>CentOS 中常見的線上套件管理工具是 `yum`。若要下載並安裝新軟體（例如 Apache 的 `httpd` 套件），應使用 `install` 參數，它會自動從套件庫下載並處理相依性 [1]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。remove 用來移除已安裝的軟體套件。</li>
+                    <li class="wrong-opt">② 錯誤。info 用來查詢並顯示該軟體套件的詳細資訊。</li>
+                    <li class="wrong-opt">③ 錯誤。update 用來將現有的套件更新至最新版本。</li>
+                    <li class="correct-opt">④ 正確。install 用來線上安裝指定的套件。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 105題 -->
+    <div class="card">
+        <div class="theme-badge">CentOS 服務管理</div>
+        <div class="question">105. 下列 CentOS Linux 指令，何者可用來啟動 Apache 伺服器？</div>
+        <div class="options">
+            <div class="option">① systemctl restart vsftpd</div>
+            <div class="option">② systemctl restart httpd</div>
+            <div class="option">③ systemctl start vsftpd</div>
+            <div class="option">④ systemctl start httpd</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在較新的 CentOS 系統中，管理後台服務通常透過 `systemctl` 工具。若要「啟動」服務，應使用 `start` 參數；而 Apache 的服務名稱即為 `httpd` [1]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。這是用來重新啟動 FTP (vsftpd) 服務。</li>
+                    <li class="wrong-opt">② 錯誤。restart 是用來重新啟動已在執行的服務，題目問的是啟動。</li>
+                    <li class="wrong-opt">③ 錯誤。這是用來啟動 FTP (vsftpd) 服務。</li>
+                    <li class="correct-opt">④ 正確。使用 start 參數搭配 httpd，可啟動 Apache 服務。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 106題 -->
+    <div class="card">
+        <div class="theme-badge">CentOS 服務管理</div>
+        <div class="question">106. 下列 CentOS Linux 指令，何者可用來重新啟動 Apache 伺服器？</div>
+        <div class="options">
+            <div class="option">① systemctl restart vsftpd</div>
+            <div class="option">② systemctl restart httpd</div>
+            <div class="option">③ systemctl start vsftpd</div>
+            <div class="option">④ systemctl start httpd</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當修改過 Apache 設定檔，或需要讓服務中斷後重新載入時，需進行「重新啟動」。在 `systemctl` 指令中，重啟的參數為 `restart`，指定服務為 `httpd` [1]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。這是重新啟動 FTP 服務。</li>
+                    <li class="correct-opt">② 正確。restart 參數可重新啟動 Apache 伺服器。</li>
+                    <li class="wrong-opt">③ 錯誤。這是啟動 FTP 服務。</li>
+                    <li class="wrong-opt">④ 錯誤。這是首次啟動 Apache 服務，並非重新啟動。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 107題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">107. CentOS Linux 系統中，何者是 Apache 伺服器預設的設定檔名稱及其路徑？</div>
+        <div class="options">
+            <div class="option">① /etc/httpd/conf/httpd.conf</div>
+            <div class="option">② /etc/conf/httpd/httpd.conf</div>
+            <div class="option">③ /etc/http/conf/http.conf</div>
+            <div class="option">④ /etc/conf/http/http.conf</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在以 RPM 包安裝的 CentOS/RHEL 系統上，Apache 伺服器的相關設定目錄預設放在 `/etc/httpd/` 下。其最主要的核心設定檔案位在內部的 `conf` 子目錄，檔名為 `httpd.conf` [1]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。/etc/httpd/conf/httpd.conf 為標準的設定檔預設路徑與檔名。</li>
+                    <li class="wrong-opt">② 錯誤。/etc 底下並不會先建立 conf 目錄，而是先以套件名稱建立目錄。</li>
+                    <li class="wrong-opt">③ 錯誤。套件與設定檔名稱應為 httpd，而不是 http。</li>
+                    <li class="wrong-opt">④ 錯誤。目錄層次與套件名稱皆有誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 108題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">108. CentOS Linux 系統中，安裝之 Apache 伺服器的 httpd.conf 設定檔中，何者可用來指定 Apache 伺服器的名稱？</div>
+        <div class="options">
+            <div class="option">① HostName</div>
+            <div class="option">② ServerName</div>
+            <div class="option">③ ApacheName</div>
+            <div class="option">④ SetName</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在 `httpd.conf` 設定檔中，為避免伺服器在生成自引導 URL（自我跳轉）或錯誤訊息時發生辨識問題，必須設定伺服器辨識自身的主機名稱和連接埠，對應的指令名稱就是 `ServerName` [3]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。Apache 設定檔中無 HostName 參數。</li>
+                    <li class="correct-opt">② 正確。使用 ServerName 參數指定伺服器名稱 (例如 ServerName www.example.com:80)。</li>
+                    <li class="wrong-opt">③ 錯誤。無 ApacheName 參數。</li>
+                    <li class="wrong-opt">④ 錯誤。無 SetName 參數。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 109題 -->
+    <div class="card">
+        <div class="theme-badge">CentOS 服務管理</div>
+        <div class="question">109. CentOS Linux 系統中，修改完 Apache 伺服器的 httpd.conf 設定檔後，何時會套用新的設定？</div>
+        <div class="options">
+            <div class="option">① 修改後，即會直接套用新的設定</div>
+            <div class="option">② 修改後，需執行 systemctl restart vsftpd，才會套用新的設定</div>
+            <div class="option">③ 修改後，需執行 systemctl restart httpd，才會套用新的設定</div>
+            <div class="option">④ 修改後，需執行 systemctl restart http，才會套用新的設定</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>所有的 Linux 後台伺服器服務在啟動時會讀取設定檔至記憶體中。若修改了實體設定檔，必須手動要求服務程式重新讀取（重新啟動 restart 或是重新載入 reload），新設定才會生效 [3][4]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。設定檔修改後不會即時生效，必須重啟服務。</li>
+                    <li class="wrong-opt">② 錯誤。vsftpd 是用於 FTP 的服務，與 Apache 無關。</li>
+                    <li class="correct-opt">③ 正確。重啟 httpd 服務（systemctl restart httpd）後才能套用新設定。</li>
+                    <li class="wrong-opt">④ 錯誤。服務的名稱是 httpd，而不是 http。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 110題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">110. CentOS Linux 系統中，Apache 伺服器預設的本機首頁是放在下列哪一目錄下？</div>
+        <div class="options">
+            <div class="option">① /etc/html/www</div>
+            <div class="option">② /etc/www/html</div>
+            <div class="option">③ /var/www/html</div>
+            <div class="option">④ /var/html/www</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在基於 Red Hat 家族的 Linux 發行版中，Apache 伺服器的 `DocumentRoot`（也就是對外提供網站首頁、HTML 檔案存取的預設根目錄）預設是設定在 `/var/www/html` 底下 [3][4]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。/etc 用於存放系統設定檔，非對外網頁檔案目錄。</li>
+                    <li class="wrong-opt">② 錯誤。/etc 不用於存放網頁檔案。</li>
+                    <li class="correct-opt">③ 正確。/var/www/html 為 Apache 的預設網頁根目錄。</li>
+                    <li class="wrong-opt">④ 錯誤。目錄順序有誤，www 應在 html 上層。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 111題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">111. CentOS Linux 系統中，Apache 伺服器預設的本機首頁檔名為何？</div>
+        <div class="options">
+            <div class="option">① index.htm</div>
+            <div class="option">② index.html</div>
+            <div class="option">③ home.htm</div>
+            <div class="option">④ home.html</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當使用者在瀏覽器輸入網址連到某個目錄而未指定具體檔名時，Apache 會依照 `DirectoryIndex` 的設定值來尋找首頁檔案，而大多數系統預設的首要檔案名稱就是 `index.html` [3][4]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。通常為次要選項，並非最核心的預設檔名。</li>
+                    <li class="correct-opt">② 正確。index.html 為絕大多數網頁伺服器的預設首頁檔名。</li>
+                    <li class="wrong-opt">③ 錯誤。home.htm 不是預設檔名。</li>
+                    <li class="wrong-opt">④ 錯誤。home.html 不是預設檔名。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 112題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">112. CentOS Linux 系統中，欲關閉 Apache 伺服器的個人網頁功能，需於 httpd.conf 中加上下列哪一設定？</div>
+        <div class="options">
+            <div class="option">① UserDir disabled</div>
+            <div class="option">② UserDir enabled</div>
+            <div class="option">③ DirUser disabled</div>
+            <div class="option">④ DirUser enabled</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>Apache 提供 `mod_userdir` 模組，允許系統上建立帳號的使用者可以在自己的家目錄下建置網頁。要管理這個模組，使用的是 `UserDir` 參數；將其設定為 `disabled` 即可停用此功能 [3][4]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。設定 UserDir disabled 可關閉個人網頁功能。</li>
+                    <li class="wrong-opt">② 錯誤。此設定是將個人網頁功能啟用。</li>
+                    <li class="wrong-opt">③ 錯誤。正確參數名稱為 UserDir，而非 DirUser。</li>
+                    <li class="wrong-opt">④ 錯誤。參數名稱錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 113題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">113. CentOS Linux 系統中，Apache 伺服器預設的個人網頁之目錄為何？</div>
+        <div class="options">
+            <div class="option">① public_htm</div>
+            <div class="option">② public-htm</div>
+            <div class="option">③ public_html</div>
+            <div class="option">④ public-html</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當個人網頁功能（UserDir）啟用時，Apache 預設會到該使用者的家目錄中尋找名為 `public_html` 的資料夾（例如 `/home/username/public_html`），將其作為該用戶專屬網址（`/~username`）的根目錄 [3][5]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。副檔名少一個 l。</li>
+                    <li class="wrong-opt">② 錯誤。使用了橫線，且副檔名錯誤。</li>
+                    <li class="correct-opt">③ 正確。預設的個人網頁目錄為 public_html。</li>
+                    <li class="wrong-opt">④ 錯誤。應使用底線（_）而非橫線（-）。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 114題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">114. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定預設的首頁檔名？</div>
+        <div class="options">
+            <div class="option">① IndexDirectory</div>
+            <div class="option">② DirectoryIndex</div>
+            <div class="option">③ HomeIndex</div>
+            <div class="option">④ IndexHome</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在 Apache 中，用來設定客戶端存取目錄時優先顯示的檔案名稱是 `DirectoryIndex` 參數。可以同時指定多個檔案（依序尋找），例如 `DirectoryIndex index.html index.php` [3][5]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。無此參數名稱。</li>
+                    <li class="correct-opt">② 正確。DirectoryIndex 參數用來設定預設首頁的檔名清單。</li>
+                    <li class="wrong-opt">③ 錯誤。無此參數名稱。</li>
+                    <li class="wrong-opt">④ 錯誤。無此參數名稱。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 115題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">115. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定網頁根目錄？</div>
+        <div class="options">
+            <div class="option">① DirRoot</div>
+            <div class="option">② RootDir</div>
+            <div class="option">③ DocumentRoot</div>
+            <div class="option">④ RootDocument</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>網站對外發布的根目錄（也就是放置所有 HTML 檔案的地方）在 Apache 裡是由 `DocumentRoot` 指令指定的，這告訴伺服器應該去檔案系統的哪個位置抓取網頁資料 [3][5]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。無此參數。</li>
+                    <li class="wrong-opt">② 錯誤。無此參數。</li>
+                    <li class="correct-opt">③ 正確。DocumentRoot 是設定網頁根目錄的標準指令。</li>
+                    <li class="wrong-opt">④ 錯誤。指令詞序相反。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 116題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 效能管理</div>
+        <div class="question">116. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定允許使用保持連線（Persistent Connection），使每次連線能提出多個要求？</div>
+        <div class="options">
+            <div class="option">① KeepAlive On</div>
+            <div class="option">② KeepAlive Off</div>
+            <div class="option">③ KeepConnected On</div>
+            <div class="option">④ KeepConnected Off</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>HTTP/1.1 支援持久連接（Persistent Connection），允許用戶端與伺服器建立一次 TCP 連線後進行多次 HTTP 請求，能大幅提升效能。此功能由 Apache 的 `KeepAlive` 參數管理 [6][5]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。設定 KeepAlive On 來啟用保持連線功能。</li>
+                    <li class="wrong-opt">② 錯誤。這會關閉保持連線功能。</li>
+                    <li class="wrong-opt">③ 錯誤。指令名稱錯誤。</li>
+                    <li class="wrong-opt">④ 錯誤。指令名稱錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 117題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 效能管理</div>
+        <div class="question">117. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定保持連線的逾期時間？</div>
+        <div class="options">
+            <div class="option">① KeepConnected Timer</div>
+            <div class="option">② KeepConnected Timeout</div>
+            <div class="option">③ KeepAlive Timer</div>
+            <div class="option">④ KeepAlive Timeout</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>啟用 `KeepAlive` 後，為了避免用戶端一直不發送新請求而佔用伺服器連線資源，必須設定一個等待超時時間（秒），這個參數在 Apache 稱為 `KeepAliveTimeout` [6][7]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。參數名稱錯誤。</li>
+                    <li class="wrong-opt">② 錯誤。參數名稱錯誤。</li>
+                    <li class="wrong-opt">③ 錯誤。沒有 Timer 這個關鍵字。</li>
+                    <li class="correct-opt">④ 正確。使用 KeepAliveTimeout 來指定保持連線等待的超時秒數。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 118題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">118. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定監聽的通訊埠？</div>
+        <div class="options">
+            <div class="option">① Listen</div>
+            <div class="option">② Set Listen</div>
+            <div class="option">③ Keep Listen</div>
+            <div class="option">④ Listen To</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>Apache 啟動時必須綁定特定的 IP 位址和網路通訊埠（Port，例如 HTTP 的 80 埠），對應的指令名稱為單字 `Listen`（例如 `Listen 80`） [6][7]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。Listen 為指定綁定連接埠的參數。</li>
+                    <li class="wrong-opt">② 錯誤。無 Set Listen 參數。</li>
+                    <li class="wrong-opt">③ 錯誤。無 Keep Listen 參數。</li>
+                    <li class="wrong-opt">④ 錯誤。無 Listen To 參數。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 119題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 效能管理</div>
+        <div class="question">119. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來限制同一時間的連線個數不得超過 100？</div>
+        <div class="options">
+            <div class="option">① MaxClient 100</div>
+            <div class="option">② MaxClients 100</div>
+            <div class="option">③ MaxConnection 100</div>
+            <div class="option">④ MaxConnections 100</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為了避免伺服器因同時處理過多連線而耗盡記憶體，Apache（傳統 Prefork 模式）使用 `MaxClients` 來定義伺服器可以同時服務的最大請求數量 [6][7]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。漏了複數的 s。</li>
+                    <li class="correct-opt">② 正確。MaxClients 用於限制同時間的最高處理連線數目。</li>
+                    <li class="wrong-opt">③ 錯誤。參數名稱錯誤。</li>
+                    <li class="wrong-opt">④ 錯誤。參數名稱錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 120題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 效能管理</div>
+        <div class="question">120. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定每一連線所能提出的最多要求連線個數為 10？</div>
+        <div class="options">
+            <div class="option">① MaxRequestConnection 10</div>
+            <div class="option">② MaxConnectionRequest 10</div>
+            <div class="option">③ MaxKeepAliveRequests 10</div>
+            <div class="option">④ MaxKeepAliveConnections 10</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當開啟了 KeepAlive 持久連線功能後，單一連線如果無限期被使用，也可能導致資源調度不均。因此透過 `MaxKeepAliveRequests` 指令，可限制一次 KeepAlive 連線期間內，允許的最高連續請求數量 [6][7]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。參數名稱有誤。</li>
+                    <li class="wrong-opt">② 錯誤。參數名稱有誤。</li>
+                    <li class="correct-opt">③ 正確。MaxKeepAliveRequests 指定單次持久連線所能處理的最大請求次數。</li>
+                    <li class="wrong-opt">④ 錯誤。參數名稱有誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 121題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 效能管理</div>
+        <div class="question">121. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定最多待命程式個數為 15？</div>
+        <div class="options">
+            <div class="option">① MaxSpareServer 15</div>
+            <div class="option">② MaxSpareServers 15</div>
+            <div class="option">③ MaxStandbyServer 15</div>
+            <div class="option">④ MaxStandbyServers 15</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在 Prefork 架構下，Apache 會預先啟動一些沒有在處理請求的「閒置（Spare）」子行程，以便能夠快速回應新進請求。`MaxSpareServers` 限制了伺服器最高能保留多少個閒置的子行程以節省系統資源 [8]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。漏了複數字尾 s。</li>
+                    <li class="correct-opt">② 正確。MaxSpareServers 用以設定最大閒置/待命的程式(行程)數。</li>
+                    <li class="wrong-opt">③ 錯誤。沒有 Standby 這樣的關鍵字。</li>
+                    <li class="wrong-opt">④ 錯誤。參數名稱錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 122題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 效能管理</div>
+        <div class="question">122. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定最少待命程式個數為 5？</div>
+        <div class="options">
+            <div class="option">① MinStandbyServer 5</div>
+            <div class="option">② MinStandbyServers 5</div>
+            <div class="option">③ MinSpareServer 5</div>
+            <div class="option">④ MinSpareServers 5</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>與 `MaxSpareServers` 相反，`MinSpareServers` 代表了伺服器必須「維持」的最少閒置子行程數量。若目前的閒置行程少於這個值，Apache 就會自動產生新的子行程來待命，準備迎接流量 [8]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。沒有 Standby 這樣的關鍵字。</li>
+                    <li class="wrong-opt">② 錯誤。參數名稱錯誤。</li>
+                    <li class="wrong-opt">③ 錯誤。漏了複數字尾 s。</li>
+                    <li class="correct-opt">④ 正確。MinSpareServers 設定系統至少維持 5 個閒置待命行程。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 123題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">123. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定網站管理者的電子郵件信箱？</div>
+        <div class="options">
+            <div class="option">① ServerAdminMail</div>
+            <div class="option">② ServerMail</div>
+            <div class="option">③ AdminMail</div>
+            <div class="option">④ ServerAdmin</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當網站出現錯誤（例如 500 Internal Server Error），預設錯誤頁面往往會顯示可以聯絡管理員的 Email 位址。這個位址是由設定檔內的 `ServerAdmin` 參數所指定 [8][9]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。無此參數名稱。</li>
+                    <li class="wrong-opt">② 錯誤。無此參數名稱。</li>
+                    <li class="wrong-opt">③ 錯誤。無此參數名稱。</li>
+                    <li class="correct-opt">④ 正確。ServerAdmin 用來指定管理員的電子郵件信箱。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 124題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">124. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定設定檔及紀錄檔的位置？</div>
+        <div class="options">
+            <div class="option">① ServerRoot</div>
+            <div class="option">② ConfigRoot</div>
+            <div class="option">③ ConfigLogRoot</div>
+            <div class="option">④ DocumentRoot</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>Apache 伺服器的各種設定檔（conf/）、日誌檔（logs/）及模組目錄，其基礎起點路徑是由 `ServerRoot` 參數決定的。當其他參數使用相對路徑時，會以此目錄為基準 [8][9]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。ServerRoot 指定了伺服器系統檔案與日誌的根目錄。</li>
+                    <li class="wrong-opt">② 錯誤。無此參數。</li>
+                    <li class="wrong-opt">③ 錯誤。無此參數。</li>
+                    <li class="wrong-opt">④ 錯誤。DocumentRoot 是供外部瀏覽的網頁目錄，與伺服器本體的日誌與設定檔路徑無關。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 125題 -->
+    <div class="card">
+        <div class="theme-badge">Apache 組態管理</div>
+        <div class="question">125. CentOS Linux 系統中，Apache 伺服器之 httpd.conf 設定檔中，下列何設定可用來指定伺服器的主機名稱及埠號？</div>
+        <div class="options">
+            <div class="option">① HostName</div>
+            <div class="option">② ServerName</div>
+            <div class="option">③ HostNamePort</div>
+            <div class="option">④ ServerNamePort</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>與前面考題類似，`ServerName` 參數不但能夠設定主機名稱，也可以在名稱後面直接接上冒號和通訊埠號（如 `ServerName www.example.com:80`），藉此讓伺服器辨識自身身份 [8][9]。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。無此參數。</li>
+                    <li class="correct-opt">② 正確。ServerName 是用來指定主機名稱以及附帶通訊埠號的指令。</li>
+                    <li class="wrong-opt">③ 錯誤。無此參數。</li>
+                    <li class="wrong-opt">④ 錯誤。無此參數。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+<div class="fab-action danger" onclick="forceCollapseAll()">✖ 全部收合</div>
+<div class="fab-action success" onclick="forceExpandAll()">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>
