@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apache 伺服器架設與管理指南</title>
+    <style>
+        /* 基礎設定 */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 18px; }
+        body { 
+            font-family: 'Segoe UI', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif; 
+            background-color: #f0f2f5; 
+            display: flex; 
+            min-height: 100vh; 
+            color: #0f172a; 
+        }
+
+        /* 左側邊欄設計 (桌面版) - 暗色透明毛玻璃風加特效 */
+        .sidebar { 
+            width: 320px; 
+            background: rgba(15, 23, 42, 0.88); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            color: #cbd5e1; 
+            display: flex; 
+            flex-direction: column; 
+            flex-shrink: 0; 
+            position: fixed; 
+            height: 100vh; 
+            z-index: 100; 
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease;
+        }
+        .sidebar-header { 
+            padding: 22px 20px; 
+            font-size: 1.2rem; 
+            font-weight: 800; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            color: #ffffff; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+            background: rgba(2, 6, 23, 0.6);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+
+        /* 桌面版固定在左側的工具列區塊 */
+        .sidebar-toolbar {
+            padding: 16px 20px;
+            background: rgba(30, 41, 59, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar-toolbar .toolbar-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: space-between;
+        }
+        .sidebar-toolbar .toolbar-btn {
+            flex: 1;
+            padding: 10px 8px;
+            background: rgba(51, 65, 85, 0.7);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-toolbar .toolbar-btn:hover {
+            background: #3b82f6;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+        }
+        .sidebar-toolbar .toolbar-btn:active {
+            transform: scale(0.95);
+        }
+        .sidebar-search {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .sidebar-search:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            background: rgba(15, 23, 42, 0.9);
+        }
+        .sidebar-search::placeholder {
+            color: #64748b;
+        }
+
+        /* 選單滾動區塊 */
+        .sidebar-menu-scroll {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .sidebar-menu-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar-menu-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+        }
+
+        /* 導覽群組與風琴選單 */
+        .nav-group {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background 0.3s;
+        }
+        
+        /* 大標題樣式 */
+        .nav-group-header {
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: #e2e8f0;
+            font-weight: 700;
+            font-size: 1.02rem;
+            letter-spacing: 0.3px;
+            background: transparent;
+            transition: all 0.25s ease;
+        }
+        .nav-group-header:hover {
+            background: rgba(255, 255, 255, 0.07);
+            color: #ffffff;
+            padding-left: 24px;
+        }
+        .nav-group-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .nav-group.open .nav-group-header {
+            background: rgba(59, 130, 246, 0.15);
+            color: #ffffff;
+        }
+        .nav-group.open .nav-group-header .arrow {
+            transform: rotate(180deg);
+            color: #60a5fa;
+        }
+        
+        /* 標籤容器與下方標籤樣式 */
+        .nav-group-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(2, 6, 23, 0.4);
+        }
+        .nav-group.open .nav-group-content {
+            max-height: 300px;
+        }
+        .nav-sub-item {
+            padding: 14px 20px 14px 38px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            border-left: 4px solid transparent;
+            transition: all 0.25s ease;
+        }
+        .nav-sub-item:hover {
+            color: #f1f5f9;
+            background: rgba(255, 255, 255, 0.08);
+            padding-left: 42px;
+        }
+        
+        /* 當前所在標籤高亮特效 */
+        .nav-sub-item.active {
+            color: #ffffff;
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.95), rgba(59, 130, 246, 0.5));
+            border-left: 6px solid #60a5fa;
+            font-weight: bold;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 130, 246, 0.5);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 10px rgba(59, 130, 246, 0.4); }
+            100% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 22px rgba(59, 130, 246, 0.8); }
+        }
+
+        /* 行動版頂部導覽列與漢堡按鈕 */
+        .mobile-navbar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            color: white;
+            z-index: 1000;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .mobile-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .hamburger-btn:active {
+            transform: scale(0.85);
+        }
+
+        /* 主要內容區 */
+        .main-content { 
+            margin-left: 320px; 
+            padding: 50px 60px; 
+            flex: 1; 
+            max-width: 1100px; 
+            width: 100%;
+        }
+        .content-card { 
+            background-color: white; 
+            border-radius: 14px; 
+            padding: 60px; 
+            box-shadow: 0 6px 24px rgba(0,0,0,0.05); 
+            display: none; 
+            margin: 0 auto; 
+        }
+        .content-card.active { 
+            display: block; 
+            animation: fadeIn 0.4s ease; 
+        }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* 標題與段落樣式 */
+        .theme-title { 
+            font-size: 2rem; 
+            color: #020617; 
+            margin-bottom: 45px; 
+            padding-bottom: 20px; 
+            border-bottom: 3px solid #475569; 
+            font-weight: 800; 
+            letter-spacing: 1px; 
+        }
+        .section-heading { 
+            font-size: 1.35rem; 
+            color: #0f172a; 
+            margin: 45px 0 25px 0; 
+            display: flex; 
+            align-items: center; 
+            font-weight: bold; 
+            border-left: 6px solid #2563eb; 
+            padding-left: 15px; 
+            line-height: 1.2; 
+        }
+
+        /* 動作目的區塊 */
+        .purpose-box { 
+            background-color: #e0eaf5; 
+            color: #1e293b; 
+            padding: 30px 35px; 
+            border-radius: 10px; 
+            line-height: 1.85; 
+            margin-bottom: 40px; 
+            font-size: 1.1rem; 
+            font-weight: 500; 
+            border: 1px solid #cbd5e1; 
+        }
+
+        /* 步驟與指令結構 */
+        .step-block { 
+            margin-bottom: 45px; 
+            background-color: #fafafa; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px; 
+            padding: 35px; 
+        }
+        .step-title { 
+            font-size: 1.2rem; 
+            font-weight: bold; 
+            color: #1e3a8a; 
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: center; 
+        }
+        .step-title::before { 
+            content: '📌'; 
+            margin-right: 10px; 
+        }
+        .step-desc { 
+            line-height: 2; 
+            color: #334155; 
+            font-size: 1.05rem; 
+            margin-bottom: 25px; 
+            padding-left: 10px; 
+        }
+
+        /* 行內程式碼 */
+        code.inline { 
+            background-color: #f1f5f9; 
+            color: #b91c1c; 
+            padding: 4px 10px; 
+            border-radius: 6px; 
+            font-family: 'Consolas', 'Courier New', monospace; 
+            font-size: 0.95em; 
+            font-weight: bold; 
+            margin: 0 4px; 
+        }
+
+        /* 深色程式碼終端機 */
+        .code-container { 
+            background-color: #0f172a; 
+            border-radius: 10px; 
+            position: relative; 
+            padding: 30px 25px; 
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3); 
+            margin-top: 15px;
+        }
+        .code-container pre { 
+            color: #f8fafc; 
+            font-family: 'Consolas', 'Courier New', monospace; 
+            font-size: 1.05rem; 
+            line-height: 1.7; 
+            overflow-x: auto; 
+            margin: 0;
+        }
+        .copy-btn { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            background-color: #2563eb; 
+            color: white; 
+            border: none; 
+            padding: 8px 16px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 0.9rem; 
+            font-weight: bold; 
+            transition: all 0.2s; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+        }
+        .copy-btn:hover { 
+            background-color: #1d4ed8; 
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        .copy-btn.copied { background-color: #10b981; }
+
+        /* 手機版頂部 Header 顯示切換與側邊欄抽屜化 */
+        .mobile-navbar { display: none; }
+        @media (max-width: 950px) {
+            body { 
+                flex-direction: column; 
+                padding-top: 60px; 
+            }
+            .mobile-navbar { display: flex; }
+            .sidebar { 
+                display: none; 
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 60px);
+                z-index: 999;
+                background: rgba(15, 23, 42, 0.96);
+                backdrop-filter: blur(16px);
+            }
+            .sidebar.open {
+                display: flex;
+            }
+            .main-content { 
+                margin-left: 0; 
+                padding: 25px; 
+            }
+            .content-card { padding: 40px 30px; }
+            .step-block { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 行動版頂部導覽列 -->
+    <div class="mobile-navbar">
+        <div class="mobile-title">📁 Apache Server 指南</div>
+        <button class="hamburger-btn" onclick="toggleMobileSidebar()">☰</button>
+    </div>
+
+    <!-- 左側導覽列 (桌面版與手機版共用容器) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">📁 Apache Server</div>
+        
+        <!-- 工具列區塊 (已移除首頁按鈕) -->
+        <div class="sidebar-toolbar">
+            <div class="toolbar-actions">
+                <button class="toolbar-btn" onclick="collapseAll()">收回全部</button>
+                <button class="toolbar-btn" onclick="expandAll()">全部展開</button>
+            </div>
+            <input type="text" id="sidebarSearchInput" class="sidebar-search" placeholder="🔍 搜尋主題與指令..." oninput="filterNavigation(this.value)">
+        </div>
+
+        <!-- 側邊欄選單捲動區塊 (風琴結構) -->
+        <div class="sidebar-menu-scroll" id="desktopNavContainer">
+            <!-- 主題一 -->
+            <div class="nav-group open" data-group="theme1">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>1. 基礎網路設定與安裝</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item active" onclick="switchTheme('theme1', this)">基礎網路設定與安裝總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題二 -->
+            <div class="nav-group" data-group="theme2">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>2. 啟用 HTTPS 與防火牆</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme2', this)">啟用 HTTPS 與防火牆總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題三 -->
+            <div class="nav-group" data-group="theme3">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>3. 自訂連接埠 (Port)</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme3', this)">自訂連接埠 (Port) 總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題四 -->
+            <div class="nav-group" data-group="theme4">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>4. 建置個人網頁</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme4', this)">建置個人網頁總覽</div>
+                </div>
+            </div>
+
+            <!-- 主題五 -->
+            <div class="nav-group" data-group="theme5">
+                <div class="nav-group-header" onclick="toggleAccordion(this)">
+                    <span>5. IP 存取控制 (鎖 IP)</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="nav-group-content">
+                    <div class="nav-sub-item" onclick="switchTheme('theme5', this)">IP 存取控制 (鎖 IP) 總覽</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主要內容區 -->
+    <div class="main-content">
+        
+        <!-- 主題一 -->
+        <div id="theme1" class="content-card active">
+            <h1 class="theme-title">主題一：基礎網路設定與 Apache 伺服器安裝</h1>
+            
+            <div class="purpose-box">
+                <strong>動作目的：</strong><br>
+                為確保系統能連接外部網路下載套件，需先將虛擬機網路設為 NAT 並透過 DHCP 自動取得 IP (如 10.0.2.15)。接著使用新一代套件管理員 DNF 自動解決相依性問題，完成 Apache (httpd) 伺服器的安裝，並利用 systemd 程式啟動 Web 服務。
+            </div>
+
+            <h2 class="section-heading">執行步驟與指令範例</h2>
+
+            <div class="step-block">
+                <div class="step-title">步驟 1：安裝 Apache (HTTPD) 伺服器</div>
+                <div class="step-desc">
+                    確認網路對外連通後，使用 <code class="inline">dnf install</code> 指令安裝軟體包。DNF 比早期的 YUM 更聰明，會自動處理安裝順序與所需套件。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製代碼</button>
+                    <pre># 透過 DNF 安裝 httpd 伺服器
+dnf install httpd</pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：啟動 Apache 服務</div>
+                <div class="step-desc">
+                    安裝完成後，服務不會自動執行。必須透過系統與服務管理程式 <code class="inline">systemctl</code> 啟動。預設的首頁資料夾位於 <code class="inline">/var/www/html</code>。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製代碼</button>
+                    <pre># 啟動 httpd 服務
+systemctl start httpd</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題二 -->
+        <div id="theme2" class="content-card">
+            <h1 class="theme-title">主題二：啟用 HTTPS 與防火牆設定</h1>
+            
+            <div class="purpose-box">
+                <strong>動作目的：</strong><br>
+                預設的 HTTP (Port 80) 採明碼傳輸，若輸入帳號密碼極易遭到監聽。透過額外安裝 SSL 模組，讓伺服器支援具有加密功能的 HTTPS 協定。同時，也必須在伺服器端防火牆放行對應的封包，外部電腦才能順利連線。
+            </div>
+
+            <h2 class="section-heading">執行步驟與指令範例</h2>
+
+            <div class="step-block">
+                <div class="step-title">步驟 1：安裝 SSL 模組並重新啟動</div>
+                <div class="step-desc">
+                    安裝 <code class="inline">mod_ssl</code> 模組以支援 TLS/SSL。安裝後必須使用 <code class="inline">restart</code> 重啟服務，只有「關掉再開」才能真正套用新的模組設定。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製代碼</button>
+                    <pre># 1. 安裝 SSL 模組
+dnf install mod_ssl
+
+# 2. 重新啟動 httpd 服務以套用設定
+systemctl restart httpd</pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：防火牆放行 HTTPS 服務</div>
+                <div class="step-desc">
+                    外部設備連線預設會被本機防火牆擋住，需使用 <code class="inline">firewall-cmd</code> 工具新增開放 <code class="inline">https</code> 服務。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製代碼</button>
+                    <pre># 開放 HTTPS 通訊協定 (允許加密連線穿透防火牆)
+firewall-cmd --add-service=https</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題三 -->
+        <div id="theme3" class="content-card">
+            <h1 class="theme-title">主題三：自訂連接埠 (Port)</h1>
+            
+            <div class="purpose-box">
+                <strong>動作目的：</strong><br>
+                為提高網站隱密性，可將預設的 Port 80 更改為未被註冊佔用的動態 Port (建議為 50000 以上，如 50099)。由於不再使用預設服務協定，防火牆必須改用「指定 TCP Port」的方式放行。
+            </div>
+
+            <h2 class="section-heading">執行步驟與指令範例</h2>
+
+            <div class="step-block">
+                <div class="step-title">步驟 1：修改主要設定檔 (httpd.conf)</div>
+                <div class="step-desc">
+                    設定檔位於 <code class="inline">/etc/httpd/conf/httpd.conf</code>。尋找 <code class="inline">Listen</code> 參數，將原本的 80 修改為自訂的連接埠號碼。修改完成必須重啟服務。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製代碼</button>
+                    <pre># 1. 使用 Vim 編輯設定檔
+vim /etc/httpd/conf/httpd.conf
+
+# 2. 內部修改，將 Listen 80 改為自訂 Port (以 50099 為例)
+Listen 50099
+
+# 3. 存檔後重啟服務
+systemctl restart httpd</pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：防火牆開放指定 Port</div>
+                <div class="step-desc">
+                    自訂 Port 不是已知的服務名稱，因此防火牆參數需從 <code class="inline">--add-service</code> 改為 <code class="inline">--add-port</code>，並註明為 TCP 協定。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製代碼</button>
+                    <pre># 防火牆開放特定的 TCP 連接埠 (50099)
+firewall-cmd --add-port=50099/tcp</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題四 -->
+        <div id="theme4" class="content-card">
+            <h1 class="theme-title">主題四：建置個人網頁 (User Directory)</h1>
+            
+            <div class="purpose-box">
+                <strong>動作目的：</strong><br>
+                允許特定使用者擁有其專屬網頁空間。必須先啟用 <code class="inline">userdir.conf</code>，並在使用者家目錄下建立 <code class="inline">public_html</code> 放首頁。關鍵在於賦予資料夾「執行權限(x)」與關閉 SELinux 核心防護機制，避免出現 Forbidden 阻擋。
+            </div>
+
+            <h2 class="section-heading">執行步驟與指令範例</h2>
+
+            <div class="step-block">
+                <div class="step-title">步驟 1：啟用個人網頁設定檔</div>
+                <div class="step-desc">
+                    編輯 <code class="inline">/etc/httpd/conf.d/userdir.conf</code>，將 <code class="inline">UserDir disabled</code> 加上註解使其失效，並將 <code class="inline">UserDir public_html</code> 註解移除以啟用功能。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製代碼</button>
+                    <pre># 1. 編輯 userdir 設定檔
+vim /etc/httpd/conf.d/userdir.conf
+
+# 2. 內部修改內容 (加上註解停用、移除註解啟用)
+#UserDir disabled
+UserDir public_html
+
+# 3. 儲存後重啟服務
+systemctl restart httpd</pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 2：建立首頁與配置資料夾權限</div>
+                <div class="step-desc">
+                    在家目錄中建立資料夾，最重要的是必須為使用者的「家目錄」加上 <code class="inline">x</code> (執行) 權限，網頁伺服器才能切換進去讀取資料。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製代碼</button>
+                    <pre># 1. 在指定使用者(如 u41)家目錄下建立網頁資料夾
+mkdir /home/u41/public_html
+
+# 2. 賦予家目錄其他使用者執行(x)權限，允許進入目錄
+chmod +x /home/u41</pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">步驟 3：解除 SELinux 防護阻擋</div>
+                <div class="step-desc">
+                    實務或檢定測試中，為避免美國國安局開發的 SELinux 機制強制攔截，可使用 <code class="inline">setenforce 0</code> 暫時關閉，使其變為 Permissive (寬容) 模式。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製代碼</button>
+                    <pre># 暫時將 SELinux 設為寬容模式 (關閉強制阻擋)
+setenforce 0
+
+# (選用) 檢查 SELinux 目前狀態是否為 Permissive
+getenforce</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主題五 -->
+        <div id="theme5" class="content-card">
+            <h1 class="theme-title">主題五：IP 存取控制 (鎖 IP)</h1>
+            
+            <div class="purpose-box">
+                <strong>動作目的：</strong><br>
+                限制伺服器上的特定資料夾，僅讓特定的 IP 網段或主機存取 (例如僅允許 IP 42，其餘皆出現 Forbidden 拒絕)。此防護機制設定於 <code class="inline">httpd.conf</code> 中，利用 <code class="inline">Order deny,allow</code> 邏輯嚴格把關。
+            </div>
+
+            <h2 class="section-heading">執行步驟與指令範例</h2>
+
+            <div class="step-block">
+                <div class="step-title">步驟 1：修改設定檔套用鎖定規則</div>
+                <div class="step-desc">
+                    進入主要設定檔，針對需要保護的資料夾 (例如 <code class="inline">/var/www/html/p</code>) 加上 <code class="inline">&lt;Directory&gt;</code> 標籤。邏輯必須是「先拒絕全世界，再允許指定 IP」。
+                </div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">複製代碼</button>
+                    <pre># 1. 編輯主要設定檔
+vim /etc/httpd/conf/httpd.conf
+
+# 2. 在檔案底部加入以下控制區塊：
+&lt;Directory /var/www/html/p&gt;
+    Order deny,allow
+    Deny from all
+    Allow from 192.168.x.42
+&lt;/Directory&gt;
+
+# 3. 儲存後套用設定
+systemctl restart httpd</pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 互動 JavaScript 邏輯 -->
+    <script>
+        // 切換主題卡片的函式
+        function switchTheme(themeId, element) {
+            // 移除導覽列 active 狀態
+            const navItems = document.querySelectorAll('.nav-sub-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            // 點擊項目加上 active
+            element.classList.add('active');
+            
+            // 隱藏所有卡片
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach(card => card.classList.remove('active'));
+            
+            // 顯示目標卡片
+            document.getElementById(themeId).classList.add('active');
+
+            // 如果是手機版，點擊後自動收起側邊欄
+            if (window.innerWidth <= 950) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 風琴選單展開與收合控制
+        function toggleAccordion(headerElement) {
+            const group = headerElement.parentElement;
+            group.classList.toggle('open');
+        }
+
+        // 手機版側邊欄切換
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // 收回全部選單
+        function collapseAll() {
+            document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
+        }
+
+        // 全部展開選單
+        function expandAll() {
+            document.querySelectorAll('.nav-group').forEach(g => g.classList.add('open'));
+        }
+
+        // 即時搜尋與過濾標題/指令
+        function filterNavigation(keyword) {
+            const term = keyword.trim().toLowerCase();
+            const groups = document.querySelectorAll('.nav-group');
+            
+            groups.forEach(group => {
+                const headerText = group.querySelector('.nav-group-header span').innerText.toLowerCase();
+                const subItem = group.querySelector('.nav-sub-item');
+                const subText = subItem ? subItem.innerText.toLowerCase() : '';
+                
+                if (headerText.includes(term) || subText.includes(term) || term === '') {
+                    group.style.display = 'block';
+                    if (term !== '') {
+                        group.classList.add('open');
+                    }
+                } else {
+                    group.style.display = 'none';
+                }
+            });
+        }
+
+        // 複製代碼函式
+        function copyCode(btn) {
+            const preElement = btn.nextElementSibling;
+            const textToCopy = preElement.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '已複製！';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('複製失敗:', err);
+                btn.textContent = '複製失敗';
+            });
+        }
+    </script>
+</body>
+</html>
