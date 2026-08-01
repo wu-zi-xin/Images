@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作項目2 測驗 (76-100) - 實戰指南風格</title>
+    <style>
+        :root {
+            /* 側邊欄與頁首 - 深藍夜空調 */
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+
+            /* 右側主要內容區 - 高閱讀性明亮調 */
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            
+            /* 解析與回饋色 */
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        /* 頂部 Header */
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        /* 主佈局 */
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        /* 側邊欄 - 深色風格 */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* 搜尋列 */
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        /* 題號網格 */
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        /* 主要測驗內容區 */
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .type-badge.multi {
+            background-color: #9333ea;
+        }
+
+        /* 題目內文 */
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        /* 選項清單 */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        /* 單選題狀態 */
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        /* 多選題送出後的狀態色彩 */
+        .option-item.multi-correct-hit {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.multi-wrong-hit {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+            font-weight: 700;
+        }
+
+        .option-item.multi-missed {
+            border-color: #d97706;
+            background-color: var(--missed-bg);
+            color: var(--missed-color);
+            font-weight: 700;
+        }
+
+        .missed-tag {
+            background-color: #d97706;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        /* 多選題未送出前的選取狀態（無外框，靠背景色與向左對齊區分） */
+        .option-item.multi-selected {
+            background-color: #faf5ff;
+            border-color: #9333ea;
+            color: #7e22ce;
+            font-weight: 600;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        /* 送出多選答案按鈕 */
+        .submit-multi-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: #9333ea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: background-color 0.2s;
+        }
+        .submit-multi-btn:hover {
+            background-color: #7e22ce;
+        }
+        .submit-multi-btn:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        /* 即時解析區塊 */
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 控制按鈕列 */
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:hover:not(:disabled) .svg-icon {
+            stroke: #ffffff;
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-nav-main:disabled .svg-icon {
+            stroke: #94a3b8;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        /* RWD 手機版 */
+        @media (max-width: 768px) {
+/* 定義手機版標題列的高度（如果文字真的很多，可以把這裡的 80px 調大一點，例如 90px 或 100px） */
+    :root {
+        --header-height: 85px; 
+    }
+
+    .header {
+        height: var(--header-height);
+        align-items: flex-start; /* 讓標題允許多行文字往下長 */
+        padding-top: 1rem;
+    }
+
+    .hamburger-btn {
+        display: block;
+        margin-top: 0.1rem;
+    }
+
+    .sidebar {
+        position: fixed;
+        /* 直接用剛才定義好的變數，讓側邊欄完美停在 Header 的正下方 */
+        top: var(--header-height); 
+        left: 0;
+        bottom: 0;
+        height: calc(100vh - var(--header-height)); /* 扣除 Header 高度，剛好填滿剩餘畫面 */
+        z-index: 101;
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn-nav-main {
+                padding: 0.85rem 0.8rem;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頁首 Header -->
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            17200 網路架設 乙級 工作項目 02：作業準備 (76-100)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <!-- 側邊欄 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (76-100)" min="76" max="100">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid">
+                <!-- 動態 76-100 題號 -->
+            </div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- 主要測驗卡片區 -->
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 76 題 / 共 25 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList">
+                    <!-- 動態選項 -->
+                </div>
+
+                <button id="submitMultiBtn" class="submit-multi-btn" style="display: none;" onclick="submitMultiAnswer()">送出多選答案</button>
+
+                <!-- 即時解析區 -->
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <!-- 控制按鈕列 -->
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 題目資料庫 (76-100) - 依據 17200 網路架設乙級 工作項目 02
+        const questions = [
+            {
+                id: 76,
+                type: "single",
+                title: "依據「建築物電信設備及空間設置使用管理規則」規定，何種新建築物須引進光纖？",
+                options: [
+                    "學校教職員宿舍",
+                    "單戶透天住宅",
+                    "公有建築物",
+                    "總樓地板面積在 1000m² 以下之商辦大樓"
+                ],
+                answer: [2],
+                explanation: "公有建築物依規定必須強制引進光纖設施以符合資訊化政策。",
+                errorAnalysis: "公有建築物為光纖引進規範中的重要強制對象。"
+            },
+            {
+                id: 77,
+                type: "single",
+                title: "依據「建築物電信設備及空間設置使用管理規則」規定，須引進光纖之建築物，非必要增設之設備為何？",
+                options: [
+                    "光終端配線架",
+                    "用戶側光纖配線箱",
+                    "宅內配線、出線匣及資訊插座等設備",
+                    "OTDR"
+                ],
+                answer: [3],
+                explanation: "OTDR（光時域反射計測試儀）屬於施工及檢測維護用儀器，非法規強制於建築物內常設建置之固定設備。",
+                errorAnalysis: "OTDR 是測試儀器，不是建築物內部固定必須增設的電信設備。"
+            },
+            {
+                id: 78,
+                type: "single",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，下列何種設備不屬電信及有線廣播電視管箱設備？",
+                options: [
+                    "總配線箱",
+                    "光終端配線架",
+                    "光資訊插座",
+                    "地板線槽"
+                ],
+                answer: [3],
+                explanation: "地板線槽屬於配線通道或佈線輔助設施，不屬於固定之管箱設備（總配線箱、光終端配線架、光資訊插座皆屬管箱與終端設備）。",
+                errorAnalysis: "釐清管箱設備與線槽（佈線路徑）的定義差異。"
+            },
+            {
+                id: 79,
+                type: "single",
+                title: "依據「建築物電信設備及空間設置使用管理規則」規定，公有建築物引進光纖，不須增設之電信設備為何？",
+                options: [
+                    "光終端配線架",
+                    "配線箱間之光纖",
+                    "用戶側光纖配線箱",
+                    "OTDR"
+                ],
+                answer: [3],
+                explanation: "OTDR 屬測試儀器，公有建築物引進光纖時不需增設此儀器設備。",
+                errorAnalysis: "測試儀器如 OTDR 不列入建築物固定電信設備清單。"
+            },
+            {
+                id: 80,
+                type: "single",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，A-4 總配線箱，其收容之端子數及用戶側光纖心數為何？",
+                options: [
+                    "100/200P+24C",
+                    "200/400P+24C",
+                    "100/200P+36C",
+                    "200/400P+36C"
+                ],
+                answer: [3],
+                explanation: "A-4 總配線箱收容對數與光纖心數規格為 200/400P + 36C。",
+                errorAnalysis: "對照總配線箱型號規格表（A-4 對應 200/400 對電纜及 36 心光纖）。"
+            },
+            {
+                id: 81,
+                type: "single",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，A-04-1 總配線箱，其收容之端子數及用戶側光纖心數為何？",
+                options: [
+                    "10/20P+6C",
+                    "20/40P+6C",
+                    "10/20P+8C",
+                    "30/60P+8C"
+                ],
+                answer: [2],
+                explanation: "A-04-1 總配線箱收容規格為 10/20P + 8C。",
+                errorAnalysis: "小型總配線箱規格需透過對照表記憶（A-04-1 為 10/20P 搭配 8C）。"
+            },
+            {
+                id: 82,
+                type: "single",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，屋內光纖使用單模光纖者，其規格應符合何種規範？",
+                options: [
+                    "ITU-T G.652D/657A",
+                    "ITU-T E.212",
+                    "ISO 50220",
+                    "ETSI EN 300 437"
+                ],
+                answer: [0],
+                explanation: "單模光纖標準規範須符合 ITU-T G.652D 或 G.657A 標準。",
+                errorAnalysis: "熟記光纖國際標準代號（G.652D / G.657A 為常用單模光纖標準）。"
+            },
+            {
+                id: 83,
+                type: "single",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，光終端配線架採 OLDF-3 者，可引進之光纖心數為何？",
+                options: [
+                    "300",
+                    "400",
+                    "450",
+                    "800"
+                ],
+                answer: [1],
+                explanation: "OLDF-3 光終端配線架可引進之光纖心數標準為 400 心。",
+                errorAnalysis: "OLDF 型號與光纖心數容量對應關係需確實背誦（OLDF-3 往往對應 400 心）。"
+            },
+            {
+                id: 84,
+                type: "single",
+                title: "被動光纖網路（Passive optical network, PON），不包括下列何者？",
+                options: [
+                    "ATM-PON",
+                    "Broadband-PON",
+                    "Ethernet-PON",
+                    "Next-PON"
+                ],
+                answer: [3],
+                explanation: "常見的 PON 標準包含 APON/BPON、EPON、GPON、XG-PON 等，不包含名稱為「Next-PON」的標準規格。",
+                errorAnalysis: "辨識標準的 PON 技術名稱（APON, BPON, EPON, GPON）。"
+            },
+            {
+                id: 85,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，建築物電信設備設置架構，主要包括哪些？ (本題為多選題)",
+                options: [
+                    "引進設施",
+                    "配線箱/室",
+                    "主幹配線系統",
+                    "宅內配線系統"
+                ],
+                answer: [0, 1, 2, 3],
+                explanation: "建築物電信設備設置架構完整包含引進設施、配線箱/室、主幹配線系統及宅內配線系統四大項。",
+                errorAnalysis: "多選題全數選項皆為架構組成元素。"
+            },
+            {
+                id: 86,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，專供市內網路業務經營者引接線纜及設置電信設備之空間，包括哪些？ (本題為多選題)",
+                options: [
+                    "電信室",
+                    "總配線箱",
+                    "集中總箱",
+                    "宅內配線箱"
+                ],
+                answer: [0, 1, 2],
+                explanation: "專供市內網路業務經營者引接及設置設備之空間與箱體包含電信室、總配線箱、集中總箱等（宅內配線箱屬用戶端）。",
+                errorAnalysis: "選項(4)宅內配線箱屬於用戶端範圍，不屬於業者專用引接空間。"
+            },
+            {
+                id: 87,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，主幹配線系統為星狀架構，其配線系統之組成，包括哪些？ (本題為多選題)",
+                options: [
+                    "垂直主幹配線系統",
+                    "水平主幹配線系統",
+                    "宅內配線系統",
+                    "混合主幹配線系統"
+                ],
+                answer: [0, 1],
+                explanation: "主幹配線系統架構主要組成包含垂直主幹配線系統與水平主幹配線系統。",
+                errorAnalysis: "需注意主幹配線系統內部包含垂直與水平主幹配線。"
+            },
+            {
+                id: 88,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，主幹配線系統架構之配接方式，包括哪些？ (本題為多選題)",
+                options: [
+                    "直接接續",
+                    "分歧接續",
+                    "中間交接",
+                    "混合接續"
+                ],
+                answer: [0, 2],
+                explanation: "主幹配線系統之合法配接方式包含直接接續、中間交接等。",
+                errorAnalysis: "分歧接續與混合接續非主幹配線標準合法方式。"
+            },
+            {
+                id: 89,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，建築物之引進屋內線纜超過 15m 者，該引進屋內線纜之屋內段，應全部採用何種材質收容？ (本題為多選題)",
+                options: [
+                    "電線用鋼管",
+                    "密閉式不燃性線槽",
+                    "硬質 PVC 厚管",
+                    "PVC 厚管"
+                ],
+                answer: [0, 1],
+                explanation: "引進線纜屋內段超過 15m 時，應全部採用鋼管或密閉式不燃性線槽收容。",
+                errorAnalysis: "法規明確規定需採用電線用鋼管或密閉式不燃性線槽。"
+            },
+            {
+                id: 90,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，下列哪些屬於電信設備繪製圖？ (本題為多選題)",
+                options: [
+                    "建築物基地位置圖",
+                    "垂直昇位圖",
+                    "平面配置圖",
+                    "水平昇位圖"
+                ],
+                answer: [1, 2, 3],
+                explanation: "電信設備繪製圖中包含垂直昇位圖、平面配置圖及水平昇位圖等標準圖面。",
+                errorAnalysis: "基地位置圖屬於建築基本圖，電信設計圖則包含昇位與平面配置。"
+            },
+            {
+                id: 91,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，住宅用建築物於每一「單位」應至少設置 1 個出線匣及 2 個電信插座；其中「單位」包括哪些？ (本題為多選題)",
+                options: [
+                    "客廳",
+                    "臥室",
+                    "書房",
+                    "廁所"
+                ],
+                answer: [0, 1, 2],
+                explanation: "住宅用建築物之「單位」包含客廳、臥室、書房等主要居室空間（不含廁所）。",
+                errorAnalysis: "廁所不列入主要電信出線匣設置之單位範圍。"
+            },
+            {
+                id: 92,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，下列哪些屬於資訊插座？ (本題為多選題)",
+                options: [
+                    "埋入式資訊插座",
+                    "明線式資訊插座",
+                    "混合式資訊插座",
+                    "暗線式資訊插座"
+                ],
+                answer: [0, 1],
+                explanation: "資訊插座依安裝型態主要分為埋入式資訊插座與明線式資訊插座。",
+                errorAnalysis: "標準分類僅有埋入式與明線式兩大類。"
+            },
+            {
+                id: 93,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，建築物內設置之電信管線，應附設電信保安接地設備，關於其接地電阻值，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "一般建築物須在 25Ω 以下",
+                    "設置電信室之建築物須在 10Ω 以下",
+                    "一般建築物須在 15Ω 以下",
+                    "設置電信室之建築物須在 5Ω 以下"
+                ],
+                answer: [1],
+                explanation: "設有電信室之建築物其保安接地電阻規定須在 10Ω 以下。",
+                errorAnalysis: "注意各項接地電阻標準門檻值（電信室建築物需在 10Ω 以下）。"
+            },
+            {
+                id: 94,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，建築物內的主幹配管和宅內配管，可使用下列哪些材質？ (本題為多選題)",
+                options: [
+                    "導電線用聚氯乙烯（PVC）硬質管（E）",
+                    "電線用鋼管",
+                    "合成樹脂可撓電線導管",
+                    "導電線用聚氯乙烯（PVC）軟質管"
+                ],
+                answer: [0, 1, 2],
+                explanation: "主幹配管與宅內配管可使用硬質 PVC 管（E管）、電線用鋼管或合成樹脂可撓電線導管，不可使用軟質管。",
+                errorAnalysis: "PVC軟質管禁用於主幹與宅內配管。"
+            },
+            {
+                id: 95,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，關於宅內配線施作，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "電信配管內除佈放電信線路外，不可與其他线路共用",
+                    "線纜兩端及兩端之接續硬體詳加標示識別號碼",
+                    "宅內線纜（不含兩端跳接線）最大配線長度為 90 m",
+                    "宅內配線得有接續點或 T 接的情形"
+                ],
+                answer: [0, 1, 2],
+                explanation: "電信配管不可與其他線路共用；兩端需標示識別號碼；最大永久鏈路長度為 90m；宅內配線不得有 T 接或隨意接續點。",
+                errorAnalysis: "宅內配線嚴禁 T 接或私自設置中間接續點。"
+            },
+            {
+                id: 96,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，關於建築物宅內管線施工工法，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "配線管道之彎曲處内側半径應為管外徑 6 倍以上",
+                    "彎曲角度不大於 90 度",
+                    "彎曲點不超過 3 處",
+                    "應注意公眾及工作人員之安全"
+                ],
+                answer: [0, 3],
+                explanation: "管道彎曲半徑應為外徑 6 倍以上，並應注意公眾及工作人員之安全。",
+                errorAnalysis: "彎曲點一般規範限制為不超過 2 處（超過需設拖線箱），故選項(3)不正確。"
+            },
+            {
+                id: 97,
+                type: "multi",
+                title: "客戶端（Client）於 WLAN 中連線，需具有哪些組件？ (本題為多選題)",
+                options: [
+                    "無線滑鼠",
+                    "無線網路卡",
+                    "客戶端無線連線軟體",
+                    "無線基地台（AP）"
+                ],
+                answer: [1, 2],
+                explanation: "客戶端（Client）要連線無線區域網路（WLAN），需具備無線網路卡及客戶端無線連線軟體。",
+                errorAnalysis: "無線基地台（AP）屬網路基礎設施端，非 Client 端必需組件。"
+            },
+            {
+                id: 98,
+                type: "multi",
+                title: "下列哪些為電腦周邊輸出設備？ (本題為多選題)",
+                options: [
+                    "條碼讀取器",
+                    "數位相機",
+                    "耳機",
+                    "印表機"
+                ],
+                answer: [2, 3],
+                explanation: "耳機與印表機屬於電腦輸出設備。",
+                errorAnalysis: "條碼讀取器與數位相機屬於輸入設備。"
+            },
+            {
+                id: 99,
+                type: "multi",
+                title: "關於光纖網路，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "熔接式光纖接續比機械式光纖接續插入損失大",
+                    "光纖接續插入損失及反射損失皆越低越好",
+                    "光時域反射計（Optical Time Domain Reflectometer, OTDR）之軌跡圖顯示沿光鏈路長度的光纖衰減",
+                    "通常資料經多模光纖比經單模光纖可傳輸距離長"
+                ],
+                answer: [1, 2],
+                explanation: "光纖接續損耗與反射越低越好；OTDR 用於顯示光鏈路衰減；單模傳輸距離大於多模；熔接損失小於機械接續。",
+                errorAnalysis: "熔接式損失較小，且單模光纖傳輸距離遠大於多模光纖。"
+            },
+            {
+                id: 100,
+                type: "multi",
+                title: "關於光纖元件，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "光纖耦合器（Coupler）可將多道光耦合在一起",
+                    "光纖耦合器（Coupler）可將一道光分成多道光輸出",
+                    "光纖連接器（Connector）為光纖與光纖間活動式接續元件",
+                    "分波多工器（Wavelength Division Multiplexer）使光纖的折射率產生忽大忽小的變化"
+                ],
+                answer: [0, 1, 2],
+                explanation: "光纖耦合器可合光或分光；光纖連接器為活動式接續元件；分波多工器用於波長多工，非改變折射率。",
+                errorAnalysis: "分波多工器與折射率變化無關。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; // 記錄使用者的選擇 (單選存數字，多選存陣列)
+        let isSubmitted = {}; // 記錄該題是否已經按下送出
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            document.getElementById('qText').innerText = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            const submitBtn = document.getElementById('submitMultiBtn');
+
+            if (q.type === 'multi') {
+                badge.innerText = "多選題";
+                badge.className = "type-badge multi";
+                submitBtn.style.display = "block";
+            } else {
+                badge.innerText = "單選題";
+                badge.className = "type-badge";
+                submitBtn.style.display = "none";
+            }
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                if (q.type === 'single') {
+                    // --- 單選題維持點擊即送出判斷 ---
+                    optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                    if (submitted) {
+                        optDiv.classList.add('disabled');
+                        if (optIdx === q.answer[0]) {
+                            optDiv.classList.add('correct');
+                        } else if (userAnswers[index] === optIdx) {
+                            optDiv.classList.add('wrong');
+                        }
+                    } else {
+                        optDiv.onclick = () => {
+                            userAnswers[index] = optIdx;
+                            isSubmitted[index] = true;
+                            loadQuestion(currentIndex);
+                        };
+                    }
+                } else {
+                    // --- 多選題：點擊僅切換勾選狀態，不立即送出 ---
+                    const isSelected = userAnswers[index] && userAnswers[index].includes(optIdx);
+
+                    if (!submitted) {
+                        // 未送出前：點擊切換選取，背景變色與向左對齊，無外框
+                        if (isSelected) {
+                            optDiv.classList.add('multi-selected');
+                        }
+                        optDiv.onclick = () => {
+                            toggleMultiSelection(optIdx);
+                            loadQuestion(currentIndex);
+                        };
+                        optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                    } else {
+                        // 已送出後：比對答案顯示結果
+                        optDiv.classList.add('disabled');
+                        const isCorrectOpt = q.answer.includes(optIdx);
+
+                        if (isSelected && isCorrectOpt) {
+                            // 答對選到的 (綠色)
+                            optDiv.classList.add('multi-correct-hit');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        } else if (isSelected && !isCorrectOpt) {
+                            // 選錯的 (紅色)
+                            optDiv.classList.add('multi-wrong-hit');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        } else if (!isSelected && isCorrectOpt) {
+                            // 漏勾的正確答案 (橙黃色 + 未選到標籤)
+                            optDiv.classList.add('multi-missed');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span><span class="missed-tag">未選到</span>`;
+                        } else {
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        }
+                    }
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            if (q.type === 'multi') {
+                submitBtn.disabled = submitted;
+            }
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+        }
+
+        function toggleMultiSelection(optIdx) {
+            if (!userAnswers[currentIndex]) {
+                userAnswers[currentIndex] = [];
+            }
+            const idx = userAnswers[currentIndex].indexOf(optIdx);
+            if (idx > -1) {
+                userAnswers[currentIndex].splice(idx, 1);
+            } else {
+                userAnswers[currentIndex].push(optIdx);
+            }
+        }
+
+        function submitMultiAnswer() {
+            if (!userAnswers[currentIndex] || userAnswers[currentIndex].length === 0) {
+                alert("請至少選擇一個選項！");
+                return;
+            }
+            isSubmitted[currentIndex] = true;
+            loadQuestion(currentIndex);
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            let isCorrect = false;
+            if (q.type === 'single') {
+                isCorrect = userAnswers[qIdx] === q.answer[0];
+            } else {
+                const userSel = [...(userAnswers[qIdx] || [])].sort();
+                const correctAns = [...q.answer].sort();
+                isCorrect = JSON.stringify(userSel) === JSON.stringify(correctAns);
+            }
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不完全正確，請參考下方解析與未選到標示：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        // 更新導覽按鈕
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 76 && inputVal <= 100) {
+                currentIndex = inputVal - 76;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (76 - 100)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>

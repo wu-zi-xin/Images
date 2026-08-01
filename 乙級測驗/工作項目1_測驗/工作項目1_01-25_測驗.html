@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作項目1 測驗 (1-25) - 實戰指南風格</title>
+    <style>
+        :root {
+            /* 側邊欄與頁首 - 深藍夜空調 */
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+
+            /* 右側主要內容區 - 高閱讀性明亮調 */
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            
+            /* 解析與回饋色 */
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+		
+		.responsive-img {
+			max-width: 100%; /* 圖片最大寬度為容器的 100% */
+			height: auto;    /* 高度自動等比例調整，避免變形 */
+			display: block;  /* 消除圖片下方預留的空白縫隙 */
+		}
+
+        /* 頂部 Header */
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        /* 主佈局 */
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        /* 側邊欄 - 深色風格 */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* 搜尋列 */
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        /* 題號網格 */
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        /* 主要測驗內容區 */
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        /* 題目內文 */
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        /* 選項清單 */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        /* 即時解析區塊 */
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 控制按鈕列 */
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:hover:not(:disabled) .svg-icon {
+            stroke: #ffffff;
+        }
+
+        /* 灰色停用（Disabled）樣式 */
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-nav-main:disabled .svg-icon {
+            stroke: #94a3b8;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        /* RWD 手機版 */
+        @media (max-width: 768px) {
+/* 定義手機版標題列的高度（如果文字真的很多，可以把這裡的 80px 調大一點，例如 90px 或 100px） */
+    :root {
+        --header-height: 85px; 
+    }
+
+    .header {
+        height: var(--header-height);
+        align-items: flex-start; /* 讓標題允許多行文字往下長 */
+        padding-top: 1rem;
+    }
+
+    .hamburger-btn {
+        display: block;
+        margin-top: 0.1rem;
+    }
+
+    .sidebar {
+        position: fixed;
+        /* 直接用剛才定義好的變數，讓側邊欄完美停在 Header 的正下方 */
+        top: var(--header-height); 
+        left: 0;
+        bottom: 0;
+        height: calc(100vh - var(--header-height)); /* 扣除 Header 高度，剛好填滿剩餘畫面 */
+        z-index: 101;
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn-nav-main {
+                padding: 0.85rem 0.8rem;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頁首 Header -->
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            工作項目1 識圖與製圖 測驗 (1-25)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <!-- 側邊欄 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (1-25)" min="1" max="25">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid">
+                <!-- 動態 1-25 題號 -->
+            </div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- 主要測驗卡片區 -->
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 1 題 / 共 25 題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList">
+                    <!-- 動態選項 -->
+                </div>
+
+                <!-- 即時解析區 -->
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <!-- 控制按鈕列 -->
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 題目資料庫 (1-25) - 依據建築物內外電信設備設置技術規範與工作項目01
+        const questions = [
+            {
+                id: 1,
+                title: "依據「建築物內外電信設備設置技術規範」規定，埋入式電信用之插座型號 W8-81V，其中第2個 8 意指：",
+                options: [
+                    "外蓋上有插座孔 8 個",
+                    "裝有 8 心接觸彈片",
+                    "8 心容量之構造",
+                    "第 8 種型式"
+                ],
+                answer: 1,
+                explanation: "埋入式電信用之插座型號 W8-81V 中，第2個「8」代表裝有 8 心接觸彈片（適用於資訊或多芯規格）。",
+                errorAnalysis: "需熟悉電信插座型號編碼規則，避免將接觸彈片心數誤認為外蓋插座孔數或型式編號。"
+            },
+            {
+                id: 2,
+                title: "依據「建築物內外電信設備設置技術規範」規定，埋入式電信用之插座型號 W8-81V，其中第1個 8 意指：",
+                options: [
+                    "外蓋上有插座孔 8 個",
+                    "裝有 8 心接觸彈片",
+                    "8 心容量之構造",
+                    "第 8 種型式"
+                ],
+                answer: 2,
+                explanation: "型號 W8-81V 中，第1個「8」表示 8 心容量之構造設計。",
+                errorAnalysis: "注意字軌順序，第1個數字對應容量構造，後續數字對應接觸彈片或其他規格細節。"
+            },
+            {
+                id: 3,
+                title: "依據「建築物內外電信設備設置技術規範」規定，明線式插座型號 S6-21 意指：",
+                options: [
+                    "明線式 6 心，2 極，1 孔",
+                    "明線式 6 極，2 心，1 孔",
+                    "明線式 6 孔，2 極，1 心",
+                    "明線式 6 彈片，2 心，1 線"
+                ],
+                answer: 0,
+                explanation: "明線式插座代號 S 代表明線式，後方數字依序代表心數、極數與孔數，故 S6-21 指 6 心、2 極、1 孔。",
+                errorAnalysis: "切勿將心數、極數與孔數的排列順序搞混，應對照規範中的型號定義表。"
+            },
+            {
+                id: 4,
+                title: "下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/04.png?raw=true' alt='[ DD ]' class='responsive-img'>",
+                options: [
+                    "主配線箱",
+                    "宅內配線箱",
+                    "支配線箱",
+                    "總配線箱"
+                ],
+                answer: 1,
+                explanation: "代號 DD 代表宅內配線箱（Distributor for Dwelling / 宅內配線箱）。",
+                errorAnalysis: "常見代號中，MDF 為總配線箱、IDF 為總/支配線箱、DD 專指宅內配線箱。"
+            },
+            {
+                id: 5,
+                title: "下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/05.png?raw=true' alt='[ 含有黑色長條框的箱體符號 ]' class='responsive-img'>",
+                options: [
+                    "主配線箱",
+                    "宅內配線箱",
+                    "支配線箱",
+                    "總配線箱"
+                ],
+                answer: 3,
+                explanation: "依技術規範圖例，特定黑白區塊組合代表總配線箱（MDF相關大型配線箱或總配線板圖示）。",
+                errorAnalysis: "請對照各類配線箱的圖形標示差異，總配線箱與宅內配線箱在實務圖例上有明確區分。"
+            },
+            {
+                id: 6,
+                title: "下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/06.png?raw=true' alt='[ 上白下黑區塊的箱體符號 ]' class='responsive-img'>",
+                options: [
+                    "主配線箱",
+                    "宅內配線箱",
+                    "支配線箱",
+                    "總配線箱"
+                ],
+                answer: 0,
+                explanation: "此圖例符號在規範中標準定義為主配線箱（Main Distribution Frame / 主配線箱）。",
+                errorAnalysis: "注意箱內填色區塊的位置與比例，上白下黑或特定圖形通常對應主配線箱。"
+            },
+            {
+                id: 7,
+                title: "依據「建築物內外電信設備設置技術規範」規定，下圖符號代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/07.png?raw=true' alt='[ E / R ]' class='responsive-img'>",
+                options: [
+                    "總接地箱",
+                    "總（主）配線架",
+                    "電信室",
+                    "拖線箱"
+                ],
+                answer: 2,
+                explanation: "圖例中標示 E/R 代表電信室（Equipment Room）。",
+                errorAnalysis: "E/R 為電信室的常用縮寫代號，不要與單純的接地（E）混淆。"
+            },
+            {
+                id: 8,
+                title: "下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/08.png?raw=true' alt='[ MDF ]' class='responsive-img'>",
+                options: [
+                    "總接地箱",
+                    "總（主）配線架",
+                    "電信室",
+                    "拖線箱"
+                ],
+                answer: 1,
+                explanation: "MDF 全稱為 Main Distribution Frame，即總（主）配線架。",
+                errorAnalysis: "MDF 是總配線架/箱的標準英文縮寫代號。"
+            },
+            {
+                id: 9,
+                title: "下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/09.png?raw=true' alt='[ PB ]' class='responsive-img'>",
+                options: [
+                    "總接地箱",
+                    "交換機",
+                    "電信室",
+                    "拖線箱"
+                ],
+                answer: 3,
+                explanation: "代號 PB 在屋內外電信設備圖例中通常代表拖線箱（Pull Box）。",
+                errorAnalysis: "PB（Pull Box）為拉線箱或拖線箱，是用於線路轉彎或分段牽引的重要箱體。"
+            },
+            {
+                id: 10,
+                title: "如下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/10.png?raw=true' alt='[ E ]' class='responsive-img'>",
+                options: [
+                    "總接地箱",
+                    "總（主）配線架",
+                    "電信室",
+                    "拖線箱"
+                ],
+                answer: 0,
+                explanation: "代號 E 代表 Earth，即總接地箱或接地端子板相關設施。",
+                errorAnalysis: "E 代表接地（Earth），在電信圖例中用來標示接地箱位置。"
+            },
+            {
+                id: 11,
+                title: "如下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/11.png?raw=true' alt='[ 圓形雙圈圖號 ]' class='responsive-img'>",
+                options: [
+                    "人孔",
+                    "手孔",
+                    "電桿",
+                    "拉線"
+                ],
+                answer: 0,
+                explanation: "外框雙圓圈或特定圓形符號代表地下管道設施中的「人孔」（Manhole）。",
+                errorAnalysis: "人孔與手孔的圖示常以圓形大小或雙圈區分，人孔通常為較大型的地下坑道出入口。"
+            },
+            {
+                id: 12,
+                title: "如下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/12.png?raw=true' alt='[ HH ]' class='responsive-img'>",
+                options: [
+                    "人孔",
+                    "手孔",
+                    "電桿",
+                    "拉線"
+                ],
+                answer: 1,
+                explanation: "HH 全稱為 Handhole，即手孔符號。",
+                errorAnalysis: "HH 代表手孔（Handhole），尺寸小於人孔（Manhole）。"
+            },
+            {
+                id: 13,
+                title: "如下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/13.png?raw=true' alt='[ 圓圈內含兩個黑點 ]' class='responsive-img'>",
+                options: [
+                    "電力用插座",
+                    "電話雙插座",
+                    "電話機",
+                    "拉線"
+                ],
+                answer: 1,
+                explanation: "圓圈內帶有兩個黑點通常代表電話雙插座或雙孔通訊插座。",
+                errorAnalysis: "需注意通訊圖例與強電電力圖例的差別，黑點數量對應插座組數或迴路點。"
+            },
+            {
+                id: 14,
+                title: "如下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/14.png?raw=true' alt='[ 線條帶圓圈與向上箭頭 ]' class='responsive-img'>",
+                options: [
+                    "電線管線上行",
+                    "電線管線下行",
+                    "電線管線上下行",
+                    "陰性管線"
+                ],
+                answer: 0,
+                explanation: "箭頭向上表示電線管線向上行（Riser Up）。",
+                errorAnalysis: "管線上行與下行的圖示差異在於箭頭方向（向上為上行，向下為下行）。"
+            },
+            {
+                id: 15,
+                title: "如下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/15.png?raw=true' alt='[ 線條帶圓圈與雙向箭頭 ]' class='responsive-img'>",
+                options: [
+                    "電線管線上行",
+                    "電線管線下行",
+                    "電線管線上下行",
+                    "無性管線"
+                ],
+                answer: 2,
+                explanation: "雙向箭頭（同時有上與下或雙向延伸）代表電線管線上下行。",
+                errorAnalysis: "雙向箭頭表示該管線同時通往上方與下方樓層。"
+            },
+            {
+                id: 16,
+                title: "如下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/16.png?raw=true' alt='[ 標準接地符號 ]' class='responsive-img'>",
+                options: [
+                    "接地導線",
+                    "接地",
+                    "避雷針",
+                    "拉線"
+                ],
+                answer: 1,
+                explanation: "此為標準的電機電子接地（Ground/Earth）圖例符號。",
+                errorAnalysis: "橫線遞減的經典符號即代表接地。"
+            },
+            {
+                id: 17,
+                title: "如下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/17.png?raw=true' alt='[ 圓圈內含大寫 T ]' class='responsive-img'>",
+                options: [
+                    "電話出線匣",
+                    "壁型暗式出線匣或拖線匣",
+                    "壁型暗式公用電話出線匣",
+                    "扁型管連接匣"
+                ],
+                answer: 0,
+                explanation: "圓圈內含 T（Telephone）代表電話出線匣（Outlet Box）。",
+                errorAnalysis: "T 代表 Telephone，是電話出線匣的通用代號。"
+            },
+            {
+                id: 18,
+                title: "依據「建築物內外電信設備設置技術規範」規定，為避免彈片接觸不良，不論是橫式或直式插座，插座安裝方向應為：",
+                options: [
+                    "特定開口方向規範 <img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/18-1.png?raw=true' alt='(如圖示1)' class='responsive-img'>",
+                    "特定開口方向規範 <img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/18-2.png?raw=true' alt='(如圖示2)' class='responsive-img'>",
+                    "特定開口方向規範 <img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/18-3.png?raw=true' alt='(如圖示3)' class='responsive-img'>",
+                    "特定開口方向規範 <img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/18-4.png?raw=true' alt='(如圖示4)' class='responsive-img'>"
+                ],
+                answer: 3,
+                explanation: "依技術規範要求，為防止灰塵或異物落入彈片造成接觸不良，插座開口或彈片方向需依規定方向安裝。",
+                errorAnalysis: "細節題需對照法規圖示中的正確安裝方向（通常防塵考量為開口向下或特定朝向）。"
+            },
+            {
+                id: 19,
+                title: "依據「建築物內外電信設備設置技術規範」規定，下圖符號代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/19.png?raw=true' alt='[ xxSC ]' class='responsive-img'>",
+                options: [
+                    "光連接器",
+                    "光終端箱",
+                    "總配線架",
+                    "拖線箱"
+                ],
+                answer: 1,
+                explanation: "代號 xxSC 在箱體標示中代表光終端箱（Optical Termination Box / SC型或對應光終端設備）。",
+                errorAnalysis: "xxSC 通常指光終端箱或光纖配線箱相關組件代號。"
+            },
+            {
+                id: 20,
+                title: "依據「建築物內外電信設備設置技術規範」規定，設計圖面中，於光纜規格後註明 <img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/20.png?raw=true' alt='0.4dB-8C-SM' class='responsive-img'>，其中 0.4dB 表示：",
+                options: [
+                    "線每公尺損失值",
+                    "線每百公尺損失值",
+                    "線每公里損失值",
+                    "線每萬公尺損失值"
+                ],
+                answer: 2,
+                explanation: "在光纖規格標示中，衰減值單位通常以每公里（dB/km）計算，故 0.4dB 指線每公里損失值。",
+                errorAnalysis: "切勿誤判單位長度，光纖衰減值標準標準化是以公里為計算基準。"
+            },
+            {
+                id: 21,
+                title: "依據「建築物內外電信設備設置技術規範」規定，設計圖面中，於光纜規格後註明 <img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/20.png?raw=true' alt='0.4dB-8C-SM' class='responsive-img'>，其中 8C 表示：",
+                options: [
+                    "光纖種類",
+                    "光纖線徑",
+                    "光纖心數",
+                    "線每萬公尺損失值"
+                ],
+                answer: 2,
+                explanation: "規格中的 8C（8 Cores）代表光纖心數為 8 心。",
+                errorAnalysis: "C 代表 Core（心數），SM 代表 Single-Mode（單模），數字即為芯數。"
+            },
+            {
+                id: 22,
+                title: "依據「建築物內外電信設備設置技術規範」規定，設計圖面中，於主幹電纜規格後註明電纜編號：0.5-200P-PE-PVC（B3, B4），其中 200P 表示：",
+                options: [
+                    "線對數",
+                    "最大距離",
+                    "操作溫度",
+                    "最小距離"
+                ],
+                answer: 0,
+                explanation: "200P（200 Pairs）代表電纜的線對數為 200 對。",
+                errorAnalysis: "P 代表 Pair（線對），是衡量主幹電纜容量的重要指標。"
+            },
+            {
+                id: 23,
+                title: "依據「建築物內外電信設備設置技術規範」規定，設計圖面中，於主幹電纜規格後註明電纜編號：0.5-200P-PE-PVC（B3, B4），其中（B3, B4）表示：",
+                options: [
+                    "樓層",
+                    "電纜之百對編號",
+                    "配線箱編號",
+                    "單位編號"
+                ],
+                answer: 1,
+                explanation: "括號內的（B3, B4）代表該電纜對應的百對編號或連接區段編號。",
+                errorAnalysis: "主幹電纜編號後方括號通常用來標示配線對應區段或百對編號。"
+            },
+            {
+                id: 24,
+                title: "依據「建築物內外電信設備設置技術規範」規定，設計圖面中，於主幹電纜規格後註明電纜編號：0.5-200P-PE-PVC（B3, B4），其中 0.5 表示：",
+                options: [
+                    "配線箱編號",
+                    "管徑",
+                    "線徑",
+                    "電壓"
+                ],
+                answer: 2,
+                explanation: "0.5 代表導體線徑為 0.5mm。",
+                errorAnalysis: "電纜規格最前方通常為導體線徑（如 0.4mm 或 0.5mm）。"
+            },
+            {
+                id: 25,
+                title: "如下圖符號依據「建築物內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/25.png?raw=true' alt='[ 虛線夾帶 T 的管線符號 ]' class='responsive-img'>",
+                options: [
+                    "電電管線暗式",
+                    "電線管線明式",
+                    "電線管線扁型管",
+                    "電線管線圓型管"
+                ],
+                answer: 1,
+                explanation: "圖例中帶有特定線條樣式（如虛線或明線表示法）與 T 符號代表電線管線明式裝設。",
+                errorAnalysis: "暗式與明式管線在圖面上的線條繪製方式（實線與虛線/代號）有明確規範，應加以區分。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            document.getElementById('qText').innerHTML = q.title;
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const hasAnswered = userAnswers[index] !== undefined;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                optDiv.innerText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                if (hasAnswered) {
+                    optDiv.classList.add('disabled');
+                    if (optIdx === q.answer) {
+                        optDiv.classList.add('correct');
+                    } else if (optIdx === userAnswers[index]) {
+                        optDiv.classList.add('wrong');
+                    }
+                } else {
+                    optDiv.onclick = () => selectOption(optIdx);
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (hasAnswered) {
+                showFeedback(index, userAnswers[index]);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentIndex] = optionIndex;
+            loadQuestion(currentIndex);
+        }
+
+        function showFeedback(qIdx, selectedOpt) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            const isCorrect = selectedOpt === q.answer;
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 判斷正確！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答錯了，請觀看解析說明：</span>';
+
+            document.getElementById('correctAnswer').innerText = `${String.fromCharCode(65 + q.answer)}. ${q.options[q.answer]}`;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        // 更新導覽按鈕 (包括最後一題停用)
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            // 第一題時，上一題按鈕停用
+            prevBtn.disabled = currentIndex === 0;
+
+            // 最後一題時，按鈕文字變更、狀態設為 disabled 變灰且無法點擊
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 1 && inputVal <= questions.length) {
+                currentIndex = inputVal - 1;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (1 - ${questions.length})`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>
