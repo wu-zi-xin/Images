@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async
+	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+	</script>
+    <title>工作項目5 測驗 (101-125) - 實戰指南風格</title>
+    <style>
+        :root {
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 440px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 85px; 
+            }
+
+            .header {
+                height: var(--header-height);
+                align-items: flex-start;
+                padding-top: 1rem;
+            }
+
+            .hamburger-btn {
+                display: block;
+                margin-top: 0.1rem;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: var(--header-height); 
+                left: 0;
+                bottom: 0;
+                height: calc(100vh - var(--header-height));
+                z-index: 101;
+                transform: translateX(-100%);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            17200 網路架設 乙級 工作項目 05：網路管理與維護 (101-125)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (101-125)" min="101" max="125">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid"></div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 101 題 / 共 25 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList"></div>
+
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 101,
+                type: "single",
+                title: "數位調變與類比調變技術比較，不具有下列項特點？",
+                options: [
+                    "受到雜訊影響較小",
+                    "安全性較高",
+                    "對多媒體的資料多工較容易",
+                    "訊號較易受干擾"
+                ],
+                answer: [3],
+                explanation: "數位調變相比於類比調變，其最大的優勢就是抗干擾能力強、不易受雜訊干擾，因此「訊號較易受干擾」的敘述是錯誤的。",
+                errorAnalysis: "數位訊號抗干擾能力較強，不易受干擾。"
+            },
+            {
+                id: 102,
+                type: "single",
+                title: "關於全球行動通信系統（Global System for Mobile Communications, GSM），下列何者不正確？",
+                options: [
+                    "使用數位訊號傳輸",
+                    "資料傳輸速率在 10Mbps 到 100Mbps 之間",
+                    "可應用在 900MHz、1800MHz 及 1900MHz",
+                    "屬於第二代行動通信系統"
+                ],
+                answer: [1],
+                explanation: "傳統 GSM（2G）的傳輸速率非常低（約在 9.6Kbps 到幾十 Kbps 之間），遠遠達不到 10Mbps 至 100Mbps 的高速範圍。",
+                errorAnalysis: "GSM 屬於 2G，速率較低，不具備 10Mbps 以上頻寬。"
+            },
+            {
+                id: 103,
+                type: "single",
+                title: "進階長期演進技術（Long Term Evolution Advanced, LTE-Advanced）是幾代行動通信技術？",
+                options: ["第 1 代", "第 2 代", "第 3 代", "第 4 代"],
+                answer: [3],
+                explanation: "LTE-Advanced（LTE-A）被正式定義並歸類為第四代（4G）行動通信技術標準。",
+                errorAnalysis: "LTE-A 屬於 4G 行動通信技術。"
+            },
+            {
+                id: 104,
+                type: "single",
+                title: "第三代行動通信系統，不包含下列哪一個系統？",
+                options: ["WCDMA", "CDMA 2000", "TDS-CDMA", "GSM"],
+                answer: [3],
+                explanation: "GSM 是第二代（2G）系統，而 WCDMA、CDMA2000、TD-SCDMA 才是主要的第三代（3G）技術。",
+                errorAnalysis: "GSM 是 2G，其餘三者為 3G 主流技術。"
+            },
+            {
+                id: 105,
+                type: "single",
+                title: "下列何種 IEEE 標準未使用正交分頻多工（Orthogonal Frequency Division Multiplexing, OFDM）技術？",
+                options: ["802.11a", "802.11b", "802.11g", "802.11n"],
+                answer: [1],
+                explanation: "IEEE 802.11b 採用的是 DSSS（直接序列展頻）技術，而 802.11a、802.11g 與 802.11n 皆大量採用 OFDM 技術。",
+                errorAnalysis: "802.11b 使用 DSSS，未使用 OFDM。"
+            },
+            {
+                id: 106,
+                type: "single",
+                title: "下列何種系統與 IEEE 802.11g 使用相同頻段？",
+                options: [
+                    "藍牙（Bluetooth）",
+                    "全球行動通信（Global System for Mobile Communications, GSM）",
+                    "全球互通微波存取（Worldwide Interoperability for Microwave Access, WiMAX）",
+                    "寬頻分碼多重存取（Wide-band Code Division Multiple Access, WCDMA）"
+                ],
+                answer: [0],
+                explanation: "IEEE 802.11g 與藍牙（Bluetooth）皆運行在同一個 2.4GHz ISM 頻段。",
+                errorAnalysis: "藍牙與 802.11g 共用 2.4GHz 頻段。"
+            },
+            {
+                id: 107,
+                type: "single",
+                title: "藍牙（Bluetooth）屬於下列何種網路？",
+                options: ["無線校園網路", "無線都會網路", "無線廣域網路", "無線個人區域網路"],
+                answer: [3],
+                explanation: "藍牙是專為短距離個人裝置互聯設計的無線個人區域網路（WPAN, Wireless Personal Area Network）技術。",
+                errorAnalysis: "藍牙屬於 WPAN（無線個人區域網路）。"
+            },
+            {
+                id: 108,
+                type: "single",
+                title: "藍牙（Bluetooth）是使用哪一個頻段？",
+                options: ["2.4GHz", "24GHz", "240MHz", "24MHz"],
+                answer: [0],
+                explanation: "藍牙標準規範使用 2.4 GHz 頻段進行無線通訊。",
+                errorAnalysis: "藍牙運行於 2.4GHz 頻段。"
+            },
+            {
+                id: 109,
+                type: "single",
+                title: "下列何者為無線區域網路所使用的標準？",
+                options: ["IEEE 802.15", "IEEE 802.16", "IEEE 802.3", "IEEE 802.11"],
+                answer: [3],
+                explanation: "IEEE 802.11 是無線區域網路（WLAN / Wi-Fi）的系列標準；802.15 是藍牙/WPAN，802.16 是 WiMAX，802.3 是乙太網路。",
+                errorAnalysis: "WLAN 標準為 IEEE 802.11。"
+            },
+            {
+                id: 110,
+                type: "single",
+                title: "傳輸範圍可跨越不同城市間的無線網路為",
+                options: ["無線個人網路", "無線區域網路", "無線都會網路", "無線廣域網路"],
+                answer: [3],
+                explanation: "涵蓋範圍最大、可跨越國家或洲際/大城市的網路屬於廣域網路（WAN），對應無線網路即為無線廣域網路（WWAN）。",
+                errorAnalysis: "跨城市與大範圍涵蓋屬於無線廣域網路（WWAN）。"
+            },
+            {
+                id: 111,
+                type: "single",
+                title: "下列何者不是無線區域網路的優點？",
+                options: ["移動性高", "安全性高", "不必線", "安裝容易"],
+                answer: [1],
+                explanation: "無線電波容易遭到竊聽或攔截，因此相比於有線網路，無線區域網路的「安全性高」並非其優點（相反地，安全防護是無線網路需要克服的挑戰）。",
+                errorAnalysis: "無線網路開放性高，安全性通常不如有線網路。"
+            },
+            {
+                id: 112,
+                type: "single",
+                title: "IEEE 802.11a 與 IEEE 802.11g 的最高傳輸速率為",
+                options: ["5.4Mbps", "540Mbps", "54Mbps", "11Mbps"],
+                answer: [2],
+                explanation: "IEEE 802.11a 與 IEEE 802.11g 的實體層最高傳輸速率皆可達到 54 Mbps。",
+                errorAnalysis: "802.11a 與 802.11g 的最高標稱速率為 54Mbps。"
+            },
+            {
+                id: 113,
+                type: "single",
+                title: "下列何種技術不是使用 2.4GHz 的頻段？",
+                options: ["藍牙（Bluetooth）", "IEEE 802.11a", "IEEE 802.11b", "IEEE 802.11g"],
+                answer: [1],
+                explanation: "IEEE 802.11a 運行在 5GHz 頻段，而藍牙、802.11b、802.11g 皆使用 2.4GHz 頻段。",
+                errorAnalysis: "802.11a 使用 5GHz，未使用 2.4GHz。"
+            },
+            {
+                id: 114,
+                type: "single",
+                title: "關於 IEEE 802.11n，下列何者不正確？",
+                options: [
+                    "可與 IEEE 802.11b 相容",
+                    "傳輸距離可大於 100 公尺",
+                    "使用多輸入多輸出（Multi-input Multi-output, MIMO）技術",
+                    "最高傳輸速率為 24Mbps"
+                ],
+                answer: [3],
+                explanation: "IEEE 802.11n 的最高傳輸速率透過 MIMO 技術可高達 600Mbps，因此「最高傳輸速率為 24Mbps」的敘述錯誤。",
+                errorAnalysis: "802.11n 速率遠高於 24Mbps（最高可達 600Mbps）。"
+            },
+            {
+                id: 115,
+                type: "single",
+                title: "關於區域多點分散服務（Local Multipoint Distribution Service, LMDS），下列何者不正確？",
+                options: [
+                    "部署過程容易",
+                    "所使用之頻率不需向主管機關申請",
+                    "具有良好擴充特性（Scalable）",
+                    "可應用於語音服務"
+                ],
+                answer: [1],
+                explanation: "LMDS 屬於固定無線寬頻通訊技術，其使用的頻段非常高（通常在 20GHz 以上），必須向國家主管機關申請執照與頻段。",
+                errorAnalysis: "LMDS 使用頻段需向主管機關正式申請。"
+            },
+            {
+                id: 116,
+                type: "single",
+                title: "關於 IEEE 802 標準所規範之網路架構，下列敘述何者不正確？",
+                options: [
+                    "IEEE 802.5 為符記環網路架構",
+                    "IEEE 802.4 為樹狀網路架構",
+                    "IEEE 802.11 為無線區域網路架構",
+                    "IEEE 802.3 為乙太網路架構"
+                ],
+                answer: [1],
+                    explanation: "IEEE 802.4 是規範「符記匯流排（Token Bus）」網路架構，而非樹狀網路。",
+                errorAnalysis: "802.4 代表符記匯流排（Token Bus），非樹狀網。"
+            },
+            {
+                id: 117,
+                type: "single",
+                title: "防火牆一般不包括下列何種功能？",
+                options: ["身分識別", "安全稽核", "存取管控", "負載平衡"],
+                answer: [3],
+                explanation: "防火牆的主要功能為存取控制、身分驗證與安全稽核記錄；而「負載平衡」通常由負載平衡器（Load Balancer）負責，不屬於傳統防火牆核心功能。",
+                errorAnalysis: "負載平衡屬於派送流量的專屬設備功能。"
+            },
+            {
+                id: 118,
+                type: "single",
+                title: "若網路環境中存在防火牆，則對外之 Web 伺服器一般存放於何處？",
+                options: ["防火牆主機中", "內部網路（Internal Network）", "外部網路（External Network）", "非軍事區（De-Militarized Zone）"],
+                answer: [3],
+                explanation: "對外提供服務的伺服器通常會放置在防火牆隔離出來的非軍事區（DMZ，De-Militarized Zone），以兼顧對外服務與內部網路安全。",
+                errorAnalysis: "對外公開伺服器應置於 DMZ（非軍事區）。"
+            },
+            {
+                id: 119,
+                type: "single",
+                title: "下列哪一種機制無法保護無線網路的安全？",
+                options: ["WEP", "WPA", "SSID", "IEEE 802.11x"],
+                answer: [2],
+                explanation: "SSID（Service Set Identifier）只是無線網路的名稱識別碼，預設會公開廣播，本身完全不具備任何加密或安全保護機制。",
+                errorAnalysis: "SSID 是網路名稱識別，本身不提供安全防護。"
+            },
+            {
+                id: 120,
+                type: "single",
+                title: "RSA 加密算法所采用的公開金鑰（n,e）及秘密金鑰（d），必須滿足下列哪一項條件？",
+                options: [
+                    "e 和 d 都是質數",
+                    "d 和 n 不互質",
+                    "ed = 1 mod n",
+                    "(e-1) (d-1) = n"
+                ],
+                answer: [2],
+                explanation: "在 RSA 數學原理中，公鑰指數 e 與私鑰指數 d 必須滿足 $e \times d \equiv 1 \pmod{\phi(n)}$（在標準化簡或特定模數關係下對應 $ed = 1 \pmod n$ 或配合歐拉函數）。",
+                errorAnalysis: "RSA 核心數學關係式為 ed ≡ 1 mod 總量關係。"
+            },
+            {
+                id: 121,
+                type: "single",
+                title: "S/MIME 是依據下列何種標準所建立？",
+                options: ["PEM", "MOSS", "PGP", "MIME"],
+                answer: [3],
+                explanation: "S/MIME（Secure/Multipurpose Internet Mail Extensions）是基於網際網路標準 MIME 格式來提供郵件加密與數位簽章安全機制的延伸。",
+                errorAnalysis: "S/MIME 是奠基於 MIME 標準之上的安全郵件協定。"
+            },
+            {
+                id: 122,
+                type: "single",
+                title: "完整性（Integrity）不會保護下列哪一項作為？",
+                options: ["資料分析", "未授權的變更", "蓄意竄改", "意外變更"],
+                answer: [0],
+                explanation: "資訊安全的完整性旨在防止資料遭受未授權的變更、蓄意竄改或意外毀損；而「資料分析」屬於資料處理行為，非完整性防護的威脅目標。",
+                errorAnalysis: "資料分析是應用手段，不屬於完整性防護防範的破壞行為。"
+            },
+            {
+                id: 123,
+                type: "single",
+                title: "完整性（Integrity）通常可透過下列何項措施進行強化？",
+                options: ["採用實體安全", "導入邏輯安全", "壓縮", "控制存取"],
+                answer: [3],
+                explanation: "為了確保資料未被未授權修改，嚴格的「存取控制（Access Control）」與權限控管是強化資料完整性的重要措施。",
+                errorAnalysis: "控制存取權限能有效確保資料完整性。"
+            },
+            {
+                id: 124,
+                type: "single",
+                title: "風險管理不包括下列哪一項？",
+                options: [
+                    "風險分析與評估",
+                    "風險識別",
+                    "風險接受或轉移",
+                    "完全消除風險發生"
+                ],
+                answer: [3],
+                explanation: "在資安實務中，風險通常無法做到「完全消除」（成本過高或殘餘風險永遠存在），風險管理著重於識別、評估、處理與降低，而非宣稱能完全消除所有風險。",
+                errorAnalysis: "實務上無法將風險做到絕對的完全消除。"
+            },
+            {
+                id: 125,
+                type: "single",
+                title: "資訊資產盤點時，發現機房中消防滅火系統失效，最適合以下列哪一項特徵表示？",
+                options: ["安全", "威脅", "弱點", "機會"],
+                answer: [2],
+                explanation: "防火滅火系統失效代表防護措施有缺陷或漏洞，在資安風險評估中這屬於資產的「弱點（Vulnerability）」。",
+                errorAnalysis: "防護系統失效對應的資安特徵為弱點（Vulnerability）。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+        let isSubmitted = {}; 
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            
+            document.getElementById('qText').innerHTML = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            badge.innerText = "單選題";
+            badge.className = "type-badge";
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                if (submitted) {
+                    optDiv.classList.add('disabled');
+                    if (optIdx === q.answer[0]) {
+                        optDiv.classList.add('correct');
+                    } else if (userAnswers[index] === optIdx) {
+                        optDiv.classList.add('wrong');
+                    }
+                } else {
+                    optDiv.onclick = () => {
+                        userAnswers[index] = optIdx;
+                        isSubmitted[index] = true;
+                        loadQuestion(currentIndex);
+                    };
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([
+                    document.getElementById('qText'),
+                    document.getElementById('optionsList')
+                ]).catch((err) => console.log(err));
+            }
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            let isCorrect = userAnswers[qIdx] === q.answer[0];
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不正確，請參考下方解析：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 101 && inputVal <= 125) {
+                currentIndex = inputVal - 101;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (101 - 125)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>

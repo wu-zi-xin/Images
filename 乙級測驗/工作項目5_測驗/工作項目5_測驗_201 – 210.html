@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async
+	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+	</script>
+    <title>工作項目5 測驗 (201-210) - 實戰指南風格</title>
+    <style>
+        :root {
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 440px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .type-badge.multi {
+            background-color: #9333ea;
+        }
+
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.multi-correct-hit {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.multi-wrong-hit {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+            font-weight: 700;
+        }
+
+        .option-item.multi-missed {
+            border-color: #d97706;
+            background-color: var(--missed-bg);
+            color: var(--missed-color);
+            font-weight: 700;
+        }
+
+        .missed-tag {
+            background-color: #d97706;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        .option-item.multi-selected {
+            background-color: #faf5ff;
+            border-color: #9333ea;
+            color: #7e22ce;
+            font-weight: 600;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        .submit-multi-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: #9333ea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: background-color 0.2s;
+        }
+        .submit-multi-btn:hover {
+            background-color: #7e22ce;
+        }
+        .submit-multi-btn:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 85px; 
+            }
+
+            .header {
+                height: var(--header-height);
+                align-items: flex-start;
+                padding-top: 1rem;
+            }
+
+            .hamburger-btn {
+                display: block;
+                margin-top: 0.1rem;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: var(--header-height); 
+                left: 0;
+                bottom: 0;
+                height: calc(100vh - var(--header-height));
+                z-index: 101;
+                transform: translateX(-100%);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            17200 網路架設 乙級 工作項目 05：網路管理與維護 (201-210)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (201-210)" min="201" max="210">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid"></div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 201 題 / 共 10 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList"></div>
+
+                <button id="submitMultiBtn" class="submit-multi-btn" style="display: none;" onclick="submitMultiAnswer()">送出多選答案</button>
+
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 201,
+                type: "single",
+                title: "下列何者為物聯網（Internet of Things, IoT）之感知層主要功能？",
+                options: [
+                    "針對不同的情境產生感知與監控資料",
+                    "具有感測及辨識能力",
+                    "將感知層收集的資料傳輸至應用層",
+                    "將感測及辨識之資料進行跨行業技術融合"
+                ],
+                answer: [1],
+                explanation: "物聯網感知層的主要核心功能在於「具有感測及辨識能力」，負責收集環境或物件的原始資料。",
+                errorAnalysis: "感知層著重於物理世界的感測與辨識能力。"
+            },
+            {
+                id: 202,
+                type: "multi",
+                title: "關於物聯網（Internet of Things, IoT）感知層之「感測技術」，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "使智慧物件具有感測環境變化或物體移動的能力",
+                    "常用於嵌入式感測元件，包括紅外線、溫度、濕度、亮度、壓力、三軸加速度等感測器",
+                    "常見感測元件為 RFID 讀取器",
+                    "將 RFID 的標籤嵌入物體，使物品可以記錄及回報其身分或狀態"
+                ],
+                answer: [0, 1],
+                explanation: "感知層的「感測技術」賦予物件感測環境變化的能力，並使用各類環境感測器（如溫濕度、壓力、加速度等）。RFID 讀取器與標籤嵌入則屬於「辨識技術」。",
+                errorAnalysis: "RFID 相關技術屬於辨識技術，不屬於單純的環境感測技術範疇。"
+            },
+            {
+                id: 203,
+                type: "multi",
+                title: "關於物聯網（Internet of Things, IoT）感知層之「辨識技術」，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "使智慧物件具有感測環境變化或物體移動的能力",
+                    "常用於嵌入式感測元件，包括紅外線、溫度、濕度、亮度、壓力、三軸加速度等感測器",
+                    "常見辨識元件為 RFID 標籤",
+                    "將 RFID 的標籤嵌入物體，使物品可以記錄及回報自己的身分或狀態"
+                ],
+                answer: [2, 3],
+                explanation: "物聯網感知層的「辨識技術」主要包含 RFID 標籤與讀取器，透過將標籤嵌入物件中，讓物品能夠記錄並回報自身的獨特身分與即時狀態。",
+                errorAnalysis: "辨識技術核心在於使用 RFID 標籤與辨識元件來回報身分狀態。"
+            },
+            {
+                id: 204,
+                type: "multi",
+                title: "物聯網（Internet of Things, IoT）感知層之「感測技術」，關於三軸加速度儀（Triple Axis Accelerometer），下列哪些不正確？ (本題為多選題)",
+                options: [
+                    "可偵測 XYZ 三軸之加速度",
+                    "可偵測 X 軸之旋轉角度",
+                    "可偵測 Y 軸之旋轉角度",
+                    "可偵測 Z 軸之旋轉角度"
+                ],
+                answer: [1, 2, 3],
+                explanation: "三軸加速度儀專門用來偵測線性加速度（XYZ 三軸加速度），而偵測旋轉角度通常需要「陀螺儀（Gyroscope）」，因此偵測旋轉角度的選項皆不正確。",
+                errorAnalysis: "加速度儀負責線性加速度，旋轉角度需由陀螺儀偵測。"
+            },
+            {
+                id: 205,
+                type: "multi",
+                title: "物聯網（Internet of Things, IoT）感知層之「辨識技術」，關於無線射頻識別（Radio Frequency Identification, RFID），下列哪些正確？ (本題為多選題)",
+                options: [
+                    "RFID 標籤（Tag），主要功能在於儲存一些個人或商品的資訊，主要可分主動式（Active）標籤及被動式（Passive）標籤二種",
+                    "RFID 讀取器（Reader/Writer），主要功能為讀取/寫入標籤中資訊的裝置",
+                    "RFID 標籤（Tag）及讀取器（Reader/Writer）需互相配合才可運作",
+                    "主動式 RFID 標籤（Active Tag）一般不具備獨立電源"
+                ],
+                answer: [0, 1, 2],
+                explanation: "RFID 包含主動式與被動式標籤，需搭配讀取器運作。主動式標籤（Active Tag）本身內建獨立電源（電池），因此選項 4 敘述錯誤。",
+                errorAnalysis: "主動式 RFID 標籤內建獨立電源，被動式則靠讀取器磁場感應供電。"
+            },
+            {
+                id: 206,
+                type: "multi",
+                title: "雲端運算包含下列哪幾種部署方式？ (本題為多選題)",
+                options: [
+                    "公有雲（Public Cloud）",
+                    "私有雲（Private Cloud）",
+                    "混合雲（Hybrid Cloud）",
+                    "層積雲（Stratocumulus Cloud）"
+                ],
+                answer: [0, 1, 2],
+                explanation: "標準雲端運算部署模型包含公有雲、私有雲、混合雲以及社群雲（Community Cloud），層積雲屬於大氣氣象雲層名稱，與雲端運算無關。",
+                errorAnalysis: "雲端部署模型不包含氣象學上的層積雲。"
+            },
+            {
+                id: 207,
+                type: "multi",
+                title: "NIST 定義之雲端運算包含下列哪幾種服務模式？ (本題為多選題)",
+                options: [
+                    "軟體即服務（Software as a Service, SaaS）",
+                    "平台即服務（Platform as a Service, PaaS）",
+                    "網際網路即服務（Internet as Service, IaaS） - 註：應為基礎設施即服務",
+                    "一切即服務（Everything as a Service, XaaS）"
+                ],
+                answer: [0, 1],
+                explanation: "NIST 定義的雲端運算三大核心服務模式為 SaaS、PaaS 以及 IaaS（基礎設施即服務）。選項 3 英文詞彙寫錯（應為 Infrastructure），選項 4 屬廣義概念非 NIST 三大標準模式。",
+                errorAnalysis: "NIST 標準雲端服務模式為 SaaS、PaaS、IaaS。"
+            },
+            {
+                id: 208,
+                type: "multi",
+                title: "下列何種軟體屬於雲端運算中之基礎設施即服務（Infrastructure as a Service, IaaS）？ (本題為多選題)",
+                options: [
+                    "AWS EC2（Elastic Compute Cloud）",
+                    "Google App Engine",
+                    "OpenStack",
+                    "中華電信 Hi Cloud"
+                ],
+                answer: [0, 2, 3],
+                explanation: "AWS EC2、OpenStack 及中華電信 Hi Cloud 皆提供虛擬機器與底層基礎設施資源，屬於 IaaS；Google App Engine 則屬於 PaaS。",
+                errorAnalysis: "AWS EC2、OpenStack、Hi Cloud 提供基礎運算與虛擬化資源，屬 IaaS。"
+            },
+            {
+                id: 209,
+                type: "multi",
+                title: "下列何者屬於雲端運算中之平台即服務（Platform as a Service, PaaS）？ (本題為多選題)",
+                options: [
+                    "Google Compute Engine",
+                    "Microsoft Azure",
+                    "OpenStack",
+                    "RedHat OpenShift"
+                ],
+                answer: [1, 3],
+                explanation: "Microsoft Azure（廣義平台服務/雲端平台）與 RedHat OpenShift 提供應用程式開發與執行的平台環境，屬於 PaaS。Google Compute Engine 與 OpenStack 屬於 IaaS。",
+                errorAnalysis: "Microsoft Azure 與 RedHat OpenShift 提供開發與運行平台，屬於 PaaS。"
+            },
+            {
+                id: 210,
+                type: "multi",
+                title: "下列何者屬於雲端運算中之基礎設施即服務（Infrastructure as a Service, IaaS）？ (本題為多選題)",
+                options: [
+                    "Google Compute Engine",
+                    "Google Storage",
+                    "Google App Engine",
+                    "Google Apps"
+                ],
+                answer: [0, 1],
+                explanation: "題號 (12) 代表複選題（1 和 2 代表選項 A 與 B）。Google Compute Engine（GCE）提供虛擬機器運算，Google Storage 提供雲端儲存，兩者皆屬於 IaaS 基礎設施即服務；Google App Engine 屬 PaaS，Google Apps 屬 SaaS。",
+                errorAnalysis: "Google Compute Engine 與 Google Storage 皆屬於 IaaS 範疇。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+        let isSubmitted = {}; 
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            
+            document.getElementById('qText').innerHTML = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            const submitBtn = document.getElementById('submitMultiBtn');
+
+            if (q.type === 'multi') {
+                badge.innerText = "多選題";
+                badge.className = "type-badge multi";
+                submitBtn.style.display = "block";
+            } else {
+                badge.innerText = "單選題";
+                badge.className = "type-badge";
+                submitBtn.style.display = "none";
+            }
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                if (q.type === 'single') {
+                    optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                    if (submitted) {
+                        optDiv.classList.add('disabled');
+                        if (optIdx === q.answer[0]) {
+                            optDiv.classList.add('correct');
+                        } else if (userAnswers[index] === optIdx) {
+                            optDiv.classList.add('wrong');
+                        }
+                    } else {
+                        optDiv.onclick = () => {
+                            userAnswers[index] = optIdx;
+                            isSubmitted[index] = true;
+                            loadQuestion(currentIndex);
+                        };
+                    }
+                } else {
+                    const isSelected = userAnswers[index] && userAnswers[index].includes(optIdx);
+
+                    if (!submitted) {
+                        if (isSelected) {
+                            optDiv.classList.add('multi-selected');
+                        }
+                        optDiv.onclick = () => {
+                            toggleMultiSelection(optIdx);
+                            loadQuestion(currentIndex);
+                        };
+                        optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                    } else {
+                        optDiv.classList.add('disabled');
+                        const isCorrectOpt = q.answer.includes(optIdx);
+
+                        if (isSelected && isCorrectOpt) {
+                            optDiv.classList.add('multi-correct-hit');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        } else if (isSelected && !isCorrectOpt) {
+                            optDiv.classList.add('multi-wrong-hit');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        } else if (!isSelected && isCorrectOpt) {
+                            optDiv.classList.add('multi-missed');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span><span class="missed-tag">未選到</span>`;
+                        } else {
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        }
+                    }
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            if (q.type === 'multi') {
+                submitBtn.disabled = submitted;
+            }
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([
+                    document.getElementById('qText'),
+                    document.getElementById('optionsList')
+                ]).catch((err) => console.log(err));
+            }
+        }
+
+        function toggleMultiSelection(optIdx) {
+            if (!userAnswers[currentIndex]) {
+                userAnswers[currentIndex] = [];
+            }
+            const idx = userAnswers[currentIndex].indexOf(optIdx);
+            if (idx > -1) {
+                userAnswers[currentIndex].splice(idx, 1);
+            } else {
+                userAnswers[currentIndex].push(optIdx);
+            }
+        }
+
+        function submitMultiAnswer() {
+            if (!userAnswers[currentIndex] || userAnswers[currentIndex].length === 0) {
+                alert("請至少選擇一個選項！");
+                return;
+            }
+            isSubmitted[currentIndex] = true;
+            loadQuestion(currentIndex);
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            let isCorrect = false;
+            if (q.type === 'single') {
+                isCorrect = userAnswers[qIdx] === q.answer[0];
+            } else {
+                const userSel = [...(userAnswers[qIdx] || [])].sort();
+                const correctAns = [...q.answer].sort();
+                isCorrect = JSON.stringify(userSel) === JSON.stringify(correctAns);
+            }
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不完全正確，請參考下方解析與未選到標示：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 201 && inputVal <= 210) {
+                currentIndex = inputVal - 201;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (201 - 210)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>

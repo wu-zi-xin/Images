@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async
+	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+	</script>
+    <title>工作項目5 測驗 (1-25) - 實戰指南風格</title>
+    <style>
+        :root {
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 440px; /* 已放寬高度，確保第 25 題完整顯示 */
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 85px; 
+            }
+
+            .header {
+                height: var(--header-height);
+                align-items: flex-start;
+                padding-top: 1rem;
+            }
+
+            .hamburger-btn {
+                display: block;
+                margin-top: 0.1rem;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: var(--header-height); 
+                left: 0;
+                bottom: 0;
+                height: calc(100vh - var(--header-height));
+                z-index: 101;
+                transform: translateX(-100%);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            17200 網路架設 乙級 工作項目 05：網路管理與維護 (1-25)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (1-25)" min="1" max="25">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid"></div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 1 題 / 共 25 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList"></div>
+
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                type: "single",
+                title: "下列何者不是改善網路效能的方法？",
+                options: [
+                    "儘量將網路各類服務集中在同一台伺服器，避免使用者必須存取多台伺服器",
+                    "採增加伺服器方式，儘可能讓使用者存取同一區域內之伺服器",
+                    "採網路資源分散的方式，將部分之網路資源，從原伺服器移至其他伺服器",
+                    "對經常性跨網段存取其他工作群組的使用者，可移動使用者所屬的工作群組，以減少跨網段存取"
+                ],
+                answer: [0],
+                explanation: "將所有服務集中在同一台伺服器會造成嚴重的效能瓶頸（Bottleneck）與單點故障風險，正確做法應當分散負載。",
+                errorAnalysis: "服務過度集中會導致效能低落與負載過重。"
+            },
+            {
+                id: 2,
+                type: "single",
+                title: "下列何者通常不是在網路規劃時之考慮要素？",
+                options: ["環境變數", "公司名稱", "成本評估", "效益評估"],
+                answer: [1],
+                explanation: "網路規劃主要考量技術、環境、成本及效益，公司名稱屬於行政識別，與網路架構設計無直接關聯。",
+                errorAnalysis: "公司名稱不屬於網路規劃的技術與經濟評估要素。"
+            },
+            {
+                id: 3,
+                type: "single",
+                title: "下列何者為網路管理通訊協定？",
+                options: ["SMTP", "TCP", "SNMP", "ICMP"],
+                answer: [2],
+                explanation: "SNMP（Simple Network Management Protocol）是專門用於網管系統監控與管理網路設備的標準通訊協定。",
+                errorAnalysis: "SMTP 用於郵件傳輸，TCP 用於傳輸層連線，ICMP 用於網路診斷，SNMP 才是網路管理協定。"
+            },
+            {
+                id: 4,
+                type: "single",
+                title: "SNMP 協定位於 TCP/IP 模型中的哪一層？",
+                options: ["網際網路層（Internet Layer）", "應用層（Application Layer）", "傳輸層（Transport Layer）", "鏈路層（Link Layer）"],
+                answer: [1],
+                explanation: "SNMP 雖然負責底層設備管理，但在 TCP/IP 模型中被歸類在應用層（Application Layer）。",
+                errorAnalysis: "易誤判為網際網路層或傳輸層，實際上 SNMP 屬於應用層協定。"
+            },
+            {
+                id: 5,
+                type: "single",
+                title: "SNMP 協定預設使用哪一種傳輸層協定？",
+                options: ["TCP", "IP", "DHCP", "UDP"],
+                answer: [3],
+                explanation: "SNMP 為了降低網路負擔與即時回報，預設使用無連線的 UDP 傳輸層協定（埠號 161/162）。",
+                errorAnalysis: "SNMP 採用 UDP 而非 TCP，以避免額外的交握負擔。"
+            },
+            {
+                id: 6,
+                type: "single",
+                title: "SNMP 協定使用的傳輸埠號為何？",
+                options: ["80/81", "443/444", "110/111", "161/162"],
+                answer: [3],
+                explanation: "SNMP 通常使用 UDP 埠號 161（接收管理者指令）與 162（接收代理器發出的 Trap 主動告警）。",
+                errorAnalysis: "需記牢標準網管埠號 161 與 162。"
+            },
+            {
+                id: 7,
+                type: "single",
+                title: "ICMP 協定屬於 TCP/IP 模型中的哪一層？",
+                options: ["網際網路層（Internet Layer）", "應用層（Application Layer）", "傳輸層（Transport Layer）", "鏈路層（Link Layer）"],
+                answer: [0],
+                explanation: "ICMP（網際網路控制訊息協定）與 IP 緊密配合，共同運作於 TCP/IP 模型的網際網路層（Internet Layer）。",
+                errorAnalysis: "ICMP 協助 IP 傳遞錯誤與控制訊息，屬於網際網路層。"
+            },
+            {
+                id: 8,
+                type: "single",
+                title: "ISO 標準之網路管理功能區分為幾大類？",
+                options: ["4", "5", "6", "7"],
+                answer: [1],
+                explanation: "ISO 網路管理模型（FCAPS）將網管功能分為 5 大類：故障、組態、會計、效能、安全管理。",
+                errorAnalysis: "FCAPS 包含五大管理領域。"
+            },
+            {
+                id: 9,
+                type: "single",
+                title: "下列何者不屬 ISO 標準中網路管理功能的種類？",
+                options: ["效能（Performance）管理", "歸責（Accounting）管理", "流量（Flow）管理", "組態（Configuration）管理"],
+                answer: [2],
+                explanation: "ISO FCAPS 五大管理為：Fault（故障）、Configuration（組態）、Accounting（歸責）、Performance（效能）、Security（安全），不包含「流量管理」。",
+                errorAnalysis: "流量管理屬於效能或頻寬管理的子集，不屬於 ISO 五大獨立分類。"
+            },
+            {
+                id: 10,
+                type: "single",
+                title: "下列何者與網路效能管理無關？",
+                options: ["錯誤率", "使用率", "建置成本", "反應時間"],
+                answer: [2],
+                explanation: "效能管理著重於使用率、錯誤率、反應時間與產出量；「建置成本」屬於財務或專案管理範疇。",
+                errorAnalysis: "建置成本與日常網路運作效能監控無關。"
+            },
+            {
+                id: 11,
+                type: "single",
+                title: "下列敘述何者不正確？",
+                options: [
+                    "網路效能管理與反應時間有關",
+                    "在設計階段，可以用相關設備及網路參數來模擬網路，以預測網路的效能",
+                    "雙絞線將銅線纏繞的主要原因是要增加拉力",
+                    "3個節點以上之全網狀（Full Mesh）拓樸結構中，每個節點均有兩個以上的傳輸路徑可選擇"
+                ],
+                answer: [2],
+                explanation: "雙絞線將銅線互相纏繞的主要目的是為了「抵消電磁干擾（EMI）與串音（Crosstalk）」，而非增加機械拉力。",
+                errorAnalysis: "雙絞線纏繞的核心目的是抗干擾，增加拉力非主要設計初衷。"
+            },
+            {
+                id: 12,
+                type: "single",
+                title: "下列何者不是造成網路異常事件的自然因素？",
+                options: ["雷擊", "病毒", "地震", "海嘯"],
+                answer: [1],
+                explanation: "病毒（Virus）是由人為撰寫與散佈的惡意程式，屬於人為資安威脅，而非自然環境因素。",
+                errorAnalysis: "病毒屬於人為資安威脅，雷擊、地震、海嘯才是自然因素。"
+            },
+            {
+                id: 13,
+                type: "single",
+                title: "下列敘述何者正確？",
+                options: [
+                    "在規劃網路時不需要考慮應用系統的可用性（Availability）",
+                    "網路規劃設計之 80-20 法則是指小於 80% 訊務流過骨幹網路，20% 訊務侷限在區域性",
+                    "可以增加伺服器方式來降低網路建置成本",
+                    "好的網路規劃案，針對管理者應包含完整的教育訓練計畫。"
+                ],
+                answer: [3],
+                explanation: "一個完善且成熟的網路規劃案，除了硬體架構外，絕對必須包含針對系統與網路管理者的完整教育訓練計畫。",
+                errorAnalysis: "規劃時必須考慮可用性；80-20法則通常指80%流量在區域內、20%流向骨幹；增設伺服器會增加成本。"
+            },
+            {
+                id: 14,
+                type: "single",
+                title: "下列何者不是設計網路架構前，應先確定之目標重點？",
+                options: ["技術考量", "管理考量", "公司名稱考量", "成本考量"],
+                answer: [2],
+                explanation: "設計網路架構前應綜合評估技術、管理、成本與效能等指標，公司名稱考量不具備技術指導意義。",
+                errorAnalysis: "公司名稱與網路架構設計目標無關。"
+            },
+            {
+                id: 15,
+                type: "single",
+                title: "下列敘述何者正確？",
+                options: [
+                    "輪詢（Polling）是指當事件發生時才通知管理者的管理機制",
+                    "提前發現潛在問題、防患於未然非網管人員的工作",
+                    "CMIP（Common Management Information Protocol）是目前最常用的網管通訊協定",
+                    "網路管理系統可以管理到所有支援 SNMP（Simple Network Management Protocol）之網路設備。"
+                ],
+                answer: [3],
+                explanation: "網管系統只要透過 MIB 與 SNMP 協定，就能對所有支援 SNMP 的標準網路設備進行集中管理。",
+                errorAnalysis: "輪詢是管理者主動詢問；預防潛在問題是網管職責；目前最常用的是 SNMP 而非 CMIP。"
+            },
+            {
+                id: 16,
+                type: "single",
+                title: "代理器（Agent）透過哪一種通訊協定，經由網路將資訊傳遞給管理者（Manager）？",
+                options: ["TFTP", "SMTP", "TCP/IP", "SNMP"],
+                answer: [3],
+                explanation: "在網管架構中，Agent 與 Manager 之間就是透過 SNMP 協定來交換管理資訊與狀態。",
+                errorAnalysis: "TFTP、SMTP、TCP/IP 不是專門的網管資訊傳遞協定，應選 SNMP。"
+            },
+            {
+                id: 17,
+                type: "single",
+                title: "網路管理系統的元件（Component）不包含哪一個？",
+                options: ["網路使用者", "路由器", "代理器（Agent）", "管理者（Manager）"],
+                answer: [0],
+                explanation: "SNMP 網管系統的核心元件包含 Manager、Agent、管理資訊庫（MIB）以及受管理的網路設備（如路由器），不包含一般網路使用者。",
+                errorAnalysis: "網路使用者不屬於網管系統的技術架構元件。"
+            },
+            {
+                id: 18,
+                type: "single",
+                title: "下列何者不屬於 ISO 標準網路管理功能分類？",
+                options: ["成本（Cost）管理", "安全（Security）管理", "效能（Performance）管理", "故障（Fault）管理"],
+                answer: [0],
+                explanation: "ISO FCAPS 模型中包含故障、組態、會計、效能與安全，沒有「成本管理」。",
+                errorAnalysis: "成本管理不屬於 ISO 標準五大網管分類。"
+            },
+            {
+                id: 19,
+                type: "single",
+                title: "下列何種 ISO 標準網路管理功能可以設定與修改網路的使用狀態？",
+                options: ["故障（Fault）管理", "歸責（Accounting）管理", "組態（Configuration）管理", "效能（Performance）管理"],
+                answer: [2],
+                explanation: "組態管理（Configuration Management）負責追蹤、設定與修改網路設備的軟硬體參數及使用狀態。",
+                errorAnalysis: "設定與修改網路狀態屬於組態管理的職責。"
+            },
+            {
+                id: 20,
+                type: "single",
+                title: "針對標準管理資訊庫（MIB）的敘述，何者不正確？",
+                options: [
+                    "為存放網路狀態的資訊庫",
+                    "包含物件的讀寫方式",
+                    "定義物件的設備廠牌",
+                    "所有資訊之物件辨別碼以樹狀的資料結構存放"
+                ],
+                answer: [2],
+                explanation: "MIB（Management Information Base）定義的是抽象的網管物件與資料結構（以 OID 樹狀排列），並不綁定或定義特定設備廠牌。",
+                errorAnalysis: "MIB 具有標準化跨廠牌特性，不特別去定義特定廠牌私有細節。"
+            },
+            {
+                id: 21,
+                type: "single",
+                title: "RMON-II 是管理 OSI 網路參考模型第幾層以上的訊務？",
+                options: ["第 2 層", "第 3 層", "第 4 層", "第 7 層"],
+                answer: [1],
+                explanation: "RMON 1 主要監控第 2 層（實體與資料鏈結層），而 RMON-II 則擴充到管理 OSI 第 3 層（網路層）以上的訊務與應用層流量。",
+                errorAnalysis: "RMON-II 專注於第 3 層以上的網路與應用層流量監控。"
+            },
+            {
+                id: 22,
+                type: "single",
+                title: "RMON 管理 OSI 網路參考模型第幾層以下的訊務？",
+                options: ["第 2 層", "第 3 層", "第 4 層", "第 5 層"],
+                answer: [0],
+                explanation: "傳統 RMON（Remote Monitoring）主要針對 OSI 模型第 2 層（資料鏈結層，如乙太網路封包統計）進行遠端監控。",
+                errorAnalysis: "傳統 RMON 著重於第 2 層，與 RMON-II 擴展至第 3 層以上相對應。"
+            },
+            {
+                id: 23,
+                type: "single",
+                title: "SNMP 所用的基本型（Primitive Type）資料有幾種？",
+                options: ["2 種", "3 種", "4 種", "7 種"],
+                answer: [2],
+                explanation: "在 SNMP SMI（Structure of Management Information）中，基本型（Primitive Type）資料型別主要有 4 種：INTEGER、OCTET STRING、OBJECT IDENTIFIER、Null。",
+                errorAnalysis: "基本型別包含 Integer、Octet String、Object Identifier、Null 共 4 種。"
+            },
+            {
+                id: 24,
+                type: "single",
+                title: "SNMP 所用的建構型（Constructed Type）資料有幾種？",
+                options: ["2 種", "3 種", "4 種", "6 種"],
+                answer: [0],
+                explanation: "SNMP 建構型（Constructed Type）資料型別主要包含 2 種：SEQUENCE 和 SEQUENCE OF。",
+                errorAnalysis: "建構型資料僅有 SEQUENCE 與 SEQUENCE OF 2 種。"
+            },
+            {
+                id: 25,
+                type: "single",
+                title: "SNMP 所用的衍生型（Application Type）資料有幾種？",
+                options: ["5 種", "6 種", "7 種", "8 種"],
+                answer: [1],
+                explanation: "SNMP 的應用衍生型（Application-wide / Application Type）資料型別包含 IpAddress、Counter32、Gauge32、TimeTicks、Opaque、Counter64 等共 6 種。",
+                errorAnalysis: "衍生型資料型別標準規範為 6 種。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+        let isSubmitted = {}; 
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            
+            document.getElementById('qText').innerHTML = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            badge.innerText = "單選題";
+            badge.className = "type-badge";
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                if (submitted) {
+                    optDiv.classList.add('disabled');
+                    if (optIdx === q.answer[0]) {
+                        optDiv.classList.add('correct');
+                    } else if (userAnswers[index] === optIdx) {
+                        optDiv.classList.add('wrong');
+                    }
+                } else {
+                    optDiv.onclick = () => {
+                        userAnswers[index] = optIdx;
+                        isSubmitted[index] = true;
+                        loadQuestion(currentIndex);
+                    };
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([
+                    document.getElementById('qText'),
+                    document.getElementById('optionsList')
+                ]).catch((err) => console.log(err));
+            }
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            let isCorrect = userAnswers[qIdx] === q.answer[0];
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不正確，請參考下方解析：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 1 && inputVal <= 25) {
+                currentIndex = inputVal - 1;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (1 - 25)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>
