@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>共同科目_節能減碳 01-25題</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+		
+		.responsive-img {
+  max-width: 100%; /* 圖片最大寬度為容器的 100% */
+  height: auto;    /* 高度自動等比例調整，避免變形 */
+  display: block;  /* 消除圖片下方預留的空白縫隙 */
+}
+
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px; }
+
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .toggle-btn:hover { background-color: #219150; }
+
+        .card-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* 卡片樣式 */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border: 1px solid #eaeaea;
+            position: relative;
+        }
+
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+
+        .question {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* 選項樣式 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            font-size: 1.05em;
+            border-left: 3px solid #cbd5e1;
+        }
+
+        /* 純HTML 摺疊特效設計 */
+        details {
+            background: #fdfefe;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        summary {
+            background: #3498db;
+            color: #ffffff;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
+            cursor: pointer;
+            list-style: none;
+            transition: background 0.3s;
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+
+        /* 解析內容樣式 */
+        .answer-panel {
+            padding: 20px;
+            background: #f4fcf7;
+            border-top: 1px solid #dfe6e9;
+        }
+        .answer-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+
+        .exp-subtitle {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 3px;
+        }
+        .opt-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .opt-list li {
+            margin-bottom: 8px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt {
+            border-left-color: #27ae60 !important;
+            background: #eafaf1 !important;
+        }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>節能減碳共同科目 不分級 工作項目 04：節能減碳</h1>
+    <p>(第01 - 25題)</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 題組 1 -->
+    <div class="card">
+        <span class="theme-badge">主題：節約能源規定</span>
+        <div class="question">1. 依經濟部能源署「指定能源用戶應遵行之節約能源規定」，在正常使用條件下，公眾出入之營業場所其室內冷氣溫度平均值不得低於攝氏幾度？</div>
+        <div class="options">
+            <div class="option">① 26</div>
+            <div class="option">② 25</div>
+            <div class="option">③ 24</div>
+            <div class="option">④ 22</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據經濟部能源署「指定能源用戶應遵行之節約能源規定」，為落實節能減碳，明定公眾出入之營業場所，其室內冷氣溫度平均值不得低於攝氏26度。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 26：正確，為法規明定之最低冷氣溫度標準。</li>
+                    <li class="wrong-opt">② 25：錯誤，低於法規標準。</li>
+                    <li class="wrong-opt">③ 24：錯誤，低於法規標準。</li>
+                    <li class="wrong-opt">④ 22：錯誤，過度耗能且不符規定。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 2 -->
+    <div class="card">
+        <span class="theme-badge">主題：節能標章辨識</span>
+        <div class="question">2. 下列何者為節能標章？</div>
+        <div class="options">
+            <div class="option"><img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%85%B1%E5%90%8C%E7%A7%91%E7%9B%AE_%E7%AF%80%E8%83%BD%E6%B8%9B%E7%A2%B3/2-1.png?raw=true' alt='① [圖示：MIT台灣製微笑標章]' class='responsive-img'></div>
+            <div class="option"><img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%85%B1%E5%90%8C%E7%A7%91%E7%9B%AE_%E7%AF%80%E8%83%BD%E6%B8%9B%E7%A2%B3/2-2.png?raw=true' alt='② [圖示：愛心包圍火與插頭之節能標章]' class='responsive-img'></div>
+            <div class="option"><img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%85%B1%E5%90%8C%E7%A7%91%E7%9B%AE_%E7%AF%80%E8%83%BD%E6%B8%9B%E7%A2%B3/2-3.png?raw=true' alt='③ [圖示：綠色腳印之碳足跡標章]' class='responsive-img'></div>
+            <div class="option"><img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%85%B1%E5%90%8C%E7%A7%91%E7%9B%AE_%E7%AF%80%E8%83%BD%E6%B8%9B%E7%A2%B3/2-4.png?raw=true' alt='④ [圖示：綠葉包圍地球之環保標章]' class='responsive-img'></div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>節能標章的設計理念為一顆心形（代表用心），包圍著電源插頭與火苗（代表電力與燃料），象徵我們應當用心節約能源，愛護地球。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① [圖示：MIT台灣製微笑標章]：錯誤，此為台灣製造標章。</li>
+                    <li class="correct-opt">② [圖示：愛心包圍火與插頭之節能標章]：正確，此為節能標章。</li>
+                    <li class="wrong-opt">③ [圖示：綠色腳印之碳足跡標章]：錯誤，此為產品碳足跡標章。</li>
+                    <li class="wrong-opt">④ [圖示：綠葉包圍地球之環保標章]：錯誤，此為環保標章。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 3 -->
+    <div class="card">
+        <span class="theme-badge">主題：國內能源消費結構</span>
+        <div class="question">3. 下列何者為國內能源消費最大部門？</div>
+        <div class="options">
+            <div class="option">① 服務業</div>
+            <div class="option">② 住宅</div>
+            <div class="option">③ 運輸</div>
+            <div class="option">④ 工業</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>台灣因是以製造業、高科技半導體與石化重工業為經濟發展主力的國家，因此「工業部門」一直是國內能源消費占比最大的部門。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 服務業：錯誤，占比低於工業部門。</li>
+                    <li class="wrong-opt">② 住宅：錯誤，民生住宅用電與能源耗用並非最大。</li>
+                    <li class="wrong-opt">③ 運輸：錯誤，運輸部門消耗主要為燃油，總量仍不及工業。</li>
+                    <li class="correct-opt">④ 工業：正確，為國內最大宗能源消費部門。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 4 -->
+    <div class="card">
+        <span class="theme-badge">主題：節約能源之作法</span>
+        <div class="question">4. 下列何者「不是」節省能源的做法？</div>
+        <div class="options">
+            <div class="option">① 電冰箱溫度長時間設定在強冷或急冷</div>
+            <div class="option">② 影印機當 15 分鐘無人使用時，自動進入省電模式</div>
+            <div class="option">③ 電視機勿背著窗戶，並避免太陽直射</div>
+            <div class="option">④ 短程不開汽車，以儘量搭乘公車、騎單車或步行為宜</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電冰箱如果長時間設定在強冷或急冷模式，會使壓縮機不斷高頻運轉，增加極大的耗電量，這是一種浪費能源的做法，不符合節能原則。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 電冰箱溫度長時間設定在強冷或急冷：正確(非節能做法)，過度冷卻會大幅增加耗電。</li>
+                    <li class="wrong-opt">② 影印機當 15 分鐘無人使用時，自動進入省電模式：錯誤，這是良好的節能做法。</li>
+                    <li class="wrong-opt">③ 電視機勿背著窗戶，並避免太陽直射：錯誤，避免陽光直射可降低機器過熱及散熱負擔，屬節能作法。</li>
+                    <li class="wrong-opt">④ 短程不開汽車，以儘量搭乘公車、騎單車或步行為宜：錯誤，這能有效減少碳排放與燃料消耗。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 5 -->
+    <div class="card">
+        <span class="theme-badge">主題：能源效率標示</span>
+        <div class="question">5. 經濟部能源署的能源效率標示中，電冰箱分為幾個等級？</div>
+        <div class="options">
+            <div class="option">① 1</div>
+            <div class="option">② 3</div>
+            <div class="option">③ 5</div>
+            <div class="option">④ 7</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>我國目前實施的「能源效率分級標示」制度中，涵蓋電冰箱、冷氣機等家電，皆分為「5個等級」，其中第1級最省電，第5級最耗電。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 1：錯誤，層級並非只有一級。</li>
+                    <li class="wrong-opt">② 3：錯誤。</li>
+                    <li class="correct-opt">③ 5：正確，能源效率分為1至5級。</li>
+                    <li class="wrong-opt">④ 7：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 6 -->
+    <div class="card">
+        <span class="theme-badge">主題：溫室氣體當量計算</span>
+        <div class="question">6. 溫室氣體排放量：指自排放源排出之各種溫室氣體量乘以各該物質溫暖化潛勢所得之合計量，以 ①氧化亞氮（N2O） ②二氧化碳（CO2） ③甲烷（CH4） ④六氟化硫（SF6） 當量表示。</div>
+        <div class="options">
+            <div class="option">① 氧化亞氮（N2O）</div>
+            <div class="option">② 二氧化碳（CO2）</div>
+            <div class="option">③ 甲烷（CH4）</div>
+            <div class="option">④ 六氟化硫（SF6）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>因各種溫室氣體對全球暖化的影響力（全球暖化潛勢 GWP）不同，為便於統計與比較，國際統一以「二氧化碳當量（CO2e）」做為溫室氣體排放的計算單位。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 氧化亞氮（N2O）：錯誤，雖為溫室氣體，但非標準當量單位。</li>
+                    <li class="correct-opt">② 二氧化碳（CO2）：正確，溫室氣體排放皆轉換為二氧化碳當量表示。</li>
+                    <li class="wrong-opt">③ 甲烷（CH4）：錯誤。</li>
+                    <li class="wrong-opt">④ 六氟化硫（SF6）：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 7 -->
+    <div class="card">
+        <span class="theme-badge">主題：國家淨零排放目標</span>
+        <div class="question">7. 根據氣候變遷因應法，國家溫室氣體長期減量目標於中華民國幾年達成溫室氣體淨零排放？</div>
+        <div class="options">
+            <div class="option">① 119</div>
+            <div class="option">② 129</div>
+            <div class="option">③ 139</div>
+            <div class="option">④ 149</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>我國《氣候變遷因應法》已明確將國際共識的「2050淨零排放」目標入法，西元2050年換算為中華民國曆即為民國139年。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 119：錯誤，時間過早。</li>
+                    <li class="wrong-opt">② 129：錯誤。</li>
+                    <li class="correct-opt">③ 139：正確，對應西元2050年。</li>
+                    <li class="wrong-opt">④ 149：錯誤，時間過晚。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 8 -->
+    <div class="card">
+        <span class="theme-badge">主題：氣候變遷主管機關</span>
+        <div class="question">8. 氣候變遷因應法所稱主管機關，在中央為下列何單位？</div>
+        <div class="options">
+            <div class="option">① 經濟部能源署</div>
+            <div class="option">② 環境部</div>
+            <div class="option">③ 國家發展委員會</div>
+            <div class="option">④ 衛生福利部</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>《氣候變遷因應法》明定，負責氣候變遷政策統籌、溫室氣體減量管理之中央主管機關為「環境部」（原行政院環境保護署升格）。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 經濟部能源署：錯誤，主要負責能源政策開發與管理。</li>
+                    <li class="correct-opt">② 環境部：正確，為氣候變遷法之中央主管機關。</li>
+                    <li class="wrong-opt">③ 國家發展委員會：錯誤，負責國家發展整體規劃。</li>
+                    <li class="wrong-opt">④ 衛生福利部：錯誤，負責國民健康。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 9 -->
+    <div class="card">
+        <span class="theme-badge">主題：溫室氣體排放額度單位</span>
+        <div class="question">9. 氣候變遷因應法中所稱：一單位之排放額度相當於允許排放多少的二氧化碳當量？</div>
+        <div class="options">
+            <div class="option">① 1 公斤</div>
+            <div class="option">② 1 立方米</div>
+            <div class="option">③ 1 公噸</div>
+            <div class="option">④ 1 公升</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在國內外碳定價與交易機制中，溫室氣體排放額度（Carbon Credit）的基本計算與交易單位，一律採用「1 公噸二氧化碳當量」作為1單位。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 1 公斤：錯誤，重量太小不符碳交易標準。</li>
+                    <li class="wrong-opt">② 1 立方米：錯誤，碳排放量不以體積計價。</li>
+                    <li class="correct-opt">③ 1 公噸：正確，法規明定一單位為1公噸二氧化碳當量。</li>
+                    <li class="wrong-opt">④ 1 公升：錯誤，非氣體排放計算標準。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 10 -->
+    <div class="card">
+        <span class="theme-badge">主題：全球暖化現象影響</span>
+        <div class="question">10. 下列何者「不是」全球暖化帶來的影響？</div>
+        <div class="options">
+            <div class="option">① 洪水</div>
+            <div class="option">② 熱浪</div>
+            <div class="option">③ 地震</div>
+            <div class="option">④ 旱災</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>全球暖化會造成氣候系統的不穩定，引發如暴雨導致的洪水、極端高溫的熱浪、降雨缺乏的旱災等極端天氣現象。而「地震」是地殼板塊運動造成的自然地質現象，與氣候變遷無關。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 洪水：錯誤，極端降雨(氣候異常)易致災。</li>
+                    <li class="wrong-opt">② 熱浪：錯誤，氣溫升高導致。</li>
+                    <li class="correct-opt">③ 地震：正確，屬地層構造板塊運動，非氣候暖化結果。</li>
+                    <li class="wrong-opt">④ 旱災：錯誤，氣候異常引發的水資源分配不均。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 11 -->
+    <div class="card">
+        <span class="theme-badge">主題：減碳具體行動</span>
+        <div class="question">11. 下列何種方法無法減少二氧化碳？</div>
+        <div class="options">
+            <div class="option">① 想吃多少儘量點，剩下可當廚餘回收</div>
+            <div class="option">② 選購當地、當季食材，減少運輸碳足跡</div>
+            <div class="option">③ 多吃蔬菜，少吃肉</div>
+            <div class="option">④ 自備杯筷，減少免洗用具垃圾量</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>廚餘處理（不論是掩埋或焚化）的過程都會產生溫室氣體，且生產被浪費掉的食物過程本身即已製造了大量碳排。因此「隨便點、剩的當廚餘」是浪費行為，完全無法減碳；正確的做法是吃多少點多少，避免廚餘產生。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 想吃多少儘量點，剩下可當廚餘回收：正確(此舉無法減碳)，食物浪費會增加不必要的碳排。</li>
+                    <li class="wrong-opt">② 選購當地、當季食材，減少運輸碳足跡：錯誤，減少食物里程是極佳的減碳法。</li>
+                    <li class="wrong-opt">③ 多吃蔬菜，少吃肉：錯誤，畜牧業碳排放量高，少肉有助減碳。</li>
+                    <li class="wrong-opt">④ 自備杯筷，減少免洗用具垃圾量：錯誤，能減少廢棄物及生產製造時的碳排。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 12 -->
+    <div class="card">
+        <span class="theme-badge">主題：減少溫室氣體對策</span>
+        <div class="question">12. 下列何者不會減少溫室氣體的排放？</div>
+        <div class="options">
+            <div class="option">① 減少使用煤、石油等化石燃料</div>
+            <div class="option">② 大量植樹造林，禁止亂砍亂伐</div>
+            <div class="option">③ 增高燃煤氣體排放的煙囪</div>
+            <div class="option">④ 開發太陽能、水能等新能源</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>增高燃煤工廠的煙囪，只能讓排放出的空氣污染物擴散到更高的大氣層以減輕當地的空氣品質惡化感受，但「溫室氣體排放總量」完全沒有減少，無助於減緩全球暖化。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 減少使用煤、石油等化石燃料：錯誤，這是最直接的減碳來源控制法。</li>
+                    <li class="wrong-opt">② 大量植樹造林，禁止亂砍亂伐：錯誤，植物碳匯能吸收溫室氣體。</li>
+                    <li class="correct-opt">③ 增高燃煤氣體排放的煙囪：正確(此舉不會減排)，僅改變排放高度不改變總量。</li>
+                    <li class="wrong-opt">④ 開發太陽能、水能等新能源：錯誤，潔淨能源可取代高碳排的化石能源。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 13 -->
+    <div class="card">
+        <span class="theme-badge">主題：綠色採購原則</span>
+        <div class="question">13. 關於綠色採購之敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 採購由回收材料所製造之物品</div>
+            <div class="option">② 採購的產品對環境及人類健康有最小的傷害性</div>
+            <div class="option">③ 選購對環境傷害較少、污染程度較低的產品</div>
+            <div class="option">④ 以精美包裝為主要首選</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>綠色採購的核心精神在於選購對環境友善、低污染、可回收、省資源的產品。過度精美的包裝不僅浪費原物料，更會產生大量不易分解的垃圾，違背綠色採購的精神。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 採購由回收材料所製造之物品：正確觀念。</li>
+                    <li class="wrong-opt">② 採購的產品對環境及人類健康有最小的傷害性：正確觀念。</li>
+                    <li class="wrong-opt">③ 選購對環境傷害較少、污染程度較低的產品：正確觀念。</li>
+                    <li class="correct-opt">④ 以精美包裝為主要首選：錯誤觀念，應避免過度包裝。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 14 -->
+    <div class="card">
+        <span class="theme-badge">主題：二氧化碳增加的後果</span>
+        <div class="question">14. 一旦大氣中的二氧化碳含量增加，會引起哪一種後果？</div>
+        <div class="options">
+            <div class="option">① 溫室效應惡化</div>
+            <div class="option">② 臭氧層破洞</div>
+            <div class="option">③ 冰期來臨</div>
+            <div class="option">④ 海平面下降</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>二氧化碳是最具代表性的溫室氣體，其特性會吸收地表反射之長波輻射（熱能），使熱量留在大氣層中。因此二氧化碳濃度不斷上升，將直接導致「溫室效應惡化」，引發氣候暖化。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 溫室效應惡化：正確，熱能無法散失，造成全球暖化。</li>
+                    <li class="wrong-opt">② 臭氧層破洞：錯誤，主要肇因是氟氯碳化物(CFCs)，而非二氧化碳。</li>
+                    <li class="wrong-opt">③ 冰期來臨：錯誤，會造成暖化而非冰期。</li>
+                    <li class="wrong-opt">④ 海平面下降：錯誤，暖化導致冰川融化，海平面是上升的。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 15 -->
+    <div class="card">
+        <span class="theme-badge">主題：建築節能設計考量</span>
+        <div class="question">15. 關於建築中常用的金屬玻璃帷幕牆，下列敘述何者正確？</div>
+        <div class="options">
+            <div class="option">① 玻璃帷幕牆的使用能節省室內空調使用</div>
+            <div class="option">② 玻璃帷幕牆適用於臺灣，讓夏天的室內產生溫暖的感覺</div>
+            <div class="option">③ 在溫度高的國家，建築物使用金屬玻璃帷幕會造成日照輻射熱，產生室內「溫室效應」</div>
+            <div class="option">④ 臺灣的氣候濕熱，特別適合在大樓以金屬玻璃帷幕作為建材</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>大面積的金屬玻璃帷幕牆雖然透光度佳、外觀現代，但會讓陽光輻射熱長驅直入室內，且熱能不易散出，容易在室內形成強烈的溫室效應。對於地處亞熱帶、高溫多濕的台灣，反而會造成冷氣空調耗電量劇增。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 玻璃帷幕牆的使用能節省室內空調使用：錯誤，反而極度耗能。</li>
+                    <li class="wrong-opt">② 玻璃帷幕牆適用於臺灣，讓夏天的室內產生溫暖的感覺：錯誤，夏天不需要「溫暖」，會導致酷熱。</li>
+                    <li class="correct-opt">③ 在溫度高的國家，建築物使用金屬玻璃帷幕會造成日照輻射熱，產生室內「溫室效應」：正確。</li>
+                    <li class="wrong-opt">④ 臺灣的氣候濕熱，特別適合在大樓以金屬玻璃帷幕作為建材：錯誤，極不適合且耗電。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 16 -->
+    <div class="card">
+        <span class="theme-badge">主題：能源類型辨別</span>
+        <div class="question">16. 下列何者不是能源之類型？</div>
+        <div class="options">
+            <div class="option">① 電力</div>
+            <div class="option">② 壓縮空氣</div>
+            <div class="option">③ 蒸汽</div>
+            <div class="option">④ 熱傳</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>能源依性質分為一次能源與二次能源。電力、壓縮空氣與蒸汽皆是工業上可使用的二次能源載體；而「熱傳（熱傳導、對流、輻射）」屬於物理學上熱能傳遞的「過程或現象」，並非能源類型。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 電力：錯誤，電力是二次能源。</li>
+                    <li class="wrong-opt">② 壓縮空氣：錯誤，為工業界廣泛應用之動力二次能源。</li>
+                    <li class="wrong-opt">③ 蒸汽：錯誤，用於加熱及驅動之二次能源。</li>
+                    <li class="correct-opt">④ 熱傳：正確，這只是熱量轉移的物理現象，非能源本身。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 17 -->
+    <div class="card">
+        <span class="theme-badge">主題：能源管理系統標準</span>
+        <div class="question">17. 我國已制定能源管理系統標準為</div>
+        <div class="options">
+            <div class="option">① CNS 50001</div>
+            <div class="option">② CNS 12681</div>
+            <div class="option">③ CNS 14001</div>
+            <div class="option">④ CNS 22000</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>國際標準化組織 (ISO) 發布的 ISO 50001 為能源管理系統標準。我國經濟部標準檢驗局將其轉化成為國家標準，編號為「CNS 50001」，協助企業建立能源管理機制以提升能效。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① CNS 50001：正確，為能源管理系統標準。</li>
+                    <li class="wrong-opt">② CNS 12681：錯誤，(對應ISO 9001)為品質管理系統。</li>
+                    <li class="wrong-opt">③ CNS 14001：錯誤，為環境管理系統。</li>
+                    <li class="wrong-opt">④ CNS 22000：錯誤，為食品安全管理系統標準。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 18 -->
+    <div class="card">
+        <span class="theme-badge">主題：時間電價制度</span>
+        <div class="question">18. 台灣電力股份有限公司所謂的三段式時間電價於夏月平日（非週六日）之尖峰用電時段為何？</div>
+        <div class="options">
+            <div class="option">① 9：00〜24：00</div>
+            <div class="option">② 6：00〜11：00</div>
+            <div class="option">③ 16：00〜22：00</div>
+            <div class="option">④ 9：00〜16：00</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>隨著太陽光電併網量大增，白天的供電壓力減輕，夜間日落後則形成系統新的負載高峰(夜尖峰)。為引導用戶移轉用電，台電新制三段式時間電價，夏月平日的尖峰時段已調整為「16:00至22:00」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 9：00〜24：00：錯誤。</li>
+                    <li class="wrong-opt">② 6：00〜11：00：錯誤。</li>
+                    <li class="correct-opt">③ 16：00〜22：00：正確，為現行夏月夜尖峰時段。</li>
+                    <li class="wrong-opt">④ 9：00〜16：00：錯誤，白天因有太陽能，已轉為半尖峰或非尖峰。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 19 -->
+    <div class="card">
+        <span class="theme-badge">主題：照明光源能效</span>
+        <div class="question">19. 基於節能減碳的目標，下列何種光源發光效率最低，不鼓勵使用？</div>
+        <div class="options">
+            <div class="option">① 白熾燈泡</div>
+            <div class="option">② LED 燈泡</div>
+            <div class="option">③ 省電燈泡</div>
+            <div class="option">④ 螢光燈管</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>白熾燈泡（鎢絲燈）是利用電流加熱鎢絲至白熾狀態發光，過程中約90%的電能轉化為熱能，只有約10%轉化為光能，發光效率極差，各國皆已宣導淘汰、不鼓勵使用。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 白熾燈泡：正確，發光效率最低且廢熱最多。</li>
+                    <li class="wrong-opt">② LED 燈泡：錯誤，為目前發光效率最高之主流照明。</li>
+                    <li class="wrong-opt">③ 省電燈泡：錯誤，效率雖不及LED，但仍遠高於白熾燈。</li>
+                    <li class="wrong-opt">④ 螢光燈管：錯誤，屬於較高效率之照明設備。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 20 -->
+    <div class="card">
+        <span class="theme-badge">主題：能源效率分級判讀</span>
+        <div class="question">20. 下列的能源效率分級標示，哪一項較省電？</div>
+        <div class="options">
+            <div class="option">① 1</div>
+            <div class="option">② 2</div>
+            <div class="option">③ 3</div>
+            <div class="option">④ 4</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>我國推動的「能源效率分級標示」溫度計圖示，級別數字越小（如第1級，顯示於下方地球處），代表耗電量越低、越節能環保。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 1：正確，1級代表最高能源效率、最省電。</li>
+                    <li class="wrong-opt">② 2：錯誤。</li>
+                    <li class="wrong-opt">③ 3：錯誤。</li>
+                    <li class="wrong-opt">④ 4：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 21 -->
+    <div class="card">
+        <span class="theme-badge">主題：台灣發電結構</span>
+        <div class="question">21. 下列何者「不是」目前台灣主要的發電方式？</div>
+        <div class="options">
+            <div class="option">① 燃煤</div>
+            <div class="option">② 燃氣</div>
+            <div class="option">③ 水力</div>
+            <div class="option">④ 地熱</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>台灣目前的發電結構仍以火力發電（天然氣、燃煤）為最主力，再生能源中則有水力、太陽光電與風力等具一定規模。而「地熱」發電受限於探勘與技術成本，在台灣尚處於起步或小規模示範階段，非現行主要發電方式。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 燃煤：錯誤，為基載火力發電主力之一。</li>
+                    <li class="wrong-opt">② 燃氣：錯誤，為目前台灣發電占比最高的火力機組。</li>
+                    <li class="wrong-opt">③ 水力：錯誤，在台灣已有悠久歷史且具調節性之主要再生能源。</li>
+                    <li class="correct-opt">④ 地熱：正確，目前佔總發電量極微，並非主要方式。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 22 -->
+    <div class="card">
+        <span class="theme-badge">主題：電氣與用電安全</span>
+        <div class="question">22. 有關延長線及電線的使用，下列敘述何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 拔下延長線插頭時，應手握插頭取下</div>
+            <div class="option">② 使用中之延長線如有異味產生，屬正常現象不須理會</div>
+            <div class="option">③ 應避開火源，以免外覆塑膠熔解，致使用時造成短路</div>
+            <div class="option">④ 使用老舊之延長線，容易造成短路、漏電或觸電等危險情形，應立即更換</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>延長線若發生「異味」、「異常發熱」或「微小火花」，通常代表線路已經過載、接點氧化鬆脫或內部斷裂，隨時可能引發電線走火的火災，絕對不屬正常現象，應立即拔除停用。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 拔下延長線插頭時，應手握插頭取下：正確作法，避免硬扯電線造成內部銅線斷裂。</li>
+                    <li class="correct-opt">② 使用中之延長線如有異味產生，屬正常現象不須理會：錯誤作法，此為火災前兆，需立即停用。</li>
+                    <li class="wrong-opt">③ 應避開火源，以免外覆塑膠熔解，致使用時造成短路：正確作法。</li>
+                    <li class="wrong-opt">④ 使用老舊之延長線，容易造成短路、漏電或觸電等危險情形，應立即更換：正確作法。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 23 -->
+    <div class="card">
+        <span class="theme-badge">主題：觸電事故急救原則</span>
+        <div class="question">23. 有關觸電的處理方式，下列敘述何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 立即將觸電者拉離現場</div>
+            <div class="option">② 把電源開關關閉</div>
+            <div class="option">③ 通知救護人員</div>
+            <div class="option">④ 使用絕緣的裝備來移除電源</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在人員觸電事故現場，第一時間最重要的原則是「切斷電源」。如果直接徒手去拉觸電者，施救者也會成為導電體而跟著觸電。因此必須關閉電源或使用乾燥木棍等絕緣物挑開電線。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 立即將觸電者拉離現場：錯誤作法，徒手拉人會造成連環觸電。</li>
+                    <li class="wrong-opt">② 把電源開關關閉：正確作法，是確保安全的第一步。</li>
+                    <li class="wrong-opt">③ 通知救護人員：正確作法，應尋求專業醫療協助。</li>
+                    <li class="wrong-opt">④ 使用絕緣的裝備來移除電源：正確作法，可保護施救者不受傷害。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 24 -->
+    <div class="card">
+        <span class="theme-badge">主題：電能計費單位</span>
+        <div class="question">24. 目前電費單中，係以「度」為收費依據，下列何者為其單位？</div>
+        <div class="options">
+            <div class="option">① kW</div>
+            <div class="option">② kWh</div>
+            <div class="option">③ kJ</div>
+            <div class="option">④ kJh</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電費是按「消耗的電能」計算，1「度」電定義為1000瓦特（1kW）的電器連續使用1小時（1h）所消耗的能量，因此縮寫單位為千瓦小時（kWh）。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① kW：錯誤，這是電功率(瓦數)單位，不含時間。</li>
+                    <li class="correct-opt">② kWh：正確，千瓦小時即俗稱的「度」。</li>
+                    <li class="wrong-opt">③ kJ：錯誤，為熱量與能量單位的千焦耳，非計量電費常用單位。</li>
+                    <li class="wrong-opt">④ kJh：錯誤，無此單位。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 25 -->
+    <div class="card">
+        <span class="theme-badge">主題：時間電價計費差異</span>
+        <div class="question">25. 依據台灣電力公司三段式時間電價（尖峰、半尖峰及離峰時段）的規定，哪個時段電價最便宜？</div>
+        <div class="options">
+            <div class="option">① 尖峰時段</div>
+            <div class="option">② 夏月半尖峰時段</div>
+            <div class="option">③ 非夏月半尖峰時段</div>
+            <div class="option">④ 離峰時段</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>台電為促使用戶避開系統高負載時期，將電價區分為尖峰、半尖峰與離峰。「離峰時段」代表整體電網負載最低的時刻（通常在深夜至清晨），故提供最便宜的費率，鼓勵民眾移轉用電。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 尖峰時段：錯誤，此時段供電最吃緊，單價最貴。</li>
+                    <li class="wrong-opt">② 夏月半尖峰時段：錯誤，單價次高。</li>
+                    <li class="wrong-opt">③ 非夏月半尖峰時段：錯誤，單價相對便宜但非最低。</li>
+                    <li class="correct-opt">④ 離峰時段：正確，為三段式時間電價中最便宜的時段。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>
