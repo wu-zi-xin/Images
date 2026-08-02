@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async
+	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+	</script>
+    <title>工作項目 測驗 (51-75) - 實戰指南風格</title>
+    <style>
+        :root {
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:hover:not(:disabled) .svg-icon {
+            stroke: #ffffff;
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-nav-main:disabled .svg-icon {
+            stroke: #94a3b8;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 85px; 
+            }
+
+            .header {
+                height: var(--header-height);
+                align-items: flex-start;
+                padding-top: 1rem;
+            }
+
+            .hamburger-btn {
+                display: block;
+                margin-top: 0.1rem;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: var(--header-height); 
+                left: 0;
+                bottom: 0;
+                height: calc(100vh - var(--header-height));
+                z-index: 101;
+                transform: translateX(-100%);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn-nav-main {
+                padding: 0.85rem 0.8rem;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            職業道德、職場倫理與智財法規 測驗 (51-75)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (51-75)" min="51" max="75">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid"></div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 51 題 / 共 25 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList"></div>
+
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 51,
+                type: "single",
+                title: "下列何者符合專業人員的職業道德？",
+                options: [
+                    "未經雇主同意，於上班時間從事私人事務",
+                    "利用雇主的機具設備私自接單生產",
+                    "未經顧客同意，任意散佈或利用顧客資料",
+                    "盡力維護雇主及客戶的權益。"
+                ],
+                answer: [3],
+                explanation: "專業人員應恪守職業倫理，盡力維護雇主與客戶的合法權益，遵守保密義務及公司規範。",
+                errorAnalysis: "選項(1)、(2)、(3)皆屬違反職業道德與工作紀律之行為。"
+            },
+            {
+                id: 52,
+                type: "single",
+                title: "身為公司員工必須維護公司利益，下列何者是正確的工作態度或行為？",
+                options: [
+                    "將公司逾期的產品更改標籤",
+                    "施工時以省時、省料為獲利首要考量，不顧品質",
+                    "服務時優先考量公司的利益，顧客權益次之",
+                    "工作時謹守本分，以積極態度解決問題。"
+                ],
+                answer: [3],
+                explanation: "工作時應謹守崗位本分，並以積極正向的態度面對並解決工作上的問題。",
+                errorAnalysis: "改標籤、偷工減料或犧牲顧客權益皆嚴重違反法令與誠信原則。"
+            },
+            {
+                id: 53,
+                type: "single",
+                title: "身為專業技術工作人士，應以何種認知及態度服務客戶？",
+                options: [
+                    "若客戶不瞭解，就儘量減少成本支出，抬高報價",
+                    "遇到維修問題，儘量拖過保固期",
+                    "主動告知可能碰到問題及預防方法",
+                    "隨著個人心情來提供服務的內容及品質。"
+                ],
+                answer: [2],
+                explanation: "專業技術人員應秉持專業誠信，主動為客戶提供專業評估、潛在問題預警及適當的預防維護建議。",
+                errorAnalysis: "欺瞞客戶、故意拖延保固或依心情提供服務皆非專業態度。"
+            },
+            {
+                id: 54,
+                type: "single",
+                title: "因為工作本身需要高度專業技術及知識，所以在對客戶服務時應如何？",
+                options: [
+                    "不用理會顧客的意見",
+                    "保持親切、真誠、客戶至上的態度",
+                    "若價錢較低，就敷衍了事",
+                    "以專業機密為由，不用對客戶說明及解釋。"
+                ],
+                answer: [1],
+                explanation: "即便具備高度專業，面對客戶仍應保持親切熱忱與真誠溝通的態度。",
+                errorAnalysis: "傲慢無視客戶意見或敷衍應付皆非良好的服務態度。"
+            },
+            {
+                id: 55,
+                type: "single",
+                title: "從事專業性工作，在與客戶約定時間應",
+                options: [
+                    "保持彈性，任意調整",
+                    "儘可能準時，依約定時間完成工作",
+                    "能拖就拖，能改就改",
+                    "自己方便就好，不必理會客戶的要求。"
+                ],
+                answer: [1],
+                explanation: "守時與守信是職業道德的核心，應儘可能準時並於約定時間內完成交付工作。",
+                errorAnalysis: "任意變動或拖延時間會嚴重損害專業信用。"
+            },
+            {
+                id: 56,
+                type: "single",
+                title: "從事專業性工作，在服務顧客時應有的態度為何？",
+                options: [
+                    "選擇最安全、經濟及有效的方法完成工作",
+                    "選擇工時較長、獲利較多的方法服務客戶",
+                    "為了降低成本，可以降低安全標準",
+                    "不必顧及雇主和顧客的立場。"
+                ],
+                answer: [0],
+                explanation: "提供專業服務時，應以安全為首要考量，並兼具經濟效益與執行效率。",
+                errorAnalysis: "降低安全標準或故意拉長工時謀利皆違背專業倫理。"
+            },
+            {
+                id: 57,
+                type: "single",
+                title: "以下哪一項員工的作為符合敬業精神？",
+                options: [
+                    "利用正常工作時間從事私人事務",
+                    "運用雇主的資源，從事個人工作",
+                    "未經雇主同意擅離工作崗位",
+                    "謹守職場紀律及禮節，尊重客戶隱私。"
+                ],
+                answer: [3],
+                explanation: "敬業精神體現在遵守 workplace 紀律與禮節、恪盡職守並尊重客戶隱私。",
+                errorAnalysis: "選項(1)、(2)、(3)皆屬欠缺敬業精神公私不分之行為。"
+            },
+            {
+                id: 58,
+                type: "single",
+                title: "小張獲選為小孩學校的家長會長，這個月要召開會議，沒時間準備資料，所以，利用上班期間有空檔非休息時間來完成，請問是否可以？",
+                options: [
+                    "可以，因為不耽誤他的工作",
+                    "可以，因為他能力好，能夠同時完成很多事",
+                    "不可以，因為這是私事，不可以利用上班時間完成",
+                    "可以，只要不要被發現。"
+                ],
+                answer: [2],
+                explanation: "上班時間屬雇主所有，員工應專心處理公務，不得利用工作時間處理個人私人事務。",
+                errorAnalysis: "即便是非休息時間的空檔，上班時間處理私事仍不符合職場規範。"
+            },
+            {
+                id: 59,
+                type: "single",
+                title: "小吳是公司的專用司機，為了能夠隨時用車，經過公司同意，每晚都將公司的車開回家，然而，他發現反正每天上班路線，都要經過女兒學校，就順便載女兒上學，請問可以嗎？",
+                options: [
+                    "可以，反正順路",
+                    "不可以，這是公司的車不能私用",
+                    "可以，只要不被公司發現即可",
+                    "可以，要資源須有效使用。"
+                ],
+                answer: [1],
+                explanation: "公物嚴禁公器私用，即便順路，未經允許私自使用公司車輛載送家人仍屬公物私用。",
+                errorAnalysis: "公司車輛之使用權限限於公務，不可擅自私人使用。"
+            },
+            {
+                id: 60,
+                type: "single",
+                title: "小江是職場上的新鮮人，剛進公司不久，他應該具備怎樣的態度？",
+                options: [
+                    "上班、下班，管好自己便可",
+                    "仔細觀察公司生態，加入某些小團體，以作為後盾",
+                    "只要做好人脈關係，這樣以後就好辦事",
+                    "努力做好自己職掌的業務，樂於工作，與同事之間有良好的互動，相互協助。"
+                ],
+                answer: [3],
+                explanation: "職場新鮮人應聚焦於做好本職工作，建立積極團隊合作與良好的同仁互動。",
+                errorAnalysis: "搞小團體或僅注重投機的人脈操作非健康之職場態度。"
+            },
+            {
+                id: 61,
+                type: "single",
+                title: "在公司內部行使商務禮儀的過程，主要以參與者在公司中的何種條件來訂定順序？",
+                options: ["年齡", "性別", "社會地位", "職位"],
+                answer: [3],
+                explanation: "職場或商務禮儀以「職位尊卑（職務高低）」為主要排序依據，而非個人年齡或性別。",
+                errorAnalysis: "公司內部商務倫理以組織階層與職務（Position）為首要尊卑排序標準。"
+            },
+            {
+                id: 62,
+                type: "single",
+                title: "一位職場新鮮人剛進公司時，良好的工作態度是",
+                options: [
+                    "多觀察、多學習，了解企業文化和價值觀",
+                    "多打聽哪一個部門比較輕鬆，升遷機會較多",
+                    "多探聽哪一個公司在找人，隨時準備跳槽走人",
+                    "多遊走各部門認識同事，建立自己的小圈圈。"
+                ],
+                answer: [0],
+                explanation: "初入職場應抱持謙虛學習態度，多觀察並主動理解企業文化與營運思維。",
+                errorAnalysis: "打聽輕鬆部門或遊走拉幫結派皆非積極正向之新人工作態度。"
+            },
+            {
+                id: 63,
+                type: "single",
+                title: "根據消除對婦女一切形式歧視公約(CEDAW)，下列何者正確？",
+                options: [
+                    "對婦女的歧視指基於性別而作的任何區別、排斥或限制",
+                    "只關心女性在政治方面的人權和基本自由",
+                    "未要求政府需消除個人或企業對女性的歧視",
+                    "傳統習俗應予保護及傳承，即使含有歧視女性的部分，也不可以改變。"
+                ],
+                answer: [0],
+                explanation: "CEDAW第1條明確定義對婦女的歧視係指基於性別而作的任何區別、排斥或限制。",
+                errorAnalysis: "CEDAW涵蓋政治、經濟、社會、文化等全面領域，並要求消除包括民間與傳統習俗在內之歧視。"
+            },
+            {
+                id: 64,
+                type: "single",
+                title: "某規範明定地政機關進用女性測量助理名額，不得超過該機關測量助理名額總數二分之一，根據消除對婦女一切形式歧視公約(CEDAW)，下列何者正確？",
+                options: [
+                    "限制女性測量助理人數比例，屬於直接歧視",
+                    "土地測量經常在戶外工作，基於保護女性所作的限制，不屬性別歧視",
+                    "此項二分之一規定是為促進男女比例平衡",
+                    "此限制是為確保機關業務順暢推動，並未歧視女性。"
+                ],
+                answer: [0],
+                explanation: "設定女性名額上限直接剝奪女性平等參與該職務之機會，屬於明文的「直接歧視」。",
+                errorAnalysis: "不得以「保護女性」或「工作性質」為由隨意設定女性人數上限限制。"
+            },
+            {
+                id: 65,
+                type: "single",
+                title: "根據消除對婦女一切形式歧視公約(CEDAW)之間接歧視意涵，下列何者錯誤？",
+                options: [
+                    "一項法律、政策、方案或措施表面上對男性和女性無任何歧視，但實際上卻產生歧視女性的效果",
+                    "察覺間接歧視的一個方法，是善加利用性別統計與性別分析",
+                    "如果未正視歧視之結構和歷史模式，及忽略男女權力關係之不平等，可能使現不平等狀況更為惡化",
+                    "不論在任何情況下，只要以相同方式對待男性和女性，就能避免間接歧視之產生。"
+                ],
+                answer: [3],
+                explanation: "若無視結構性與起跑點的不平等，看似一律「形式上平等對待」，反而可能造成或深化實質上的「間接歧視」。",
+                errorAnalysis: "形式上的相同對待若忽視現存不利結構，仍會構成間接歧視。"
+            },
+            {
+                id: 66,
+                type: "single",
+                title: "下列何者不是菸害防制法之立法目的？",
+                options: [
+                    "防制菸害",
+                    "保護未成年免於菸害",
+                    "保護孕婦免於菸害",
+                    "促進菸品的使用。"
+                ],
+                answer: [3],
+                explanation: "菸害防制法第1條規定立法目的係為防制菸害、保護國民健康，並非促進菸品使用。",
+                errorAnalysis: "促進菸品使用完全違背菸害防制法之宗旨。"
+            },
+            {
+                id: 67,
+                type: "single",
+                title: "按菸害防制法規定，在禁菸場所吸菸會被罰多少錢？",
+                options: [
+                    "新臺幣 2 千元至 1 萬元罰鍰",
+                    "新臺幣 1 千元至 5 千元罰鍰",
+                    "新臺幣 1 萬元至 5 萬元罰鍰",
+                    "新臺幣 2 萬元至 10 萬元罰鍰。"
+                ],
+                answer: [0],
+                explanation: "依菸害防制法第40條規定，於禁菸場所吸菸者，處新臺幣 2 千元以上 1 萬元以下罰鍰。",
+                errorAnalysis: "禁菸場所違規吸菸之法定罰鍰為 2,000 ~ 10,000 元。"
+            },
+            {
+                id: 68,
+                type: "single",
+                title: "請問下列何者不是個人資料保護法所定義的個人資料？",
+                options: ["身分證號碼", "最高學歷", "職稱", "護照號碼"],
+                answer: [2],
+                explanation: "「職稱」為一般性職務名稱，無法單獨據以直接或間接識別特定個人；身分證字號、學歷與護照號碼則可識別特定個人，屬個資範疇。",
+                errorAnalysis: "單純的職稱（如經理、工程師）不具直接或間接識別特定個人之特性。"
+            },
+            {
+                id: 69,
+                type: "single",
+                title: "有關專利權的敘述，下列何者正確？",
+                options: [
+                    "專利有規定保護年限，當某商品、技術的專利保護年限屆滿，任何人皆可免費運用該項專利",
+                    "我發明了某項商品，卻被他人率先申請專利權，我仍可主張擁有這項商品的專利權",
+                    "製造方法可以申請新型專利權",
+                    "在本國申請專利之商品進軍國外，不需向他國申請專利權。"
+                ],
+                answer: [0],
+                explanation: "專利權保護期滿後，該技術進入公眾領域（Public Domain），任何人皆可自由免費使用。",
+                errorAnalysis: "我國採先申請原則；製造方法僅能申請發明專利（新型限物品結構）；專利具屬地主義須赴他國另行申請。"
+            },
+            {
+                id: 70,
+                type: "single",
+                title: "下列何者行為會有侵害著作權的問題？",
+                options: [
+                    "將報導事件事實的新聞文字轉貼於自己的社群網站",
+                    "直接轉貼高普考考古題在 FACEBOOK",
+                    "以分享網址的方式轉貼資訊分享於社群網站",
+                    "將講師的授課內容錄音，複製多份分贈友人。"
+                ],
+                answer: [3],
+                explanation: "講師之口述授課內容屬於語言著作，未經同意錄音、重製並散布分贈他人，侵害著作權人之重製權與散布權。",
+                errorAnalysis: "純單純事實新聞、公務考試試題不具著作權；嵌入網址連結屬公開傳輸之超連結不構成重製。"
+            },
+            {
+                id: 71,
+                type: "single",
+                title: "有關著作權之概念，下列何者正確？",
+                options: [
+                    "國外學者之著作，可受我國著作權法的保護",
+                    "公務機關所函頒之公文，受我國著作權法的保護",
+                    "著作權要待向智慧財產權申請通過後才可以主張",
+                    "以傳達事實之新聞報導的語文著作，依然受著作權之保障。"
+                ],
+                answer: [0],
+                explanation: "依著作權法第4條（國際互惠原則及WTO協定），外國人之著作符合條件者亦受我國著作權法保護[cite: 1]。",
+                errorAnalysis: "公文與單純傳達事實之新聞報導依法不得為著作權之標的；著作權採「創作完成主義」不需登記申請即可主張權利[cite: 1]。"
+            },
+            {
+                id: 72,
+                type: "single",
+                title: "某廠商之商標在我國已經獲准註冊，請問若希望將商品行銷販售到國外，請問是否需要在當地申請註冊才能主張商標權？",
+                options: [
+                    "是，因為商標權註冊採取屬地保護原則",
+                    "否，因為我國申請註冊之商標權在國外也會受到承認",
+                    "不一定，需視我國是否與商品希望行銷販售的國家訂有相互商標承認之協定",
+                    "不一定，需視商品希望行銷販售的國家是否為 WTO 會員國。"
+                ],
+                answer: [0],
+                explanation: "智慧財產權（包括商標權）採「屬地主義（Territoriality Principle）」，欲在當地獲取權利保護必須在該國/地區辦理註冊[cite: 1]。"
+            },
+            {
+                id: 73,
+                type: "single",
+                title: "下列何者不屬於營業秘密？",
+                options: [
+                    "具廣告性質的不動產交易底價",
+                    "須授權取得之產品設計或開發流程圖示",
+                    "公司內部管制的各種計畫方案",
+                    "不是公開可查知的客戶名單分析資料。"
+                ],
+                answer: [0],
+                explanation: "具「廣告性質」公開宣告的不動產底價已不具備「秘密性」，故不符合營業秘密之法定要件[cite: 1]。",
+                errorAnalysis: "已公開揭露之資訊欠缺「秘密性」要件[cite: 1]。"
+            },
+            {
+                id: 74,
+                type: "single",
+                title: "營業秘密可分為「技術秘密」與「商業秘密」，下列何者屬於「商業秘密」？",
+                options: ["程式", "設計圖", "商業策略", "生產製程"],
+                answer: [2],
+                explanation: "商業策略、客戶名單、行銷計畫屬於商業秘密；程式、設計圖、生產製程則屬於技術秘密[cite: 1]。",
+                errorAnalysis: "商業策略屬於商業營運層面之秘密[cite: 1]。"
+            },
+            {
+                id: 75,
+                type: "single",
+                title: "某甲在公務機關擔任首長，其弟弟乙是某協會的理事長，乙為舉辦協會活動，決定向甲服務的機關申請經費補助，下列有關利益衝突迴避之敘述，何者正確？",
+                options: [
+                    "協會是舉辦慈善活動，甲認為是好事，所以指示機關承辦人補助活動經費",
+                    "機關未經公開公平方式，私下直接對協會補助活動經費新臺幣 10 萬元",
+                    "甲應自行迴避該案審查，避免瓜田李下，防止利益衝突",
+                    "乙為順利取得補助，應該隱瞞是機關首長甲之弟弟的身分。"
+                ],
+                answer: [2],
+                explanation: "依公職人員利益衝突迴避法，公職人員與二親等以內親屬關係（弟弟）具備利益衝突關係，審查補助時首長應主動宣告並自行迴避。",
+                errorAnalysis: "首長不得指示或私下核撥補助予利害關係人，亦不可隱瞞身分。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+        let isSubmitted = {}; 
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            
+            document.getElementById('qText').innerHTML = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            badge.innerText = "單選題";
+            badge.className = "type-badge";
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                if (submitted) {
+                    optDiv.classList.add('disabled');
+                    if (optIdx === q.answer[0]) {
+                        optDiv.classList.add('correct');
+                    } else if (userAnswers[index] === optIdx) {
+                        optDiv.classList.add('wrong');
+                    }
+                } else {
+                    optDiv.onclick = () => {
+                        userAnswers[index] = optIdx;
+                        isSubmitted[index] = true;
+                        loadQuestion(currentIndex);
+                    };
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([
+                    document.getElementById('qText'),
+                    document.getElementById('optionsList')
+                ]).catch((err) => console.log(err));
+            }
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            let isCorrect = userAnswers[qIdx] === q.answer[0];
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不完全正確，請參考下方解析：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 51 && inputVal <= 75) {
+                currentIndex = inputVal - 51;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (51 - 75)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>
