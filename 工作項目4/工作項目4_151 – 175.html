@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作項目4：151-175題 (綜合解析版)</title>
+<style>
+/* 基礎與排版設定 */
+* { box-sizing: border-box; }
+body { 
+    font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+    background-color: #f4f7f6; 
+    color: #333; 
+    margin: 0; 
+    padding: 20px 10px; 
+    line-height: 1.6; 
+}
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+.header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+
+/* JavaScript 按鈕樣式 */
+.toggle-btn { 
+    background-color: #27ae60; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 1em; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: background 0.3s; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+}
+.toggle-btn:hover { background-color: #219150; }
+.card-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+
+/* 卡片樣式 */
+.card { 
+    background: #ffffff; 
+    border-radius: 12px; 
+    padding: 25px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+    border: 1px solid #eaeaea; 
+    position: relative; 
+}
+
+/* 主題標籤 */
+.theme-badge { 
+    display: inline-block; 
+    background-color: #e8f4fd; 
+    color: #2980b9; 
+    padding: 5px 12px; 
+    border-radius: 20px; 
+    font-size: 0.9em; 
+    font-weight: bold; 
+    margin-bottom: 15px; 
+    border: 1px solid #b3d7f2; 
+}
+.question { font-size: 1.15em; font-weight: bold; color: #34495e; margin-bottom: 15px; line-height: 1.5; }
+
+/* 選項樣式 */
+.options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.option { 
+    background: #f8f9fa; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    color: #555; 
+    font-size: 1.05em; 
+    border-left: 3px solid #cbd5e1; 
+}
+
+/* 摺疊特效設計 */
+details { background: #fdfefe; border: 1px solid #dfe6e9; border-radius: 8px; overflow: hidden; }
+summary { 
+    background: #3498db; 
+    color: #ffffff; 
+    padding: 12px; 
+    font-weight: bold; 
+    font-size: 1.05em; 
+    text-align: center; 
+    cursor: pointer; 
+    list-style: none; 
+    transition: background 0.3s; 
+}
+summary:hover { background: #2980b9; }
+summary::-webkit-details-marker { display: none; }
+
+/* 解析內容樣式 */
+.answer-panel { padding: 20px; background: #f4fcf7; border-top: 1px solid #dfe6e9; }
+.answer-title { font-size: 1.1em; font-weight: bold; color: #27ae60; margin-bottom: 15px; }
+
+/* 綜合解析區塊樣式 */
+.comprehensive-exp { 
+    background: #eef2f5; 
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    border-left: 4px solid #34495e; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+}
+.comprehensive-exp strong { color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.05em; }
+.comprehensive-exp p { margin: 0; color: #4b6584; line-height: 1.6; }
+.explanation { color: #4b6584; font-size: 1em; line-height: 1.7; }
+.exp-subtitle { 
+    color: #2c3e50; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+    display: block; 
+    border-bottom: 1px dashed #cbd5e1; 
+    padding-bottom: 3px; 
+}
+.opt-list { margin: 0; padding-left: 0; list-style: none; }
+.opt-list li { 
+    margin-bottom: 8px; 
+    background: #ffffff; 
+    padding: 10px; 
+    border-radius: 6px; 
+    border-left: 4px solid #3498db; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+}
+.correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+.wrong-opt { border-left-color: #e74c3c !important; }
+
+/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+
+/* 手機版自適應優化 */
+@media (max-width: 600px) { 
+    .card { padding: 15px; } 
+    .header h1 { font-size: 1.5em; } 
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>網路架設 乙級</h1>
+    <p>工作項目04 第 151 - 175 題 (綜合解析與各選項詳解版)</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 151題 -->
+    <div class="card">
+        <div class="theme-badge">通訊協定與埠號</div>
+        <div class="question">151. 下列何者是傳送 FTP（File Transfer Protocol）資料訊息之 TCP 預設連接埠？</div>
+        <div class="options">
+            <div class="option">① 20</div>
+            <div class="option">② 21</div>
+            <div class="option">③ 22</div>
+            <div class="option">④ 23</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>FTP 協定有兩個不同的連線通道：一個負責控制指令（Control，預設使用 TCP 21 埠）；另一個專門負責實際檔案資料的傳送（Data，預設使用 TCP 20 埠）。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。TCP 20 是 FTP 資料（Data）傳輸的預設連接埠。</li>
+                    <li class="wrong-opt">② 錯誤。TCP 21 是 FTP 控制（Control）指令的預設連接埠。</li>
+                    <li class="wrong-opt">③ 錯誤。TCP 22 是 SSH / SFTP 的預設連接埠。</li>
+                    <li class="wrong-opt">④ 錯誤。TCP 23 是 Telnet 的預設連接埠。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 152題 -->
+    <div class="card">
+        <div class="theme-badge">通訊協定與埠號</div>
+        <div class="question">152. 下列何者是傳送 SSH（Secure Shell）服務之 TCP 預設連接埠？</div>
+        <div class="options">
+            <div class="option">① 20</div>
+            <div class="option">② 21</div>
+            <div class="option">③ 22</div>
+            <div class="option">④ 23</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>SSH（Secure Shell）是一種透過加密通道來遠端登入與操作系統的網路安全協定，它在遠端連線時用來取代容易被竊聽的 Telnet 服務，其預設的 TCP 通訊埠為 22。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。TCP 20 為 FTP 資料連線。</li>
+                    <li class="wrong-opt">② 錯誤。TCP 21 為 FTP 控制連線。</li>
+                    <li class="correct-opt">③ 正確。TCP 22 為 SSH 的預設連接埠。</li>
+                    <li class="wrong-opt">④ 錯誤。TCP 23 為 Telnet 的預設連接埠。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 153題 -->
+    <div class="card">
+        <div class="theme-badge">通訊協定與埠號</div>
+        <div class="question">153. 下列何者是傳送 Telnet 服務之 TCP 預設連接埠？</div>
+        <div class="options">
+            <div class="option">① 20</div>
+            <div class="option">② 21</div>
+            <div class="option">③ 22</div>
+            <div class="option">④ 23</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>Telnet 是一種用於網際網路及區域網路上，透過虛擬終端機來進行遠端登入的連線通訊協定，其傳輸皆為明文（未加密），預設使用的 TCP 連接埠為 23。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。TCP 20 為 FTP 資料連線。</li>
+                    <li class="wrong-opt">② 錯誤。TCP 21 為 FTP 控制連線。</li>
+                    <li class="wrong-opt">③ 錯誤。TCP 22 為 SSH 安全連線。</li>
+                    <li class="correct-opt">④ 正確。TCP 23 是 Telnet 遠端登入服務的預設埠。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 154題 -->
+    <div class="card">
+        <div class="theme-badge">通訊協定與埠號</div>
+        <div class="question">154. 下列何者是傳送 SMTP（Simple Mail Transfer）服務之 TCP 預設連接埠？</div>
+        <div class="options">
+            <div class="option">① 25</div>
+            <div class="option">② 69</div>
+            <div class="option">③ 80</div>
+            <div class="option">④ 443</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>SMTP（簡易郵件傳輸協定）是網際網路上用來「寄送」電子郵件的標準協定，傳統上預設使用的連接埠為 TCP 25 埠（現代有些加密寄信服務會改用 465 或 587 等，但標準基礎預設是 25）。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。TCP 25 為 SMTP 發送郵件的預設連接埠。</li>
+                    <li class="wrong-opt">② 錯誤。Port 69 是 TFTP 的預設埠。</li>
+                    <li class="wrong-opt">③ 錯誤。Port 80 是 HTTP 的預設埠。</li>
+                    <li class="wrong-opt">④ 錯誤。Port 443 是 HTTPS 的預設埠。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 155題 -->
+    <div class="card">
+        <div class="theme-badge">通訊協定與埠號</div>
+        <div class="question">155. 下列何者是傳送 TFTP（Trivial File Transfer Protocol）服務之 TCP 預設連接埠？</div>
+        <div class="options">
+            <div class="option">① 25</div>
+            <div class="option">② 69</div>
+            <div class="option">③ 80</div>
+            <div class="option">④ 443</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>TFTP 是一種簡單、輕量化的檔案傳輸協定，通常用於無硬碟設備的網路開機或路由器韌體更新。特別注意，TFTP 實際上使用的是 <strong>UDP</strong> 協定（而非 TCP），但考題在此處可能有字面瑕疵，然而其預設連接埠號確實是 69。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。Port 25 是 SMTP 的預設埠。</li>
+                    <li class="correct-opt">② 正確。Port 69 是 TFTP 的標準連接埠。</li>
+                    <li class="wrong-opt">③ 錯誤。Port 80 是 HTTP 的預設埠。</li>
+                    <li class="wrong-opt">④ 錯誤。Port 443 是 HTTPS 的預設埠。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 156題 -->
+    <div class="card">
+        <div class="theme-badge">通訊協定與埠號</div>
+        <div class="question">156. 下列何者是傳送 WWW（World Wide Web）服務之 TCP 預設連接埠？</div>
+        <div class="options">
+            <div class="option">① 25</div>
+            <div class="option">② 69</div>
+            <div class="option">③ 80</div>
+            <div class="option">④ 443</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>WWW 服務所依賴的最基礎超文字傳輸通訊協定為 HTTP（HyperText Transfer Protocol），而伺服器預設用來監聽 HTTP 請求的通訊埠就是 TCP 80。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。Port 25 是 SMTP。</li>
+                    <li class="wrong-opt">② 錯誤。Port 69 是 TFTP。</li>
+                    <li class="correct-opt">③ 正確。TCP 80 為未加密之 WWW / HTTP 預設連接埠。</li>
+                    <li class="wrong-opt">④ 錯誤。Port 443 專門用於加密版本的 HTTPS。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 157題 -->
+    <div class="card">
+        <div class="theme-badge">通訊協定與埠號</div>
+        <div class="question">157. 下列何者是傳送 SSL（Secure Socket Layer）服務之 TCP 預設連接埠？</div>
+        <div class="options">
+            <div class="option">① 25</div>
+            <div class="option">② 69</div>
+            <div class="option">③ 80</div>
+            <div class="option">④ 443</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>SSL（或更為現代的 TLS）常被結合 HTTP 形成安全超文字傳輸協定（HTTPS），用以保障網頁傳輸中的資料加密與安全。HTTPS 的預設 TCP 連接埠就是 443。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。Port 25 為 SMTP 郵件協定。</li>
+                    <li class="wrong-opt">② 錯誤。Port 69 為 TFTP。</li>
+                    <li class="wrong-opt">③ 錯誤。Port 80 為未加密之 HTTP 協定。</li>
+                    <li class="correct-opt">④ 正確。TCP 443 是透過 SSL/TLS 加密的 HTTPS 預設連接埠。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 158題 -->
+    <div class="card">
+        <div class="theme-badge">網路定址</div>
+        <div class="question">158. 下列 IP 位址何者屬於 Class B？</div>
+        <div class="options">
+            <div class="option">① 123.45.67.89</div>
+            <div class="option">② 135.1.23.45</div>
+            <div class="option">③ 220.45.67.89</div>
+            <div class="option">④ 230.12.34.56</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在傳統的 IPv4 Classful 定址中，可以由第一個數字（八位元）判斷其所屬類別：<br>Class A: 1~126<br>Class B: 128~191<br>Class C: 192~223<br>Class D: 224~239<br>Class E: 240~255</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。123 屬於 Class A。</li>
+                    <li class="correct-opt">② 正確。135 落在 128~191 的範圍內，屬於 Class B。</li>
+                    <li class="wrong-opt">③ 錯誤。220 屬於 Class C。</li>
+                    <li class="wrong-opt">④ 錯誤。230 屬於 Class D。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 159題 -->
+    <div class="card">
+        <div class="theme-badge">網路定址</div>
+        <div class="question">159. 下列 IP 位址何者屬於 Class C？</div>
+        <div class="options">
+            <div class="option">① 123.45.67.89</div>
+            <div class="option">② 135.1.23.45</div>
+            <div class="option">③ 220.45.67.89</div>
+            <div class="option">④ 230.12.34.56</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>IPv4 位址的 Class C，其第一個八位元（第一個數字）的範圍定義在 192 到 223 之間。這個類別的預設子網路遮罩為 255.255.255.0，最常使用於中小型區域網路。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。123 屬於 Class A。</li>
+                    <li class="wrong-opt">② 錯誤。135 屬於 Class B。</li>
+                    <li class="correct-opt">③ 正確。220 落在 192~223 的範圍內，屬於 Class C。</li>
+                    <li class="wrong-opt">④ 錯誤。230 屬於 Class D。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 160題 -->
+    <div class="card">
+        <div class="theme-badge">網路定址</div>
+        <div class="question">160. 下列 IP 位址何者屬於 Class D？</div>
+        <div class="options">
+            <div class="option">① 123.45.67.89</div>
+            <div class="option">② 135.1.23.45</div>
+            <div class="option">③ 220.45.67.89</div>
+            <div class="option">④ 230.12.34.56</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>Class D 位址主要保留給群播（Multicast）使用，不會分配給單一主機作為一般單播 IP，其第一個數字的範圍定義在 224 到 239 之間。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。123 屬於 Class A。</li>
+                    <li class="wrong-opt">② 錯誤。135 屬於 Class B。</li>
+                    <li class="wrong-opt">③ 錯誤。220 屬於 Class C。</li>
+                    <li class="correct-opt">④ 正確。230 落在 224~239 的範圍內，屬於 Class D。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 161題 -->
+    <div class="card">
+        <div class="theme-badge">子網路切割</div>
+        <div class="question">161. 下列何者為 222.34.56.178/29 所在之子網路的廣播位址？</div>
+        <div class="options">
+            <div class="option">① 222.34.56.207</div>
+            <div class="option">② 222.34.56.183</div>
+            <div class="option">③ 222.34.56.191</div>
+            <div class="option">④ 222.34.56.199</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>/29 表示子網路遮罩有 29 個 bit 為 1，留下了 3 個 bit 給主機（32 - 29 = 3）。<br>每個網段的大小為 2 的 3 次方 = 8。<br>我們尋找 8 的倍數區段，包含 178 的區段為 176 到 183（176 是一個 8 的倍數）。<br>在這個網段中，176 是網路位址，最後一個數字 183 即為廣播位址。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。207 是其他網段的數字。</li>
+                    <li class="correct-opt">② 正確。178 位於 176~183 之間，故該網段的廣播位址為 183。</li>
+                    <li class="wrong-opt">③ 錯誤。191 不是這個子網路的廣播位址。</li>
+                    <li class="wrong-opt">④ 錯誤。199 不是這個子網路的廣播位址。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 162題 -->
+    <div class="card">
+        <div class="theme-badge">子網路切割</div>
+        <div class="question">162. 下列何者為 222.34.56.200/28 所在之子網路的廣播位址？</div>
+        <div class="options">
+            <div class="option">① 222.34.56.223</div>
+            <div class="option">② 222.34.56.215</div>
+            <div class="option">③ 222.34.56.207</div>
+            <div class="option">④ 222.34.56.231</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>/28 代表留了 4 個 bit 給主機（32 - 28 = 4），每個網段的大小為 2 的 4 次方 = 16。<br>尋找 16 的倍數，包含 200 的區段是 192 到 207（192 是 16 的 12 倍）。<br>因此該子網路的範圍為 192 ~ 207，最後一個 IP 也就是廣播位址為 207。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。223 屬於下一個網段 (208~223) 的廣播位址。</li>
+                    <li class="wrong-opt">② 錯誤。215 並非廣播位址的交界。</li>
+                    <li class="correct-opt">③ 正確。該子網段最後一個位址為 207，即廣播位址。</li>
+                    <li class="wrong-opt">④ 錯誤。231 屬於再下一個網段的數字。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 163題 -->
+    <div class="card">
+        <div class="theme-badge">子網路切割</div>
+        <div class="question">163. 下列何者為 222.34.56.123/26 所在之子網路的廣播位址？</div>
+        <div class="options">
+            <div class="option">① 222.34.56.127</div>
+            <div class="option">② 222.34.56.135</div>
+            <div class="option">③ 222.34.56.143</div>
+            <div class="option">④ 222.34.56.151</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>/26 代表留了 6 個 bit 給主機（32 - 26 = 6），每個網段大小為 2 的 6 次方 = 64。<br>區段劃分會是：0~63、64~127、128~191、192~255。<br>123 落於 64~127 這個區段，而此區段的最後一個位址，即廣播位址為 127。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。123 所在的 64~127 網段中，127 即為該子網的廣播位址。</li>
+                    <li class="wrong-opt">② 錯誤。135 是屬於下一個網段的可用 IP。</li>
+                    <li class="wrong-opt">③ 錯誤。這也是下個網段的某個位址。</li>
+                    <li class="wrong-opt">④ 錯誤。計算有誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 164題 -->
+    <div class="card">
+        <div class="theme-badge">子網路切割</div>
+        <div class="question">164. 若有一 Class C 網路平均分為 4 個子網路（Subnet），則可用 IP 位址共有幾個？</div>
+        <div class="options">
+            <div class="option">① 224</div>
+            <div class="option">② 192</div>
+            <div class="option">③ 240</div>
+            <div class="option">④ 248</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>標準的 Class C 有 256 個 IP（0~255）。將其分為 4 個子網路，每個子網路分配到的 IP 總數為 256 / 4 = 64 個。<br>依據規則，每個子網路中的首個 IP 為網路位址，最後一個 IP 為廣播位址，無法分配給主機使用。<br>所以單個子網的可用 IP 數為 64 - 2 = 62 個。<br>4 個子網路的可用 IP 總合為：4 × 62 = 248 個。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。計算錯誤或混淆。</li>
+                    <li class="wrong-opt">② 錯誤。這是切分為 32 個子網路的答案。</li>
+                    <li class="wrong-opt">③ 錯誤。這是切分為 8 個子網路的答案。</li>
+                    <li class="correct-opt">④ 正確。4 個網段各提供 62 個可用 IP，總和為 248。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 165題 -->
+    <div class="card">
+        <div class="theme-badge">子網路切割</div>
+        <div class="question">165. 若有一 Class C 網路平均分為 16 個子網路（Subnet），則可用 IP 位址共有幾個？</div>
+        <div class="options">
+            <div class="option">① 224</div>
+            <div class="option">② 192</div>
+            <div class="option">③ 240</div>
+            <div class="option">④ 248</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>將 256 個 IP 位址平均分為 16 個子網路，每個子網路的 IP 總數為 256 / 16 = 16 個。<br>扣除每個網段不可作為主機使用的網路位址與廣播位址，每個網段的可用 IP 數為 16 - 2 = 14 個。<br>16 個子網路的可用 IP 總計為：16 × 14 = 224 個。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。16 個網段各提供 14 個可用 IP，總和為 224。</li>
+                    <li class="wrong-opt">② 錯誤。這是切分為 32 個子網路的可用數量。</li>
+                    <li class="wrong-opt">③ 錯誤。這是切分為 8 個子網路的可用數量。</li>
+                    <li class="wrong-opt">④ 錯誤。這是切分為 4 個子網路的可用數量。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 166題 -->
+    <div class="card">
+        <div class="theme-badge">子網路切割</div>
+        <div class="question">166. 若有一 Class C 網路平均分為 32 個子網路（Subnet），則可用 IP 位址共有幾個？</div>
+        <div class="options">
+            <div class="option">① 224</div>
+            <div class="option">② 192</div>
+            <div class="option">③ 240</div>
+            <div class="option">④ 248</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>將 256 個 IP 位址平均分為 32 個子網路，每個子網路分得的 IP 總數為 256 / 32 = 8 個。<br>同樣扣除頭尾無法使用的網路位址與廣播位址，每個網段能分配給主機的可用 IP 為 8 - 2 = 6 個。<br>32 個子網路的可用 IP 總數為：32 × 6 = 192 個。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。這是切分成 16 個子網的總量。</li>
+                    <li class="correct-opt">② 正確。32 個網段各提供 6 個可用 IP，共計 192 個。</li>
+                    <li class="wrong-opt">③ 錯誤。這是切分成 8 個子網的總量。</li>
+                    <li class="wrong-opt">④ 錯誤。這是切分成 4 個子網的總量。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 167題 -->
+    <div class="card">
+        <div class="theme-badge">網路協定</div>
+        <div class="question">167. 當資料由網路模型中較低層向高層傳送時，封包標頭將作以下何種更動？</div>
+        <div class="options">
+            <div class="option">① 移除</div>
+            <div class="option">② 增加</div>
+            <div class="option">③ 不動</div>
+            <div class="option">④ 重排</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在 OSI 模型中，當資料發送端由高層往低層送時，會進行「封裝（Encapsulation）」，也就是不斷在資料前面**增加**各層的標頭（Header）；相反地，當資料由接收端低層往高層傳送時，會進行「解封裝（Decapsulation）」，各層會核對後**移除**屬於自己的標頭，將乾淨的酬載（Payload）往上一層送。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。從低層向高層傳遞（接收過程），下層的標頭會被逐一移除（解封裝）。</li>
+                    <li class="wrong-opt">② 錯誤。這是從高層往低層傳（發送過程）的封裝行為。</li>
+                    <li class="wrong-opt">③ 錯誤。各層必須剝除屬於該層的控制標頭。</li>
+                    <li class="wrong-opt">④ 錯誤。不會重排標頭。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 168題 -->
+    <div class="card">
+        <div class="theme-badge">網路安全</div>
+        <div class="question">168. 下列哪一項不是 IPSec 所使用的協定？</div>
+        <div class="options">
+            <div class="option">① Point to point tunneling protocol（PPTP）</div>
+            <div class="option">② Authentication header（AH）</div>
+            <div class="option">③ Internet key exchange（IKE）</div>
+            <div class="option">④ Encapsulated security payload（ESP）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>IPSec 是一個用來保證 IP 網路上資料通訊安全的協議套件。其核心組成為：負責驗證來源的 AH、負責加密酬載資料的 ESP，以及負責動態協商加密金鑰的 IKE。而 PPTP 是微軟主導的另一種較早期且獨立的 VPN 通道協定，並不是 IPSec 套件的一部分。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。PPTP 屬於另一種獨立的 VPN 協定，不包含在 IPSec 內。</li>
+                    <li class="wrong-opt">② 錯誤。AH 為 IPSec 協定之一，提供資料完整性與來源認證。</li>
+                    <li class="wrong-opt">③ 錯誤。IKE 為 IPSec 協定之一，用以安全交換金鑰。</li>
+                    <li class="wrong-opt">④ 錯誤。ESP 為 IPSec 協定之一，提供資料的機密性（加密）。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 169題 -->
+    <div class="card">
+        <div class="theme-badge">ARP協定</div>
+        <div class="question">169. 在 ARP 快取中可以發現下列哪一項資料？</div>
+        <div class="options">
+            <div class="option">① 使用者存取網站的歷史資料</div>
+            <div class="option">② 防火牆的組態表</div>
+            <div class="option">③ 網域註冊資訊</div>
+            <div class="option">④ IP 與 MAC 位址的交互參照</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>ARP（Address Resolution Protocol，位址解析協定）的主要功能是透過已知的網路層邏輯 IP 位址，詢問並找出對應的實體層硬體 MAC 位址。系統會將查詢過的結果暫存在記憶體中形成「ARP 快取表」，以減少廣播次數。因此裡面儲存的就是 IP 對應 MAC 的清單。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。這是瀏覽器的歷史紀錄（History）。</li>
+                    <li class="wrong-opt">② 錯誤。防火牆組態表記錄的是允許或阻擋的規則與狀態。</li>
+                    <li class="wrong-opt">③ 錯誤。網域註冊資訊屬於 DNS 的範疇。</li>
+                    <li class="correct-opt">④ 正確。ARP 快取存放的就是 IP 與 MAC 位址的對照表（Mapping）。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 170題 -->
+    <div class="card">
+        <div class="theme-badge">資訊安全與管理</div>
+        <div class="question">170. 軟硬體元件若有損壞，可能造成所儲存的資訊遺失，為了降低因系統當機所造成的影響，需採取下列何種管理措施？</div>
+        <div class="options">
+            <div class="option">① 變更管理</div>
+            <div class="option">② 能量管理</div>
+            <div class="option">③ 復原管理</div>
+            <div class="option">④ 績效管理</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在資訊系統維運與資訊安全中，面對不可預測的災難（例如硬體損壞、天災、斷電），建立定期的備份機制、異地備援與災難復原演練，通稱為「復原管理（Disaster Recovery Management）」，目的是為了將意外造成的中斷時間與資料損失降到最低。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。變更管理是確保對系統進行修改（如上線新版程式、更新設備）時具有標準流程且不會產生副作用。</li>
+                    <li class="wrong-opt">② 錯誤。能量（Capacity，容量）管理主要關注資源的規劃與預估。</li>
+                    <li class="correct-opt">③ 正確。復原管理專注於資料備份及災難發生後的系統回復作業。</li>
+                    <li class="wrong-opt">④ 錯誤。績效（Performance，效能）管理關注系統的運行速度與瓶頸。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 171題 -->
+    <div class="card">
+        <div class="theme-badge">資訊安全與隱私</div>
+        <div class="question">171. 關於網路訊錄（Cookies），下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 無法增加電腦連線的速度</div>
+            <div class="option">② 可能造成系統漏洞</div>
+            <div class="option">③ 可能被惡意程式利用</div>
+            <div class="option">④ 可記錄使用者瀏覽網頁的資訊、帳號及密碼</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>選項①為本題解答。Cookies 主要用於記錄使用者的狀態、帳號、偏好設定或追蹤瀏覽行為。雖然它本身客觀上確實無法增加網路傳輸的「物理連線速度」，但在這題的語境中，選項①被官方設定為「不正確」的敘述。<br>此現象可能是因為考題設計者認為：Cookie 記錄登入狀態能讓瀏覽體驗具有「加快登入/讀取偏好」的感受，或者認為 Cookie 和網頁快取（Cache）的加速概念經常被合併討論。而在實務資安考量上，選項②、③、④皆明確為 Cookie 本身的特性與安全隱憂，因此①成了這題預期的選擇。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確（本題選不正確者）。在考題語境中被視為不正確的描述（Cookies 無法增加頻寬與連線速率，但考題選項設計上以此為答案）。</li>
+                    <li class="wrong-opt">② 錯誤。若未加密，Cookie 的確可能造成 Session Hijacking（對話劫持）等系統資安漏洞。</li>
+                    <li class="wrong-opt">③ 錯誤。惡意程式或跨站腳本攻擊（XSS）經常會竊取使用者的 Cookies。</li>
+                    <li class="wrong-opt">④ 錯誤。這是 Cookie 最主要的設計功能之一，用來儲存登入憑證與瀏覽偏好。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 172題 -->
+    <div class="card">
+        <div class="theme-badge">惡意程式</div>
+        <div class="question">172. 關於電腦病毒，下列何者不正確？</div>
+        <div class="options">
+            <div class="option">① 可能具有自我複製的特性</div>
+            <div class="option">② 中毒後會立即有明顯徵兆</div>
+            <div class="option">③ 可能寄生在開機程式</div>
+            <div class="option">④ 可能破壞硬碟資料</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電腦病毒與生物病毒相似，潛伏期是一大特徵。許多病毒或木馬在感染電腦後會悄悄常駐於系統背景，竊取資料、監聽鍵盤或將電腦作為殭屍網路的跳板，不一定會馬上發作或表現出使系統變慢的明顯徵兆。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。自我複製並感染其他檔案是多數傳統電腦病毒的核心特性。</li>
+                    <li class="correct-opt">② 正確（本題選不正確者）。許多電腦病毒有潛伏期，並不會立即表現出明顯徵兆。</li>
+                    <li class="wrong-opt">③ 錯誤。有些病毒（如開機型病毒 Boot Sector Virus）確實會隱藏在開機磁區或啟動程式中。</li>
+                    <li class="wrong-opt">④ 錯誤。病毒可以包含毀滅性指令，刪除或加密硬碟內的重要資料（例如勒索軟體）。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 173題 -->
+    <div class="card">
+        <div class="theme-badge">雲端運算</div>
+        <div class="question">173. 收發電子郵件為下列哪一種雲端服務模式？</div>
+        <div class="options">
+            <div class="option">① 軟體即服務（Software as a Service, SaaS）</div>
+            <div class="option">② 平台即服務（Platform as a Service, PaaS）</div>
+            <div class="option">③ 基礎架構即服務（ Infrastructure as a Service, IaaS）</div>
+            <div class="option">④ 應用即服務（Application as a Service, AaaS）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>NIST 定義了三種雲端運算的服務模式（SPI）。其中 SaaS 是將已開發好的應用軟體（例如 Gmail、Google Docs、Office 365）直接透過瀏覽器提供給最終使用者使用，用戶不需管理底層的伺服器、網路或作業系統。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。提供直接可用的軟體功能（如網頁版電子郵件），屬於 SaaS 模式。</li>
+                    <li class="wrong-opt">② 錯誤。PaaS 提供開發平台（如資料庫、程式執行環境）供開發者部署自己寫的應用程式。</li>
+                    <li class="wrong-opt">③ 錯誤。IaaS 提供最基礎的硬體資源（如虛擬機、儲存空間），讓網管人員自行安裝作業系統與軟體。</li>
+                    <li class="wrong-opt">④ 錯誤。AaaS 並非標準的雲端三層服務模式簡稱。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 174題 -->
+    <div class="card">
+        <div class="theme-badge">雲端運算</div>
+        <div class="question">174. 網路社群服務不會應用下列哪一種雲端部署？</div>
+        <div class="options">
+            <div class="option">① 校園雲（Campus Cloud）</div>
+            <div class="option">② 混合雲（Hybrid Cloud）</div>
+            <div class="option">③ 公有雲（Public Cloud）</div>
+            <div class="option">④ 私有雲（Private Cloud）</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>美國國家標準技術研究所（NIST）將雲端部署模式（Deployment Models）分為四種：公有雲（Public Cloud）、私有雲（Private Cloud）、混合雲（Hybrid Cloud）與社群雲（Community Cloud）。並沒有「校園雲」這個標準定義的雲端部署專有名詞。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="correct-opt">① 正確。「校園雲」不屬於標準雲端部署模式的分類。</li>
+                    <li class="wrong-opt">② 錯誤。混合雲結合公有雲與私有雲的優點。</li>
+                    <li class="wrong-opt">③ 錯誤。公有雲由第三方服務商提供，開放給大眾使用。</li>
+                    <li class="wrong-opt">④ 錯誤。私有雲則是專供單一組織內部使用的雲端基礎架構。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 175題 -->
+    <div class="card">
+        <div class="theme-badge">雲端運算</div>
+        <div class="question">175. 雲端運算的技術包含下列哪些選項：A 軟體層、B 硬體層、C 虛擬化技術、D 雲端管理？</div>
+        <div class="options">
+            <div class="option">① 僅包含 A</div>
+            <div class="option">② 僅包含 AB</div>
+            <div class="option">③ 僅包含 ABC</div>
+            <div class="option">④ 包含 ABCD</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>雲端運算是一個龐大且複雜的體系，其底層依賴強大的實體「硬體層」做支撐；接著透過核心的「虛擬化技術」將硬體資源抽象化並進行彈性分配；再於上方建構各種作業系統與應用服務的「軟體層」；最後必須有完善的「雲端管理」平台來進行資源的調度、計費與監控。因此四者皆不可或缺。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list explanation">
+                    <li class="wrong-opt">① 錯誤。不只包含軟體層。</li>
+                    <li class="wrong-opt">② 錯誤。不只包含軟體及硬體。</li>
+                    <li class="wrong-opt">③ 錯誤。也必須要有妥善的雲端營運與管理機制。</li>
+                    <li class="correct-opt">④ 正確。雲端運算架構全面涵蓋了軟體、硬體、虛擬化以及營運管理。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>
