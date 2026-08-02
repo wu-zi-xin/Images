@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async
+	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+	</script>
+    <title>節能減碳共同科目 測驗 (1-25) - 實戰指南風格</title>
+    <style>
+        :root {
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+		
+.responsive-img {
+  max-width: 100%; /* 圖片最大寬度為容器的 100% */
+  height: auto;    /* 高度自動等比例調整，避免變形 */
+  display: block;  /* 消除圖片下方預留的空白縫隙 */
+}
+
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 85px; 
+            }
+
+            .header {
+                height: var(--header-height);
+                align-items: flex-start;
+                padding-top: 1rem;
+            }
+
+            .hamburger-btn {
+                display: block;
+                margin-top: 0.1rem;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: var(--header-height); 
+                left: 0;
+                bottom: 0;
+                height: calc(100vh - var(--header-height));
+                z-index: 101;
+                transform: translateX(-100%);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            90009 節能減碳共同科目 工作項目 04：節能減碳 (1-25)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (1-25)" min="1" max="25">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid"></div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 1 題 / 共 25 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList"></div>
+
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                type: "single",
+                title: "依經濟部能源署「指定能源用戶應遵行之節約能源規定」，在正常使用件條件下，公眾出入之營業場所其室內冷氣溫度平均值不得低於攝氏幾度？",
+                options: ["26", "25", "24", "22"],
+                answer: [0],
+                explanation: "依經濟部規定，指定能源用戶之營業場所室內冷氣平均溫度不得低於 26℃，以達到節能減碳效果。",
+                errorAnalysis: "規範設定為 26℃，過低會浪費空調電力。"
+            },
+            {
+                id: 2,
+                type: "single",
+                title: "下列何者為節能標章？",
+                options: [
+				"<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%85%B1%E5%90%8C%E7%A7%91%E7%9B%AE_%E7%AF%80%E8%83%BD%E6%B8%9B%E7%A2%B3/2-1.png?raw=true' alt='' class='responsive-img'>",
+				"<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%85%B1%E5%90%8C%E7%A7%91%E7%9B%AE_%E7%AF%80%E8%83%BD%E6%B8%9B%E7%A2%B3/2-2.png?raw=true' alt='' class='responsive-img'>",
+				"<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%85%B1%E5%90%8C%E7%A7%91%E7%9B%AE_%E7%AF%80%E8%83%BD%E6%B8%9B%E7%A2%B3/2-3.png?raw=true' alt='碳足跡標章' class='responsive-img'>",
+				"<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%85%B1%E5%90%8C%E7%A7%91%E7%9B%AE_%E7%AF%80%E8%83%BD%E6%B8%9B%E7%A2%B3/2-4.png?raw=true' alt='綠色標章' class='responsive-img'>"
+				],
+                answer: [1],
+                explanation: "節能標章圖示由「CNS」向下扎根及省電的火苗與插頭結合而成，象徵能效提昇。",
+                errorAnalysis: "選項一為台灣製MIT，選項三為碳足跡標章。"
+            },
+            {
+                id: 3,
+                type: "single",
+                title: "下列何者為國內能源消費最大部門？",
+                options: ["服務業", "住宅", "運輸", "工業"],
+                answer: [3],
+                explanation: "在國內總能源消費中，工業部門佔比最大，其次為運輸與住宅、服務業。",
+                errorAnalysis: "工業部門是用電與能源消耗量最高之族群。"
+            },
+            {
+                id: 4,
+                type: "single",
+                title: "下列何者「不是」節省能源的做法？",
+                options: [
+                    "電冰箱溫度長時間設定在強冷或急冷",
+                    "影印機當 15 分鐘無人使用時，自動進入省電模式",
+                    "電視機勿背著窗戶，並避免太陽直射",
+                    "短程不開汽車，以儘量搭乘公車、騎單車或步行為宜"
+                ],
+                answer: [0],
+                explanation: "電冰箱若長時間設定在強冷或急冷，壓縮機將持續運轉，會消耗更多電力，而非節能做法。",
+                errorAnalysis: "強冷設定會大幅增加耗電量。"
+            },
+            {
+                id: 5,
+                type: "single",
+                title: "經濟部能源署的能源效率標示中，電冰箱分為幾個等級？",
+                options: ["1", "3", "5", "7"],
+                answer: [2],
+                explanation: "我國能源效率分級標示通常將電冰箱等家電分為 1 至 5 個等級，1 級表示能源效率最高、最省電。",
+                errorAnalysis: "能源效率分級普遍為 5 個級別。"
+            },
+            {
+                id: 6,
+                type: "single",
+                title: "溫室氣體排放量：指自排放源排出之各種溫室氣體量乘以各該物質溫暖化潛勢所得之合計量，以何種當量表示？",
+                options: ["氧化亞氮（\\(N_2O\\)）", "二氧化碳（\\(CO_2\\)）", "甲烷（\\(CH_4\\)）", "六氟化硫（\\(SF_6\\)）"],
+                answer: [1],
+                explanation: "國際與國內溫室氣體盤查與排放量計算，皆統一換算為「二氧化碳當量（\\(CO_2e\\)）」來表示。",
+                errorAnalysis: "統一以二氧化碳當量作為基準衡量溫室效應。"
+            },
+            {
+                id: 7,
+                type: "single",
+                title: "根據氣候變遷因應法，國家溫室氣體長期減量目標於中華民國幾年達成溫室氣體淨零排放？",
+                options: ["119", "129", "139", "149"],
+                answer: [2],
+                explanation: "氣候變遷因應法明定國家長期減量目標為中華民國 139 年（西元 2050 年）達成淨零排放。",
+                errorAnalysis: "139年對應西元 2050 年淨零目標。"
+            },
+            {
+                id: 8,
+                type: "single",
+                title: "氣候變遷因應法所稱主管機關，在中央為下列何單位？",
+                options: ["經濟部能源署", "環境部", "國家發展委員會", "衛生福利部"],
+                answer: [1],
+                explanation: "氣候變遷因應法之中央主管機關為環境部（原環保署升格）。",
+                errorAnalysis: "環境部為統籌氣候變遷與環境保護之中央主管機關。"
+            },
+            {
+                id: 9,
+                type: "single",
+                title: "氣候變遷因應法中所稱：一單位之排放額度相當於允許排放多少的二氧化碳當量？",
+                options: ["1 公斤", "1 立方米", "1 公噸", "1 公升"],
+                answer: [2],
+                explanation: "碳權與排放額度計算中，一單位（1 碳權）相當於允許排放 1 公噸（tonne）的二氧化碳當量。",
+                errorAnalysis: "排放額度以公噸作為計量單位。"
+            },
+            {
+                id: 10,
+                type: "single",
+                title: "下列何者「不是」全球暖化帶來的影響？",
+                options: ["洪水", "熱浪", "地震", "旱災"],
+                answer: [2],
+                explanation: "地震屬於地球內部構造運動（板塊運動）所引起，與全球暖化無直接因果關係。",
+                errorAnalysis: "地震屬地質作用，洪水、熱浪、旱災則與氣候異常直接相關。"
+            },
+            {
+                id: 11,
+                type: "single",
+                title: "下列何種方法無法減少二氧化碳？",
+                options: [
+                    "想吃多少儘量點，剩餘可當廚餘回收",
+                    "選購當地、當季食材，減少運輸碳足跡",
+                    "多吃蔬菜，少吃肉",
+                    "自備杯筷，減少免洗用具垃圾量"
+                ],
+                answer: [0],
+                explanation: "浪費食物並產生廚餘會增加處理過程與碳排放，應落實「綠色飲食、吃多少點多少」才能減碳。",
+                errorAnalysis: "過量點餐與廚餘回收無法有效源頭減碳。"
+            },
+            {
+                id: 12,
+                type: "single",
+                title: "下列何者不會減少溫室氣體的排放？",
+                options: [
+                    "減少使用煤、石油等化石燃料",
+                    "大量植樹造林，禁止亂砍亂伐",
+                    "增高燃煤氣體排放的煙囪",
+                    "開發太陽能、水能等新能源"
+                ],
+                answer: [2],
+                explanation: "增高煙囪僅能擴散局部空氣污染物的濃度，無法減少整體溫室氣體的實際排放量。",
+                errorAnalysis: "高煙囪無法減少總排放量，只是稀釋污染物落地濃度。"
+            },
+            {
+                id: 13,
+                type: "single",
+                title: "關於綠色採購之敘述，下列何者錯誤？",
+                options: [
+                    "採購由回收材料所製造之物品",
+                    "採購的產品對環境及人類健康有最小的傷害性",
+                    "選購對環境傷害較少、污染程度較低產品",
+                    "以精美包裝為主要首選"
+                ],
+                answer: [3],
+                explanation: "綠色採購強調「過度包裝減量（減量包裝）」，因此以精美包裝為首選是錯誤的敘述。",
+                errorAnalysis: "綠色採購力行簡朴包裝，避免資源浪費。"
+            },
+            {
+                id: 14,
+                type: "single",
+                title: "一旦大氣中的二氧化碳含量增加，會引起哪一種後果？",
+                options: ["溫室效應惡化", "臭氧層破洞", "冰期來臨", "海平面下降"],
+                answer: [0],
+                explanation: "二氧化碳為主要溫室氣體，濃度增加會加劇地表熱能滯留，導致溫室效應惡化、全球升溫。",
+                errorAnalysis: "臭氧層破洞主因是氟氯碳化物（CFCs）。"
+            },
+            {
+                id: 15,
+                type: "single",
+                title: "關於建築中常用的金屬玻璃帷幕牆，下列敘述何者正確？",
+                options: [
+                    "玻璃帷幕牆的使用能節省室內空調使用",
+                    "玻璃帷幕牆適用於臺灣，讓夏天的室內產生溫暖感覺",
+                    "在溫度高的國家，建築物使用金屬玻璃帷幕會造成日照輻射熱，產生室內「溫室效應」",
+                    "臺灣的氣候濕熱，特別適合在大樓以金屬玻璃帷幕作為建材"
+                ],
+                answer: [2],
+                explanation: "玻璃帷幕會大量引入太陽輻射熱，在炎熱國家容易形成溫室效應，使室內空調負載大增。",
+                errorAnalysis: "玻璃帷幕在台灣濕熱氣候下易吸收大量熱能，增加空調負擔。"
+            },
+            {
+                id: 16,
+                type: "single",
+                title: "下列何者不是能源之類型？",
+                options: ["電力", "壓縮空氣", "蒸汽", "熱傳"],
+                answer: [3],
+                explanation: "熱傳（Heat transfer）是一種能量傳遞的過程與現象，本身並不是一種可儲存或供應的能源類型。",
+                errorAnalysis: "電力、壓縮空氣、蒸汽皆為常見的二次能源或載體。"
+            },
+            {
+                id: 17,
+                type: "single",
+                title: "我國已制定能源管理系統標準為",
+                options: ["CNS 50001", "CNS 12681", "CNS 14001", "CNS 22000"],
+                answer: [0],
+                explanation: "我國對應國際 ISO 50001 能源管理系統，已制定對應之 CNS 50001國家標準。",
+                errorAnalysis: "CNS 14001 為環境管理系統；CNS 50001 專屬能源管理。"
+            },
+            {
+                id: 18,
+                type: "single",
+                title: "台灣電力股份有限公司所謂的三段式時間電價於夏月平日（非週六日）之尖峰用電時段為何？",
+                options: ["9:00～24:00", "6:00～11:00", "16:00～22:00", "9:00～16:00"],
+                answer: [2],
+                explanation: "台電三段式時間電價在夏月平日的尖峰時段規定為 16:00～22:00（共 6 小時）。",
+                errorAnalysis: "尖峰時段為傍晚用電高峰 16:00～22:00。"
+            },
+            {
+                id: 19,
+                type: "single",
+                title: "基於節能減碳的目標，下列何種光源發光效率最低，不鼓勵使用？",
+                options: ["白熾燈泡", "LED 燈泡", "省電燈泡", "螢光燈管"],
+                answer: [0],
+                explanation: "傳統白熾燈泡將大部分電力轉化為熱能，發光效率極低（約 10 lm/W 左右），目前已被法規逐步淘汰。",
+                errorAnalysis: "白熾燈泡耗能且效率極低。"
+            },
+            {
+                id: 20,
+                type: "single",
+                title: "下列的能源效率分級標示，哪一項較省電？",
+                options: ["1", "2", "3", "4"],
+                answer: [0],
+                explanation: "能源效率分級標示中，級數越低代表耗能越少、能源效率越高，因此「1 級」最省電。",
+                errorAnalysis: "數字越小代表越省電（1級最佳）。"
+            },
+            {
+                id: 21,
+                type: "single",
+                title: "下列何者「不是」目前臺灣主要的發電方式？",
+                options: ["燃煤", "燃氣", "水力", "地熱"],
+                answer: [3],
+                explanation: "臺灣目前主力發電以燃氣與燃煤等化石能源為主，水力亦有一定佔比；地熱目前發電佔比極低，尚未成為主要發電方式。",
+                errorAnalysis: "地熱為具潛力但目前佔比極低的新生能源。"
+            },
+            {
+                id: 22,
+                type: "single",
+                title: "有關延長線及電線的使用，下列敘述何者錯誤？",
+                options: [
+                    "拔下延長線插頭時，應手握插頭取下",
+                    "使用中之延長線如有異味產生，屬正常現象不須理會",
+                    "應避開光源，以免外覆塑膠熔解，致使用時造成短路",
+                    "使用老舊之延長線，容易造成短路、漏電或觸電等危險情形，應立即更換"
+                ],
+                answer: [1],
+                explanation: "使用中的延長線若產生異味或冒煙，代表可能過載或內部短路，屬於危險警訊，應立即關閉電源並停用檢查。",
+                errorAnalysis: "異味代表過熱或短路危機，絕對不可忽略。"
+            },
+            {
+                id: 23,
+                type: "single",
+                title: "有關觸電的處理方式，下列敘述何者錯誤？",
+                options: [
+                    "立即將觸電者拉離現場",
+                    "把電源開關關閉",
+                    "通知救護人員",
+                    "使用絕緣的裝備來移除電源"
+                ],
+                answer: [0],
+                explanation: "發現有人觸電時，絕對不可以直接用雙手去「拉」觸電者，否則施救者也會跟著觸電；應先切斷電源或使用絕緣物隔離。",
+                errorAnalysis: "未斷電前直接用手拉觸電者會導致救援者二次觸電。"
+            },
+            {
+                id: 24,
+                type: "single",
+                title: "目前電費單中，係以「度」為收費依據，下列何者為其單位？",
+                options: ["kW", "kWh", "kJ", "kJh"],
+                answer: [1],
+                explanation: "電費計算的「1 度」等於瓩小時（kilowatt-hour，符號為 \\(kWh\\)），也就是消耗 1 千瓦的功率持續 1 小時。",
+                errorAnalysis: "kW 是功率單位，kWh 是累積用電量（度）的單位。"
+            },
+            {
+                id: 25,
+                type: "single",
+                title: "依據台灣電力公司三段式時間電價（尖峰、半尖峰及離峰時段）的規定，哪個時段電價最便宜？",
+                options: ["尖峰時段", "夏月半尖峰時段", "非夏月半尖峰時段", "離峰時段"],
+                answer: [3],
+                explanation: "為了鼓勵用電負載平準化，台電時間電價中以「離峰時段」的費率最便宜，尖峰時段最貴。",
+                errorAnalysis: "離峰時段用電負載最低，因此電價最便宜。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+        let isSubmitted = {}; 
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            
+            document.getElementById('qText').innerHTML = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            badge.innerText = "單選題";
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                if (submitted) {
+                    optDiv.classList.add('disabled');
+                    if (optIdx === q.answer[0]) {
+                        optDiv.classList.add('correct');
+                    } else if (userAnswers[index] === optIdx) {
+                        optDiv.classList.add('wrong');
+                    }
+                } else {
+                    optDiv.onclick = () => {
+                        userAnswers[index] = optIdx;
+                        isSubmitted[index] = true;
+                        loadQuestion(currentIndex);
+                    };
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([
+                    document.getElementById('qText'),
+                    document.getElementById('optionsList')
+                ]).catch((err) => console.log(err));
+            }
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            const isCorrect = userAnswers[qIdx] === q.answer[0];
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不正確，請參考下方解析：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerHTML = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 1 && inputVal <= 25) {
+                currentIndex = inputVal - 1;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (1 - 25)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>
