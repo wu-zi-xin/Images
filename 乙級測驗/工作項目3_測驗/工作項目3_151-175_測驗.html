@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作項目3 測驗 (151-175) - 實戰指南風格</title>
+    <style>
+        :root {
+            /* 側邊欄與頁首 - 深藍夜空調 */
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+
+            /* 右側主要內容區 - 高閱讀性明亮調 */
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            
+            /* 解析與回饋色 */
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        /* 頂部 Header */
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        /* 主佈局 */
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        /* 側邊欄 - 深色風格 */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* 搜尋列 */
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        /* 題號網格 */
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        /* 主要測驗內容區 */
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .type-badge.multi {
+            background-color: #9333ea;
+        }
+
+        /* 題目內文 */
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        /* 選項清單 */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        /* 單選題狀態 */
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        /* 多選題送出後的狀態色彩 */
+        .option-item.multi-correct-hit {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.multi-wrong-hit {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+            font-weight: 700;
+        }
+
+        .option-item.multi-missed {
+            border-color: #d97706;
+            background-color: var(--missed-bg);
+            color: var(--missed-color);
+            font-weight: 700;
+        }
+
+        .missed-tag {
+            background-color: #d97706;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        /* 多選題未送出前的選取狀態 */
+        .option-item.multi-selected {
+            background-color: #faf5ff;
+            border-color: #9333ea;
+            color: #7e22ce;
+            font-weight: 600;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        /* 送出多選答案按鈕 */
+        .submit-multi-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: #9333ea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: background-color 0.2s;
+        }
+        .submit-multi-btn:hover {
+            background-color: #7e22ce;
+        }
+        .submit-multi-btn:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        /* 即時解析區塊 */
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 控制按鈕列 */
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:hover:not(:disabled) .svg-icon {
+            stroke: #ffffff;
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-nav-main:disabled .svg-icon {
+            stroke: #94a3b8;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        /* RWD 手機版 */
+        @media (max-width: 768px) {
+/* 定義手機版標題列的高度（如果文字真的很多，可以把這裡的 80px 調大一點，例如 90px 或 100px） */
+    :root {
+        --header-height: 85px; 
+    }
+
+    .header {
+        height: var(--header-height);
+        align-items: flex-start; /* 讓標題允許多行文字往下長 */
+        padding-top: 1rem;
+    }
+
+    .hamburger-btn {
+        display: block;
+        margin-top: 0.1rem;
+    }
+
+    .sidebar {
+        position: fixed;
+        /* 直接用剛才定義好的變數，讓側邊欄完美停在 Header 的正下方 */
+        top: var(--header-height); 
+        left: 0;
+        bottom: 0;
+        height: calc(100vh - var(--header-height)); /* 扣除 Header 高度，剛好填滿剩餘畫面 */
+        z-index: 101;
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn-nav-main {
+                padding: 0.85rem 0.8rem;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頁首 Header -->
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            17200 網路架設 乙級 工作項目 03：區域網路與網際網路規劃架設 (151-175)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <!-- 側邊欄 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (151-175)" min="151" max="175">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid">
+                <!-- 動態 151-175 題號 -->
+            </div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- 主要測驗卡片區 -->
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 151 題 / 共 25 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList">
+                    <!-- 動態選項 -->
+                </div>
+
+                <button id="submitMultiBtn" class="submit-multi-btn" style="display: none;" onclick="submitMultiAnswer()">送出多選答案</button>
+
+                <!-- 即時解析區 -->
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <!-- 控制按鈕列 -->
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 工作項目3 (151-175題) 題庫資料庫 (支援單選與多選)
+        const questions = [
+            {
+                id: 151,
+                type: "multi",
+                title: "關於通訊網路系統，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "系統是指能對輸入訊號進行處理，並產生輸出訊號的裝置",
+                    "傳送端將欲傳送的信息送入編碼器（Encoder）進行編碼，編碼器會執行訊源編碼（Source Coding）及通道編碼（Channel Coding）",
+                    "濾波器是指能限制訊號頻譜於某個特定頻率的裝置",
+                    "調變是指在接收端恢復原來的基頻訊號"
+                ],
+                answer: [0, 1, 2],
+                explanation: "系統定義正確；傳送端編碼器負責訊源與通道編碼；濾波器限制頻譜；而在接收端恢復原來的基頻訊號稱為「解調（Demodulation）」，選項(4)將其稱為調變故錯誤。",
+                errorAnalysis: "調變發生在傳送端（載波調變），接收端負責解調。"
+            },
+            {
+                id: 152,
+                type: "multi",
+                title: "下列哪些是 OTDR 所用到的光學理論？ (本題為多選題)",
+                options: [
+                    "瑞利散射（Rayleigh backscattering）",
+                    "繞射（Diffraction）",
+                    "菲涅爾反射（Fresnel reflection）",
+                    "干涉測量（Interferometry）"
+                ],
+                answer: [0, 2],
+                explanation: "光時域反射儀（OTDR）的核心運作原理是利用光纖內部的「瑞利散射」以及當遇到折射率改變（如接頭、斷裂面）時產生的「菲涅爾反射」。",
+                errorAnalysis: "繞射與干涉測量並非 OTDR 的主要量測依據原理。"
+            },
+{
+                id: 153,
+                type: "multi",
+                title: "關於 OTDR 的參數，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "脈衝寬度與盲區無關",
+                    "脈衝寬度愈短，雜訊愈大",
+                    "脈衝寬度愈長，量測出來的曲線愈平滑",
+                    "測試波長愈短，對光纖彎曲愈敏感"
+                ],
+                answer: [1, 2],
+                explanation: "脈衝寬度越短雜訊越大，越長則量測出來的曲線越平滑（但盲區會變大，因此與盲區有關）。此外，測試波長越「長」（如 1550nm 或 1625nm）對光纖的彎曲才會越敏感，故選項 4 不正確。",
+                errorAnalysis: "官方解答為 (23)。測試波長越短對彎曲越不敏感，因此選項 4 錯誤。"
+            },
+            {
+                id: 154,
+                type: "multi",
+                title: "訊號之傳輸有下列哪些方式？ (本題為多選題)",
+                options: [
+                    "全雙工",
+                    "半雙工",
+                    "單工",
+                    "半單工"
+                ],
+                answer: [0, 1, 2],
+                explanation: "標準的訊號傳輸模式包含全雙工（Full-duplex）、半雙工（Half-duplex）以及單工（Simplex）。",
+                errorAnalysis: "半單工並非通訊學中的標準傳輸模式分類。"
+            },
+            {
+                id: 155,
+                type: "multi",
+                title: "下列哪些正確？ (本題為多選題)",
+                options: [
+                    "紅外線資料傳輸是以點對點的方式進行",
+                    "藍牙技術無法同時傳輸語音及數據資料",
+                    "紅外線無法穿透障礙物",
+                    "藍牙是一種短距離、低功率、低成本的無線通訊技術"
+                ],
+                answer: [0, 2, 3],
+                explanation: "紅外線具備方向性、點對點、無法穿透牆壁障礙物的特性；藍牙為短距離低功率低成本無線技術，且藍牙支援語音與數據同時傳輸（SCO/ACL）。",
+                errorAnalysis: "藍牙可以同時傳輸語音與數據，故選項(2)錯誤。"
+            },
+            {
+                id: 156,
+                type: "multi",
+                title: "線性調變技術包含下列哪些方式？ (本題為多選題)",
+                options: [
+                    "雙邊帶抑制載波（Double Sideband Suppressed Carrier, DSB-SC）",
+                    "殘留邊帶（Vestigial Sideband, VSB）",
+                    "無邊帶（Non-sideband, NSB）",
+                    "單邊帶（Single-sideband, SSB）"
+                ],
+                answer: [0, 1, 3],
+                explanation: "常見的線性調變技術包含傳統調幅（AM）、DSB-SC、SSB 以及 VSB（如電視廣播採用），無邊帶（NSB）為不實名詞。",
+                errorAnalysis: "NSB 並不存在於調變技術中。"
+            },
+            {
+                id: 157,
+                type: "multi",
+                title: "下列哪些為乙太網路 Ethernet 的傳輸媒介？ (本題為多選題)",
+                options: [
+                    "光纖",
+                    "雙絞線",
+                    "同軸電纜",
+                    "磁帶"
+                ],
+                answer: [0, 1, 2],
+                explanation: "乙太網路的實體傳輸媒介歷史包含同軸電纜（早期）、雙絞線（主流）及光纖（高速骨幹），磁帶屬於儲存媒介。",
+                errorAnalysis: "磁帶是用於資料備份的儲存媒介，非網路傳輸介質。"
+            },
+            {
+                id: 158,
+                type: "multi",
+                title: "無線網路可依據傳輸距離的遠近作為區分，下列哪些不正確？ (本題為多選題)",
+                options: [
+                    "無線都會網路（Wireless Metropolitan Area Network, WMAN）可以用以聯繫聚落落在不同區域的辦公大樓或校區",
+                    "無線區域網路（Wireless Local Area Network, WLAN）適用於單一建築物或辦公室之內，傳輸範圍僅限於 10 公尺內",
+                    "無線個人網路（Wireless Personal Area Network, WPAN）的主要用途是讓個人使用的資訊裝置可互相通訊及資料交換",
+                    "無線廣域網路（Wireless Wide Area Network, WWAN）的傳輸範圍只限跨越不同城市，無法跨越不同國家之間的網路"
+                ],
+                answer: [1, 3],
+                explanation: "WLAN 範圍通常為數十公尺至百公尺，非僅限 10 公尺內（10公尺內屬 WPAN）；WWAN（如蜂巢式行動網路、衛星網路）跨國跨洲皆可傳輸，非僅限跨城市。",
+                errorAnalysis: "題目要求選出「不正確」的選項：WLAN 範圍大於10公尺，WWAN 可跨國傳輸，故(2)與(4)敘述不正確。"
+            },
+            {
+                id: 159,
+                type: "multi",
+                title: "關於無線電微波（Microwave），下列哪些不正確？ (本題為多選題)",
+                options: [
+                    "頻率範圍在 20 GHz 到 1000 GHz 之間",
+                    "通常適用於寬頻（Wideband）及雷達（Radar）系統",
+                    "微波是一種直線波，不沿著地球曲面傳送",
+                    "傳輸的衰減只需考慮實際使用的頻段，不需考慮天線兩端的距離"
+                ],
+                answer: [0, 3],
+                explanation: "微波頻段通常定義在約 300 MHz 至 300 GHz（或 1 GHz 到 300 GHz 左右），並非 20 GHz 到 1000 GHz；且訊號衰減與傳輸距離長短息息相關。",
+                errorAnalysis: "題目要求選出「不正確」的選項：頻率範圍錯誤且衰減必須計入傳輸距離，故(1)與(4)不正確。"
+            },
+            {
+                id: 160,
+                type: "multi",
+                title: "關於藍牙（Bluetooth）協定，下列哪些不正確？ (本題為多選題)",
+                options: [
+                    "基本網路架構為星狀，其形態是各個從裝置（Slave Device）都會與 1 個主裝置（Master Device）連接",
+                    "形成網路的基本單位稱為微網（Piconet），1 個微網內的裝置數目並無限制",
+                    "若多個微網（Piconet）之間有共用的裝置，則所形成的網路稱為擴散網（Scatternet）",
+                    "1 個微網（Piconet）至少包含 1 個主裝置（Master Device）及無數個從裝置（Slave Device）"
+                ],
+                answer: [1, 3],
+                explanation: "微網內最多只能有 1 個主裝置與最多 7 個「活躍（Active）」從裝置，並非無限制；且從裝置數目有限制而非無數個，故(2)與(4)錯誤。",
+                errorAnalysis: "題目要求選出「不正確」的選項：Piconet 裝置數量有限制（最多7個活躍從裝置），故選(2)與(4)。"
+            },
+            {
+                id: 161,
+                type: "multi",
+                title: "關於藍牙封包格式的標頭欄位，下列哪些正確？ (本題 for 多選題)",
+                options: [
+                    "藍牙封包的標頭碼共有 12 個位元",
+                    "封包類型（Type）代表此封包的種類及所使用的時槽個數",
+                    "標頭錯誤檢查（Header Error Check, HEC）用以檢查標頭在傳送過程中是否發生錯誤",
+                    "序列號碼（Sequence Number, SEQN）是在接收端收到封包時，用以判斷封包是否重複"
+                ],
+                answer: [1, 2, 3],
+                explanation: "藍牙標頭包含 AM_ADDR、Type、FLOW、HEC 等，其中標頭碼通常為 54 位元（含重複等，單一標頭本身實質結構依規格），封包類型 Type 指示時槽與種類，HEC 用於標頭檢錯，SEQN 用於 ARQ 停止等待協定確認封包是否重複。",
+                errorAnalysis: "選項(1)藍牙封包標頭大小不只是 12 個位元（藍牙 Baseband Header 共 18 bits，但含 AM_ADDR 等細節）。此題標準答案多選(2)(3)(4)或對應題庫標準。"
+            },
+            {
+                id: 162,
+                type: "single",
+                title: "（保留題/預設題）無線區域網路中常見之媒介存取控制協定為何？",
+                options: [
+                    "CSMA/CD",
+                    "CSMA/CA",
+                    "ALOHA",
+                    "Token Ring"
+                ],
+                answer: [1],
+                explanation: "無線區域網路（WLAN）由於無法有效偵測碰撞，因此採用帶有碰撞避免機制的 CSMA/CA（Carrier Sense Multiple Access with Collision Avoidance）。",
+                errorAnalysis: "有線乙太網路用 CSMA/CD，無線網路用 CSMA/CA。"
+            },
+            {
+                id: 163,
+                type: "multi",
+                title: "關於無線網狀網路（Wireless Mesh Network, WMN），下列哪些正確？ (本題為多選題)",
+                options: [
+                    "採用網狀拓撲技術",
+                    "節點不具有行動能力",
+                    "由許多環狀的路由器所組成",
+                    "節點通常可提供網路存取服務予多個使用者"
+                ],
+                answer: [0, 3],
+                explanation: "WMN 採用網狀拓撲（Mesh Topology），節點可以具備行動或固定性，網狀路由器可提供多重路徑與網路存取服務給終端使用者。",
+                errorAnalysis: "節點可具備行動力，且不限於環狀路由器組成。"
+            },
+{
+                id: 164,
+                type: "multi",
+                title: "關於時間分割多重存取（Time Division Multiple Access, TDMA），下列哪些正確？ (本題為多選題)",
+                options: [
+                    "允許多個使用者使用相同的頻率來存取媒介",
+                    "每個訊框的第 1 號時槽會組成第 1 號頻道，其餘則以此類推",
+                    "每頻道可供多位使用者同時使用，且不同使用者的信號不會重疊",
+                    "在時間軸上劃分多個等長訊框（Frame），在每個訊框中再細分多個等長時槽（Time Slot）"
+                ],
+                answer: [0, 1, 3],
+                explanation: "TDMA 的特色在於允許多個使用者在相同的頻率上，透過切割時間軸成為等長的訊框與時槽來傳輸。每個訊框的同一編號時槽會邏輯上組成一個專屬頻道。",
+                errorAnalysis: "官方解答為 (124)。選項 3 稱每頻道可供多位使用者「同時」使用是錯誤的，因為 TDMA 是在不同的「時間槽」交替使用，並非同時。"
+            },
+            {
+                id: 165,
+                type: "multi",
+                title: "關於調變技術，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "二元相移鍵控（Binary Phase Shift Keying, BPSK）調變使用相對的弦波表示每個位元",
+                    "頻移鍵控（Frequency Shift Keying, FSK）調變以較高的頻率表示位元 0，較低的頻率表示位元 1",
+                    "差動相移鍵控（Differential Phase Shift Keying, DPSK）調變將信號相位與前 1 個位元的信號相位比較，若相同視為 1，不同則視為 0",
+                    "幅移鍵控（Amplitude Shift Keying, ASK）調變輸出為二位元字串，使用固定振幅的載波表示位元 1，使用無振幅的載波表示位元 0"
+                ],
+                answer: [0, 3],
+                explanation: "BPSK 使用不同的相位代表位元（如 0 度與 180 度的相對弦波）；ASK 以有無振幅或不同振幅代表 1 與 0。",
+                errorAnalysis: "官方解答為 (14)。FSK 通常以高頻代表 1、低頻代表 0（選項 2 顛倒）；DPSK 在不同標準下定義不一，但依官方題庫認定選項 3 為錯誤敘述。"
+            },
+            {
+                id: 166,
+                type: "multi",
+                title: "關於無線存取（Wireless Access）技術之敘述，下列哪些不正確？ (本題為多選題)",
+                options: [
+                    "展頻多重存取（Spread Spectrum Multiple Access, SSMA）技術比非展頻技術需要更大的使用頻寬",
+                    "時間分割多重存取（Time Division Multiple Access, TDMA）技術，每個時槽內允許許多用戶傳送或接收資料",
+                    "空間分割多重存取（Space Division Multiple Access, SDMA）技術，可控制涵蓋範圍內用戶的發射功率",
+                    "頻率分割多重存取（Frequency Division Multiple Access, FDMA）技術，係將通訊系統的總頻段分割成若干個不等間隔的頻道"
+                ],
+                answer: [1, 3],
+                explanation: "TDMA 每個時槽通常僅分配給單一用戶（避免互相干擾）；FDMA 將總頻段分割成「等間隔」或特定規畫的頻道，而非不等間隔。故(2)與(4)不正確。",
+                errorAnalysis: "題目要求選出「不正確」的敘述：時槽通常為單一用戶獨占，頻段為規律分割，故選(2)與(4)。"
+            },
+            {
+                id: 167,
+                type: "multi",
+                title: "關於 OSI 七層架構的功能之敘述，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "傳輸層（Transport Layer）負責可靠的端對端訊息傳送",
+                    "資料鏈結層（Data Link Layer）負責網路相連及訊息流通控制",
+                    "應用層（Application Layer）負責節點上應用系統之間的溝通",
+                    "實體層（Physical Layer）負責定義實際传输資訊的硬體設備規範"
+                ],
+                answer: [0, 2, 3],
+                explanation: "傳輸層負責端對端可靠傳輸；應用層負責應用程式溝通；實體層負責硬體媒介與電氣規範；而「網路相連」屬於網路層（Network Layer），資料鏈結層負責點對點訊框傳送，故選項(2)對網路相連的描述不準確。",
+                errorAnalysis: "網路相連（Routing & Addressing）是網路層職責，資料鏈結層負責節點間實體定址與訊框傳遞。"
+            },
+            {
+                id: 168,
+                type: "multi",
+                title: "下列哪些為區域網路（Local Area Networks, LAN）的基本要求？ (本題為多選題)",
+                options: [
+                    "在高負載時具有穩定性",
+                    "鋪設距離最長為 10 公里",
+                    "應易於安裝及維護",
+                    "資料傳輸速率沒有上限"
+                ],
+                answer: [0, 2],
+                explanation: "LAN 的特性包含高負載穩定性、易於安裝維護、高傳輸速率與低誤碼率。LAN 屬於區域小範圍，鋪設距離通常在數百公尺至數公里內（10公里已屬 MAN 範圍），且傳輸速率有物理極限。",
+                errorAnalysis: "LAN 距離短且傳輸速率有技術上限，故選項(2)與(4)錯誤。"
+            },
+            {
+                id: 169,
+                type: "multi",
+                title: "關於資料通訊系統，下列哪些不正確？ (本題為多選題)",
+                options: [
+                    "資料交換設備（Data Switching Equipment, DSE）負責轉換信號的節點",
+                    "資料終端設備（Data Terminal Equipment, DTE）負責實際傳送或接收資料的節點",
+                    "資料通訊設備（Data Communication Equipment, DCE）不負責轉送資料或進行中繼處理的節點",
+                    "資訊通訊之傳輸媒介具有不同的網路頻寬、傳輸品質、傳輸速率、成本與安裝方式"
+                ],
+                answer: [0, 2],
+                explanation: "DCE（如數據機）正是負責訊號轉換、中繼與轉送資料的設備，選項(3)稱其「不負責轉送」是錯誤的；DSE 負責交換處理。題目要求選出「不正確」的選項，故選(1)與(3)。",
+                errorAnalysis: "DCE 負責資料的轉送與通訊控制，故選項(3)敘述不正確。"
+            },
+            {
+                id: 170,
+                type: "multi",
+                title: "關於網路位址轉換（Network Address Translation, NAT），下列哪些正確？ (本題為多選題)",
+                options: [
+                    "可減少使用之公共 IP 位址",
+                    "增強網路的安全性",
+                    "增加連上網路的速度",
+                    "降低使用通道的複雜度"
+                ],
+                answer: [0, 1],
+                explanation: "NAT 主要用於將私有 IP 轉換為公有 IP，藉此節省公有 IP 資源，並透過隱藏內部網路結構來增強安全性。",
+                errorAnalysis: "NAT 額外需要封包改寫負擔，不會增加上網速度或降低通道複雜度。"
+            },
+            {
+                id: 171,
+                type: "multi",
+                title: "關於分封交換網路，下列哪些不正確？ (本題為多選題)",
+                options: [
+                    "需要固定的永久連線",
+                    "傳送封包的網路無法共享",
+                    "不易受抖動（Jitter）影響",
+                    "封包無法經過多台路由器"
+                ],
+                answer: [0, 1, 3],
+                explanation: "分封交換（Packet Switching）不需要固定永久連線（採虛擬電路或資料包）、網路資源可動態共享、且封包在傳遞過程中會經過多台路由器進行轉送。",
+                errorAnalysis: "題目要求選出「不正確」的敘述：分封交換可共享、可經過多台路由器且不需永久固定電路，故選(1)、(2)、(4)。"
+            },
+{
+                id: 172,
+                type: "multi",
+                title: "下列哪些選項不屬於資料通訊設備（Data Communications Equipment, DCE）？ (本題為多選題)",
+                options: [
+                    "數據機",
+                    "路由器",
+                    "乙太網路交換器",
+                    "訊框中繼交換器"
+                ],
+                answer: [1, 2, 3],
+                explanation: "在傳統通訊定義中，數據機（Modem）是典型的 DCE。而路由器與交換器通常被視為 DTE 或中繼節點。依據官方題庫標準，訊框中繼交換器在此題中也被歸類為不屬於 DCE 的選項。",
+                errorAnalysis: "官方解答為 (234)。雖然訊框中繼交換器有時被視為提供 DCE 介面的設備，但在本測驗中需遵守官方定義選取 ②、③、④。"
+            },
+            {
+                id: 173,
+                type: "multi",
+                title: "藍牙（Bluetooth）封包格式，包括下列哪幾個欄位？ (本題為多選題)",
+                options: [
+                    "存取碼（Access code）",
+                    "序列號碼（SEquence Number）",
+                    "標頭（Header）",
+                    "負載（Payload）"
+                ],
+                answer: [0, 2, 3],
+                explanation: "標準藍牙實體層封包的三大基本組成欄位為：存取碼（Access Code）、標頭（Header）以及負載（Payload）。",
+                errorAnalysis: "序列號碼（SEQN）屬於標頭內部的控制位元，非獨立的大型封包頂層欄位。"
+            },
+            {
+                id: 174,
+                type: "multi",
+                title: "藍牙（Bluetooth）之最大發射功率可分為哪幾種？ (本題為多選題)",
+                options: [
+                    "100mW（20dBm）",
+                    "2.5mW（4dBm）",
+                    "2.0mW（3dBm）",
+                    "1mW（0dBm）"
+                ],
+                answer: [0, 1, 3],
+                explanation: "藍牙依功率分級（Class）：Class 1 最大發射功率 100mW (20dBm)；Class 2 最大發射功率 2.5mW (4dBm)；Class 3 最大發射功率 1mW (0dBm)。",
+                errorAnalysis: "標準藍牙功率分級不包含 2.0mW (3dBm)。"
+            },
+            {
+                id: 175,
+                type: "multi",
+                title: "IEEE 802.15.4 標準之主要優點為何？ (本題為多選題)",
+                options: [
+                    "固定的資料潛伏期（Data latency）",
+                    "具備彈性的網路架構",
+                    "低複雜度的軟硬體設計架構",
+                    "支援不同的資料傳輸安全層級"
+                ],
+                answer: [1, 2, 3],
+                explanation: "IEEE 802.15.4（低功耗無線感測網路標準）具備低複雜度、網路架構具彈性（支援星狀與網狀）以及支援多種安全機制（AES-128 等安全性層級）。",
+                errorAnalysis: "其潛伏期會隨工作模式動態調整，並非絕對固定。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; // 記錄使用者的選擇 (單選存數字，多選存陣列)
+        let isSubmitted = {}; // 記錄該題是否已經按下送出
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            document.getElementById('qText').innerText = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            const submitBtn = document.getElementById('submitMultiBtn');
+
+            if (q.type === 'multi') {
+                badge.innerText = "多選題";
+                badge.className = "type-badge multi";
+                submitBtn.style.display = "block";
+            } else {
+                badge.innerText = "單選題";
+                badge.className = "type-badge";
+                submitBtn.style.display = "none";
+            }
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                if (q.type === 'single') {
+                    optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                    if (submitted) {
+                        optDiv.classList.add('disabled');
+                        if (optIdx === q.answer[0]) {
+                            optDiv.classList.add('correct');
+                        } else if (userAnswers[index] === optIdx) {
+                            optDiv.classList.add('wrong');
+                        }
+                    } else {
+                        optDiv.onclick = () => {
+                            userAnswers[index] = optIdx;
+                            isSubmitted[index] = true;
+                            loadQuestion(currentIndex);
+                        };
+                    }
+                } else {
+                    const isSelected = userAnswers[index] && userAnswers[index].includes(optIdx);
+
+                    if (!submitted) {
+                        if (isSelected) {
+                            optDiv.classList.add('multi-selected');
+                        }
+                        optDiv.onclick = () => {
+                            toggleMultiSelection(optIdx);
+                            loadQuestion(currentIndex);
+                        };
+                        optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                    } else {
+                        optDiv.classList.add('disabled');
+                        const isCorrectOpt = q.answer.includes(optIdx);
+
+                        if (isSelected && isCorrectOpt) {
+                            optDiv.classList.add('multi-correct-hit');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        } else if (isSelected && !isCorrectOpt) {
+                            optDiv.classList.add('multi-wrong-hit');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        } else if (!isSelected && isCorrectOpt) {
+                            optDiv.classList.add('multi-missed');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span><span class="missed-tag">未選到</span>`;
+                        } else {
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        }
+                    }
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            if (q.type === 'multi') {
+                submitBtn.disabled = submitted;
+            }
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+        }
+
+        function toggleMultiSelection(optIdx) {
+            if (!userAnswers[currentIndex]) {
+                userAnswers[currentIndex] = [];
+            }
+            const idx = userAnswers[currentIndex].indexOf(optIdx);
+            if (idx > -1) {
+                userAnswers[currentIndex].splice(idx, 1);
+            } else {
+                userAnswers[currentIndex].push(optIdx);
+            }
+        }
+
+        function submitMultiAnswer() {
+            if (!userAnswers[currentIndex] || userAnswers[currentIndex].length === 0) {
+                alert("請至少選擇一個選項！");
+                return;
+            }
+            isSubmitted[currentIndex] = true;
+            loadQuestion(currentIndex);
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            let isCorrect = false;
+            if (q.type === 'single') {
+                isCorrect = userAnswers[qIdx] === q.answer[0];
+            } else {
+                const userSel = [...(userAnswers[qIdx] || [])].sort();
+                const correctAns = [...q.answer].sort();
+                isCorrect = JSON.stringify(userSel) === JSON.stringify(correctAns);
+            }
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不完全正確，請參考下方解析與未選到標示：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        // 更新導覽按鈕
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 151 && inputVal <= 175) {
+                currentIndex = inputVal - 151;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (151 - 175)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>
