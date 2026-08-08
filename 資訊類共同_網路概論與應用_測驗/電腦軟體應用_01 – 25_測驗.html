@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async
+	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+	</script>
+    <title>工作項目 02 測驗 (1-25) - 實戰指南風格</title>
+    <style>
+        :root {
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:hover:not(:disabled) .svg-icon {
+            stroke: #ffffff;
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-nav-main:disabled .svg-icon {
+            stroke: #94a3b8;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 85px; 
+            }
+
+            .header {
+                height: var(--header-height);
+                align-items: flex-start;
+                padding-top: 1rem;
+            }
+
+            .hamburger-btn {
+                display: block;
+                margin-top: 0.1rem;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: var(--header-height); 
+                left: 0;
+                bottom: 0;
+                height: calc(100vh - var(--header-height));
+                z-index: 101;
+                transform: translateX(-100%);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn-nav-main {
+                padding: 0.85rem 0.8rem;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            90011 資訊相關職類共用工作項目 02：網路概論與應用 (1-25)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (1-25)" min="1" max="25">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid"></div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 1 題 / 共 25 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList"></div>
+
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                type: "single",
+                title: "下列何者為制定網際網路(Internet)相關標準的機構？",
+                options: ["IETF", "IEEE", "ANSI", "ISO"],
+                answer: [0],
+                explanation: "IETF（Internet Engineering Task Force，網際網路工程任務組）是負責開發和推動網際網路標準的主要機構。",
+                errorAnalysis: "IEEE 主要制定電機電子與區域網路標準；ANSI 為美國國家標準學會；ISO 為國際標準組織。"
+            },
+            {
+                id: 2,
+                type: "single",
+                title: "下列何者為專有名詞「WWW」之中文名稱？",
+                options: ["區域網路", "網際網路", "全球資訊網", "社群網路"],
+                answer: [2],
+                explanation: "WWW（World Wide Web）的中譯即為「全球資訊網」。",
+                errorAnalysis: "區域網路為 LAN，網際網路為 Internet。"
+            },
+            {
+                id: 3,
+                type: "single",
+                title: "下列何者不是合法的 IP 位址？",
+                options: ["120.80.40.20", "140.92.1.50", "192.83.166.5", "258.128.33.24"],
+                answer: [3],
+                explanation: "IPv4 的每一個位元組（Octet）數值範圍必須介於 0 到 255 之間。選項 4 中的 258 與 128 超出合法範圍。",
+                errorAnalysis: "IPv4 每個欄位數值不可大於 255。"
+            },
+            {
+                id: 4,
+                type: "single",
+                title: "有關網際網路之敘述，下列何者「不正確」？",
+                options: [
+                    "IPv4 之子網路與 IPv6 之子網路只要兩端直接以傳輸線相連即可互相傳送資料",
+                    "IPv4 之位址可以被轉化為 IPv6 之位址",
+                    "IPv6 之位址有 128 位元",
+                    "IPv4 之位址有 32 位元"
+                ],
+                answer: [0],
+                explanation: "IPv4 與 IPv6 屬於不同的協定版本，無法直接單純靠傳輸線相連就互相傳送資料，必須透過通道技術（Tunneling）或轉譯機制才能互通。",
+                errorAnalysis: "IPv4 與 IPv6 架構不同，不能直接相容溝通。"
+            },
+            {
+                id: 5,
+                type: "single",
+                title: "在 OSI（Open System Interconnection）通信協定中，電子郵件的服務屬於下列哪一層？",
+                options: ["傳送層(Transport Layer)", "交談層(Session Layer)", "表示層(Presentation Layer)", "應用層(Application Layer)"],
+                answer: [3],
+                explanation: "電子郵件服務（如 SMTP、POP3、IMAP）直接面對使用者與應用程式，屬於 OSI 七層模型中的應用層。",
+                errorAnalysis: "電子郵件協定屬於最高層的應用層。"
+            },
+            {
+                id: 6,
+                type: "single",
+                title: "有關藍牙(Bluetooth)技術特性之敘述，下列何者「不正確」？",
+                options: ["傳輸距離約 10 公尺", "低功率", "使用 2.4GHz 頻段", "傳輸速率約為 10Mbps"],
+                answer: [3],
+                explanation: "傳統藍牙與早期規格的傳輸速率通常在 1Mbps 至 3Mbps 左右（藍牙 4.0/5.0 的 LE 或高速模式另計），並非約 10Mbps。",
+                errorAnalysis: "傳統藍牙速率較低，一般大約在 1~3 Mbps 之間。"
+            },
+            {
+                id: 7,
+                type: "single",
+                title: "有關網際網路協定之敘述，下列何者「不正確」？",
+                options: ["TCP 是一種可靠傳輸", "HTTP 是一種安全性的傳輸", "HTTP 使用 TCP 來傳輸資料", "UDP 是一種不可靠傳輸"],
+                answer: [1],
+                explanation: "標準的 HTTP 是明文傳輸、不具備加密安全性的；具有安全加密機制的傳輸應為 HTTPS。",
+                errorAnalysis: "HTTP 為明文傳輸，HTTPS 才是加密的安全傳輸。"
+            },
+            {
+                id: 8,
+                type: "single",
+                title: "下列何者是較為安全的加密傳輸協定？",
+                options: ["SSH", "HTTP", "FTP", "SMTP"],
+                answer: [0],
+                explanation: "SSH（Secure Shell）透過加密技術提供安全的遠端登入與資料傳輸；其餘選項傳統上皆為明文傳輸。",
+                errorAnalysis: "SSH 專門用於安全遠端連線與加密傳輸。"
+            },
+            {
+                id: 9,
+                type: "single",
+                title: "物聯網(IoT)通訊物件通常具備移動性，為支援這樣的通訊特性，需求的網路技術主要為下列何者？",
+                options: ["分散式運算", "網格運算", "跨網域運算能力", "物件動態連結"],
+                answer: [3],
+                explanation: "物聯網裝置常在不同環境中移動或連線，需要具備物件動態連結（或動態網路拓撲與位置對應）來維持通訊。",
+                errorAnalysis: "支援移動性與隨需加入需仰賴物件動態連結特性。"
+            },
+            {
+                id: 10,
+                type: "single",
+                title: "若電腦教室內的電腦皆以雙絞線連結至某一台集線器上，則此種網路架構為下列何者？",
+                options: ["星狀拓樸", "環狀拓樸", "匯流排拓樸", "網狀拓樸"],
+                answer: [0],
+                explanation: "所有節點透過纜線連接至中央設備（如集線器或交換器），呈現星形發散，稱為星狀拓樸（Star Topology）。",
+                errorAnalysis: "中央集線設備連接各終端屬於星狀拓樸。"
+            },
+            {
+                id: 11,
+                type: "single",
+                title: "下列設備，何者可以讓我們在只有一個 IP 的狀況下，提供多部電腦上網？",
+                options: ["集線器(Hub)", "IP 分享器", "橋接器(Bridge)", "數據機(Modem)"],
+                answer: [1],
+                explanation: "IP 分享器（或稱路由器 Router）具備 NAT（網路位址轉譯）功能，能讓內部多部電腦共用一個對外公有 IP 上網。",
+                errorAnalysis: "NAT 功能主要由 IP 分享器/路由器提供。"
+            },
+{
+                id: 12,
+                type: "single",
+                title: "當一個區域網路過於忙碌，打算將其分開成兩個子網路時，此時應加裝下列何種裝置？",
+                options: ["路由器(Router)", "橋接器(Bridge)", "閘道器(Gateway)", "網路連接器(Connector)"],
+                answer: [1],
+                explanation: "當區域網路過於忙碌時，加裝橋接器（Bridge）可以分割碰撞網域與流量，為勞動部官方題庫指定之標準答案。",
+                errorAnalysis: "依據勞動部官方學科題庫解答，本題正確選項為 ② 橋接器（Bridge）。"
+            },
+            {
+                id: 13,
+                type: "single",
+                title: "下列何種電腦通訊傳輸媒體之傳輸速度最快？",
+                options: ["同軸電纜", "雙絞線", "電話線", "光纖"],
+                answer: [3],
+                explanation: "光纖以光訊號傳遞，頻寬極大、衰減極小，是目前傳輸速度最快的通訊媒體。",
+                errorAnalysis: "光纖的傳輸速率與頻寬遠大於傳統銅線。"
+            },
+            {
+                id: 14,
+                type: "single",
+                title: "下列何者為真實的 MAC(Media Access Control)位址？",
+                options: [
+                    "00:05:J6:0D:91:K1",
+                    "10.0.0.1-255.255.255.0",
+                    "00:05:J6:0D:91:B1",
+                    "00:D0:A0:5C:C1:B5"
+                ],
+                answer: [3],
+                explanation: "MAC 位址為 48 位元（通常以 12 個十六進位數字表示，範圍 0-9、A-F）。選項 4 完全符合十六進位格式；選項 1 與 3 包含英文字母 J 和 K，超出十六進位（0-F）範圍。",
+                errorAnalysis: "MAC 位址由 16 進位字元（0-9、A-F）組成。"
+            },
+            {
+                id: 15,
+                type: "single",
+                title: "下列何種 IEEE Wireless LAN 標準的傳輸速率最低？",
+                options: ["802.11a", "802.11b", "802.11g", "802.11n"],
+                answer: [1],
+                explanation: "IEEE 802.11b 的最高理論傳輸速率為 11 Mbps，低於 802.11a/g（54 Mbps）以及 802.11n（更高）。",
+                errorAnalysis: "802.11b 速率為 11Mbps，為早期較慢的標準。"
+            },
+            {
+                id: 16,
+                type: "single",
+                title: "NAT(Network Address Translation)的用途為下列何者？",
+                options: [
+                    "電腦主機與 IP 位址的轉換",
+                    "IP 位址轉換為實體位址",
+                    "組織內部私有 IP 位址與網際網路合法 IP 位址的轉換",
+                    "封包轉送路徑選擇"
+                ],
+                answer: [2],
+                explanation: "NAT 主要用於將內部網路的私有 IP 位址（Private IP）轉換為網際網路上的合法公有 IP 位址（Public IP）。",
+                errorAnalysis: "NAT 解決了公有 IP 不足的問題，負責私有與公有 IP 互轉。"
+            },
+            {
+                id: 17,
+                type: "single",
+                title: "下列何種服務可將 Domain Name 對應為 IP 位址？",
+                options: ["WINS", "DNS", "DHCP", "Proxy"],
+                answer: [1],
+                explanation: "DNS（Domain Name System，網域名稱系統）負責將好記的網域名稱對應轉換成數值形式的 IP 位址。",
+                errorAnalysis: "DNS 專門負責網域名稱與 IP 的解析對應。"
+            },
+            {
+                id: 18,
+                type: "single",
+                title: "下列何者不是 NFC (Near Field Communication)的功用？",
+                options: ["電子錢包", "電子票證", "行車導航", "資料交換"],
+                answer: [2],
+                explanation: "NFC 屬於近距離無線通訊技術，常用於行動支付、電子錢包、票證與小檔資料交換；行車導航需依賴 GPS 衛星定位系統。",
+                errorAnalysis: "行車導航需要 GPS，非 NFC 的近距離感應應用範圍。"
+            },
+            {
+                id: 19,
+                type: "single",
+                title: "有關 xxx@abc.edu.tw 之敘述，下列何者「不正確」？",
+                options: [
+                    "它代表一個電子郵件地址",
+                    "若為了方便，可以省略@",
+                    "xxx 代表一個電子郵件帳號",
+                    "abc.edu.tw 代表某個電子郵件伺服器"
+                ],
+                answer: [1],
+                explanation: "電子郵件地址中的「@」（At）是分隔帳號與主機網域不可或缺的符號，絕對不能省略。",
+                errorAnalysis: "@ 符號為電子郵件格式的基本結構，不可省略。"
+            },
+            {
+                id: 20,
+                type: "single",
+                title: "有關 OTG(On-The-Go)之敘述，下列何者正確？",
+                options: [
+                    "可以將兩個隨身碟連接複製資料",
+                    "可以提昇隨身碟資料傳送之速度",
+                    "可以將隨身碟連接到手機，讓手機存取隨身碟之資料",
+                    "可以讓隨身碟直接透過 WiFi 傳送資料到雲端"
+                ],
+                answer: [2],
+                explanation: "USB OTG 允許行動裝置（如手機、平板）直接讀取或外接 USB 週邊裝置（如隨身碟、滑鼠）。",
+                errorAnalysis: "OTG 讓行動裝置能直接充當主機存取 USB 裝置。"
+            },
+            {
+                id: 21,
+                type: "single",
+                title: "根據美國國家標準與技術研究院(NIST)對雲端的定義，下列何者「不是」雲端運算(Cloud Computing)之服務模式？",
+                options: [
+                    "內容即服務（Content as a Service, CaaS）",
+                    "基礎架構即服務（Infrastructure as a Service, IaaS）",
+                    "平台即服務（Platform as a Service, PaaS）",
+                    "軟體即服務（Software as a Service, SaaS）"
+                ],
+                answer: [0],
+                explanation: "NIST 定義的三大雲端服務核心模式為 IaaS、PaaS 以及 SaaS，不包含「內容即服務（CaaS）」。",
+                errorAnalysis: "標準雲端三要素為 IaaS、PaaS、SaaS。"
+            },
+            {
+                id: 22,
+                type: "single",
+                title: "下列何種雲端服務可供使用者開發應用軟體？",
+                options: [
+                    "Software as a Service (SaaS)",
+                    "Platform as a Service (PaaS)",
+                    "Information as a Service (IaaS)",
+                    "Infrastructure as a Service (IaaS)"
+                ],
+                answer: [1],
+                explanation: "PaaS（平台即服務）提供開發人員建置、測試與執行應用軟體的平台環境與工具。",
+                errorAnalysis: "PaaS 提供應用程式開發與執行的運行平台。"
+            },
+            {
+                id: 23,
+                type: "single",
+                title: "下列何者為「B2C」電子商務之交易模式？",
+                options: ["公司對公司", "客戶對公司", "客戶對客戶", "公司對客戶"],
+                answer: [3],
+                explanation: "B2C 代表 Business-to-Consumer，即「企業（公司）對消費者（客戶）」的電子商務模式。",
+                errorAnalysis: "B2C 指企業對一般消費者。"
+            },
+            {
+                id: 24,
+                type: "single",
+                title: "下列何者為 Class A 網路的內定子網路遮罩？",
+                options: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"],
+                answer: [0],
+                explanation: "Class A 網路以第一個位元組作為網路識別，其預設子網路遮罩為 255.0.0.0。",
+                errorAnalysis: "Class A、B、C 預設遮罩分別為 255.0.0.0、255.255.0.0 與 255.255.255.0。"
+            },
+            {
+                id: 25,
+                type: "single",
+                title: "IPv6 網際網路上的 IP address，每個 IP address 總共有幾個位元組？",
+                options: ["4 Bytes", "8 Bytes", "16 Bytes", "20 Bytes"],
+                answer: [2],
+                explanation: "IPv6 位址長度為 128 位元（Bits）。由於 1 Byte 等於 8 Bits，因此 128 / 8 = 16 Bytes（位元組）。",
+                errorAnalysis: "IPv6 總長度為 128 bits，換算後等於 16 bytes（IPv4 則是 4 bytes）。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+        let isSubmitted = {}; 
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            
+            document.getElementById('qText').innerHTML = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            badge.innerText = "單選題";
+            badge.className = "type-badge";
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                if (submitted) {
+                    optDiv.classList.add('disabled');
+                    if (optIdx === q.answer[0]) {
+                        optDiv.classList.add('correct');
+                    } else if (userAnswers[index] === optIdx) {
+                        optDiv.classList.add('wrong');
+                    }
+                } else {
+                    optDiv.onclick = () => {
+                        userAnswers[index] = optIdx;
+                        isSubmitted[index] = true;
+                        loadQuestion(currentIndex);
+                    };
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([
+                    document.getElementById('qText'),
+                    document.getElementById('optionsList')
+                ]).catch((err) => console.log(err));
+            }
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            const isCorrect = userAnswers[qIdx] === q.answer[0];
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答錯了，請參考下方正確答案與解析：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 1 && inputVal <= 25) {
+                currentIndex = inputVal - 1;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (1 - 25)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>

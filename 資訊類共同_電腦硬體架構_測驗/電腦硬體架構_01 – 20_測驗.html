@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async
+	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+	</script>
+    <title>工作項目1 測驗 (1-20) - 實戰指南風格</title>
+    <style>
+        :root {
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .type-badge.multi {
+            background-color: #9333ea;
+        }
+
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:hover:not(:disabled) .svg-icon {
+            stroke: #ffffff;
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-nav-main:disabled .svg-icon {
+            stroke: #94a3b8;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 85px; 
+            }
+
+            .header {
+                height: var(--header-height);
+                align-items: flex-start;
+                padding-top: 1rem;
+            }
+
+            .hamburger-btn {
+                display: block;
+                margin-top: 0.1rem;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: var(--header-height); 
+                left: 0;
+                bottom: 0;
+                height: calc(100vh - var(--header-height));
+                z-index: 101;
+                transform: translateX(-100%);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn-nav-main {
+                padding: 0.85rem 0.8rem;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            90011 資訊相關職類共用工作項目 01：電腦硬體架構 (1-20)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (1-20)" min="1" max="20">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid"></div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 1 題 / 共 20 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList"></div>
+
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                type: "single",
+                title: "在量販店內，商品包裝上所貼的「條碼(Barcode)」係協助結帳及庫存盤點之用，則該條碼在此方面之資料處理作業上係屬於下列何者？",
+                options: ["輸入設備", "輸入媒體", "輸出設備", "輸出媒體"],
+                answer: [1],
+                explanation: "條碼本身是承載資料的媒介（輸入媒體），透過條碼掃描器（輸入設備）讀取資料，故條碼屬於輸入媒體。",
+                errorAnalysis: "條碼是儲存資料的媒介本身（媒體），而讀取條碼的掃描器才是輸入設備。"
+            },
+            {
+                id: 2,
+                type: "single",
+                title: "有關「CPU 及記憶體處理」之說明，下列何者「不正確」？",
+                options: [
+                    "控制單元負責指揮協調各單元運作",
+                    "I/O 負責算術運算及邏輯運算",
+                    "ALU 負責算術運算及邏輯運算",
+                    "記憶單元儲存程式指令及資料"
+                ],
+                answer: [1],
+                explanation: "算術邏輯單元（ALU）才負責算術運算與邏輯運算，I/O（輸入輸出單元）負責資料的傳輸與溝通，故選項(2)敘述不正確。",
+                errorAnalysis: "I/O 負責周邊與主機的資料輸入輸出，算術與邏輯運算是由 ALU 執行。"
+            },
+            {
+                id: 3,
+                type: "single",
+                title: "有關二進位數的表示法，下列何者「不正確」？",
+                options: ["101", "21A", "1", "11001"],
+                answer: [1],
+                explanation: "二進位數（Binary）僅由數字 0 與 1 組成。「21A」包含數字 2 及英文字母 A，不符合二進位數字格式。",
+                errorAnalysis: "二進位基底為 2，僅允許使用 0 和 1。"
+            },
+            {
+                id: 4,
+                type: "single",
+                title: "負責電腦開機時執行系統自動偵測及支援相關應用程式，具輸入輸出功能的元件為下列何者？",
+                options: ["DOS", "BIOS", "I/O", "RAM"],
+                answer: [1],
+                explanation: "BIOS（基本輸出入系統）燒錄在主機板的ROM中，負責開機自我測試（POST）並提供底層的硬體輸入輸出控制。",
+                errorAnalysis: "BIOS 是軔體，負責開機初始化與基本硬體溝通。"
+            },
+            {
+                id: 5,
+                type: "single",
+                title: "在處理器中位址匯流排有 32 條，可以定出多少記憶體位址？",
+                options: ["512MB", "1GB", "2GB", "4GB"],
+                answer: [3],
+                explanation: "位址匯流排有 32 條時，可定址空間大小為 \\(2^{32}\\) bytes = 4 GB。",
+                errorAnalysis: "\\(2^{32} = 4,294,967,296\\) bytes，即 4 GB。"
+            },
+            {
+                id: 6,
+                type: "single",
+                title: "下列何者屬於揮發性記憶體？",
+                options: ["Hard Disk", "Flash Memory", "ROM", "RAM"],
+                answer: [3],
+                explanation: "RAM（隨機存取記憶體）在電源關閉後資料即會消失，屬於揮發性記憶體；硬碟、Flash 與 ROM 均為非揮發性。",
+                errorAnalysis: "RAM 需要持續供電來保持資料，屬於揮發性（Volatile）記憶體。"
+            },
+            {
+                id: 7,
+                type: "single",
+                title: "下列技術何者為一個處理器中含有兩個執行單元，可以同時執行兩個平行執行緒，以提升處理器的運算效能與多工作業的能力？",
+                options: ["超執行緒(Hyper Thread)", "雙核心(Dual Core)", "超純量(Super Scalar)", "單指令多資料(Single Instruction Multiple Data)"],
+                answer: [1],
+                explanation: "雙核心（Dual Core）是指在單一處理器晶片中實體整合了兩個獨立的運算核心（執行單元），可同時執行多個執行緒。",
+                errorAnalysis: "雙核心是擁有兩個實體核心，而超執行緒是將單一核心模擬成多個邏輯處理器。"
+            },
+            {
+                id: 8,
+                type: "single",
+                title: "下列技術何者為將一個處理器模擬成多個邏輯處理器，以提升程式執行之效能？",
+                options: ["超執行緒(Hyper Thread)", "雙核心(Dual Core)", "超純量(Super Scalar)", "單指令多資料(Single Instruction Multiple Data)"],
+                answer: [0],
+                explanation: "超執行緒（Hyper-Threading, HT）技術透過複製處理器上的 architectural state，將一個實體核心模擬為兩個邏輯處理器。",
+                errorAnalysis: "超執行緒是透過資源共用與邏輯切分來模擬多執行緒處理。"
+            },
+            {
+                id: 9,
+                type: "single",
+                title: "有關記憶體的敘述，下列何者「不正確」？",
+                options: [
+                    "CPU 中的暫存器執行速度比主記憶體快",
+                    "快取磁碟(Disk Cache)是利用記憶體中的快取記憶體(Cache Memory)來存放資料",
+                    "在系統軟體中，透過軟件與輔助儲存體來擴展主記憶體容量，使數個大型程序得以同時放在主記憶體內執行的技術是虛擬記憶體(Virtual Memory)",
+                    "個人電腦上大都有 Level 1(L1)及 Level 2(L2)快取記憶體(Cache Memory)，其中 L1 快取的速度較快，容量較小。"
+                ],
+                answer: [1],
+                explanation: "快取磁碟（Disk Cache）是將主記憶體（RAM）的一部分空間用來暫時存放從硬碟讀取的資料，以加速磁碟讀寫，而非利用 CPU 內建的 Cache Memory。",
+                errorAnalysis: "Disk Cache 是使用主記憶體（RAM）作為磁碟緩衝區，與 CPU 晶片內的 Cache Memory 不同。"
+            },
+            {
+                id: 10,
+                type: "single",
+                title: "有關電腦衡量單位之敘述，下列何者「不正確」？",
+                options: [
+                    "衡量印表機解析度的單位是 DPI (Dots Per Inch)",
+                    "磁帶資料儲存密度的單位是 BPI (Bytes Per Inch)",
+                    "衡量雷射印表機列印速度的單位是 PPM (Pages Per Minute)",
+                    "通訊線路傳輸速率的單位是 BPS (Bytes Per Second)"
+                ],
+                answer: [3],
+                explanation: "通訊線路傳輸速率的正確單位是 bps（Bits Per Second，位元/秒），而不是 Bytes Per Second（位元組/秒）。",
+                errorAnalysis: "網路與通訊頻寬通常以 bits（位元）為單位計算，即 bps。"
+            },
+            {
+                id: 11,
+                type: "single",
+                title: "有關電腦儲存資料所需記憶體的大小排序，下列何者正確？",
+                options: [
+                    "1TB > 1GB > 1MB > 1KB",
+                    "1KB > 1GB > 1MB > 1TB",
+                    "1GB > 1MB > 1TB > 1KB",
+                    "1TB > 1KB > 1MB > 1GB"
+                ],
+                answer: [0],
+                explanation: "記憶體容量單位由大到小為：TB > GB > MB > KB > Byte，故 1TB > 1GB > 1MB > 1KB 為正確排序。",
+                errorAnalysis: "容量進位關係為 1024 倍：TB > GB > MB > KB。"
+            },
+            {
+                id: 12,
+                type: "single",
+                title: "以微控制器為核心，並配合適當的周邊設備，以執行特定功能，主要是用來控制、監督或輔助特定設備的裝置，其架構仍屬於一種電腦系統(包含處理器、記憶體、輸入與輸出等硬體元素)，目前最常見的應用有 PDA、手機及資訊家電，這種系統稱為下列何者？",
+                options: ["伺服器系統", "嵌入式系統", "分散式系統", "個人電腦系統"],
+                answer: [1],
+                explanation: "嵌入式系統（Embedded System）是以應用為中心，以電腦技術為基礎，軟硬體可裁剪，適用於對功能、可靠性、成本、體積、功耗有嚴格要求的專用電腦系統。",
+                errorAnalysis: "嵌入式系統專門針對特定裝置與功能進行設計與最佳化。"
+            },
+            {
+                id: 13,
+                type: "single",
+                title: "有 A、B 兩個大小相同的檔案，A 檔案儲存在硬碟連續的位置，而 B 檔案儲存在硬碟分散的位置，因此 A 檔案的存取時間比 B 檔案少，下列何者為主要影響因素？",
+                options: ["CPU 執行時間(Execution Time)", "記憶體存取時間(Memory Access Time)", "傳送時間(Transfer Time)", "搜尋時間(Seek Time)"],
+                answer: [3],
+                explanation: "硬碟檔案分散會導致磁頭需要頻繁移動來讀取不同磁區，因而大幅增加尋找時間（Seek Time）。",
+                errorAnalysis: "檔案碎片化會增加磁頭移動與尋找磁軌的時間（Seek Time）。"
+            },
+            {
+                id: 14,
+                type: "single",
+                title: "有關資料表示，下列何者「不正確」？",
+                options: [
+                    "1 Byte = 8 bits",
+                    "1 KB = 2^10 Bytes",
+                    "1 MB = 2^15 Bytes",
+                    "1 GB = 2^30 Bytes"
+                ],
+                answer: [2],
+                explanation: "1 MB = 1024 KB = \\(2^{10} \\times 2^{10} = 2^{20}\\) Bytes，選項(3)寫成 \\(2^{15}\\) 是不正確的。",
+                errorAnalysis: "1 MB 等於 \\(2^{20}\\) Bytes（即 1024 × 1024 Bytes）。"
+            },
+            {
+                id: 15,
+                type: "single",
+                title: "有關資料儲存媒體之敘述，下列何者正確？",
+                options: [
+                    "儲存資料之光碟片，可以直接用餐巾紙沾水以同心圓擦拭，以保持資料儲存良好狀況",
+                    "MO (Magnetic Optical)光碟機所使用的光碟片，外型大小與儲存容量均與 CD-ROM 相同",
+                    "RAM 是一個經設計燒錄於硬體設備之記憶體",
+                    "可消除及可規劃之唯讀記憶體的縮寫為 EPROM"
+                ],
+                answer: [3],
+                explanation: "EPROM（Erasable Programmable Read-Only Memory）意即「可消除及可規劃之唯讀記憶體」。擦拭光碟應由中心向外輻射擦拭而非同心圓；RAM 不是燒錄於硬體的唯讀記憶體。",
+                errorAnalysis: "EPROM 支援紫外線抹除與重新程式化；光碟擦拭應由內向外呈放射狀擦拭。"
+            },
+            {
+                id: 16,
+                type: "single",
+                title: "下列何者為 RAID(Redundant Array of Independent Disks)技術的主要用途？",
+                options: ["儲存資料", "傳輸資料", "播放音樂", "播放影片"],
+                answer: [0],
+                explanation: "RAID（磁碟陣列）是將多個獨立的硬碟組合起來以提供資料冗餘備份、提升容錯能力或增進資料存取效能的資料儲存技術。",
+                errorAnalysis: "RAID 的核心目的在於增進資料儲存的效能與安全性。"
+            },
+            {
+                id: 17,
+                type: "single",
+                title: "硬碟的轉速會影響磁碟機在讀取檔案時所需花的下列何種時間？",
+                options: [
+                    "旋轉遲延(Rotational Latency)",
+                    "尋找時間(Seek Time)",
+                    "資料傳輸時間(Transfer Time)",
+                    "磁頭切換(Head Switching)"
+                ],
+                answer: [0],
+                explanation: "硬碟轉速越快，磁頭等待目標磁區轉動到磁頭下方所需的時間（旋轉遲延，Rotational Latency）就越短。",
+                errorAnalysis: "轉速直接決定了磁碟旋轉半圈或一圈所需的等待延遲（旋轉遲延）。"
+            },
+            {
+                id: 18,
+                type: "single",
+                title: "微處理器與外部連接之各種訊號匯流排，何者具有雙向流通性？",
+                options: ["控制匯流排", "狀態匯流排", "資料匯流排", "位址匯流排"],
+                answer: [2],
+                explanation: "資料匯流排（Data Bus）負責在 CPU 與記憶體/周邊之間雙向傳遞資料；位址匯流排通常由 CPU 單向發出。",
+                errorAnalysis: "資料匯流排是雙向的（可讀可寫），位址匯流排是單向的。"
+            },
+            {
+                id: 19,
+                type: "single",
+                title: "下列何者是「美國標準資訊交換碼」的簡稱？",
+                options: ["IEEE", "CNS", "ASCII", "ISO"],
+                answer: [2],
+                explanation: "ASCII（American Standard Code for Information Interchange）即為「美國標準資訊交換碼」。",
+                errorAnalysis: "ASCII 是電腦中最常見的字元編碼標準之一。"
+            },
+            {
+                id: 20,
+                type: "single",
+                title: "下列何者內建於中央處理器(CPU)做為 CPU 暫存資料，以提升電腦的效能？",
+                options: ["快取記憶體(Cache)", "快閃記憶體(Flash Memory)", "靜態隨機存取記憶體(SRAM)", "動態隨機存取記憶體(DRAM)"],
+                answer: [0],
+                explanation: "CPU 內部內建了高速的快取記憶體（Cache，通常由 SRAM 組成），用來暫存經常存取的資料與指令以提升執行效能。",
+                errorAnalysis: "雖然 Cache 是由 SRAM 組成，但直接內建在 CPU 中作為暫存加速的整體架構稱為快取記憶體（Cache）。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+        let isSubmitted = {}; 
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            
+            document.getElementById('qText').innerHTML = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            badge.innerText = "單選題";
+            badge.className = "type-badge";
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                if (submitted) {
+                    optDiv.classList.add('disabled');
+                    if (optIdx === q.answer[0]) {
+                        optDiv.classList.add('correct');
+                    } else if (userAnswers[index] === optIdx) {
+                        optDiv.classList.add('wrong');
+                    }
+                } else {
+                    optDiv.onclick = () => {
+                        userAnswers[index] = optIdx;
+                        isSubmitted[index] = true;
+                        loadQuestion(currentIndex);
+                    };
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([
+                    document.getElementById('qText'),
+                    document.getElementById('optionsList')
+                ]).catch((err) => console.log(err));
+            }
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            let isCorrect = userAnswers[qIdx] === q.answer[0];
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不正確，請參考下方解析：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 1 && inputVal <= 20) {
+                currentIndex = inputVal - 1;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (1 - 20)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>

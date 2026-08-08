@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async
+	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+	</script>
+    <title>工作項目 共同科目職業安全衛生 測驗 (76-100) - 實戰指南風格</title>
+    <style>
+        :root {
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .type-badge.multi {
+            background-color: #9333ea;
+        }
+
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.multi-correct-hit {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.multi-wrong-hit {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+            font-weight: 700;
+        }
+
+        .option-item.multi-missed {
+            border-color: #d97706;
+            background-color: var(--missed-bg);
+            color: var(--missed-color);
+            font-weight: 700;
+        }
+
+        .missed-tag {
+            background-color: #d97706;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        .option-item.multi-selected {
+            background-color: #faf5ff;
+            border-color: #9333ea;
+            color: #7e22ce;
+            font-weight: 600;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        .submit-multi-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: #9333ea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: background-color 0.2s;
+        }
+        .submit-multi-btn:hover {
+            background-color: #7e22ce;
+        }
+        .submit-multi-btn:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:hover:not(:disabled) .svg-icon {
+            stroke: #ffffff;
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-nav-main:disabled .svg-icon {
+            stroke: #94a3b8;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 85px; 
+            }
+
+            .header {
+                height: var(--header-height);
+                align-items: flex-start;
+                padding-top: 1rem;
+            }
+
+            .hamburger-btn {
+                display: block;
+                margin-top: 0.1rem;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: var(--header-height); 
+                left: 0;
+                bottom: 0;
+                height: calc(100vh - var(--header-height));
+                z-index: 101;
+                transform: translateX(-100%);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn-nav-main {
+                padding: 0.85rem 0.8rem;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            共同科目 職業安全衛生 工作項目 (76-100)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (76-100)" min="76" max="100">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid"></div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 76 題 / 共 25 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList"></div>
+
+                <button id="submitMultiBtn" class="submit-multi-btn" style="display: none;" onclick="submitMultiAnswer()">送出多選答案</button>
+
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 76,
+                type: "single",
+                title: "有關「童工」之敘述，下列何者正確？",
+                options: [
+                    "每日工作時間不得超過 8 小時",
+                    "不得於午後 8 時至翌晨 8 時之時間內工作",
+                    "例假日得在監視下工作",
+                    "工資不得低於基本工資之 70%"
+                ],
+                answer: [0],
+                explanation: "勞基法規定童工（15歲以上未滿16歲者）每日工作時間不得超過8小時，且不得於午後8時至翌晨6時之時間內工作（夜間工作限制），例假日不得工作，工資亦無打折規定。",
+                errorAnalysis: "童工工時與夜間工作受嚴格保護，不得超時或夜間工作。"
+            },
+            {
+                id: 77,
+                type: "single",
+                title: "依勞動檢查法施行細則規定，事業單位如不服勞動檢查結果，應於勞動檢查結果通知書送達之次日起 10 日內，以書面敘明理由向勞動檢查機構提出？",
+                options: [
+                    "申訴",
+                    "陳情",
+                    "抗議",
+                    "異議"
+                ],
+                answer: [3],
+                explanation: "依勞動檢查法施行細則規定，事業單位對勞動檢查結果有異議時，應於通知書送達次日起10日內以書面敘明理由向原勞動檢查機構提出「異議」。",
+                errorAnalysis: "不服勞檢結果之法定救濟程序為向原機構提出異議。"
+            },
+            {
+                id: 78,
+                type: "single",
+                title: "工作者若因雇主違反職業安全衛生法規定而發生職業災害、罹患職業病或身體、精神遭受不法侵害所提起之訴訟，得向勞動部委託之民間團體提出下列何者？",
+                options: [
+                    "災害理賠",
+                    "申請扶助",
+                    "精神補償",
+                    "國家賠償"
+                ],
+                answer: [1],
+                explanation: "勞工因職災或職場不法侵害提起訴訟時，可依規定向勞動部委託之民間團體（如法律扶助基金會等）申請訴訟「扶助」。",
+                errorAnalysis: "勞動部提供勞工職災訴訟與法律扶助機制協助勞工維權。"
+            },
+            {
+                id: 79,
+                type: "single",
+                title: "計算平日加班費須按平日前每小時工資額加給計算，下列何者錯誤？",
+                options: [
+                    "前 2 小時至少加給 1/3 倍",
+                    "超過 2 小時部分至少加給 2/3 倍",
+                    "經勞資協商同意後，一律加給 0.5 倍",
+                    "未經雇主同意給加班費者，一律補休"
+                ],
+                answer: [3],
+                explanation: "延長工作時間之工資（加班費）法定標準為前2小時按平日每小時工資額至少加給1/3以上（即給1又1/3倍以上），再超過部分至少加給2/3以上。選項(4)「未經雇主同意給加班費者，一律補休」不符勞基法規定（補休須經勞資雙方合意，且由勞工排定）。",
+                errorAnalysis: "加班費法定加給比例有明確下限，補休必須基於勞雇雙方合意。"
+            },
+            {
+                id: 80,
+                type: "single",
+                title: "下列工作場所何者非屬勞動檢查法所定之危險性工作場所？",
+                options: [
+                    "農藥製造",
+                    "金屬表面處理",
+                    "火藥類製造",
+                    "從事石油裂解之石化工業 之工作場所"
+                ],
+                answer: [1],
+                explanation: "勞動檢查法所定之危險性工作場所包含：甲類（農藥製造、火藥類製造、石油裂解等）、乙類、丙類、丁類等。金屬表面處理不屬於法定列管之特定危險性工作場所。",
+                errorAnalysis: "金屬表面處理非屬法定公告之危險性工作場所審查對象。"
+            },
+            {
+                id: 81,
+                type: "single",
+                title: "依職業安全衛生設施規則規定，有關電氣安全，下列何者錯誤？",
+                options: [
+                    "110 伏特之電壓不致造成人員死亡",
+                    "電氣室應禁止非工作人員進入",
+                    "不可以濕手操作電氣開關，且切斷開關應迅速",
+                    "220 伏特為低壓電"
+                ],
+                answer: [0],
+                explanation: "110伏特之市電在特定潮濕環境或人體電阻降低時，依然足以通過足以致命的電流，絕非「不致造成人員死亡」。",
+                errorAnalysis: "低壓電（如110V、220V）在潮濕環境下同樣可能致命，不可輕忽。"
+            },
+            {
+                id: 82,
+                type: "single",
+                title: "依職業安全衛生設施規則規定，下列何者非屬於車輛系營建機械？",
+                options: [
+                    "平土機",
+                    "堆高機",
+                    "推土機",
+                    "鏟土機"
+                ],
+                answer: [1],
+                explanation: "堆高機屬於「車輛系裝卸機械」（或獨立之堆高機安全規則規範），而平土機、推土機、鏟土機則屬於「車輛系營建機械」。",
+                errorAnalysis: "堆高機屬於裝卸搬運機械，平土、推土、鏟土機屬於營建機械。"
+            },
+            {
+                id: 83,
+                type: "single",
+                title: "下列何者非為事業單位勞動場所發生職業災害者，雇主應於 8 小時內通報勞動檢查機構？",
+                options: [
+                    "發生死亡災害",
+                    "勞工受傷無須住院治療",
+                    "發生災害之罹災人數在 3 人以上",
+                    "發生災害之罹災人數在 1 人以上，且需住院治療"
+                ],
+                answer: [1],
+                explanation: "職業災害通報規定包含：(1)發生死亡災害；(2)發生災害之罹災人數在3人以上；(3)發生災害人數在1人以上且需住院治療。無須住院治療的輕傷不在此強制8小時通報範圍內。",
+                errorAnalysis: "無須住院治療之一般受傷不符合8小時內通報重大職災之法定要件。"
+            },
+            {
+                id: 84,
+                type: "single",
+                title: "依職業安全衛生管理辦法規定，下列何者非屬「自動檢查」之內容？",
+                options: [
+                    "機械之定期檢查",
+                    "機械、設備之重點檢查",
+                    "機械、設備之作業檢點",
+                    "勞工健康檢查"
+                ],
+                answer: [3],
+                explanation: "自動檢查是針對「機械設備」實施的定期檢查、重點檢查及作業檢點；而「勞工健康檢查」是針對人員實施的健康管理措施，不屬於機械設備自動檢查範疇。",
+                errorAnalysis: "自動檢查規範對象為機械設備，勞工健康檢查屬於職業衛生健康管理。"
+            },
+            {
+                id: 85,
+                type: "single",
+                title: "下列何者係針對對於機械操作點的捲夾危害特性可以採用之防護裝置？",
+                options: [
+                    "設置護圍、護罩",
+                    "穿戴棉紗手套",
+                    "穿戴防護衣",
+                    "強化教育訓練"
+                ],
+                answer: [0],
+                explanation: "防止機械操作點捲夾危害最直接且有效的工程控制方法就是設置「護圍、護罩」阻絕人員身體接觸旋轉部位。",
+                errorAnalysis: "捲夾危害應優先透過設置固定或連鎖護罩等工程防護裝置來防範。"
+            },
+            {
+                id: 86,
+                type: "single",
+                title: "下列何者非屬從事起重吊掛作業導致物體飛落災害之可能原因？",
+                options: [
+                    "吊鉤未設防滑舌片致吊掛鋼索鬆脫",
+                    "鋼索斷裂",
+                    "超過額定荷重作業",
+                    "過捲揚警告裝置過度靈敏"
+                ],
+                answer: [3],
+                explanation: "過捲揚警告裝置靈敏代表安全防護功能正常，不會導致物體飛落或災害；其餘選項（吊鉤無舌片、鋼索斷裂、超載）均是導致吊掛物墜落或飛落的原因。",
+                errorAnalysis: "過捲揚裝置靈敏有助於防止過捲，屬於安全保護設計而非災害原因。"
+            },
+            {
+                id: 87,
+                type: "single",
+                title: "勞工不遵守安全衛生工作規則規定，屬於下列何者？",
+                options: [
+                    "不安全設備",
+                    "不安全行為",
+                    "不安全環境",
+                    "管理缺陷"
+                ],
+                answer: [1],
+                explanation: "人員違反安全規定或未按標準程序作業，在災害成因分析中屬於人的「不安全行為」。",
+                errorAnalysis: "勞工未遵守安全守則及操作規範屬於人為的不安全行為。"
+            },
+            {
+                id: 88,
+                type: "single",
+                title: "下列何者不屬於局限空間內作業場所應採取之缺氧、中毒等危害預防措施？",
+                options: [
+                    "實施通風換氣",
+                    "進入作業許可程序",
+                    "使用柴油內燃機發電機提供照明",
+                    "測定氧氣、危險物、有害物濃度"
+                ],
+                answer: [2],
+                explanation: "在密閉局限空間內使用「柴油內燃機」發電機或設備會排出大量一氧化碳與廢氣，極易引發嚴重中毒與缺氧窒息，絕對禁止在局限空間內使用。",
+                errorAnalysis: "局限空間內嚴禁使用內燃機設備，以免產生一氧化碳造成致命中毒。"
+            },
+            {
+                id: 89,
+                type: "single",
+                title: "下列何者非通風換氣之目的？",
+                options: [
+                    "防止游離輻射",
+                    "防止火災爆炸",
+                    "稀釋空氣中有害物",
+                    "補充新鮮空氣"
+                ],
+                answer: [0],
+                explanation: "通風換氣主要用於補充新鮮空氣、稀釋或排除有害氣體、降低粉塵濃度及防止可燃性氣體積聚引發火災爆炸。游離輻射無法單靠一般通風換氣來防止。",
+                errorAnalysis: "游離輻射須靠屏蔽、距離與時間防護，通風無法防止游離輻射危害。"
+            },
+            {
+                id: 90,
+                type: "single",
+                title: "已在職之勞工，首次從事特別危害健康作業，應實施下列何種檢查？",
+                options: [
+                    "一般體格檢查",
+                    "特殊體格檢查",
+                    "一般體格檢查及特殊健康檢查",
+                    "特殊健康檢查"
+                ],
+                answer: [3],
+                explanation: "勞工健康保護規則規定，在職勞工首次從事特別危害健康作業時，雇主應實施「特殊健康檢查」。",
+                errorAnalysis: "針對特別危害健康作業實施的是特殊健康檢查。"
+            },
+            {
+                id: 91,
+                type: "single",
+                title: "依職業安全衛生設施規則規定，噪音超過多少分貝之工作場所，應標示並公告噪音危害之預防事項，使勞工周知？",
+                options: [
+                    "75 分貝",
+                    "80 分貝",
+                    "85 分貝",
+                    "90 分貝"
+                ],
+                answer: [3],
+                explanation: "依設施規則規定，工作場所噪音音壓級超過90分貝時，雇主應於工作場所明顯處標示並公告噪音危害預防事項。",
+                errorAnalysis: "90分貝以上之高噪音工作場所法定強制須標示並公告預防事項。"
+            },
+            {
+                id: 92,
+                type: "single",
+                title: "下列何者非屬工作安全分析的目的？",
+                options: [
+                    "發現並杜絕工作危害",
+                    "確立工作安全所需工具與設備",
+                    "懲罰犯錯的員工",
+                    "作為員工在職訓練的參考"
+                ],
+                answer: [2],
+                explanation: "工作安全分析（JSA）旨在辨識作業步驟危害、尋求安全工作方法及作為訓練參考，其目的在於預防災害而非「懲罰員工」。",
+                errorAnalysis: "工安管理的目的是預防與改善，而非事後懲罰員工。"
+            },
+{
+                id: 93,
+                type: "single",
+                title: "可能對勞工之心理或精神狀況造成負面影響的狀態，如異常工作壓力、超時工作、言語脅迫或恐嚇等，可歸屬下列何者管理不當？",
+                options: [
+                    "職業安全",
+                    "職業衛生",
+                    "勞工健康",
+                    "環保"
+                ],
+                answer: [2],
+                explanation: "心理壓力、過勞、職場暴力與不法侵害等身心健康與疾病預防議題，在相關法規與管理體系中歸屬於「勞工健康（或職業健康）」保護與管理範疇。",
+                errorAnalysis: "異常工作壓力與身心健康維護屬於勞工健康保護管理領域。"
+            },
+            {
+                id: 94,
+                type: "single",
+                title: "有關女性工作者妊娠期間宜避免作業之敘述，下列何者錯誤？",
+                options: [
+                    "避免砷或鉛之暴露",
+                    "避免每班站立 7 小時以上之作業",
+                    "避免提舉 1 公斤重物之職務",
+                    "避免重體力勞動之職務"
+                ],
+                answer: [2],
+                explanation: "妊娠女性應避免有害化學物暴露、長時間站立及重體力勞動；提舉1公斤重物屬於極輕微日常動作，並非妊娠期法定禁止之有害重物搬運限制（法定限制通常針對一定重量以上之人力提舉搬運）。",
+                errorAnalysis: "提舉1公斤屬於極輕負荷，並非妊娠禁忌之超重搬運限制。"
+            },
+            {
+                id: 95,
+                type: "single",
+                title: "熱中暑時，易發生下列何現象？",
+                options: [
+                    "體溫下降",
+                    "體溫正常",
+                    "體溫上升",
+                    "體溫忽高忽低"
+                ],
+                answer: [2],
+                explanation: "熱中暑（Heatstroke）是由於身體體溫調節中樞失靈，導致核心體溫異常升高（通常超過40°C或持續上升），伴隨意識障礙。",
+                errorAnalysis: "中暑的關鍵臨床表徵為體溫飆升且無法自行排汗降溫。"
+            },
+            {
+                id: 96,
+                type: "single",
+                title: "下列何者不會使電路發生過電流？",
+                options: [
+                    "電氣設備過載",
+                    "電路短路",
+                    "電路漏電",
+                    "電路斷路"
+                ],
+                answer: [3],
+                explanation: "「斷路（Open circuit）」代表電路中斷、沒有電流通過或電流為零，因此不會發生過電流。過載與短路則會造成過電流。",
+                errorAnalysis: "斷路表示電路開路無電流通過，不會產生過電流。"
+            },
+            {
+                id: 97,
+                type: "single",
+                title: "下列何者較屬安全、尊嚴的職場組織文化？",
+                options: [
+                    "不斷責備勞工",
+                    "公開在眾人面前長時間責罵勞工",
+                    "強求勞工執行業務上明顯不必要或不可能之工作",
+                    "不介入勞工私人事宜"
+                ],
+                answer: [3],
+                explanation: "尊重勞工隱私、不介入私人事宜屬於互相尊重之職場倫理與安全文化；其餘選項均屬於職場霸凌、羞辱或不法侵害的不良文化。",
+                errorAnalysis: "尊重個人隱私與界線是健康職場文化的重要表現。"
+            },
+            {
+                id: 98,
+                type: "single",
+                title: "下列何者與職場母性健康保護較不相關？",
+                options: [
+                    "職業安全衛生法",
+                    "妊娠與分娩後女性及未滿十八歲勞工禁止從事危險性或有害性工作認定標準",
+                    "性別平等工作法",
+                    "動力堆高機型式驗證"
+                ],
+                answer: [3],
+                explanation: "動力堆高機型式驗證屬於機械設備安全檢驗規範，與女性勞工母性健康保護無直接相關；而職安法、危險有害工作認定標準及性別平等工作法均涵蓋母性保護規範。",
+                errorAnalysis: "堆高機型式驗證屬於機械本體安全法規，與母性健康保護無涉。"
+            },
+            {
+                id: 99,
+                type: "single",
+                title: "油漆塗裝工程應注意防火防爆事項，下列何者錯誤？",
+                options: [
+                    "確實通風",
+                    "注意電氣火花",
+                    "緊密門窗以減少溶劑擴散揮發",
+                    "嚴禁煙火"
+                ],
+                answer: [2],
+                explanation: "油漆塗裝作業產生的有機溶劑蒸氣若緊閉門窗會導致氣體濃度急速累積達爆炸極限，極易引發火災爆炸。因此必須保持「確實通風」而非緊閉門窗。",
+                errorAnalysis: "油漆施工作業絕對不可緊閉門窗，必須保持強力通風以防易燃氣體滯留累積。"
+            },
+            {
+                id: 100,
+                type: "single",
+                title: "依職業安全衛生設施規則規定，雇主對於物料儲存，為防止氣候變化或自然發火發生危險者，下列何者為最佳之採取措施？",
+                options: [
+                    "保持自然風",
+                    "密閉",
+                    "與外界隔離及溫濕度控制",
+                    "靜置於倉儲區，避免陽光直射"
+                ],
+                answer: [2],
+                explanation: "依職業安全衛生設施規則規定，物料儲存為防止氣候變化（如潮濕、高溫）或自然發火危害，應採取與外界隔離及妥善控制溫度、濕度等預防措施。",
+                errorAnalysis: "易受氣候或自然發火影響之物料須採取溫濕度控制與隔離防護。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+        let isSubmitted = {}; 
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            
+            document.getElementById('qText').innerHTML = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            const submitBtn = document.getElementById('submitMultiBtn');
+
+            if (q.type === 'multi') {
+                badge.innerText = "多選題";
+                badge.className = "type-badge multi";
+                submitBtn.style.display = "block";
+            } else {
+                badge.innerText = "單選題";
+                badge.className = "type-badge";
+                submitBtn.style.display = "none";
+            }
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                if (q.type === 'single') {
+                    optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                    if (submitted) {
+                        optDiv.classList.add('disabled');
+                        if (optIdx === q.answer[0]) {
+                            optDiv.classList.add('correct');
+                        } else if (userAnswers[index] === optIdx) {
+                            optDiv.classList.add('wrong');
+                        }
+                    } else {
+                        optDiv.onclick = () => {
+                            userAnswers[index] = optIdx;
+                            isSubmitted[index] = true;
+                            loadQuestion(currentIndex);
+                        };
+                    }
+                } else {
+                    const isSelected = userAnswers[index] && userAnswers[index].includes(optIdx);
+
+                    if (!submitted) {
+                        if (isSelected) {
+                            optDiv.classList.add('multi-selected');
+                        }
+                        optDiv.onclick = () => {
+                            toggleMultiSelection(optIdx);
+                            loadQuestion(currentIndex);
+                        };
+                        optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                    } else {
+                        optDiv.classList.add('disabled');
+                        const isCorrectOpt = q.answer.includes(optIdx);
+
+                        if (isSelected && isCorrectOpt) {
+                            optDiv.classList.add('multi-correct-hit');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        } else if (isSelected && !isCorrectOpt) {
+                            optDiv.classList.add('multi-wrong-hit');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        } else if (!isSelected && isCorrectOpt) {
+                            optDiv.classList.add('multi-missed');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span><span class="missed-tag">未選到</span>`;
+                        } else {
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        }
+                    }
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            if (q.type === 'multi') {
+                submitBtn.disabled = submitted;
+            }
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([
+                    document.getElementById('qText'),
+                    document.getElementById('optionsList')
+                ]).catch((err) => console.log(err));
+            }
+        }
+
+        function toggleMultiSelection(optIdx) {
+            if (!userAnswers[currentIndex]) {
+                userAnswers[currentIndex] = [];
+            }
+            const idx = userAnswers[currentIndex].indexOf(optIdx);
+            if (idx > -1) {
+                userAnswers[currentIndex].splice(idx, 1);
+            } else {
+                userAnswers[currentIndex].push(optIdx);
+            }
+        }
+
+        function submitMultiAnswer() {
+            if (!userAnswers[currentIndex] || userAnswers[currentIndex].length === 0) {
+                alert("請至少選擇一個選項！");
+                return;
+            }
+            isSubmitted[currentIndex] = true;
+            loadQuestion(currentIndex);
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            let isCorrect = false;
+            if (q.type === 'single') {
+                isCorrect = userAnswers[qIdx] === q.answer[0];
+            } else {
+                const userSel = [...(userAnswers[qIdx] || [])].sort();
+                const correctAns = [...q.answer].sort();
+                isCorrect = JSON.stringify(userSel) === JSON.stringify(correctAns);
+            }
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不完全正確，請參考下方解析與未選到標示：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 76 && inputVal <= 100) {
+                currentIndex = inputVal - 76;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (76 - 100)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>
