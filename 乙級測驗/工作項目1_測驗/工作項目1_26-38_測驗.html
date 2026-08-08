@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作項目2 測驗 (26-38) - 實戰指南風格</title>
+    <style>
+        :root {
+            /* 側邊欄與頁首 - 深藍夜空調 */
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+
+            /* 右側主要內容區 - 高閱讀性明亮調 */
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            
+            /* 解析與回饋色 */
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+		
+		.responsive-img {
+			max-width: 100%; /* 圖片最大寬度為容器的 100% */
+			height: auto;    /* 高度自動等比例調整，避免變形 */
+			display: block;  /* 消除圖片下方預留的空白縫隙 */
+		}
+
+        /* 頂部 Header */
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        /* 主佈局 */
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        /* 側邊欄 - 深色風格 */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* 搜尋列 */
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        /* 題號網格 */
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        /* 主要測驗內容區 */
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .type-badge.multi {
+            background-color: #9333ea;
+        }
+
+        /* 題目內文 */
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        /* 選項清單 */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        /* 單選題狀態 */
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        /* 多選題送出後的狀態色彩 */
+        .option-item.multi-correct-hit {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.multi-wrong-hit {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+            font-weight: 700;
+        }
+
+        .option-item.multi-missed {
+            border-color: #d97706;
+            background-color: var(--missed-bg);
+            color: var(--missed-color);
+            font-weight: 700;
+        }
+
+        .missed-tag {
+            background-color: #d97706;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        /* 多選題未送出前的選取狀態 */
+        .option-item.multi-selected {
+            background-color: #faf5ff;
+            border-color: #9333ea;
+            color: #7e22ce;
+            font-weight: 600;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        /* 送出多選答案按鈕 */
+        .submit-multi-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: #9333ea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: background-color 0.2s;
+        }
+        .submit-multi-btn:hover {
+            background-color: #7e22ce;
+        }
+        .submit-multi-btn:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        /* 即時解析區塊 */
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 控制按鈕列 */
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:hover:not(:disabled) .svg-icon {
+            stroke: #ffffff;
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-nav-main:disabled .svg-icon {
+            stroke: #94a3b8;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        /* RWD 手機版 */
+        @media (max-width: 768px) {
+/* 定義手機版標題列的高度（如果文字真的很多，可以把這裡的 80px 調大一點，例如 90px 或 100px） */
+    :root {
+        --header-height: 85px; 
+    }
+
+    .header {
+        height: var(--header-height);
+        align-items: flex-start; /* 讓標題允許多行文字往下長 */
+        padding-top: 1rem;
+    }
+
+    .hamburger-btn {
+        display: block;
+        margin-top: 0.1rem;
+    }
+
+    .sidebar {
+        position: fixed;
+        /* 直接用剛才定義好的變數，讓側邊欄完美停在 Header 的正下方 */
+        top: var(--header-height); 
+        left: 0;
+        bottom: 0;
+        height: calc(100vh - var(--header-height)); /* 扣除 Header 高度，剛好填滿剩餘畫面 */
+        z-index: 101;
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn-nav-main {
+                padding: 0.85rem 0.8rem;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頁首 Header -->
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            17200 網路架設 乙級 圖示與規範 (26-38)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <!-- 側邊欄 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (26-38)" min="26" max="38">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid">
+                <!-- 動態 26-38 題號 -->
+            </div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- 主要測驗卡片區 -->
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 26 題 / 共 13 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList">
+                    <!-- 動態選項 -->
+                </div>
+
+                <button id="submitMultiBtn" class="submit-multi-btn" style="display: none;" onclick="submitMultiAnswer()">送出多選答案</button>
+
+                <!-- 即時解析區 -->
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <!-- 控制按鈕列 -->
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 題目資料庫 (26-38) - 依據 17200 網路架設乙級 圖示與規範
+        const questions = [
+{
+    id: 26,
+    type: "single",
+    title: "如下圖符號依據「建築物屋內外電信設備設置技術規範」規定，代表：\n<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/26.png?raw=true' alt='圖示：一條橫線上方帶有一個倒T字形記號「—T—」)' class='responsive-img'>",
+    options: [
+        "電線管線暗式",
+        "電線管線明式",
+        "電線管線扁型管",
+        "電線管線圓型管"
+    ],
+    answer: [0],
+    explanation: "依據建築物屋內外電信設備設置技術規範圖例，此特定管線符號代表電線管線暗式（選項 ① 正確）。",
+    errorAnalysis: "需對照規範圖例，明確辨識暗式與明式管線的圖面記號差異。"
+},
+            {
+                id: 27,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，下列符號，哪些與配線箱有關？ (本題為多選題)",
+                options: [
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/27-1.png?raw=true' alt='①（全黑長方形箱體）' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/27-2.png?raw=true' alt='②（半黑半白分明箱體）' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/27-3.png?raw=true' alt='DD' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/27-4.png?raw=true' alt='HH' class='responsive-img'>"
+                ],
+                answer: [0, 1, 2],
+                explanation: "圖例①、②為各類配線箱之基本圖示；DD 代表總配線箱（Distributor Distributor / Distribution Box）；HH 則通常為手孔（Handhole）或特定高壓/設備箱，非配線箱主體。",
+                errorAnalysis: "選項(4) HH 代表手孔（Handhole），屬於管道設施而非配線箱。"
+            },
+            {
+                id: 28,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，下列符號，哪些與接地有關？ (本題為多選題)",
+                options: [
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/28-1.png?raw=true' alt='E' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/28-2.png?raw=true' alt='(三條遞減橫線)' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/28-3.png?raw=true' alt='T' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/28-4.png?raw=true' alt='F' class='responsive-img'>"
+                ],
+                answer: [0, 1],
+                explanation: "符號 E（Earth）與標準接地符號（三條橫線）皆直接代表電信保安接地相關規定與圖示。",
+                errorAnalysis: "符號 T 代表明管或電信管道，符號 F 代表地板出線匣或光纖相關，與接地無關。"
+            },
+{
+    id: 29,
+    type: "multi",
+    title: "依據「建築物屋內外電信設備設置技術規範」規定，下列符號，哪些與配線架有關？ (本題為多選題)",
+    options: [
+        "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/29-1.png?raw=true' alt='MDF' class='responsive-img'>",
+        "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/29-2.png?raw=true' alt='OLDF' class='responsive-img'>",
+        "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/29-3.png?raw=true' alt='DD' class='responsive-img'>",
+        "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/29-4.png?raw=true' alt='PB' class='responsive-img'>"
+    ],
+    answer: [0, 1],
+    explanation: "MDF（總配線架）與 OLDF（光終端配線架）均屬於配線架設備；DD 屬配線箱，PB 屬拖線箱。",
+    errorAnalysis: "MDF 與 OLDF 為標準配線架，DD 與 PB 屬於箱體設施而非配線架。"
+},
+{
+    id: 30,
+    type: "multi",
+    title: "依據「建築物屋內外電信設備設置技術規範」規定，下列符號，哪些與資訊插座有關？ (本題為多選題)",
+    options: [
+        "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/30-1.png?raw=true' alt='單圓圈符號①' class='responsive-img'>",
+        "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/30-2.png?raw=true' alt='雙圓圈相連符號②' class='responsive-img'>",
+        "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/30-3.png?raw=true' alt='雙黑點圓圈符號③' class='responsive-img'>",
+        "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/30-4.png?raw=true' alt='符號 F④' class='responsive-img'>"
+    ],
+    answer: [0, 1],
+    explanation: "單圓圈與雙圓圈相連符號在規範中用以表示資訊插座組；雙黑點代表電話插座，符號 F 代表地板出線匣。",
+    errorAnalysis: "雙黑點為電話插座，不可與資訊插座混淆。"
+},
+            {
+                id: 31,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，下列符號，哪些與電話插座有關？ (本題為多選題)",
+                options: [
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/31-1.png?raw=true' alt='雙黑點圖示①' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/31-2.png?raw=true' alt='符號 xxRJ-11 ②' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/31-3.png?raw=true' alt='單圓圈符號③' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/31-4.png?raw=true' alt='符號 F ④' class='responsive-img'>"
+                ],
+                answer: [0, 1],
+                explanation: "雙黑點圖示與 xxRJ-11 均專門用於表示電話插座組或 RJ-11 電話插座規格。",
+                errorAnalysis: "單圓圈多指資訊插座或一般出線匣，符號 F 為地板出線匣。"
+            },
+            {
+                id: 32,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，下列符號，哪些與光纖管線有關？ (本題為多選題)",
+                options: [
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/32-1.png?raw=true' alt='實線帶 F（— F —）' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/32-2.png?raw=true' alt='虛線帶 F（--- F ---）' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/32-3.png?raw=true' alt='符號 C' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/32-4.png?raw=true' alt='符號 T' class='responsive-img'>"
+                ],
+                answer: [0, 1],
+                explanation: "實線帶 F 與虛線帶 F 分別代表光纖管線的明式或暗式佈設圖例代號。",
+                errorAnalysis: "符號 C 代表電纜（Cable）或出線匣，符號 T 代表明管。"
+            },
+            {
+                id: 33,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，下列符號哪些與資訊出線匣有關？ (本題為多選題)",
+                options: [
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/33-1.png?raw=true' alt='符號 C' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/33-2.png?raw=true' alt='符號 TC' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/33-3.png?raw=true' alt='符號 F' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/33-4.png?raw=true' alt='符號 T' class='responsive-img'>"
+                ],
+                answer: [0, 1],
+                explanation: "資訊出線匣或相關出線匣代號常以 C、TC 等代號表示於圖面上。",
+                errorAnalysis: "符號 F 代表地板出線匣，符號 T 代表明管佈設。"
+            },
+            {
+                id: 34,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，下列符號，哪些與光纖有關？ (本題為多選題)",
+                options: [
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/34-1.png?raw=true' alt='符號 OLDF' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/34-2.png?raw=true' alt='符號 xxSC' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/34-3.png?raw=true' alt='符號 F' class='responsive-img'>",
+                    "<img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%B7%A5%E4%BD%9C%E9%A0%85%E7%9B%AE1/34-4.png?raw=true' alt='同心圓符號④' class='responsive-img'>"
+                ],
+                answer: [0, 1, 2],
+                explanation: "OLDF（光終端配線架）、xxSC（SC光纖插座組）、F（光纖相關管線/出線代號）均與光纖系統直接相關。",
+                errorAnalysis: "同心圓符號多數代表特定燈號、出線匣或圓形手孔，非光纖專屬代號。"
+            },
+            {
+                id: 35,
+                type: "multi",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，關於 xxRJ-45 符號，下列哪些正確？ (本題為多選題)",
+                options: [
+                    "資訊插座組",
+                    "電話插座組",
+                    "xx代表資訊插座組數",
+                    "xx代表電話插座組數"
+                ],
+                answer: [0, 2],
+                explanation: "RJ-45 用於電腦網路，故 xxRJ-45 代表資訊插座組，其中 xx 代表資訊插座組數。",
+                errorAnalysis: "選項(2)(4)的電話插座組與 RJ-11 有關，RJ-45 是資訊插座。"
+            },
+{
+    id: 36,
+    type: "multi",
+    title: "依據「建築物屋內外電信設備設置技術規範」規定，關於 xxRJ-11 符號，下列哪些正確？ (本題為多選題)",
+    options: [
+        "資訊插座組",
+        "電話插座組",
+        "xx代表資訊插座組數",
+        "xx代表電話插座組數"
+    ],
+    answer: [1, 3],
+    explanation: "xxRJ-11 代表電話插座組（②），其中 xx 代表電話插座組數（④）。",
+    errorAnalysis: "RJ-11 專門對應傳統電話語音系統，不屬於資訊插座。"
+},
+            {
+                id: 37,
+                type: "multi",
+                title: "下列哪些為網路拓樸的基本形式？ (本題為多選題)",
+                options: [
+                    "星狀（Star）",
+                    "樹狀（Tree）",
+                    "環狀（Ring）",
+                    "球狀（Ball）"
+                ],
+                answer: [0, 1, 2],
+                explanation: "標準的網路拓樸架構包含星狀、樹狀、環狀、匯流排狀（Bus）、網狀（Mesh）等，無球狀（Ball）拓樸。",
+                errorAnalysis: "球狀（Ball）為干擾選項，常見拓樸為 Star、Tree、Ring、Bus、Mesh。"
+            },
+            {
+                id: 38,
+                type: "multi",
+                title: "下列哪些為光纖連接器？ (本題為多選題)",
+                options: [
+                    "SC",
+                    "RJ45",
+                    "ST",
+                    "SF"
+                ],
+                answer: [0, 2],
+                explanation: "常見的光纖連接器（Connector）包含 SC、ST、LC 等；RJ45 為雙絞線銅纜連接器；SF 非標準光纖接頭。",
+                errorAnalysis: "RJ45 是網路銅線接頭，SC 與 ST 才是光纖接頭。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+        let isSubmitted = {}; 
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            document.getElementById('qText').innerHTML = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            const submitBtn = document.getElementById('submitMultiBtn');
+
+            if (q.type === 'multi') {
+                badge.innerText = "多選題";
+                badge.className = "type-badge multi";
+                submitBtn.style.display = "block";
+            } else {
+                badge.innerText = "單選題";
+                badge.className = "type-badge";
+                submitBtn.style.display = "none";
+            }
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                if (q.type === 'single') {
+                    optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                    if (submitted) {
+                        optDiv.classList.add('disabled');
+                        if (optIdx === q.answer[0]) {
+                            optDiv.classList.add('correct');
+                        } else if (userAnswers[index] === optIdx) {
+                            optDiv.classList.add('wrong');
+                        }
+                    } else {
+                        optDiv.onclick = () => {
+                            userAnswers[index] = optIdx;
+                            isSubmitted[index] = true;
+                            loadQuestion(currentIndex);
+                        };
+                    }
+                } else {
+                    const isSelected = userAnswers[index] && userAnswers[index].includes(optIdx);
+
+                    if (!submitted) {
+                        if (isSelected) {
+                            optDiv.classList.add('multi-selected');
+                        }
+                        optDiv.onclick = () => {
+                            toggleMultiSelection(optIdx);
+                            loadQuestion(currentIndex);
+                        };
+                        optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                    } else {
+                        optDiv.classList.add('disabled');
+                        const isCorrectOpt = q.answer.includes(optIdx);
+
+                        if (isSelected && isCorrectOpt) {
+                            optDiv.classList.add('multi-correct-hit');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        } else if (isSelected && !isCorrectOpt) {
+                            optDiv.classList.add('multi-wrong-hit');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        } else if (!isSelected && isCorrectOpt) {
+                            optDiv.classList.add('multi-missed');
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span><span class="missed-tag">未選到</span>`;
+                        } else {
+                            optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                        }
+                    }
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            if (q.type === 'multi') {
+                submitBtn.disabled = submitted;
+            }
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+        }
+
+        function toggleMultiSelection(optIdx) {
+            if (!userAnswers[currentIndex]) {
+                userAnswers[currentIndex] = [];
+            }
+            const idx = userAnswers[currentIndex].indexOf(optIdx);
+            if (idx > -1) {
+                userAnswers[currentIndex].splice(idx, 1);
+            } else {
+                userAnswers[currentIndex].push(optIdx);
+            }
+        }
+
+        function submitMultiAnswer() {
+            if (!userAnswers[currentIndex] || userAnswers[currentIndex].length === 0) {
+                alert("請至少選擇一個選項！");
+                return;
+            }
+            isSubmitted[currentIndex] = true;
+            loadQuestion(currentIndex);
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            let isCorrect = false;
+            if (q.type === 'single') {
+                isCorrect = userAnswers[qIdx] === q.answer[0];
+            } else {
+                const userSel = [...(userAnswers[qIdx] || [])].sort();
+                const correctAns = [...q.answer].sort();
+                isCorrect = JSON.stringify(userSel) === JSON.stringify(correctAns);
+            }
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不完全正確，請參考下方解析與未選到標示：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerHTML = correctTextArr;
+            document.getElementById('explanationText').innerHTML = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 26 && inputVal <= 38) {
+                currentIndex = inputVal - 26;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (26 - 38)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>

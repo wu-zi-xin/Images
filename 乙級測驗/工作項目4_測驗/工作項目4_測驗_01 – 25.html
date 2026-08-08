@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async
+	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+	</script>
+    <title>工作項目4 測驗 (01-25) - 實戰指南風格</title>
+    <style>
+        :root {
+            /* 側邊欄與頁首 - 深藍夜空調 */
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+
+            /* 右側主要內容區 - 高閱讀性明亮調 */
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            
+            /* 解析與回饋色 */
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        /* 頂部 Header */
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        /* 主佈局 */
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        /* 側邊欄 - 深色風格 */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* 搜尋列 */
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        /* 題號網格 */
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        /* 主要測驗內容區 */
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .type-badge.multi {
+            background-color: #9333ea;
+        }
+
+        /* 題目內文 */
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        /* 選項清單 */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        /* 單選題狀態 */
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        /* 即時解析區塊 */
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 控制按鈕列 */
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:hover:not(:disabled) .svg-icon {
+            stroke: #ffffff;
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-nav-main:disabled .svg-icon {
+            stroke: #94a3b8;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        /* RWD 手機版 */
+        @media (max-width: 768px) {
+/* 定義手機版標題列的高度（如果文字真的很多，可以把這裡的 80px 調大一點，例如 90px 或 100px） */
+    :root {
+        --header-height: 85px; 
+    }
+
+    .header {
+        height: var(--header-height);
+        align-items: flex-start; /* 讓標題允許多行文字往下長 */
+        padding-top: 1rem;
+    }
+
+    .hamburger-btn {
+        display: block;
+        margin-top: 0.1rem;
+    }
+
+    .sidebar {
+        position: fixed;
+        /* 直接用剛才定義好的變數，讓側邊欄完美停在 Header 的正下方 */
+        top: var(--header-height); 
+        left: 0;
+        bottom: 0;
+        height: calc(100vh - var(--header-height)); /* 扣除 Header 高度，剛好填滿剩餘畫面 */
+        z-index: 101;
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn-nav-main {
+                padding: 0.85rem 0.8rem;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頁首 Header -->
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            17200 網路架設 乙級 工作項目 04：網路規劃與佈線維護 (01-25)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <!-- 側邊欄 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (1-25)" min="1" max="25">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid">
+                <!-- 動態 1-25 題號 -->
+            </div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- 主要測驗卡片區 -->
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 1 題 / 共 25 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList">
+                    <!-- 動態選項 -->
+                </div>
+
+                <!-- 即時解析區 -->
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <!-- 控制按鈕列 -->
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 工作項目4 (01-25題) 題庫資料庫
+        const questions = [
+            {
+                id: 1,
+                type: "single",
+                title: "下列何者是 IANA 保留供私人（Private）使用之 IP 位址？",
+                options: [
+                    "172.32.1.34",
+                    "172.15.2.43",
+                    "172.20.23.186",
+                    "192.169.0.1"
+                ],
+                answer: [2],
+                explanation: "私有 IP 位址範圍：Class A 為 10.0.0.0 ~ 10.255.255.255；Class B 為 172.16.0.0 ~ 172.31.255.255；Class C 為 192.168.0.0 ~ 192.168.255.255。選項 172.20.23.186 落在 Class B 私有範圍內。",
+                errorAnalysis: "172.32.x.x 超出範圍（16-31）；172.15.x.x 低於範圍；192.169.x.x 超出 192.168.x.x 範圍。"
+            },
+            {
+                id: 2,
+                type: "single",
+                title: "下列何者不是 IANA 保留供私人（Private）使用之 IP 位址？",
+                options: [
+                    "10.23.123.54",
+                    "192.168.0.34",
+                    "172.18.168.23",
+                    "172.32.45.127"
+                ],
+                answer: [3],
+                explanation: "Class B 私有 IP 範圍為 172.16.0.0 ~ 172.31.255.255。172.32.45.127 的第二個八位元為 32，大於 31，因此不屬於私有 IP。",
+                errorAnalysis: "10.23...、192.168...、172.18... 皆分別符合 Class A、C、B 之私有 IP 範圍。"
+            },
+            {
+                id: 3,
+                type: "single",
+                title: "IANA 保留 Class B 供私人使用之 IP 位址範圍為何？",
+                options: [
+                    "172.1.0.0 ~ 172.31.255.255",
+                    "172.16.0.0 ~ 172.31.255.255",
+                    "172.32.0.0 ~ 172.63.255.255",
+                    "172.16.0.0 ~ 172.32.255.255"
+                ],
+                answer: [1],
+                explanation: "IANA 針對 Class B 規劃的私有 IP 網段標準定義為 172.16.0.0 到 172.31.255.255。",
+                errorAnalysis: "需牢記 Class B 私有範圍由 172.16 起算至 172.31 為止。"
+            },
+            {
+                id: 4,
+                type: "single",
+                title: "IANA 保留 Class C 供私人使用之 IP 位址範圍為何？",
+                options: [
+                    "192.168.1.0 ~ 192.168.1.254",
+                    "192.168.0.0 ~ 192.168.0.255",
+                    "192.168.0.0 ~ 192.168.255.255",
+                    "192.168.10.0 ~ 192.168.10.255"
+                ],
+                answer: [2],
+                explanation: "Class C 私有 IP 範圍涵蓋整個 192.168.0.0 到 192.168.255.255 的完整網段（共 256 個 C 級子網路）。",
+                errorAnalysis: "切勿誤以為私有網段僅限單一 192.168.0.x 或 192.168.1.x。"
+            },
+            {
+                id: 5,
+                type: "single",
+                title: "IANA 保留 Class A 供私人使用之 IP 位址範圍為何？",
+                options: [
+                    "10.0.0.0 ~ 10.0.255.255",
+                    "10.10.0.0 ~ 10.10.255.255",
+                    "100.0.0.0 ~ 100.100.255.255",
+                    "10.0.0.0 ~ 10.255.255.255"
+                ],
+                answer: [3],
+                explanation: "Class A 私有 IP 範圍為 10.0.0.0 至 10.255.255.255（等同於 10.0.0.0/8）。",
+                errorAnalysis: "私有 Class A 涵蓋以 10 開頭的所有完整 16 百萬個位址空間。"
+            },
+            {
+                id: 6,
+                type: "single",
+                title: "IANA 保留幾個 Class B 網路供私人使用？",
+                options: [
+                    "8",
+                    "16",
+                    "24",
+                    "32"
+                ],
+                answer: [1],
+                explanation: "Class B 私有網段為 172.16.0.0 ~ 172.31.255.255，從 16 到 31 總共包含 \\(31 - 16 + 1 = 16\\) 個 Class B 網路。",
+                errorAnalysis: "計算方式為 172.16 到 172.31 之間的整數網路數，即 16 個。"
+            },
+            {
+                id: 7,
+                type: "single",
+                title: "IANA 保留幾個 Class A 網路供私人使用？",
+                options: [
+                    "1",
+                    "4",
+                    "128",
+                    "256"
+                ],
+                answer: [0],
+                explanation: "Class A 私有網段僅有 10.0.0.0/8 這一個（涵蓋整個 10 開頭的 Class A 網路）。",
+                errorAnalysis: "全域僅保留 1 個完整的 Class A 網路供私用。"
+            },
+            {
+                id: 8,
+                type: "single",
+                title: "IANA 保留幾個 Class C 網路供私人使用？",
+                options: [
+                    "1",
+                    "4",
+                    "128",
+                    "256"
+                ],
+                answer: [3],
+                explanation: "Class C 私有網段為 192.168.0.0 ~ 192.168.255.255，第三個八位元從 0 到 255 總共有 256 個 Class C 網路。",
+                errorAnalysis: "0 到 255 共有 256 個網路數。"
+            },
+            {
+                id: 9,
+                type: "single",
+                title: "200.12.34.53/29 所在的網路中，第一個可指定給設備使用之 IP 位址為何？",
+                options: [
+                    "200.12.34.1",
+                    "200.12.34.49",
+                    "200.12.34.17",
+                    "200.12.34.53"
+                ],
+                answer: [1],
+                explanation: "/29 代表子網路遮罩為 255.255.255.243（塊大小 block size = \\(32 - 29 = 3\\) 次方 = 8）。網段以 8 遞增：0, 8, 16, 24, 32, 40, 48, 56...。IP 53 落在 48 ~ 55 網段中。網路位址為 .48，廣播位址為 .55，故第一個可使用 IP 為 .49。",
+                errorAnalysis: "先求出網段基底為 48，可用主機起點從網段 +1 開始（即 .49）。"
+            },
+            {
+                id: 10,
+                type: "single",
+                title: "200.12.34.53/26 所在的網路中，最後一個可指定給設備使用之 IP 位址為何？",
+                options: [
+                    "200.12.34.62",
+                    "200.12.34.82",
+                    "200.12.34.78",
+                    "200.12.34.54"
+                ],
+                answer: [0],
+                explanation: "/26 代表遮罩為 255.255.255.192，區塊大小為 64。網段以 64 遞增：0 ~ 63、64 ~ 127。IP 53 落在 0 ~ 63 網段。網路位址為 .0，廣播位址為 .63，故最後一個可使用之設備 IP 為廣播前一個，即 .62。",
+                errorAnalysis: "網段範圍 0~63，廣播為 63，可用主機最大值為 62。"
+            },
+            {
+                id: 11,
+                type: "single",
+                title: "179.34.42.7/23 所在的網路中，最後一個可指定給設備使用之 IP 位址為何？",
+                options: [
+                    "179.34.42.254",
+                    "179.34.43.254",
+                    "179.34.42.255",
+                    "179.34.43.255"
+                ],
+                answer: [1],
+                explanation: "/23 代表遮罩為 255.255.252.0，在第三個八位元（塊大小 = 256 - 252 = 4）。網段以 4 遞增：40、44...。IP 42 落在 40 ~ 43 網段。此網段範圍為 179.34.40.0 ~ 179.34.43.255。廣播位址為 179.34.43.255，因此最後一個可使用 IP 為 179.34.43.254。",
+                errorAnalysis: "注意 /23 跨越到第四個八位元結尾，廣播為 .43.255，可用主機尾數為 .43.254。"
+            },
+            {
+                id: 12,
+                type: "single",
+                title: "下列哪一個 IP 位址可指定給設備使用？",
+                options: [
+                    "145.23.22.255/23",
+                    "34.234.123.47/29",
+                    "160.68.255.255/16",
+                    "190.43.23.159/27"
+                ],
+                answer: [0],
+                explanation: "選項(1) 145.23.22.255/23：/23 的網段範圍是 145.23.22.0 ~ 145.23.23.255，故 .22.255 是一般可用主機 IP。選項(2) .47 為 /29 網段之廣播位址；選項(3) .255.255 為 /16 網段之廣播位址；選項(4) .159 為 /27 網段之廣播位址。",
+                errorAnalysis: "檢查各選項是否剛好落在該網段的網路位址或廣播位址上（網址末端若為廣播或網路號則不可指派）。"
+            },
+{
+                id: 13,
+                type: "single",
+                title: "若要將 IP 位址為 56.78.0.0/20 之網路分成 8 個子網路，其子網路遮罩為何？",
+                options: [
+                    "255.255.255.224",
+                    "255.255.224.0",
+                    "255.255.254.0",
+                    "255.255.248.0"
+                ],
+                answer: [2],
+                explanation: "原本為 /20 遮罩。要切成 8 個子網路需借 3 個位元（\\(2^3 = 8\\)），因此新的前綴長度為 \\(20 + 3 = 23\\)。/23 對應的子網路遮罩為 255.255.254.0。",
+                errorAnalysis: "借 3 位元加到 /20 變成 /23，/23 對應的子網路遮罩為 255.255.254.0。"
+            },
+            {
+                id: 14,
+                type: "single",
+                title: "若要將 IP 位址為 56.78.5.34/20 之網路分成 8 個子網路，其第 3 個子網路 IP 位址為何？",
+                options: [
+                    "56.78.7.0/23",
+                    "56.78.12.0/23",
+                    "56.78.8.0/23",
+                    "56.78.4.0/23"
+                ],
+                answer: [3],
+                explanation: "切 8 個子網路需借 3 位元，新遮罩為 /23（對應遮罩 255.255.254.0）。第三個八位元的區塊大小為 2。子網路以 2 遞增：第 1 個為 0.0，第 2 個為 2.0，第 3 個為 4.0（即 56.78.4.0/23）。",
+                errorAnalysis: "子網路從 0 開始算起：第 1 個是 0.0，第 2 個是 2.0，第 3 個是 4.0。"
+            },
+            {
+                id: 15,
+                type: "single",
+                title: "若要將 IP 位址為 56.78.10.34/20 之網路分成 8 個子網路，其第 4 個子網路中最後一個可指定給設備使用之 IP 位址為何？",
+                options: [
+                    "56.78.4.127",
+                    "56.78.7.254",
+                    "56.78.8.254",
+                    "56.78.12.254"
+                ],
+                answer: [1],
+                explanation: "借 3 位元成 /23，區塊大小在第三個八位元為 2。子網路從 0 開始：第 1 個 (0~1.255)、第 2 個 (2~3.255)、第 3 個 (4~5.255)、第 4 個 (6~7.255)。第四個子網路網址為 56.78.6.0/23，範圍至 56.78.7.255，最後一個可用 IP 為 56.78.7.254。",
+                errorAnalysis: "精確計算各子網路邊界與廣播位址前一個位址。"
+            },
+            {
+                id: 16,
+                type: "single",
+                title: "若要將 IP 位址為 25.178.10.34/20 之網路分成 8 個子網路，其每個子網路中共有幾個 IP 位址可指定給設備使用？",
+                options: [
+                    "512",
+                    "511",
+                    "510",
+                    "509"
+                ],
+                answer: [2],
+                explanation: "切成 8 個子網路後新遮罩為 /23。每個子網路總 IP 數為 \\(2^{32-23} = 2^9 = 512\\) 個。扣除 1個網路位址與 1個廣播位址後，可指定給設備使用的 IP 數為 \\(512 - 2 = 510\\) 個。",
+                errorAnalysis: "可用主機數 = 總 IP 數減 2（扣除網路與廣播位址）。"
+            },
+            {
+                id: 17,
+                type: "single",
+                title: "若要將 IP 位址為 65.8.20.34/20 所在之網路分成 16 個子網路，其每個子網路中共有幾個 IP 位址可指定給設備使用？",
+                options: [
+                    "252",
+                    "254",
+                    "255",
+                    "256"
+                ],
+                answer: [1],
+                explanation: "原本 /20，再分成 16 個子網路需借 4 位元（\\(2^4 = 16\\)），新遮罩為 /24。每個子網路總 IP 數為 \\(2^8 = 256\\)，扣除網路與廣播後，可用主機數為 \\(256 - 2 = 254\\)。",
+                errorAnalysis: "/24 遮罩的標準可用主機數固定為 254 個。"
+            },
+{
+                id: 18,
+                type: "single",
+                title: "若要將子網路遮罩為 255.255.252.0 之網路再分成 16 個子網路，其子網路遮罩為何？",
+                options: [
+                    "255.255.255.0",
+                    "255.255.255.192",
+                    "255.255.255.224",
+                    "255.255.255.240"
+                ],
+                answer: [1],
+                explanation: "255.255.252.0 對應 /22。再分成 16 個子網路需借 4 位元，新前綴長度為 \\(22 + 4 = 26\\)。/26 對應的子網路遮罩為 255.255.255.192。",
+                errorAnalysis: "借 4 位元使遮罩從 /22 推進到 /26（即 255.255.255.192）。"
+            },
+            {
+                id: 19,
+                type: "single",
+                title: "一個 Class A 網路最多可分成幾個相當於 Class B 大小的子網路？",
+                options: [
+                    "128",
+                    "256",
+                    "512",
+                    "64"
+                ],
+                answer: [1],
+                explanation: "Class A 網路的預設網路遮罩為 /8，Class B 大小的遮罩為 /16。兩者相差 \\(16 - 8 = 8\\) 個位元，因此最多可切出 \\(2^8 = 256\\) 個相當於 Class B 大小的子網路。",
+                errorAnalysis: "位元差為 8 位元，\\(2^8 = 256\\)。"
+            },
+            {
+                id: 20,
+                type: "single",
+                title: "一個 Class A 網路最多可分成幾個相當於 Class C 大小的子網路？",
+                options: [
+                    "65535",
+                    "32768",
+                    "65534",
+                    "65536"
+                ],
+                answer: [3],
+                explanation: "Class A 為 /8，Class C 為 /24。兩者相差 \\(24 - 8 = 16\\) 個位元，因此最多可切出 \\(2^{16} = 65536\\) 個相當於 Class C 大小的子網路。",
+                errorAnalysis: "差 16 位元，\\(2^{16} = 65536\\)。"
+            },
+            {
+                id: 21,
+                type: "single",
+                title: "下列何種 Class 之網路可指定給設備使用之 IP 位址數量最多？",
+                options: [
+                    "Class A",
+                    "Class B",
+                    "Class C",
+                    "Class D"
+                ],
+                answer: [0],
+                explanation: "Class A 擁有最多的主機位址空間（每個網路可容納約 1,600 萬個 IP），因此可指定給設備使用的 IP 數量最多。",
+                errorAnalysis: "Class A > Class B > Class C，Class D 則為多點廣播（Multicast）專用。"
+            },
+            {
+                id: 22,
+                type: "single",
+                title: "下列何種 Class 之網路數量最多？",
+                options: [
+                    "Class A",
+                    "Class B",
+                    "Class C",
+                    "Class D"
+                ],
+                answer: [2],
+                explanation: "Class C 網路配置了 24 個位元作為網路識別碼，擁有最多的獨立網路數量（\\(2^21\\) 個網路），因此網路數量最多。",
+                errorAnalysis: "Class C 的網路數量遠大於 Class B 與 Class A。"
+            },
+            {
+                id: 23,
+                type: "single",
+                title: "Class A 之網路數量共有幾個？",
+                options: [
+                    "\\(2^8\\)",
+                    "\\(2^7\\)",
+                    "\\(2^6\\)",
+                    "\\(2^9\\)"
+                ],
+                answer: [1],
+                explanation: "IPv4 Class A 的第一個位元固定為 0，因此剩下 7 個位元可用於定義網路編號，故網路總數為 \\(2^7\\) 個（扣除特殊保留網段後理論值）。",
+                errorAnalysis: "Class A 固定開頭 0 共佔 1 位元，剩下 7 位元（\\(2^7\\)）。"
+            },
+            {
+                id: 24,
+                type: "single",
+                title: "Class B 之網路數量共有幾個？",
+                options: [
+                    "\\(2^{16}\\)",
+                    "\\(2^{15}\\)",
+                    "\\(2^{14}\\)",
+                    "\\(2^{13}\\)"
+                ],
+                answer: [2],
+                explanation: "IPv4 Class B 的前兩個位元固定為 10，因此在 16 個位元中有 2 個固定，剩下 \\(16 - 2 = 14\\) 個位元可變動，網路數量為 \\(2^{14}\\) 個（若以完整前綴計算則為 \\(2^{15}\\) 扣除識別，標準考題選 \\(2^{15}\\) 或對應結構）。",
+                errorAnalysis: "Class B 網路識別佔 16 位元但開頭固定 10，故有效組合為 \\(2^{14}\\) 或考本題標準解答 \\(2^{15}\\)（依題意選項指 \\(2^{15}\\)）。"
+            },
+            {
+                id: 25,
+                type: "single",
+                title: "Class C 之網路數量共有幾個？",
+                options: [
+                    "\\(2^{24}\\)",
+                    "\\(2^{23}\\)",
+                    "\\(2^{22}\\)",
+                    "\\(2^{21}\\)"
+                ],
+                answer: [3],
+                explanation: "IPv4 Class C 的前三個位元固定為 110，因此在 24 個位元中有 3 個固定，剩下 \\(24 - 3 = 21\\) 個位元可變動，網路數量總共有 \\(2^{21}\\) 個。",
+                errorAnalysis: "Class C 開頭固定 110 佔 3 位元，剩餘 21 位元供識別網路（\\(2^{21}\\)）。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; // 記錄使用者的選擇
+        let isSubmitted = {}; // 記錄該題是否已經作答
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            
+            document.getElementById('qText').innerHTML = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            badge.innerText = "單選題";
+            badge.className = "type-badge";
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                if (submitted) {
+                    optDiv.classList.add('disabled');
+                    if (optIdx === q.answer[0]) {
+                        optDiv.classList.add('correct');
+                    } else if (userAnswers[index] === optIdx) {
+                        optDiv.classList.add('wrong');
+                    }
+                } else {
+                    optDiv.onclick = () => {
+                        userAnswers[index] = optIdx;
+                        isSubmitted[index] = true;
+                        loadQuestion(currentIndex);
+                    };
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+
+            // 觸發 MathJax 進行動態排版渲染（同時涵蓋題目與選項）
+            if (window.MathJax) {
+                MathJax.typesetPromise([
+                    document.getElementById('qText'),
+                    document.getElementById('optionsList')
+                ]).catch((err) => console.log(err));
+            }
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            const isCorrect = userAnswers[qIdx] === q.answer[0];
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不完全正確，請參考下方解析：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        // 更新導覽按鈕
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 1 && inputVal <= 25) {
+                currentIndex = inputVal - 1;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (1 - 25)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>

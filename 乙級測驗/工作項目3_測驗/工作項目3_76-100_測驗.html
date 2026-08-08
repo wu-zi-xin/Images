@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作項目3 測驗 (76-100) - 實戰指南風格</title>
+    <style>
+        :root {
+            /* 側邊欄與頁首 - 深藍夜空調 */
+            --sidebar-bg: #131b2e;
+            --sidebar-card: #1d273e;
+            --sidebar-border: #2a3654;
+            --sidebar-text: #e2e8f0;
+            --sidebar-text-muted: #94a3b8;
+            --active-blue: #2563eb;
+            --active-blue-hover: #1d4ed8;
+
+            /* 右側主要內容區 - 高閱讀性明亮調 */
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            
+            /* 解析與回饋色 */
+            --callout-bg: #eff6ff;
+            --callout-border: #3b82f6;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --error-color: #dc2626;
+            --error-bg: #fef2f2;
+            --missed-bg: #fef3c7;
+            --missed-color: #b45309;
+
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        /* 頂部 Header */
+        .header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .header-title-badge {
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0.3rem;
+        }
+
+        /* 主佈局 */
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        /* 側邊欄 - 深色風格 */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* 搜尋列 */
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            background-color: var(--sidebar-card);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--active-blue);
+        }
+
+        .search-btn {
+            padding: 0.65rem 0.95rem;
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--active-blue-hover);
+        }
+
+        /* 題號網格 */
+        .question-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-text-muted);
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.55rem;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 0.2rem;
+        }
+
+        .q-btn {
+            padding: 0.6rem 0.3rem;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .q-btn:hover {
+            border-color: var(--active-blue);
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .q-btn.active {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .q-btn.answered {
+            border-color: var(--active-blue);
+            color: #60a5fa;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-sidebar-nav {
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--sidebar-border);
+            background-color: var(--sidebar-card);
+            color: var(--sidebar-text);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-sidebar-nav:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        /* 主要測驗內容區 */
+        .main-content {
+            flex: 1;
+            padding: 2.2rem 1.5rem;
+            max-width: 840px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--active-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .type-badge {
+            background-color: var(--active-blue);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .type-badge.multi {
+            background-color: #9333ea;
+        }
+
+        /* 題目內文 */
+        .question-title-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .accent-bar {
+            width: 4px;
+            height: 1.5rem;
+            background-color: var(--active-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.65;
+            color: var(--text-main);
+        }
+
+        /* 選項清單 */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.1rem 1.25rem;
+            background-color: #f8fafc;
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            min-height: 52px;
+            text-align: left;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--active-blue);
+            background-color: #eff6ff;
+            transform: translateX(4px);
+        }
+
+        /* 單選題狀態 */
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .option-item.wrong {
+            border-color: var(--error-color);
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        .option-content-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+        }
+
+        /* 即時解析區塊 */
+        .feedback-box {
+            display: none;
+            margin-bottom: 2rem;
+            padding: 1.35rem 1.5rem;
+            border-radius: 12px;
+            background-color: var(--callout-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid var(--callout-border);
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .analysis-section {
+            margin-top: 0.65rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .analysis-section strong {
+            color: var(--text-main);
+        }
+
+        .error-analysis {
+            margin-top: 0.85rem;
+            color: #991b1b;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 控制按鈕列 */
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn-nav-main {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-nav-main:hover:not(:disabled) {
+            background-color: var(--active-blue);
+            color: #ffffff;
+            border-color: var(--active-blue);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-main:hover:not(:disabled) .svg-icon {
+            stroke: #ffffff;
+        }
+
+        .btn-nav-main:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-nav-main:disabled .svg-icon {
+            stroke: #94a3b8;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--active-blue);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.2s;
+        }
+
+        /* RWD 手機版 */
+        @media (max-width: 768px) {
+/* 定義手機版標題列的高度（如果文字真的很多，可以把這裡的 80px 調大一點，例如 90px 或 100px） */
+    :root {
+        --header-height: 85px; 
+    }
+
+    .header {
+        height: var(--header-height);
+        align-items: flex-start; /* 讓標題允許多行文字往下長 */
+        padding-top: 1rem;
+    }
+
+    .hamburger-btn {
+        display: block;
+        margin-top: 0.1rem;
+    }
+
+    .sidebar {
+        position: fixed;
+        /* 直接用剛才定義好的變數，讓側邊欄完美停在 Header 的正下方 */
+        top: var(--header-height); 
+        left: 0;
+        bottom: 0;
+        height: calc(100vh - var(--header-height)); /* 扣除 Header 高度，剛好填滿剩餘畫面 */
+        z-index: 101;
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+            .main-content {
+                padding: 1rem 0.75rem;
+            }
+
+            .quiz-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 14px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn-nav-main {
+                padding: 0.85rem 0.8rem;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頁首 Header -->
+    <header class="header">
+        <div class="header-title">
+            <span class="header-title-badge">測驗</span>
+            17200 網路架設 乙級 工作項目 03：區域網路與網際網路規劃架設 (76-100)
+        </div>
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="選單">
+            <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </header>
+
+    <div class="app-container">
+        <!-- 側邊欄 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="search-box">
+                <input type="number" id="searchInput" class="search-input" placeholder="搜尋題號 (76-100)" min="76" max="100">
+                <button class="search-btn" onclick="searchQuestion()" aria-label="搜尋">
+                    <svg class="svg-icon" style="stroke: #ffffff;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </div>
+
+            <div class="question-grid-title">題號列表導覽：</div>
+            <div class="question-grid" id="questionGrid">
+                <!-- 動態 76-100 題號 -->
+            </div>
+
+            <div class="sidebar-actions">
+                <button class="btn-sidebar-nav" onclick="jumpToFirst()">
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg>
+                    跳至第一題
+                </button>
+                <button class="btn-sidebar-nav" onclick="jumpToLast()">
+                    跳至最後一題
+                    <svg class="svg-icon" style="stroke: var(--sidebar-text-muted);" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- 主要測驗卡片區 -->
+        <main class="main-content">
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span id="qNumber">第 76 題 / 共 25 題</span>
+                    <span id="qTypeBadge" class="type-badge">單選題</span>
+                </div>
+                
+                <div class="question-title-box">
+                    <div class="accent-bar"></div>
+                    <div class="question-text" id="qText">題目載入中...</div>
+                </div>
+
+                <div class="options-list" id="optionsList">
+                    <!-- 動態選項 -->
+                </div>
+
+                <!-- 即時解析區 -->
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="feedback-title" id="feedbackStatus"></div>
+                    <div class="analysis-section">
+                        <strong>正確答案：</strong><span id="correctAnswer"></span>
+                    </div>
+                    <div class="analysis-section">
+                        <strong>詳細解析：</strong>
+                        <p id="explanationText" style="margin-top:0.35rem;"></p>
+                    </div>
+                    <div class="error-analysis" id="errorAnalysisBox">
+                        <strong>觀念澄清與錯誤分析：</strong>
+                        <p id="errorAnalysisText" style="margin-top:0.35rem;"></p>
+                    </div>
+                </div>
+
+                <!-- 控制按鈕列 -->
+                <div class="control-panel">
+                    <button class="btn-nav-main" id="prevBtn" onclick="prevQuestion()">
+                        <svg class="svg-icon" id="prevIcon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        <span>上一個</span>
+                    </button>
+                    <button class="btn-nav-main" id="nextBtn" onclick="nextQuestion()">
+                        <span id="nextText">下一個</span>
+                        <svg class="svg-icon" id="nextIcon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 工作項目3 (76-100題) 題庫資料庫
+        const questions = [
+            {
+                id: 76,
+                type: "single",
+                title: "下列何者為 ARP 協定功能？",
+                options: [
+                    "搜尋 Layer 3 目的位址",
+                    "用以開發 Layer 4 資源表的快取",
+                    "用以對應 IP 位址與 MAC 位址",
+                    "送出廣播訊息尋找路由器 IP 位址"
+                ],
+                answer: [2],
+                explanation: "ARP（Address Resolution Protocol，位址解析協定）的主要功能是將網路層的 IP 位址解析（對應）成資料鏈結層的硬體 MAC 位址。",
+                errorAnalysis: "ARP 專門負責 IP 與 MAC 的轉換，與 Layer 4 或尋找路由器 IP 無關。"
+            },
+            {
+                id: 77,
+                type: "single",
+                title: "當進行網路測試時，下列何者正確？",
+                options: [
+                    "應依序從 OSI 參考模型之第一層到第二層，依此類推",
+                    "應直接處理 OSI 層中之特定層",
+                    "應與管理階層共同處理",
+                    "應以隨機方式測試 OSI 參考模型中的任一層"
+                ],
+                answer: [0],
+                    explanation: "在進行網路問題排查或測試時，通常建議採用由下而上（From Bottom-Up）的方法，即從 OSI 參考模型的第一層（實體層）開始依序向上測試。",
+                errorAnalysis: "網路除錯標準程序通常由實體層逐層向上檢查，而非隨機或直接跳到特定層。"
+            },
+            {
+                id: 78,
+                type: "single",
+                title: "在處理網路連線問題時，下列何者正確？",
+                options: [
+                    "從 Layer 1 開始",
+                    "從 Layer 2 開始",
+                    "從 Layer 3 開始",
+                    "從 Layer 7 開始"
+                ],
+                answer: [0],
+                explanation: "處理網路連線故障排除（Troubleshooting）時，標準做法是從 OSI 第一層（實體層，如檢查實體線路、電源、接頭）開始排查。",
+                errorAnalysis: "先確定實體線路與設備有電、連接正常，才能排除上層通訊問題。"
+            },
+            {
+                id: 79,
+                type: "single",
+                title: "ICMP 為下列何者之縮寫？",
+                options: [
+                    "Internet Control Message Parameter",
+                    "Internal Control Message Protocol",
+                    "Internet Control Message Protocol",
+                    "Internet Control Message Performance"
+                ],
+                answer: [2],
+                explanation: "ICMP 的全名為 Internet Control Message Protocol（網際網路控制訊息協定），常用於傳遞錯誤訊息與網路診斷（如 ping 指令）。",
+                errorAnalysis: "需注意英文原詞為 Internet Control Message Protocol。"
+            },
+            {
+                id: 80,
+                type: "single",
+                title: "Telnet 為 OSI 參考模型中的哪一層協定？",
+                options: [
+                    "Layer 1",
+                    "Layer 5",
+                    "Layer 6",
+                    "Layer 7"
+                ],
+                answer: [3],
+                explanation: "Telnet 是一種遠端登入協定，運作在 OSI 參考模型的第七層（應用層）。",
+                errorAnalysis: "應用層（Layer 7）協定還包含 HTTP、FTP、DNS、Telnet 等。"
+            },
+            {
+                id: 81,
+                type: "single",
+                title: "比較二進位相位鍵控（Binary Phase-Shift Keying, BPSK）和四相相位鍵控（Quadrature Phase-Shift Keying, QPSK）的敘述，下列何者錯誤？",
+                options: [
+                    "QPSK 的傳輸速度比較快",
+                    "QPSK 所需要的傳輸頻寬較大",
+                    "BPSK 抗雜訊的能力較高",
+                    "BPSK 較容易實作"
+                ],
+                answer: [1],
+                explanation: "QPSK 在相同的符元率（Symbol Rate）下，每個符元可攜帶 2 個位元（BPSK 為 1 個位元），因此 QPSK 傳輸速度較快且「不需較大頻寬」即可傳送更多資料（頻寬效率較高）。故選項(2)敘述錯誤。",
+                errorAnalysis: "QPSK 的頻寬效率比 BPSK 好，在同頻寬下可提供雙倍傳輸率。"
+            },
+            {
+                id: 82,
+                type: "single",
+                title: "下列何種設備提供 LAN 的邏輯區間？",
+                options: [
+                    "路由器（Router）",
+                    "橋接器（Bridge）",
+                    "交換器（Switch）",
+                    "集線器（Hub）"
+                ],
+                answer: [0],
+                explanation: "路由器（Router）工作在網路層（Layer 3），可用於分隔廣播網域並提供 LAN 的邏輯區間與子網路劃分。",
+                errorAnalysis: "集線器與交換器主要處理實體/資料鏈結層，無法有效做邏輯子網路區隔。"
+            },
+            {
+                id: 83,
+                type: "single",
+                title: "區域網路中，下列何者不是採用 Layer 3 設備的目的？",
+                options: [
+                    "允許 LAN 區隔出子網路",
+                    "允許與 WAN 連接",
+                    "提供網路的邏輯結構",
+                    "增加 LAN 的大小"
+                ],
+                answer: [3],
+                explanation: "採用 Layer 3 設備（如路由器）主要用於劃分子網路、連接 WAN 及提供邏輯定址，其目的在於分割廣播域與控制流量，而非盲目「增加 LAN 的大小」。",
+                errorAnalysis: "增加 LAN 大小會導致廣播風暴與效能下降，並非 Layer 3 設備的目的。"
+            },
+            {
+                id: 84,
+                type: "single",
+                title: "下列何種設備可阻隔網路廣播（Broadcast）？",
+                options: [
+                    "集線器（Hub）",
+                    "橋接器（Bridge）",
+                    "Layer 2 交換器（Switch）",
+                    "路由器（Router）"
+                ],
+                answer: [3],
+                explanation: "路由器（Router）預設會阻隔廣播封包（Broadcast），不會將廣播導向其他介面。",
+                errorAnalysis: "Hub、Bridge、Layer 2 Switch 皆會透傳廣播訊息。"
+            },
+            {
+                id: 85,
+                type: "single",
+                title: "到何種設備無法劃分不同碰撞區（Collision domain）？",
+                options: [
+                    "路由器（Router）",
+                    "Layer 2 交換器（Switch）",
+                    "集線器（Hub）",
+                    "橋接器（Bridge）"
+                ],
+                answer: [2],
+                explanation: "集線器（Hub）所有連接埠共享同一個碰撞區，無法分割碰撞域。",
+                errorAnalysis: "交換器、橋接器與路由器每個連接埠都可以各自隔絕碰撞區。"
+            },
+            {
+                id: 86,
+                type: "single",
+                title: "IP 位址為 172.16.30.56 時，預設網路 ID（Network ID）為何？",
+                options: [
+                    "172",
+                    "172.16",
+                    "172.16.30",
+                    "172.16.30.56"
+                ],
+                answer: [1],
+                explanation: "172.16.30.56 屬於 Class B IP 位址（開頭為 10），其預設網路遮罩為 255.255.0.0，故預設網路 ID 為 172.16。",
+                errorAnalysis: "Class B 的網路遮罩前兩個位元組為網路 ID。"
+            },
+            {
+                id: 87,
+                type: "single",
+                title: "IP 位址為 172.16.30.56 時，預設節點 ID（Node ID）為何？",
+                options: [
+                    "172.16.30.56",
+                    "16.30.56",
+                    "30.56",
+                    "56"
+                ],
+                answer: [2],
+                explanation: "Class B 位址的預設網路 ID 佔前兩個位元組（172.16），後兩個位元組（30.56）則為預設節點 ID（Host/Node ID）。",
+                errorAnalysis: "扣除 Class B 預設的網路遮罩範圍後，剩餘部分即為節點 ID。"
+            },
+            {
+                id: 88,
+                type: "single",
+                title: "IP 位址第 1 個位元組為 11010111 時，屬於下列哪個級別（Class）？",
+                options: [
+                    "Class A",
+                    "Class B",
+                    "Class C",
+                    "Class D"
+                ],
+                answer: [2],
+                explanation: "二進位 11010111 換算成十進位為 215。Class C 的範圍是 192 至 223（開頭為 110），故屬於 Class C。",
+                errorAnalysis: "Class C 的位元開頭為 110（十進位 192~223）。"
+            },
+            {
+                id: 89,
+                type: "single",
+                title: "IP 位址第 1 個位元組為下列何者時，屬 Class B 網路位址？",
+                options: [
+                    "01XXXXXX",
+                    "0XXXXXXX",
+                    "10XXXXXX",
+                    "110XXXXX"
+                ],
+                answer: [2],
+                explanation: "Class B 網路位址的第一個位元組開頭固定為二進位 `10`（即 10XXXXXX），十進位範圍為 128 至 191。",
+                errorAnalysis: "Class A 開頭為 0，Class B 開頭為 10，Class C 開頭為 110，Class D 開頭為 1110。"
+            },
+            {
+                id: 90,
+                type: "single",
+                title: "網路位址為 172.160.0.0，子網路遮罩為 255.255.255.128，可切割出多少個子網路（Subnets）？",
+                options: [
+                    "1024",
+                    "64",
+                    "128",
+                    "512"
+                ],
+                answer: [3],
+                explanation: "Class B 預設遮罩為 /16 (255.255.0.0)。現行遮罩為 /25 (255.255.255.128)，借用了 9 個位元 ($25 - 16 = 9$) 作為子網路，故子網路數為 $2^9 = 512$。",
+                errorAnalysis: "計算借用位元數：從 /16 借到 /25 共借 9 位，故為 512 個子網路。"
+            },
+{
+                id: 91,
+                type: "single",
+                title: "兩個路由器之 WAN 端介面對接，其個別 IP 可設定為",
+                options: [
+                    "192.168.1.32/27，192.168.1.33/27",
+                    "172.16.18.255/22，172.16.19.1/22",
+                    "192.168.3.6/30，192.168.3.7/30",
+                    "172.16.19.255/22，172.16.20.1/22"
+                ],
+                answer: [1],
+                explanation: "路由器互相對接必須在同一網段，且不能使用網路位址或廣播位址。選項②的 /22 網段（255.255.252.0），若網段起點為 172.16.16.0，則範圍是 172.16.16.0 ~ 172.16.19.255。因此 172.16.18.255 與 172.16.19.1 皆為合法且位於同網段的可用主機 IP。",
+                errorAnalysis: "選項③的 192.168.3.7/30 是該網段的廣播位址，無法設定給主機。官方標準解答為②。"
+            },
+            {
+                id: 92,
+                type: "single",
+                title: "RIP (Routing Information Protocol) 路由協定，預設每隔多久會送出完整的路由表給所有介面？",
+                options: [
+                    "10 秒",
+                    "20 秒",
+                    "30 秒",
+                    "40 秒"
+                ],
+                answer: [2],
+                explanation: "RIP 路由協定預設每隔 30 秒會發送一次完整的路由更新（Update）廣播給相鄰路由器。",
+                errorAnalysis: "熟記 RIP 的計時器預設值：更新時間 30 秒、失效時間 180 秒。"
+            },
+            {
+                id: 93,
+                type: "single",
+                title: "RIP (Routing Information Protocol) 路由協定，定義最長的 Hop count 為",
+                options: [
+                    "5",
+                    "10",
+                    "15",
+                    "20"
+                ],
+                answer: [2],
+                explanation: "RIP 採用 Hop count（跳數）作為評估 métric，最大限制為 15 跳，若達到 16 跳則被視為不可達（Infinity）。",
+                errorAnalysis: "RIP 最大極限為 15 跳，第 16 跳代表無限遠（網路斷線）。"
+            },
+            {
+                id: 94,
+                type: "single",
+                title: "為防止網路產生迴圈（Loop），網路交換器（Switch）應採用下列何種 IEEE 標準？",
+                options: [
+                    "802.1D",
+                    "802.1Q",
+                    "802.1G",
+                    "802.1X"
+                ],
+                answer: [0],
+                explanation: "IEEE 802.1D 定義了生成樹協定（Spanning Tree Protocol, STP），用於在區域網路中防止迴圈發生。",
+                errorAnalysis: "802.1D = STP（防迴圈）；802.1Q = VLAN 標籤；802.1X = 網路存取控制認證。"
+            },
+            {
+                id: 95,
+                type: "single",
+                title: "為限制網路廣播封包範圍，可在網路交換器（Switch）採用 VLAN（Virtual LAN）阻隔廣播封包，其 IEEE 標準為下列何者？",
+                options: [
+                    "802.1D",
+                    "802.1Q",
+                    "802.1G",
+                    "802.1X"
+                ],
+                answer: [1],
+                explanation: "IEEE 802.1Q 是虛擬區域網路（VLAN）的標準標籤（Tagging）協定。",
+                errorAnalysis: "802.1Q 用於在乙太網路訊框中加入 VLAN ID 以區隔虛擬網段。"
+            },
+            {
+                id: 96,
+                type: "single",
+                title: "依 ANSI/TIA/EIA-568-B3 規範，62.5/125 μm 多模光纖在 850nm 波長下，最大衰減值為何？",
+                options: [
+                    "3.5 dB/km",
+                    "1.5 dB/km",
+                    "1 dB/km",
+                    "2.5 dB/km"
+                ],
+                answer: [0],
+                explanation: "依據 ANSI/TIA/EIA-568-B3 規範，62.5/125 μm 多模光纖在 850nm 波長下的最大衰減值為 3.5 dB/km。",
+                errorAnalysis: "多模光纖在短波長 850nm 衰減較大（3.5 dB/km），長波長 1300nm 衰減較小（1.5 dB/km）。"
+            },
+            {
+                id: 97,
+                type: "single",
+                title: "依 ANSI/TIA/EIA-568-B3 規範，62.5/125 μm 多模光纖在 1300nm 波長下，最大衰減值為何？",
+                options: [
+                    "3.5 dB/km",
+                    "1.5 dB/km",
+                    "1 dB/km",
+                    "2.5 dB/km"
+                ],
+                answer: [1],
+                explanation: "依據 ANSI/TIA/EIA-568-B3 規範，62.5/125 μm 多模光纖在 1300nm 波長下的最大衰減值為 1.5 dB/km。",
+                errorAnalysis: "對照標準光纖衰減規格表：1300nm 時多模光纖衰減值為 1.5 dB/km。"
+            },
+            {
+                id: 98,
+                type: "single",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，光資訊插座盒所收容之光纖，其彎曲半徑應依製造廠之規定，如無建議值時，不得少於多少距離？",
+                options: [
+                    "25mm",
+                    "35 mm",
+                    "50 mm",
+                    "60 mm"
+                ],
+                answer: [0],
+                explanation: "依據技術規範規定，光資訊插座盒內收容之光纖彎曲半徑如無製造廠建議值，不得少於 25mm。",
+                errorAnalysis: "插座盒內空間有限，最小彎曲半徑通常規範為 25mm。"
+            },
+            {
+                id: 99,
+                type: "single",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，屋内光纖之彎曲半徑應符合製造廠之規定，如無建議值時，在施工完畢後，於使用時或在無拉力狀態時，須保持不可小於光纖外徑的幾倍？",
+                options: [
+                    "10 倍",
+                    "15 倍",
+                    "20 倍",
+                    "25 倍"
+                ],
+                answer: [0],
+                explanation: "依技術規範，屋內光纖於無拉力狀態（使用中）下，其彎曲半徑不得小於光纖外徑的 10 倍。",
+                errorAnalysis: "無拉力/使用狀態下為 10 倍外徑；施工佈放時則有不同的規範倍數。"
+            },
+            {
+                id: 100,
+                type: "single",
+                title: "依據「建築物屋內外電信設備設置技術規範」規定，屋内光纖之彎曲半徑應符合製造廠之規定，如無建議值時，佈放施工時不可小於光纖外徑的幾倍？",
+                options: [
+                    "10 倍",
+                    "15 倍",
+                    "20 倍",
+                    "25 倍"
+                ],
+                answer: [1],
+                explanation: "依據技術規範，屋內光纖在「佈放施工中」（受到拉力）時，其彎曲半徑不可小於光纖外徑的 15 倍。",
+                errorAnalysis: "施工拉力狀態要求較嚴格（15倍），完工靜止狀態則可放寬至 10 倍外徑。"
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; // 記錄使用者的選擇
+        let isSubmitted = {}; // 記錄該題是否已經作答
+
+        window.onload = () => {
+            renderQuestionGrid();
+            loadQuestion(currentIndex);
+        };
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = `q-btn ${index === currentIndex ? 'active' : ''} ${userAnswers[index] !== undefined && isSubmitted[index] ? 'answered' : ''}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentIndex = index;
+                    loadQuestion(currentIndex);
+                    closeSidebarOnMobile();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            document.getElementById('qNumber').innerText = `第 ${q.id} 題 / 共 ${questions.length} 題`;
+            document.getElementById('qText').innerText = q.title;
+
+            const badge = document.getElementById('qTypeBadge');
+            badge.innerText = "單選題";
+            badge.className = "type-badge";
+
+            const optionsContainer = document.getElementById('optionsList');
+            optionsContainer.innerHTML = '';
+
+            const submitted = isSubmitted[index] === true;
+
+            q.options.forEach((optText, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option-item';
+                const labelText = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+                optDiv.innerHTML = `<span class="option-content-left">${labelText}</span>`;
+                if (submitted) {
+                    optDiv.classList.add('disabled');
+                    if (optIdx === q.answer[0]) {
+                        optDiv.classList.add('correct');
+                    } else if (userAnswers[index] === optIdx) {
+                        optDiv.classList.add('wrong');
+                    }
+                } else {
+                    optDiv.onclick = () => {
+                        userAnswers[index] = optIdx;
+                        isSubmitted[index] = true;
+                        loadQuestion(currentIndex);
+                    };
+                }
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            if (submitted) {
+                showFeedback(index);
+            } else {
+                feedbackBox.classList.remove('show');
+            }
+
+            updateNavButtons();
+            renderQuestionGrid();
+        }
+
+        function showFeedback(qIdx) {
+            const q = questions[qIdx];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const statusDiv = document.getElementById('feedbackStatus');
+            
+            const isCorrect = userAnswers[qIdx] === q.answer[0];
+
+            statusDiv.innerHTML = isCorrect ? 
+                '<span style="color: var(--success-color);">✓ 答對了！解答精準</span>' : 
+                '<span style="color: var(--error-color);">✗ 答案不正確，請參考下方解析：</span>';
+
+            const correctTextArr = q.answer.map(idx => `${String.fromCharCode(65 + idx)}. ${q.options[idx]}`).join('、');
+            document.getElementById('correctAnswer').innerText = correctTextArr;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('errorAnalysisText').innerText = q.errorAnalysis;
+
+            feedbackBox.classList.add('show');
+        }
+
+        // 更新導覽按鈕
+        function updateNavButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const nextText = document.getElementById('nextText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextIcon = document.getElementById('nextIcon');
+
+            prevBtn.disabled = currentIndex === 0;
+
+            if (currentIndex === questions.length - 1) {
+                nextText.innerText = "最後一題";
+                nextBtn.disabled = true;
+                nextIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else {
+                nextText.innerText = "下一個";
+                nextBtn.disabled = false;
+                nextIcon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function jumpToFirst() {
+            currentIndex = 0;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function jumpToLast() {
+            currentIndex = questions.length - 1;
+            loadQuestion(currentIndex);
+            closeSidebarOnMobile();
+        }
+
+        function searchQuestion() {
+            const inputVal = parseInt(document.getElementById('searchInput').value);
+            if (inputVal >= 76 && inputVal <= 100) {
+                currentIndex = inputVal - 76;
+                loadQuestion(currentIndex);
+                closeSidebarOnMobile();
+            } else {
+                alert(`請輸入有效的題號 (76 - 100)`);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>
