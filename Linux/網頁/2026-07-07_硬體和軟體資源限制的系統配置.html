@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 系統與硬體資源管理指南</title>
+  <style>
+  /* 基礎重置與加大字體設定 */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 18px; }
+  body {
+    font-family: 'Segoe UI', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    min-height: 100vh;
+    color: #0f172a;
+  }
+
+  /* 左側邊欄設計 (桌面版) - 暗色透明毛玻璃風加特效 */
+  .sidebar { 
+      width: 320px; 
+      background: rgba(15, 23, 42, 0.88); 
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #cbd5e1; 
+      display: flex; 
+      flex-direction: column; 
+      flex-shrink: 0; 
+      position: fixed; 
+      height: 100vh; 
+      z-index: 100; 
+      box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .sidebar-header { 
+      padding: 22px 20px; 
+      font-size: 1.2rem; 
+      font-weight: 800; 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      color: #ffffff; 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+      background: rgba(2, 6, 23, 0.6);
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  }
+
+  /* 桌面版固定在左側的工具列區塊 */
+  .sidebar-toolbar {
+      padding: 16px 20px;
+      background: rgba(30, 41, 59, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  }
+  .sidebar-toolbar .toolbar-actions {
+      display: flex;
+      gap: 6px;
+      justify-content: space-between;
+  }
+  .sidebar-toolbar .toolbar-btn {
+      flex: 1;
+      padding: 8px 6px;
+      background: rgba(51, 65, 85, 0.7);
+      color: #f8fafc;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .sidebar-toolbar .toolbar-btn:hover {
+      background: #3b82f6;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  }
+  .sidebar-toolbar .toolbar-btn:active {
+      transform: scale(0.95);
+  }
+  .sidebar-search {
+      width: 100%;
+      padding: 9px 12px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.3s ease;
+  }
+  .sidebar-search:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+  }
+  .sidebar-search::placeholder {
+      color: #64748b;
+  }
+
+  /* 選單滾動區塊 */
+  .sidebar-menu-scroll {
+      flex: 1;
+      overflow-y: auto;
+  }
+  .sidebar-menu-scroll::-webkit-scrollbar {
+      width: 6px;
+  }
+  .sidebar-menu-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+  }
+
+  /* 導覽群組與風琴選單 */
+  .nav-group {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.3s;
+  }
+  
+  /* 大標題樣式 */
+  .nav-group-header {
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      color: #e2e8f0;
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: 0.3px;
+      background: transparent;
+      transition: all 0.25s ease;
+  }
+  .nav-group-header:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: #ffffff;
+      padding-left: 24px;
+  }
+  .nav-group-header .arrow {
+      transition: transform 0.3s ease;
+      font-size: 0.75rem;
+      color: #64748b;
+  }
+  .nav-group.open .nav-group-header {
+      background: rgba(59, 130, 246, 0.15);
+      color: #ffffff;
+  }
+  .nav-group.open .nav-group-header .arrow {
+      transform: rotate(180deg);
+      color: #60a5fa;
+  }
+  
+  /* 標籤容器與下方標籤樣式 */
+  .nav-group-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(2, 6, 23, 0.4);
+  }
+  .nav-group.open .nav-group-content {
+      max-height: 300px;
+  }
+  .nav-sub-item {
+      padding: 14px 20px 14px 38px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      border-left: 4px solid transparent;
+      transition: all 0.25s ease;
+  }
+  .nav-sub-item:hover {
+      color: #f1f5f9;
+      background: rgba(255, 255, 255, 0.08);
+      padding-left: 42px;
+  }
+  
+  /* 當前所在標籤高亮特效 */
+  .nav-sub-item.active {
+      color: #ffffff;
+      background: linear-gradient(90deg, rgba(37, 99, 235, 0.95), rgba(59, 130, 246, 0.5));
+      border-left: 6px solid #60a5fa;
+      font-weight: bold;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 130, 246, 0.5);
+      animation: pulseGlow 2s infinite alternate;
+  }
+
+  @keyframes pulseGlow {
+      0% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 10px rgba(59, 130, 246, 0.4); }
+      100% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 22px rgba(59, 130, 246, 0.8); }
+  }
+
+  /* 行動版頂部導覽列與漢堡按鈕 */
+  .mobile-navbar {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      color: white;
+      z-index: 1000;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .mobile-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  }
+  .hamburger-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+  }
+  .hamburger-btn:active {
+      transform: scale(0.85);
+  }
+
+  /* 行動版抽屜選單 (Drawer) */
+  .mobile-drawer {
+      position: fixed;
+      top: 60px;
+      left: -100%;
+      width: 100%;
+      height: calc(100vh - 60px);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(16px);
+      z-index: 999;
+      transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+  }
+  .mobile-drawer.open {
+      left: 0;
+  }
+  
+  /* 抽屜頂部固定工具列 (手機版放大調整) */
+  .drawer-toolbar {
+      padding: 20px;
+      background: rgba(30, 41, 59, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+  }
+  .drawer-toolbar .toolbar-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+  }
+  .drawer-toolbar .toolbar-btn {
+      flex: 1;
+      padding: 14px 10px;
+      background: rgba(51, 65, 85, 0.85);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+  }
+  .drawer-toolbar .toolbar-btn:hover {
+      background: #3b82f6;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  }
+  .drawer-toolbar .search-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      color: white;
+      font-size: 1.05rem;
+      outline: none;
+      transition: all 0.3s;
+  }
+  .drawer-toolbar .search-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+
+  /* 右側主內容區 */
+  .main-content {
+    margin-left: 320px;
+    padding: 50px 60px;
+    flex: 1;
+    max-width: 100%;
+  }
+  .content-card {
+    background-color: white;
+    border-radius: 14px;
+    padding: 60px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+    display: none;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .content-card.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 標題與段落樣式 */
+  .theme-title {
+    font-size: 2rem;
+    color: #020617;
+    margin-bottom: 45px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #475569;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+  .section-heading {
+    font-size: 1.35rem;
+    color: #0f172a;
+    margin: 45px 0 25px 0;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    border-left: 6px solid #2563eb;
+    padding-left: 15px;
+    line-height: 1.2;
+  }
+
+  /* 動作目的區塊 */
+  .purpose-box {
+    background-color: #e0eaf5;
+    color: #1e293b;
+    padding: 30px 35px;
+    border-radius: 10px;
+    line-height: 1.85;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border: 1px solid #cbd5e1;
+  }
+
+  /* 步驟與指令結構 */
+  .step-block {
+    margin-bottom: 45px;
+    background-color: #fafafa;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 35px;
+  }
+  .step-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1e3a8a;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  .step-title::before {
+    content: '📌';
+    margin-right: 10px;
+  }
+  .step-desc {
+    line-height: 2;
+    color: #334155;
+    font-size: 1.05rem;
+    margin-bottom: 25px;
+    padding-left: 10px;
+  }
+
+  /* 行內程式碼 */
+  code.inline {
+    background-color: #f1f5f9;
+    color: #b91c1c;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.95em;
+    font-weight: bold;
+    margin: 0 4px;
+  }
+
+  /* 區塊外的中文說明標籤 */
+  .command-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #475569;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+  }
+  .command-label::before {
+      content: '🔹';
+      font-size: 0.8rem;
+  }
+
+  /* 深色程式碼終端機 (支援自動換行，手機免左右滑動) */
+  .code-container {
+    background-color: #0f172a;
+    border-radius: 10px;
+    position: relative;
+    padding: 25px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+  .code-container pre {
+    color: #38bdf8;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 1.05rem;
+    font-weight: bold;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 0;
+  }
+  .cite { color: #64748b; font-size: 0.85em; font-weight: normal; }
+
+  /* 自適應設定 (Responsive Design) */
+  @media (max-width: 950px) {
+    body { 
+        flex-direction: column; 
+        padding-top: 60px; 
+    }
+    .sidebar { 
+        display: none; 
+    }
+    .mobile-navbar {
+        display: flex;
+    }
+    .main-content { margin-left: 0; padding: 25px; }
+    .content-card { padding: 40px 30px; }
+    .step-block { padding: 25px; }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- 行動版頂部導覽列 -->
+  <div class="mobile-navbar">
+    <div class="mobile-title">🐧 系統管理指南</div>
+    <button class="hamburger-btn" onclick="toggleMobileDrawer()">☰</button>
+  </div>
+
+  <!-- 行動版抽屜選單 -->
+  <div id="mobileDrawer" class="mobile-drawer">
+    <div class="drawer-toolbar">
+        <div class="toolbar-actions">
+            <button class="toolbar-btn" onclick="collapseAll('mobile')">收回全部</button>
+            <button class="toolbar-btn" onclick="expandAll('mobile')">全部展開</button>
+        </div>
+        <input type="text" id="mobileSearchInput" class="search-input" placeholder="🔍 搜尋主題與指令..." oninput="filterNavigation(this.value, 'mobile')">
+    </div>
+    <div id="mobileNavContainer">
+        <!-- 動態同步內容 -->
+    </div>
+  </div>
+
+  <!-- 左側導覽列 (桌面版風琴選單) -->
+  <div class="sidebar">
+    <div class="sidebar-header">🐧 系統管理指南</div>
+    
+    <!-- 桌面版固定工具列與搜尋 -->
+    <div class="sidebar-toolbar">
+        <div class="toolbar-actions">
+            <button class="toolbar-btn" onclick="collapseAll('desktop')">收回全部</button>
+            <button class="toolbar-btn" onclick="expandAll('desktop')">全部展開</button>
+        </div>
+        <input type="text" id="desktopSearchInput" class="sidebar-search" placeholder="🔍 搜尋主題與指令..." oninput="filterNavigation(this.value, 'desktop')">
+    </div>
+
+    <!-- 側邊欄選單捲動區塊 (風琴結構) -->
+    <div class="sidebar-menu-scroll" id="desktopNavContainer">
+        <!-- 主題一 -->
+        <div class="nav-group open" data-group="theme1">
+            <div class="nav-group-header" onclick="toggleAccordion(this)">
+                <span>主題一：PHP 與 MariaDB 資料庫整合</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-group-content">
+                <div class="nav-sub-item active" onclick="switchTheme('theme1', this)">PHP 與 MariaDB 資料庫整合總覽</div>
+            </div>
+        </div>
+
+        <!-- 主題二 -->
+        <div class="nav-group" data-group="theme2">
+            <div class="nav-group-header" onclick="toggleAccordion(this)">
+                <span>主題二：LVM 邏輯捲軸管理 (磁碟擴充)</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-group-content">
+                <div class="nav-sub-item" onclick="switchTheme('theme2', this)">LVM 邏輯捲軸管理總覽</div>
+            </div>
+        </div>
+
+        <!-- 主題三 -->
+        <div class="nav-group" data-group="theme3">
+            <div class="nav-group-header" onclick="toggleAccordion(this)">
+                <span>主題三：XFS 磁碟配額限制 (Quota)</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-group-content">
+                <div class="nav-sub-item" onclick="switchTheme('theme3', this)">XFS 磁碟配額限制總覽</div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- 右側主要內容 -->
+  <div class="main-content">
+    
+    <!-- 主題一：PHP 與 MariaDB 資料庫整合 -->
+    <div id="theme1" class="content-card active">
+      <h2 class="theme-title">主題一：PHP 與 MariaDB 資料庫整合</h2>
+      <h3 class="section-heading">動作目的</h3>
+      <div class="purpose-box">
+        <strong>動作目的：</strong><br>
+        為了讓網頁前端能夠順利存取並顯示後端的 MariaDB 資料庫內容，必須在伺服器安裝指定的溝通套件，並修改範例 PHP 程式碼來撈取精確的表單資料（如七大洲清單），最後確保服務與防火牆設定皆已放行連線。
+      </div>
+
+      <h3 class="section-heading">執行步驟與指令範例</h3>
+      <div class="step-block">
+        <div class="step-title">步驟 1：安裝 PHP 與資料庫連線套件</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> 僅有 Apache 伺服器無法讓 PHP 網頁去撈取資料庫。我們需透過本地掛載光碟，利用 <code class="inline">dnf install</code> 安裝 <code class="inline">php-mysqlnd</code> 套件，為 PHP 提供存取 MariaDB (相容 MySQL) 的能力。
+        </div>
+
+        <div class="command-label">透過套件管理器安裝 PHP 資料庫連線模組</div>
+        <div class="code-container">
+<pre><code>dnf install php-mysqlnd</code></pre>
+        </div>
+      </div>
+      
+      <div class="step-block">
+        <div class="step-title">步驟 2：啟動 HTTP 服務與防火牆放行</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> 套件安裝完畢後，必須使用 <code class="inline">systemctl</code> 啟動 Apache (httpd) 伺服器。接著，使用 <code class="inline">firewall-cmd</code> 在防火牆開啟 HTTP 服務 (Port 80)，讓外部的電腦（如 .72 的機器）能夠檢視您寫好的 PHP 網頁。
+        </div>
+
+        <div class="command-label">啟動 Apache 網頁伺服器</div>
+        <div class="code-container">
+<pre><code>systemctl start httpd</code></pre>
+        </div>
+
+        <div class="command-label">於防火牆永久開啟 HTTP 服務</div>
+        <div class="code-container">
+<pre><code>firewall-cmd --add-service=http --permanent
+firewall-cmd --reload</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 3：修改 PHP 存取資料庫之程式碼</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> 透過修改範例檔案 <code class="inline">select.php</code>，將 SQL 語法修改為從 <code class="inline">nation</code> 資料庫抓取 <code class="inline">continent</code> 表單。網頁上僅需呈現大洲編號與名稱，因此需將無關的學生欄位刪除，僅留下 <code class="inline">cid</code> 與 <code class="inline">name</code>。
+        </div>
+
+        <div class="command-label">於 select.php 修改 SQL 查詢與顯示欄位 (PHP 語法示意)</div>
+        <div class="code-container">
+<pre><code>$sql = "SELECT cid, name FROM continent ORDER BY cid ASC";</code></pre>
+        </div>
+
+        <div class="command-label">HTML 表格列印迴圈中，僅保留兩個對應欄位</div>
+        <div class="code-container">
+<pre><code>echo "&lt;td&gt;" . $row["cid"] . "&lt;/td&gt;";
+echo "&lt;td&gt;" . $row["name"] . "&lt;/td&gt;";</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主題二：LVM 邏輯捲軸擴充 -->
+    <div id="theme2" class="content-card">
+      <h2 class="theme-title">主題二：LVM 邏輯捲軸管理 (磁碟擴充)</h2>
+      <h3 class="section-heading">動作目的</h3>
+      <div class="purpose-box">
+        <strong>動作目的：</strong><br>
+        解決單顆硬碟容量不足的困境。透過 LVM (Logical Volume Manager) 技術，將多顆較小容量的實體硬碟 (PV)，整合成一個超大型的捲軸群組 (VG)，再依照需求從群組中切割出彈性的邏輯硬碟 (LV) 供系統掛載使用。
+      </div>
+
+      <h3 class="section-heading">執行步驟與指令範例</h3>
+      <div class="step-block">
+        <div class="step-title">步驟 1：硬碟分割與更改 LVM 類型</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> 裝上新硬碟後，使用 <code class="inline">fdisk</code> 指令進入磁碟分割介面。建立主要分割區後，最關鍵的是按 <code class="inline">t</code> 修改類型，輸入 <code class="inline">8e</code> 或是 <code class="inline">lvm</code> 將類型變更為 Linux LVM，否則後續將無法建立實體捲軸。
+        </div>
+
+        <div class="command-label">針對新掛載的硬碟 /dev/sdb 進行分割</div>
+        <div class="code-container">
+<pre><code>fdisk /dev/sdb</code></pre>
+        </div>
+
+        <div class="command-label">互動指令流程說明</div>
+        <div class="code-container">
+<pre><code>n (新增分割) -&gt; p (主要分割) -&gt; Enter (預設大小全用)
+t (更改類型) -&gt; lvm (或 8e) -&gt; w (寫入並離開)</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 2：建立 PV (實體捲軸) 與 VG (捲軸群組)</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> <code class="inline">pvcreate</code> 能將處理好的分割區轉為實體捲軸。接著使用 <code class="inline">vgcreate</code> 將多個 PV 綑綁為名為 VG99 的捲軸群組，並使用 <code class="inline">-s 16M</code> 將基礎存儲單位 (PE, Physical Extent) 大小自訂為 16MB 以提升效能。
+        </div>
+
+        <div class="command-label">將三顆硬碟的分割區一起轉換為 PV</div>
+        <div class="code-container">
+<pre><code>pvcreate /dev/sdb1 /dev/sdc1 /dev/sdd1</code></pre>
+        </div>
+
+        <div class="command-label">將這些 PV 整合成 VG99，並指定 PE 大小為 16M</div>
+        <div class="code-container">
+<pre><code>vgcreate -s 16M VG99 /dev/sdb1 /dev/sdc1 /dev/sdd1</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 3：切割 LV (邏輯捲軸) 與格式化</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> 使用 <code class="inline">lvcreate</code> 從 VG99 中切出特定容量 (例如 5G) 並命名為 LV99。隨後，這顆切出的邏輯硬碟必須使用 <code class="inline">mkfs.xfs</code> 格式化為 XFS 檔案系統才能夠儲存資料。
+        </div>
+
+        <div class="command-label">建立容量為 5G，名稱為 LV99 的邏輯捲軸</div>
+        <div class="code-container">
+<pre><code>lvcreate -n LV99 -L 5G VG99</code></pre>
+        </div>
+
+        <div class="command-label">將建立好的 LV 格式化為 xfs 檔案系統</div>
+        <div class="code-container">
+<pre><code>mkfs.xfs /dev/VG99/LV99</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 4：設定開機自動掛載</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> 手動 <code class="inline">mount</code> 重開機會失效。我們利用 <code class="inline">blkid</code> 查出 LV 的專屬 UUID，並將其嚴謹地寫入 <code class="inline">/etc/fstab</code> 設定檔。請極度小心，此檔案若改錯會導致系統無法開機！
+        </div>
+
+        <div class="command-label">查詢該邏輯捲軸的 UUID</div>
+        <div class="code-container">
+<pre><code>blkid</code></pre>
+        </div>
+
+        <div class="command-label">編輯 /etc/fstab 加入自動掛載設定 (範例)</div>
+        <div class="code-container">
+<pre><code>vim /etc/fstab
+
+# 在最下方加入這行：
+UUID="你的UUID字串"  /mnt/D99  xfs  defaults  0 0</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主題三：XFS 磁碟配額限制 -->
+    <div id="theme3" class="content-card">
+      <h2 class="theme-title">主題三：XFS 磁碟配額限制 (Quota)</h2>
+      <h3 class="section-heading">動作目的</h3>
+      <div class="purpose-box">
+        <strong>動作目的：</strong><br>
+        為避免單一惡意或粗心的使用者耗盡伺服器所有資源，系統管理員需限制特定使用者家目錄 (<code>/home</code>) 可使用的「磁碟容量大小 (Block)」與「建立檔案數量的總和 (Inode)」。
+      </div>
+
+      <h3 class="section-heading">執行步驟與指令範例</h3>
+      <div class="step-block">
+        <div class="step-title">步驟 1：啟動 Quota 配額機制</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> Linux 預設未開啟配額功能。必須編輯掛載點設定檔 <code class="inline">/etc/fstab</code>，在掛載 <code class="inline">/home</code> 的選項行中加入 <code class="inline">usrquota</code> 參數，並將伺服器重新啟動後，配額機制才會正式啟動。
+        </div>
+
+        <div class="command-label">編輯 fstab 檔案</div>
+        <div class="code-container">
+<pre><code>vim /etc/fstab</code></pre>
+        </div>
+
+        <div class="command-label">找到 /home 掛載行，在 defaults 後方加入逗號與 usrquota 並重新開機</div>
+        <div class="code-container">
+<pre><code>/dev/mapper/ol-home  /home  xfs  defaults,usrquota  0 0
+
+reboot</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 2：設定容量與數量的軟/硬限制</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> 利用 <code class="inline">xfs_quota</code> 指令進入專家模式 (<code class="inline">-x</code>) 來限制帳號。<code class="inline">bsoft/bhard</code> 代表容量的軟/硬限制，<code class="inline">isoft/ihard</code> 則代表檔案數量的軟/硬限制。軟限制可以被短暫超越，但硬限制是系統絕對不允許跨越的底線。
+        </div>
+
+        <div class="command-label">針對 user71 同時設定容量 (6M軟/8M硬) 與數量 (12軟/14硬) 的限制</div>
+        <div class="code-container">
+<pre><code>xfs_quota -x -c 'limit bsoft=6M bhard=8M isoft=12 ihard=14 user71' /home</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 3：產生測試檔與驗證配額阻擋</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> 我們可以藉由 <code class="inline">dd</code> 搭配 zero 裝置，快速產生指定大小的假檔案（如 6MB）來測試容量是否達標；亦可連續使用 <code class="inline">touch</code> 建立空檔測試數量限制。若測試寫入超過硬限制，系統將回應「磁碟配額已滿」。
+        </div>
+
+        <div class="command-label">利用 zero 虛擬裝置建立一個剛好 6MB 的測試檔案</div>
+        <div class="code-container">
+<pre><code>dd if=/dev/zero of=6M bs=1M count=6</code></pre>
+        </div>
+
+        <div class="command-label">再次拷貝試圖超越 8MB 硬限制 (將遭系統阻擋，顯示配額已滿)</div>
+        <div class="code-container">
+<pre><code>cp 6M 6M_2</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 4：查看報表與修改寬限期 (Grace Period)</div>
+        <div class="step-desc">
+          <strong>指令解釋：</strong> 當超越軟限制時，系統會進入 7 天的「寬限期」。管理者可利用 <code class="inline">report -ubi</code> 印出包含容量與數量的全體報表。亦可透過 <code class="inline">timer</code> 修改寬限期（如改為 7 週或 7 小時），須注意修改適用「不溯及既往」原則。
+        </div>
+
+        <div class="command-label">列出所有使用者的 Quota 詳細報表與寬限期倒數</div>
+        <div class="code-container">
+<pre><code>xfs_quota -x -c 'report -ubi' /home</code></pre>
+        </div>
+
+        <div class="command-label">修改全域容量寬限期為 7 週 (-b)，數量寬限期為 7 小時 (-i)</div>
+        <div class="code-container">
+<pre><code>xfs_quota -x -c 'timer -u -b 7weeks -i 7hours' /home</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript 互動功能 -->
+  <script>
+    // 初始化：動態複製桌面版選單結構至手機抽屜中
+    document.addEventListener("DOMContentLoaded", function() {
+        const desktopNavContainer = document.getElementById('desktopNavContainer');
+        const mobileNavContainer = document.getElementById('mobileNavContainer');
+        
+        const groups = desktopNavContainer.querySelectorAll('.nav-group');
+        groups.forEach(group => {
+            const clone = group.cloneNode(true);
+            const header = clone.querySelector('.nav-group-header');
+            header.setAttribute('onclick', 'toggleAccordion(this)');
+            
+            const subItems = clone.querySelectorAll('.nav-sub-item');
+            subItems.forEach(sub => {
+                const themeId = sub.getAttribute('onclick').match(/'([^']+)'/)[1];
+                sub.setAttribute('onclick', `switchThemeMobile('${themeId}', this)`);
+            });
+            
+            mobileNavContainer.appendChild(clone);
+        });
+    });
+
+    // 風琴選單展開與收合控制
+    function toggleAccordion(headerElement) {
+        const group = headerElement.parentElement;
+        group.classList.toggle('open');
+    }
+
+    // 開關行動版抽屜選單
+    function toggleMobileDrawer() {
+        const drawer = document.getElementById('mobileDrawer');
+        drawer.classList.toggle('open');
+    }
+
+    // 收回全部選單
+    function collapseAll(mode) {
+        const containerSelector = mode === 'desktop' ? '#desktopNavContainer' : '#mobileNavContainer';
+        document.querySelectorAll(`${containerSelector} .nav-group`).forEach(g => g.classList.remove('open'));
+    }
+
+    // 全部展開選單
+    function expandAll(mode) {
+        const containerSelector = mode === 'desktop' ? '#desktopNavContainer' : '#mobileNavContainer';
+        document.querySelectorAll(`${containerSelector} .nav-group`).forEach(g => g.classList.add('open'));
+    }
+
+    // 即時搜尋與過濾標題/指令
+    function filterNavigation(keyword, mode) {
+        const term = keyword.trim().toLowerCase();
+        const containerSelector = mode === 'desktop' ? '#desktopNavContainer' : '#mobileNavContainer';
+        const groups = document.querySelectorAll(`${containerSelector} .nav-group`);
+        
+        groups.forEach(group => {
+            const headerText = group.querySelector('.nav-group-header span').innerText.toLowerCase();
+            const subItem = group.querySelector('.nav-sub-item');
+            const subText = subItem ? subItem.innerText.toLowerCase() : '';
+            
+            if (headerText.includes(term) || subText.includes(term) || term === '') {
+                group.style.display = 'block';
+                if (term !== '') {
+                    group.classList.add('open');
+                }
+            } else {
+                group.style.display = 'none';
+            }
+        });
+        
+        // 同步另外一個平台的搜尋框文字
+        if (mode === 'desktop') {
+            const mobileSearch = document.getElementById('mobileSearchInput');
+            if (mobileSearch) mobileSearch.value = keyword;
+        } else {
+            const desktopSearch = document.getElementById('desktopSearchInput');
+            if (desktopSearch) desktopSearch.value = keyword;
+        }
+    }
+
+    // 切換主題的函式
+    function switchTheme(themeId, element) {
+      // 同步所有平台相同 themeId 標籤的 active 狀態
+      document.querySelectorAll('.nav-sub-item').forEach(item => item.classList.remove('active'));
+      
+      document.querySelectorAll('.nav-sub-item').forEach(item => {
+          if (item.getAttribute('onclick').includes(themeId)) {
+              item.classList.add('active');
+          }
+      });
+      
+      // 隱藏所有的 content-card
+      const cards = document.querySelectorAll('.content-card');
+      cards.forEach(card => card.classList.remove('active'));
+      
+      // 顯示目標 content-card，並加上動畫 class
+      const targetCard = document.getElementById(themeId);
+      if (targetCard) {
+          targetCard.classList.add('active');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 行動版點擊子選單時切換並收起抽屜
+    function switchThemeMobile(themeId, element) {
+        switchTheme(themeId, element);
+        toggleMobileDrawer();
+    }
+  </script>
+</body>
+</html>

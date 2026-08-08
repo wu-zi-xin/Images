@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shell Scripting 實戰指南</title>
+  <style>
+  /* 基礎重置與加大字體設定 */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 18px; }
+  body {
+    font-family: 'Segoe UI', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    min-height: 100vh;
+    color: #0f172a;
+  }
+
+  /* 左側邊欄設計 (桌面版) - 暗色透明毛玻璃風加特效 */
+  .sidebar { 
+      width: 320px; 
+      background: rgba(15, 23, 42, 0.88); 
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #cbd5e1; 
+      display: flex; 
+      flex-direction: column; 
+      flex-shrink: 0; 
+      position: fixed; 
+      height: 100vh; 
+      z-index: 100; 
+      box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .sidebar-header { 
+      padding: 22px 20px; 
+      font-size: 1.2rem; 
+      font-weight: 800; 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      color: #ffffff; 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+      background: rgba(2, 6, 23, 0.6);
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  }
+
+  /* 桌面版固定在左側的工具列區塊 */
+  .sidebar-toolbar {
+      padding: 16px 20px;
+      background: rgba(30, 41, 59, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  }
+  .sidebar-toolbar .toolbar-actions {
+      display: flex;
+      gap: 6px;
+      justify-content: space-between;
+  }
+  .sidebar-toolbar .toolbar-btn {
+      flex: 1;
+      padding: 8px 6px;
+      background: rgba(51, 65, 85, 0.7);
+      color: #f8fafc;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .sidebar-toolbar .toolbar-btn:hover {
+      background: #3b82f6;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  }
+  .sidebar-toolbar .toolbar-btn:active {
+      transform: scale(0.95);
+  }
+  .sidebar-search {
+      width: 100%;
+      padding: 9px 12px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.3s ease;
+  }
+  .sidebar-search:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+  }
+  .sidebar-search::placeholder {
+      color: #64748b;
+  }
+
+  /* 選單滾動區塊 */
+  .sidebar-menu-scroll {
+      flex: 1;
+      overflow-y: auto;
+  }
+  .sidebar-menu-scroll::-webkit-scrollbar {
+      width: 6px;
+  }
+  .sidebar-menu-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+  }
+
+  /* 導覽群組與風琴選單 */
+  .nav-group {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.3s;
+  }
+  
+  /* 大標題樣式 */
+  .nav-group-header {
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      color: #e2e8f0;
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: 0.3px;
+      background: transparent;
+      transition: all 0.25s ease;
+  }
+  .nav-group-header:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: #ffffff;
+      padding-left: 24px;
+  }
+  .nav-group-header .arrow {
+      transition: transform 0.3s ease;
+      font-size: 0.75rem;
+      color: #64748b;
+  }
+  .nav-group.open .nav-group-header {
+      background: rgba(59, 130, 246, 0.15);
+      color: #ffffff;
+  }
+  .nav-group.open .nav-group-header .arrow {
+      transform: rotate(180deg);
+      color: #60a5fa;
+  }
+  
+  /* 標籤容器與下方標籤樣式 */
+  .nav-group-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(2, 6, 23, 0.4);
+  }
+  .nav-group.open .nav-group-content {
+      max-height: 300px;
+  }
+  .nav-sub-item {
+      padding: 14px 20px 14px 38px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      border-left: 4px solid transparent;
+      transition: all 0.25s ease;
+  }
+  .nav-sub-item:hover {
+      color: #f1f5f9;
+      background: rgba(255, 255, 255, 0.08);
+      padding-left: 42px;
+  }
+  
+  /* 當前所在標籤高亮特效 */
+  .nav-sub-item.active {
+      color: #ffffff;
+      background: linear-gradient(90deg, rgba(37, 99, 235, 0.95), rgba(59, 130, 246, 0.5));
+      border-left: 6px solid #60a5fa;
+      font-weight: bold;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 130, 246, 0.5);
+      animation: pulseGlow 2s infinite alternate;
+  }
+
+  @keyframes pulseGlow {
+      0% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 10px rgba(59, 130, 246, 0.4); }
+      100% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 22px rgba(59, 130, 246, 0.8); }
+  }
+
+  /* 行動版頂部導覽列與漢堡按鈕 */
+  .mobile-navbar {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      color: white;
+      z-index: 1000;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .mobile-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  }
+  .hamburger-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+  }
+  .hamburger-btn:active {
+      transform: scale(0.85);
+  }
+
+  /* 行動版抽屜選單 (Drawer) */
+  .mobile-drawer {
+      position: fixed;
+      top: 60px;
+      left: -100%;
+      width: 100%;
+      height: calc(100vh - 60px);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(16px);
+      z-index: 999;
+      transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+  }
+  .mobile-drawer.open {
+      left: 0;
+  }
+  
+  /* 抽屜頂部固定工具列 (手機版放大調整) */
+  .drawer-toolbar {
+      padding: 20px;
+      background: rgba(30, 41, 59, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+  }
+  .drawer-toolbar .toolbar-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+  }
+  .drawer-toolbar .toolbar-btn {
+      flex: 1;
+      padding: 14px 10px;
+      background: rgba(51, 65, 85, 0.85);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+  }
+  .drawer-toolbar .toolbar-btn:hover {
+      background: #3b82f6;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  }
+  .drawer-toolbar .search-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      color: white;
+      font-size: 1.05rem;
+      outline: none;
+      transition: all 0.3s;
+  }
+  .drawer-toolbar .search-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+
+  /* 右側主內容區 */
+  .main-content {
+    margin-left: 320px;
+    padding: 50px 60px;
+    flex: 1;
+    max-width: 100%;
+  }
+  .content-card {
+    background-color: white;
+    border-radius: 14px;
+    padding: 60px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+    display: none;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .content-card.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 標題與段落樣式 */
+  .theme-title {
+    font-size: 2rem;
+    color: #020617;
+    margin-bottom: 45px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #475569;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+  .section-heading {
+    font-size: 1.35rem;
+    color: #0f172a;
+    margin: 45px 0 25px 0;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    border-left: 6px solid #2563eb;
+    padding-left: 15px;
+    line-height: 1.2;
+  }
+
+  /* 動作目的區塊 */
+  .purpose-box {
+    background-color: #e0eaf5;
+    color: #1e293b;
+    padding: 30px 35px;
+    border-radius: 10px;
+    line-height: 1.85;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border: 1px solid #cbd5e1;
+  }
+
+  /* 步驟與指令結構 */
+  .step-block {
+    margin-bottom: 45px;
+    background-color: #fafafa;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 35px;
+  }
+  .step-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1e3a8a;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  .step-title::before {
+    content: '📌';
+    margin-right: 10px;
+  }
+  .step-desc {
+    line-height: 2;
+    color: #334155;
+    font-size: 1.05rem;
+    margin-bottom: 25px;
+    padding-left: 10px;
+  }
+
+  /* 行內程式碼 */
+  code.inline {
+    background-color: #f1f5f9;
+    color: #b91c1c;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.95em;
+    font-weight: bold;
+    margin: 0 4px;
+  }
+
+  /* 區塊外的中文說明標籤 */
+  .command-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #475569;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+  }
+  .command-label::before {
+      content: '🔹';
+      font-size: 0.8rem;
+  }
+
+  /* 深色程式碼終端機 (支援自動換行，手機免左右滑動) */
+  .code-container {
+    background-color: #0f172a;
+    border-radius: 10px;
+    position: relative;
+    padding: 25px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+  .code-container pre {
+    color: #38bdf8;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 1.05rem;
+    font-weight: bold;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 0;
+  }
+  .cite { color: #64748b; font-size: 0.85em; font-weight: normal; vertical-align: super; }
+
+  /* 自適應設定 (Responsive Design) */
+  @media (max-width: 950px) {
+    body { 
+        flex-direction: column; 
+        padding-top: 60px; 
+    }
+    .sidebar { 
+        display: none; 
+    }
+    .mobile-navbar {
+        display: flex;
+    }
+    .main-content { margin-left: 0; padding: 25px; }
+    .content-card { padding: 40px 30px; }
+    .step-block { padding: 25px; }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- 行動版頂部導覽列 -->
+  <div class="mobile-navbar">
+    <div class="mobile-title">🐧 Shell Script 實戰指南</div>
+    <button class="hamburger-btn" onclick="toggleMobileDrawer()">☰</button>
+  </div>
+
+  <!-- 行動版抽屜選單 -->
+  <div id="mobileDrawer" class="mobile-drawer">
+    <div class="drawer-toolbar">
+        <div class="toolbar-actions">
+            <button class="toolbar-btn" onclick="collapseAll('mobile')">收回全部</button>
+            <button class="toolbar-btn" onclick="expandAll('mobile')">全部展開</button>
+        </div>
+        <input type="text" id="mobileSearchInput" class="search-input" placeholder="🔍 搜尋主題與指令..." oninput="filterNavigation(this.value, 'mobile')">
+    </div>
+    <div id="mobileNavContainer">
+        <!-- 動態同步內容 -->
+    </div>
+  </div>
+
+  <!-- 左側導覽列 (桌面版風琴選單) -->
+  <div class="sidebar">
+    <div class="sidebar-header">🐧 Shell Script 實戰指南</div>
+    
+    <!-- 桌面版固定工具列與搜尋 -->
+    <div class="sidebar-toolbar">
+        <div class="toolbar-actions">
+            <button class="toolbar-btn" onclick="collapseAll('desktop')">收回全部</button>
+            <button class="toolbar-btn" onclick="expandAll('desktop')">全部展開</button>
+        </div>
+        <input type="text" id="desktopSearchInput" class="sidebar-search" placeholder="🔍 搜尋主題與指令..." oninput="filterNavigation(this.value, 'desktop')">
+    </div>
+
+    <!-- 側邊欄選單捲動區塊 (風琴結構) -->
+    <div class="sidebar-menu-scroll" id="desktopNavContainer">
+        <!-- 主題一 -->
+        <div class="nav-group open" data-group="theme1">
+            <div class="nav-group-header" onclick="toggleAccordion(this)">
+                <span>一：case 多重條件</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-group-content">
+                <div class="nav-sub-item active" onclick="switchTheme('theme1', this)">case 多重條件判斷總覽</div>
+            </div>
+        </div>
+
+        <!-- 主題二 -->
+        <div class="nav-group" data-group="theme2">
+            <div class="nav-group-header" onclick="toggleAccordion(this)">
+                <span>二：函式與變數範圍</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-group-content">
+                <div class="nav-sub-item" onclick="switchTheme('theme2', this)">function 函式定義與變數範圍總覽</div>
+            </div>
+        </div>
+
+        <!-- 主題三 -->
+        <div class="nav-group" data-group="theme3">
+            <div class="nav-group-header" onclick="toggleAccordion(this)">
+                <span>三：while/until 迴圈</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-group-content">
+                <div class="nav-sub-item" onclick="switchTheme('theme3', this)">while 與 until 條件迴圈總覽</div>
+            </div>
+        </div>
+
+        <!-- 主題四 -->
+        <div class="nav-group" data-group="theme4">
+            <div class="nav-group-header" onclick="toggleAccordion(this)">
+                <span>四：for 迴圈與指令</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-group-content">
+                <div class="nav-sub-item" onclick="switchTheme('theme4', this)">for 迴圈 (一) 列表與指令應用總覽</div>
+            </div>
+        </div>
+
+        <!-- 主題五 -->
+        <div class="nav-group" data-group="theme5">
+            <div class="nav-group-header" onclick="toggleAccordion(this)">
+                <span>五：for 算術寫法</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-group-content">
+                <div class="nav-sub-item" onclick="switchTheme('theme5', this)">for 迴圈 (二) 算術寫法總覽</div>
+            </div>
+        </div>
+
+        <!-- 主題六 -->
+        <div class="nav-group" data-group="theme6">
+            <div class="nav-group-header" onclick="toggleAccordion(this)">
+                <span>六：陣列與亂數實戰</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-group-content">
+                <div class="nav-sub-item" onclick="switchTheme('theme6', this)">陣列與亂數實戰總覽</div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- 右側主要內容 -->
+  <div class="main-content">
+    
+    <!-- 主題一 -->
+    <div id="theme1" class="content-card active">
+      <h1 class="theme-title">主題一：case 多重條件判斷</h1>
+      
+      <h3 class="section-heading">動作目的</h3>
+      <div class="purpose-box">
+        <strong>動作目的：</strong><br>
+        在 Shell Script 中，利用 <code class="inline">case</code> 來進行多選一的條件判斷。比起撰寫多重 if-else，case 的結構能讓程式碼架構更為清晰、易讀<span class="cite">[cite: 1, 2]</span>。
+      </div>
+
+      <h3 class="section-heading">執行步驟與指令範例</h3>
+      <div class="step-block">
+        <div class="step-title">步驟 1：建立基礎架構與條件比對</div>
+        <div class="step-desc">
+          寫法必須「有頭有尾」。開頭必須使用 <code class="inline">case</code> 關鍵字，而結尾則是將其反向拼寫為 <code class="inline">esac</code> 作為整個判斷結構的結束<span class="cite">[cite: 1]</span>。
+        </div>
+
+        <div class="command-label">讀取腳本的第一個參數 ($1) 進行比對</div>
+        <div class="code-container">
+<pre><code>case $1 in
+    hello)
+        echo "Hello, how are you?" 
+esac</code></pre>
+        </div>
+      </div>
+      
+      <div class="step-block">
+        <div class="step-title">步驟 2：加入執行區塊的結束符號</div>
+        <div class="step-desc">
+          當條件吻合時，會執行相應的動作。請注意，每個獨立的動作區塊最後，**務必要以兩個分號 <code class="inline">;;</code> 結尾**。否則程式會無視條件繼續往下執行後續動作<span class="cite">[cite: 1, 3]</span>。
+        </div>
+
+        <div class="command-label">加入雙分號結尾的 case 判斷結構</div>
+        <div class="code-container">
+<pre><code>case $1 in
+    "one")
+        echo "ONE"
+        ;;
+    "two")
+        echo "TWO"
+        ;;
+esac</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 3：設定預設動作 (捕捉例外)</div>
+        <div class="step-desc">
+          可以利用星號 <code class="inline">*</code> 來捕捉所有「不符合前面任何條件」的輸入。這通常被用來提示使用者正確的參數用法 (Usage)<span class="cite">[cite: 2, 3]</span>。
+        </div>
+
+        <div class="command-label">使用星號 (*) 設定預設例外捕捉</div>
+        <div class="code-container">
+<pre><code>case $1 in
+    hello)
+        echo "Hello, how are you?" 
+        ;;
+    *)
+        echo "Usage: $0 hello" 
+        ;;
+esac</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主題二 -->
+    <div id="theme2" class="content-card">
+      <h1 class="theme-title">主題二：function 函式定義與變數範圍</h1>
+      
+      <h3 class="section-heading">動作目的</h3>
+      <div class="purpose-box">
+        <strong>動作目的：</strong><br>
+        當腳本中有些功能會被重複使用時，可以將其定義為函式（副程式），呼叫時即可執行特定動作，這能有效簡化腳本架構並提高重用性<span class="cite">[cite: 4]</span>。
+      </div>
+
+      <h3 class="section-heading">執行步驟與指令範例</h3>
+      <div class="step-block">
+        <div class="step-title">步驟 1：定義副程式與不換行輸出</div>
+        <div class="step-desc">
+          使用 <code class="inline">function</code> 關鍵字定義。<code class="inline">echo -n</code> 可以在印出文字後「不換行」，讓後續的輸出能接續顯示在同一行<span class="cite">[cite: 4]</span>。
+        </div>
+
+        <div class="command-label">定義 function 與不換行輸出</div>
+        <div class="code-container">
+<pre><code>function printit {
+    echo -n "Your choice is "
+}</code></pre>
+        </div>
+      </div>
+      
+      <div class="step-block">
+        <div class="step-title">步驟 2：利用管線轉換大小寫</div>
+        <div class="step-desc">
+          利用管線 <code class="inline">|</code> 將文字傳遞給 <code class="inline">tr 'a-z' 'A-Z'</code> 指令，可以輕鬆將字串中的小寫英文字母全面轉換為大寫<span class="cite">[cite: 5]</span>。
+        </div>
+
+        <div class="command-label">結合 tr 將字串轉為大寫</div>
+        <div class="code-container">
+<pre><code>case $1 in
+    one)
+        printit
+        echo $1 | tr 'a-z' 'A-Z' 
+        ;;
+esac</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 3：理解變數 $1 的有效範圍</div>
+        <div class="step-desc">
+          變數有作用域差異：若在函式「內部」出現 <code class="inline">$1</code>，代表的是傳給該函式的第一個參數；若在函式「外部」，則代表從終端機執行腳本時傳入的第一個參數<span class="cite">[cite: 6, 7]</span>。
+        </div>
+
+        <div class="command-label">示範函式內外部變數 $1 的差異</div>
+        <div class="code-container">
+<pre><code>function print_param {
+    echo "Function param is: " $1
+}
+
+case $1 in
+    one)
+        print_param 1 
+        ;;
+esac</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主題三 -->
+    <div id="theme3" class="content-card">
+      <h1 class="theme-title">主題三：while 與 until 條件迴圈</h1>
+      
+      <h3 class="section-heading">動作目的</h3>
+      <div class="purpose-box">
+        <strong>動作目的：</strong><br>
+        根據設定條件的成立與否，決定是否重複執行迴圈內的動作。利用「笛摩根定理」，可以將 while 與 until 的邏輯互相反向轉換<span class="cite"></span>。
+      </div>
+
+      <h3 class="section-heading">執行步驟與指令範例</h3>
+      <div class="step-block">
+        <div class="step-title">步驟 1：使用 while 迴圈 (條件成立時執行)</div>
+        <div class="step-desc">
+          只要設定的條件為「成立 (True)」，就會不斷執行，直到條件不成立才停止。以下範例為：當輸入的值「不為 yes 且 (-a) 不為 YES」時，繼續詢問<span class="cite">[cite: 8]</span>。
+        </div>
+
+        <div class="command-label">使用 while 迴圈持續詢問直到輸入正確</div>
+        <div class="code-container">
+<pre><code>while [ "$yn" != "yes" -a "$yn" != "YES" ]
+do
+    read -p "Please input yes/YES to stop: " yn
+done
+echo "OK, you input correct answer"</code></pre>
+        </div>
+      </div>
+      
+      <div class="step-block">
+        <div class="step-title">步驟 2：使用 until 迴圈 (條件不成立時執行)</div>
+        <div class="step-desc">
+          條件為「不成立 (False)」時不斷執行，直到條件滿足為止 (類似一直等待直到下午5點發生)。利用邏輯反轉，以下 until 寫法與上述 while 效果完全相同<span class="cite"></span>。
+        </div>
+
+        <div class="command-label">使用 until 迴圈達到相同邏輯</div>
+        <div class="code-container">
+<pre><code>until [ "$yn" == "yes" -o "$yn" == "YES" ]
+do
+    read -p "Please input yes/YES to stop: " yn
+done
+echo "OK, you input correct answer"</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主題四 -->
+    <div id="theme4" class="content-card">
+      <h1 class="theme-title">主題四：for 迴圈 (一) 列表與指令應用</h1>
+      
+      <h3 class="section-heading">動作目的</h3>
+      <div class="purpose-box">
+        <strong>動作目的：</strong><br>
+        將一連串的字串清單，或是外部指令執行出的結果，逐一帶入變數中重複操作<span class="cite"></span>。
+      </div>
+
+      <h3 class="section-heading">執行步驟與指令範例</h3>
+      <div class="step-block">
+        <div class="step-title">步驟 1：直接讀取列表迭代</div>
+        <div class="step-desc">
+          直接將清單字串放在 for 迴圈後方迭代，每次迴圈會將清單項目依序放入變數中執行<span class="cite"></span>。
+        </div>
+
+        <div class="command-label">直接讀取列表清單迭代</div>
+        <div class="code-container">
+<pre><code>for animal in dog cat elephant
+do
+    echo "There are $animals"
+done</code></pre>
+        </div>
+      </div>
+      
+      <div class="step-block">
+        <div class="step-title">步驟 2：結合外部切割指令</div>
+        <div class="step-desc">
+          利用 <code class="inline">$()</code> 將指令餵給迴圈。例如用 <code class="inline">cut -d: -f1</code> 以冒號切割檔案，並只取出第一欄的帳號清單，逐一進行權限檢查<span class="cite"></span>。
+        </div>
+
+        <div class="command-label">結合 cut 指令切割系統帳號清單</div>
+        <div class="code-container">
+<pre><code>for username in $(cut -d: -f1 /etc/passwd)
+do
+    id $username
+done</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 3：網段 Ping 測試 (丟棄雜訊與狀態判定)</div>
+        <div class="step-desc">
+          使用 <code class="inline">seq</code> 產生連續數字。Ping 搭配 <code class="inline">-c 1</code> (測1次) 與 <code class="inline">-w 1</code> (等1秒)。使用 <code class="inline">&gt; /dev/null</code> 丟棄雜訊，並用 <code class="inline">$?</code> 判斷回傳值是否為0 (通訊成功)<span class="cite"></span>。
+        </div>
+
+        <div class="command-label">使用 seq 與 ping 進行網段連線檢測</div>
+        <div class="code-container">
+<pre><code>for i in $(seq 90 100)
+do
+    ping -c 1 -w 1 192.168.99.$i > /dev/null
+    if [ $? == 0 ]; then
+        echo "192.168.99.$i is UP"
+    else
+        echo "192.168.99.$i is DOWN"
+    fi
+done</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主題五 -->
+    <div id="theme5" class="content-card">
+      <h1 class="theme-title">主題五：for 迴圈 (二) 算術寫法</h1>
+      
+      <h3 class="section-heading">動作目的</h3>
+      <div class="purpose-box">
+        <strong>動作目的：</strong><br>
+        處理包含初始值、明確條件限制以及固定步進值（等差數值）的迴圈運算，寫法類似 C 語言<span class="cite"></span>。
+      </div>
+
+      <h3 class="section-heading">執行步驟與指令範例</h3>
+      <div class="step-block">
+        <div class="step-title">步驟 1：定義雙括號迴圈與算術加總</div>
+        <div class="step-desc">
+          使用 <code class="inline">for (( 初始值; 條件限制; 每次變動 ))</code> 來設定迴圈參數，並將變數包在 <code class="inline">$(( ))</code> 中進行數學總和運算<span class="cite"></span>。
+        </div>
+
+        <div class="command-label">使用 C 語言風格 for 迴圈計算數值總和</div>
+        <div class="code-container">
+<pre><code>s=0
+read -p "Please input a number: " num
+
+for (( i=1; i<=$num; i++ ))
+do
+    s=$(( $s + $i ))
+done
+echo "1+...+ $num = $s"</code></pre>
+        </div>
+      </div>
+      
+      <div class="step-block">
+        <div class="step-title">步驟 2：利用外部參數動態決定範圍與步進</div>
+        <div class="step-desc">
+          可透過外部傳入三個參數 (<code class="inline">$1</code> 起始, <code class="inline">$2</code> 結束, <code class="inline">$3</code> 等差步進)，動態計算自訂範圍與跳躍值的總和<span class="cite"></span>。
+        </div>
+
+        <div class="command-label">結合外部參數動態設定迴圈起訖與步進值</div>
+        <div class="code-container">
+<pre><code>s=0
+for (( i=$1; i<=$2; i+=$3 ))
+do
+    s=$(( $s + $i ))
+done
+echo "The total sum is $s"</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主題六 -->
+    <div id="theme6" class="content-card">
+      <h1 class="theme-title">主題六：陣列與亂數實戰</h1>
+      
+      <h3 class="section-heading">動作目的</h3>
+      <div class="purpose-box">
+        <strong>動作目的：</strong><br>
+        結合系統隨機數字與陣列結構，實作如抽籤程式或亂數分布的機率驗證統計<span class="cite"></span>。
+      </div>
+
+      <h3 class="section-heading">執行步驟與指令範例</h3>
+      <div class="step-block">
+        <div class="step-title">步驟 1：有效取得限制範圍的亂數</div>
+        <div class="step-desc">
+          系統變數 <code class="inline">$RANDOM</code> 會產生隨機數字，最有效率的範圍限制法是「取餘數」。例如要取 0 到 11 的亂數，只需寫 <code class="inline">% 12</code><span class="cite"></span>。
+        </div>
+
+        <div class="command-label">透過 $RANDOM 搭配餘數取得指定範圍亂數</div>
+        <div class="code-container">
+<pre><code>idx=$(( $RANDOM % 12 ))
+echo "Random Index is: $idx"</code></pre>
+        </div>
+      </div>
+      
+      <div class="step-block">
+        <div class="step-title">步驟 2：從陣列提取對應資料 (從零開始)</div>
+        <div class="step-desc">
+          定義陣列時，項目會從索引 <code class="inline">0</code> 開始計算。將剛剛取出的亂數當作索引值，即可隨機抽出幸運星座<span class="cite"></span>。
+        </div>
+
+        <div class="command-label">定義星座陣列並隨機抽籤</div>
+        <div class="code-container">
+<pre><code>constellations=("白羊" "金牛" "雙子" "巨蟹" "獅子" "處女" "天秤" "天蠍" "射手" "摩羯" "水瓶" "雙魚")
+
+idx=$(( $RANDOM % 12 ))
+echo "本日幸運星座：${constellations[$idx]}"</code></pre>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">步驟 3：陣列計數與機率驗證</div>
+        <div class="step-desc">
+          將取亂數的動作重複執行極高次數 (如 24 萬次)，並將出現的次數存回陣列中累加，可驗證系統亂數的分布具備平均性 (約各兩萬次)<span class="cite"></span>。
+        </div>
+
+        <div class="command-label">執行 24 萬次迴圈統計亂數分佈</div>
+        <div class="code-container">
+<pre><code>for (( i=1; i<=240000; i++ ))
+do
+    idx=$(( $RANDOM % 12 ))
+    arr[$idx]=$(( ${arr[$idx]} + 1 ))
+done
+
+echo "0 出現次數：${arr}"</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript 互動功能 -->
+  <script>
+    // 初始化：動態複製桌面版選單結構至手機抽屜中
+    document.addEventListener("DOMContentLoaded", function() {
+        const desktopNavContainer = document.getElementById('desktopNavContainer');
+        const mobileNavContainer = document.getElementById('mobileNavContainer');
+        
+        const groups = desktopNavContainer.querySelectorAll('.nav-group');
+        groups.forEach(group => {
+            const clone = group.cloneNode(true);
+            const header = clone.querySelector('.nav-group-header');
+            header.setAttribute('onclick', 'toggleAccordion(this)');
+            
+            const subItems = clone.querySelectorAll('.nav-sub-item');
+            subItems.forEach(sub => {
+                const themeId = sub.getAttribute('onclick').match(/'([^']+)'/)[1];
+                sub.setAttribute('onclick', `switchThemeMobile('${themeId}', this)`);
+            });
+            
+            mobileNavContainer.appendChild(clone);
+        });
+    });
+
+    // 風琴選單展開與收合控制
+    function toggleAccordion(headerElement) {
+        const group = headerElement.parentElement;
+        group.classList.toggle('open');
+    }
+
+    // 開關行動版抽屜選單
+    function toggleMobileDrawer() {
+        const drawer = document.getElementById('mobileDrawer');
+        drawer.classList.toggle('open');
+    }
+
+    // 收回全部選單
+    function collapseAll(mode) {
+        const containerSelector = mode === 'desktop' ? '#desktopNavContainer' : '#mobileNavContainer';
+        document.querySelectorAll(`${containerSelector} .nav-group`).forEach(g => g.classList.remove('open'));
+    }
+
+    // 全部展開選單
+    function expandAll(mode) {
+        const containerSelector = mode === 'desktop' ? '#desktopNavContainer' : '#mobileNavContainer';
+        document.querySelectorAll(`${containerSelector} .nav-group`).forEach(g => g.classList.add('open'));
+    }
+
+    // 即時搜尋與過濾標題/指令
+    function filterNavigation(keyword, mode) {
+        const term = keyword.trim().toLowerCase();
+        const containerSelector = mode === 'desktop' ? '#desktopNavContainer' : '#mobileNavContainer';
+        const groups = document.querySelectorAll(`${containerSelector} .nav-group`);
+        
+        groups.forEach(group => {
+            const headerText = group.querySelector('.nav-group-header span').innerText.toLowerCase();
+            const subItem = group.querySelector('.nav-sub-item');
+            const subText = subItem ? subItem.innerText.toLowerCase() : '';
+            
+            if (headerText.includes(term) || subText.includes(term) || term === '') {
+                group.style.display = 'block';
+                if (term !== '') {
+                    group.classList.add('open');
+                }
+            } else {
+                group.style.display = 'none';
+            }
+        });
+        
+        // 同步另外一個平台的搜尋框文字
+        if (mode === 'desktop') {
+            const mobileSearch = document.getElementById('mobileSearchInput');
+            if (mobileSearch) mobileSearch.value = keyword;
+        } else {
+            const desktopSearch = document.getElementById('desktopSearchInput');
+            if (desktopSearch) desktopSearch.value = keyword;
+        }
+    }
+
+    // 切換主題的函式
+    function switchTheme(themeId, element) {
+      // 同步所有平台相同 themeId 標籤的 active 狀態
+      document.querySelectorAll('.nav-sub-item').forEach(item => item.classList.remove('active'));
+      
+      document.querySelectorAll('.nav-sub-item').forEach(item => {
+          if (item.getAttribute('onclick').includes(themeId)) {
+              item.classList.add('active');
+          }
+      });
+      
+      // 隱藏所有的 content-card
+      const cards = document.querySelectorAll('.content-card');
+      cards.forEach(card => card.classList.remove('active'));
+      
+      // 顯示目標 content-card，並加上動畫 class
+      const targetCard = document.getElementById(themeId);
+      if (targetCard) {
+          targetCard.classList.add('active');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 行動版點擊子選單時切換並收起抽屜
+    function switchThemeMobile(themeId, element) {
+        switchTheme(themeId, element);
+        toggleMobileDrawer();
+    }
+  </script>
+</body>
+</html>
