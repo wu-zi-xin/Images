@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路乙級第三站｜手機通勤整合版 v3</title>
+    <style>
+        /* 基礎設定 */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 18px; }
+        body { 
+            font-family: 'Segoe UI', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif; 
+            background-color: #f8fafc; 
+            display: flex; 
+            min-height: 100vh; 
+            color: #1e293b; 
+        }
+
+        /* 導覽列與側邊欄 */
+        .sidebar { 
+            width: 320px; 
+            background: #0f172a; 
+            color: #cbd5e1; 
+            display: flex; 
+            flex-direction: column; 
+            flex-shrink: 0; 
+            position: fixed; 
+            height: 100vh; 
+            z-index: 100; 
+        }
+        .sidebar-header { 
+            padding: 22px 20px; 
+            font-size: 1.2rem; 
+            font-weight: bold; 
+            color: #ffffff; 
+            background: #020617;
+            border-bottom: 1px solid #1e293b;
+        }
+        .sidebar-menu-scroll { flex: 1; overflow-y: auto; }
+        
+        .nav-sub-item {
+            padding: 16px 20px 16px 30px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: #94a3b8;
+            border-bottom: 1px solid #1e293b;
+            transition: all 0.2s ease;
+        }
+        .nav-sub-item:hover, .nav-sub-item.active {
+            color: #ffffff;
+            background: #1e293b;
+            border-left: 4px solid #3b82f6;
+            font-weight: bold;
+        }
+
+        /* 行動版頂部導覽列 */
+        .mobile-navbar {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 60px;
+            background: #0f172a; color: white;
+            z-index: 1000;
+            justify-content: space-between; align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .mobile-title { font-size: 1.1rem; font-weight: bold; }
+        .hamburger-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        
+        /* 行動版抽屜選單 */
+        .mobile-drawer {
+            position: fixed; top: 60px; left: -100%; width: 100%; height: calc(100vh - 60px);
+            background: #0f172a; z-index: 999;
+            transition: left 0.3s ease; overflow-y: auto;
+        }
+        .mobile-drawer.open { left: 0; }
+
+        /* 主內容區塊設計 */
+        .main-content { 
+            margin-left: 320px; 
+            padding: 40px; 
+            flex: 1; 
+            max-width: 900px; 
+        }
+        
+        .content-card { display: none; animation: fadeIn 0.3s ease; }
+        .content-card.active { display: block; }
+        
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .theme-title { 
+            font-size: 1.8rem; 
+            color: #0f172a; 
+            margin-bottom: 20px; 
+            padding-bottom: 15px; 
+            border-bottom: 3px solid #cbd5e1; 
+            font-weight: 800; 
+        }
+
+        /* 原理說明與詳解區塊 */
+        .explanation-block {
+            background-color: #e0f2fe;
+            border-left: 5px solid #0284c7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            color: #0c4a6e;
+            line-height: 1.7;
+        }
+        .explanation-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* 針對單一指令的細部解說框 */
+        .detail-box {
+            background-color: #f1f5f9;
+            border: 1px dashed #94a3b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        /* 任務區塊 (PC1 / PC2 獨立區塊) */
+        .task-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .task-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        
+        .task-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #cbd5e1;
+            color: #1e3a8a;
+        }
+
+        .pc2-header { color: #047857; border-bottom: 2px dashed #6ee7b7; }
+
+        /* 動作標題與純指令區塊 */
+        .step-action {
+            font-weight: bold;
+            color: #0f172a;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .step-action span {
+            color: #e11d48;
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+
+        .code-block {
+            background-color: #1e293b;
+            color: #38bdf8; /* 指令用亮藍色比較好辨識 */
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            font-size: 1rem;
+            overflow-x: auto;
+            border-left: 4px solid #64748b;
+        }
+        
+        .content-input {
+            color: #a7f3d0; /* 檔案內文用亮綠色區隔 */
+        }
+
+        ul { margin-left: 20px; margin-bottom: 15px; line-height: 1.7; }
+        li { margin-bottom: 8px; }
+
+        .memory-hint {
+            background-color: #fef9c3;
+            border-left: 5px solid #eab308;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #854d0e;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        /* RWD 響應式 */
+        @media (max-width: 950px) {
+            body { flex-direction: column; padding-top: 60px; }
+            .sidebar { display: none; }
+            .mobile-navbar { display: flex; }
+            .main-content { margin-left: 0; padding: 20px; width: 100%; max-width: 100%; }
+            .task-card { padding: 20px 15px; }
+            html { font-size: 16px; }
+        }
+    
+        /* ===== 手機通勤版強化 ===== */
+        :root { --topbar-h: 60px; }
+        body { -webkit-text-size-adjust: 100%; }
+        .quick-toolbar { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 18px; position:sticky; top:0; z-index:30; background:rgba(248,250,252,.94); backdrop-filter:blur(10px); padding:10px 0; }
+        .quick-btn { border:1px solid #cbd5e1; background:#fff; color:#0f172a; border-radius:999px; padding:9px 13px; font-weight:700; cursor:pointer; }
+        .quick-btn:active { transform:scale(.97); }
+        .search-wrap { flex:1 1 220px; }
+        .quick-search { width:100%; border:1px solid #cbd5e1; border-radius:999px; padding:10px 14px; font-size:1rem; outline:none; background:#fff; }
+        .quick-search:focus { border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.12); }
+        .source-note { background:#eef2ff; border-left:5px solid #6366f1; padding:14px 16px; border-radius:8px; margin-bottom:18px; line-height:1.65; color:#312e81; }
+        .mini-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:14px 0 22px; }
+        .mini-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; line-height:1.6; }
+        .mini-card b { display:block; margin-bottom:6px; color:#1e3a8a; }
+        .exam-alert { background:#fff7ed; border-left:5px solid #f97316; padding:14px 16px; border-radius:8px; margin:14px 0; line-height:1.65; }
+        .bottom-nav { display:none; }
+        mark.search-hit { background:#fde68a; color:inherit; padding:0 2px; border-radius:2px; }
+        .content-card.search-match { display:block !important; margin-bottom:28px; }
+        .content-card.search-match .theme-title::after { content:'  🔎'; font-size:.8em; }
+        .progress-pill { font-size:.85rem; color:#475569; margin-left:auto; align-self:center; white-space:nowrap; }
+        @media (max-width: 950px) {
+            html { font-size:17px; }
+            body { padding-top:var(--topbar-h); padding-bottom:calc(82px + env(safe-area-inset-bottom)); background:#f8fafc; }
+            .mobile-navbar { height:var(--topbar-h); padding:0 14px; }
+            .mobile-title { font-size:1rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+            .main-content { padding:14px 14px 26px; }
+            .quick-toolbar { top:var(--topbar-h); margin:0 -2px 14px; padding:8px 2px; }
+            .quick-btn { padding:8px 11px; font-size:.9rem; }
+            .theme-title { font-size:1.42rem; margin-bottom:14px; padding-bottom:10px; }
+            .task-container { gap:14px; margin-bottom:24px; }
+            .task-card { border-radius:12px; padding:16px 14px; box-shadow:0 2px 8px rgba(15,23,42,.05); }
+            .task-header { position:sticky; top:calc(var(--topbar-h) + 58px); z-index:10; background:#fff; padding-top:6px; }
+            .code-block { font-size:.91rem; padding:12px; overflow-x:hidden; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+            .explanation-block,.detail-box,.memory-hint { padding:14px; margin-bottom:14px; }
+            ul { margin-left:18px; }
+            li { margin-bottom:10px; }
+            .mini-grid { grid-template-columns:1fr; gap:10px; }
+            .mobile-drawer { height:calc(100dvh - var(--topbar-h)); padding-bottom:80px; }
+            .bottom-nav { display:flex; position:fixed; right:14px; left:auto; bottom:calc(14px + env(safe-area-inset-bottom)); z-index:1200; width:auto; height:auto; padding:0; background:transparent; border:0; }
+            .bottom-nav button { display:none; }
+            .bottom-nav button:nth-child(2) { display:flex; width:46px; height:46px; align-items:center; justify-content:center; border:0; border-radius:14px; background:rgba(15,23,42,.94); color:#fff; font-weight:800; font-size:0; box-shadow:0 8px 24px rgba(15,23,42,.24); backdrop-filter:blur(12px); cursor:pointer; }
+            .bottom-nav button:nth-child(2)::before { content:'☰'; font-size:1.25rem; line-height:1; }
+            .bottom-nav button:nth-child(2):active { transform:scale(.94); background:#1e293b; }
+        }
+        @media (max-width:390px) { html { font-size:16px; } .main-content{padding-left:10px;padding-right:10px;} .quick-btn{font-size:.84rem;} }
+
+    </style>
+</head>
+<body>
+
+    <!-- 手機版導覽列 -->
+    <div class="mobile-navbar">
+        <div class="mobile-title">🌐 網乙第三站｜手機通勤版</div>
+        <button class="hamburger-btn" onclick="toggleMobileDrawer()">☰</button>
+    </div>
+
+    <!-- 手機版抽屜選單 -->
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div id="mobileNavContainer"></div>
+    </div>
+
+    <!-- 電腦版側邊欄 -->
+    <div class="sidebar">
+        <div class="sidebar-header">🌐 網乙第三站｜手機通勤版</div>
+        <div class="sidebar-menu-scroll" id="desktopNavContainer">
+            <div class="nav-sub-item active" onclick="switchTheme('step-A', this)">A. 光碟 (安裝與準備)</div>
+            <div class="nav-sub-item" onclick="switchTheme('step-B', this)">B. 做線 (實體網路線)</div>
+            <div class="nav-sub-item" onclick="switchTheme('step-C', this)">C. 套件 (軟體庫與安裝)</div>
+            <div class="nav-sub-item" onclick="switchTheme('step-D', this)">D. 試ping (IP與路由通訊)</div>
+            <div class="nav-sub-item" onclick="switchTheme('step-E', this)">E. 帳密權 (系統權限)</div>
+            <div class="nav-sub-item" onclick="switchTheme('step-F', this)">F. 中文 (內容建置)</div>
+            <div class="nav-sub-item" onclick="switchTheme('step-G', this)">G. 設定 (核心配置檔)</div>
+            <div class="nav-sub-item" onclick="switchTheme('step-H', this)">H. 重啟與測試 (驗收)</div>
+            <!-- 新增的考場觀念區塊按鈕 -->
+            <div class="nav-sub-item" onclick="switchTheme('step-J', this)" style="border-top: 2px solid #334155; margin-top: 10px; color:#93c5fd;">J. 安裝畫面速查</div>
+            <div class="nav-sub-item" onclick="switchTheme('step-K', this)" style="color:#a7f3d0;">K. NAT / 雙網卡路由完整指南</div>
+            <div class="nav-sub-item" onclick="switchTheme('step-I', this)" style="border-top: 2px solid #334155; margin-top: 10px; color: #fbbf24;">I. 考場觀念與避坑</div>
+        </div>
+    </div>
+
+    <!-- 主內容 -->
+    <div class="main-content">
+        <div class="quick-toolbar">
+            <div class="search-wrap"><input id="quickSearch" class="quick-search" type="search" placeholder="🔎 搜尋：quota、ping、NAT、Gateway、vsftpd…" oninput="searchContent(this.value)"></div>
+            <button class="quick-btn" onclick="changeFont(-1)">A−</button><button class="quick-btn" onclick="changeFont(1)">A＋</button><button class="quick-btn" onclick="goTop()">↑頂端</button>
+            <span class="progress-pill" id="progressPill">A / K</span>
+        </div>
+        
+        <div class="memory-hint">
+            <b>第一步：</b>先寫出 8 個步驟，再默念每步內容做那些事 <br>
+            <b>口訣：</b>碟線套聘 帳中設重 (PC1、PC2 順序名字都一樣) 
+        </div>
+
+        <!-- 步驟 A -->
+        <div id="step-A" class="content-card active">
+            <h1 class="theme-title">A. 光碟 (安裝與準備)</h1>
+            <div class="task-container">
+                <div class="task-card">
+                    <div class="task-header">💻 PC1 任務</div>
+                    <ul>
+                        <li>開機進入 BIOS，將開機順序設定為：光碟/USB/SATA2 </li>
+                        <li>(如果是舊版，記得關閉 UEFI) </li>
+                        <li>按 F10 存檔離開 </li>
+                        <li>安裝系統時，必須設定 root 密碼 </li>
+                        <li>磁碟空間配置，記得勾選：自動 / 全部刪除 / 取回空間 </li>
+                        <li>安裝完成後，先手動彈出光碟再按重開機，速度較快 </li>
+                    </ul>
+                </div>
+                <div class="task-card">
+                    <div class="task-header pc2-header">🖥️ PC2 任務</div>
+                    <ul>
+                        <li>與 PC1 完全相同 </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步驟 B -->
+        <div id="step-B" class="content-card">
+            <h1 class="theme-title">B. 做線 (實體網路線)</h1>
+            <div class="task-container">
+                <div class="task-card">
+                    <div class="task-header">💻 PC1 任務 (慢慢做)</div>
+                    <ul>
+                        <li>先將保護環依序套入 Cat5 線中，兩端都要套 (一條套 11，一條套 22) </li>
+                        <li>排線色序口訣：橘橘綠藍藍綠棕棕 (記得穿插白色) </li>
+                        <li>將 2 號線插在橋接孔 (中間位置) </li>
+                        <li>將 1 號線插在考場資訊插座 (最上方) </li>
+                    </ul>
+                </div>
+                <div class="task-card">
+                    <div class="task-header pc2-header">🖥️ PC2 任務</div>
+                    <ul>
+                        <li>製作線材步驟與 PC1 相同 </li>
+                        <li>將 2 號線插在橋接孔 (只有一個孔，絕不會插錯) </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步驟 C -->
+        <div id="step-C" class="content-card">
+            <h1 class="theme-title">C. 套件 (軟體庫與掛載)</h1>
+            
+            <div class="explanation-block">
+                <div class="explanation-title">💡 為什麼要掛載光碟？</div>
+                考場沒有外網，所以我們要把安裝光碟當作「本地下載點」。<br>
+                在 Linux 中，我們用 <code>mount</code> 指令把光碟機 (<code>/dev/sr0</code>) 裡面的資料，投射到系統內建的空資料夾 (<code>/media</code>) 裡面。<br>
+            </div>
+
+            <div class="task-container">
+                <div class="task-card">
+                    <div class="task-header">💻 PC1 任務</div>
+                    <p>📌 <b>事前準備：將光碟放入光碟機</b></p>
+                    
+                    <div class="step-action">1. 進入系統軟體庫目錄： </div>
+                    <div class="code-block">cd /etc/yum.repos.d</div>
+
+                    <div class="step-action">2. 建立備份資料夾： </div>
+                    <div class="code-block">mkdir backup</div>
+
+                    <div class="step-action">3. 將現有檔案複製到備份區 <span>(如果有錯誤訊息不用理它)</span>： </div>
+                    <div class="code-block">cp * backup</div>
+
+                    <div class="step-action">4. 刪除不需要的擴充套件清單： </div>
+                    <div class="code-block">rm centos-addons.repo -y</div>
+
+                    <div class="step-action">5. 打開並編輯主要設定檔： </div>
+                    <div class="code-block">vim centos.repo</div>
+
+                    <div class="step-action">6. 在 vim 編輯器內執行以下修改： </div>
+                    <div class="code-block content-input">(使用 9dd 刪除中間兩個不要的區塊，用 dG 刪除最下方的區塊)
+(找到 [baseos] 區塊，把 metalink 那行前面加上 # 註解掉)
+(在 [baseos] 區塊加入這行👇)
+baseurl=file:///media/BaseOS
+
+(找到 [appstream] 區塊，把 metalink 那行前面加上 # 註解掉)
+(在 [appstream] 區塊加入這行👇)
+baseurl=file:///media/AppStream</div>
+
+                    <div class="step-action">7. 檢查系統是否有抓到光碟機： </div>
+                    <div class="code-block">df -h</div>
+
+                    <div class="step-action">8. 將光碟掛載到 /media 資料夾 <span>(畫面出現 read-only 警告代表成功)</span>： </div>
+                    <div class="code-block">mount /dev/sr0 /media</div>
+                    
+                    <div class="step-action">9. 安裝架站與系統所需套件 <span>(一個一個裝，確認都有成功)</span>： </div>
+                    <div class="code-block">dnf install httpd -y
+dnf install mod_ssl -y
+dnf install ftp -y
+dnf install firewall-config -y
+dnf list ibus-*
+dnf install ibus-libzhuyin -y
+</div>
+
+                    <div class="step-action">10. 編輯系統安全設定檔，準備關閉 SELinux： </div>
+                    <div class="code-block">vim /etc/selinux/config</div>
+
+                    <div class="step-action">11. 在 vim 編輯器內修改： </div>
+                    <div class="code-block content-input">SELINUX=disabled</div>
+
+                    <div class="step-action">12. 重新開機 <span>(必須重開機，剛裝的中文輸入法才會生效)</span>： </div>
+                    <div class="code-block">reboot</div>
+                    
+                    <div class="detail-box" style="border-color: #3b82f6; background-color: #eff6ff;">
+                        <b>※ 考場注音設定小提醒 (重開機後)：</b> <br>
+                        1. 進入圖形介面，點擊右上角「設定」➔「鍵盤 (Keyboard)」。<br>
+                        2. 在「輸入來源 (Input Sources)」點擊「+」新增「漢語 (新注音)」。<br>
+                        3. 之後只要按 <code>Windows鍵 + 空白鍵</code> 即可隨時切換中英文！
+                    </div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-header pc2-header">🖥️ PC2 任務</div>
+                    <p>📌 <b>第 1 到 8 步的掛載光碟動作，與 PC1 完全相同</b></p>
+                    
+                    <div class="step-action">9. 安裝 FTP 與系統所需套件： </div>
+                    <div class="code-block">dnf install vsftpd -y
+dnf install ftp -y
+dnf install firewall-config -y
+dnf list ibus-*
+dnf install ibus-libzhuyin -y
+</div>
+
+                    <div class="step-action">10. 編輯系統安全設定檔： </div>
+                    <div class="code-block">vim /etc/selinux/config</div>
+
+                    <div class="step-action">11. 在 vim 編輯器內修改： </div>
+                    <div class="code-block content-input">SELINUX=disabled</div>
+                    
+                    <div class="detail-box">
+                        <b>※ 附註 (重開前先確認一件事)：</b> <br>
+                        輸入 <code>vim /etc/fstab</code>，確認檔案裡 <code>/home</code> 那行的格式是 <b>xfs</b> defaults。<br>
+                        (千萬記住，必須是 xfs 格式，這是後面做 Quota 配額的前提)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步驟 D -->
+        <div id="step-D" class="content-card">
+            <h1 class="theme-title">D. 試ping (IP與路由通訊)</h1>
+            <div class="task-container">
+                <div class="task-card">
+                    <div class="task-header">💻 PC1 任務</div>
+                    <div class="step-action">1. 圖形介面設定 IP <span>(記得勾選自動連線。核對 MAC 末2碼，確認哪片是橋接網卡)</span>： </div>
+                    <div class="code-block content-input">(enp1s0 網卡)設定為：
+IP: 200.100.X.254
+子網路遮罩: 255.255.255.0
+通訊閘: 0.0.0.0
+
+(enp1s2 網卡)設定為：
+IP: 10.1.X.1
+子網路遮罩: 255.255.255.0
+通訊閘: 10.1.X.254</div>
+
+                    <div class="step-action">2. 開啟防火牆對應的服務通道： </div>
+                    <div class="code-block">firewall-cmd --add-service=http --permanent
+firewall-cmd --add-service=https --permanent
+firewall-cmd --add-service=ftp --permanent
+firewall-cmd --add-masquerade --permanent</div>
+
+                    <div class="step-action">3. Masquerade 要搭配 IP Forwarding <span>(兩個是同一組觀念)</span>： </div>
+                    <div class="detail-box">
+                        <b>關聯：</b> <code>Masquerade</code> 負責把 PC2 封包的來源 IP 偽裝成 PC1 的對外 IP；<code>IP Forwarding</code> 則負責允許 Linux 把封包從一張網卡轉送到另一張網卡。<br>
+                        <b>所以 PC1 要當 NAT 路由器，兩個都要有。</b>
+                    </div>
+                    <div class="step-action">先查目前 IP Forwarding 狀態：</div>
+                    <div class="code-block">sysctl net.ipv4.ip_forward
+
+# 看到以下結果代表已開啟
+net.ipv4.ip_forward = 1</div>
+                    <div class="step-action">如果沒開：暫時啟用 <span>(重開機後失效)</span></div>
+                    <div class="code-block">sysctl -w net.ipv4.ip_forward=1</div>
+                    <div class="step-action">永久啟用：</div>
+                    <div class="code-block">echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+sysctl -p</div>
+                    <div class="memory-hint"><b>考場記法：</b>Forwarding＝「准許轉送」；Masquerade＝「換來源 IP」。看到 <code>--add-masquerade</code>，就一起想到 <code>net.ipv4.ip_forward=1</code>。</div>
+
+                    <div class="step-action">4. 重新載入防火牆規則： </div>
+                    <div class="code-block">firewall-cmd --reload</div>
+
+                    <div class="step-action">5. 重新啟動網頁服務 <span>(先關再開比較穩)</span>： </div>
+                    <div class="code-block">systemctl stop httpd
+systemctl start httpd</div>
+
+                    <div class="step-action">6. 進行 Ping 測試 <span>(先 ping 自己網卡，再 ping 別台)</span>： </div>
+                    <div class="code-block">ping 10.1.X.1
+ping 10.1.X.2
+ping 10.1.X.254
+ping 10.1.200.200
+ping 200.100.X.254
+ping 200.100.X.2
+ping 200.100.X.1</div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-header pc2-header">🖥️ PC2 任務</div>
+                    <div class="step-action">1. 圖形介面設定 IP： </div>
+                    <div class="code-block content-input">(enp1s0 網卡) 分別加入以下三個 IP：
+IP1: 200.100.X.1 / 子網路遮罩: 255.255.255.0
+IP2: 200.100.X.254 / 子網路遮罩: 255.255.255.0
+IP3: 200.100.X.2 / 子網路遮罩: 255.255.255.0</div>
+
+                    <div class="step-action">2. 開啟 FTP 防火牆通道： </div>
+                    <div class="code-block">firewall-cmd --add-service=ftp --permanent</div>
+
+                    <div class="step-action">3. 重新載入防火牆規則： </div>
+                    <div class="code-block">firewall-cmd --reload</div>
+
+                    <div class="step-action">4. 重新啟動 FTP 服務： </div>
+                    <div class="code-block">systemctl stop vsftpd
+systemctl start vsftpd</div>
+
+                    <div class="step-action">5. 進行 Ping 測試： </div>
+                    <div class="code-block">ping 200.100.X.1
+ping 200.100.X.2
+ping 200.100.X.254
+ping 10.1.X.1
+ping 10.1.X.2
+ping 10.1.X.254
+ping 10.1.200.200</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步驟 E -->
+        <div id="step-E" class="content-card">
+            <h1 class="theme-title">E. 帳密權 (系統權限)</h1>
+            <div class="task-container">
+                <div class="task-card">
+                    <div class="task-header">💻 PC1 任務</div>
+                    <div class="step-action">1. 建立兩個網頁使用者的帳號： </div>
+                    <div class="code-block">useradd WebX-1
+useradd WebX-2</div>
+
+                    <div class="step-action">2. 替帳號設定密碼： </div>
+                    <div class="code-block">passwd WebX-1
+passwd WebX-2</div>
+
+                    <div class="step-action">3. 進入 home 資料夾並檢查帳號是否建立成功： </div>
+                    <div class="code-block">cd /home
+ll</div>
+
+                    <div class="step-action">4. 開放這兩個資料夾的「執行」權限 <span>(網頁伺服器才進得去)</span>： </div>
+                    <div class="code-block">chmod o+x WebX-1
+chmod o+x WebX-2</div>
+                </div>
+                
+                <div class="task-card">
+                    <div class="task-header pc2-header">🖥️ PC2 任務</div>
+                    <div class="step-action">1. 建立 FTP 使用者的帳號： </div>
+                    <div class="code-block">useradd FtpX-2</div>
+
+                    <div class="step-action">2. 替帳號設定密碼 <span>(PC2 不用設定目錄權限)</span>： </div>
+                    <div class="code-block">passwd FtpX-2</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步驟 F -->
+        <div id="step-F" class="content-card">
+            <h1 class="theme-title">F. 中文 (內容建置)</h1>
+            <div class="task-container">
+                <div class="task-card">
+                    <div class="task-header">💻 PC1 任務</div>
+                    <div class="step-action">1. 進入 home 資料夾： </div>
+                    <div class="code-block">cd /home</div>
+
+                    <div class="step-action">2. 為兩個帳號建立網頁專用的 www 資料夾： </div>
+                    <div class="code-block">mkdir WebX-1/www/
+mkdir WebX-2/www/</div>
+
+                    <div class="step-action">3. 編輯第一個網站的首頁檔： </div>
+                    <div class="code-block">vim WebX-1/www/index.html</div>
+
+                    <div class="step-action">4. 在 vim 中輸入中文網頁內容 <span>(按 Windows鍵 + 空白鍵 切換注音)</span>： </div>
+                    <div class="code-block content-input">□□網站架設術科-WebX-1號口的第1個網站</div>
+
+                    <div class="step-action">5. 將做好的首頁檔，直接複製一份給第二個網站： </div>
+                    <div class="code-block">cp WebX-1/www/index.html WebX-2/www/index.html</div>
+
+                    <div class="step-action">6. 編輯第二個網站的首頁檔： </div>
+                    <div class="code-block">vim WebX-2/www/index.html</div>
+
+                    <div class="step-action">7. 在 vim 中修改為第二個網站的專屬內容 <span>(按 Windows鍵 + 空白鍵 切換注音)</span>： </div>
+                    <div class="code-block content-input">□□網站架設術科-WebX-2號口的第2個網站</div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-header pc2-header">🖥️ PC2 任務</div>
+                    <div class="step-action">1. 進入 FTP 專用目錄： </div>
+                    <div class="code-block">cd /var/ftp</div>
+
+                    <div class="step-action">2. 建立並編輯第一個 FTP 的歡迎詞文字檔： </div>
+                    <div class="code-block">vim FtpX-1.txt</div>
+
+                    <div class="step-action">3. 在 vim 中輸入中文內容 <span>(按 Windows鍵 + 空白鍵 切換注音)</span>： </div>
+                    <div class="code-block content-input">歡迎光臨
+這是FtpX-1號口口口的第1個FTP伺服器
+本伺服器僅允許匿名登入,不允許其他帳號登入</div>
+
+                    <div class="step-action">4. 複製一份給第二個 FTP 使用： </div>
+                    <div class="code-block">cp FtpX-1.txt FtpX-2.txt</div>
+
+                    <div class="step-action">5. 編輯第二個 FTP 的歡迎詞： </div>
+                    <div class="code-block">vim FtpX-2.txt</div>
+
+                    <div class="step-action">6. 在 vim 中修改內容 <span>(按 Windows鍵 + 空白鍵 切換注音)</span>： </div>
+                    <div class="code-block content-input">歡迎光臨
+這是FtpX-2號口口口的第2個FTP伺服器
+本伺服器僅允許FtpX-2帳號登入,不允許匿名登入</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步驟 G -->
+        <div id="step-G" class="content-card">
+            <h1 class="theme-title">G. 設定 (核心配置檔)</h1>
+            <div class="task-container">
+                <div class="task-card">
+                    <div class="task-header">💻 PC1 任務</div>
+                    
+                    <div class="step-action">1. 編輯 Apache 網頁伺服器的設定檔： </div>
+                    <div class="code-block">vim /etc/httpd/conf.d/userdir.conf</div>
+                    
+                    <div class="step-action">2. 在 vim 內執行以下修改： </div>
+                    <div class="code-block content-input">第 17 行：在 UserDir disabled 前面加上 # 註解掉
+第 24 行：把 #UserDir public_html 的 # 刪掉，並把 public_html 改成 www
+第 31 行：把 &lt;Directory "/home/*/public_html"&gt; 改成 www
+
+(游標停在31行，輸入 5yyp 往下貼上 5 行，並將貼上的這區塊改成下方內容👇)
+&lt;Directory "/home/WebX-2/www"&gt;
+    AllowOverride All
+    Order deny, allow
+    Deny from all
+    Allow from 200.100.X.1
+&lt;/Directory&gt;</div>
+                    <p style="font-size: 0.9rem; color: #ef4444; margin-bottom: 20px;">⚠️ 檢查：改完後檔案裡面要有 2 塊獨立的 &lt;Directory&gt; 區塊！ </p>
+                    
+                    <div class="step-action">3. 進入第二個網站的資料夾： </div>
+                    <div class="code-block">cd /home/WebX-2/www</div>
+
+                    <div class="step-action">4. 建立並編輯特定網頁存取權限檔 (.htaccess)： </div>
+                    <div class="code-block">vim .htaccess</div>
+
+                    <div class="step-action">5. 在 vim 內輸入： </div>
+                    <div class="code-block content-input">AuthType Basic
+AuthName "WebX-2 only"
+AuthUserFile /home/WebX-2/www/.htpasswd
+Require valid-user</div>
+
+                    <div class="step-action">6. 產生該網站專用的密碼認證檔： </div>
+                    <div class="code-block">htpasswd -c .htpasswd WebX-2</div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-header pc2-header">🖥️ PC2 任務</div>
+                    
+                    <div class="step-action">1. 進入 FTP 設定檔目錄： </div>
+                    <div class="code-block">cd /etc/vsftpd/</div>
+
+                    <div class="step-action">2. 編輯第一台 FTP 的設定檔： </div>
+                    <div class="code-block">vim vsftpd.conf</div>
+
+                    <div class="step-action">3. 在 vim 內確認或修改以下參數： </div>
+                    <div class="code-block content-input">anonymous_enable=YES
+local_enable=NO
+listen=YES
+listen_address=200.100.X.1
+banner_file=/var/ftp/FtpX-1.txt
+listen_ipv6=NO</div>
+                    
+                    <div class="step-action">4. 複製一份設定檔給第二台 FTP 使用： </div>
+                    <div class="code-block">cp vsftpd.conf vsftpd2.conf</div>
+
+                    <div class="step-action">5. 編輯第二台 FTP 的設定檔： </div>
+                    <div class="code-block">vim vsftpd2.conf</div>
+
+                    <div class="step-action">6. 在 vim 內修改為以下參數： </div>
+                    <div class="code-block content-input">anonymous_enable=NO
+local_enable=YES
+listen=YES
+listen_address=200.100.X.2
+banner_file=/var/ftp/FtpX-2.txt</div>
+                    
+                    <div class="step-action">7. 編輯硬碟分割表，先讓 <code>/home</code> 支援使用者磁碟配額：</div>
+                    <div class="code-block">vim /etc/fstab</div>
+
+                    <div class="detail-box">
+                        <b>📌 Fstab 要改的地方</b><br>
+                        找到 <code>/home</code> 那一行，格式確認為 <code>xfs</code>，並在掛載選項的 <code>defaults</code> 後面加上 <code>,usrquota</code>。<br><br>
+                        <div class="code-block content-input">掛載點   格式   掛載選項
+/home     xfs    defaults,usrquota</div>
+                    </div>
+
+                    <div class="step-action">8. 卸載 <code>/home</code>： </div>
+                    <div class="code-block">umount /home</div>
+
+                    <div class="step-action">9. 重新載入系統設定，再掛載回 <code>/home</code>： </div>
+                    <div class="code-block">systemctl daemon-reload
+mount /home</div>
+
+                    <div class="step-action">10. 對 FtpX-2 設定 1M 的硬限制：</div>
+                    <div class="code-block">xfs_quota -x -c "limit -u bhard=1024K FtpX-2" /home</div>
+
+                    <div class="detail-box">
+                        <b>⚠️ 替換指令</b><br>
+                        <code>setquota -u FtpX-2 0 1024 0 0 /home</code><br>
+                        可用，但原筆記註明：<b>不推薦用於 XFS 格式</b>。
+                    </div>
+
+                    <div class="step-action">11. 檢查磁碟配額是否成功：</div>
+                    <div class="code-block">repquota -auv</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步驟 H -->
+        <div id="step-H" class="content-card">
+            <h1 class="theme-title">H. 重啟與測試 (驗收)</h1>
+            <div class="task-container">
+                <div class="task-card">
+                    <div class="task-header">💻 PC1 任務</div>
+                    
+                    <div class="step-action">1. 重新啟動網頁服務： </div>
+                    <div class="code-block">systemctl restart httpd</div>
+
+                    <div class="step-action">2. 檢查防火牆通道是否正常開啟 <span>(畫面要看到 httpd、mod_ssl、ftp)</span>： </div>
+                    <div class="code-block">firewall-cmd --list-service</div>
+                    
+                    <div class="step-action">3. 回到管理員家目錄並確認路徑： </div>
+                    <div class="code-block">cd ~
+pwd</div>
+
+                    <div class="step-action">4. 建立兩個大小為 700K 的假檔案 (用來測試 FTP 上傳)： </div>
+                    <div class="code-block">dd if=/dev/zero of=up1 bs=1k count=700
+dd if=/dev/zero of=up2 bs=1k count=700</div>
+
+                    <div class="step-action">5. 檢查檔案是否成功產生 <span>(檔案大小應該顯示 716800)</span>： </div>
+                    <div class="code-block">ll</div>
+                    
+                    <div class="step-action">6. 連線至第一台 FTP (200.100.X.1) 進行測試： </div>
+                    <div class="code-block">ftp 200.100.X.1</div>
+
+                    <div class="step-action">7. 在 FTP 介面內依序輸入以下指令： </div>
+                    <div class="code-block content-input">user anonymous   (使用匿名登入)
+dir              (看有沒有出現 FtpX-1.txt 與 FtpX-2.txt)
+get FtpX-1.txt   (下載檔案測試)
+!cat FtpX-1.txt  (查看檔案內的歡迎詞)
+!rm FtpX-1.txt   (刪除下載的檔案)
+bye              (離開 FTP)</div>
+
+                    <div class="step-action">8. 開啟第二個終端機，連線至第二台 FTP (200.100.X.2) 進行測試： </div>
+                    <div class="code-block">ftp 200.100.X.2</div>
+
+                    <div class="step-action">9. 在 FTP 介面內依序輸入以下指令： </div>
+                    <div class="code-block content-input">user FtpX-2      (使用實體帳號登入)
+dir              (確定裡面目前是空的)
+put up1          (上傳 up1，會看到 Transfer complete 成功訊息)
+put up2          (上傳 up2，會看到 Failure 失敗訊息，因為超過配額限制)
+dir              (檢查清單，up1 應為 716800，up2 應為 30幾萬)
+del up1          (刪除上傳檔)
+del up2          (刪除上傳檔)
+bye              (離開 FTP)</div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-header pc2-header">🖥️ PC2 任務</div>
+                    
+                    <div class="step-action">1. 停止並重新啟動兩個 FTP 服務： </div>
+                    <div class="code-block">systemctl stop vsftpd
+systemctl start vsftpd@vsftpd
+systemctl start vsftpd@vsftpd2</div>
+
+                    <div class="step-action">2. 將兩個 FTP 服務設定為開機自動啟動： </div>
+                    <div class="code-block">systemctl enable vsftpd@vsftpd
+systemctl enable vsftpd@vsftpd2</div>
+
+                    <div class="step-action">3. 檢查防火牆通道是否正常開啟 <span>(畫面要看到 ftp)</span>： </div>
+                    <div class="code-block">firewall-cmd --list-service</div>
+                    
+                    <div class="step-action">4. 開啟瀏覽器，測試各個網頁是否正常： </div>
+                    <div class="code-block content-input">輸入 http://10.1.X.1          (應顯示內定網頁)
+輸入 http://10.1.X.1/~WebX-1  (應顯示第1個網站)
+輸入 https://10.1.X.2/~WebX-2 (應跳出帳密要求)
+輸入 http://10.1.200.200      (考場網頁)</div>
+
+                    <div class="step-action">5. 測試防護機制：修改本機 IP 位址： </div>
+                    <div class="code-block content-input">(到網路設定將 200.100.X.1 改成 200.100.X.100，關掉重開網卡)</div>
+
+                    <div class="step-action">6. 在瀏覽器再次測試 WebX-2 <span>(這次畫面必須顯示 Forbidden 拒絕存取)</span>： </div>
+                    <div class="code-block content-input">輸入 https://10.1.X.2/~WebX-2</div>
+
+                    <div class="step-action">7. 測試完畢，把 IP 改回原本設定： </div>
+                    <div class="code-block content-input">(到網路設定將 200.100.X.100 改回 200.100.X.1，關掉重開網卡)</div>
+
+                    <div class="step-action">8. 最後確認 WebX-2 恢復正常可存取狀態： </div>
+                    <div class="code-block content-input">輸入 https://10.1.X.2/~WebX-2 (應顯示正常網頁)</div>
+                </div>
+            </div>
+            
+            <div class="memory-hint">
+                ✅ 確定 WebX-2 可連、各已開網頁都開啟 <br>
+                ✅ 確定 2 台 FTP 伺服器指令頁都在都 OK <br>
+                ✋ 確認無誤後，再舉手呼叫監試人員 
+            </div>
+        </div>
+
+        <!-- 新增：步驟 I 考場觀念與避坑指南 -->
+        <div id="step-I" class="content-card">
+            <h1 class="theme-title">I. 考場觀念與避坑指南</h1>
+            
+            <div class="explanation-block">
+                <div class="explanation-title">🖥️ PC1 與 PC2 到底誰是 Server 誰是 Client？</div>
+                這是一個對稱的「雙向主從架構」！兩台機器互為對方的 Server 與 Client：
+                <ul style="margin-top: 10px;">
+                    <li><b>PC1 (網頁伺服器 Web Server)：</b>提供 Web 網站。同時作為 <b>FTP 用戶端 (Client)</b> 使用終端機去連線測試 PC2。</li>
+                    <li><b>PC2 (FTP 伺服器 FTP Server)：</b>提供檔案下載與 Quota 空間限制。同時作為 <b>網頁用戶端 (Client)</b> 打開瀏覽器去測試 PC1 的網頁。</li>
+                </ul>
+                你可以把它當作 API 的 Request 與 Response 來想像——PC1 提供 Web 端點等著被 Call，PC2 提供 FTP 端點等著接收檔案。
+            </div>
+
+            <div class="task-container">
+                <div class="task-card">
+                    <div class="task-header" style="color: #0f172a; border-bottom: 2px dashed #fbbf24;">💡 考場除錯與避坑指南</div>
+                    
+                    <div class="step-action">1. 實體層與網路層 (OSI Layer 1 & 3) 的陷阱：</div>
+                    <ul>
+                        <li><b>做線是生死關：</b> 如果「步驟 D (試 Ping)」失敗了，<b>絕對不要</b>先回去改防火牆或設定檔！百分之八十的問題出在實體層。請檢查網路線有沒有壓緊、色序對不對，或是網卡 IP（200.100.X 系列與 10.1.X 系列）有沒有綁錯張。</li>
+                        <li><b>路由不通：</b> 測試 Ping 時，如果可以 Ping 到自己的網卡，卻 Ping 不到對面，通常是子網路遮罩 (Subnet Mask) 打錯，或是 PC1 的 NAT (Masquerade) 轉發沒有成功啟動。</li>
+                    </ul>
+
+                    <div class="step-action">2. 系統與應用層 (OSI Layer 7) 的陷阱：</div>
+                    <ul>
+                        <li><b>Linux 嚴格區分大小寫：</b> 例如 Apache 設定檔中的 <code>AllowOverride All</code> 或 <code>Order deny, allow</code>，只要大小寫打錯一個字，重啟服務時就會報錯。</li>
+                        <li><b>權限死胡同：</b> 在 PC1 建立網頁目錄時，為什麼一定要下 <code>chmod o+x</code>？因為 Apache 服務在系統中的身分是「其他人 (Others)」，如果沒有給予執行 (x) 權限，Apache 就無法穿越使用者的 Home 目錄去讀取裡面的網頁，這時瀏覽器就會顯示 403 Forbidden。</li>
+                        <li><b>設定檔生效的唯一條件：</b> 只要你用 vim 修改了任何設定檔，都<b>必須</b>執行 <code>systemctl restart [服務名稱]</code>。系統服務只認記憶體裡面的規則，沒有重啟就等於沒改。</li>
+                    </ul>
+
+                    <div class="step-action">3. 終端機 (Vim) 的操作效率：</div>
+                    <ul>
+                        <li><b>善用 Tab 鍵補全：</b> 在輸入像 <code>firewall-cmd --add-masquerade</code> 這種長指令時，打到 masq 就按下 <code>Tab</code> 鍵。這不僅能加快速度，還能<b>保證你沒有拼錯字</b>。</li>
+                        <li><b>不怕 Vim 改錯：</b> 如果在用 <code>9dd</code> 或 <code>5yyp</code> 複製刪除時不小心手滑把設定檔弄亂了，千萬別慌張。只要按下 <code>Esc</code>，然後輸入 <code>:q!</code> (強制不存檔離開)，再重新 vim 打開一次檔案，一切就會回到原本的樣子。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    
+        <div id="step-J" class="content-card">
+            <h1 class="theme-title">J. 安裝畫面速查</h1>
+            <div class="source-note"><b>用途：</b>把安裝階段濃縮成「看到什麼 → 點什麼」，適合進考場前快速掃一遍。</div>
+            <div class="task-container">
+              <div class="task-card"><div class="task-header">① 語言與磁碟</div><ul><li>選擇語言 → 繼續。</li><li>安裝目標位置 → 完成。</li><li>取回磁碟空間 → 全部刪除 → 取回空間。</li></ul></div>
+              <div class="task-card"><div class="task-header">② 主機名稱</div><ul><li>網路與主機名稱 → 輸入主機名稱 → 套用 → 完成。</li></ul></div>
+              <div class="task-card"><div class="task-header">③ 軟體選擇</div><div class="mini-grid"><div class="mini-card"><b>PC1</b>勾選 <code>Basic Web Server</code>；來源資料註記位置在右側清單拉到底第 1 個。</div><div class="mini-card"><b>PC2</b>勾選 <code>FTP Server</code>；來源資料註記位置在一開始第 4 個。</div></div></div>
+              <div class="task-card"><div class="task-header">④ Root 密碼</div><ul><li>點 Root 密碼 → 輸入密碼 → 完成兩次。</li></ul></div>
+              <div class="task-card"><div class="task-header">⑤ 建立使用者</div><div class="mini-grid"><div class="mini-card"><b>PC1</b>安裝資料示例為 <code>Web3X-2</code>，並取消「需要密碼才能使用此帳號」。</div><div class="mini-card"><b>PC2</b>安裝資料示例為 <code>Ftp3X-2</code>，密碼同名。</div></div><div class="exam-alert">不同來源使用 X、3X 等占位方式；考場請以題目給你的組別／編號代入，不要把範例數字照抄。</div></div>
+            </div>
+        </div>
+
+        <div id="step-K" class="content-card">
+            <h1 class="theme-title">K. NAT / 雙網卡路由完整指南</h1>
+            <div class="source-note"><b>整合來源：</b>已把你新上傳的「Linux 雙網卡路由與 NAT 架構指南」完整觀念併入這一站，依手機閱讀方式改成 5 個主題卡片。</div>
+
+            <div class="explanation-block">
+                <div class="explanation-title">🧠 先記一句話</div>
+                PC1（左側機器）是「雙網卡路由器／防火牆」；PC2（右側機器）是「純內網伺服器」。PC2 要去外網，先把封包交給 PC1 的對內網卡，再由 PC1 做 IP Forwarding + NAT / Masquerade 往外送。
+            </div>
+
+            <div class="task-container">
+                <div class="task-card">
+                    <div class="task-header">① 網路架構與封包傳遞路線</div>
+                    <div class="step-action">實體線路與角色定位</div>
+                    <ul>
+                        <li><b>PC1／左側機器：</b>有兩張網卡，一張對內、一張對外，負責把內網封包轉發到外網。</li>
+                        <li><b>PC2／右側機器：</b>只在內部網段，沒有直接對外能力，必須經過 PC1 才能連外。</li>
+                    </ul>
+                    <div class="step-action">封包接力路線</div>
+                    <div class="code-block">PC2（200.100.X.1）
+  ↓ 目的地不在本網段 → 丟給預設閘道
+PC1 對內網卡（200.100.X.254）
+  ↓ IP Forwarding
+  ↓ NAT / Masquerade：來源 IP 改成 10.1.X.1
+PC1 對外網卡（10.1.X.1）
+  ↓ 預設閘道 10.1.X.254
+考場／機房實體路由器
+  ↓
+外部網路</div>
+                    <div class="memory-hint"><b>記法：</b>PC2 找「大門」 → 大門是 PC1 對內卡 → PC1 換身分（NAT）→ 再走自己的外網大門。</div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-header pc2-header">② 純內網伺服器（PC2）預設閘道</div>
+                    <div class="step-action">預設閘道就是「離開目前網段的大門」</div>
+                    <p style="line-height:1.8;margin-bottom:12px;">PC2 位在 <code>200.100.X.0</code> 網段。只要它要去的目的地不在這個網段，就會把封包交給預設閘道，所以閘道要指向 PC1 的對內 IP。</p>
+                    <div class="code-block"># PC2 範例
+網卡：enp1s0
+IP：200.100.X.1
+Mask：255.255.255.0
+Gateway：200.100.X.254</div>
+                    <div class="detail-box"><b>核心觀念：</b>PC2 的 Gateway 不是直接填機房路由器，而是填「PC1 對內網卡」。因為 PC2 的第一跳就是 PC1。</div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-header">③ 路由器主機（PC1）雙網卡配置</div>
+                    <div class="step-action">對內網卡</div>
+                    <div class="code-block">IP：200.100.X.254
+Mask：255.255.255.0
+Gateway：留空／0.0.0.0</div>
+                    <ul><li>用來接 PC2 從內網送過來的封包。</li><li><b>不要在這張卡設定預設閘道。</b></li></ul>
+                    <div class="step-action">對外網卡</div>
+                    <div class="code-block">IP：10.1.X.1
+Mask：255.255.255.0
+Gateway：10.1.X.254</div>
+                    <ul><li>連到考場／機房實體網路。</li><li>真正的預設閘道設在這張卡，指向機房路由器。</li></ul>
+                    <div class="exam-alert"><b>容易混：</b>兩個網段都可能看到 <code>.254</code>，但意義不同：<code>200.100.X.254</code> 是 PC1 自己的「內網卡 IP」；<code>10.1.X.254</code> 才是 PC1 對外要走的「實體路由器 Gateway」。</div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-header">④ IP 偽裝與 NAT（Masquerade）</div>
+                    <div class="step-action">Masquerade 實際做什麼？</div>
+                    <ol style="margin-left:22px;line-height:1.8;margin-bottom:15px;">
+                        <li>PC1 從對內網卡收到 PC2 想連外的封包。</li>
+                        <li>把來源 IP 從 PC2 的 <code>200.100.X.1</code> 改成 PC1 對外卡的 <code>10.1.X.1</code>。</li>
+                        <li>再把封包送往 PC1 的外網 Gateway <code>10.1.X.254</code>。</li>
+                    </ol>
+                    <div class="code-block"># 啟用 NAT / IP 偽裝
+firewall-cmd --add-masquerade --permanent
+firewall-cmd --reload</div>
+                    <div class="detail-box"><b>為什麼需要 NAT？</b> 外部網路不會直接把 PC2 的內部位址當成可回傳的來源；PC1 先把來源偽裝成自己的外網 IP，回應才會先回到 PC1，再由 PC1 對應回 PC2。</div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-header">⑤ 核心 IP Forwarding（轉發開關）</div>
+                    <div class="step-action">IP Forwarding 是什麼？</div>
+                    <p style="line-height:1.8;margin-bottom:12px;">Linux 若只是一般主機，收到「目的地不是自己」的封包時不會自動幫別人轉送。PC1 要當路由器，就要開啟 <code>net.ipv4.ip_forward</code>，讓封包能在兩張網卡之間轉發。</p>
+                    <div class="step-action">先查目前狀態</div>
+                    <div class="code-block">sysctl net.ipv4.ip_forward
+
+# 看到以下結果代表已開啟
+net.ipv4.ip_forward = 1</div>
+                    <div class="step-action">暫時啟用（重開機後失效）</div>
+                    <div class="code-block">sysctl -w net.ipv4.ip_forward=1</div>
+                    <div class="step-action">永久啟用</div>
+                    <div class="code-block">echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+sysctl -p</div>
+                    <div class="exam-alert"><b>兩個都要理解：</b><code>IP Forwarding</code> 負責「允許跨網卡轉送」，<code>Masquerade</code> 負責「修改來源 IP」。只開其中一個，都不能完整達成 PC2 經 PC1 對外通訊的效果。</div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-header" style="color:#7c3aed;border-bottom-color:#c4b5fd;">📱 通勤 30 秒總複習</div>
+                    <div class="code-block">PC2：200.100.X.1
+GW → 200.100.X.254
+
+PC1 內：200.100.X.254
+GW → 不設
+
+PC1 外：10.1.X.1
+GW → 10.1.X.254
+
+PC1 還要：
+① ip_forward = 1
+② firewall masquerade</div>
+                    <div class="memory-hint"><b>口訣：</b>右機找左機、左機才找外；先能「轉」，再做「換」。</div>
+                </div>
+            </div>
+        </div>
+</div>
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const desktopNavContainer = document.getElementById('desktopNavContainer');
+            const mobileNavContainer = document.getElementById('mobileNavContainer');
+            mobileNavContainer.innerHTML = desktopNavContainer.innerHTML;
+            
+            const mobileItems = mobileNavContainer.querySelectorAll('.nav-sub-item');
+            mobileItems.forEach(item => {
+                const themeId = item.getAttribute('onclick').match(/'([^']+)'/)[1];
+                item.setAttribute('onclick', `switchThemeMobile('${themeId}', this)`);
+            });
+        });
+
+        function toggleMobileDrawer() {
+            const drawer = document.getElementById('mobileDrawer');
+            drawer.classList.toggle('open');
+        }
+
+        function switchTheme(themeId, element) {
+            document.querySelectorAll('.nav-sub-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.nav-sub-item').forEach(item => {
+                if (item.getAttribute('onclick').includes(themeId)) {
+                    item.classList.add('active');
+                }
+            });
+
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach(card => card.classList.remove('active'));
+            
+            const targetCard = document.getElementById(themeId);
+            if (targetCard) {
+                targetCard.classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchThemeMobile(themeId, element) {
+            switchTheme(themeId, element);
+            toggleMobileDrawer();
+        }
+    
+        const commuteSteps = ['step-A','step-B','step-C','step-D','step-E','step-F','step-G','step-H','step-J','step-K','step-I'];
+        function activeStepIndex(){ const a=document.querySelector('.content-card.active'); return Math.max(0, commuteSteps.indexOf(a?.id)); }
+        function updateProgress(){ const i=activeStepIndex(); const p=document.getElementById('progressPill'); if(p) p.textContent=`${i+1} / ${commuteSteps.length}`; localStorage.setItem('netBStep', commuteSteps[i]); }
+        function openStepById(id){ const target=document.getElementById(id); if(!target)return; document.querySelectorAll('.content-card').forEach(x=>x.classList.remove('active','search-match')); target.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); updateProgress(); }
+        function prevStep(){ const i=activeStepIndex(); openStepById(commuteSteps[Math.max(0,i-1)]); }
+        function nextStep(){ const i=activeStepIndex(); openStepById(commuteSteps[Math.min(commuteSteps.length-1,i+1)]); }
+        function goTop(){ window.scrollTo({top:0,behavior:'smooth'}); }
+        function changeFont(delta){ let n=parseFloat(localStorage.getItem('netBFont')||'17'); n=Math.min(22,Math.max(14,n+delta)); document.documentElement.style.fontSize=n+'px'; localStorage.setItem('netBFont',n); }
+        function searchContent(q){ q=q.trim().toLowerCase(); document.querySelectorAll('.content-card').forEach(c=>c.classList.remove('search-match')); if(!q){ const a=document.querySelector('.content-card.active')||document.getElementById('step-A'); a.classList.add('active'); return; } document.querySelectorAll('.content-card').forEach(c=>{ if(c.innerText.toLowerCase().includes(q)) c.classList.add('search-match'); }); }
+        window.addEventListener('DOMContentLoaded',()=>{ const f=localStorage.getItem('netBFont'); if(f) document.documentElement.style.fontSize=f+'px'; updateProgress(); document.addEventListener('click',e=>{ if(e.target.closest('.nav-sub-item')) setTimeout(updateProgress,30); }); });
+</script>
+</body>
+</html>
