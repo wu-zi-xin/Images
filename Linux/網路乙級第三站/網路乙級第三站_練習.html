@@ -1,0 +1,3157 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>網路乙級第三站 - 手機通勤逐步練習｜新增內容整合版</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-code: #090d16;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 頂部導覽列 (修復破版) */
+        header {
+            background-color: #020617;
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 56px;
+            z-index: 1000;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 0;
+        }
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #38bdf8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .mode-badge {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            white-space: nowrap;
+            display: none; /* 在極小螢幕隱藏以防破版 */
+        }
+        @media (min-width: 380px) {
+            .mode-badge { display: inline-block; }
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .stat-val { font-weight: bold; }
+        .stat-val.correct { color: var(--accent-green); }
+        .stat-val.streak { color: var(--accent-yellow); }
+
+        /* 外層容器 */
+        .container {
+            display: flex;
+            margin-top: 56px;
+            width: 100%;
+            min-height: calc(100vh - 56px);
+        }
+
+        /* 電腦版側邊欄 */
+        .sidebar {
+            width: 260px;
+            background: #090d16;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            height: calc(100vh - 56px);
+            position: sticky;
+            top: 56px;
+            overflow-y: auto;
+        }
+        .sidebar-title {
+            padding: 12px 14px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-item {
+            padding: 12px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid #1e293b;
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-item:hover, .nav-item.active {
+            background: var(--bg-card);
+            color: #ffffff;
+            border-left: 4px solid var(--accent-blue);
+        }
+        .nav-item .step-tag {
+            font-size: 0.65rem;
+            padding: 2px 4px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* 手機版抽屜導覽選單 */
+        .mobile-drawer {
+            position: fixed;
+            top: 56px; left: -100%;
+            width: 280px; max-width: 80vw;
+            height: calc(100vh - 56px);
+            background: #090d16;
+            border-right: 1px solid var(--border-color);
+            z-index: 1002;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+        .mobile-drawer.open { left: 0; }
+        .drawer-overlay {
+            position: fixed;
+            top: 56px; left: 0; width: 100vw; height: calc(100vh - 56px);
+            background: rgba(0,0,0,0.6);
+            z-index: 1001;
+            display: none;
+        }
+        .drawer-overlay.open { display: block; }
+
+        /* 主畫面區塊 */
+        .main-canvas {
+            flex: 1;
+            min-width: 0; 
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-width: 100%;
+        }
+
+        .step-header {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .step-title-group h2 {
+            font-size: 1.15rem;
+            color: #f8fafc;
+            margin-bottom: 2px;
+            word-wrap: break-word;
+        }
+        .step-title-group p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            word-wrap: break-word;
+        }
+        .pc-toggle {
+            display: flex;
+            background: #090d16;
+            padding: 3px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            width: 100%;
+        }
+        .pc-btn {
+            flex: 1;
+            padding: 8px 10px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: bold;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .pc-btn.active {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            word-wrap: break-word;
+        }
+
+        .question-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #38bdf8;
+            line-height: 1.4;
+        }
+        .question-desc {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+        .question-desc code {
+            background: var(--bg-code);
+            color: #38bdf8;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            word-break: break-word;
+        }
+
+        .terminal-window {
+            background: var(--bg-code);
+            border-radius: 8px;
+            border: 1px solid #334155;
+            overflow: hidden;
+            width: 100%;
+        }
+        .terminal-header {
+            background: #1e293b;
+            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid #334155;
+        }
+        .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+        .terminal-title {
+            margin-left: 6px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+        .terminal-body {
+            padding: 12px 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        /* 終端機版面修復 */
+        .cmd-line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap; /* 允許輸入框換行防破版 */
+            width: 100%;
+        }
+        .prompt {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 0.85rem;
+            white-space: nowrap; /* 保持提示字元不被切斷 */
+        }
+        .cmd-input {
+            flex: 1;
+            min-width: 100px; /* 縮小最小寬度防破版 */
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #475569;
+            color: #38bdf8;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            padding: 4px 2px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .cmd-input:focus {
+            border-bottom-color: var(--accent-blue);
+        }
+        .cmd-input.error {
+            border-bottom-color: var(--accent-red) !important;
+            animation: shake 0.3s;
+        }
+        .cmd-input.success {
+            border-bottom-color: var(--accent-green) !important;
+            color: var(--accent-green);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .vim-window {
+            background: #111827;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.7;
+            color: #e5e7eb;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            width: 100%;
+        }
+        .vim-filename {
+            color: #9ca3af;
+            font-size: 0.75rem;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #374151;
+            padding-bottom: 4px;
+            word-break: break-all;
+        }
+        
+        /* Vim 填空版面修復 */
+        .blank-input {
+            background: #1f2937;
+            border: 1px solid #4b5563;
+            border-radius: 4px;
+            color: #f3f4f6;
+            padding: 3px 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            outline: none;
+            margin: 2px 2px;
+            width: auto;       /* 取消 100% 防止單行擠破版面 */
+            min-width: 80px;   /* 設定最小與最大寬度 */
+            max-width: 160px;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+        .blank-input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+        }
+        .blank-input.correct {
+            border-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            font-weight: bold;
+        }
+        .blank-input.wrong {
+            border-color: var(--accent-red);
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+            flex-direction: column;
+            width: 100%;
+        }
+        .btn {
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            min-height: 44px;
+        }
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+        }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-hint {
+            background: #334155;
+            color: #fbbf24;
+        }
+        .btn-hint:hover { background: #475569; }
+        .btn-skip {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+        .btn-skip:hover { background: #1e293b; color: white; }
+
+        .feedback-box {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            display: none;
+            animation: fadeIn 0.3s;
+            word-wrap: break-word;
+        }
+        .feedback-box.correct {
+            display: block;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid var(--accent-green);
+            color: #34d399;
+        }
+        .feedback-box.incorrect {
+            display: block;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid var(--accent-red);
+            color: #f87171;
+        }
+        .feedback-box.hint {
+            display: block;
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid var(--accent-yellow);
+            color: #fbbf24;
+        }
+
+        .notes-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            word-wrap: break-word;
+        }
+        .notes-card h3 {
+            color: #38bdf8;
+            margin-bottom: 6px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+            font-size: 0.95rem;
+        }
+        .notes-card code {
+            background: var(--bg-code);
+            color: #38bdf8;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: monospace;
+            word-break: break-word;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (min-width: 851px) {
+            .hamburger-btn { display: none !important; }
+            .sidebar { display: flex !important; }
+            .mobile-drawer, .drawer-overlay { display: none !important; }
+            .controls { flex-direction: row; }
+            .controls .btn { width: auto; flex: 1; }
+            .step-header { flex-direction: row; align-items: center; }
+            .pc-toggle { width: auto; }
+            .pc-btn { flex: unset; padding: 6px 14px; }
+            .blank-input { width: auto; max-width: 250px; }
+        }
+
+        @media (max-width: 850px) {
+            .sidebar { display: none !important; }
+            .hamburger-btn { display: flex !important; }
+            .main-canvas { width: 100%; margin-left: 0; }
+        }
+
+        /* ===== 新增內容整合版：簡潔步驟導覽 ===== */
+        .question-nav { display:flex; gap:8px; width:100%; }
+        .question-nav .btn { min-height:40px; padding:8px 12px; }
+        .phase-tip { background:#0b1220; border:1px solid #334155; border-left:4px solid #38bdf8; border-radius:8px; padding:10px 12px; color:#cbd5e1; font-size:.82rem; line-height:1.55; }
+        .verify-badge { display:inline-block; padding:2px 7px; border-radius:999px; background:rgba(16,185,129,.14); color:#34d399; border:1px solid rgba(16,185,129,.35); font-size:.72rem; margin-left:6px; }
+        .input-badge { display:inline-block; padding:2px 7px; border-radius:999px; background:rgba(56,189,248,.14); color:#38bdf8; border:1px solid rgba(56,189,248,.35); font-size:.72rem; margin-left:6px; }
+        .fill-window { background:#111827; border:1px solid #374151; border-radius:8px; padding:12px; font-family:'Courier New',monospace; line-height:1.8; color:#e5e7eb; font-size:.86rem; }
+        .fill-title { color:#9ca3af; font-size:.75rem; border-bottom:1px solid #374151; margin-bottom:8px; padding-bottom:5px; }
+        @media (max-width:850px){
+            .main-canvas{padding:10px;padding-bottom:calc(18px + env(safe-area-inset-bottom));gap:10px}
+            .quiz-card,.step-header,.notes-card{border-radius:9px;padding:12px}
+            .question-title{font-size:1rem}.question-desc{font-size:.86rem}
+            .terminal-body{padding:11px 9px}.cmd-input{font-size:16px}
+            .blank-input{font-size:16px;max-width:100%;min-width:90px}
+            .question-nav{position:sticky;bottom:0;z-index:20;background:rgba(15,23,42,.95);padding:7px 0 calc(7px + env(safe-area-inset-bottom));backdrop-filter:blur(8px)}
+        }
+
+
+        /* ===== 即時麵包屑流程列：常駐、可點擊、水平自動跟隨 ===== */
+        .flow-panel {
+            position: sticky;
+            top: 62px;
+            z-index: 900;
+            background: rgba(9, 13, 22, .94);
+            border: 1px solid rgba(71, 85, 105, .78);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,.26);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        .flow-panel-header {
+            width: 100%;
+            border: 0;
+            background: linear-gradient(180deg, rgba(30,41,59,.96), rgba(15,23,42,.94));
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 9px 12px 8px;
+            text-align: left;
+        }
+        .flow-panel-title {
+            min-width: 0;
+            font-size: .82rem;
+            font-weight: 850;
+            color: #e2e8f0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .flow-panel-summary {
+            flex: 0 0 auto;
+            font-size: .7rem;
+            color: #bfdbfe;
+            white-space: nowrap;
+            background: rgba(59,130,246,.12);
+            border: 1px solid rgba(96,165,250,.25);
+            border-radius: 999px;
+            padding: 3px 7px;
+        }
+        .flow-list {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            gap: 0;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 8px 10px;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            overscroll-behavior-x: contain;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x proximity;
+        }
+        .flow-list::-webkit-scrollbar { display: none; }
+        .flow-item {
+            position: relative;
+            flex: 0 0 auto;
+            min-width: 118px;
+            max-width: 168px;
+            border: 0;
+            background: transparent;
+            color: #94a3b8;
+            padding: 0 20px 0 0;
+            display: grid;
+            grid-template-columns: 28px minmax(0,1fr);
+            grid-template-rows: auto auto;
+            column-gap: 7px;
+            row-gap: 1px;
+            align-items: center;
+            text-align: left;
+            cursor: pointer;
+            scroll-snap-align: center;
+        }
+        .flow-item:not(:last-child)::after {
+            content: '›';
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #475569;
+            font-size: 1.25rem;
+            font-weight: 900;
+        }
+        .flow-num {
+            grid-column: 1;
+            grid-row: 1 / span 2;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            font-size: .7rem;
+            font-weight: 900;
+            transition: .2s ease;
+        }
+        .flow-name {
+            grid-column: 2;
+            grid-row: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: .74rem;
+            line-height: 1.2;
+            color: #cbd5e1;
+        }
+        .flow-status {
+            grid-column: 2;
+            grid-row: 2;
+            font-size: .62rem;
+            line-height: 1.15;
+            color: #64748b;
+            white-space: nowrap;
+        }
+        .flow-item:hover .flow-num { border-color:#64748b; transform: translateY(-1px); }
+        .flow-item.done .flow-num {
+            background: #065f46;
+            border-color: #10b981;
+            color: #d1fae5;
+            box-shadow: 0 0 0 3px rgba(16,185,129,.08);
+        }
+        .flow-item.done .flow-name { color: #a7f3d0; }
+        .flow-item.done .flow-status { color: #34d399; }
+        .flow-item.current {
+            min-width: 150px;
+            max-width: 190px;
+        }
+        .flow-item.current .flow-num {
+            background: #2563eb;
+            border-color: #60a5fa;
+            color: #fff;
+            transform: scale(1.08);
+            box-shadow: 0 0 0 4px rgba(59,130,246,.13), 0 0 18px rgba(59,130,246,.25);
+        }
+        .flow-item.current .flow-name { color: #fff; font-weight: 900; }
+        .flow-item.current .flow-status { color: #93c5fd; font-weight: 800; }
+        .flow-item.current::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 18px;
+            bottom: -7px;
+            height: 2px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, transparent, #60a5fa, transparent);
+        }
+        .flow-current-bar {
+            display: flex;
+            align-items: center;
+            min-height: 28px;
+            padding: 5px 12px 7px;
+            border-top: 1px solid rgba(51,65,85,.65);
+            background: rgba(2,6,23,.72);
+            color: #cbd5e1;
+            font-size: .7rem;
+            line-height: 1.35;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .flow-current-bar b { color: #38bdf8; }
+        @media (max-width: 850px) {
+            .flow-panel {
+                top: 58px;
+                margin-left: -2px;
+                margin-right: -2px;
+                border-radius: 11px;
+                box-shadow: 0 8px 24px rgba(0,0,0,.3);
+            }
+            .flow-panel-header { padding: 7px 9px 6px; }
+            .flow-panel-title { font-size: .76rem; }
+            .flow-panel-summary { font-size: .64rem; padding: 2px 6px; }
+            .flow-list { padding: 7px 8px 8px; }
+            .flow-item { min-width: 102px; max-width: 140px; padding-right: 17px; column-gap: 6px; }
+            .flow-item.current { min-width: 132px; max-width: 160px; }
+            .flow-num { width: 25px; height: 25px; font-size: .66rem; }
+            .flow-name { font-size: .69rem; }
+            .flow-status { font-size: .59rem; }
+            .flow-item:not(:last-child)::after { right: 4px; font-size: 1.05rem; }
+            .flow-current-bar { font-size: .65rem; padding: 4px 9px 6px; min-height: 25px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <button class="hamburger-btn" onclick="toggleMobileDrawer()">☰</button>
+            <div class="logo">🌐 網乙第三站｜逐步練習</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="mode-badge">手機通勤</span>
+            <div class="stats-bar">
+                <div class="stat-item">正確:<span id="accuracyVal" class="stat-val correct">100%</span></div>
+                <div class="stat-item">連對:<span id="streakVal" class="stat-val streak">0</span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleMobileDrawer()"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="sidebar-title">考試步驟</div>
+        <div id="mobileNavContainer"></div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar" id="desktopNavContainer">
+            <div class="sidebar-title">考試步驟</div>
+            <div class="nav-item active" onclick="switchStep('step-A', this)"><span>A. 光碟 (安裝與準備)</span><span class="step-tag">準備</span></div>
+            <div class="nav-item" onclick="switchStep('step-B', this)"><span>B. 做線 (實體網路線)</span><span class="step-tag">實體</span></div>
+            <div class="nav-item" onclick="switchStep('step-C', this)"><span>C. 套件 (軟體庫與掛載)</span><span class="step-tag">逐步</span></div>
+            <div class="nav-item" onclick="switchStep('step-D', this)"><span>D. 試ping (IP與路由)</span><span class="step-tag">逐步</span></div>
+            <div class="nav-item" onclick="switchStep('step-E', this)"><span>E. 帳密權 (系統權限)</span><span class="step-tag">逐步</span></div>
+            <div class="nav-item" onclick="switchStep('step-F', this)"><span>F. 中文 (內容建置)</span><span class="step-tag">逐步</span></div>
+            <div class="nav-item" onclick="switchStep('step-G', this)"><span>G. 設定 (核心配置檔)</span><span class="step-tag">Vim</span></div>
+            <div class="nav-item" onclick="switchStep('step-H', this)"><span>H. 重啟與測試 (驗收)</span><span class="step-tag">驗收</span></div>
+            <div class="nav-item" onclick="switchStep('step-I', this)"><span>I. 考場觀念與避坑</span><span class="step-tag">觀念</span></div>
+        </div>
+
+        <div class="main-canvas">
+            <div class="step-header">
+                <div class="step-title-group">
+                    <h2 id="stepTitle">A. 光碟 (安裝與準備)</h2>
+                    <p id="stepSub">嚴格按照考試順序操作</p>
+                </div>
+                <div class="pc-toggle">
+                    <button class="pc-btn active" id="pc1Btn" onclick="togglePC('PC1')">💻 PC1</button>
+                    <button class="pc-btn" id="pc2Btn" onclick="togglePC('PC2')">🖥️ PC2</button>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted);">
+                <span>進度: <b id="progressText" style="color: #38bdf8;">1 / 1</b></span>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+
+            <div class="flow-panel" id="flowPanel" aria-label="即時完整步驟流程">
+                <div class="flow-panel-header">
+                    <span class="flow-panel-title">🧭 <span id="flowPcLabel">PC1</span> 即時流程</span>
+                    <span class="flow-panel-summary" id="flowSummary">0 / 0 完成</span>
+                </div>
+                <div class="flow-list" id="flowList" aria-label="可點擊步驟麵包屑"></div>
+                <div class="flow-current-bar" id="flowCurrentBar">目前位置載入中...</div>
+            </div>
+
+            <div class="question-nav">
+                <button class="btn btn-skip" onclick="prevQuestion()">← 前一題</button>
+                <button class="btn btn-skip" onclick="nextQuestionManual()">下一題 →</button>
+            </div>
+
+            <div class="quiz-card" id="quizCard"></div>
+
+            <div class="notes-card" id="notesCard">
+                <h3>💡 重點與解析</h3>
+                <div id="notesContent">載入中...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = {
+            "step-A": {
+                        "PC1": [
+                                    {
+                                                "type": "select",
+                                                "title": "1. BIOS 與開機準備",
+                                                "desc": "開機安裝前，正確的準備方式是哪一個？",
+                                                "options": [
+                                                            "光碟 / USB / SATA2，舊版關閉 UEFI，F10 儲存",
+                                                            "只設 SATA1，保持 UEFI",
+                                                            "直接網路開機",
+                                                            "不需更改 BIOS"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "開機順序為光碟/USB/SATA2；舊版關閉 UEFI，F10 儲存。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "2. 磁碟與 Root 密碼",
+                                                "desc": "安裝 Linux 時磁碟與 root 密碼應如何處理？",
+                                                "options": [
+                                                            "自動 / 全部刪除 / 取回空間，並設定 root 密碼",
+                                                            "保留全部舊資料，不設 root",
+                                                            "只格式化 /boot",
+                                                            "PC1 不需 root"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "依目前整理內容：自動、全部刪除、取回空間，並設定 root 密碼。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "3. 安裝軟體角色",
+                                                "desc": "PC1 在安裝畫面的「軟體選擇」應選哪一項？",
+                                                "options": [
+                                                            "Basic Web Server",
+                                                            "FTP Server",
+                                                            "Minimal Install only",
+                                                            "Database Server"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "PC1 是 Web 伺服器，安裝畫面選 Basic Web Server。"
+                                    }
+                        ],
+                        "PC2": [
+                                    {
+                                                "type": "select",
+                                                "title": "1. PC2 安裝準備",
+                                                "desc": "PC2 的 BIOS、磁碟與 root 安裝流程如何？",
+                                                "options": [
+                                                            "與 PC1 基本相同",
+                                                            "PC2 不安裝 Linux",
+                                                            "PC2 不設 root",
+                                                            "只能手動分割"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "PC2 的基本安裝流程與 PC1 相同。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "2. 安裝軟體角色",
+                                                "desc": "PC2 在安裝畫面的「軟體選擇」應選哪一項？",
+                                                "options": [
+                                                            "FTP Server",
+                                                            "Basic Web Server",
+                                                            "Workstation",
+                                                            "Virtualization Host"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "PC2 是 FTP 伺服器，安裝畫面選 FTP Server。"
+                                    }
+                        ]
+            },
+            "step-B": {
+                        "PC1": [
+                                    {
+                                                "type": "select",
+                                                "title": "1. 網路線色序",
+                                                "desc": "Cat5 線色序應選哪一組？",
+                                                "options": [
+                                                            "白橘 橘 白綠 藍 白藍 綠 白棕 棕",
+                                                            "白綠 綠 白橘 藍 白藍 橘 白棕 棕",
+                                                            "白棕 棕 白藍 藍 白綠 綠 白橘 橘",
+                                                            "任意即可"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "口訣：橘橘綠藍藍綠棕棕，白色穿插。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "2. PC1 插孔位置",
+                                                "desc": "PC1 的線應怎麼接？",
+                                                "options": [
+                                                            "1 號線接考場資訊插座最上方，2 號線接橋接孔中間",
+                                                            "兩條都接橋接孔",
+                                                            "1 號線接中間、2 號線接上方",
+                                                            "不用接線"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "PC1：1 號線最上方資訊插座；2 號線中間橋接孔。"
+                                    }
+                        ],
+                        "PC2": [
+                                    {
+                                                "type": "select",
+                                                "title": "1. PC2 插孔",
+                                                "desc": "PC2 做好線後，2 號線要插哪裡？",
+                                                "options": [
+                                                            "橋接孔（只有一個孔）",
+                                                            "最上方資訊插座",
+                                                            "USB",
+                                                            "不用插"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "PC2 的 2 號線接橋接孔。"
+                                    }
+                        ]
+            },
+            "step-C": {
+                        "PC1": [
+                                    {
+                                                "type": "terminal",
+                                                "title": "1. 進入套件庫目錄",
+                                                "desc": "請輸入指令進入 <code>/etc/yum.repos.d</code>。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "cd /etc/yum.repos.d",
+                                                            "cd /etc/yum.repos.d/"
+                                                ],
+                                                "hint": "cd /etc/yum.repos.d",
+                                                "explanation": "cd /etc/yum.repos.d"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 建立備份資料夾",
+                                                "desc": "建立 <code>backup</code> 資料夾。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "mkdir backup"
+                                                ],
+                                                "hint": "mkdir backup",
+                                                "explanation": "mkdir backup"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "3. 備份目前 repo 檔",
+                                                "desc": "將目前檔案複製到 backup。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "cp * backup",
+                                                            "cp * backup/"
+                                                ],
+                                                "hint": "cp * backup",
+                                                "explanation": "cp * backup"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 刪除 centos-addons.repo",
+                                                "desc": "刪除不需要的擴充來源。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "rm centos-addons.repo -y",
+                                                            "rm -y centos-addons.repo"
+                                                ],
+                                                "hint": "rm centos-addons.repo -y",
+                                                "explanation": "rm centos-addons.repo -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "5. 開啟 centos.repo",
+                                                "desc": "請輸入指令開啟主要 repo 設定檔。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "vim centos.repo"
+                                                ],
+                                                "hint": "vim centos.repo",
+                                                "explanation": "vim centos.repo"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "6. 修改 centos.repo",
+                                                "desc": "把線上 metalink 註解後，填入本地光碟來源。",
+                                                "filename": "/etc/yum.repos.d/centos.repo",
+                                                "template": "[baseos]<br>#metalink=...<br>baseurl={BLANK_1}<br><br>[appstream]<br>#metalink=...<br>baseurl={BLANK_2}",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "file:///media/BaseOS",
+                                                                        "placeholder": "BaseOS 路徑"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "file:///media/AppStream",
+                                                                        "placeholder": "AppStream 路徑"
+                                                            }
+                                                ],
+                                                "explanation": "BaseOS 與 AppStream 都要指向 /media 光碟來源，注意 file:/// 是三個斜線。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "7. 檢查磁碟／光碟狀態",
+                                                "desc": "使用 df 指令檢查掛載狀態。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "df -h"
+                                                ],
+                                                "hint": "df -h",
+                                                "explanation": "df -h"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "8. 掛載光碟",
+                                                "desc": "將 <code>/dev/sr0</code> 掛載到 <code>/media</code>。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "mount /dev/sr0 /media",
+                                                            "mount /dev/sr0 /media/"
+                                                ],
+                                                "hint": "mount /dev/sr0 /media",
+                                                "explanation": "mount /dev/sr0 /media"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "9. 掛載成功判斷",
+                                                "desc": "執行 mount 後看到哪種訊息可視為正常現象？",
+                                                "options": [
+                                                            "出現 read-only／唯讀相關提示",
+                                                            "顯示 No such file 且停止",
+                                                            "直接關機",
+                                                            "一定完全沒有文字"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "光碟通常以唯讀方式掛載，看到 read-only 提示是正常的。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "10. 安裝 httpd",
+                                                "desc": "安裝 Apache 網頁伺服器。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf install httpd -y",
+                                                            "dnf -y install httpd",
+                                                            "dnf install -y httpd"
+                                                ],
+                                                "hint": "dnf install httpd -y",
+                                                "explanation": "dnf install httpd -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "11. 安裝 mod_ssl",
+                                                "desc": "安裝 HTTPS 所需模組。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf install mod_ssl -y",
+                                                            "dnf -y install mod_ssl",
+                                                            "dnf install -y mod_ssl"
+                                                ],
+                                                "hint": "dnf install mod_ssl -y",
+                                                "explanation": "dnf install mod_ssl -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "12. 安裝 ftp 用戶端",
+                                                "desc": "安裝 FTP 測試工具。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf install ftp -y",
+                                                            "dnf -y install ftp",
+                                                            "dnf install -y ftp"
+                                                ],
+                                                "hint": "dnf install ftp -y",
+                                                "explanation": "dnf install ftp -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "13. 安裝 firewall-config",
+                                                "desc": "安裝防火牆圖形工具。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf install firewall-config -y",
+                                                            "dnf -y install firewall-config",
+                                                            "dnf install -y firewall-config"
+                                                ],
+                                                "hint": "dnf install firewall-config -y",
+                                                "explanation": "dnf install firewall-config -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "14. 列出 ibus 套件",
+                                                "desc": "先檢查可用的 ibus 套件。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf list ibus-*",
+                                                            "dnf list \"ibus-*\""
+                                                ],
+                                                "hint": "dnf list ibus-*",
+                                                "explanation": "dnf list ibus-*"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "15. 安裝中文輸入法",
+                                                "desc": "依目前整合內容安裝 <code>ibus-libzhuyin</code>。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf install ibus-libzhuyin -y",
+                                                            "dnf -y install ibus-libzhuyin",
+                                                            "dnf install -y ibus-libzhuyin"
+                                                ],
+                                                "hint": "dnf install ibus-libzhuyin -y",
+                                                "explanation": "dnf install ibus-libzhuyin -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "16. 開啟 SELinux 設定檔",
+                                                "desc": "進入 SELinux 設定檔修改。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "vim /etc/selinux/config"
+                                                ],
+                                                "hint": "vim /etc/selinux/config",
+                                                "explanation": "vim /etc/selinux/config"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "17. 關閉 SELinux",
+                                                "desc": "將 SELINUX 的值改成 disabled。",
+                                                "filename": "/etc/selinux/config",
+                                                "template": "SELINUX={BLANK_1}",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "disabled",
+                                                                        "placeholder": "填入值"
+                                                            }
+                                                ],
+                                                "explanation": "設定為 SELINUX=disabled。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "18. 重新開機",
+                                                "desc": "套用 SELinux 與中文輸入法設定。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "reboot"
+                                                ],
+                                                "hint": "reboot",
+                                                "explanation": "reboot"
+                                    }
+                        ],
+                        "PC2": [
+                                    {
+                                                "type": "terminal",
+                                                "title": "1. 進入套件庫目錄",
+                                                "desc": "請輸入指令進入 <code>/etc/yum.repos.d</code>。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "cd /etc/yum.repos.d",
+                                                            "cd /etc/yum.repos.d/"
+                                                ],
+                                                "hint": "cd /etc/yum.repos.d",
+                                                "explanation": "cd /etc/yum.repos.d"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 建立備份資料夾",
+                                                "desc": "建立 backup。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "mkdir backup"
+                                                ],
+                                                "hint": "mkdir backup",
+                                                "explanation": "mkdir backup"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "3. 備份目前 repo 檔",
+                                                "desc": "複製目前 repo 至 backup。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "cp * backup",
+                                                            "cp * backup/"
+                                                ],
+                                                "hint": "cp * backup",
+                                                "explanation": "cp * backup"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 刪除 centos-addons.repo",
+                                                "desc": "移除不需要來源。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "rm centos-addons.repo -y",
+                                                            "rm -y centos-addons.repo"
+                                                ],
+                                                "hint": "rm centos-addons.repo -y",
+                                                "explanation": "rm centos-addons.repo -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "5. 開啟 centos.repo",
+                                                "desc": "輸入指令編輯 repo。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "vim centos.repo"
+                                                ],
+                                                "hint": "vim centos.repo",
+                                                "explanation": "vim centos.repo"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "6. 修改 centos.repo",
+                                                "desc": "填入兩個本地光碟來源。",
+                                                "filename": "/etc/yum.repos.d/centos.repo",
+                                                "template": "[baseos]<br>#metalink=...<br>baseurl={BLANK_1}<br><br>[appstream]<br>#metalink=...<br>baseurl={BLANK_2}",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "file:///media/BaseOS",
+                                                                        "placeholder": "BaseOS 路徑"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "file:///media/AppStream",
+                                                                        "placeholder": "AppStream 路徑"
+                                                            }
+                                                ],
+                                                "explanation": "與 PC1 相同，使用本地光碟 BaseOS / AppStream。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "7. 檢查光碟",
+                                                "desc": "檢查磁碟掛載狀態。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "df -h"
+                                                ],
+                                                "hint": "df -h",
+                                                "explanation": "df -h"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "8. 掛載光碟",
+                                                "desc": "掛載 /dev/sr0 到 /media。",
+                                                "prompt": "[root@localhost yum.repos.d]#",
+                                                "answers": [
+                                                            "mount /dev/sr0 /media",
+                                                            "mount /dev/sr0 /media/"
+                                                ],
+                                                "hint": "mount /dev/sr0 /media",
+                                                "explanation": "mount /dev/sr0 /media"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "9. 安裝 vsftpd",
+                                                "desc": "安裝 FTP Server。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf install vsftpd -y",
+                                                            "dnf -y install vsftpd",
+                                                            "dnf install -y vsftpd"
+                                                ],
+                                                "hint": "dnf install vsftpd -y",
+                                                "explanation": "dnf install vsftpd -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "10. 安裝 ftp",
+                                                "desc": "安裝 FTP 用戶端工具。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf install ftp -y",
+                                                            "dnf -y install ftp",
+                                                            "dnf install -y ftp"
+                                                ],
+                                                "hint": "dnf install ftp -y",
+                                                "explanation": "dnf install ftp -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "11. 安裝 firewall-config",
+                                                "desc": "安裝防火牆圖形工具。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf install firewall-config -y",
+                                                            "dnf -y install firewall-config",
+                                                            "dnf install -y firewall-config"
+                                                ],
+                                                "hint": "dnf install firewall-config -y",
+                                                "explanation": "dnf install firewall-config -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "12. 列出 ibus 套件",
+                                                "desc": "先檢查可用的 ibus 套件。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf list ibus-*",
+                                                            "dnf list \"ibus-*\""
+                                                ],
+                                                "hint": "dnf list ibus-*",
+                                                "explanation": "dnf list ibus-*"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "13. 安裝中文輸入法",
+                                                "desc": "安裝 ibus-libzhuyin。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dnf install ibus-libzhuyin -y",
+                                                            "dnf -y install ibus-libzhuyin",
+                                                            "dnf install -y ibus-libzhuyin"
+                                                ],
+                                                "hint": "dnf install ibus-libzhuyin -y",
+                                                "explanation": "dnf install ibus-libzhuyin -y"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "14. 開啟 SELinux 設定檔",
+                                                "desc": "輸入指令進入 SELinux 設定檔。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "vim /etc/selinux/config"
+                                                ],
+                                                "hint": "vim /etc/selinux/config",
+                                                "explanation": "vim /etc/selinux/config"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "15. 關閉 SELinux",
+                                                "desc": "填入 disabled。",
+                                                "filename": "/etc/selinux/config",
+                                                "template": "SELINUX={BLANK_1}",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "disabled",
+                                                                        "placeholder": "填入值"
+                                                            }
+                                                ],
+                                                "explanation": "設定 SELINUX=disabled。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "16. 先檢查 fstab",
+                                                "desc": "重開前先查看 /home 是否為 xfs。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "vim /etc/fstab",
+                                                            "cat /etc/fstab"
+                                                ],
+                                                "hint": "vim /etc/fstab",
+                                                "explanation": "vim /etc/fstab"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "17. fstab 預檢",
+                                                "desc": "後面要做 XFS Quota，因此 /home 的格式應確認為？",
+                                                "options": [
+                                                            "xfs",
+                                                            "vfat",
+                                                            "ntfs",
+                                                            "swap"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "目前整合內容要求 /home 為 xfs，後續使用 xfs_quota。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "18. 重新開機",
+                                                "desc": "套用設定。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "reboot"
+                                                ],
+                                                "hint": "reboot",
+                                                "explanation": "reboot"
+                                    }
+                        ]
+            },
+            "step-D": {
+                        "PC1": [
+                                    {
+                                                "type": "vim",
+                                                "title": "1. PC1 雙網卡 IP 設定",
+                                                "desc": "把 PC1 的對內與對外網卡資料填完整。",
+                                                "filename": "圖形介面：網路設定",
+                                                "template": "對內 enp1s0：<br>IP={BLANK_1}<br>Mask={BLANK_2}<br>Gateway={BLANK_3}<br><br>對外 enp1s2：<br>IP={BLANK_4}<br>Mask={BLANK_5}<br>Gateway={BLANK_6}",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "200.100.X.254",
+                                                                        "placeholder": "對內 IP"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "255.255.255.0",
+                                                                        "placeholder": "Mask"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_3",
+                                                                        "answer": "0.0.0.0",
+                                                                        "placeholder": "對內 GW"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_4",
+                                                                        "answer": "10.1.X.1",
+                                                                        "placeholder": "對外 IP"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_5",
+                                                                        "answer": "255.255.255.0",
+                                                                        "placeholder": "Mask"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_6",
+                                                                        "answer": "10.1.X.254",
+                                                                        "placeholder": "對外 GW"
+                                                            }
+                                                ],
+                                                "explanation": "PC1 對內卡不走預設閘道；對外卡 Gateway 指向 10.1.X.254。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 開放 HTTP",
+                                                "desc": "永久開放 http。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "firewall-cmd --add-service=http --permanent",
+                                                            "firewall-cmd --permanent --add-service=http"
+                                                ],
+                                                "hint": "firewall-cmd --add-service=http --permanent",
+                                                "explanation": "firewall-cmd --add-service=http --permanent"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "3. 開放 HTTPS",
+                                                "desc": "永久開放 https。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "firewall-cmd --add-service=https --permanent",
+                                                            "firewall-cmd --permanent --add-service=https"
+                                                ],
+                                                "hint": "firewall-cmd --add-service=https --permanent",
+                                                "explanation": "firewall-cmd --add-service=https --permanent"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 開放 FTP",
+                                                "desc": "永久開放 ftp。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "firewall-cmd --add-service=ftp --permanent",
+                                                            "firewall-cmd --permanent --add-service=ftp"
+                                                ],
+                                                "hint": "firewall-cmd --add-service=ftp --permanent",
+                                                "explanation": "firewall-cmd --add-service=ftp --permanent"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "5. 開啟 Masquerade",
+                                                "desc": "永久開啟 NAT / IP 偽裝。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "firewall-cmd --add-masquerade --permanent",
+                                                            "firewall-cmd --permanent --add-masquerade"
+                                                ],
+                                                "hint": "firewall-cmd --add-masquerade --permanent",
+                                                "explanation": "firewall-cmd --add-masquerade --permanent"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "6. 檢查 IP Forwarding",
+                                                "desc": "先查核心轉發目前是否開啟。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "sysctl net.ipv4.ip_forward"
+                                                ],
+                                                "hint": "sysctl net.ipv4.ip_forward",
+                                                "explanation": "sysctl net.ipv4.ip_forward"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "7. IP Forwarding 結果判斷",
+                                                "desc": "若查詢結果顯示 <code>net.ipv4.ip_forward = 1</code>，代表什麼？",
+                                                "options": [
+                                                            "已開啟核心 IP 轉發",
+                                                            "Masquerade 已關閉",
+                                                            "FTP 已停止",
+                                                            "網卡未連線"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "值為 1 代表 IP Forwarding 已開啟。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "8. 暫時開啟 IP Forwarding",
+                                                "desc": "若沒開，輸入暫時生效指令。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "sysctl -w net.ipv4.ip_forward=1"
+                                                ],
+                                                "hint": "sysctl -w net.ipv4.ip_forward=1",
+                                                "explanation": "sysctl -w net.ipv4.ip_forward=1"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "9. 永久寫入 IP Forwarding",
+                                                "desc": "把設定永久寫入 /etc/sysctl.conf。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "echo \"net.ipv4.ip_forward = 1\" >> /etc/sysctl.conf",
+                                                            "echo 'net.ipv4.ip_forward = 1' >> /etc/sysctl.conf"
+                                                ],
+                                                "hint": "echo \"net.ipv4.ip_forward = 1\" >> /etc/sysctl.conf",
+                                                "explanation": "echo \"net.ipv4.ip_forward = 1\" >> /etc/sysctl.conf"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "10. 立即載入 sysctl",
+                                                "desc": "重新讀取 sysctl.conf。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "sysctl -p"
+                                                ],
+                                                "hint": "sysctl -p",
+                                                "explanation": "sysctl -p"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "11. 重新載入防火牆",
+                                                "desc": "套用永久防火牆規則。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "firewall-cmd --reload"
+                                                ],
+                                                "hint": "firewall-cmd --reload",
+                                                "explanation": "firewall-cmd --reload"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "12. 停止 httpd",
+                                                "desc": "先停止 httpd。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl stop httpd"
+                                                ],
+                                                "hint": "systemctl stop httpd",
+                                                "explanation": "systemctl stop httpd"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "13. 啟動 httpd",
+                                                "desc": "再啟動 httpd。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl start httpd"
+                                                ],
+                                                "hint": "systemctl start httpd",
+                                                "explanation": "systemctl start httpd"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "14. Ping PC1 外網卡",
+                                                "desc": "先測自己的對外 IP。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "ping 10.1.X.1"
+                                                ],
+                                                "hint": "ping 10.1.X.1",
+                                                "explanation": "ping 10.1.X.1"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "15. Ping 機房 Gateway",
+                                                "desc": "測試對外 Gateway。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "ping 10.1.X.254"
+                                                ],
+                                                "hint": "ping 10.1.X.254",
+                                                "explanation": "ping 10.1.X.254"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "16. Ping PC2 內網位址",
+                                                "desc": "測試到 PC2。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "ping 200.100.X.1"
+                                                ],
+                                                "hint": "ping 200.100.X.1",
+                                                "explanation": "ping 200.100.X.1"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "17. NAT 關係驗收",
+                                                "desc": "PC1 要讓 PC2 經它連外，哪個組合最完整？",
+                                                "options": [
+                                                            "IP Forwarding + Masquerade",
+                                                            "只開 http",
+                                                            "只設 FTP 帳號",
+                                                            "只設 DNS"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "Forwarding 負責跨網卡轉送；Masquerade 負責修改來源 IP，兩者是一組。"
+                                    }
+                        ],
+                        "PC2": [
+                                    {
+                                                "type": "vim",
+                                                "title": "1. PC2 IP 設定",
+                                                "desc": "依目前整合內容填入 PC2 的三個 IP。",
+                                                "filename": "圖形介面：網路設定",
+                                                "template": "IP1={BLANK_1} / 255.255.255.0<br>IP2={BLANK_2} / 255.255.255.0<br>IP3={BLANK_3} / 255.255.255.0",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "200.100.X.1",
+                                                                        "placeholder": "IP1"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "200.100.X.254",
+                                                                        "placeholder": "IP2"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_3",
+                                                                        "answer": "200.100.X.2",
+                                                                        "placeholder": "IP3"
+                                                            }
+                                                ],
+                                                "explanation": "依目前整合檔的 PC2 練習內容填入三個 IP。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 開放 FTP",
+                                                "desc": "永久開放 ftp。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "firewall-cmd --add-service=ftp --permanent",
+                                                            "firewall-cmd --permanent --add-service=ftp"
+                                                ],
+                                                "hint": "firewall-cmd --add-service=ftp --permanent",
+                                                "explanation": "firewall-cmd --add-service=ftp --permanent"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "3. 重新載入防火牆",
+                                                "desc": "套用規則。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "firewall-cmd --reload"
+                                                ],
+                                                "hint": "firewall-cmd --reload",
+                                                "explanation": "firewall-cmd --reload"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 停止 vsftpd",
+                                                "desc": "停止 FTP 服務。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl stop vsftpd"
+                                                ],
+                                                "hint": "systemctl stop vsftpd",
+                                                "explanation": "systemctl stop vsftpd"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "5. 啟動 vsftpd",
+                                                "desc": "再啟動 FTP 服務。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl start vsftpd"
+                                                ],
+                                                "hint": "systemctl start vsftpd",
+                                                "explanation": "systemctl start vsftpd"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "6. Ping 自己第一個 IP",
+                                                "desc": "測 200.100.X.1。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "ping 200.100.X.1"
+                                                ],
+                                                "hint": "ping 200.100.X.1",
+                                                "explanation": "ping 200.100.X.1"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "7. Ping 第二個 FTP IP",
+                                                "desc": "測 200.100.X.2。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "ping 200.100.X.2"
+                                                ],
+                                                "hint": "ping 200.100.X.2",
+                                                "explanation": "ping 200.100.X.2"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "8. Ping PC1 對內 IP",
+                                                "desc": "測 200.100.X.254。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "ping 200.100.X.254"
+                                                ],
+                                                "hint": "ping 200.100.X.254",
+                                                "explanation": "ping 200.100.X.254"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "9. Ping PC1 對外 IP",
+                                                "desc": "跨過 PC1 測 10.1.X.1。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "ping 10.1.X.1"
+                                                ],
+                                                "hint": "ping 10.1.X.1",
+                                                "explanation": "ping 10.1.X.1"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "10. Ping 機房 Gateway",
+                                                "desc": "測 10.1.X.254。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "ping 10.1.X.254"
+                                                ],
+                                                "hint": "ping 10.1.X.254",
+                                                "explanation": "ping 10.1.X.254"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "11. 路由驗收",
+                                                "desc": "PC2 可以 ping 自己，但 ping 不到 PC1，優先檢查哪一類問題？",
+                                                "options": [
+                                                            "線路、網卡綁定、IP/Mask",
+                                                            "先改 Apache .htaccess",
+                                                            "先改 FTP banner",
+                                                            "先做 Quota"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "先檢查實體層與 IP/Mask，再往服務層查。"
+                                    }
+                        ]
+            },
+            "step-E": {
+                        "PC1": [
+                                    {
+                                                "type": "terminal",
+                                                "title": "1. 建立 WebX-1",
+                                                "desc": "建立第一個 Web 使用者。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "useradd WebX-1"
+                                                ],
+                                                "hint": "useradd WebX-1",
+                                                "explanation": "useradd WebX-1"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 建立 WebX-2",
+                                                "desc": "建立第二個 Web 使用者。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "useradd WebX-2"
+                                                ],
+                                                "hint": "useradd WebX-2",
+                                                "explanation": "useradd WebX-2"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "3. 設 WebX-1 密碼",
+                                                "desc": "進入密碼設定。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "passwd WebX-1"
+                                                ],
+                                                "hint": "passwd WebX-1",
+                                                "explanation": "passwd WebX-1"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 設 WebX-2 密碼",
+                                                "desc": "進入密碼設定。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "passwd WebX-2"
+                                                ],
+                                                "hint": "passwd WebX-2",
+                                                "explanation": "passwd WebX-2"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "5. 進入 /home",
+                                                "desc": "切換到 /home。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "cd /home",
+                                                            "cd /home/"
+                                                ],
+                                                "hint": "cd /home",
+                                                "explanation": "cd /home"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "6. 檢查帳號目錄",
+                                                "desc": "列出 /home 內容。",
+                                                "prompt": "[root@localhost home]#",
+                                                "answers": [
+                                                            "ll",
+                                                            "ls -l"
+                                                ],
+                                                "hint": "ll",
+                                                "explanation": "ll"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "7. 開放 WebX-1 穿越權限",
+                                                "desc": "讓 Apache 能進入家目錄。",
+                                                "prompt": "[root@localhost home]#",
+                                                "answers": [
+                                                            "chmod o+x WebX-1",
+                                                            "chmod o+x /home/WebX-1"
+                                                ],
+                                                "hint": "chmod o+x WebX-1",
+                                                "explanation": "chmod o+x WebX-1"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "8. 開放 WebX-2 穿越權限",
+                                                "desc": "讓 Apache 能進入第二個家目錄。",
+                                                "prompt": "[root@localhost home]#",
+                                                "answers": [
+                                                            "chmod o+x WebX-2",
+                                                            "chmod o+x /home/WebX-2"
+                                                ],
+                                                "hint": "chmod o+x WebX-2",
+                                                "explanation": "chmod o+x WebX-2"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "9. 權限驗收",
+                                                "desc": "若忘了 chmod o+x，最容易看到哪個現象？",
+                                                "options": [
+                                                            "403 Forbidden",
+                                                            "FTP quota 變 2M",
+                                                            "BIOS 進不去",
+                                                            "網卡消失"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "Apache 無法穿越使用者 Home 目錄時常出現 403 Forbidden。"
+                                    }
+                        ],
+                        "PC2": [
+                                    {
+                                                "type": "terminal",
+                                                "title": "1. 建立 FtpX-2",
+                                                "desc": "建立 FTP 實體帳號。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "useradd FtpX-2"
+                                                ],
+                                                "hint": "useradd FtpX-2",
+                                                "explanation": "useradd FtpX-2"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 設定 FtpX-2 密碼",
+                                                "desc": "進入密碼設定。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "passwd FtpX-2"
+                                                ],
+                                                "hint": "passwd FtpX-2",
+                                                "explanation": "passwd FtpX-2"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "3. PC2 權限差異",
+                                                "desc": "這一步 PC2 還需要像 PC1 一樣對家目錄做 chmod o+x 嗎？",
+                                                "options": [
+                                                            "不需要；目前流程只需帳號密碼",
+                                                            "一定要 chmod 777",
+                                                            "要把 /var/ftp 刪掉",
+                                                            "要關閉 root"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "目前整理流程中 PC2 此步只建立帳號與密碼。"
+                                    }
+                        ]
+            },
+            "step-F": {
+                        "PC1": [
+                                    {
+                                                "type": "terminal",
+                                                "title": "1. 進入 /home",
+                                                "desc": "切換至 /home。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "cd /home",
+                                                            "cd /home/"
+                                                ],
+                                                "hint": "cd /home",
+                                                "explanation": "cd /home"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 建立 WebX-1/www",
+                                                "desc": "建立第一個網站目錄。",
+                                                "prompt": "[root@localhost home]#",
+                                                "answers": [
+                                                            "mkdir WebX-1/www",
+                                                            "mkdir WebX-1/www/"
+                                                ],
+                                                "hint": "mkdir WebX-1/www",
+                                                "explanation": "mkdir WebX-1/www"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "3. 建立 WebX-2/www",
+                                                "desc": "建立第二個網站目錄。",
+                                                "prompt": "[root@localhost home]#",
+                                                "answers": [
+                                                            "mkdir WebX-2/www",
+                                                            "mkdir WebX-2/www/"
+                                                ],
+                                                "hint": "mkdir WebX-2/www",
+                                                "explanation": "mkdir WebX-2/www"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 開啟 WebX-1 首頁",
+                                                "desc": "用 vim 開啟第一個 index.html。",
+                                                "prompt": "[root@localhost home]#",
+                                                "answers": [
+                                                            "vim WebX-1/www/index.html"
+                                                ],
+                                                "hint": "vim WebX-1/www/index.html",
+                                                "explanation": "vim WebX-1/www/index.html"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "5. 填 WebX-1 首頁內容",
+                                                "desc": "把網站編號填正確。",
+                                                "filename": "/home/WebX-1/www/index.html",
+                                                "template": "□□網站架設術科-{BLANK_1}號口的第1個網站",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "WebX-1",
+                                                                        "placeholder": "網站代號"
+                                                            }
+                                                ],
+                                                "explanation": "第一個網站使用 WebX-1。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "6. 複製首頁給 WebX-2",
+                                                "desc": "複製 index.html。",
+                                                "prompt": "[root@localhost home]#",
+                                                "answers": [
+                                                            "cp WebX-1/www/index.html WebX-2/www/index.html"
+                                                ],
+                                                "hint": "cp WebX-1/www/index.html WebX-2/www/index.html",
+                                                "explanation": "cp WebX-1/www/index.html WebX-2/www/index.html"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "7. 開啟 WebX-2 首頁",
+                                                "desc": "用 vim 開啟第二個首頁。",
+                                                "prompt": "[root@localhost home]#",
+                                                "answers": [
+                                                            "vim WebX-2/www/index.html"
+                                                ],
+                                                "hint": "vim WebX-2/www/index.html",
+                                                "explanation": "vim WebX-2/www/index.html"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "8. 填 WebX-2 首頁內容",
+                                                "desc": "改成第二個網站內容。",
+                                                "filename": "/home/WebX-2/www/index.html",
+                                                "template": "□□網站架設術科-{BLANK_1}號口的第2個網站",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "WebX-2",
+                                                                        "placeholder": "網站代號"
+                                                            }
+                                                ],
+                                                "explanation": "第二個網站使用 WebX-2。"
+                                    }
+                        ],
+                        "PC2": [
+                                    {
+                                                "type": "terminal",
+                                                "title": "1. 進入 /var/ftp",
+                                                "desc": "切換 FTP 根目錄。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "cd /var/ftp",
+                                                            "cd /var/ftp/"
+                                                ],
+                                                "hint": "cd /var/ftp",
+                                                "explanation": "cd /var/ftp"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 開啟 FtpX-1.txt",
+                                                "desc": "使用 vim 建立第一個歡迎詞。",
+                                                "prompt": "[root@localhost ftp]#",
+                                                "answers": [
+                                                            "vim FtpX-1.txt"
+                                                ],
+                                                "hint": "vim FtpX-1.txt",
+                                                "explanation": "vim FtpX-1.txt"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "3. 填 FtpX-1 歡迎詞",
+                                                "desc": "第一台 FTP 只允許匿名登入。",
+                                                "filename": "/var/ftp/FtpX-1.txt",
+                                                "template": "歡迎光臨<br>這是{BLANK_1}號口口口的第1個FTP伺服器<br>本伺服器僅允許{BLANK_2},不允許其他帳號登入",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "FtpX-1",
+                                                                        "placeholder": "FTP 名稱"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "匿名登入",
+                                                                        "placeholder": "登入方式"
+                                                            }
+                                                ],
+                                                "explanation": "第一台 FTP 僅允許匿名登入。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 複製歡迎詞",
+                                                "desc": "複製為第二台 FTP 的文字檔。",
+                                                "prompt": "[root@localhost ftp]#",
+                                                "answers": [
+                                                            "cp FtpX-1.txt FtpX-2.txt"
+                                                ],
+                                                "hint": "cp FtpX-1.txt FtpX-2.txt",
+                                                "explanation": "cp FtpX-1.txt FtpX-2.txt"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "5. 開啟 FtpX-2.txt",
+                                                "desc": "使用 vim 編輯第二個歡迎詞。",
+                                                "prompt": "[root@localhost ftp]#",
+                                                "answers": [
+                                                            "vim FtpX-2.txt"
+                                                ],
+                                                "hint": "vim FtpX-2.txt",
+                                                "explanation": "vim FtpX-2.txt"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "6. 填 FtpX-2 歡迎詞",
+                                                "desc": "第二台 FTP 只允許 FtpX-2。",
+                                                "filename": "/var/ftp/FtpX-2.txt",
+                                                "template": "歡迎光臨<br>這是{BLANK_1}號口口口的第2個FTP伺服器<br>本伺服器僅允許{BLANK_2}帳號登入,不允許匿名登入",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "FtpX-2",
+                                                                        "placeholder": "FTP 名稱"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "FtpX-2",
+                                                                        "placeholder": "帳號"
+                                                            }
+                                                ],
+                                                "explanation": "第二台 FTP 僅允許 FtpX-2 帳號登入。"
+                                    }
+                        ]
+            },
+            "step-G": {
+                        "PC1": [
+                                    {
+                                                "type": "terminal",
+                                                "title": "1. 開啟 userdir.conf",
+                                                "desc": "輸入完整 vim 路徑。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "vim /etc/httpd/conf.d/userdir.conf"
+                                                ],
+                                                "hint": "vim /etc/httpd/conf.d/userdir.conf",
+                                                "explanation": "vim /etc/httpd/conf.d/userdir.conf"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "2. 修改 userdir.conf",
+                                                "desc": "把使用者網站目錄改成 www，並填入 WebX-2 的限制區塊關鍵值。",
+                                                "filename": "/etc/httpd/conf.d/userdir.conf",
+                                                "template": "UserDir {BLANK_1}<br>&lt;Directory \"/home/*/{BLANK_2}\"&gt;<br>...<br>&lt;/Directory&gt;<br><br>&lt;Directory \"/home/WebX-2/www\"&gt;<br>&nbsp;&nbsp;AllowOverride {BLANK_3}<br>&nbsp;&nbsp;Order deny, allow<br>&nbsp;&nbsp;Deny from all<br>&nbsp;&nbsp;Allow from {BLANK_4}<br>&lt;/Directory&gt;",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "www",
+                                                                        "placeholder": "UserDir"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "www",
+                                                                        "placeholder": "目錄名稱"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_3",
+                                                                        "answer": "All",
+                                                                        "placeholder": "AllowOverride"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_4",
+                                                                        "answer": "200.100.X.1",
+                                                                        "placeholder": "允許 IP"
+                                                            }
+                                                ],
+                                                "explanation": "UserDir 與 Directory 改成 www；WebX-2 區塊允許 200.100.X.1。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "3. 進入 WebX-2/www",
+                                                "desc": "切換至第二個網站目錄。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "cd /home/WebX-2/www",
+                                                            "cd /home/WebX-2/www/"
+                                                ],
+                                                "hint": "cd /home/WebX-2/www",
+                                                "explanation": "cd /home/WebX-2/www"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 開啟 .htaccess",
+                                                "desc": "用 vim 建立存取控制檔。",
+                                                "prompt": "[root@localhost www]#",
+                                                "answers": [
+                                                            "vim .htaccess"
+                                                ],
+                                                "hint": "vim .htaccess",
+                                                "explanation": "vim .htaccess"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "5. 填 .htaccess",
+                                                "desc": "填入 Basic 認證與 valid-user。",
+                                                "filename": "/home/WebX-2/www/.htaccess",
+                                                "template": "AuthType {BLANK_1}<br>AuthName \"WebX-2 only\"<br>AuthUserFile /home/WebX-2/www/.htpasswd<br>Require {BLANK_2}",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "Basic",
+                                                                        "placeholder": "AuthType"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "valid-user",
+                                                                        "placeholder": "Require"
+                                                            }
+                                                ],
+                                                "explanation": "AuthType Basic；Require valid-user。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "6. 建立 .htpasswd",
+                                                "desc": "建立密碼檔並加入 WebX-2。",
+                                                "prompt": "[root@localhost www]#",
+                                                "answers": [
+                                                            "htpasswd -c .htpasswd WebX-2"
+                                                ],
+                                                "hint": "htpasswd -c .htpasswd WebX-2",
+                                                "explanation": "htpasswd -c .htpasswd WebX-2"
+                                    }
+                        ],
+                        "PC2": [
+                                    {
+                                                "type": "terminal",
+                                                "title": "1. 進入 vsftpd 目錄",
+                                                "desc": "切換至 /etc/vsftpd。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "cd /etc/vsftpd",
+                                                            "cd /etc/vsftpd/"
+                                                ],
+                                                "hint": "cd /etc/vsftpd",
+                                                "explanation": "cd /etc/vsftpd"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 開啟第一台 FTP 設定檔",
+                                                "desc": "使用 vim 編輯 vsftpd.conf。",
+                                                "prompt": "[root@localhost vsftpd]#",
+                                                "answers": [
+                                                            "vim vsftpd.conf"
+                                                ],
+                                                "hint": "vim vsftpd.conf",
+                                                "explanation": "vim vsftpd.conf"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "3. 填 FTP1 設定",
+                                                "desc": "第一台 FTP：匿名 YES、本機帳號 NO、監聽 .1、banner 指向 FtpX-1。",
+                                                "filename": "/etc/vsftpd/vsftpd.conf",
+                                                "template": "anonymous_enable={BLANK_1}<br>local_enable={BLANK_2}<br>listen={BLANK_3}<br>listen_address={BLANK_4}<br>banner_file={BLANK_5}<br>listen_ipv6={BLANK_6}",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "YES",
+                                                                        "placeholder": "YES/NO"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "NO",
+                                                                        "placeholder": "YES/NO"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_3",
+                                                                        "answer": "YES",
+                                                                        "placeholder": "YES/NO"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_4",
+                                                                        "answer": "200.100.X.1",
+                                                                        "placeholder": "IP"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_5",
+                                                                        "answer": "/var/ftp/FtpX-1.txt",
+                                                                        "placeholder": "banner 路徑"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_6",
+                                                                        "answer": "NO",
+                                                                        "placeholder": "YES/NO"
+                                                            }
+                                                ],
+                                                "explanation": "FTP1 使用匿名登入，監聽 200.100.X.1。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 複製設定檔",
+                                                "desc": "複製為 vsftpd2.conf。",
+                                                "prompt": "[root@localhost vsftpd]#",
+                                                "answers": [
+                                                            "cp vsftpd.conf vsftpd2.conf"
+                                                ],
+                                                "hint": "cp vsftpd.conf vsftpd2.conf",
+                                                "explanation": "cp vsftpd.conf vsftpd2.conf"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "5. 開啟第二台 FTP 設定檔",
+                                                "desc": "使用 vim 編輯 vsftpd2.conf。",
+                                                "prompt": "[root@localhost vsftpd]#",
+                                                "answers": [
+                                                            "vim vsftpd2.conf"
+                                                ],
+                                                "hint": "vim vsftpd2.conf",
+                                                "explanation": "vim vsftpd2.conf"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "6. 填 FTP2 設定",
+                                                "desc": "第二台 FTP：匿名 NO、本機帳號 YES、監聽 .2、banner 指向 FtpX-2。",
+                                                "filename": "/etc/vsftpd/vsftpd2.conf",
+                                                "template": "anonymous_enable={BLANK_1}<br>local_enable={BLANK_2}<br>listen=YES<br>listen_address={BLANK_3}<br>banner_file={BLANK_4}",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "NO",
+                                                                        "placeholder": "YES/NO"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "YES",
+                                                                        "placeholder": "YES/NO"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_3",
+                                                                        "answer": "200.100.X.2",
+                                                                        "placeholder": "IP"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_4",
+                                                                        "answer": "/var/ftp/FtpX-2.txt",
+                                                                        "placeholder": "banner 路徑"
+                                                            }
+                                                ],
+                                                "explanation": "FTP2 僅允許本機帳號，監聽 200.100.X.2。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "7. 開啟 /etc/fstab",
+                                                "desc": "準備開啟 /home 的使用者 Quota。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "vim /etc/fstab"
+                                                ],
+                                                "hint": "vim /etc/fstab",
+                                                "explanation": "vim /etc/fstab"
+                                    },
+                                    {
+                                                "type": "vim",
+                                                "title": "8. 修改 fstab",
+                                                "desc": "確認 /home 是 xfs，並在 defaults 後加入 usrquota。",
+                                                "filename": "/etc/fstab",
+                                                "template": "/home&nbsp;&nbsp;&nbsp;&nbsp;{BLANK_1}&nbsp;&nbsp;&nbsp;&nbsp;{BLANK_2}",
+                                                "blanks": [
+                                                            {
+                                                                        "id": "BLANK_1",
+                                                                        "answer": "xfs",
+                                                                        "placeholder": "格式"
+                                                            },
+                                                            {
+                                                                        "id": "BLANK_2",
+                                                                        "answer": "defaults,usrquota",
+                                                                        "placeholder": "掛載選項"
+                                                            }
+                                                ],
+                                                "explanation": "目標為 /home xfs defaults,usrquota。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "9. 卸載 /home",
+                                                "desc": "套用 Quota 前先卸載。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "umount /home"
+                                                ],
+                                                "hint": "umount /home",
+                                                "explanation": "umount /home"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "10. 重新載入 systemd",
+                                                "desc": "fstab 修改後重新載入。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl daemon-reload"
+                                                ],
+                                                "hint": "systemctl daemon-reload",
+                                                "explanation": "systemctl daemon-reload"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "11. 掛載 /home",
+                                                "desc": "重新掛載 /home。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "mount /home"
+                                                ],
+                                                "hint": "mount /home",
+                                                "explanation": "mount /home"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "12. 設定 FtpX-2 1M 硬限制",
+                                                "desc": "使用 XFS Quota 設定 bhard=1024K。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "xfs_quota -x -c \"limit -u bhard=1024K FtpX-2\" /home",
+                                                            "xfs_quota -x -c 'limit -u bhard=1024K FtpX-2' /home"
+                                                ],
+                                                "hint": "xfs_quota -x -c \"limit -u bhard=1024K FtpX-2\" /home",
+                                                "explanation": "xfs_quota -x -c \"limit -u bhard=1024K FtpX-2\" /home"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "13. 檢查 Quota",
+                                                "desc": "檢查配額是否成功。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "repquota -auv",
+                                                            "repquota --all --user --verbose"
+                                                ],
+                                                "hint": "repquota -auv",
+                                                "explanation": "repquota -auv"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "14. Quota 設定驗收",
+                                                "desc": "目前 /home 為 XFS 時，哪一個是主要建議的配額設定方式？",
+                                                "options": [
+                                                            "xfs_quota",
+                                                            "只用 chmod",
+                                                            "只改 passwd",
+                                                            "只改 firewall"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "目前整理內容以 xfs_quota 為主要方式；setquota 被註記為可替代但不推薦用於 XFS。"
+                                    }
+                        ]
+            },
+            "step-H": {
+                        "PC1": [
+                                    {
+                                                "type": "terminal",
+                                                "title": "1. 重啟 httpd",
+                                                "desc": "重新啟動 Web 服務。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl restart httpd"
+                                                ],
+                                                "hint": "systemctl restart httpd",
+                                                "explanation": "systemctl restart httpd"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 檢查防火牆服務",
+                                                "desc": "列出已開放服務。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "firewall-cmd --list-service",
+                                                            "firewall-cmd --list-services"
+                                                ],
+                                                "hint": "firewall-cmd --list-service",
+                                                "explanation": "firewall-cmd --list-service"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "3. 防火牆驗收",
+                                                "desc": "PC1 的服務清單至少應看到哪些與本站相關的服務？",
+                                                "options": [
+                                                            "http、https、ftp",
+                                                            "只有 ssh",
+                                                            "只有 dns",
+                                                            "完全空白"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "PC1 已開放 http、https、ftp；另有 masquerade 規則。"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 回 root 家目錄",
+                                                "desc": "回到管理員家目錄。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "cd ~"
+                                                ],
+                                                "hint": "cd ~",
+                                                "explanation": "cd ~"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "5. 確認目前路徑",
+                                                "desc": "查看目前目錄。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "pwd"
+                                                ],
+                                                "hint": "pwd",
+                                                "explanation": "pwd"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "6. 建立 up1 700K",
+                                                "desc": "建立第一個測試檔。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dd if=/dev/zero of=up1 bs=1k count=700",
+                                                            "dd if=/dev/zero of=up1 bs=1K count=700"
+                                                ],
+                                                "hint": "dd if=/dev/zero of=up1 bs=1k count=700",
+                                                "explanation": "dd if=/dev/zero of=up1 bs=1k count=700"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "7. 建立 up2 700K",
+                                                "desc": "建立第二個測試檔。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "dd if=/dev/zero of=up2 bs=1k count=700",
+                                                            "dd if=/dev/zero of=up2 bs=1K count=700"
+                                                ],
+                                                "hint": "dd if=/dev/zero of=up2 bs=1k count=700",
+                                                "explanation": "dd if=/dev/zero of=up2 bs=1k count=700"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "8. 700K 檔案大小驗收",
+                                                "desc": "用 ll 檢查時，每個 700K 測試檔大約應顯示多少 bytes？",
+                                                "options": [
+                                                            "716800",
+                                                            "1024",
+                                                            "700",
+                                                            "1048576"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "700 × 1024 = 716800 bytes。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "9. FTP1 匿名驗收",
+                                                "desc": "PC1 連到 200.100.X.1 時，哪個登入方式符合設定？",
+                                                "options": [
+                                                            "anonymous",
+                                                            "FtpX-2 only",
+                                                            "WebX-2",
+                                                            "root only"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "FTP1 設 anonymous_enable=YES、local_enable=NO。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "10. FTP1 內容驗收",
+                                                "desc": "匿名登入 FTP1 後，哪個測試最符合目前流程？",
+                                                "options": [
+                                                            "可看到並下載 FtpX-1.txt，查看歡迎詞",
+                                                            "一定要上傳 up2 才算成功",
+                                                            "必須以 WebX-1 登入",
+                                                            "看不到任何 banner"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "流程包含 dir、get FtpX-1.txt、查看歡迎詞。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "11. FTP2 Quota 驗收",
+                                                "desc": "FtpX-2 的 hard limit 為 1M，連續上傳兩個 700K 檔案時，合理結果是？",
+                                                "options": [
+                                                            "up1 成功，up2 因超過配額而失敗／只傳部分",
+                                                            "兩個都完整成功",
+                                                            "第一個一定失敗、第二個成功",
+                                                            "Quota 不影響上傳"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "第一個約 700K 可成功，第二個會超過 1M hard limit。"
+                                    }
+                        ],
+                        "PC2": [
+                                    {
+                                                "type": "terminal",
+                                                "title": "1. 停止舊 vsftpd",
+                                                "desc": "先停止一般 vsftpd。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl stop vsftpd"
+                                                ],
+                                                "hint": "systemctl stop vsftpd",
+                                                "explanation": "systemctl stop vsftpd"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "2. 啟動 FTP1 instance",
+                                                "desc": "啟動 vsftpd@vsftpd。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl start vsftpd@vsftpd"
+                                                ],
+                                                "hint": "systemctl start vsftpd@vsftpd",
+                                                "explanation": "systemctl start vsftpd@vsftpd"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "3. 啟動 FTP2 instance",
+                                                "desc": "啟動 vsftpd@vsftpd2。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl start vsftpd@vsftpd2"
+                                                ],
+                                                "hint": "systemctl start vsftpd@vsftpd2",
+                                                "explanation": "systemctl start vsftpd@vsftpd2"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "4. 設 FTP1 開機啟動",
+                                                "desc": "enable 第一個 instance。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl enable vsftpd@vsftpd"
+                                                ],
+                                                "hint": "systemctl enable vsftpd@vsftpd",
+                                                "explanation": "systemctl enable vsftpd@vsftpd"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "5. 設 FTP2 開機啟動",
+                                                "desc": "enable 第二個 instance。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "systemctl enable vsftpd@vsftpd2"
+                                                ],
+                                                "hint": "systemctl enable vsftpd@vsftpd2",
+                                                "explanation": "systemctl enable vsftpd@vsftpd2"
+                                    },
+                                    {
+                                                "type": "terminal",
+                                                "title": "6. 檢查 PC2 防火牆",
+                                                "desc": "列出服務。",
+                                                "prompt": "[root@localhost ~]#",
+                                                "answers": [
+                                                            "firewall-cmd --list-service",
+                                                            "firewall-cmd --list-services"
+                                                ],
+                                                "hint": "firewall-cmd --list-service",
+                                                "explanation": "firewall-cmd --list-service"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "7. Web 首頁驗收",
+                                                "desc": "PC2 瀏覽 <code>http://10.1.X.1/~WebX-1</code>，正常應看到什麼？",
+                                                "options": [
+                                                            "WebX-1 的第 1 個網站內容",
+                                                            "FTP2 歡迎詞",
+                                                            "Forbidden 一定出現",
+                                                            "BIOS 畫面"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "WebX-1 應能正常顯示第一個網站。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "8. WebX-2 帳密驗收",
+                                                "desc": "瀏覽 <code>https://10.1.X.2/~WebX-2</code> 時，正常應先出現什麼？",
+                                                "options": [
+                                                            "帳號密碼驗證",
+                                                            "匿名 FTP 登入",
+                                                            "磁碟格式化",
+                                                            "完全空白"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": ".htaccess 與 .htpasswd 讓 WebX-2 需要 Basic 認證。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "9. IP 限制驗收",
+                                                "desc": "把 PC2 測試 IP 從 200.100.X.1 改成 200.100.X.100 後，再存取 WebX-2，預期結果是？",
+                                                "options": [
+                                                            "Forbidden",
+                                                            "仍完全正常且不驗證",
+                                                            "FTP Transfer complete",
+                                                            "重新進 BIOS"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "userdir.conf 的限制只允許 200.100.X.1，因此改成 .100 應遭拒。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "10. 還原驗收",
+                                                "desc": "把 IP 改回 200.100.X.1 後，再測 WebX-2，預期如何？",
+                                                "options": [
+                                                            "恢復正常可存取",
+                                                            "永久 Forbidden",
+                                                            "Quota 自動消失",
+                                                            "FTP1 會關閉"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "IP 還原到允許來源後應恢復正常存取。"
+                                    }
+                        ]
+            },
+            "step-I": {
+                        "PC1": [
+                                    {
+                                                "type": "select",
+                                                "title": "1. PC1 / PC2 角色",
+                                                "desc": "哪一個角色描述最符合目前架構？",
+                                                "options": [
+                                                            "PC1 提供 Web 並作為 FTP client；PC2 提供 FTP 並作為 Web client",
+                                                            "兩台都只做 DNS",
+                                                            "PC1 只做 FTP、PC2 只做 DHCP",
+                                                            "兩台互不測試"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "兩台互為對方服務的驗收端。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "2. Ping 失敗先查什麼",
+                                                "desc": "可以 ping 自己卻 ping 不到對面，優先查哪裡？",
+                                                "options": [
+                                                            "線路、網卡 IP/Mask、NAT/轉發",
+                                                            "先改中文輸入法",
+                                                            "先改 FTP banner",
+                                                            "先做 htpasswd"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "先由實體層與網路層往上查。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "3. Masquerade 與 Forwarding",
+                                                "desc": "哪個說法正確？",
+                                                "options": [
+                                                            "Forwarding 允許跨網卡轉送；Masquerade 修改來源 IP",
+                                                            "兩者完全相同",
+                                                            "Masquerade 是磁碟配額",
+                                                            "Forwarding 是 Apache 密碼"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "兩者是 NAT 路由流程中的不同職責。"
+                                    }
+                        ],
+                        "PC2": [
+                                    {
+                                                "type": "select",
+                                                "title": "1. Vim 改錯避坑",
+                                                "desc": "Vim 大幅改錯且不想存檔時，可用哪個方式離開？",
+                                                "options": [
+                                                            "Esc 後 :q!",
+                                                            "直接 reboot 一定可復原",
+                                                            "rm -rf /",
+                                                            "Ctrl+C 一定還原檔案"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": ":q! 可強制不存檔離開。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "2. 修改設定檔後",
+                                                "desc": "服務設定檔修改完成後，通常還要做什麼才能讓服務讀入新設定？",
+                                                "options": [
+                                                            "restart / reload 對應服務或設定",
+                                                            "只關閉螢幕",
+                                                            "只切換輸入法",
+                                                            "只執行 pwd"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "設定檔修改後需讓對應服務重新載入。"
+                                    },
+                                    {
+                                                "type": "select",
+                                                "title": "3. 最終舉手前",
+                                                "desc": "最後應確認哪一組項目？",
+                                                "options": [
+                                                            "Web 與 FTP 驗收都正常、限制測試符合預期",
+                                                            "只確認桌面能開",
+                                                            "只確認 root 密碼",
+                                                            "只確認做線顏色"
+                                                ],
+                                                "correct": 0,
+                                                "explanation": "舉手前要確認網站、認證、Forbidden 限制與兩台 FTP 測試結果。"
+                                    }
+                        ]
+            }
+};
+
+        const notesMap = {
+            "step-A": "<b>A 安裝：</b>安裝畫面與 BIOS 用選擇題驗收；操作順序保持簡潔。",
+            "step-B": "<b>B 做線：</b>實體操作以選擇題確認色序與插孔。",
+            "step-C": "<b>C 套件：</b>「進哪個目錄／開哪個檔案／安裝什麼」全部手動輸入；真正修改設定內容才用填空。",
+            "step-D": "<b>D 網路：</b>IP 設定用填空；防火牆、Masquerade、IP Forwarding、reload、ping 全部手打。",
+            "step-E": "<b>E 帳密權：</b>帳號、密碼、目錄與 chmod 指令手打；最後用選擇題驗收權限觀念。",
+            "step-F": "<b>F 中文：</b>先手打 vim / cp / mkdir，再在檔案內容中填空。",
+            "step-G": "<b>G 設定：</b>userdir、htaccess、vsftpd、fstab 都是「先手打開檔 → 內容填空」；Quota 指令手打。",
+            "step-H": "<b>H 驗收：</b>必要的啟動／檢查指令手打；真正的結果判斷改用選擇題，避免驗收階段太雜亂。",
+            "step-I": "<b>I 觀念：</b>只保留考場常見的除錯、NAT 與最後確認。"
+};
+
+        let currentStep = 'step-A';
+        let currentPC = 'PC1';
+        let currentQuestionIdx = 0;
+        let totalAnswered = 0;
+        let totalCorrect = 0;
+        let streak = 0;
+        let completedQuestions = {};
+        try { completedQuestions = JSON.parse(localStorage.getItem('netBFlowCompleted') || '{}'); } catch(e) { completedQuestions = {}; }
+
+        function completionKey(step=currentStep, pc=currentPC, idx=currentQuestionIdx) {
+            return `${step}|${pc}|${idx}`;
+        }
+
+        function saveCompleted() {
+            try { localStorage.setItem('netBFlowCompleted', JSON.stringify(completedQuestions)); } catch(e) {}
+        }
+
+        function markCurrentCompleted() {
+            completedQuestions[completionKey()] = true;
+            saveCompleted();
+            renderFlowPanel();
+        }
+
+        function jumpToFlowQuestion(idx) {
+            const questions = quizData[currentStep]?.[currentPC] || [];
+            if (idx < 0 || idx >= questions.length) return;
+            currentQuestionIdx = idx;
+            renderQuestion();
+        }
+
+        function renderFlowPanel() {
+            const list = document.getElementById('flowList');
+            if (!list) return;
+            const questions = quizData[currentStep]?.[currentPC] || [];
+            const doneCount = questions.reduce((n, q, i) => n + (completedQuestions[completionKey(currentStep,currentPC,i)] ? 1 : 0), 0);
+            document.getElementById('flowPcLabel').innerText = currentPC;
+            document.getElementById('flowSummary').innerText = `${doneCount} / ${questions.length} 完成`;
+            list.innerHTML = questions.map((q,i) => {
+                const done = !!completedQuestions[completionKey(currentStep,currentPC,i)];
+                const cur = i === currentQuestionIdx;
+                const cls = `flow-item${done ? ' done' : ''}${cur ? ' current' : ''}`;
+                const status = cur ? '← 目前' : (done ? '✓ 完成' : '待練');
+                const icon = done ? '✓' : (i+1);
+                return `<button type="button" class="${cls}" data-flow-index="${i}" onclick="jumpToFlowQuestion(${i})"><span class="flow-num">${icon}</span><span class="flow-name">${q.title}</span><span class="flow-status">${status}</span></button>`;
+            }).join('');
+            const q = questions[currentQuestionIdx];
+            const currentBar = document.getElementById('flowCurrentBar');
+            if (q) currentBar.innerHTML = `現在正在做 <b>第 ${currentQuestionIdx+1} 步 / 共 ${questions.length} 步</b>：${q.title}`;
+            else currentBar.innerHTML = `<b>${currentPC}</b> 這個大項已完成。`;
+            requestAnimationFrame(() => {
+                const curEl = list.querySelector('.flow-item.current');
+                if (curEl) {
+                    const target = curEl.offsetLeft - (list.clientWidth - curEl.offsetWidth) / 2;
+                    list.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+                }
+            });
+        }
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playBeep(isCorrect) {
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                if (isCorrect) {
+                    osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else {
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(164.81, audioCtx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.35);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.35);
+                }
+            } catch(e) {}
+        }
+
+        function init() {
+            const desktopNav = document.getElementById('desktopNavContainer').innerHTML;
+            document.getElementById('mobileNavContainer').innerHTML = desktopNav;
+            
+            document.querySelectorAll('#mobileNavContainer .nav-item').forEach(item => {
+                const onclickAttr = item.getAttribute('onclick');
+                item.setAttribute('onclick', onclickAttr + '; toggleMobileDrawer();');
+            });
+
+            renderQuestion();
+            updateStats();
+            renderFlowPanel();
+        }
+
+        function toggleMobileDrawer() {
+            const drawer = document.getElementById('mobileDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+            drawer.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+
+        function switchStep(stepId, el) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('#mobileNavContainer .nav-item').forEach(item => {
+                if (item.getAttribute('onclick').includes(stepId)) item.classList.add('active');
+            });
+            document.querySelectorAll('#desktopNavContainer .nav-item').forEach(item => {
+                if (item.getAttribute('onclick').includes(stepId)) item.classList.add('active');
+            });
+
+            currentStep = stepId;
+            currentQuestionIdx = 0;
+            const titles = {
+                'step-A': 'A. 光碟 (安裝與準備)',
+                'step-B': 'B. 做線 (實體網路線)',
+                'step-C': 'C. 套件 (軟體庫與掛載)',
+                'step-D': 'D. 試ping (IP與路由通訊)',
+                'step-E': 'E. 帳密權 (系統權限)',
+                'step-F': 'F. 中文 (內容建置)',
+                'step-G': 'G. 設定 (核心配置檔)',
+                'step-H': 'H. 重啟與測試 (驗收)',
+                'step-I': 'I. 考場觀念與避坑指南'
+            };
+            document.getElementById('stepTitle').innerText = titles[stepId];
+            document.getElementById('notesContent').innerHTML = notesMap[stepId];
+            renderQuestion();
+        }
+
+        function togglePC(pc) {
+            currentPC = pc;
+            currentQuestionIdx = 0;
+            document.getElementById('pc1Btn').classList.toggle('active', pc === 'PC1');
+            document.getElementById('pc2Btn').classList.toggle('active', pc === 'PC2');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const quizCard = document.getElementById('quizCard');
+            const questions = quizData[currentStep]?.[currentPC] || [];
+            if (questions.length === 0 || currentQuestionIdx >= questions.length) {
+                quizCard.innerHTML = `
+                    <div style="text-align: center; padding: 20px 10px;">
+                        <h3 style="color: #10b981; font-size: 1.2rem; margin-bottom: 10px;">🎉 本大項 (${currentPC}) 練習完成！</h3>
+                        <p style="color: #94a3b8; margin-bottom: 15px; font-size: 0.85rem;">此電腦在這一大項已完成，可切換 PC1 / PC2 或進入下一步。</p>
+                        <button class="btn btn-primary" style="margin: 0 auto; width: auto; padding: 8px 20px;" onclick="nextStepAuto()">進入下一步驟 ➔</button>
+                    </div>
+                `;
+                updateProgressBar();
+                renderFlowPanel();
+                return;
+            }
+
+            const q = questions[currentQuestionIdx];
+            let html = `
+                <div class="question-title">${q.title}${q.type === 'select' ? '<span class=\"verify-badge\">驗收選擇</span>' : '<span class=\"input-badge\">手動輸入</span>'}</div>
+                <div class="question-desc">${q.desc}</div>
+            `;
+
+            if (q.type === 'select') {
+                html += `<div style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px;">`;
+                q.options.forEach((opt, idx) => {
+                    html += `
+                        <button class="btn btn-skip" style="justify-content: flex-start; text-align: left; padding: 10px 12px; font-size: 0.85rem; height: auto;" onclick="checkSelect(${idx}, ${q.correct})">
+                            <b>${String.fromCharCode(65 + idx)}.</b>&nbsp;${opt}
+                        </button>
+                    `;
+                });
+                html += `</div>`;
+            } else if (q.type === 'terminal') {
+                html += `
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <span class="dot dot-red"></span>
+                            <span class="dot dot-yellow"></span>
+                            <span class="dot dot-green"></span>
+                            <span class="terminal-title">Terminal</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="cmd-line">
+                                <span class="prompt">${q.prompt}</span>
+                                <input type="text" class="cmd-input" id="terminalInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="請輸入完整指令..." onkeydown="handleTermKey(event)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary" onclick="checkTerminal()">提交驗證 ➔</button>
+                        <button class="btn btn-hint" onclick="showHint('${q.hint}')">💡 提示</button>
+                        <button class="btn btn-skip" onclick="skipQuestion()">跳過</button>
+                    </div>
+                `;
+            } else if (q.type === 'vim') {
+                let vimBody = q.template;
+                q.blanks.forEach(b => {
+                    const inputHtml = `<input type="text" class="blank-input" id="${b.id}" placeholder="${b.placeholder}" autocomplete="off" autocapitalize="off" spellcheck="false">`;
+                    vimBody = vimBody.replace(`{${b.id}}`, inputHtml);
+                });
+                html += `
+                    <div class="vim-window">
+                        <div class="vim-filename">📄 VIM: ${q.filename}</div>
+                        <div>${vimBody}</div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary" onclick="checkVim()">💾 儲存驗證 ➔</button>
+                        <button class="btn btn-hint" onclick="showVimAnswer()">👀 解答</button>
+                        <button class="btn btn-skip" onclick="skipQuestion()">跳過</button>
+                    </div>
+                `;
+            }
+
+            html += `<div class="feedback-box" id="feedbackBox"></div>`;
+            quizCard.innerHTML = html;
+
+            setTimeout(() => {
+                const termIn = document.getElementById('terminalInput');
+                if (termIn) termIn.focus();
+            }, 100);
+
+            updateProgressBar();
+            renderFlowPanel();
+        }
+
+        function handleTermKey(e) {
+            if (e.key === 'Enter') {
+                checkTerminal();
+            }
+        }
+
+        function checkSelect(selectedIdx, correctIdx) {
+            const fb = document.getElementById('feedbackBox');
+            totalAnswered++;
+            if (selectedIdx === correctIdx) {
+                totalCorrect++;
+                streak++;
+                playBeep(true);
+                fb.className = 'feedback-box correct';
+                fb.innerHTML = `<b>✅ 正確！</b> ${quizData[currentStep][currentPC][currentQuestionIdx].explanation}`;
+                markCurrentCompleted();
+                setTimeout(() => { currentQuestionIdx++; renderQuestion(); }, 1200);
+            } else {
+                streak = 0;
+                playBeep(false);
+                fb.className = 'feedback-box incorrect';
+                fb.innerHTML = `<b>❌ 答案不正確！</b> 請再想想看。`;
+            }
+            updateStats();
+        }
+
+        function checkTerminal() {
+            const inputEl = document.getElementById('terminalInput');
+            if (!inputEl) return;
+            const val = inputEl.value.trim().replace(/\s+/g, ' ');
+            const q = quizData[currentStep][currentPC][currentQuestionIdx];
+            const fb = document.getElementById('feedbackBox');
+
+            totalAnswered++;
+            if (q.answers.some(ans => ans.toLowerCase() === val.toLowerCase())) {
+                totalCorrect++;
+                streak++;
+                playBeep(true);
+                inputEl.className = 'cmd-input success';
+                fb.className = 'feedback-box correct';
+                fb.innerHTML = `<b>✅ 指令正確！</b><br>${q.explanation}`;
+                markCurrentCompleted();
+                setTimeout(() => { currentQuestionIdx++; renderQuestion(); }, 1200);
+            } else {
+                streak = 0;
+                playBeep(false);
+                inputEl.className = 'cmd-input error';
+                fb.className = 'feedback-box incorrect';
+                fb.innerHTML = `<b>❌ 指令或路徑不符！</b><br>請確認是否有確實輸入對應的資料夾切換 (cd) 或參數。`;
+            }
+            updateStats();
+        }
+
+        function checkVim() {
+            const q = quizData[currentStep][currentPC][currentQuestionIdx];
+            const fb = document.getElementById('feedbackBox');
+            let allCorrect = true;
+
+            q.blanks.forEach(b => {
+                const el = document.getElementById(b.id);
+                if (el) {
+                    const userVal = el.value.trim();
+                    if (userVal.toLowerCase() === b.answer.toLowerCase()) {
+                        el.className = 'blank-input correct';
+                    } else {
+                        el.className = 'blank-input wrong';
+                        allCorrect = false;
+                    }
+                }
+            });
+
+            totalAnswered++;
+            if (allCorrect) {
+                totalCorrect++;
+                streak++;
+                playBeep(true);
+                fb.className = 'feedback-box correct';
+                fb.innerHTML = `<b>✅ 填寫正確！</b><br>${q.explanation}`;
+                markCurrentCompleted();
+                setTimeout(() => { currentQuestionIdx++; renderQuestion(); }, 1200);
+            } else {
+                streak = 0;
+                playBeep(false);
+                fb.className = 'feedback-box incorrect';
+                fb.innerHTML = `<b>❌ 紅框處參數錯誤！</b>`;
+            }
+            updateStats();
+        }
+
+        function showHint(hintText) {
+            const fb = document.getElementById('feedbackBox');
+            fb.className = 'feedback-box hint';
+            fb.innerHTML = `<b>💡 指令提示：</b> <code>${hintText}</code>`;
+        }
+
+        function showVimAnswer() {
+            const q = quizData[currentStep][currentPC][currentQuestionIdx];
+            q.blanks.forEach(b => {
+                const el = document.getElementById(b.id);
+                if (el) el.value = b.answer;
+            });
+            const fb = document.getElementById('feedbackBox');
+            fb.className = 'feedback-box hint';
+            fb.innerHTML = `<b>👀 已自動填入解答</b>`;
+        }
+
+        function skipQuestion() {
+            currentQuestionIdx++;
+            renderQuestion();
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIdx > 0) { currentQuestionIdx--; renderQuestion(); }
+        }
+
+        function nextQuestionManual() {
+            const questions = quizData[currentStep]?.[currentPC] || [];
+            if (currentQuestionIdx < questions.length - 1) { currentQuestionIdx++; renderQuestion(); }
+        }
+
+        function nextStepAuto() {
+            const stepKeys = Object.keys(quizData);
+            const curIdx = stepKeys.indexOf(currentStep);
+            if (curIdx < stepKeys.length - 1) {
+                const nextStepKey = stepKeys[curIdx + 1];
+                const navItems = document.querySelectorAll('#desktopNavContainer .nav-item');
+                switchStep(nextStepKey, navItems[curIdx + 1]);
+            }
+        }
+
+        function updateStats() {
+            const accEl = document.getElementById('accuracyVal');
+            const streakEl = document.getElementById('streakVal');
+            const progEl = document.getElementById('progressText');
+
+            const acc = totalAnswered === 0 ? 100 : Math.round((totalCorrect / totalAnswered) * 100);
+            accEl.innerText = acc + '%';
+            streakEl.innerText = streak;
+
+            const questions = quizData[currentStep]?.[currentPC] || [];
+            progEl.innerText = `${currentQuestionIdx + 1} / ${questions.length || 1}`;
+        }
+
+        function updateProgressBar() {
+            const questions = quizData[currentStep]?.[currentPC] || [];
+            const pct = questions.length === 0 ? 100 : ((currentQuestionIdx) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = pct + '%';
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
