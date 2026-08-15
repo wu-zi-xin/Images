@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCNA 1.2｜網路元件</title>
+<style>
+:root{--navy:#0b2f55;--navy2:#0e3e70;--blue:#1e73d8;--sky:#eaf4ff;--green:#2f9e62;--purple:#6f35c5;--ink:#142033;--muted:#5c6b7a;--line:#dbe5ef;--paper:#fff;--bg:#f3f7fb;--warn:#fff7df;--danger:#fff0f0;--radius:16px;--shadow:0 12px 30px rgba(10,39,68,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75}
+a{color:inherit}.top{height:64px;background:linear-gradient(90deg,#082745,#0c3763);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:50;box-shadow:0 3px 14px rgba(0,0,0,.15)}.brand{font-weight:800;letter-spacing:.2px;font-size:18px}.top small{opacity:.78}.layout{display:grid;grid-template-columns:270px minmax(0,1fr);width:100%;max-width:none;margin:0;min-height:calc(100vh - 64px)}
+.sidebar{background:#0d3157;color:#fff;padding:22px 16px;position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto}.side-title{font-size:13px;opacity:.7;text-transform:uppercase;letter-spacing:.08em;margin:14px 8px 8px}.nav a{display:block;text-decoration:none;padding:10px 12px;border-radius:10px;color:#dbe9f8;font-size:14px}.nav a:hover,.nav a.active{background:#1e5d9b;color:#fff}.term-list{font-size:13px;border:1px solid rgba(255,255,255,.13);border-radius:12px;overflow:hidden}.term-list div{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.09)}.term-list div:last-child{border-bottom:0}.tip-side{margin-top:18px;padding:14px;background:rgba(255,255,255,.08);border-radius:12px;font-size:13px;color:#e7f1fb}
+.main{padding:36px clamp(18px,4vw,52px) 72px;min-width:0}.hero{background:linear-gradient(135deg,#fff,#edf6ff);border:1px solid #d5e7f7;border-radius:22px;padding:32px;box-shadow:var(--shadow);margin-bottom:24px}.eyebrow{color:var(--blue);font-weight:800;font-size:13px;letter-spacing:.08em}.hero h1{font-size:clamp(28px,4vw,46px);line-height:1.2;margin:8px 0 14px;color:#0c3763}.hero p{max-width:900px;margin:0;color:#435466}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.badge{padding:6px 10px;border-radius:99px;background:#fff;border:1px solid #cae1f5;font-size:12px;font-weight:700;color:#24588a}
+section{scroll-margin-top:88px;margin:34px 0}.section-title{font-size:26px;margin:0 0 8px;color:#0c3763}.lead{color:#586879;margin-top:0}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}.grid{display:grid;gap:16px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.concept{border-top:4px solid var(--blue)}.concept b{display:block;color:#144e87;margin-bottom:6px}.note{background:#eef8f1;border:1px solid #b9dec7;border-left:5px solid var(--green);padding:16px 18px;border-radius:12px}.warning{background:var(--warn);border:1px solid #f3daa0;border-left:5px solid #d69a16;padding:16px 18px;border-radius:12px}.kicker{font-weight:800;color:#2a6bac}
+.figure{margin:18px 0;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}.figure img{display:block;width:100%;height:auto}.caption{font-size:13px;color:#647485;padding:10px 14px;background:#f8fbfe;border-top:1px solid var(--line)}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.step{background:#f8fbff;border:1px solid #bad7f4;border-radius:14px;padding:16px;position:relative}.step .num{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#1e73d8;color:#fff;font-weight:800;margin-bottom:8px}.step:not(:last-child)::after{content:'→';position:absolute;right:-13px;top:46%;z-index:2;color:#1e73d8;font-weight:900;background:var(--bg);padding:0 2px}
+.svgwrap{background:linear-gradient(180deg,#f8fbfe,#fff);border:1px solid #d7e4ef;border-radius:18px;padding:16px}.svgwrap svg{display:block;width:100%;height:auto}.device{font-size:12px;fill:#163b63}.line{stroke:#1e73d8;stroke-width:3}.port{fill:#f9c74f;stroke:#916d08;stroke-width:1}.devbox{fill:#e8f3ff;stroke:#699fd4;stroke-width:2}.rack{fill:#1c2733}.screen{fill:#d9eefb;stroke:#416987;stroke-width:2}.cable{stroke:#2f9e62;stroke-width:4;fill:none}.glossary{width:100%;border-collapse:collapse;font-size:14px}.glossary th,.glossary td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.glossary th{background:#edf5fd;color:#174d82}.glossary tr:last-child td{border-bottom:0}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f1720;color:#d9f7df;border-radius:14px;padding:18px;overflow:auto;line-height:1.6}
+.quiz{background:#fff;border:1px solid #e0d7f2;border-radius:18px;padding:20px;box-shadow:var(--shadow)}.q{padding:18px 0;border-bottom:1px solid #eee}.q:last-of-type{border-bottom:0}.q h3{margin:0 0 10px;font-size:17px;color:#4b2493}.opt{display:block;padding:8px 10px;border-radius:9px;cursor:pointer}.opt:hover{background:#f6f1ff}.quiz button{border:0;border-radius:10px;padding:10px 16px;background:var(--purple);color:#fff;font-weight:800;cursor:pointer}.result{margin-top:15px;padding:14px;border-radius:12px;background:#f2fbf5;border:1px solid #b7ddc4;display:none}.explain{font-size:13px;color:#52606d;margin:6px 0 0 26px;display:none}.wrong{background:#fff0f0}.right{background:#ecfbf1}.progress{height:6px;position:fixed;top:64px;left:0;right:0;background:transparent;z-index:60}.progress span{display:block;height:100%;background:#35a8ff;width:0}.backtop{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:0;background:#0d4478;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.22);cursor:pointer}.footer{text-align:center;color:#6c7b89;font-size:13px;margin-top:46px}.table-scroll{overflow-x:auto}.search{margin:12px 0}.search input{width:100%;padding:11px 12px;border:1px solid #bfd0df;border-radius:10px;font:inherit}.hl{background:#fff2a8;border-radius:3px}
+.menuBackdrop{display:none}.menuBtn{align-items:center;justify-content:center;min-width:42px;min-height:42px;font-size:22px;line-height:1;touch-action:manipulation}.backtop{z-index:80;display:grid;place-items:center;font-size:22px;touch-action:manipulation;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease,visibility .2s}.backtop.show{opacity:1;visibility:visible;transform:none}body.menu-open{overflow:hidden}
+@media(max-width:960px){.layout{display:block;width:100%;margin:0}.sidebar{display:block;position:fixed;left:0;top:60px;bottom:0;width:min(84vw,320px);height:auto;z-index:75;transform:translateX(-105%);transition:transform .25s ease;box-shadow:12px 0 28px rgba(0,0,0,.22);overscroll-behavior:contain}.sidebar.open{transform:translateX(0)}.menuBackdrop{display:block;position:fixed;inset:60px 0 0 0;background:rgba(3,18,32,.52);z-index:70;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s;cursor:pointer}.menuBackdrop.open{opacity:1;visibility:visible}.top{height:60px;min-height:60px;gap:10px}.top small{display:none}.main{padding-top:22px;width:100%;overflow:hidden}.grid-3,.grid-2{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.step:nth-child(2)::after{display:none}.progress{top:60px}.menuBtn{display:inline-flex!important}.backtop{right:14px;bottom:14px}}
+@media(min-width:961px){.menuBtn{display:none!important}}
+@media(max-width:560px){.hero{padding:22px 18px}.flow{grid-template-columns:1fr}.step::after{display:none}.main{padding-left:13px;padding-right:13px}.section-title{font-size:22px}.card{padding:16px}.top{padding:0 12px}.brand{font-size:15px}}
+@media print{.sidebar,.top,.backtop,.progress,.quiz button{display:none!important}.layout{display:block}.main{padding:0}.card,.hero,.figure,.quiz{box-shadow:none;break-inside:avoid}}
+
+.pronounce-btn{margin-left:8px;border:1px solid #b9d3ea;background:#eef6ff;color:#145f9c;border-radius:999px;padding:3px 9px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;vertical-align:middle}
+.pronounce-btn:hover{background:#dceeff}.pronounce-btn:focus{outline:2px solid #6aa9e9;outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="top"><div style="display:flex;align-items:center;gap:10px"><button class="menuBtn" id="menuBtn" aria-label="開啟導覽" style="display:none;background:transparent;border:1px solid rgba(255,255,255,.3);color:white;border-radius:8px;padding:6px 9px">☰</button><div class="brand">CCNA 課程筆記｜網路元件</div></div><small>依影片 1.2.1～1.2.5 整理</small></header>
+<div class="progress"><span id="progressBar"></span></div>
+<div class="menuBackdrop" id="menuBackdrop" aria-hidden="true"></div>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+<div class="side-title">課程大綱</div>
+<nav class="nav" id="nav">
+<a href="#overview">1. 本段在學什麼</a>
+<a href="#hosts">2. 1.2.1 主機角色</a>
+<a href="#p2p">3. 1.2.2 對等網路</a>
+<a href="#enddevices">4. 1.2.3 終端裝置</a>
+<a href="#intermediary">5. 1.2.4 中介設備</a>
+<a href="#media">6. 1.2.5 網路媒體</a>
+<a href="#terms">7. 專有名詞中英對照</a>
+<a href="#quiz">8. 課後考題</a>
+</nav>
+<div class="side-title">快速搜尋</div><div class="search"><input id="search" placeholder="搜尋：Host、Client、Switch、Media…" /></div>
+<div class="side-title">核心術語</div>
+<div class="term-list">
+<div>主機（Host）</div><div>用戶端（Client）</div><div>伺服器（Server）</div><div>對等式（Peer-to-Peer）</div>
+<div>終端裝置（End Device）</div><div>中介設備（Intermediary Device）</div><div>網路媒體（Network Media）</div><div>LAN / WAN</div>
+</div>
+<div class="tip-side">💡 學習小提醒：這一段是在建立「網路由什麼組成」的基本分類。先分清楚終端裝置、中介設備與傳輸媒體，後續學交換器、路由器、線材與拓樸會更容易。</div>
+</aside>
+<main class="main" id="content">
+<div class="hero">
+<div class="eyebrow">CCNA MODULE 1 · 1.2</div>
+<h1>網路元件<br><span style="font-size:.55em">Network Components</span></h1>
+<p>影片依序介紹主機在網路中的角色、對等式連線、終端裝置、中介設備，以及承載資料的網路媒體。核心概念是：資料由端點產生與接收，中介設備負責轉送，而媒體提供實際的傳輸路徑。</p>
+<div class="badges"><span class="badge">影片重點整理</span><span class="badge">中英術語</span><span class="badge">白話解說</span><span class="badge">裝置分類</span><span class="badge">互動測驗</span></div>
+</div>
+
+<section id="overview"><h2 class="section-title">1. 本段在學什麼？</h2>
+<p class="lead">把一個網路拆開看，可以先分成三大部分：<b>終端裝置、中介設備、網路媒體</b>。影片再從主機角色與對等式連線補充端點之間如何提供與使用服務。</p>
+<div class="grid grid-3">
+<div class="card concept"><b>終端裝置 End Devices</b>使用者直接操作或提供服務的裝置，是資料的來源或目的地，例如電腦、手機、印表機與伺服器。</div>
+<div class="card concept"><b>中介設備 Intermediary Devices</b>位在端點之間，連接不同裝置或網路並協助資料轉送，例如交換器、路由器與無線網路設備。</div>
+<div class="card concept"><b>網路媒體 Network Media</b>資料必須透過某種媒體傳送，包括銅纜、光纖與無線訊號。</div>
+</div></section>
+
+<section id="hosts"><h2 class="section-title">2. 1.2.1 主機角色｜Host Roles</h2>
+<p class="lead">影片先用「用戶端 ↔ 網路 ↔ 伺服器」的圖示說明主機可依所扮演的服務角色分類。</p>
+<div class="grid grid-2">
+<div class="card concept"><b>用戶端 Client</b>向其他主機提出服務請求。常見情境是使用瀏覽器讀取 Web 內容、收發電子郵件或存取共享資源。</div>
+<div class="card concept"><b>伺服器 Server</b>提供資料或服務給其他主機。伺服器通常持續等待用戶端提出請求，再回傳相對應的內容。</div>
+</div>
+<div class="svgwrap" style="margin-top:16px"><svg viewBox="0 0 1200 500" role="img" aria-labelledby="hostRolesTitle hostRolesDesc" xmlns="http://www.w3.org/2000/svg">
+<title id="hostRolesTitle">用戶端透過網路向伺服器請求服務</title>
+<desc id="hostRolesDesc">左側用戶端送出請求，經過中間網路到達右側伺服器；伺服器再沿反方向回傳服務內容。</desc>
+<defs>
+  <linearGradient id="hrBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7fbff"/><stop offset="1" stop-color="#f7f4ff"/></linearGradient>
+  <linearGradient id="hrClient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2478d4"/><stop offset="1" stop-color="#15579f"/></linearGradient>
+  <linearGradient id="hrServer" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#34a267"/><stop offset="1" stop-color="#167146"/></linearGradient>
+  <filter id="hrShadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="9" stdDeviation="10" flood-color="#17395f" flood-opacity=".14"/></filter>
+  <marker id="hrBlueArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#2478d4"/></marker>
+  <marker id="hrGreenArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#27a064"/></marker>
+</defs>
+<rect width="1200" height="500" rx="28" fill="url(#hrBg)"/>
+<text x="54" y="58" font-size="28" font-weight="800" fill="#153e67">Client / Server 服務互動</text>
+<text x="54" y="88" font-size="16" fill="#64778b">同一段通訊包含兩個方向：提出請求，然後回傳服務內容</text>
+
+<g filter="url(#hrShadow)"><rect x="48" y="125" width="260" height="290" rx="24" fill="#fff" stroke="#b9d8f5" stroke-width="3"/></g>
+<circle cx="87" cy="164" r="19" fill="#2478d4"/><text x="87" y="171" text-anchor="middle" font-size="19" font-weight="800" fill="#fff">1</text>
+<rect x="99" y="202" width="158" height="103" rx="12" fill="url(#hrClient)"/>
+<rect x="113" y="216" width="130" height="72" rx="5" fill="#dcedff"/>
+<path d="M82 316h192l-19 28H101z" fill="#164e86"/><circle cx="178" cy="252" r="12" fill="#8fc8ff"/>
+<text x="178" y="374" text-anchor="middle" font-size="24" font-weight="800" fill="#154b80">用戶端 Client</text>
+<text x="178" y="400" text-anchor="middle" font-size="15" fill="#607488">主動提出服務請求</text>
+
+<g filter="url(#hrShadow)"><rect x="470" y="147" width="260" height="244" rx="122" fill="#fff" stroke="#c8b5ee" stroke-width="3"/></g>
+<circle cx="600" cy="255" r="77" fill="#7740c9"/>
+<path d="M529 255h142M600 180c-26 23-37 47-37 75s11 52 37 75M600 180c26 23 37 47 37 75s-11 52-37 75M542 217h116M542 293h116" fill="none" stroke="#e9ddff" stroke-width="5" stroke-linecap="round"/>
+<text x="600" y="357" text-anchor="middle" font-size="24" font-weight="800" fill="#563099">網路 Network</text>
+
+<g filter="url(#hrShadow)"><rect x="892" y="125" width="260" height="290" rx="24" fill="#fff" stroke="#b8dfc8" stroke-width="3"/></g>
+<circle cx="931" cy="164" r="19" fill="#2b9e62"/><text x="931" y="171" text-anchor="middle" font-size="19" font-weight="800" fill="#fff">2</text>
+<rect x="958" y="196" width="128" height="151" rx="15" fill="url(#hrServer)"/>
+<rect x="976" y="216" width="92" height="28" rx="6" fill="#e5fff0"/><circle cx="1052" cy="230" r="5" fill="#2b9e62"/>
+<rect x="976" y="255" width="92" height="28" rx="6" fill="#e5fff0"/><circle cx="1052" cy="269" r="5" fill="#2b9e62"/>
+<rect x="976" y="294" width="92" height="28" rx="6" fill="#e5fff0"/><circle cx="1052" cy="308" r="5" fill="#2b9e62"/>
+<text x="1022" y="374" text-anchor="middle" font-size="24" font-weight="800" fill="#197044">伺服器 Server</text>
+<text x="1022" y="400" text-anchor="middle" font-size="15" fill="#607488">持續等待並提供服務</text>
+
+<path d="M310 190H460M740 190H882" stroke="#2478d4" stroke-width="8" stroke-linecap="round" marker-end="url(#hrBlueArrow)"/>
+<rect x="356" y="151" width="88" height="29" rx="14" fill="#e5f2ff"/><text x="400" y="171" text-anchor="middle" font-size="15" font-weight="700" fill="#1a65ad">請求 Request</text>
+<rect x="756" y="151" width="88" height="29" rx="14" fill="#e5f2ff"/><text x="800" y="171" text-anchor="middle" font-size="15" font-weight="700" fill="#1a65ad">請求 Request</text>
+<path d="M890 344H740M460 344H310" stroke="#27a064" stroke-width="8" stroke-linecap="round" marker-end="url(#hrGreenArrow)"/>
+<rect x="758" y="354" width="84" height="29" rx="14" fill="#e6f7ee"/><text x="800" y="374" text-anchor="middle" font-size="15" font-weight="700" fill="#187846">回應 Response</text>
+<rect x="358" y="354" width="84" height="29" rx="14" fill="#e6f7ee"/><text x="400" y="374" text-anchor="middle" font-size="15" font-weight="700" fill="#187846">回應 Response</text>
+<rect x="348" y="437" width="504" height="40" rx="20" fill="#fff" stroke="#d6e1ec"/><text x="600" y="463" text-anchor="middle" font-size="16" font-weight="700" fill="#3f566d">角色由「誰提出請求、誰提供服務」決定，而不是裝置外觀</text>
+</svg></div>
+<div class="note" style="margin-top:16px"><b>記法：</b>Client「請求」服務，Server「提供」服務。兩者都是主機，只是角色不同。</div>
+</section>
+
+<section id="p2p"><h2 class="section-title">3. 1.2.2 對等式｜Peer-to-Peer</h2>
+<p class="lead">影片以兩台直接分享資源的電腦說明對等式網路：同一台主機可以同時扮演用戶端與伺服器，不一定需要獨立的專用伺服器。</p>
+<div class="grid grid-2">
+<div class="card concept"><b>每台主機都可分享</b>例如分享檔案、印表機或其他本機資源，同時也能存取另一台主機提供的資源。</div>
+<div class="card concept"><b>適合規模較小的情境</b>架構簡單、建置容易，但當使用者與資源增加時，集中管理與安全控管會變得較困難。</div>
+</div>
+<div class="warning" style="margin-top:16px"><b>容易混淆：</b>Peer-to-Peer 描述的是主機提供服務的方式；它不是「沒有網路設備」的意思，也不代表完全不需要網路媒體。</div>
+</section>
+
+<section id="enddevices"><h2 class="section-title">4. 1.2.3 終端裝置｜End Devices</h2>
+<p class="lead">終端裝置位在資料傳輸的兩端。影片的拓樸圖把 LAN 內的電腦、伺服器、電話與印表機等放在端點位置，並與中間的網路設備做區分。</p>
+<div class="grid grid-3">
+<div class="card concept"><b>資料來源</b>終端裝置可以建立並送出資料，例如使用者從電腦傳送訊息。</div>
+<div class="card concept"><b>資料目的地</b>終端裝置也可以接收資料，例如伺服器接收請求或印表機接收列印工作。</div>
+<div class="card concept"><b>使用者介面</b>多數終端裝置是人與網路互動的入口，讓使用者實際使用網路服務。</div>
+</div>
+<div class="note" style="margin-top:16px"><b>判斷技巧：</b>看到一個裝置時先問「它是在產生／接收使用者資料，還是在中間幫忙轉送？」前者通常就是 End Device。</div>
+</section>
+
+<section id="intermediary"><h2 class="section-title">5. 1.2.4 中介設備｜Intermediary Devices</h2>
+<p class="lead">中介設備位在終端裝置之間。影片展示多種常見圖示，重點不是背圖案，而是理解它們負責連接、轉送與控制網路流量。</p>
+<div class="grid grid-3">
+<div class="card concept"><b>Switch｜交換器</b>主要用來連接區域網路中的多個裝置，並在 LAN 內轉送資料。</div>
+<div class="card concept"><b>Router｜路由器</b>負責連接不同網路，協助封包在不同網路之間找到下一段路徑。</div>
+<div class="card concept"><b>Wireless Device｜無線設備</b>讓終端裝置透過無線訊號加入網路，再與有線網路或其他網路設備連接。</div>
+</div>
+<div class="svgwrap" style="margin-top:16px"><svg viewBox="0 0 1200 540" role="img" aria-labelledby="topologyTitle topologyDesc" xmlns="http://www.w3.org/2000/svg">
+<title id="topologyTitle">終端裝置、中介設備與網路媒體</title>
+<desc id="topologyDesc">資料從個人電腦或手機出發，經由網路媒體連到交換器與路由器，最後抵達伺服器。</desc>
+<defs>
+  <linearGradient id="tpBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6faff"/><stop offset="1" stop-color="#faf7ff"/></linearGradient>
+  <filter id="tpShadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#17395f" flood-opacity=".13"/></filter>
+  <marker id="tpArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10z" fill="#3478ca"/></marker>
+</defs>
+<rect width="1200" height="540" rx="28" fill="url(#tpBg)"/>
+<text x="54" y="58" font-size="28" font-weight="800" fill="#153e67">資料如何穿越網路元件</text>
+<text x="54" y="88" font-size="16" fill="#64778b">端點負責產生與接收資料；中介設備負責連接、判斷與轉送</text>
+
+<path d="M228 280H345M535 280H650M842 280H955" fill="none" stroke="#3478ca" stroke-width="10" stroke-linecap="round" marker-end="url(#tpArrow)"/>
+
+
+<g filter="url(#tpShadow)"><rect x="44" y="128" width="194" height="306" rx="23" fill="#fff" stroke="#b9d8f5" stroke-width="3"/></g>
+<rect x="81" y="184" width="118" height="78" rx="10" fill="#2376ce"/><rect x="92" y="195" width="96" height="55" rx="4" fill="#dcedff"/><path d="M68 270h144l-15 21H83z" fill="#154d83"/>
+<rect x="151" y="302" width="47" height="80" rx="10" fill="#2276ce"/><rect x="158" y="311" width="33" height="55" rx="4" fill="#dcedff"/><circle cx="175" cy="374" r="4" fill="#9fd1ff"/>
+<text x="141" y="405" text-anchor="middle" font-size="22" font-weight="800" fill="#164f85">PC / Phone</text><text x="141" y="428" text-anchor="middle" font-size="15" fill="#62768a">終端裝置 End Device</text>
+
+<g filter="url(#tpShadow)"><rect x="346" y="171" width="190" height="218" rx="23" fill="#fff" stroke="#f0cf75" stroke-width="3"/></g>
+<rect x="382" y="229" width="118" height="67" rx="14" fill="#dd8511"/><g fill="#fff"><circle cx="402" cy="263" r="5"/><circle cx="420" cy="263" r="5"/><circle cx="438" cy="263" r="5"/><circle cx="456" cy="263" r="5"/></g><path d="M393 217h96l-14-17h-68z" fill="#f4b039"/>
+<text x="441" y="334" text-anchor="middle" font-size="23" font-weight="800" fill="#8b570f">交換器 Switch</text><text x="441" y="359" text-anchor="middle" font-size="15" fill="#62768a">連接同一 LAN 的裝置</text>
+
+<g filter="url(#tpShadow)"><rect x="651" y="171" width="192" height="218" rx="23" fill="#fff" stroke="#cdb6ef" stroke-width="3"/></g>
+<ellipse cx="747" cy="254" rx="62" ry="48" fill="#7540c8"/><path d="M706 254h82M722 228l-19 26 19 26M772 228l19 26-19 26M747 213v82" fill="none" stroke="#eee4ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="747" y="334" text-anchor="middle" font-size="23" font-weight="800" fill="#573197">路由器 Router</text><text x="747" y="359" text-anchor="middle" font-size="15" fill="#62768a">連接不同網路並選路</text>
+
+<g filter="url(#tpShadow)"><rect x="956" y="128" width="200" height="306" rx="23" fill="#fff" stroke="#b6dec7" stroke-width="3"/></g>
+<rect x="1001" y="189" width="110" height="142" rx="14" fill="#279b61"/><rect x="1017" y="208" width="78" height="27" rx="5" fill="#e5fff0"/><circle cx="1081" cy="222" r="4" fill="#279b61"/><rect x="1017" y="246" width="78" height="27" rx="5" fill="#e5fff0"/><circle cx="1081" cy="260" r="4" fill="#279b61"/><rect x="1017" y="284" width="78" height="27" rx="5" fill="#e5fff0"/><circle cx="1081" cy="298" r="4" fill="#279b61"/>
+<text x="1056" y="371" text-anchor="middle" font-size="23" font-weight="800" fill="#197044">伺服器 Server</text><text x="1056" y="397" text-anchor="middle" font-size="15" fill="#62768a">終端裝置 End Device</text>
+
+<g font-size="14" font-weight="700" text-anchor="middle"><rect x="249" y="233" width="80" height="28" rx="14" fill="#e5f2ff"/><text x="289" y="252" fill="#1b65ad">銅纜</text><rect x="552" y="233" width="80" height="28" rx="14" fill="#fff0ce"/><text x="592" y="252" fill="#a9660d">光纖</text><rect x="860" y="233" width="80" height="28" rx="14" fill="#eee4ff"/><text x="900" y="252" fill="#6333a8">網路媒體</text></g>
+
+<rect x="162" y="465" width="316" height="47" rx="23" fill="#e6f2ff"/><circle cx="190" cy="488" r="9" fill="#2478d4"/><text x="212" y="494" font-size="16" font-weight="700" fill="#205b91">終端裝置：資料來源或目的地</text>
+<rect x="500" y="465" width="348" height="47" rx="23" fill="#f2eafe"/><circle cx="528" cy="488" r="9" fill="#7540c8"/><text x="550" y="494" font-size="16" font-weight="700" fill="#563098">中介設備：連接、轉送與控制</text>
+<rect x="870" y="465" width="286" height="47" rx="23" fill="#fff2d6"/><circle cx="898" cy="488" r="9" fill="#dd8511"/><text x="920" y="494" font-size="16" font-weight="700" fill="#8b570f">網路媒體：承載訊號</text>
+</svg></div>
+</section>
+
+<section id="media"><h2 class="section-title">6. 1.2.5 網路媒體｜Network Media</h2>
+<p class="lead">影片最後介紹承載訊號的媒體，畫面分成銅纜、光纖與無線三類。不同媒體使用不同方式傳遞資料。</p>
+<div class="grid grid-3">
+<div class="card concept"><b>銅纜 Copper</b>以電訊號傳送資料，常見於區域網路的乙太網路連接。</div>
+<div class="card concept"><b>光纖 Fiber-Optic</b>以光脈衝傳送資料，適合高速率與較長距離的連線。</div>
+<div class="card concept"><b>無線 Wireless</b>透過電磁波在空間中傳送訊號，讓裝置不必依賴實體纜線連接。</div>
+</div>
+<div class="flow">
+<div class="step"><div class="num">1</div><b>端點產生資料</b><br>來源裝置建立要傳送的資料。</div>
+<div class="step"><div class="num">2</div><b>中介設備轉送</b><br>交換器或路由器依網路資訊轉送。</div>
+<div class="step"><div class="num">3</div><b>媒體承載訊號</b><br>電、光或無線訊號承載資料。</div>
+<div class="step"><div class="num">4</div><b>目的端接收</b><br>另一個終端裝置收到資料。</div>
+</div>
+</section>
+
+<section id="terms"><h2 class="section-title">7. 專有名詞中英對照</h2><div class="card table-scroll"><table class="glossary">
+<tr><th>中文</th><th>English</th><th>白話說明</th></tr>
+<tr><td>主機</td><td>Host<button type="button" class="pronounce-btn" data-speak="Host" aria-label="播放 Host 英文發音">🔊 發音</button></td><td>連上網路、能傳送或接收資料的終端系統。</td></tr>
+<tr><td>用戶端</td><td>Client<button type="button" class="pronounce-btn" data-speak="Client" aria-label="播放 Client 英文發音">🔊 發音</button></td><td>向其他主機請求服務或資源的角色。</td></tr>
+<tr><td>伺服器</td><td>Server<button type="button" class="pronounce-btn" data-speak="Server" aria-label="播放 Server 英文發音">🔊 發音</button></td><td>向其他主機提供服務或資源的角色。</td></tr>
+<tr><td>對等式</td><td>Peer-to-Peer (P2P)<button type="button" class="pronounce-btn" data-speak="Peer to Peer, P 2 P" aria-label="播放 Peer-to-Peer (P2P) 英文發音">🔊 發音</button></td><td>主機彼此直接分享資源，每台裝置可同時扮演 Client 與 Server。</td></tr>
+<tr><td>終端裝置</td><td>End Device<button type="button" class="pronounce-btn" data-speak="End Device" aria-label="播放 End Device 英文發音">🔊 發音</button></td><td>資料來源或目的地，例如 PC、手機、印表機、伺服器。</td></tr>
+<tr><td>中介設備</td><td>Intermediary Device<button type="button" class="pronounce-btn" data-speak="Intermediary Device" aria-label="播放 Intermediary Device 英文發音">🔊 發音</button></td><td>在端點之間連接網路並協助轉送流量的設備。</td></tr>
+<tr><td>交換器</td><td>Switch<button type="button" class="pronounce-btn" data-speak="Switch" aria-label="播放 Switch 英文發音">🔊 發音</button></td><td>連接 LAN 內多個裝置並轉送資料的中介設備。</td></tr>
+<tr><td>路由器</td><td>Router<button type="button" class="pronounce-btn" data-speak="Router" aria-label="播放 Router 英文發音">🔊 發音</button></td><td>連接不同網路並轉送封包的中介設備。</td></tr>
+<tr><td>網路媒體</td><td>Network Media<button type="button" class="pronounce-btn" data-speak="Network Media" aria-label="播放 Network Media 英文發音">🔊 發音</button></td><td>訊號通過的實體或無線傳輸路徑。</td></tr>
+<tr><td>銅纜</td><td>Copper Cable<button type="button" class="pronounce-btn" data-speak="Copper Cable" aria-label="播放 Copper Cable 英文發音">🔊 發音</button></td><td>利用電訊號傳輸資料。</td></tr>
+<tr><td>光纖</td><td>Fiber-Optic Cable<button type="button" class="pronounce-btn" data-speak="Fiber Optic Cable" aria-label="播放 Fiber-Optic Cable 英文發音">🔊 發音</button></td><td>利用光脈衝傳輸資料。</td></tr>
+<tr><td>無線</td><td>Wireless<button type="button" class="pronounce-btn" data-speak="Wireless" aria-label="播放 Wireless 英文發音">🔊 發音</button></td><td>利用電磁波在空間中傳輸資料。</td></tr>
+</table></div></section>
+
+<section id="quiz"><h2 class="section-title">8. 課後考題｜Quiz</h2><p class="lead">先作答，再按批改。題目針對影片中的元件分類與角色觀念。</p>
+<form class="quiz" id="quizForm">
+<div class="q" data-answer="B"><h3>Q1. 在 Client / Server 模型中，Client 的主要角色是？</h3><label class="opt"><input type="radio" name="q1" value="A"> A. 只負責轉送封包</label><label class="opt"><input type="radio" name="q1" value="B"> B. 向伺服器請求服務或資源</label><label class="opt"><input type="radio" name="q1" value="C"> C. 一定要提供所有網路服務</label><label class="opt"><input type="radio" name="q1" value="D"> D. 只能作為網路媒體</label><div class="explain">答案 B。Client 是提出服務請求的一方。</div></div>
+<div class="q" data-answer="C"><h3>Q2. Peer-to-Peer 網路的特徵是？</h3><label class="opt"><input type="radio" name="q2" value="A"> A. 一定需要大型專用伺服器</label><label class="opt"><input type="radio" name="q2" value="B"> B. 所有裝置都只能當 Client</label><label class="opt"><input type="radio" name="q2" value="C"> C. 主機可同時提供與使用資源</label><label class="opt"><input type="radio" name="q2" value="D"> D. 不需要任何傳輸媒體</label><div class="explain">答案 C。同一台主機可以同時扮演 Client 與 Server。</div></div>
+<div class="q" data-answer="A"><h3>Q3. 下列哪個最符合「終端裝置」？</h3><label class="opt"><input type="radio" name="q3" value="A"> A. 使用者的電腦</label><label class="opt"><input type="radio" name="q3" value="B"> B. 位於網路中間轉送流量的路由器</label><label class="opt"><input type="radio" name="q3" value="C"> C. 光纖纜線</label><label class="opt"><input type="radio" name="q3" value="D"> D. 乙太網路線</label><div class="explain">答案 A。電腦是資料來源或目的地，因此屬於 End Device。</div></div>
+<div class="q" data-answer="D"><h3>Q4. 下列哪一個屬於中介設備？</h3><label class="opt"><input type="radio" name="q4" value="A"> A. 印表機</label><label class="opt"><input type="radio" name="q4" value="B"> B. 筆記型電腦</label><label class="opt"><input type="radio" name="q4" value="C"> C. 手機</label><label class="opt"><input type="radio" name="q4" value="D"> D. Router</label><div class="explain">答案 D。Router 位在端點之間，負責連接與轉送。</div></div>
+<div class="q" data-answer="C"><h3>Q5. 光纖主要利用什麼方式承載資料？</h3><label class="opt"><input type="radio" name="q5" value="A"> A. 紙張</label><label class="opt"><input type="radio" name="q5" value="B"> B. 聲波</label><label class="opt"><input type="radio" name="q5" value="C"> C. 光脈衝</label><label class="opt"><input type="radio" name="q5" value="D"> D. 機械震動</label><div class="explain">答案 C。Fiber-Optic Cable 透過光來傳輸資料。</div></div>
+<div class="q" data-answer="B"><h3>Q6. 哪一組最完整地描述影片中的網路元件分類？</h3><label class="opt"><input type="radio" name="q6" value="A"> A. 只有 Client 與 Server</label><label class="opt"><input type="radio" name="q6" value="B"> B. 終端裝置、中介設備、網路媒體</label><label class="opt"><input type="radio" name="q6" value="C"> C. 只有 Router 與 Switch</label><label class="opt"><input type="radio" name="q6" value="D"> D. 只有 LAN 與 WAN</label><div class="explain">答案 B。這三類能幫助你快速判斷各種網路元素扮演的功能。</div></div>
+<button type="button" id="gradeBtn">批改答案</button> <button type="reset" id="resetBtn" style="background:#51606e">重新作答</button><div class="result" id="result"></div>
+</form></section>
+<div class="footer">本頁依使用者提供的 CCNA「1.2 網路元件」課程錄影整理；影片長度約 1 分 28 秒，涵蓋主機角色、Peer-to-Peer、終端裝置、中介設備與網路媒體。</div>
+</main></div>
+<button class="backtop" id="backTop" type="button" aria-label="回到頂部" title="回到頂部">↑</button>
+<script>
+const menuBtn=document.getElementById('menuBtn'),sidebar=document.getElementById('sidebar'),menuBackdrop=document.getElementById('menuBackdrop'),backTop=document.getElementById('backTop');
+function setMenu(open){sidebar.classList.toggle('open',open);menuBackdrop.classList.toggle('open',open);document.body.classList.toggle('menu-open',open);menuBtn.setAttribute('aria-expanded',String(open));menuBackdrop.setAttribute('aria-hidden',String(!open));}
+menuBtn.setAttribute('aria-expanded','false');menuBtn.addEventListener('click',()=>setMenu(!sidebar.classList.contains('open')));menuBackdrop.addEventListener('click',()=>setMenu(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+const links=[...document.querySelectorAll('#nav a')],sections=links.map(a=>document.querySelector(a.getAttribute('href')));const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}})},{rootMargin:'-25% 0px -65% 0px'});sections.forEach(s=>s&&io.observe(s));links.forEach(a=>a.addEventListener('click',()=>{if(innerWidth<961)setMenu(false)}));
+function updateScrollUI(){const d=document.scrollingElement||document.documentElement,h=d.scrollHeight-d.clientHeight,y=d.scrollTop||window.pageYOffset||0;document.getElementById('progressBar').style.width=(h?y/h*100:0)+'%';backTop.classList.toggle('show',y>320)}addEventListener('scroll',updateScrollUI,{passive:true});updateScrollUI();backTop.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});addEventListener('resize',()=>{if(innerWidth>=961)setMenu(false)},{passive:true});
+const form=document.getElementById('quizForm'),result=document.getElementById('result');document.getElementById('gradeBtn').addEventListener('click',()=>{const qs=[...form.querySelectorAll('.q')];let score=0;qs.forEach((q,i)=>{const chosen=form.querySelector(`input[name=q${i+1}]:checked`);const ok=chosen&&chosen.value===q.dataset.answer;q.classList.remove('right','wrong');q.classList.add(ok?'right':'wrong');q.querySelector('.explain').style.display='block';if(ok)score++;});const pct=Math.round(score/qs.length*100);result.style.display='block';result.innerHTML=`<strong>得分：${score} / ${qs.length}（${pct}%）</strong><br>${pct===100?'全部答對！網路元件分類已掌握。':pct>=70?'掌握得不錯，建議回看答錯題的章節。':'建議先重新複習 Host、End Device、Intermediary Device 與 Network Media。'}`;result.scrollIntoView({behavior:'smooth',block:'nearest'});});
+document.getElementById('resetBtn').addEventListener('click',()=>{setTimeout(()=>{document.querySelectorAll('.q').forEach(q=>{q.classList.remove('right','wrong');q.querySelector('.explain').style.display='none'});result.style.display='none'},0)});
+const s=document.getElementById('search');s.addEventListener('input',()=>{document.querySelectorAll('.hl').forEach(n=>n.replaceWith(document.createTextNode(n.textContent)));const q=s.value.trim();if(q.length<2)return;const walker=document.createTreeWalker(document.getElementById('content'),NodeFilter.SHOW_TEXT);let n,first=null;const nodes=[];while(n=walker.nextNode()){if(n.parentElement&&['SCRIPT','STYLE'].includes(n.parentElement.tagName))continue;if(n.nodeValue.toLowerCase().includes(q.toLowerCase()))nodes.push(n)}nodes.slice(0,30).forEach(t=>{const re=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'ig');const span=document.createElement('span');span.innerHTML=t.nodeValue.replace(re,m=>`<mark class="hl">${m}</mark>`);t.parentNode.replaceChild(span,t);if(!first)first=span.querySelector('.hl')});if(first)first.scrollIntoView({behavior:'smooth',block:'center'})});
+
+document.querySelectorAll('.pronounce-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  if(!('speechSynthesis' in window)){alert('此瀏覽器不支援語音朗讀功能。');return}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(btn.dataset.speak);
+  u.lang='en-US'; u.rate=0.86; u.pitch=1;
+  const voices=speechSynthesis.getVoices();
+  const en=voices.find(v=>/^en-US/i.test(v.lang))||voices.find(v=>/^en/i.test(v.lang));
+  if(en)u.voice=en;
+  speechSynthesis.speak(u);
+}));
+</script>
+</body></html>
