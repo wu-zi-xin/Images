@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>CCNA 2.5｜儲存設定檔＋2.5.5 Packet Tracer 初始交換器設定｜完整互動講義</title>
+<style>
+:root{
+  --navy:#0b2f55;--navy2:#0e3e70;--blue:#1e73d8;--sky:#eaf4ff;--green:#2f9e62;
+  --purple:#6f35c5;--orange:#c86f08;--red:#b62f2f;--ink:#142033;--muted:#526273;
+  --line:#d5e1ec;--paper:#fff;--bg:#f3f7fb;--warn:#fff5d6;--danger:#fff0f0;
+  --radius:16px;--shadow:0 12px 30px rgba(10,39,68,.08)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75}
+a{color:inherit}
+code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.top{height:64px;background:linear-gradient(90deg,#082745,#0c3763);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:50;box-shadow:0 3px 14px rgba(0,0,0,.15)}
+.brand{font-weight:800;letter-spacing:.2px;font-size:18px}
+.top small{opacity:.82}
+.layout{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:calc(100vh - 64px)}
+.sidebar{background:#0d3157;color:#fff;padding:22px 16px;position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto}
+.side-title{font-size:13px;opacity:.72;text-transform:uppercase;letter-spacing:.08em;margin:14px 8px 8px}
+.nav a{display:block;text-decoration:none;padding:9px 12px;border-radius:10px;color:#dbe9f8;font-size:14px}
+.nav a:hover,.nav a.active{background:#1e5d9b;color:#fff}
+.term-list{font-size:13px;border:1px solid rgba(255,255,255,.13);border-radius:12px;overflow:hidden}
+.term-list div{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.09)}
+.tip-side{margin-top:18px;padding:14px;background:rgba(255,255,255,.08);border-radius:12px;font-size:13px;color:#edf5fc}
+.main{padding:36px clamp(18px,4vw,52px) 72px;min-width:0}
+.hero{background:linear-gradient(135deg,#fff,#edf6ff);border:1px solid #d5e7f7;border-radius:22px;padding:32px;box-shadow:var(--shadow);margin-bottom:24px}
+.eyebrow{color:var(--blue);font-weight:800;font-size:13px;letter-spacing:.08em}
+.hero h1{font-size:clamp(28px,4vw,46px);line-height:1.2;margin:8px 0 14px;color:#0c3763}
+.hero p{max-width:1050px;margin:0;color:#3f5062}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.badge{padding:6px 10px;border-radius:99px;background:#fff;border:1px solid #c9dff3;font-size:12px;font-weight:800;color:#24588a}
+section{scroll-margin-top:88px;margin:34px 0}
+.section-title{font-size:26px;margin:0 0 8px;color:#0c3763}
+.lead{color:#4f6072;margin-top:0}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.concept{border-top:4px solid var(--blue)}
+.concept.red{border-top-color:var(--red)}
+.concept.green{border-top-color:var(--green)}
+.concept.purple{border-top-color:var(--purple)}
+.concept.orange{border-top-color:var(--orange)}
+.concept b{display:block;color:#144e87;margin-bottom:6px}
+.note{background:#edf8f1;border:1px solid #b7dbc4;border-left:5px solid var(--green);padding:16px 18px;border-radius:12px}
+.warning{background:var(--warn);border:1px solid #edd18e;border-left:5px solid #c88b0d;padding:16px 18px;border-radius:12px}
+.dangerbox{background:var(--danger);border:1px solid #e8bbbb;border-left:5px solid var(--red);padding:16px 18px;border-radius:12px}
+.sourcebox{background:#edf5ff;border:1px solid #b9d2ee;border-left:5px solid var(--blue);padding:16px 18px;border-radius:12px}
+.extra{background:#f5efff;border:1px solid #d6c4ef;border-left:5px solid var(--purple);padding:16px 18px;border-radius:12px}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;background:#eaf4ff;color:#155993;font-size:12px;font-weight:800}
+.mini{font-size:13px;color:var(--muted)}
+.figure{margin:18px 0;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.netart{display:block;width:100%;height:auto;background:#f8fbfe}
+.netart text{font-family:Inter,'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif}
+.caption{font-size:13px;color:#596b7b;padding:10px 14px;background:#f8fbfe;border-top:1px solid var(--line)}
+.table-scroll{overflow-x:auto}
+.glossary{width:100%;border-collapse:collapse;font-size:14px}
+.glossary th,.glossary td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.glossary th{background:#eaf3fb;color:#174d82}
+.memory{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.memory>div{padding:16px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.memory strong{display:block;color:#1b5b94;font-size:17px}
+.flow{display:flex;gap:10px;align-items:stretch;overflow-x:auto;padding-bottom:6px}
+.flow .f{min-width:190px;flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px}
+.flow .arrow{align-self:center;font-size:28px;color:#647687}
+.code{background:#0b2239;color:#e3f0f8;border-radius:14px;padding:16px 18px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;line-height:1.6;white-space:pre-wrap}
+.code .p{color:#8bd7ff}.code .c{color:#95d6a3}.code .o{color:#ffd083}.code .e{color:#ffb2b2}
+.command-grid{display:grid;grid-template-columns:minmax(200px,.8fr) minmax(0,1.2fr);gap:12px;margin:10px 0}
+.cmd{background:#0b2239;color:#fff;border-radius:12px;padding:12px 14px;font-family:ui-monospace,monospace;overflow:auto}
+.timeline{position:relative;padding-left:28px}
+.timeline:before{content:"";position:absolute;left:8px;top:10px;bottom:10px;width:3px;background:#c9dced}
+.step{position:relative;margin:0 0 18px}
+.step:before{content:"";position:absolute;left:-26px;top:9px;width:13px;height:13px;border-radius:50%;background:#1e73d8;border:3px solid #fff;box-shadow:0 0 0 2px #9fc6e9}
+.step h3{margin:0 0 4px;color:#144e87;font-size:17px}
+.quiz{background:#fff;border:1px solid #ded2f0;border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+.q{padding:18px 0;border-bottom:1px solid #e7e9ee}
+.q h3{margin:0 0 10px;font-size:17px;color:#4b2493}
+.opt{display:block;padding:8px 10px;border-radius:9px;cursor:pointer}
+.opt:hover{background:#f5f0ff}
+.quiz button{border:0;border-radius:10px;padding:10px 16px;background:var(--purple);color:#fff;font-weight:800;cursor:pointer}
+.quiz button.secondary{background:#5e6d7b}
+.result{margin-top:15px;padding:14px;border-radius:12px;background:#eef8f2;border:1px solid #b2d8bf;display:none}
+.explain{font-size:13px;color:#4b5b6b;margin:6px 0 0 26px;display:none}
+.wrong{background:#fff0f0}.right{background:#eaf9ef}
+.progress{height:6px;position:fixed;top:64px;left:0;right:0;background:transparent;z-index:60}
+.progress span{display:block;height:100%;background:#238ed6;width:0}
+.backtop{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:0;background:#0d4478;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.22);cursor:pointer;z-index:80;display:grid;place-items:center;font-size:22px;opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s}
+.backtop.show{opacity:1;visibility:visible;transform:none}
+.footer{text-align:center;color:#617283;font-size:13px;margin-top:46px}
+.search input{width:100%;padding:11px 12px;border:1px solid #b6c9da;border-radius:10px;font:inherit}
+.menuBackdrop{display:none}.menuBtn{align-items:center;justify-content:center;min-width:42px;min-height:42px;font-size:22px;line-height:1}
+.tag-source{font-size:12px;font-weight:800;color:#155993}.tag-extra{font-size:12px;font-weight:800;color:#6f35c5}
+.pronounce-btn{margin-left:8px;border:1px solid #9fc3e0;background:#edf6ff;color:#10578f;border-radius:999px;padding:3px 9px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;vertical-align:middle}
+.pronounce-btn:hover{background:#d8eafd}.pronounce-btn:focus{outline:2px solid #4d8fcf;outline-offset:2px}
+kbd{background:#eef2f6;border:1px solid #c6d0db;border-bottom-width:2px;border-radius:6px;padding:1px 6px;color:#243647}
+.checklist{margin:0;padding-left:20px}.checklist li{margin:5px 0}
+@media(max-width:960px){
+  .layout{display:block}.sidebar{display:block;position:fixed;left:0;top:60px;bottom:0;width:min(86vw,330px);height:auto;z-index:75;transform:translateX(-105%);transition:transform .25s ease;box-shadow:12px 0 28px rgba(0,0,0,.22)}
+  .sidebar.open{transform:translateX(0)}.menuBackdrop{display:block;position:fixed;inset:60px 0 0 0;background:rgba(3,18,32,.52);z-index:70;opacity:0;visibility:hidden;transition:.2s}
+  .menuBackdrop.open{opacity:1;visibility:visible}.top{height:60px;min-height:60px;gap:10px}.top small{display:none}.main{padding-top:22px;overflow:hidden}
+  .grid-4,.grid-3,.grid-2,.memory,.command-grid{grid-template-columns:1fr}.progress{top:60px}.menuBtn{display:inline-flex!important}
+}
+@media(min-width:961px){.menuBtn{display:none!important}}
+@media(max-width:560px){
+  .hero{padding:22px 18px}.main{padding-left:13px;padding-right:13px}.section-title{font-size:22px}.card{padding:16px}.top{padding:0 12px}.brand{font-size:15px}.quiz{padding:14px}.netart text{font-size:13px}
+  .flow .f{min-width:165px}
+}
+@media print{.sidebar,.top,.backtop,.progress,.quiz button{display:none!important}.layout{display:block}.main{padding:0}.card,.hero,.figure,.quiz{box-shadow:none;break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="menuBtn" id="menuBtn" aria-label="開啟導覽" style="display:none;background:transparent;border:1px solid rgba(255,255,255,.35);color:white;border-radius:8px;padding:6px 9px">☰</button>
+    <div class="brand">CCNA 課程筆記｜2.5 儲存設定檔＋2.5.5 Packet Tracer</div>
+  </div>
+  <small>依上傳影片＋2.5.5 Cisco Packet Tracer PDF 整理</small>
+</header>
+<div class="progress"><span id="progressBar"></span></div>
+<div class="menuBackdrop" id="menuBackdrop"></div>
+
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="side-title">課程大綱</div>
+  <nav class="nav" id="nav">
+    <a href="#overview">1. 本段重點總覽</a>
+    <a href="#files">2. 2.5.1 設定檔</a>
+    <a href="#save">3. 儲存設定的正確流程</a>
+    <a href="#modify">4. 2.5.2 修改執行設定</a>
+    <a href="#lab">5. 2.5.3 視訊實作拆解</a>
+    <a href="#merge">6. Copy 的「合併」觀念</a>
+    <a href="#capture">7. 2.5.4 擷取設定至文字檔</a>
+    <a href="#pt-overview">8. 2.5.5 Packet Tracer 總覽</a>
+    <a href="#pt-part1">9. Part 1 驗證預設設定</a>
+    <a href="#pt-part2">10. Part 2 基本交換器設定</a>
+    <a href="#pt-security">11. 密碼與加密</a>
+    <a href="#pt-motd">12. Part 3 MOTD Banner</a>
+    <a href="#pt-save">13. Part 4 儲存至 NVRAM</a>
+    <a href="#pt-s2">14. Part 5 設定 S2</a>
+    <a href="#workflow">15. 實務工作流程</a>
+    <a href="#mistakes">16. 常見錯誤與考點</a>
+    <a href="#terms">17. 中英術語＋發音</a>
+    <a href="#quiz">18. 課後考題</a>
+  </nav>
+  <div class="side-title">快速搜尋</div>
+  <div class="search"><input id="search" placeholder="搜尋：running-config、NVRAM、reload、PuTTY…"></div>
+  <div class="side-title">核心術語</div>
+  <div class="term-list">
+    <div>Packet Tracer｜封包追蹤模擬器</div>
+    <div>Running-config｜執行中設定</div>
+    <div>Startup-config｜啟動設定</div>
+    <div>RAM｜揮發性記憶體</div>
+    <div>NVRAM｜非揮發性記憶體</div>
+    <div>Reload｜重新載入／重開機</div>
+    <div>Erase｜清除</div>
+    <div>Session Logging｜工作階段記錄</div>
+    <div>Enable Secret｜加密特權密碼</div>
+    <div>MOTD Banner｜每日訊息橫幅</div>
+  </div>
+  <div class="tip-side">💡 影片重點是設定檔保存；2.5.5 PDF 則把這些觀念放進完整交換器初始設定。請把「模式 → 密碼 → 加密 → Banner → 驗證 → 儲存」串成一條流程。</div>
+</aside>
+
+<main class="main" id="content">
+<div class="hero">
+  <div class="eyebrow">CCNA MODULE 2 · 2.5 SAVE CONFIGURATIONS</div>
+  <h1>儲存設定檔<br><span style="font-size:.55em">Save Configurations</span></h1>
+  <p>本頁把兩份來源合併整理：前半是影片 2.5 的設定保存邏輯，後半加入 Cisco NetAcad「2.5.5 Packet Tracer - Configure Initial Switch Settings」實作。你會從 running-config / startup-config 一路做到 S1、S2 初始設定、Console 與 Privileged EXEC 密碼、enable secret、密碼加密、MOTD Banner，最後把設定保存到 NVRAM。</p>
+  <div class="badges">
+    <span class="badge">影片畫面整理</span><span class="badge">中英對照</span><span class="badge">CLI 命令解讀</span>
+    <span class="badge">自製 SVG 圖解</span><span class="badge">英文發音</span><span class="badge">45 題互動測驗</span><span class="badge">手機自適應</span>
+  </div>
+</div>
+
+<section id="overview">
+  <h2 class="section-title">1. 本段重點總覽</h2>
+  <p class="lead">先把整支影片濃縮成四個問題。只要這四題能回答，你就掌握了 2.5 的骨架。</p>
+  <div class="memory">
+    <div><strong>現在生效的是誰？</strong><b>Running-config</b>。它是設備當下正在使用的設定。</div>
+    <div><strong>重開後會讀誰？</strong><b>Startup-config</b>。它是設備啟動時要載入的設定。</div>
+    <div><strong>想保留變更？</strong>把 running-config 複製成 startup-config。</div>
+    <div><strong>想捨棄變更？</strong>若尚未儲存，可用 reload 回到已儲存的狀態；重載時不要再把錯誤變更存起來。</div>
+  </div>
+  <div class="sourcebox" style="margin-top:16px"><span class="tag-source">影片畫面</span><br>2.5.1 明確區分啟動設定檔與執行設定檔；2.5.2 說明如何處理不想保留的執行中變更；2.5.3 以 CLI 示範相關命令；2.5.4 則示範 PuTTY 的 Session Logging。</div>
+</section>
+
+<section id="files">
+  <h2 class="section-title">2. 2.5.1 設定檔｜兩份設定到底差在哪？</h2>
+  <p class="lead">Cisco IOS 設備最常考的觀念，就是 <b>running-config</b> 與 <b>startup-config</b> 的位置、用途與斷電後是否保留。</p>
+  <div class="grid grid-2">
+    <div class="card concept green">
+      <b>Running-config｜執行中設定</b>
+      <p>目前正在裝置上生效的設定。影片說明它位於 <b>RAM</b> 中，修改設定時會立即反映在 running-config。</p>
+      <ul class="checklist">
+        <li>儲存位置：RAM</li><li>是否立即生效：是</li><li>重新啟動後：未儲存的變更可能消失</li>
+        <li>查看：<code>show running-config</code></li>
+      </ul>
+    </div>
+    <div class="card concept purple">
+      <b>Startup-config｜啟動設定</b>
+      <p>設備下一次開機時要讀取的設定。影片說明它儲存在 <b>NVRAM</b>，屬於非揮發性儲存。</p>
+      <ul class="checklist">
+        <li>儲存位置：NVRAM</li><li>主要用途：開機時載入</li><li>斷電後：仍可保存</li>
+        <li>查看：<code>show startup-config</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="figure">
+    <svg class="netart" viewBox="0 0 1200 640" role="img" aria-labelledby="memTitle memDesc">
+      <title id="memTitle">Running-config 與 Startup-config 的關係</title>
+      <desc id="memDesc">RAM 內的 running-config 是目前生效設定，NVRAM 內的 startup-config 是開機設定。儲存時從 running 複製到 startup，開機時從 startup 載入成 running。</desc>
+      <defs>
+        <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8fbff"/><stop offset="1" stop-color="#eef5ff"/></linearGradient>
+        <filter id="sh1" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0b2f55" flood-opacity=".12"/></filter>
+        <marker id="arrB" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#1e73d8"/></marker>
+        <marker id="arrG" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#2f9e62"/></marker>
+      </defs>
+      <rect width="1200" height="640" fill="url(#bg1)"/>
+      <text x="60" y="60" font-size="30" font-weight="800" fill="#0c3763">設定檔的生命週期｜現在、儲存、再開機</text>
+      <g filter="url(#sh1)">
+        <rect x="80" y="155" width="400" height="260" rx="26" fill="#eef8f1" stroke="#2f9e62" stroke-width="3"/>
+        <rect x="720" y="155" width="400" height="260" rx="26" fill="#f6f0ff" stroke="#6f35c5" stroke-width="3"/>
+      </g>
+      <text x="280" y="205" text-anchor="middle" font-size="28" font-weight="800" fill="#1d7a47">RAM</text>
+      <text x="280" y="250" text-anchor="middle" font-size="24" font-weight="800" fill="#0c3763">running-config</text>
+      <text x="280" y="288" text-anchor="middle" font-size="16" fill="#425466">目前正在生效</text>
+      <text x="280" y="320" text-anchor="middle" font-size="16" fill="#425466">你下設定命令後，這裡立即改變</text>
+      <text x="280" y="360" text-anchor="middle" font-size="16" font-weight="800" fill="#9a2323">未儲存變更：reload 後可能消失</text>
+      <text x="920" y="205" text-anchor="middle" font-size="28" font-weight="800" fill="#5d2aa8">NVRAM</text>
+      <text x="920" y="250" text-anchor="middle" font-size="24" font-weight="800" fill="#0c3763">startup-config</text>
+      <text x="920" y="288" text-anchor="middle" font-size="16" fill="#425466">下一次開機要載入</text>
+      <text x="920" y="320" text-anchor="middle" font-size="16" fill="#425466">非揮發性儲存，斷電後仍保留</text>
+      <path d="M480 235H715" stroke="#1e73d8" stroke-width="7" marker-end="url(#arrB)"/>
+      <rect x="500" y="185" width="195" height="42" rx="21" fill="#fff" stroke="#bdd7f2"/>
+      <text x="598" y="212" text-anchor="middle" font-size="14" font-weight="800" fill="#155993">copy running-config startup-config</text>
+      <path d="M715 350H485" stroke="#2f9e62" stroke-width="7" marker-end="url(#arrG)"/>
+      <rect x="535" y="365" width="145" height="42" rx="21" fill="#fff" stroke="#b9dec7"/>
+      <text x="608" y="392" text-anchor="middle" font-size="14" font-weight="800" fill="#23754a">設備開機 / reload</text>
+      <rect x="190" y="485" width="820" height="86" rx="20" fill="#fff" stroke="#dbe5ef" filter="url(#sh1)"/>
+      <text x="600" y="520" text-anchor="middle" font-size="18" font-weight="800" fill="#0c3763">記憶法：Running = 正在跑；Startup = 開機要用</text>
+      <text x="600" y="550" text-anchor="middle" font-size="15" fill="#425466">「做設定」與「把設定留到下次開機」是兩個不同動作</text>
+    </svg>
+    <div class="caption">自製圖解：左邊是目前運作中的設定，右邊是下次開機的設定；儲存與開機的方向剛好相反。</div>
+  </div>
+
+  <div class="command-grid">
+    <div class="cmd">show running-config</div><div class="card">查看目前 RAM 內、正在生效的完整設定。</div>
+    <div class="cmd">show startup-config</div><div class="card">查看 NVRAM 中、下次開機會使用的設定。</div>
+  </div>
+</section>
+
+<section id="save">
+  <h2 class="section-title">3. 儲存設定的正確流程</h2>
+  <p class="lead">影片 2.5.1 的核心命令是把執行設定存成啟動設定。</p>
+  <div class="code"><span class="p">S1#</span> copy running-config startup-config
+Destination filename [startup-config]?
+Building configuration...
+<span class="c">[OK]</span></div>
+  <div class="flow" style="margin-top:16px">
+    <div class="f"><b>1. 修改設定</b><br>變更立即進入 running-config。</div>
+    <div class="arrow">→</div>
+    <div class="f"><b>2. 先驗證</b><br>用 show 指令確認內容與狀態。</div>
+    <div class="arrow">→</div>
+    <div class="f"><b>3. 儲存</b><br><code>copy running-config startup-config</code></div>
+    <div class="arrow">→</div>
+    <div class="f"><b>4. 下次開機保留</b><br>startup-config 會被載入。</div>
+  </div>
+  <div class="warning" style="margin-top:16px"><b>Destination filename [startup-config]?</b> 方括號表示預設值。一般情況直接按 <kbd>Enter</kbd> 接受即可，不必重新輸入名稱。</div>
+  <div class="extra" style="margin-top:14px"><span class="tag-extra">重要補充</span><br>在許多 IOS 環境中也會看到縮寫，例如 <code>copy run start</code>。影片實作畫面就出現了這種縮寫。考試與實務都要能認得「完整命令」和「可唯一辨識的縮寫」其實是在做同一件事。</div>
+</section>
+
+<section id="modify">
+  <h2 class="section-title">4. 2.5.2 修改執行設定｜做錯了，怎麼回到原本狀態？</h2>
+  <p class="lead">影片把情況分成兩種：變更「還沒存」與「已經存進 startup-config」。這兩種不能混為一談。</p>
+  <div class="grid grid-2">
+    <div class="card concept orange">
+      <b>情況 A：錯誤變更尚未儲存</b>
+      <p>如果你改了 running-config，但還沒有把它存到 startup-config，可以用 <code>reload</code> 讓設備重新載入已儲存的啟動設定。</p>
+      <div class="dangerbox"><b>關鍵：</b>reload 過程若詢問是否儲存目前變更，想丟掉錯誤設定時要選擇 <b>no</b>，否則錯誤設定反而會被保存。</div>
+    </div>
+    <div class="card concept red">
+      <b>情況 B：錯誤變更已經儲存</b>
+      <p>如果 startup-config 本身也已經被改壞，就不能只靠「重開讀回原設定」解決。影片示範了清除 startup-config，再重新載入。</p>
+      <div class="code">S1# erase startup-config
+S1# reload</div>
+    </div>
+  </div>
+
+  <div class="figure">
+    <svg class="netart" viewBox="0 0 1200 660" role="img" aria-labelledby="decisionTitle decisionDesc">
+      <title id="decisionTitle">保留或捨棄設定的判斷流程</title>
+      <desc id="decisionDesc">先判斷目前變更是否正確。正確就儲存；不正確再判斷是否已經存進 startup-config。尚未存可 reload 並拒絕儲存；若 startup 也錯則先清除啟動設定，再 reload。</desc>
+      <defs><filter id="sh2" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0b2f55" flood-opacity=".12"/></filter>
+      <marker id="a2" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#6d89a3"/></marker></defs>
+      <rect width="1200" height="660" fill="#f7fbff"/>
+      <text x="60" y="58" font-size="30" font-weight="800" fill="#0c3763">設定做完後，不是只有「存」這一條路</text>
+      <polygon points="600,105 735,190 600,275 465,190" fill="#eaf4ff" stroke="#1e73d8" stroke-width="3" filter="url(#sh2)"/>
+      <text x="600" y="180" text-anchor="middle" font-size="19" font-weight="800" fill="#0e5c94">目前變更是你要的嗎？</text>
+      <text x="600" y="208" text-anchor="middle" font-size="13" fill="#425466">先驗證，再決定保存或回復</text>
+
+      <rect x="110" y="340" width="350" height="180" rx="24" fill="#eef8f1" stroke="#2f9e62" stroke-width="3" filter="url(#sh2)"/>
+      <text x="285" y="385" text-anchor="middle" font-size="22" font-weight="800" fill="#1d7a47">YES｜要保留</text>
+      <text x="285" y="430" text-anchor="middle" font-size="17" font-weight="800" fill="#0c3763">copy running-config</text>
+      <text x="285" y="458" text-anchor="middle" font-size="17" font-weight="800" fill="#0c3763">startup-config</text>
+      <text x="285" y="495" text-anchor="middle" font-size="14" fill="#425466">把現在的成果存到 NVRAM</text>
+
+      <polygon points="800,325 920,400 800,475 680,400" fill="#fff7df" stroke="#c86f08" stroke-width="3" filter="url(#sh2)"/>
+      <text x="800" y="390" text-anchor="middle" font-size="18" font-weight="800" fill="#8a5907">已存進 startup？</text>
+      <text x="800" y="418" text-anchor="middle" font-size="13" fill="#425466">錯誤是否已被保存</text>
+
+      <rect x="580" y="535" width="250" height="90" rx="18" fill="#fff" stroke="#dbe5ef" filter="url(#sh2)"/>
+      <text x="705" y="570" text-anchor="middle" font-size="16" font-weight="800" fill="#0c3763">NO｜reload</text>
+      <text x="705" y="598" text-anchor="middle" font-size="13" fill="#9a2323">詢問儲存時選 no</text>
+
+      <rect x="875" y="535" width="270" height="90" rx="18" fill="#fff0f0" stroke="#e0a5a5" filter="url(#sh2)"/>
+      <text x="1010" y="570" text-anchor="middle" font-size="15" font-weight="800" fill="#9a2323">YES｜erase startup-config</text>
+      <text x="1010" y="598" text-anchor="middle" font-size="13" fill="#425466">再 reload，重新開始</text>
+
+      <g stroke="#6d89a3" stroke-width="5" fill="none" marker-end="url(#a2)">
+        <path d="M500 235L330 330"/><path d="M700 235L765 320"/><path d="M755 470L720 530"/><path d="M845 470L985 530"/>
+      </g>
+      <g font-size="13" font-weight="800" fill="#425466">
+        <text x="390" y="275">YES</text><text x="720" y="275">NO</text><text x="680" y="505">NO</text><text x="930" y="505">YES</text>
+      </g>
+    </svg>
+    <div class="caption">自製決策圖：先問「要不要保留」，再問「錯誤是否已存進 startup-config」。這比死背命令更容易避免做反。</div>
+  </div>
+
+  <div class="warning"><b>reload 會中斷網路服務。</b>影片明確提醒重新載入可能造成網路中斷；正式環境不能把 reload 當成隨手的 Undo 鍵。</div>
+</section>
+
+<section id="lab">
+  <h2 class="section-title">5. 2.5.3 視訊實作｜畫面中的 CLI 在做什麼？</h2>
+  <p class="lead">影片實作不是單純展示一條命令，而是把「儲存、查看 NVRAM、清除、重載、再設定、再回復」串成一段操作。以下依畫面順序拆解。</p>
+  <div class="timeline">
+    <div class="step"><h3>① 登入並進入 Privileged EXEC</h3><p>畫面先出現 User Access Verification，輸入密碼後使用 <code>enable</code> 進入 <code>#</code> 提示字元。</p></div>
+    <div class="step"><h3>② 進入設定模式並改 hostname</h3><div class="code">Switch# configure terminal
+Switch(config)# hostname S1
+S1(config)# exit
+S1#</div><p>改 hostname 後，提示字元立即從 Switch 變成 S1，證明 running-config 的變更會立即生效。</p></div>
+    <div class="step"><h3>③ 將 running-config 儲存為 startup-config</h3><div class="code">S1# copy running-config startup-config
+Destination filename [startup-config]?
+Building configuration...
+[OK]</div></div>
+    <div class="step"><h3>④ 用 <code>dir nvram:</code> 查看 NVRAM</h3><p>影片畫面可看到 <code>startup-config</code> 檔案出現在 NVRAM 目錄中，讓「startup-config 在 NVRAM」不只是背誦，而是能實際驗證。</p></div>
+    <div class="step"><h3>⑤ 清除啟動設定並重新載入</h3><div class="code">S1# erase startup-config
+S1# reload</div><p>這一段用來示範當已保存的設定也不要了，如何移除啟動設定。</p></div>
+    <div class="step"><h3>⑥ 重新設定 MySwitch、Console 密碼並儲存</h3><div class="code">Switch# configure terminal
+Switch(config)# hostname MySwitch
+MySwitch(config)# line console 0
+MySwitch(config-line)# password cisco
+MySwitch(config-line)# login
+MySwitch(config-line)# exit
+MySwitch(config)# exit
+MySwitch# copy running-config startup-config</div></div>
+    <div class="step"><h3>⑦ 再改成 S1，接著嘗試把 startup-config 複製回 running-config</h3><p>影片最後用這個情境帶出一個非常重要的行為：<b>copy 到 running-config 時是合併（merge），不是先把 running-config 清空再整份覆蓋。</b></p></div>
+  </div>
+</section>
+
+<section id="merge">
+  <h2 class="section-title">6. 超重要考點：<code>copy startup-config running-config</code> 不是「完全還原」</h2>
+  <p class="lead">影片後段的操作用來說明：把設定檔複製到正在運作的 running-config 時，IOS 會把內容合併進去。原本 running-config 中、而 startup-config 沒有明確移除的設定，不一定會被消掉。</p>
+  <div class="grid grid-2">
+    <div class="card concept purple">
+      <b>Merge｜合併</b>
+      <p>把來源設定中的命令逐步套用到目前 running-config。它不像一般文字檔「整檔覆寫」。</p>
+    </div>
+    <div class="card concept red">
+      <b>為什麼不能當完整 Undo？</b>
+      <p>因為目前 running-config 可能已經多了額外命令；如果 startup-config 沒有對應的 <code>no ...</code> 去取消它，那些設定可能繼續留著。</p>
+    </div>
+  </div>
+  <div class="dangerbox" style="margin-top:16px"><b>白話：</b>把 startup-config copy 到 running-config，比較像「把舊設定再貼一次進目前設定」，不是「把現在整張紙撕掉，再換成舊的那張」。想得到乾淨的開機設定狀態，通常是重新載入設備，讓它從 startup-config 重新建立 running-config。</div>
+  <div class="extra" style="margin-top:14px"><span class="tag-extra">課外補充</span><br>這個 merge 行為是 Cisco IOS 設定管理非常常見的觀念，也是故障排除時的重要差異。看到 <code>copy startup-config running-config</code> 不要自動翻譯成「rollback」。</div>
+</section>
+
+<section id="capture">
+  <h2 class="section-title">7. 2.5.4 擷取設定至文字檔案｜PuTTY Session Logging</h2>
+  <p class="lead">影片說明設定檔也可以保存成文字檔，方便備份、記錄與重複使用。示範工具是 PuTTY。</p>
+  <div class="grid grid-2">
+    <div class="card concept">
+      <b>步驟 1｜開啟 PuTTY</b>
+      <p>先使用 PuTTY 連到設備。影片畫面顯示一般 Session 頁面，可選 SSH、Serial 等連線方式。</p>
+    </div>
+    <div class="card concept green">
+      <b>步驟 2｜進入 Session → Logging</b>
+      <p>在左側選單開啟 Logging，選擇 <b>All session output</b>，並指定 log file name。</p>
+    </div>
+    <div class="card concept orange">
+      <b>步驟 3｜輸出設定</b>
+      <p>連線後執行例如 <code>show running-config</code>；因為終端畫面全部被記錄，設定內容就會寫入文字記錄檔。</p>
+    </div>
+    <div class="card concept purple">
+      <b>步驟 4｜停止記錄</b>
+      <p>影片最後把 Session logging 改回 <b>None</b>，停止把後續工作階段輸出寫進記錄檔。</p>
+    </div>
+  </div>
+
+  <div class="figure">
+    <svg class="netart" viewBox="0 0 1200 650" role="img" aria-labelledby="logTitle logDesc">
+      <title id="logTitle">PuTTY 擷取設定至文字檔流程</title>
+      <desc id="logDesc">PuTTY 連線後開啟 Logging，選 All session output，指定檔名，再執行 show running-config，最後將 Logging 設為 None 停止記錄。</desc>
+      <defs><filter id="sh3" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0b2f55" flood-opacity=".12"/></filter>
+      <marker id="a3" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#6d89a3"/></marker></defs>
+      <rect width="1200" height="650" fill="#f7fbff"/>
+      <text x="60" y="60" font-size="30" font-weight="800" fill="#0c3763">Terminal Logging｜把螢幕上的 CLI 輸出變成文字紀錄</text>
+      <g filter="url(#sh3)">
+        <rect x="70" y="180" width="230" height="180" rx="22" fill="#eaf4ff" stroke="#1e73d8" stroke-width="3"/>
+        <rect x="355" y="180" width="230" height="180" rx="22" fill="#eef8f1" stroke="#2f9e62" stroke-width="3"/>
+        <rect x="640" y="180" width="230" height="180" rx="22" fill="#fff7df" stroke="#c86f08" stroke-width="3"/>
+        <rect x="925" y="180" width="205" height="180" rx="22" fill="#f6f0ff" stroke="#6f35c5" stroke-width="3"/>
+      </g>
+      <g text-anchor="middle">
+        <text x="185" y="225" font-size="18" font-weight="800" fill="#0e5c94">1. PuTTY 連線</text>
+        <text x="185" y="265" font-size="14" fill="#425466">SSH / Serial 等</text>
+        <text x="185" y="300" font-size="14" fill="#425466">進到設備 CLI</text>
+
+        <text x="470" y="225" font-size="18" font-weight="800" fill="#1d7a47">2. Logging</text>
+        <text x="470" y="265" font-size="14" fill="#425466">All session output</text>
+        <text x="470" y="300" font-size="14" fill="#425466">指定 Log file name</text>
+
+        <text x="755" y="225" font-size="18" font-weight="800" fill="#8a5907">3. 顯示設定</text>
+        <text x="755" y="265" font-size="14" fill="#425466">show running-config</text>
+        <text x="755" y="300" font-size="14" fill="#425466">CLI 輸出被寫入檔案</text>
+
+        <text x="1027" y="225" font-size="18" font-weight="800" fill="#5d2aa8">4. 停止</text>
+        <text x="1027" y="265" font-size="14" fill="#425466">Session logging</text>
+        <text x="1027" y="300" font-size="14" fill="#425466">改回 None</text>
+      </g>
+      <g stroke="#6d89a3" stroke-width="5" fill="none" marker-end="url(#a3)">
+        <path d="M300 270H348"/><path d="M585 270H633"/><path d="M870 270H918"/>
+      </g>
+      <rect x="130" y="440" width="940" height="120" rx="22" fill="#fff" stroke="#dbe5ef" filter="url(#sh3)"/>
+      <text x="600" y="482" text-anchor="middle" font-size="20" font-weight="800" fill="#0c3763">結果：得到可保存、搜尋、比對的文字紀錄</text>
+      <text x="600" y="518" text-anchor="middle" font-size="15" fill="#425466">可作為設定備份、變更紀錄、教學筆記或故障排除附件</text>
+    </svg>
+    <div class="caption">自製圖解：Logging 記錄的是終端機工作階段輸出，所以先開 Logging，再執行 show 指令。</div>
+  </div>
+
+  <div class="warning"><b>安全提醒：</b>文字記錄可能包含 hostname、IP、使用者名稱、雜湊或其他敏感設定。保存與分享前要先檢查內容，不要把正式環境設定直接公開貼出。</div>
+</section>
+
+
+<section id="pt-overview">
+  <h2 class="section-title">8. 2.5.5 Packet Tracer｜Configure Initial Switch Settings</h2>
+  <p class="lead">這份 Cisco NetAcad PDF 是一個完整的初始交換器設定實作。它不是只考「怎麼存設定」，而是把 CLI 存取、安全性、Banner 與 NVRAM 保存串在一起。</p>
+  <div class="sourcebox"><span class="tag-source">PDF 原始架構</span><br>
+    <b>Part 1</b> Verify the Default Switch Configuration → 驗證交換器預設設定<br>
+    <b>Part 2</b> Configure a Basic Switch Configuration → 建立基本交換器設定<br>
+    <b>Part 3</b> Configure a MOTD Banner → 設定 MOTD Banner<br>
+    <b>Part 4</b> Save Configuration Files to NVRAM → 將設定檔保存至 NVRAM<br>
+    <b>Part 5</b> Configure S2 → 將前面流程套用到第二台交換器 S2
+  </div>
+  <div class="grid grid-3" style="margin-top:16px">
+    <div class="card concept"><b>CLI Security｜CLI 安全</b><p>PDF 明確要求保護 CLI 與 Console 存取，並比較 plain text password 與 encrypted secret。</p></div>
+    <div class="card concept green"><b>Login Message｜登入訊息</b><p>使用 MOTD Banner 對登入者顯示訊息，也可警告未授權使用者禁止存取。</p></div>
+    <div class="card concept purple"><b>Save to NVRAM｜保存</b><p>完成並驗證基本設定後，再把 running-config 備份到 NVRAM，避免重啟或斷電後遺失。</p></div>
+  </div>
+  <div class="note" style="margin-top:16px"><b>PDF 備註：</b>Packet Tracer 中 Catalyst 2960 預設使用 IOS 12.2；文件也提到如有需求，可從拓撲中的檔案伺服器更新後開機至 IOS 15.0。</div>
+</section>
+
+<section id="pt-part1">
+  <h2 class="section-title">9. Part 1｜Verify the Default Switch Configuration</h2>
+  <p class="lead">第一部分不是急著改設定，而是先進入 Privileged EXEC，觀察設備目前長什麼樣。</p>
+  <div class="grid grid-2">
+    <div class="card concept">
+      <b>Step 1｜進入 Privileged EXEC Mode</b>
+      <div class="code"><span class="p">Switch&gt;</span> enable
+<span class="p">Switch#</span></div>
+      <p>提示字元由 <code>&gt;</code> 變成 <code>#</code>。PDF 強調：Privileged EXEC 可存取更多命令，而且因為其中包含會改變運作參數的命令，因此應該以密碼保護。</p>
+    </div>
+    <div class="card concept green">
+      <b>Step 2｜檢查目前設定</b>
+      <div class="code"><span class="p">Switch#</span> show running-config</div>
+      <p>先讀預設 running-config，再回答介面數量、VTY line 範圍、NVRAM 內容等觀察題。</p>
+    </div>
+  </div>
+  <div class="warning" style="margin-top:16px"><b>PDF 有幾題是「Packet Tracer 實機觀察題」：</b>例如 FastEthernet / GigabitEthernet 數量、VTY line 範圍。文件本身留白要你在 Packet Tracer 觀察後填入，所以本講義不把未在 PDF 直接給出的數字假裝成文件原文答案。</div>
+  <div class="card" style="margin-top:16px">
+    <b>PDF 要你思考的關鍵題：</b>
+    <ul>
+      <li>哪一條命令可以查看 NVRAM 目前的內容？</li>
+      <li>為什麼設備可能回覆 <code>startup-config is not present</code>？</li>
+    </ul>
+    <p class="mini">第二題的核心觀察是：這台交換器目前尚未存在已保存的 startup-config；文件要求你透過實作情境理解原因。</p>
+  </div>
+</section>
+
+<section id="pt-part2">
+  <h2 class="section-title">10. Part 2｜Create a Basic Switch Configuration</h2>
+  <p class="lead">第二部分開始正式設定 S1。PDF 特別要求你注意：隨著模式切換，提示字元也會跟著改變。</p>
+
+  <div class="timeline">
+    <div class="step">
+      <h3>Step 1｜設定交換器名稱</h3>
+      <div class="code">Switch# configure terminal
+Switch(config)# hostname S1
+S1(config)# exit
+S1#</div>
+      <p><code>hostname S1</code> 執行後，prompt 立即改成 S1，方便管理者辨認目前操作的是哪台設備。</p>
+    </div>
+    <div class="step">
+      <h3>Step 2｜保護 Console Line</h3>
+      <div class="code">S1# configure terminal
+S1(config)# line console 0
+S1(config-line)# password letmein
+S1(config-line)# login
+S1(config-line)# exit
+S1(config)# exit</div>
+      <p>PDF 指定 Console 密碼為 <code>letmein</code>。其中 <code>password</code> 是設定密碼值，而 <code>login</code> 是要求該 line 在使用者連入時執行密碼驗證。</p>
+    </div>
+    <div class="step">
+      <h3>Step 3｜驗證 Console 真的有被保護</h3>
+      <div class="code">S1# exit
+Switch con0 is now available
+Press RETURN to get started.
+
+User Access Verification
+Password:
+S1&gt;</div>
+      <p>PDF 明確提醒：如果沒有出現 Password 提示，通常代表前一步漏了 <code>login</code>。</p>
+    </div>
+  </div>
+
+  <div class="figure">
+    <svg class="netart" viewBox="0 0 1200 650" role="img" aria-labelledby="ptFlowTitle ptFlowDesc">
+      <title id="ptFlowTitle">Packet Tracer 初始交換器設定模式流程</title>
+      <desc id="ptFlowDesc">由 User EXEC 經 enable 進入 Privileged EXEC，再由 configure terminal 進 Global Configuration，最後由 line console 0 進入 Console Line Configuration，設定 password 與 login。</desc>
+      <defs>
+        <filter id="ptSh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#0b2f55" flood-opacity=".12"/></filter>
+        <marker id="ptArr" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#6586a5"/></marker>
+      </defs>
+      <rect width="1200" height="650" fill="#f7fbff"/>
+      <text x="60" y="60" font-size="29" font-weight="800" fill="#0c3763">S1 初始設定｜先進對模式，再下對命令</text>
+      <g filter="url(#ptSh)">
+        <rect x="55" y="165" width="235" height="150" rx="24" fill="#eaf4ff" stroke="#1e73d8" stroke-width="3"/>
+        <rect x="335" y="165" width="235" height="150" rx="24" fill="#eef8f1" stroke="#2f9e62" stroke-width="3"/>
+        <rect x="615" y="165" width="235" height="150" rx="24" fill="#fff7df" stroke="#c86f08" stroke-width="3"/>
+        <rect x="895" y="165" width="250" height="150" rx="24" fill="#f6f0ff" stroke="#6f35c5" stroke-width="3"/>
+      </g>
+      <g text-anchor="middle">
+        <text x="172" y="210" font-size="19" font-weight="800" fill="#0e5c94">User EXEC</text>
+        <text x="172" y="250" font-size="20" font-weight="800" fill="#334e68">Switch&gt;</text>
+        <text x="452" y="210" font-size="19" font-weight="800" fill="#1d7a47">Privileged EXEC</text>
+        <text x="452" y="250" font-size="20" font-weight="800" fill="#334e68">Switch#</text>
+        <text x="732" y="210" font-size="19" font-weight="800" fill="#8a5907">Global Config</text>
+        <text x="732" y="250" font-size="18" font-weight="800" fill="#334e68">S1(config)#</text>
+        <text x="1020" y="210" font-size="18" font-weight="800" fill="#5d2aa8">Console Line Config</text>
+        <text x="1020" y="250" font-size="18" font-weight="800" fill="#334e68">S1(config-line)#</text>
+      </g>
+      <g stroke="#6586a5" stroke-width="5" fill="none" marker-end="url(#ptArr)">
+        <path d="M290 240H328"/><path d="M570 240H608"/><path d="M850 240H888"/>
+      </g>
+      <g text-anchor="middle" font-size="13" font-weight="800" fill="#425466">
+        <text x="310" y="210">enable</text>
+        <text x="590" y="210">configure terminal</text>
+        <text x="870" y="210">line console 0</text>
+      </g>
+      <rect x="190" y="405" width="820" height="150" rx="22" fill="#fff" stroke="#dbe5ef" filter="url(#ptSh)"/>
+      <text x="600" y="445" text-anchor="middle" font-size="19" font-weight="800" fill="#0c3763">Console 安全的兩個動作不能漏</text>
+      <text x="600" y="485" text-anchor="middle" font-size="17" fill="#425466">password letmein → 定義密碼內容</text>
+      <text x="600" y="520" text-anchor="middle" font-size="17" fill="#425466">login → 告訴 IOS：連入這條 line 時要驗證密碼</text>
+    </svg>
+    <div class="caption">自製圖解：PDF 的重點不是只背 password，而是理解「line console 0 → password → login」的模式與邏輯。</div>
+  </div>
+</section>
+
+<section id="pt-security">
+  <h2 class="section-title">11. Privileged EXEC 密碼、安全性與加密</h2>
+  <p class="lead">PDF 從比較弱的 <code>enable password</code> 開始，再帶到較新的 <code>enable secret</code>，最後使用 <code>service password-encryption</code> 處理其他純文字密碼。</p>
+
+  <div class="grid grid-3">
+    <div class="card concept orange">
+      <b>Step 4｜enable password</b>
+      <div class="code">S1(config)# enable password c1$c0</div>
+      <p>PDF 指定密碼是 <code>c1$c0</code>，其中最後的 <code>0</code> 是數字零，不是大寫 O。</p>
+    </div>
+    <div class="card concept purple">
+      <b>Step 6｜enable secret</b>
+      <div class="code">S1(config)# enable secret itsasecret</div>
+      <p>PDF 說明：若 enable password 與 enable secret 同時存在，進入 Privileged EXEC 時要使用 <b>enable secret</b>。</p>
+    </div>
+    <div class="card concept green">
+      <b>Step 8｜service password-encryption</b>
+      <div class="code">S1(config)# service password-encryption</div>
+      <p>PDF 前面觀察到 console 與 enable password 是 plain text，因此再用這個命令把這些明文密碼加密顯示。</p>
+    </div>
+  </div>
+
+  <div class="warning" style="margin-top:16px"><b>一定要分清楚：</b><code>enable secret</code> 本身就以不同形式儲存在設定中；<code>service password-encryption</code> 則是文件用來處理其他原本會以 plain text 顯示的密碼。</div>
+  <div class="sourcebox" style="margin-top:14px"><span class="tag-source">PDF 的安全性理由</span><br>文件指出，如果 console 與 enable password 直接以明文出現在 running-config，旁人偷看畫面或取得備份設定檔，就可能構成安全風險。</div>
+</section>
+
+<section id="pt-motd">
+  <h2 class="section-title">12. Part 3｜Configure a MOTD Banner</h2>
+  <p class="lead"><b>MOTD = Message of the Day</b>。它讓任何登入交換器的人在進入時看到指定訊息，也可用來警告未授權使用者禁止存取。</p>
+  <div class="code">S1# config t
+S1(config)# banner motd "This is a secure system. Authorized Access Only!"
+S1(config)# exit</div>
+  <div class="grid grid-2" style="margin-top:16px">
+    <div class="card concept"><b>什麼時候顯示？</b><p>PDF 的描述是：任何登入交換器的人都會看到這類訊息。</p></div>
+    <div class="card concept red"><b>為什麼要有？</b><p>PDF 明確提到這類 Banner 可警告 unauthorized users（未授權使用者）禁止存取。</p></div>
+  </div>
+  <div class="note" style="margin-top:16px"><b>語法：</b>文件說 Banner 文字可以放在 quotation marks（引號）中，或使用一個不會出現在 MOTD 內容本身的 delimiter（分隔符號）。</div>
+</section>
+
+<section id="pt-save">
+  <h2 class="section-title">13. Part 4｜Save and Verify Configuration Files to NVRAM</h2>
+  <p class="lead">這一部分正好和影片 2.5.1～2.5.3 接上：先用 <code>show run</code> 驗證設定正確，再把 running-config 保存到 NVRAM。</p>
+  <div class="flow">
+    <div class="f"><b>Verify</b><br><code>show run</code><br>確認設定內容。</div>
+    <div class="arrow">→</div>
+    <div class="f"><b>Save</b><br><code>copy running-config startup-config</code></div>
+    <div class="arrow">→</div>
+    <div class="f"><b>Accept</b><br><code>Destination filename [startup-config]?</code><br>按 Enter。</div>
+    <div class="arrow">→</div>
+    <div class="f"><b>Confirm</b><br><code>[OK]</code><br>確認寫入完成。</div>
+  </div>
+  <div class="sourcebox" style="margin-top:16px"><span class="tag-source">PDF 原因</span><br>文件明確說明：要把 running configuration 備份到 NVRAM，確保如果系統重新啟動或失去電力，所做的變更不會遺失。</div>
+  <div class="card" style="margin-top:16px"><b>PDF 接著要求你：</b><br>找出 <code>copy running-config startup-config</code> 的最短可用縮寫、查看 startup configuration，並確認先前輸入的變更是否都有記錄。這些都是要你在 Packet Tracer 實際驗證，而不是只背理論。</div>
+</section>
+
+<section id="pt-s2">
+  <h2 class="section-title">14. Part 5｜Configure S2</h2>
+  <p class="lead">最後一部分不再逐條教你，而是要求把前面 Part 1～4 的能力自己套用到第二台交換器 S2。這就是「從照著做」進到「能獨立完成」。</p>
+  <div class="card">
+    <ol>
+      <li>Device name：<b>S2</b></li>
+      <li>Console access password：<code>letmein</code></li>
+      <li>Enable password：<code>c1$c0</code></li>
+      <li>Enable secret：<code>itsasecret</code></li>
+      <li>設定適當的登入訊息（MOTD Banner）</li>
+      <li>加密所有 plain text passwords</li>
+      <li>確認設定正確</li>
+      <li>保存設定，避免交換器關機後遺失</li>
+    </ol>
+  </div>
+  <div class="code" style="margin-top:16px">S2# show running-config
+S2# copy running-config startup-config</div>
+  <div class="note" style="margin-top:16px"><b>學習重點：</b>PDF 的 S2 任務刻意不再把所有命令逐條寫出，要求你回頭參考 Parts 1～4。這代表真正要練的是「根據需求自己組出設定流程」。</div>
+</section>
+
+<section id="workflow">
+  <h2 class="section-title">8. 實務工作流程｜把影片觀念變成可以真的照做的 SOP</h2>
+  <p class="lead">以下是根據影片核心觀念整理出的安全操作順序；這一段屬於補充，不是影片逐字內容。</p>
+  <div class="extra"><span class="tag-extra">補充整理</span>
+    <ol>
+      <li><b>先看現況：</b><code>show running-config</code>、必要時也看 <code>show startup-config</code>。</li>
+      <li><b>做變更：</b>一次改少量，避免同時改太多造成問題難定位。</li>
+      <li><b>立即驗證：</b>確認設定是否真的達成目的。</li>
+      <li><b>變更正確才存：</b><code>copy running-config startup-config</code>。</li>
+      <li><b>如果錯而且還沒存：</b>先判斷能否用 <code>no</code> 命令修正；若要整體回到已存狀態，可安排 reload。</li>
+      <li><b>如果需要留紀錄：</b>使用終端機 Logging 或其他受控方式保存變更前後的文字紀錄。</li>
+    </ol>
+  </div>
+</section>
+
+<section id="mistakes">
+  <h2 class="section-title">9. 常見錯誤與 CCNA 易考陷阱</h2>
+  <div class="grid grid-3">
+    <div class="card concept red"><b>錯誤 1｜以為設定會自動永久保存</b><p>CLI 命令生效不代表已寫入 startup-config。重開後才發現設定消失，是最典型失誤。</p></div>
+    <div class="card concept orange"><b>錯誤 2｜想丟掉變更，reload 時卻按 Yes 儲存</b><p>這會把原本想捨棄的 running-config 保存起來，目的完全相反。</p></div>
+    <div class="card concept purple"><b>錯誤 3｜把 copy startup run 當成完整覆蓋</b><p>它是 merge。現有 running-config 裡的額外設定可能仍然存在。</p></div>
+    <div class="card concept"><b>錯誤 4｜混淆 RAM 與 NVRAM</b><p>Running-config → RAM；Startup-config → NVRAM。這組對應一定要熟。</p></div>
+    <div class="card concept green"><b>錯誤 5｜只背縮寫，不知道完整命令</b><p><code>copy run start</code> 很方便，但要能還原成完整語意，才不會換情境就看不懂。</p></div>
+    <div class="card concept red"><b>錯誤 6｜Logging 完就忘了關</b><p>長時間記錄可能累積敏感資訊與大量輸出。完成後應停止記錄並妥善保存檔案。</p></div>
+  </div>
+</section>
+
+<section id="terms">
+  <h2 class="section-title">10. 專有名詞中英對照＋英文發音</h2>
+  <p class="lead">按「🔊 發音」使用瀏覽器 Web Speech API 播放英文；不同裝置的聲音會略有差異。</p>
+  <div class="table-scroll card">
+  <table class="glossary">
+    <thead><tr><th>English</th><th>中文</th><th>白話解釋</th></tr></thead>
+    <tbody>
+      <tr><td>Configuration File<button class="pronounce-btn" data-speak="Configuration File">🔊 發音</button></td><td>設定檔</td><td>保存設備設定命令的內容。</td></tr>
+      <tr><td>Running Configuration<button class="pronounce-btn" data-speak="Running Configuration">🔊 發音</button></td><td>執行中設定</td><td>設備現在正在使用的設定。</td></tr>
+      <tr><td>Startup Configuration<button class="pronounce-btn" data-speak="Startup Configuration">🔊 發音</button></td><td>啟動設定</td><td>設備開機時要讀取的設定。</td></tr>
+      <tr><td>Random Access Memory (RAM)<button class="pronounce-btn" data-speak="Random Access Memory, R A M">🔊 發音</button></td><td>隨機存取記憶體</td><td>running-config 所在的揮發性記憶體。</td></tr>
+      <tr><td>Nonvolatile RAM (NVRAM)<button class="pronounce-btn" data-speak="Nonvolatile R A M, N V R A M">🔊 發音</button></td><td>非揮發性 RAM</td><td>startup-config 常見的保存位置。</td></tr>
+      <tr><td>Privileged EXEC Mode<button class="pronounce-btn" data-speak="Privileged Exec Mode">🔊 發音</button></td><td>特權 EXEC 模式</td><td>常見提示字元為 #，可執行管理命令。</td></tr>
+      <tr><td>Show Running Configuration<button class="pronounce-btn" data-speak="Show Running Configuration">🔊 發音</button></td><td>顯示執行中設定</td><td>查看目前生效設定。</td></tr>
+      <tr><td>Show Startup Configuration<button class="pronounce-btn" data-speak="Show Startup Configuration">🔊 發音</button></td><td>顯示啟動設定</td><td>查看下次開機設定。</td></tr>
+      <tr><td>Copy<button class="pronounce-btn" data-speak="Copy">🔊 發音</button></td><td>複製</td><td>IOS 用來在不同設定來源／目的地間複製內容的命令。</td></tr>
+      <tr><td>Destination Filename<button class="pronounce-btn" data-speak="Destination Filename">🔊 發音</button></td><td>目的檔名</td><td>copy 命令詢問要寫入哪個檔名。</td></tr>
+      <tr><td>Building Configuration<button class="pronounce-btn" data-speak="Building Configuration">🔊 發音</button></td><td>建立設定</td><td>IOS 正在產生／寫入設定的提示。</td></tr>
+      <tr><td>Reload<button class="pronounce-btn" data-speak="Reload">🔊 發音</button></td><td>重新載入</td><td>重新啟動設備。</td></tr>
+      <tr><td>Erase<button class="pronounce-btn" data-speak="Erase">🔊 發音</button></td><td>清除</td><td>移除指定儲存內容。</td></tr>
+      <tr><td>Directory<button class="pronounce-btn" data-speak="Directory">🔊 發音</button></td><td>目錄</td><td>儲存裝置中的檔案清單位置。</td></tr>
+      <tr><td>Merge<button class="pronounce-btn" data-speak="Merge">🔊 發音</button></td><td>合併</td><td>把來源設定套用到既有 running-config，而非整份清空覆寫。</td></tr>
+      <tr><td>Console<button class="pronounce-btn" data-speak="Console">🔊 發音</button></td><td>主控台</td><td>本機 CLI 管理連線。</td></tr>
+      <tr><td>Hostname<button class="pronounce-btn" data-speak="Hostname">🔊 發音</button></td><td>主機名稱</td><td>設備的識別名稱。</td></tr>
+      <tr><td>Line Console<button class="pronounce-btn" data-speak="Line Console">🔊 發音</button></td><td>Console 線路設定</td><td>進入 console line 子模式。</td></tr>
+      <tr><td>Password<button class="pronounce-btn" data-speak="Password">🔊 發音</button></td><td>密碼</td><td>用於存取控制。</td></tr>
+      <tr><td>Login<button class="pronounce-btn" data-speak="Login">🔊 發音</button></td><td>登入</td><td>要求線路使用所設定的驗證機制。</td></tr>
+      <tr><td>PuTTY<button class="pronounce-btn" data-speak="Putty">🔊 發音</button></td><td>PuTTY 終端工具</td><td>影片用來示範連線與記錄工作階段的軟體。</td></tr>
+      <tr><td>Session<button class="pronounce-btn" data-speak="Session">🔊 發音</button></td><td>工作階段</td><td>一次終端連線的互動期間。</td></tr>
+      <tr><td>Session Logging<button class="pronounce-btn" data-speak="Session Logging">🔊 發音</button></td><td>工作階段記錄</td><td>把終端輸出寫入檔案。</td></tr>
+      <tr><td>All Session Output<button class="pronounce-btn" data-speak="All Session Output">🔊 發音</button></td><td>所有工作階段輸出</td><td>PuTTY Logging 中記錄終端全部輸出的選項。</td></tr>
+      <tr><td>Log File Name<button class="pronounce-btn" data-speak="Log File Name">🔊 發音</button></td><td>記錄檔名稱</td><td>指定輸出文字紀錄要存成什麼檔名。</td></tr>
+      <tr><td>Secure Shell (SSH)<button class="pronounce-btn" data-speak="Secure Shell, S S H">🔊 發音</button></td><td>安全殼層</td><td>加密遠端終端連線方式。</td></tr>
+      <tr><td>Serial<button class="pronounce-btn" data-speak="Serial">🔊 發音</button></td><td>序列連線</td><td>PuTTY 可選的連線類型之一。</td></tr>
+      <tr><td>Nonvolatile<button class="pronounce-btn" data-speak="Nonvolatile">🔊 發音</button></td><td>非揮發性</td><td>斷電後仍能保存資料。</td></tr>
+      <tr><td>Volatile<button class="pronounce-btn" data-speak="Volatile">🔊 發音</button></td><td>揮發性</td><td>斷電後內容通常無法保留。</td></tr>
+      <tr><td>Backup<button class="pronounce-btn" data-speak="Backup">🔊 發音</button></td><td>備份</td><td>為了還原或留存而保存副本。</td></tr>
+    
+      <tr><td>Packet Tracer<button class="pronounce-btn" data-speak="Packet Tracer">🔊 發音</button></td><td>Packet Tracer 網路模擬器</td><td>Cisco 教學中常用的網路設備模擬環境。</td></tr>
+      <tr><td>Enable Password<button class="pronounce-btn" data-speak="Enable Password">🔊 發音</button></td><td>Enable 密碼</td><td>用於保護 Privileged EXEC 的傳統密碼設定。</td></tr>
+      <tr><td>Enable Secret<button class="pronounce-btn" data-speak="Enable Secret">🔊 發音</button></td><td>Enable Secret 密碼</td><td>PDF 使用的較新加密特權存取密碼；若與 enable password 同時存在，secret 會被使用。</td></tr>
+      <tr><td>Service Password Encryption<button class="pronounce-btn" data-speak="Service Password Encryption">🔊 發音</button></td><td>密碼加密服務</td><td>PDF 用來將原本以明文顯示的相關密碼改成加密形式。</td></tr>
+      <tr><td>Plain Text Password<button class="pronounce-btn" data-speak="Plain Text Password">🔊 發音</button></td><td>明文密碼</td><td>能直接從設定內容讀出原始字串的密碼。</td></tr>
+      <tr><td>MOTD Banner<button class="pronounce-btn" data-speak="Message of the Day Banner">🔊 發音</button></td><td>每日訊息橫幅</td><td>登入設備時顯示的訊息，可用於授權／警告資訊。</td></tr>
+      <tr><td>Message of the Day<button class="pronounce-btn" data-speak="Message of the Day">🔊 發音</button></td><td>每日訊息</td><td>MOTD 的完整英文。</td></tr>
+      <tr><td>Delimiter<button class="pronounce-btn" data-speak="Delimiter">🔊 發音</button></td><td>分隔符號</td><td>可用來界定 Banner 訊息開始與結束。</td></tr>
+      <tr><td>VTY Line<button class="pronounce-btn" data-speak="V T Y Line">🔊 發音</button></td><td>虛擬終端線路</td><td>PDF Part 1 要求觀察預設設定中的 VTY lines 範圍。</td></tr>
+      <tr><td>Unauthorized Access<button class="pronounce-btn" data-speak="Unauthorized Access">🔊 發音</button></td><td>未授權存取</td><td>沒有被允許的設備或管理介面存取。</td></tr>
+</tbody>
+  </table>
+  </div>
+</section>
+
+<section id="quiz">
+  <h2 class="section-title">11. 課後考題</h2>
+  <p class="lead">共 45 題。1～30 題複習影片 2.5 與補充觀念；31～45 題專門複習 2.5.5 Packet Tracer PDF。按「檢查答案」會顯示逐題解析。</p>
+  <div class="quiz" id="quizBox">
+    <div class="q" data-answer="b"><h3>1. Running-config 主要儲存在？</h3><label class="opt"><input type="radio" name="q1" value="a"> A. NVRAM</label><label class="opt"><input type="radio" name="q1" value="b"> B. RAM</label><label class="opt"><input type="radio" name="q1" value="c"> C. DNS</label><label class="opt"><input type="radio" name="q1" value="d"> D. TFTP</label><p class="explain">影片 2.5.1 明確說明 running-config 位於 RAM。</p></div>
+    <div class="q" data-answer="a"><h3>2. Startup-config 主要儲存在？</h3><label class="opt"><input type="radio" name="q2" value="a"> A. NVRAM</label><label class="opt"><input type="radio" name="q2" value="b"> B. RAM</label><label class="opt"><input type="radio" name="q2" value="c"> C. ARP cache</label><label class="opt"><input type="radio" name="q2" value="d"> D. CPU register</label><p class="explain">startup-config 是開機設定，影片將它與 NVRAM 對應。</p></div>
+    <div class="q" data-answer="c"><h3>3. 想查看目前正在生效的設定，最合適的命令是？</h3><label class="opt"><input type="radio" name="q3" value="a"> A. show startup-config</label><label class="opt"><input type="radio" name="q3" value="b"> B. erase startup-config</label><label class="opt"><input type="radio" name="q3" value="c"> C. show running-config</label><label class="opt"><input type="radio" name="q3" value="d"> D. reload</label><p class="explain">running-config 就是目前執行中的設定。</p></div>
+    <div class="q" data-answer="d"><h3>4. 想讓目前設定在重新開機後保留，應該？</h3><label class="opt"><input type="radio" name="q4" value="a"> A. ping startup-config</label><label class="opt"><input type="radio" name="q4" value="b"> B. reload</label><label class="opt"><input type="radio" name="q4" value="c"> C. erase running-config</label><label class="opt"><input type="radio" name="q4" value="d"> D. copy running-config startup-config</label><p class="explain">這是影片 2.5.1 的核心保存命令。</p></div>
+    <div class="q" data-answer="a"><h3>5. <code>Destination filename [startup-config]?</code> 中方括號的意義最接近？</h3><label class="opt"><input type="radio" name="q5" value="a"> A. 預設值，可直接按 Enter 接受</label><label class="opt"><input type="radio" name="q5" value="b"> B. 一定要刪除</label><label class="opt"><input type="radio" name="q5" value="c"> C. 密碼</label><label class="opt"><input type="radio" name="q5" value="d"> D. 錯誤訊息</label><p class="explain">影片實作中直接接受預設 startup-config。</p></div>
+    <div class="q" data-answer="b"><h3>6. 修改 hostname 後提示字元立刻改變，表示？</h3><label class="opt"><input type="radio" name="q6" value="a"> A. startup-config 自動重開機</label><label class="opt"><input type="radio" name="q6" value="b"> B. running-config 變更會立即生效</label><label class="opt"><input type="radio" name="q6" value="c"> C. NVRAM 被刪除</label><label class="opt"><input type="radio" name="q6" value="d"> D. PuTTY 已停止</label><p class="explain">IOS 設定命令通常直接修改目前 running-config。</p></div>
+    <div class="q" data-answer="c"><h3>7. 影片用什麼命令查看 NVRAM 目錄？</h3><label class="opt"><input type="radio" name="q7" value="a"> A. show flash</label><label class="opt"><input type="radio" name="q7" value="b"> B. list nvram</label><label class="opt"><input type="radio" name="q7" value="c"> C. dir nvram:</label><label class="opt"><input type="radio" name="q7" value="d"> D. cat startup</label><p class="explain">影片 CLI 畫面顯示 <code>dir nvram:</code>，並看到 startup-config。</p></div>
+    <div class="q" data-answer="d"><h3>8. 未儲存的錯誤變更想全部捨棄，影片建議可使用？</h3><label class="opt"><input type="radio" name="q8" value="a"> A. show version</label><label class="opt"><input type="radio" name="q8" value="b"> B. ping</label><label class="opt"><input type="radio" name="q8" value="c"> C. dir</label><label class="opt"><input type="radio" name="q8" value="d"> D. reload</label><p class="explain">若錯誤變更尚未保存，重新載入可回到已儲存的 startup-config 狀態。</p></div>
+    <div class="q" data-answer="b"><h3>9. 想用 reload 捨棄目前錯誤變更，系統問是否儲存時應選？</h3><label class="opt"><input type="radio" name="q9" value="a"> A. yes</label><label class="opt"><input type="radio" name="q9" value="b"> B. no</label><label class="opt"><input type="radio" name="q9" value="c"> C. always</label><label class="opt"><input type="radio" name="q9" value="d"> D. enable</label><p class="explain">如果選 yes，錯誤變更反而會被寫入 startup-config。</p></div>
+    <div class="q" data-answer="a"><h3>10. reload 的重要影響是？</h3><label class="opt"><input type="radio" name="q10" value="a"> A. 會造成設備／網路服務中斷</label><label class="opt"><input type="radio" name="q10" value="b"> B. 不會影響任何流量</label><label class="opt"><input type="radio" name="q10" value="c"> C. 只會變更 hostname</label><label class="opt"><input type="radio" name="q10" value="d"> D. 只會清除 ARP</label><p class="explain">影片 2.5.2 特別提醒 reload 可能造成網路中斷。</p></div>
+    <div class="q" data-answer="c"><h3>11. 已經把不想要的設定存進 startup-config，影片示範哪個清除命令？</h3><label class="opt"><input type="radio" name="q11" value="a"> A. clear running-config</label><label class="opt"><input type="radio" name="q11" value="b"> B. delete ram</label><label class="opt"><input type="radio" name="q11" value="c"> C. erase startup-config</label><label class="opt"><input type="radio" name="q11" value="d"> D. no startup-config</label><p class="explain">影片實作明確輸入 <code>erase startup-config</code>。</p></div>
+    <div class="q" data-answer="d"><h3>12. <code>copy run start</code> 最接近哪條完整命令？</h3><label class="opt"><input type="radio" name="q12" value="a"> A. copy startup-config running-config</label><label class="opt"><input type="radio" name="q12" value="b"> B. show running-config</label><label class="opt"><input type="radio" name="q12" value="c"> C. reload startup-config</label><label class="opt"><input type="radio" name="q12" value="d"> D. copy running-config startup-config</label><p class="explain">run 與 start 是可唯一辨識的常見縮寫。</p></div>
+    <div class="q" data-answer="a"><h3>13. 影片實作中，進入全域設定模式使用？</h3><label class="opt"><input type="radio" name="q13" value="a"> A. configure terminal</label><label class="opt"><input type="radio" name="q13" value="b"> B. reload</label><label class="opt"><input type="radio" name="q13" value="c"> C. logging</label><label class="opt"><input type="radio" name="q13" value="d"> D. copy start run</label><p class="explain">畫面顯示 <code>configure terminal</code>。</p></div>
+    <div class="q" data-answer="b"><h3>14. 影片第二段實作把設備名稱改成？</h3><label class="opt"><input type="radio" name="q14" value="a"> A. Router1</label><label class="opt"><input type="radio" name="q14" value="b"> B. MySwitch</label><label class="opt"><input type="radio" name="q14" value="c"> C. CoreSW99</label><label class="opt"><input type="radio" name="q14" value="d"> D. CCNA</label><p class="explain">畫面顯示 <code>hostname MySwitch</code>。</p></div>
+    <div class="q" data-answer="c"><h3>15. 影片在 MySwitch 上設定哪條 line？</h3><label class="opt"><input type="radio" name="q15" value="a"> A. line vty 0 15</label><label class="opt"><input type="radio" name="q15" value="b"> B. interface vlan 1</label><label class="opt"><input type="radio" name="q15" value="c"> C. line console 0</label><label class="opt"><input type="radio" name="q15" value="d"> D. router ospf 1</label><p class="explain">畫面清楚顯示 <code>line con 0</code> / line console 0。</p></div>
+    <div class="q" data-answer="d"><h3>16. 影片示範的 Console 密碼文字是？</h3><label class="opt"><input type="radio" name="q16" value="a"> A. admin123</label><label class="opt"><input type="radio" name="q16" value="b"> B. packet</label><label class="opt"><input type="radio" name="q16" value="c"> C. secret</label><label class="opt"><input type="radio" name="q16" value="d"> D. cisco</label><p class="explain">實作畫面輸入 <code>password cisco</code>。</p></div>
+    <div class="q" data-answer="a"><h3>17. 2.5.4 用哪個軟體示範把工作階段輸出記錄成文字檔？</h3><label class="opt"><input type="radio" name="q17" value="a"> A. PuTTY</label><label class="opt"><input type="radio" name="q17" value="b"> B. Wireshark</label><label class="opt"><input type="radio" name="q17" value="c"> C. Excel</label><label class="opt"><input type="radio" name="q17" value="d"> D. Photoshop</label><p class="explain">影片 2.5.4 的畫面是 PuTTY Configuration。</p></div>
+    <div class="q" data-answer="b"><h3>18. PuTTY 中要記錄整個終端輸出，影片選哪個 Logging 選項？</h3><label class="opt"><input type="radio" name="q18" value="a"> A. None</label><label class="opt"><input type="radio" name="q18" value="b"> B. All session output</label><label class="opt"><input type="radio" name="q18" value="c"> C. SSH packets only</label><label class="opt"><input type="radio" name="q18" value="d"> D. Printable output only</label><p class="explain">影片以黃色框標出 All session output。</p></div>
+    <div class="q" data-answer="c"><h3>19. 開啟 Logging 後，為了把目前設定寫進文字紀錄，最合理的命令是？</h3><label class="opt"><input type="radio" name="q19" value="a"> A. erase startup-config</label><label class="opt"><input type="radio" name="q19" value="b"> B. reload</label><label class="opt"><input type="radio" name="q19" value="c"> C. show running-config</label><label class="opt"><input type="radio" name="q19" value="d"> D. hostname</label><p class="explain">Logging 記錄的是 CLI 輸出；要捕捉設定，就要先把設定顯示出來。</p></div>
+    <div class="q" data-answer="d"><h3>20. 影片最後如何停止 PuTTY Session Logging？</h3><label class="opt"><input type="radio" name="q20" value="a"> A. 改成 SSH packets</label><label class="opt"><input type="radio" name="q20" value="b"> B. 改成 Printable output</label><label class="opt"><input type="radio" name="q20" value="c"> C. 刪掉 PuTTY</label><label class="opt"><input type="radio" name="q20" value="d"> D. 將 Session logging 設為 None</label><p class="explain">2.5.4 最後的畫面把 Session logging 切回 None。</p></div>
+    <div class="q" data-answer="a"><h3>21. Running-config 與 startup-config 最核心差別之一是？</h3><label class="opt"><input type="radio" name="q21" value="a"> A. 一份是目前生效，一份是開機載入</label><label class="opt"><input type="radio" name="q21" value="b"> B. 兩份永遠完全相同</label><label class="opt"><input type="radio" name="q21" value="c"> C. 兩份都只在 DNS</label><label class="opt"><input type="radio" name="q21" value="d"> D. startup-config 只保存 MAC table</label><p class="explain">Running 是現在，Startup 是下一次啟動。</p></div>
+    <div class="q" data-answer="b"><h3>22. 哪一項最符合 NVRAM 的特性？</h3><label class="opt"><input type="radio" name="q22" value="a"> A. 斷電一定清空</label><label class="opt"><input type="radio" name="q22" value="b"> B. 非揮發性，斷電後可保留內容</label><label class="opt"><input type="radio" name="q22" value="c"> C. 只能存封包</label><label class="opt"><input type="radio" name="q22" value="d"> D. 是網路協定</label><p class="explain">NVRAM 的 N 就是 Nonvolatile。</p></div>
+    <div class="q" data-answer="c"><h3>23. 【補充】<code>copy startup-config running-config</code> 的行為最接近？</h3><label class="opt"><input type="radio" name="q23" value="a"> A. 先格式化 RAM 再完整覆寫</label><label class="opt"><input type="radio" name="q23" value="b"> B. 刪除 IOS</label><label class="opt"><input type="radio" name="q23" value="c"> C. 將設定合併到目前 running-config</label><label class="opt"><input type="radio" name="q23" value="d"> D. 只改 hostname</label><p class="explain">IOS 對 running-config 套用設定時是 merge，而不是一般檔案的整份覆寫。</p></div>
+    <div class="q" data-answer="d"><h3>24. 【補充】如果目標是「乾淨地回到已保存的啟動設定狀態」，比 copy start run 更接近的做法是？</h3><label class="opt"><input type="radio" name="q24" value="a"> A. ping</label><label class="opt"><input type="radio" name="q24" value="b"> B. show clock</label><label class="opt"><input type="radio" name="q24" value="c"> C. dir flash:</label><label class="opt"><input type="radio" name="q24" value="d"> D. 安排 reload 並從 startup-config 重新載入</label><p class="explain">重新開機會重新建立 running-config；copy start run 只是合併。</p></div>
+    <div class="q" data-answer="a"><h3>25. 【補充】設定變更完成後，最好的順序通常是？</h3><label class="opt"><input type="radio" name="q25" value="a"> A. 先驗證，再儲存</label><label class="opt"><input type="radio" name="q25" value="b"> B. 先儲存，再決定有沒有改對</label><label class="opt"><input type="radio" name="q25" value="c"> C. 每次都先 erase startup-config</label><label class="opt"><input type="radio" name="q25" value="d"> D. 每次都 reload</label><p class="explain">先驗證可以避免把錯誤設定永久寫入 startup-config。</p></div>
+    <div class="q" data-answer="b"><h3>26. 【補充】終端 Logging 文字檔最需要注意什麼？</h3><label class="opt"><input type="radio" name="q26" value="a"> A. 一定是公開資料</label><label class="opt"><input type="radio" name="q26" value="b"> B. 可能含敏感設定，應妥善保存與去識別</label><label class="opt"><input type="radio" name="q26" value="c"> C. 不能被搜尋</label><label class="opt"><input type="radio" name="q26" value="d"> D. 只能存圖片</label><p class="explain">設定紀錄可能包含 IP、帳號或其他管理資訊。</p></div>
+    <div class="q" data-answer="c"><h3>27. 【補充】看到 <code>MySwitch(config-line)#</code> 表示目前在哪種模式？</h3><label class="opt"><input type="radio" name="q27" value="a"> A. User EXEC</label><label class="opt"><input type="radio" name="q27" value="b"> B. ROMMON</label><label class="opt"><input type="radio" name="q27" value="c"> C. Line configuration mode</label><label class="opt"><input type="radio" name="q27" value="d"> D. Interface EXEC</label><p class="explain">提示字元中的 <code>(config-line)#</code> 就是線路設定子模式。</p></div>
+    <div class="q" data-answer="d"><h3>28. 【補充】哪個記憶口訣最正確？</h3><label class="opt"><input type="radio" name="q28" value="a"> A. Startup = 正在跑</label><label class="opt"><input type="radio" name="q28" value="b"> B. Running = 開機才用</label><label class="opt"><input type="radio" name="q28" value="c"> C. RAM = 永久保存</label><label class="opt"><input type="radio" name="q28" value="d"> D. Running = 現在，Startup = 下次開機</label><p class="explain">這是整個章節最重要的概念對應。</p></div>
+    <div class="q" data-answer="a"><h3>29. 【補充】若只改錯一兩條設定，正式環境通常更值得優先考慮？</h3><label class="opt"><input type="radio" name="q29" value="a"> A. 用對應的 no 命令精準修正，再驗證</label><label class="opt"><input type="radio" name="q29" value="b"> B. 直接拔電</label><label class="opt"><input type="radio" name="q29" value="c"> C. 每次都 erase startup</label><label class="opt"><input type="radio" name="q29" value="d"> D. 每次都改 hostname</label><p class="explain">reload 會造成中斷；若能精準撤銷單一設定，通常風險較低。這是實務補充。</p></div>
+    <div class="q" data-answer="b"><h3>30. 把本章核心流程串起來，哪一項最合理？</h3><label class="opt"><input type="radio" name="q30" value="a"> A. 設定 → 不驗證 → 立刻 erase</label><label class="opt"><input type="radio" name="q30" value="b"> B. 了解 running/startup → 修改 → 驗證 → 決定保存或捨棄 → 必要時留存文字紀錄</label><label class="opt"><input type="radio" name="q30" value="c"> C. 先 reload → 再不知道為什麼</label><label class="opt"><input type="radio" name="q30" value="d"> D. 只背 NVRAM 四個字母</label><p class="explain">這就是影片 2.5.1～2.5.4 串起來的完整邏輯。</p></div>
+
+
+    <div class="q" data-answer="a"><h3>31. 【PDF】Part 1 一開始要用哪個命令進入 Privileged EXEC mode？</h3><label class="opt"><input type="radio" name="q31" value="a"> A. enable</label><label class="opt"><input type="radio" name="q31" value="b"> B. login</label><label class="opt"><input type="radio" name="q31" value="c"> C. hostname</label><label class="opt"><input type="radio" name="q31" value="d"> D. reload</label><p class="explain">PDF Step 1 顯示 <code>Switch&gt; enable</code>，提示字元接著變成 <code>Switch#</code>。</p></div>
+    <div class="q" data-answer="c"><h3>32. 【PDF】為什麼 Privileged EXEC 應該受到密碼保護？</h3><label class="opt"><input type="radio" name="q32" value="a"> A. 因為只能看時間</label><label class="opt"><input type="radio" name="q32" value="b"> B. 因為只能執行 ping</label><label class="opt"><input type="radio" name="q32" value="c"> C. 因為其中有許多可改變設備運作參數的命令</label><label class="opt"><input type="radio" name="q32" value="d"> D. 因為不能進設定模式</label><p class="explain">這是 PDF Part 1 Step 1 對 Privileged EXEC 安全性的直接說明。</p></div>
+    <div class="q" data-answer="b"><h3>33. 【PDF】S1 的 Console 密碼被指定為？</h3><label class="opt"><input type="radio" name="q33" value="a"> A. c1$c0</label><label class="opt"><input type="radio" name="q33" value="b"> B. letmein</label><label class="opt"><input type="radio" name="q33" value="c"> C. itsasecret</label><label class="opt"><input type="radio" name="q33" value="d"> D. admin</label><p class="explain">PDF Part 2 Step 2 指定 console password 為 <code>letmein</code>。</p></div>
+    <div class="q" data-answer="d"><h3>34. 【PDF】為什麼設定 Console password 後還要下 <code>login</code>？</h3><label class="opt"><input type="radio" name="q34" value="a"> A. 讓 hostname 消失</label><label class="opt"><input type="radio" name="q34" value="b"> B. 開啟 NVRAM</label><label class="opt"><input type="radio" name="q34" value="c"> C. 清除密碼</label><label class="opt"><input type="radio" name="q34" value="d"> D. 讓 Console line 在連入時實際要求密碼驗證</label><p class="explain">PDF 特別提醒：如果沒被提示輸入密碼，通常就是沒有配置 login 參數。</p></div>
+    <div class="q" data-answer="a"><h3>35. 【PDF】傳統 enable password 指定為哪一個？</h3><label class="opt"><input type="radio" name="q35" value="a"> A. c1$c0</label><label class="opt"><input type="radio" name="q35" value="b"> B. letmein</label><label class="opt"><input type="radio" name="q35" value="c"> C. itsasecret</label><label class="opt"><input type="radio" name="q35" value="d"> D. Cisco123</label><p class="explain">PDF Step 4 指定 <code>enable password c1$c0</code>，並提醒最後一個字元是數字 0。</p></div>
+    <div class="q" data-answer="c"><h3>36. 【PDF】enable secret 指定為？</h3><label class="opt"><input type="radio" name="q36" value="a"> A. c1$c0</label><label class="opt"><input type="radio" name="q36" value="b"> B. letmein</label><label class="opt"><input type="radio" name="q36" value="c"> C. itsasecret</label><label class="opt"><input type="radio" name="q36" value="d"> D. nvram</label><p class="explain">PDF Step 6 使用 <code>enable secret itsasecret</code>。</p></div>
+    <div class="q" data-answer="b"><h3>37. 【PDF】同時設定 enable password 與 enable secret 時，進 Privileged EXEC 要使用哪一個？</h3><label class="opt"><input type="radio" name="q37" value="a"> A. enable password</label><label class="opt"><input type="radio" name="q37" value="b"> B. enable secret</label><label class="opt"><input type="radio" name="q37" value="c"> C. Console password</label><label class="opt"><input type="radio" name="q37" value="d"> D. MOTD</label><p class="explain">PDF Note 明確說 enable secret overrides the enable password。</p></div>
+    <div class="q" data-answer="d"><h3>38. 【PDF】哪個命令用來處理仍以明文顯示的 enable / console 密碼？</h3><label class="opt"><input type="radio" name="q38" value="a"> A. banner motd</label><label class="opt"><input type="radio" name="q38" value="b"> B. erase startup-config</label><label class="opt"><input type="radio" name="q38" value="c"> C. dir nvram:</label><label class="opt"><input type="radio" name="q38" value="d"> D. service password-encryption</label><p class="explain">PDF Step 8 的命令就是 <code>service password-encryption</code>。</p></div>
+    <div class="q" data-answer="a"><h3>39. 【PDF】MOTD 的完整英文是？</h3><label class="opt"><input type="radio" name="q39" value="a"> A. Message of the Day</label><label class="opt"><input type="radio" name="q39" value="b"> B. Mode of Terminal Data</label><label class="opt"><input type="radio" name="q39" value="c"> C. Memory of the Device</label><label class="opt"><input type="radio" name="q39" value="d"> D. Management over TCP Data</label><p class="explain">PDF Part 3 直接將 MOTD 展開為 message of the day。</p></div>
+    <div class="q" data-answer="c"><h3>40. 【PDF】MOTD Banner 的安全用途之一是？</h3><label class="opt"><input type="radio" name="q40" value="a"> A. 加快交換速度</label><label class="opt"><input type="radio" name="q40" value="b"> B. 設定 VLAN</label><label class="opt"><input type="radio" name="q40" value="c"> C. 警告未授權使用者禁止存取</label><label class="opt"><input type="radio" name="q40" value="d"> D. 取代 startup-config</label><p class="explain">這正是 PDF Background / Scenario 對 Banner 的用途說明。</p></div>
+    <div class="q" data-answer="b"><h3>41. 【PDF】Part 4 儲存前先要求用哪個縮寫命令驗證設定？</h3><label class="opt"><input type="radio" name="q41" value="a"> A. sh ip int br</label><label class="opt"><input type="radio" name="q41" value="b"> B. show run</label><label class="opt"><input type="radio" name="q41" value="c"> C. copy run start</label><label class="opt"><input type="radio" name="q41" value="d"> D. reload</label><p class="explain">PDF Part 4 Step 1 明確寫著 verify using the <code>show run</code> command。</p></div>
+    <div class="q" data-answer="d"><h3>42. 【PDF】Part 4 為什麼要把 running configuration 保存到 NVRAM？</h3><label class="opt"><input type="radio" name="q42" value="a"> A. 為了提升 CPU 時脈</label><label class="opt"><input type="radio" name="q42" value="b"> B. 為了改 MAC 位址</label><label class="opt"><input type="radio" name="q42" value="c"> C. 為了開啟 PuTTY</label><label class="opt"><input type="radio" name="q42" value="d"> D. 避免重新啟動或斷電後變更遺失</label><p class="explain">這是 PDF Part 4 對保存設定的直接理由。</p></div>
+    <div class="q" data-answer="a"><h3>43. 【PDF】Part 5 要設定的第二台交換器名稱是？</h3><label class="opt"><input type="radio" name="q43" value="a"> A. S2</label><label class="opt"><input type="radio" name="q43" value="b"> B. R2</label><label class="opt"><input type="radio" name="q43" value="c"> C. SW99</label><label class="opt"><input type="radio" name="q43" value="d"> D. PC2</label><p class="explain">Part 5 的標題就是 Configure S2，並要求 Device name: S2。</p></div>
+    <div class="q" data-answer="c"><h3>44. 【PDF】下列何者不是 Part 5 對 S2 的要求？</h3><label class="opt"><input type="radio" name="q44" value="a"> A. 設定 Console 密碼</label><label class="opt"><input type="radio" name="q44" value="b"> B. 設定適當登入訊息</label><label class="opt"><input type="radio" name="q44" value="c"> C. 設定 OSPF</label><label class="opt"><input type="radio" name="q44" value="d"> D. 儲存設定</label><p class="explain">PDF Part 5 沒有 OSPF；它要求 hostname、密碼、secret、Banner、加密、驗證與保存。</p></div>
+    <div class="q" data-answer="b"><h3>45. 【整合】影片 2.5 與 PDF 2.5.5 串起來，最合理的流程是？</h3><label class="opt"><input type="radio" name="q45" value="a"> A. 先 erase → 再設定 → 不保存</label><label class="opt"><input type="radio" name="q45" value="b"> B. 進入正確模式 → 完成基本與安全設定 → 驗證 running-config → 保存到 startup-config / NVRAM</label><label class="opt"><input type="radio" name="q45" value="c"> C. 只做 Banner 就完成</label><label class="opt"><input type="radio" name="q45" value="d"> D. 只要知道 RAM 就完成</label><p class="explain">影片解釋設定保存邏輯；PDF 把它放入完整交換器初始設定流程。</p></div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+      <button id="checkBtn">檢查答案</button>
+      <button id="resetBtn" class="secondary">重新作答</button>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+</section>
+
+<div class="footer">CCNA 2.5 Save Configurations + 2.5.5 Packet Tracer｜依上傳影片與 Cisco NetAcad PDF 整理；紫色「補充」區塊為協助理解的額外說明。</div>
+</main>
+</div>
+
+<button class="backtop" id="backtop" aria-label="回到頂端">↑</button>
+
+<script>
+const sidebar=document.getElementById('sidebar'),menuBtn=document.getElementById('menuBtn'),backdrop=document.getElementById('menuBackdrop');
+function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('open')}
+menuBtn.addEventListener('click',()=>{sidebar.classList.toggle('open');backdrop.classList.toggle('open')});
+backdrop.addEventListener('click',closeMenu);
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{if(innerWidth<=960)closeMenu()}));
+
+const sections=[...document.querySelectorAll('main section')],navLinks=[...document.querySelectorAll('.nav a')];
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s=>observer.observe(s));
+
+const progress=document.getElementById('progressBar'),backtop=document.getElementById('backtop');
+addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h?scrollY/h*100:0)+'%';backtop.classList.toggle('show',scrollY>500)});
+backtop.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+document.getElementById('search').addEventListener('input',e=>{
+  const q=e.target.value.trim().toLowerCase();
+  sections.forEach(s=>{if(!q){s.style.display='';return}s.style.display=s.innerText.toLowerCase().includes(q)?'':'none'})
+});
+
+document.getElementById('checkBtn').onclick=()=>{
+  let score=0,answered=0;const qs=[...document.querySelectorAll('.q')];
+  qs.forEach(q=>{
+    const ans=q.dataset.answer,checked=q.querySelector('input:checked');
+    q.querySelectorAll('.opt').forEach(o=>o.classList.remove('right','wrong'));
+    const exp=q.querySelector('.explain');exp.style.display='block';
+    q.querySelectorAll('input').forEach(i=>{if(i.value===ans)i.closest('.opt').classList.add('right')});
+    if(checked){answered++;if(checked.value===ans)score++;else checked.closest('.opt').classList.add('wrong')}
+  });
+  const r=document.getElementById('result');r.style.display='block';
+  const pct=Math.round(score/qs.length*100);
+  let msg=score>=27?'掌握度很好：可以直接進入下一段實作。':score>=23?'基礎穩固：建議再複習 merge、reload 與 Logging。':score>=18?'觀念已建立，但 running/startup 的保存邏輯還要再熟。':'建議依「現在生效／開機載入／保存／捨棄」四條主線重讀一次。';
+  r.innerHTML=`<b>成績：${score} / ${qs.length}（${pct}%）</b><br>已作答 ${answered} 題。${msg}`;
+  r.scrollIntoView({behavior:'smooth',block:'nearest'})
+};
+
+document.getElementById('resetBtn').onclick=()=>{
+  document.querySelectorAll('.q input').forEach(i=>i.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('right','wrong'));
+  document.querySelectorAll('.explain').forEach(x=>x.style.display='none');
+  const r=document.getElementById('result');r.style.display='none';r.innerHTML=''
+};
+
+document.querySelectorAll('.pronounce-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  if(!('speechSynthesis' in window)){alert('此瀏覽器不支援語音朗讀功能。');return}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(btn.dataset.speak);u.lang='en-US';u.rate=.86;u.pitch=1;
+  const voices=speechSynthesis.getVoices();
+  const en=voices.find(v=>/^en-US/i.test(v.lang))||voices.find(v=>/^en/i.test(v.lang));
+  if(en)u.voice=en;speechSynthesis.speak(u)
+}));
+</script>
+</body>
+</html>
