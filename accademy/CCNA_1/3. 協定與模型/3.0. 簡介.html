@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CCNA 3.0｜簡介：協定和模型｜互動講義</title>
+<style>
+:root{--navy:#0b2f55;--navy2:#0e3e70;--blue:#1e73d8;--sky:#eaf4ff;--green:#2f9e62;--purple:#6f35c5;--orange:#d67b16;--red:#c93636;--ink:#142033;--muted:#5c6b7a;--line:#dbe5ef;--paper:#fff;--bg:#f3f7fb;--warn:#fff7df;--danger:#fff0f0;--radius:16px;--shadow:0 12px 30px rgba(10,39,68,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.8}a{color:inherit}
+.top{height:64px;background:linear-gradient(90deg,#082745,#0c3763);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:50;box-shadow:0 3px 14px rgba(0,0,0,.15)}
+.brand{font-weight:800;letter-spacing:.2px;font-size:18px}.top small{opacity:.82}
+.layout{display:grid;grid-template-columns:290px minmax(0,1fr);min-height:calc(100vh - 64px)}
+.sidebar{background:#0d3157;color:#fff;padding:22px 16px;position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto}.side-title{font-size:13px;opacity:.72;text-transform:uppercase;letter-spacing:.08em;margin:14px 8px 8px}.nav a{display:block;text-decoration:none;padding:9px 12px;border-radius:10px;color:#dbe9f8;font-size:14px}.nav a:hover,.nav a.active{background:#1e5d9b;color:#fff}.term-list{font-size:13px;border:1px solid rgba(255,255,255,.13);border-radius:12px;overflow:hidden}.term-list div{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.09)}.term-list div:last-child{border-bottom:0}.tip-side{margin-top:18px;padding:14px;background:rgba(255,255,255,.08);border-radius:12px;font-size:13px;color:#e7f1fb}.main{padding:36px clamp(18px,4vw,52px) 72px;min-width:0}
+.hero{background:linear-gradient(135deg,#fff,#edf6ff);border:1px solid #d5e7f7;border-radius:22px;padding:32px;box-shadow:var(--shadow);margin-bottom:24px}.eyebrow{color:var(--blue);font-weight:800;font-size:13px;letter-spacing:.08em}.hero h1{font-size:clamp(28px,4vw,46px);line-height:1.18;margin:8px 0 14px;color:#0c3763}.hero p{max-width:980px;margin:0;color:#435466}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.badge{padding:6px 10px;border-radius:99px;background:#fff;border:1px solid #cae1f5;font-size:12px;font-weight:700;color:#24588a}
+section{scroll-margin-top:88px;margin:34px 0}.section-title{font-size:26px;margin:0 0 8px;color:#0c3763}.lead{color:#586879;margin-top:0}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.concept{border-top:4px solid var(--blue)}.concept.red{border-top-color:var(--red)}.concept.green{border-top-color:var(--green)}.concept.purple{border-top-color:var(--purple)}.concept.orange{border-top-color:var(--orange)}.concept b{display:block;color:#144e87;margin-bottom:6px}
+.note{background:#eef8f1;border:1px solid #b9dec7;border-left:5px solid var(--green);padding:16px 18px;border-radius:12px}.warning{background:var(--warn);border:1px solid #f3daa0;border-left:5px solid #d69a16;padding:16px 18px;border-radius:12px}.dangerbox{background:var(--danger);border:1px solid #efc0c0;border-left:5px solid var(--red);padding:16px 18px;border-radius:12px}.sourcebox{background:#eef5ff;border:1px solid #bdd7f2;border-left:5px solid var(--blue);padding:16px 18px;border-radius:12px}.extra{background:#f6f0ff;border:1px solid #d9c8f2;border-left:5px solid var(--purple);padding:16px 18px;border-radius:12px}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;background:#eaf4ff;color:#155993;font-size:12px;font-weight:800}.mini{font-size:13px;color:var(--muted)}.kicker{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#708090}.tag-source{font-size:12px;font-weight:800;color:#155993}.tag-extra{font-size:12px;font-weight:800;color:#6f35c5}
+.figure{margin:18px 0;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}.figure img{display:block;width:100%;height:auto;background:#f8fbfe}.caption{font-size:13px;color:#526171;padding:10px 14px;background:#f8fbfe;border-top:1px solid var(--line)}
+.table-scroll{overflow-x:auto}.glossary{width:100%;border-collapse:collapse;font-size:14px}.glossary th,.glossary td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.glossary th{background:#edf5fd;color:#174d82}
+.memory{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.memory>div{padding:16px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}.memory strong{display:block;color:#1b5b94;font-size:17px}
+.flow{display:flex;gap:10px;align-items:stretch;overflow-x:auto;padding-bottom:6px}.flow .f{min-width:190px;flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:var(--shadow)}.flow .arrow{align-self:center;font-size:28px;color:#6c7b89;font-weight:800}
+.checklist{margin:0;padding-left:20px}.checklist li{margin:8px 0}
+.code{background:#0b2239;color:#d9edf9;border-radius:14px;padding:16px 18px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;line-height:1.6}.code .p{color:#8bd7ff}.code .c{color:#8fd49f}
+.quiz{background:#fff;border:1px solid #e0d7f2;border-radius:18px;padding:20px;box-shadow:var(--shadow)}.q{padding:18px 0;border-bottom:1px solid #eee}.q:last-child{border-bottom:0}.q h3{margin:0 0 10px;font-size:17px;color:#4b2493}.opt{display:block;padding:8px 10px;border-radius:9px;cursor:pointer}.opt:hover{background:#f6f1ff}.quiz button{border:0;border-radius:10px;padding:10px 16px;background:var(--purple);color:#fff;font-weight:800;cursor:pointer}.quiz button.secondary{background:#667788}.result{margin-top:15px;padding:14px;border-radius:12px;background:#f2fbf5;border:1px solid #b7ddc4;display:none}.explain{font-size:13px;color:#52606d;margin:6px 0 0 26px;display:none}.wrong{background:#fff0f0}.right{background:#ecfbf1}
+.progress{height:6px;position:fixed;top:64px;left:0;right:0;background:transparent;z-index:60}.progress span{display:block;height:100%;background:#35a8ff;width:0}.backtop{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:0;background:#0d4478;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.22);cursor:pointer;z-index:80;display:grid;place-items:center;font-size:22px;opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s}.backtop.show{opacity:1;visibility:visible;transform:none}.footer{text-align:center;color:#6c7b89;font-size:13px;margin-top:46px}.search input{width:100%;padding:11px 12px;border:1px solid #bfd0df;border-radius:10px;font:inherit}.menuBackdrop{display:none}.menuBtn{align-items:center;justify-content:center;min-width:42px;min-height:42px;font-size:22px;line-height:1}.pronounce-btn{margin-left:8px;border:1px solid #b9d3ea;background:#eef6ff;color:#145f9c;border-radius:999px;padding:3px 9px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;vertical-align:middle}.pronounce-btn:hover{background:#dceeff}.pronounce-btn:focus{outline:2px solid #6aa9e9;outline-offset:2px}
+.callout{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:#fff;border:1px dashed #bfd2e5}.callout .icon{font-size:22px;line-height:1}.small-table{width:100%;border-collapse:collapse;font-size:14px}.small-table th,.small-table td{border:1px solid var(--line);padding:10px 12px;vertical-align:top}.small-table th{background:#f4f8fc;color:#174d82}
+
+@media(min-width:961px){
+  .layout{transition:grid-template-columns .25s ease}
+  .layout.sidebar-collapsed{grid-template-columns:0 minmax(0,1fr)}
+  .layout.sidebar-collapsed .sidebar{width:0;padding-left:0;padding-right:0;overflow:hidden;border:0}
+  .sidebar{transition:width .25s ease,padding .25s ease}
+  .desktopCollapseBtn{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:36px;height:36px;border:1px solid rgba(255,255,255,.35);
+    background:rgba(255,255,255,.08);color:#fff;border-radius:9px;
+    font-size:22px;line-height:1;cursor:pointer;transition:.2s;
+  }
+  .desktopCollapseBtn:hover{background:rgba(255,255,255,.18)}
+  .desktopCollapseBtn:focus{outline:2px solid #8ec9ff;outline-offset:2px}
+}
+@media(max-width:960px){.desktopCollapseBtn{display:none!important}}
+@media(max-width:960px){.layout{display:block}.sidebar{display:block;position:fixed;left:0;top:60px;bottom:0;width:min(84vw,320px);height:auto;z-index:75;transform:translateX(-105%);transition:transform .25s ease;box-shadow:12px 0 28px rgba(0,0,0,.22)}.sidebar.open{transform:translateX(0)}.menuBackdrop{display:block;position:fixed;inset:60px 0 0 0;background:rgba(3,18,32,.52);z-index:70;opacity:0;visibility:hidden;transition:.2s}.menuBackdrop.open{opacity:1;visibility:visible}.top{height:60px;min-height:60px;gap:10px}.top small{display:none}.main{padding-top:22px;overflow:hidden}.grid-4,.grid-3,.grid-2,.memory{grid-template-columns:1fr}.progress{top:60px}.menuBtn{display:inline-flex!important}}
+@media(min-width:961px){.menuBtn{display:none!important}}
+@media(max-width:560px){.hero{padding:22px 18px}.main{padding-left:13px;padding-right:13px}.section-title{font-size:22px}.card{padding:18px}.caption{font-size:12px}.top{padding:0 12px}.brand{font-size:15px}}
+
+
+/* ===== 2.6 最終版：手機表格全面卡片化（比照 3.4 最終版） ===== */
+@media(max-width:760px){
+  /* 共用：手機不再用窄欄硬擠表格 */
+  #ip-logic .troubleshoot-table,
+  #recap .recap-table,
+  #terms .terms-glossary{display:block;font-size:15px;border-collapse:separate}
+  #ip-logic .troubleshoot-table thead,
+  #recap .recap-table thead,
+  #terms .terms-glossary thead{display:none}
+  #ip-logic .troubleshoot-table tbody,
+  #recap .recap-table tbody,
+  #terms .terms-glossary tbody{display:grid;gap:12px}
+  #ip-logic .troubleshoot-table tr,
+  #recap .recap-table tr,
+  #terms .terms-glossary tr{display:block;background:#fff;border:1px solid #dbe5ef;border-radius:15px;padding:15px;box-shadow:0 6px 18px rgba(10,39,68,.07)}
+  #ip-logic .troubleshoot-table td,
+  #recap .recap-table td,
+  #terms .terms-glossary td{display:block;width:100%;padding:0;border:0;word-break:normal;overflow-wrap:anywhere}
+
+  /* 3. IP/遮罩/閘道：問題檢查表 */
+  #ip-logic .troubleshoot-table td+td{margin-top:10px;padding-top:10px;border-top:1px solid #e6edf4}
+  #ip-logic .troubleshoot-table td:nth-child(1){font-size:16px;font-weight:900;color:#0c3763;line-height:1.5}
+  #ip-logic .troubleshoot-table td:nth-child(1)::before{content:"看到的問題";display:block;margin-bottom:5px;color:#6b7b8b;font-size:11px;font-weight:900;letter-spacing:.04em}
+  #ip-logic .troubleshoot-table td:nth-child(2)::before{content:"優先檢查";display:block;margin-bottom:5px;color:#6b7b8b;font-size:11px;font-weight:900;letter-spacing:.04em}
+  #ip-logic .troubleshoot-table td:nth-child(2){background:#f8fbfe;border:1px solid #e0e8f1;border-radius:12px;padding:10px 12px;color:#284a68}
+
+  /* 7. 重點速記 */
+  #recap .recap-card{padding:12px;background:transparent;border:0;box-shadow:none;overflow:visible}
+  #recap .recap-table td+td{margin-top:10px;padding-top:10px;border-top:1px solid #e6edf4}
+  #recap .recap-table td:nth-child(1){font-size:17px;font-weight:900;color:#0c3763;line-height:1.45}
+  #recap .recap-table td:nth-child(1)::before{content:"主題";display:inline-block;margin-right:8px;padding:2px 8px;border-radius:999px;background:#eaf4ff;color:#155993;font-size:11px;font-weight:900;vertical-align:2px}
+  #recap .recap-table td:nth-child(2)::before{content:"一句話重點";display:block;margin-bottom:5px;color:#6b7b8b;font-size:11px;font-weight:900;letter-spacing:.04em}
+  #recap .recap-table td:nth-child(3)::before{content:"你要記得";display:block;margin-bottom:5px;color:#6b7b8b;font-size:11px;font-weight:900;letter-spacing:.04em}
+  #recap .recap-table td:nth-child(3){background:#f8fbfe;border:1px solid #e0e8f1;border-radius:12px;padding:10px 12px;color:#284a68}
+
+  /* 8. 中英術語＋發音：比照 3.4 最終版 */
+  #terms .terms-card{padding:12px;background:transparent;border:0;box-shadow:none;overflow:visible}
+  #terms .terms-glossary td:nth-child(1){font-size:16px;font-weight:900;color:#0c3763;line-height:1.45;margin-bottom:9px}
+  #terms .terms-glossary td:nth-child(1)::before{content:"中文";display:inline-block;margin-right:8px;padding:2px 7px;border-radius:999px;background:#eaf4ff;color:#155993;font-size:11px;font-weight:900;vertical-align:2px}
+  #terms .terms-glossary td:nth-child(2){display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 0;border-top:1px solid #e6edf4;border-bottom:1px solid #e6edf4;color:#155993;font-weight:800;line-height:1.5}
+  #terms .terms-glossary td:nth-child(2)::before{content:"English";display:block;flex:0 0 100%;margin-bottom:-2px;color:#6b7b8b;font-size:11px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+  #terms .terms-glossary td:nth-child(3){padding-top:10px;color:#435466;line-height:1.65}
+  #terms .terms-glossary td:nth-child(3)::before{content:"白話意思";display:block;margin-bottom:3px;color:#6b7b8b;font-size:11px;font-weight:900;letter-spacing:.04em}
+  #terms .pronounce-btn{margin-left:0;min-height:38px;padding:7px 12px;flex:0 0 auto;touch-action:manipulation}
+
+  /* 流程圖在手機直向閱讀，避免左右滑太久 */
+  #ip-logic .flow,#recap .flow{flex-direction:column;overflow:visible}
+  #ip-logic .flow .f,#recap .flow .f{min-width:0;width:100%}
+  #ip-logic .flow .arrow,#recap .flow .arrow{align-self:center;transform:rotate(90deg);line-height:1}
+}
+@media(max-width:390px){
+  #ip-logic .troubleshoot-table tr,
+  #recap .recap-table tr,
+  #terms .terms-glossary tr{padding:13px;border-radius:13px}
+  #ip-logic .troubleshoot-table tbody,
+  #recap .recap-table tbody,
+  #terms .terms-glossary tbody{gap:10px}
+  #recap .recap-card,#terms .terms-card{padding:6px}
+  #terms .terms-glossary td:nth-child(2){align-items:stretch}
+  #terms .pronounce-btn{width:100%;text-align:center}
+}
+
+
+
+/* ===== 3.0 內容相容層：沿用 2.6 模板版型 ===== */
+button,input{font:inherit}
+.top-left,.top-right{display:flex;align-items:center;gap:10px}
+.top-right{flex:0 0 auto}
+.utilityBtn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:9px;padding:7px 10px;font-weight:800;cursor:pointer}
+.utilityBtn:hover{background:rgba(255,255,255,.18)}
+.search-wrap input{width:100%;padding:11px 12px;border:1px solid #bfd0df;border-radius:10px;font:inherit;color:var(--ink);background:#fff}
+.term-item{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.09)}
+.term-item:last-child{border-bottom:0}
+
+/* 3.0 原內容的 section 原本是大卡片；改回 2.6 模板的開放式段落 */
+.section{scroll-margin-top:88px;margin:34px 0;background:transparent;border:0;border-radius:0;padding:0;box-shadow:none}
+.section h2{font-size:26px;margin:0 0 8px;color:#0c3763;line-height:1.35}
+.section h3{margin:22px 0 10px;color:#0c3763;font-size:20px}
+.section p{color:#435466}
+.lead{color:#586879;margin-top:0;font-size:inherit}
+
+/* 卡片、提示框改成 2.6 視覺 */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);min-width:0}
+.card h4{margin:0 0 8px;color:#144e87;font-size:17px;line-height:1.45}
+.card p{margin:6px 0;color:#435466}
+.concept{border-top:4px solid var(--blue);background:#fff}
+.concept.green{border-color:var(--line);border-top-color:var(--green);background:#fff}
+.concept.purple{border-color:var(--line);border-top-color:var(--purple);background:#fff}
+.concept.orange{border-color:var(--line);border-top-color:var(--orange);background:#fff}
+.concept.red{border-color:var(--line);border-top-color:var(--red);background:#fff}
+.note,.warning,.sourcebox,.callout,.extra{border-radius:12px;padding:16px 18px;margin-top:16px}
+.note{background:#eef8f1;border:1px solid #b9dec7;border-left:5px solid var(--green)}
+.warning{background:var(--warn);border:1px solid #f3daa0;border-left:5px solid #d69a16}
+.sourcebox{background:#eef5ff;border:1px solid #bdd7f2;border-left:5px solid var(--blue)}
+.extra{background:#f6f0ff;border:1px solid #d9c8f2;border-left:5px solid var(--purple)}
+.callout{display:block;background:#fff;border:1px dashed #bfd2e5}
+.kicker{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#708090;background:transparent;border:0;padding:0;border-radius:0}
+
+/* 3.0 首頁與重點卡片 */
+.memory{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.memory>div{padding:16px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.memory strong{display:block;color:#1b5b94;font-size:17px}
+.badge{padding:6px 10px;border-radius:99px;background:#fff;border:1px solid #cae1f5;font-size:12px;font-weight:700;color:#24588a}
+.eyebrow{display:block;background:transparent;border:0;padding:0;border-radius:0;color:var(--blue);font-weight:800;font-size:13px;letter-spacing:.08em}
+
+/* 圖解：保持內容不變，只限制在卡片內，不讓 SVG 撐破頁面 */
+.figure{margin:18px 0;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);padding:0}
+.figure svg{display:block;width:100%;max-width:100%;height:auto;background:#f8fbfe}
+.figure .caption,.caption{font-size:13px;color:#526171;padding:10px 14px;background:#f8fbfe;border-top:1px solid var(--line);margin:0}
+
+/* 表格 */
+.table-wrap{overflow-x:auto;border:0;border-radius:0;margin-top:16px}
+.table-wrap table{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1px solid var(--line)}
+.table-wrap th,.table-wrap td{padding:10px 12px;border:1px solid var(--line);text-align:left;vertical-align:top}
+.table-wrap th{background:#edf5fd;color:#174d82}
+
+/* 流程 */
+.flow{display:flex;gap:10px;align-items:stretch;overflow-x:auto;padding-bottom:6px;flex-wrap:nowrap;margin-top:14px}
+.flow .f,.f{min-width:190px;flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:var(--shadow)}
+.flow .arrow,.arrow{align-self:center;font-size:28px;color:#6c7b89;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+/* 發音按鈕 */
+.speak-btn,.mini-btn{margin-left:8px;border:1px solid #b9d3ea;background:#eef6ff;color:#145f9c;border-radius:999px;padding:4px 10px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;vertical-align:middle}
+.speak-btn:hover,.mini-btn:hover{background:#dceeff}
+.english{display:inline-flex;align-items:center;gap:4px;flex-wrap:wrap}
+
+/* 重點摺疊 */
+.accordion{margin-top:14px;display:grid;gap:12px}
+.acc-item{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+.acc-head{width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#f4f8fc;border:0;cursor:pointer;text-align:left;font-weight:800;color:#174d82}
+.acc-panel{display:none;padding:0 16px 16px}
+.acc-item.open .acc-panel{display:block}
+.acc-item.open .acc-head{background:#edf5fd}
+
+/* 測驗：保留 3.0 功能，外觀改成 2.6 */
+.quiz-shell{background:#fff;border:1px solid #e0d7f2;border-radius:18px;padding:20px;box-shadow:var(--shadow);margin-top:16px}
+.quiz-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
+.progress-wrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.progress-bar{width:220px;height:10px;border-radius:999px;background:#e5edf5;overflow:hidden}
+.progress-bar>span{display:block;height:100%;width:0;background:#35a8ff;transition:width .25s}
+.quiz-list{display:grid;gap:0}
+.q{padding:18px 0;border:0;border-bottom:1px solid #eee;border-radius:0;background:transparent}
+.q:last-child{border-bottom:0}
+.q h4{margin:0 0 10px;font-size:17px;color:#4b2493;line-height:1.5}
+.opts{display:grid;gap:4px}
+.opt{display:flex;gap:9px;align-items:flex-start;padding:8px 10px;border:0;border-radius:9px;cursor:pointer;background:transparent}
+.opt:hover{background:#f6f1ff}
+.opt.correct{background:#ecfbf1;border:0}
+.opt.wrong{background:#fff0f0;border:0}
+.opt input{margin-top:6px}
+.explain{font-size:13px;color:#52606d;margin:8px 0 0 26px;padding:0;border:0;border-radius:0;background:transparent;display:none}
+.q.show .explain{display:block}
+.quiz-btn{border:0;border-radius:10px;padding:10px 16px;background:var(--purple);color:#fff;font-weight:800;cursor:pointer}
+.quiz-btn.secondary{background:#667788;color:#fff;border:0}
+.scorebox{margin-top:15px;padding:14px;border-radius:12px;background:#f2fbf5;border:1px solid #b7ddc4;display:none}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;background:#eaf4ff;color:#155993;font-size:12px;font-weight:800;border:0}
+
+/* 術語表改成 2.6 的表格感卡片，內容仍由原 JS 產生 */
+.glossary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.glossary-item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);min-width:0}
+.glossary-item h4{margin:0 0 6px;color:#174d82;font-size:17px;overflow-wrap:anywhere}
+.glossary-item p{margin:6px 0;color:#435466}
+.footer-note{margin-top:24px;color:#526171;font-size:13px}
+mark.search-hit{background:#fff0a8;color:#18273b;padding:0 .12em;border-radius:4px}
+
+/* 讓 3.0 原本 JS 的 body.sidebar-collapsed 也呈現 2.6 的「完全收合」 */
+@media(min-width:961px){
+  body.sidebar-collapsed .layout{grid-template-columns:0 minmax(0,1fr)}
+  body.sidebar-collapsed .sidebar{width:0;padding-left:0;padding-right:0;overflow:hidden;border:0}
+}
+
+/* 平板 / 手機：完全比照 2.6 的抽屜側欄，補上 3.0 原 JS 使用的 show class */
+@media(max-width:960px){
+  .sidebar.show{transform:translateX(0)}
+  .menuBackdrop.show{opacity:1;visibility:visible}
+  .top-right{display:none}
+  .grid-4,.grid-3,.grid-2,.memory,.glossary-grid{grid-template-columns:1fr}
+  .main{padding-top:22px;overflow:hidden}
+  .figure{overflow:hidden}
+  .figure svg{min-width:0;width:100%;height:auto}
+}
+
+/* 手機：表格卡片化，避免欄位擠成一團 */
+@media(max-width:760px){
+  #objectives .table-wrap{overflow:visible}
+  #objectives table{display:block;border:0;background:transparent}
+  #objectives thead{display:none}
+  #objectives tbody{display:grid;gap:12px}
+  #objectives tr{display:block;background:#fff;border:1px solid #dbe5ef;border-radius:15px;padding:15px;box-shadow:0 6px 18px rgba(10,39,68,.07)}
+  #objectives td{display:block;width:100%;padding:0;border:0;overflow-wrap:anywhere}
+  #objectives td+td{margin-top:10px;padding-top:10px;border-top:1px solid #e6edf4}
+  #objectives td:nth-child(1){font-size:17px;font-weight:900;color:#0c3763;line-height:1.45}
+  #objectives td:nth-child(1)::before{content:"主題";display:inline-block;margin-right:8px;padding:2px 8px;border-radius:999px;background:#eaf4ff;color:#155993;font-size:11px;font-weight:900;vertical-align:2px}
+  #objectives td:nth-child(2)::before{content:"課程目標";display:block;margin-bottom:5px;color:#6b7b8b;font-size:11px;font-weight:900;letter-spacing:.04em}
+  #objectives td:nth-child(3)::before{content:"白話解釋";display:block;margin-bottom:5px;color:#6b7b8b;font-size:11px;font-weight:900;letter-spacing:.04em}
+  #objectives td:nth-child(3){background:#f8fbfe;border:1px solid #e0e8f1;border-radius:12px;padding:10px 12px;color:#284a68}
+
+  .flow{flex-direction:column;overflow:visible}
+  .flow .f{min-width:0;width:100%}
+  .flow .arrow{align-self:center;transform:rotate(90deg);line-height:1}
+  .quiz-shell{padding:16px}
+  .progress-bar{width:100%;min-width:180px}
+  .speak-btn,.mini-btn{min-height:38px;margin-left:4px}
+}
+
+@media(max-width:560px){
+  .hero{padding:22px 18px}
+  .main{padding-left:13px;padding-right:13px}
+  .section h2{font-size:22px}
+  .card{padding:18px}
+  .caption{font-size:12px}
+  .glossary-grid{gap:12px}
+  .glossary-item{padding:15px}
+}
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-left">
+      <button type="button" class="menuBtn" id="menuBtn" aria-label="開啟導覽" aria-controls="sidebar" aria-expanded="false" style="display:none;background:transparent;border:1px solid rgba(255,255,255,.3);color:white;border-radius:8px;padding:6px 9px">☰</button>
+      <button class="desktopCollapseBtn" id="desktopCollapseBtn" aria-label="收合側邊欄" title="收合／展開側邊欄">‹</button>
+      <div>
+        <div class="brand">CCNA 課程筆記｜3.0 簡介：協定和模型</div>
+        <small>根據影片畫面整理＋補充圖解＋課後複習</small>
+      </div>
+    </div>
+
+  </header>
+
+  <div class="progress"><span id="pageProgressBar"></span></div><div class="menuBackdrop" id="menuBackdrop"></div>
+
+  <div class="layout" id="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-title">課程大綱</div>
+      <nav class="nav" id="nav">
+        <a href="#overview"><span class="nav-text">1. 本段在學什麼</span><small>從影片抓出三個主軸</small></a>
+        <a href="#why-course"><span class="nav-text">2. 3.0.1 為什麼要參加這個課程</span><small>協定與模型的重要性</small></a>
+        <a href="#objectives"><span class="nav-text">3. 3.0.2 我將學到什麼</span><small>影片表格完整展開</small></a>
+        <a href="#rules-protocols"><span class="nav-text">4. 規則與協定</span><small>Rules / Protocols</small></a>
+        <a href="#suites"><span class="nav-text">5. 協定族</span><small>Protocol Suite / TCP-IP</small></a>
+        <a href="#standards"><span class="nav-text">6. 標準組織</span><small>IEEE / IETF / ICANN / ISO</small></a>
+        <a href="#models"><span class="nav-text">7. 參考模型</span><small>OSI 與 TCP/IP</small></a>
+        <a href="#encapsulation"><span class="nav-text">8. 資料封裝</span><small>Encapsulation</small></a>
+        <a href="#data-access"><span class="nav-text">9. 資料存取</span><small>本地與遠端資源</small></a>
+        <a href="#activity"><span class="nav-text">10. 課堂活動</span><small>設計通訊系統類比</small></a>
+        <a href="#review"><span class="nav-text">11. 快速複習</span><small>白話整理</small></a>
+        <a href="#quiz"><span class="nav-text">12. 課後考題</span><small>18 題即時測驗</small></a>
+        <a href="#glossary"><span class="nav-text">13. 英文術語表</span><small>中英對照＋發音</small></a>
+      </nav>
+
+      <div class="side-title">快速搜尋</div>
+      <div class="search-wrap"><input id="searchInput" type="text" placeholder="搜尋術語、章節、關鍵字…"></div>
+
+      <div class="side-title">核心術語</div>
+      <div class="term-list">
+        <div class="term-item">Protocol｜協定</div>
+        <div class="term-item">Protocol Suite｜協定族／協定套件</div>
+        <div class="term-item">Reference Model｜參考模型</div>
+        <div class="term-item">Encapsulation｜封裝</div>
+        <div class="term-item">Standards Organization｜標準組織</div>
+        <div class="term-item">Local Resource｜本地資源</div>
+        <div class="term-item">Remote Resource｜遠端資源</div>
+        <div class="term-item">Default Gateway｜預設閘道</div>
+      </div>
+
+      <div class="tip-side">
+        💡 這份講義以你上傳的影片 <strong>3.0 簡介</strong> 為主軸整理。影片畫面主要可辨識出三段：<strong>3.0.1 為什麼要參加這個課程</strong>、<strong>3.0.2 我將在這個課程中學到什麼</strong>、<strong>3.0.3 課堂活動－設計通訊系統</strong>。我另外補上白話解釋、標準組織、OSI / TCP-IP、封裝流程與複習題，方便你真正學懂，而不是只背名詞。
+      </div>
+    </aside>
+
+    <main class="main" id="mainContent">
+      <section class="hero">
+        <div class="eyebrow">CCNA MODULE 3 · INTRODUCTION</div>
+        <h1>3.0 簡介：協定和模型<br>Protocols and Models</h1>
+        <p>這一段課程的核心，不是在背很多英文，而是在理解：<strong>網路設備為什麼能彼此溝通？</strong>答案是因為它們遵守共同的 <strong>協定（Protocol）</strong>、由標準組織制定通用規範，並且能用 <strong>模型（Model）</strong> 把整個通訊流程拆成容易理解的層次。你把這段學懂，後面 IP、交換、路由、封包分析都會順很多。</p>
+        <div class="badges">
+          <span class="badge">影片畫面整理</span>
+          <span class="badge">詳細白話解說</span>
+          <span class="badge">中英對照</span>
+          <span class="badge">按鈕英文發音</span>
+          <span class="badge">自製圖解</span>
+          <span class="badge">手機友善</span>
+          <span class="badge">桌機／平板可收合側欄</span>
+          <span class="badge">18 題測驗</span>
+        </div>
+      </section>
+
+      <section class="section" id="overview">
+        <h2>1. 本段在學什麼？</h2>
+        <p class="lead">從影片畫面可以整理出三個主軸：先說明<strong>為什麼需要學協定與模型</strong>，再列出<strong>本章會學的目標</strong>，最後用一個<strong>汽車維修廠的類比活動</strong>，讓你理解「沒有共同規則就很難協作」。</p>
+        <div class="memory">
+          <div><strong>3.0.1 為什麼要參加這個課程？</strong><br>重點是：設定好裝置不代表就一定能順利溝通，還要有規則與模型。</div>
+          <div><strong>3.0.2 我將在這個課程中學到什麼？</strong><br>重點是：規則、協定、協定族、標準組織、參考模型、資料封裝、資料存取。</div>
+          <div><strong>3.0.3 課堂活動－設計通訊系統</strong><br>用生活化情境理解：若大家沒有共同語言與流程，合作就容易失敗。</div>
+          <div><strong>這章的真正價值</strong><br>你不是只學術語，而是在學「網路為何能可靠地交換資料」。</div>
+        </div>
+        <div class="sourcebox">
+          <strong>影片內容摘要：</strong>影片畫面中可看到歡迎文字、課程目標表格，以及「設計通訊系統」活動敘述。雖然影片是簡介，但它其實把整章骨架都先交代清楚了。
+        </div>
+        <div class="note">
+          <strong>先抓一句白話重點：</strong><br>
+          沒有協定，網路就像一群人同時講不同語言；沒有模型，網路就像一台很複雜的機器，出了問題卻不知道該從哪一層查。
+        </div>
+      </section>
+
+      <section class="section" id="why-course">
+        <h2>2. 3.0.1 為什麼要參加這個課程？</h2>
+        <p>影片裡的意思很明確：你可能已經知道簡單網路的基本元件，也會做一些初始設定；但是，當你把這些元件接起來之後，<strong>你怎麼知道它們真的可以一起運作？</strong>答案就是：要靠 <strong>協定（Protocol）</strong> 和 <strong>模型（Model）</strong>。</p>
+        <div class="grid grid-2">
+          <div class="card concept">
+            <h4>協定 Protocol 是什麼？ <span class="english"><button class="speak-btn" data-speak="protocol" data-lang="en-US">🔊 發音</button></span></h4>
+            <p>協定就是一組大家都遵守的規則。它會定義：<strong>資料格式、傳送順序、錯誤處理方式、速度與時機</strong>。就像聊天時要講同一種語言、約定輪流講、知道什麼叫做收到與回覆。</p>
+          </div>
+          <div class="card concept green">
+            <h4>模型 Model 是什麼？ <span class="english"><button class="speak-btn" data-speak="model" data-lang="en-US">🔊 發音</button></span></h4>
+            <p>模型不是拿來直接傳資料的規則，而是拿來<strong>幫你理解網路流程</strong>。最常見就是 <strong>OSI 模型</strong> 與 <strong>TCP/IP 模型</strong>。它們把複雜通訊拆層，方便標準化與除錯。</p>
+          </div>
+        </div>
+
+        <div class="figure">
+          <svg viewBox="0 0 1100 420" role="img" aria-label="通訊成功需要共同規則的圖解">
+            <rect x="20" y="20" width="1060" height="380" rx="24" fill="#f8fbff" stroke="#d8e6f4"/>
+            <rect x="70" y="110" width="210" height="180" rx="22" fill="#ffffff" stroke="#bdd6ef"/>
+            <text x="175" y="150" text-anchor="middle" font-size="28" font-weight="700" fill="#15304f">傳送端</text>
+            <text x="175" y="185" text-anchor="middle" font-size="22" fill="#35506b">Sender</text>
+            <circle cx="175" cy="235" r="34" fill="#1e73d8" opacity="0.15"/>
+            <text x="175" y="244" text-anchor="middle" font-size="40">💬</text>
+
+            <rect x="820" y="110" width="210" height="180" rx="22" fill="#ffffff" stroke="#bdd6ef"/>
+            <text x="925" y="150" text-anchor="middle" font-size="28" font-weight="700" fill="#15304f">接收端</text>
+            <text x="925" y="185" text-anchor="middle" font-size="22" fill="#35506b">Receiver</text>
+            <circle cx="925" cy="235" r="34" fill="#2f9e62" opacity="0.15"/>
+            <text x="925" y="244" text-anchor="middle" font-size="40">📥</text>
+
+            <rect x="340" y="50" width="420" height="64" rx="18" fill="#eaf4ff" stroke="#cde2fb"/>
+            <text x="550" y="91" text-anchor="middle" font-size="24" font-weight="700" fill="#173e67">成功溝通需要共同規則</text>
+
+            <rect x="350" y="140" width="180" height="70" rx="18" fill="#fff" stroke="#d7e4f0"/>
+            <text x="440" y="172" text-anchor="middle" font-size="20" font-weight="700" fill="#15304f">格式</text>
+            <text x="440" y="196" text-anchor="middle" font-size="16" fill="#436079">Format</text>
+
+            <rect x="570" y="140" width="180" height="70" rx="18" fill="#fff" stroke="#d7e4f0"/>
+            <text x="660" y="172" text-anchor="middle" font-size="20" font-weight="700" fill="#15304f">時機</text>
+            <text x="660" y="196" text-anchor="middle" font-size="16" fill="#436079">Timing</text>
+
+            <rect x="350" y="230" width="180" height="70" rx="18" fill="#fff" stroke="#d7e4f0"/>
+            <text x="440" y="262" text-anchor="middle" font-size="20" font-weight="700" fill="#15304f">大小</text>
+            <text x="440" y="286" text-anchor="middle" font-size="16" fill="#436079">Size</text>
+
+            <rect x="570" y="230" width="180" height="70" rx="18" fill="#fff" stroke="#d7e4f0"/>
+            <text x="660" y="262" text-anchor="middle" font-size="20" font-weight="700" fill="#15304f">確認與錯誤處理</text>
+            <text x="660" y="286" text-anchor="middle" font-size="16" fill="#436079">Acknowledgment / Error Handling</text>
+
+            <line x1="280" y1="200" x2="340" y2="200" stroke="#1e73d8" stroke-width="4"/>
+            <polygon points="340,200 325,192 325,208" fill="#1e73d8"/>
+            <line x1="760" y1="200" x2="820" y2="200" stroke="#2f9e62" stroke-width="4"/>
+            <polygon points="820,200 805,192 805,208" fill="#2f9e62"/>
+          </svg>
+          <div class="caption">圖解 1：通訊之所以能成功，不是因為「有線就好」，而是因為雙方都遵守共同規則。這就是協定的核心概念。</div>
+        </div>
+
+        <div class="warning">
+          <strong>常見誤區：</strong>很多人以為「設備接起來就會通」。其實不是。<strong>接線只解決物理連線</strong>，但資料能不能被正確理解、能不能跨不同設備互通，還得靠協定與標準。
+        </div>
+      </section>
+
+      <section class="section" id="objectives">
+        <h2>3. 3.0.2 我將在這個課程中學到什麼？</h2>
+        <p>影片中出現了一個表格，列出本章「協定和模型」的主題與目標。我把它整理成更容易讀的版本，並加上白話說明。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="min-width:160px">主題標題</th>
+                <th style="min-width:260px">主題目標</th>
+                <th style="min-width:320px">白話解釋</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>規則</strong>（Rules）</td>
+                <td>描述規則的類型必須成功溝通。</td>
+                <td>先理解「能溝通」本身需要哪些條件，例如格式、時間、大小、流程、確認機制。</td>
+              </tr>
+              <tr>
+                <td><strong>Protocols</strong>（協定）</td>
+                <td>解釋為什麼協議在網路通信中是必要的。</td>
+                <td>說明協定如何讓不同品牌、不同設備仍能彼此交換資料。</td>
+              </tr>
+              <tr>
+                <td><strong>協定族</strong>（Protocol Suite）</td>
+                <td>解釋堅持協議套件的目的。</td>
+                <td>不是只有一條規則，而是一整組協定共同合作，例如 TCP/IP 套件。</td>
+              </tr>
+              <tr>
+                <td><strong>標準組織</strong>（Standards Organizations）</td>
+                <td>解釋標準組織在建立協議方面的作用與網路互通性。</td>
+                <td>像 IEEE、IETF 這些組織會制定或推動標準，避免大家各做各的。</td>
+              </tr>
+              <tr>
+                <td><strong>參考模型</strong>（Reference Models）</td>
+                <td>說明如何使用 TCP/IP 模型和 OSI 模型來促進標準化的溝通過程。</td>
+                <td>把通訊流程拆層，方便設計、學習、除錯、對照協定位置。</td>
+              </tr>
+              <tr>
+                <td><strong>數據封裝</strong>（Data Encapsulation）</td>
+                <td>解釋數據封裝如何允許數據透過資訊。</td>
+                <td>資料往下交給每一層時，都會被加上對應控制資訊，最後才能上線傳送。</td>
+              </tr>
+              <tr>
+                <td><strong>資料存取</strong>（Data Access）</td>
+                <td>解釋本地主機如何訪問網路上的本地資源與遠端資源。</td>
+                <td>理解電腦怎麼找同網段設備、怎麼透過閘道去外部網路。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <strong>這張表的意義：</strong>它不是單純列出考試項目，而是在告訴你「學網路的順序」：先知道規則為何存在，再知道協定如何工作，接著看標準、模型、封裝，最後才知道資料如何在實際網路中跑起來。
+        </div>
+      </section>
+
+      <section class="section" id="rules-protocols">
+        <h2>4. 規則與協定（Rules &amp; Protocols）</h2>
+        <p class="lead">在日常生活中，只要兩個人要合作，就一定會出現規則。網路也一樣。你可以把協定想成「設備之間共同承認的遊戲規則」。</p>
+        <div class="grid grid-3">
+          <div class="card concept">
+            <h4>格式 Format <button class="mini-btn speak-btn" data-speak="format" data-lang="en-US">🔊</button></h4>
+            <p>資料長什麼樣、欄位順序怎麼排、要不要有標頭與結尾，都屬於格式問題。</p>
+          </div>
+          <div class="card concept green">
+            <h4>時機 Timing <button class="mini-btn speak-btn" data-speak="timing" data-lang="en-US">🔊</button></h4>
+            <p>什麼時候能傳、多久重送一次、收到後多久要回應，這些都是時機控制。</p>
+          </div>
+          <div class="card concept orange">
+            <h4>確認 Acknowledgment <button class="mini-btn speak-btn" data-speak="acknowledgment" data-lang="en-US">🔊</button></h4>
+            <p>有些協定會要求收到資料後回覆「我收到了」，以提升可靠度。</p>
+          </div>
+        </div>
+
+        <h3>常見協定例子</h3>
+        <div class="grid grid-4">
+          <div class="card"><h4>HTTP｜超文字傳輸協定</h4><p>網站瀏覽常見協定，定義瀏覽器與網站伺服器怎麼交換資料。</p><button class="speak-btn" data-speak="HTTP" data-lang="en-US">🔊 發音</button></div>
+          <div class="card"><h4>IP｜網際網路協定</h4><p>負責邏輯位址與封包在不同網路之間的傳送。</p><button class="speak-btn" data-speak="IP" data-lang="en-US">🔊 發音</button></div>
+          <div class="card"><h4>TCP｜傳輸控制協定</h4><p>提供可靠傳輸、排序與重送機制。</p><button class="speak-btn" data-speak="TCP" data-lang="en-US">🔊 發音</button></div>
+          <div class="card"><h4>Ethernet｜乙太網路</h4><p>常見的有線區域網路技術，規範 Layer 1 / Layer 2 的很多細節。</p><button class="speak-btn" data-speak="Ethernet" data-lang="en-US">🔊 發音</button></div>
+        </div>
+
+        <div class="callout">
+          <strong>白話理解：</strong>如果你把網路看成物流系統，<strong>IP</strong> 負責看地址，<strong>TCP</strong> 負責確認包裹有沒有完整送到，<strong>HTTP</strong> 則像是規定「你要買什麼商品、用什麼格式下訂單」。
+        </div>
+      </section>
+
+      <section class="section" id="suites">
+        <h2>5. 協定族（Protocol Suite）</h2>
+        <p>一個完整的網路通訊，不會只靠一條協定。因為從「應用程式要送資料」到「網路卡把訊號送出去」，中間會牽涉很多不同工作，所以會需要一整組互相配合的協定，這就叫做 <strong>協定族（Protocol Suite）</strong>。</p>
+        <div class="grid grid-2">
+          <div class="card concept">
+            <h4>最重要的例子：TCP/IP 協定族</h4>
+            <p><strong>TCP/IP</strong> 是現代網際網路最核心的一組協定。它不是單一協定，而是一整個家族，裡面包含 IP、TCP、UDP、HTTP、DNS、ARP 等等。</p>
+          </div>
+          <div class="card concept purple">
+            <h4>為什麼要用協定族？</h4>
+            <p>因為不同層次的問題，需要不同分工。有人管應用服務、有人管可靠傳輸、有人管位址與路由、有人管實體傳輸。分工清楚，比較容易標準化與維護。</p>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div class="f"><strong>Application</strong><br>像 HTTP、HTTPS、DNS、SMTP。處理使用者應用服務。</div>
+          <div class="arrow">→</div>
+          <div class="f"><strong>Transport</strong><br>像 TCP、UDP。處理連線、可靠性、分段、多工。</div>
+          <div class="arrow">→</div>
+          <div class="f"><strong>Internet</strong><br>像 IP。處理位址與跨網路傳送。</div>
+          <div class="arrow">→</div>
+          <div class="f"><strong>Network Access</strong><br>像 Ethernet、Wi-Fi。處理媒介存取與實體傳輸。</div>
+        </div>
+
+        <div class="warning">
+          <strong>考試常考觀念：</strong>協定族不是隨便湊在一起，而是要彼此相容、能一層一層合作。這就是為什麼 CCNA 會一直強調「分層」與「封裝」。
+        </div>
+      </section>
+
+      <section class="section" id="standards">
+        <h2>6. 標準組織（Standards Organizations）</h2>
+        <p>如果每一家廠商都自己訂規則，設備很可能彼此不通。標準組織存在的目的，就是盡量讓網路世界用共同語言運作。這也是影片提到「網路互通性（Interoperability）」的重要原因。</p>
+        <div class="grid grid-3">
+          <div class="card concept">
+            <h4>IETF｜Internet Engineering Task Force</h4>
+            <p>主要推動網際網路協定相關標準，常見文件叫 <strong>RFC（Request for Comments）</strong>。</p>
+            <button class="speak-btn" data-speak="IETF" data-lang="en-US">🔊 發音</button>
+          </div>
+          <div class="card concept green">
+            <h4>IEEE｜Institute of Electrical and Electronics Engineers</h4>
+            <p>很常見在乙太網路與無線網路標準，例如 <strong>IEEE 802.3</strong>（Ethernet）、<strong>IEEE 802.11</strong>（Wi-Fi）。</p>
+            <button class="speak-btn" data-speak="IEEE" data-lang="en-US">🔊 發音</button>
+          </div>
+          <div class="card concept orange">
+            <h4>ICANN｜Internet Corporation for Assigned Names and Numbers</h4>
+            <p>負責網域名稱與 IP 位址資源分配的整體管理，例如 DNS 根區與名稱管理。</p>
+            <button class="speak-btn" data-speak="ICANN" data-lang="en-US">🔊 發音</button>
+          </div>
+          <div class="card concept purple">
+            <h4>ISO｜International Organization for Standardization</h4>
+            <p>提出很多標準化概念，對網路最有名的是 <strong>OSI 參考模型</strong>。</p>
+            <button class="speak-btn" data-speak="ISO" data-lang="en-US">🔊 發音</button>
+          </div>
+          <div class="card concept red">
+            <h4>TIA / EIA</h4>
+            <p>與通訊布線、接頭、機房相關標準常會提到，例如結構化佈線。</p>
+            <button class="speak-btn" data-speak="TIA EIA" data-lang="en-US">🔊 發音</button>
+          </div>
+          <div class="card concept">
+            <h4>為什麼重要？</h4>
+            <p>因為標準化之後，Cisco、Juniper、HPE、各種主機與作業系統，才有機會互通而不是各自為政。</p>
+          </div>
+        </div>
+
+        <div class="figure">
+          <svg viewBox="0 0 1100 500" role="img" aria-label="標準組織與其負責範圍示意圖">
+            <rect x="20" y="20" width="1060" height="460" rx="24" fill="#f8fbff" stroke="#d8e6f4"/>
+            <circle cx="550" cy="88" r="58" fill="#1e73d8" opacity="0.12" stroke="#1e73d8"/>
+            <text x="550" y="80" text-anchor="middle" font-size="25" font-weight="700" fill="#15304f">共同目標</text>
+            <text x="550" y="110" text-anchor="middle" font-size="20" fill="#35506b">Interoperability</text>
+
+            <rect x="90" y="180" width="210" height="100" rx="18" fill="#fff" stroke="#cfe1f3"/>
+            <text x="195" y="220" text-anchor="middle" font-size="28" font-weight="700" fill="#15304f">IETF</text>
+            <text x="195" y="248" text-anchor="middle" font-size="18" fill="#476078">Internet Protocols</text>
+
+            <rect x="340" y="180" width="210" height="100" rx="18" fill="#fff" stroke="#cfe1f3"/>
+            <text x="445" y="220" text-anchor="middle" font-size="28" font-weight="700" fill="#15304f">IEEE</text>
+            <text x="445" y="248" text-anchor="middle" font-size="18" fill="#476078">Ethernet / Wi-Fi</text>
+
+            <rect x="590" y="180" width="210" height="100" rx="18" fill="#fff" stroke="#cfe1f3"/>
+            <text x="695" y="220" text-anchor="middle" font-size="28" font-weight="700" fill="#15304f">ICANN</text>
+            <text x="695" y="248" text-anchor="middle" font-size="18" fill="#476078">Names / Numbers</text>
+
+            <rect x="840" y="180" width="170" height="100" rx="18" fill="#fff" stroke="#cfe1f3"/>
+            <text x="925" y="220" text-anchor="middle" font-size="28" font-weight="700" fill="#15304f">ISO</text>
+            <text x="925" y="248" text-anchor="middle" font-size="18" fill="#476078">OSI Model</text>
+
+            <rect x="380" y="330" width="340" height="90" rx="18" fill="#fff8ef" stroke="#f0d2a7"/>
+            <text x="550" y="368" text-anchor="middle" font-size="24" font-weight="700" fill="#694215">標準化的結果</text>
+            <text x="550" y="395" text-anchor="middle" font-size="18" fill="#6d5840">不同廠牌設備仍可互相溝通</text>
+
+            <line x1="550" y1="146" x2="195" y2="180" stroke="#9fc2e6" stroke-width="3"/>
+            <line x1="550" y1="146" x2="445" y2="180" stroke="#9fc2e6" stroke-width="3"/>
+            <line x1="550" y1="146" x2="695" y2="180" stroke="#9fc2e6" stroke-width="3"/>
+            <line x1="550" y1="146" x2="925" y2="180" stroke="#9fc2e6" stroke-width="3"/>
+            <line x1="195" y1="280" x2="500" y2="330" stroke="#b8cfdf" stroke-width="3"/>
+            <line x1="445" y1="280" x2="520" y2="330" stroke="#b8cfdf" stroke-width="3"/>
+            <line x1="695" y1="280" x2="580" y2="330" stroke="#b8cfdf" stroke-width="3"/>
+            <line x1="925" y1="280" x2="600" y2="330" stroke="#b8cfdf" stroke-width="3"/>
+          </svg>
+          <div class="caption">圖解 2：不同標準組織分別處理不同面向的規格，但共同目標都是讓網路更標準化、更互通。</div>
+        </div>
+      </section>
+
+      <section class="section" id="models">
+        <h2>7. 參考模型（Reference Models）</h2>
+        <p>參考模型是拿來「整理與理解」通訊流程的。最常見有兩個：<strong>OSI 模型</strong> 與 <strong>TCP/IP 模型</strong>。你可以把它們理解成兩種不同粒度的地圖：OSI 切得更細，TCP/IP 更貼近實際網際網路運作。</p>
+        <div class="grid grid-2">
+          <div class="card concept">
+            <h4>OSI Model｜開放式系統互連模型</h4>
+            <p>共有 7 層：Application、Presentation、Session、Transport、Network、Data Link、Physical。優點是分層很細，教學與除錯很方便。</p>
+            <button class="speak-btn" data-speak="O S I model" data-lang="en-US">🔊 發音</button>
+          </div>
+          <div class="card concept green">
+            <h4>TCP/IP Model｜TCP/IP 模型</h4>
+            <p>常見為 4 層：Application、Transport、Internet、Network Access。它和實際 Internet 的協定族關聯性很高，因此在實務上很常用。</p>
+            <button class="speak-btn" data-speak="T C P I P model" data-lang="en-US">🔊 發音</button>
+          </div>
+        </div>
+
+        <div class="figure">
+          <svg viewBox="0 0 1200 620" role="img" aria-label="OSI 與 TCP/IP 模型對照圖">
+            <rect x="20" y="20" width="1160" height="580" rx="24" fill="#f8fbff" stroke="#d8e6f4"/>
+            <text x="260" y="65" text-anchor="middle" font-size="30" font-weight="700" fill="#15304f">OSI Model</text>
+            <text x="860" y="65" text-anchor="middle" font-size="30" font-weight="700" fill="#15304f">TCP/IP Model</text>
+
+            <g font-size="20" font-weight="700">
+              <rect x="110" y="90" width="300" height="62" rx="16" fill="#dff0ff" stroke="#b8d6f1"/><text x="260" y="128" text-anchor="middle" fill="#15304f">7 Application 應用層</text>
+              <rect x="110" y="158" width="300" height="62" rx="16" fill="#eaf7ff" stroke="#b8d6f1"/><text x="260" y="196" text-anchor="middle" fill="#15304f">6 Presentation 表示層</text>
+              <rect x="110" y="226" width="300" height="62" rx="16" fill="#f3fbff" stroke="#b8d6f1"/><text x="260" y="264" text-anchor="middle" fill="#15304f">5 Session 會議層</text>
+              <rect x="110" y="294" width="300" height="62" rx="16" fill="#eefbf4" stroke="#bde0ca"/><text x="260" y="332" text-anchor="middle" fill="#15304f">4 Transport 傳輸層</text>
+              <rect x="110" y="362" width="300" height="62" rx="16" fill="#fff8ef" stroke="#edd3af"/><text x="260" y="400" text-anchor="middle" fill="#15304f">3 Network 網路層</text>
+              <rect x="110" y="430" width="300" height="62" rx="16" fill="#fff2f2" stroke="#efc8c8"/><text x="260" y="468" text-anchor="middle" fill="#15304f">2 Data Link 資料連結層</text>
+              <rect x="110" y="498" width="300" height="62" rx="16" fill="#f4f4f4" stroke="#d7d7d7"/><text x="260" y="536" text-anchor="middle" fill="#15304f">1 Physical 實體層</text>
+            </g>
+
+            <g font-size="20" font-weight="700">
+              <rect x="710" y="125" width="300" height="140" rx="18" fill="#e6f3ff" stroke="#b8d6f1"/><text x="860" y="180" text-anchor="middle" fill="#15304f">Application 應用層</text><text x="860" y="214" text-anchor="middle" fill="#4a647c" font-size="18" font-weight="500">對應 OSI 5~7</text>
+              <rect x="710" y="295" width="300" height="70" rx="18" fill="#eefbf4" stroke="#bde0ca"/><text x="860" y="338" text-anchor="middle" fill="#15304f">Transport 傳輸層</text>
+              <rect x="710" y="385" width="300" height="70" rx="18" fill="#fff8ef" stroke="#edd3af"/><text x="860" y="428" text-anchor="middle" fill="#15304f">Internet 網際網路層</text>
+              <rect x="710" y="475" width="300" height="85" rx="18" fill="#fff2f2" stroke="#efc8c8"/><text x="860" y="514" text-anchor="middle" fill="#15304f">Network Access 網路存取層</text><text x="860" y="543" text-anchor="middle" fill="#4a647c" font-size="18" font-weight="500">對應 OSI 1~2</text>
+            </g>
+
+            <line x1="410" y1="259" x2="710" y2="195" stroke="#7ca8d6" stroke-width="4"/>
+            <line x1="410" y1="325" x2="710" y2="330" stroke="#7ca8d6" stroke-width="4"/>
+            <line x1="410" y1="393" x2="710" y2="420" stroke="#7ca8d6" stroke-width="4"/>
+            <line x1="410" y1="480" x2="710" y2="518" stroke="#7ca8d6" stroke-width="4"/>
+          </svg>
+          <div class="caption">圖解 3：OSI 切 7 層、TCP/IP 常看成 4 層。學習上 OSI 很方便，實作與協定定位上 TCP/IP 很常用。</div>
+        </div>
+
+        <div class="extra">
+          <strong>很重要的補充：</strong><br>
+          1) <strong>OSI 模型不是實際運作的軟體</strong>，它是參考框架。<br>
+          2) <strong>TCP/IP 模型更貼近 Internet 實務</strong>。<br>
+          3) 除錯時常會問：問題出在第幾層？例如網線沒插好偏 Layer 1、MAC / VLAN 問題偏 Layer 2、IP / 路由偏 Layer 3。
+        </div>
+      </section>
+
+      <section class="section" id="encapsulation">
+        <h2>8. 資料封裝（Data Encapsulation）</h2>
+        <p>封裝是網路的關鍵流程之一。當你在瀏覽器輸入資料、按下送出後，資料不是直接原封不動上線，而是會在每一層被加上控制資訊。這個「一層一層包起來」的過程就叫封裝。</p>
+        <div class="flow">
+          <div class="f"><strong>Data｜資料</strong><br>使用者看到的原始內容，例如網頁請求、訊息、檔案。</div>
+          <div class="arrow">→</div>
+          <div class="f"><strong>Segment</strong><br>傳輸層加入 TCP / UDP 資訊，例如連接埠號。</div>
+          <div class="arrow">→</div>
+          <div class="f"><strong>Packet</strong><br>網路層加入 IP 資訊，例如來源 / 目的 IP。</div>
+          <div class="arrow">→</div>
+          <div class="f"><strong>Frame</strong><br>資料連結層加入 MAC 位址與錯誤檢查等資訊。</div>
+          <div class="arrow">→</div>
+          <div class="f"><strong>Bits</strong><br>實體層把資料轉成電／光／無線訊號傳送。</div>
+        </div>
+
+        <div class="figure">
+          <svg viewBox="0 0 1200 360" role="img" aria-label="資料封裝流程圖">
+            <rect x="20" y="20" width="1160" height="320" rx="24" fill="#f8fbff" stroke="#d8e6f4"/>
+            <rect x="60" y="120" width="150" height="90" rx="18" fill="#ffffff" stroke="#d6e4f0"/>
+            <text x="135" y="156" text-anchor="middle" font-size="26" font-weight="700" fill="#15304f">Data</text>
+            <text x="135" y="185" text-anchor="middle" font-size="18" fill="#476078">原始資料</text>
+
+            <rect x="270" y="98" width="180" height="134" rx="18" fill="#eefbf4" stroke="#bde0ca"/>
+            <rect x="290" y="120" width="48" height="90" rx="10" fill="#2f9e62" opacity="0.16" stroke="#2f9e62"/>
+            <rect x="338" y="120" width="92" height="90" rx="10" fill="#ffffff" stroke="#d6e4f0"/>
+            <text x="360" y="105" font-size="16" fill="#21435f">Transport Header</text>
+            <text x="360" y="245" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">Segment</text>
+
+            <rect x="500" y="98" width="220" height="134" rx="18" fill="#fff8ef" stroke="#edd3af"/>
+            <rect x="520" y="120" width="50" height="90" rx="10" fill="#d67b16" opacity="0.18" stroke="#d67b16"/>
+            <rect x="570" y="120" width="130" height="90" rx="10" fill="#ffffff" stroke="#d6e4f0"/>
+            <text x="610" y="105" font-size="16" fill="#21435f">IP Header</text>
+            <text x="610" y="245" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">Packet</text>
+
+            <rect x="760" y="78" width="300" height="174" rx="18" fill="#fff2f2" stroke="#efc8c8"/>
+            <rect x="790" y="130" width="64" height="90" rx="10" fill="#c93636" opacity="0.16" stroke="#c93636"/>
+            <rect x="860" y="130" width="120" height="90" rx="10" fill="#ffffff" stroke="#d6e4f0"/>
+            <rect x="986" y="130" width="54" height="90" rx="10" fill="#c93636" opacity="0.12" stroke="#c93636"/>
+            <text x="822" y="108" text-anchor="middle" font-size="13" font-weight="700" fill="#21435f">Frame</text>
+            <text x="822" y="126" text-anchor="middle" font-size="13" font-weight="700" fill="#21435f">Header</text>
+            <text x="920" y="108" text-anchor="middle" font-size="14" font-weight="700" fill="#21435f">Payload</text>
+            <text x="1013" y="108" text-anchor="middle" font-size="13" font-weight="700" fill="#21435f">Trailer</text>
+            <text x="910" y="268" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">Frame</text>
+
+            <rect x="1080" y="120" width="60" height="90" rx="18" fill="#f1f4f7" stroke="#cfd8df"/>
+            <text x="1110" y="155" text-anchor="middle" font-size="24" font-weight="700" fill="#15304f">101</text>
+            <text x="1110" y="185" text-anchor="middle" font-size="24" font-weight="700" fill="#15304f">010</text>
+
+            <line x1="210" y1="165" x2="270" y2="165" stroke="#7ca8d6" stroke-width="4"/>
+            <polygon points="270,165 255,157 255,173" fill="#7ca8d6"/>
+            <line x1="450" y1="165" x2="500" y2="165" stroke="#7ca8d6" stroke-width="4"/>
+            <polygon points="500,165 485,157 485,173" fill="#7ca8d6"/>
+            <line x1="720" y1="165" x2="770" y2="165" stroke="#7ca8d6" stroke-width="4"/>
+            <polygon points="770,165 755,157 755,173" fill="#7ca8d6"/>
+            <line x1="1040" y1="165" x2="1080" y2="165" stroke="#7ca8d6" stroke-width="4"/>
+            <polygon points="1080,165 1065,157 1065,173" fill="#7ca8d6"/>
+          </svg>
+          <div class="caption">圖解 4：資料從應用層往下走時，會逐層加上控制資訊。Frame 中可清楚看到 Header、Payload、Trailer 的結構；到接收端則會做反向的「解封裝（De-encapsulation）」。</div>
+        </div>
+
+        <div class="note">
+          <strong>超白話版本：</strong>封裝就像寄包裹。你先把內容物放進盒子，再貼上收件資訊，再交給物流公司。不同層加上的資訊，就像不同部門貼上的標籤，讓資料知道要怎麼走。
+        </div>
+      </section>
+
+      <section class="section" id="data-access">
+        <h2>9. 資料存取（Data Access）</h2>
+        <p>影片的最後一個學習目標，是理解「本地主機如何存取本地資源與遠端資源」。簡單說，就是：<strong>同一個網路裡怎麼找別人？不同網路時又怎麼出去？</strong></p>
+        <div class="grid grid-2">
+          <div class="card concept">
+            <h4>本地資源（Local Resource）</h4>
+            <p>例如：同一個辦公室網段裡的印表機、檔案伺服器、同 VLAN 的其他主機。若在同網段，主機通常可以直接透過 MAC 位址與交換器轉送完成通訊。</p>
+          </div>
+          <div class="card concept orange">
+            <h4>遠端資源（Remote Resource）</h4>
+            <p>例如：不同子網路的伺服器、外部網站、雲端服務。當目的地不在本地網段時，主機就需要把資料交給<strong>預設閘道（Default Gateway）</strong>，通常是路由器。</p>
+          </div>
+        </div>
+
+        <div class="figure">
+          <svg viewBox="0 0 1200 460" role="img" aria-label="本地與遠端資源存取示意圖">
+            <rect x="20" y="20" width="1160" height="420" rx="24" fill="#f8fbff" stroke="#d8e6f4"/>
+            <rect x="70" y="120" width="170" height="110" rx="18" fill="#fff" stroke="#d6e4f0"/>
+            <text x="155" y="160" text-anchor="middle" font-size="24" font-weight="700" fill="#15304f">PC 主機</text>
+            <text x="155" y="190" text-anchor="middle" font-size="18" fill="#476078">192.168.1.10</text>
+
+            <rect x="320" y="120" width="180" height="110" rx="18" fill="#fff" stroke="#d6e4f0"/>
+            <text x="410" y="160" text-anchor="middle" font-size="24" font-weight="700" fill="#15304f">Switch</text>
+            <text x="410" y="190" text-anchor="middle" font-size="18" fill="#476078">交換器</text>
+
+            <rect x="320" y="290" width="180" height="90" rx="18" fill="#f4fcf8" stroke="#cbe7d7"/>
+            <text x="410" y="326" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">本地印表機</text>
+            <text x="410" y="354" text-anchor="middle" font-size="18" fill="#476078">Local Resource</text>
+
+            <rect x="600" y="120" width="190" height="110" rx="18" fill="#fff8ef" stroke="#edd3af"/>
+            <text x="695" y="160" text-anchor="middle" font-size="24" font-weight="700" fill="#15304f">Router</text>
+            <text x="695" y="190" text-anchor="middle" font-size="18" fill="#476078">Default Gateway</text>
+
+            <ellipse cx="980" cy="155" rx="110" ry="62" fill="#eef4fb" stroke="#cddbeb"/>
+            <text x="980" y="150" text-anchor="middle" font-size="26" font-weight="700" fill="#15304f">Internet</text>
+            <text x="980" y="180" text-anchor="middle" font-size="18" fill="#476078">遠端網路</text>
+
+            <rect x="900" y="290" width="170" height="90" rx="18" fill="#fff" stroke="#d6e4f0"/>
+            <text x="985" y="326" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">遠端伺服器</text>
+            <text x="985" y="354" text-anchor="middle" font-size="18" fill="#476078">Remote Resource</text>
+
+            <line x1="240" y1="175" x2="320" y2="175" stroke="#1e73d8" stroke-width="5"/>
+            <polygon points="320,175 305,166 305,184" fill="#1e73d8"/>
+            <line x1="410" y1="230" x2="410" y2="290" stroke="#2f9e62" stroke-width="5"/>
+            <polygon points="410,290 401,275 419,275" fill="#2f9e62"/>
+            <line x1="500" y1="175" x2="600" y2="175" stroke="#d67b16" stroke-width="5"/>
+            <polygon points="600,175 585,166 585,184" fill="#d67b16"/>
+            <line x1="790" y1="155" x2="870" y2="155" stroke="#7a8ca0" stroke-width="5"/>
+            <polygon points="870,155 855,146 855,164" fill="#7a8ca0"/>
+            <line x1="980" y1="217" x2="985" y2="290" stroke="#7a8ca0" stroke-width="5"/>
+            <polygon points="985,290 976,275 994,275" fill="#7a8ca0"/>
+
+            <text x="285" y="108" text-anchor="middle" font-size="18" fill="#1e73d8" font-weight="700">同網段直接找</text>
+            <text x="555" y="108" text-anchor="middle" font-size="18" fill="#d67b16" font-weight="700">不同網段先找閘道</text>
+          </svg>
+          <div class="caption">圖解 5：如果目的地在本地網段，通常可直接透過交換器到達；若目的地在遠端網路，主機會先把封包交給預設閘道。</div>
+        </div>
+
+        <div class="extra">
+          <strong>補充但超常用：</strong><br>
+          • <strong>Default Gateway｜預設閘道</strong>：幫你把封包送出本地網段。<br>
+          • <strong>DNS｜網域名稱系統</strong>：幫你把網站名稱翻成 IP 位址。<br>
+          兩者功能完全不同，但在真實環境中常常一起出現。
+        </div>
+      </section>
+
+      <section class="section" id="activity">
+        <h2>10. 3.0.3 課堂活動－設計通訊系統</h2>
+        <p>影片畫面中用「你買了一台新車，開一週後發現有問題，於是送去附近維修廠」的故事做類比。到場之後，你發現每位技師都會說不同語言，雖然大家都想修好車，但彼此無法順利合作。這個活動就是要你想：<strong>要怎麼設計一個共同通訊系統，才能確保工作有效完成？</strong></p>
+        <div class="grid grid-2">
+          <div class="card concept">
+            <h4>活動真正想教什麼？</h4>
+            <ul class="list-clean">
+              <li>光有參與者，不代表能協作成功。</li>
+              <li>必須有共同語言、流程、角色分工、回報方式。</li>
+              <li>這就對應到網路中的協定、標準、封裝與回應機制。</li>
+            </ul>
+          </div>
+          <div class="card concept purple">
+            <h4>你可以怎麼回答活動？</h4>
+            <ul class="list-clean">
+              <li>先定義共同語言與術語。</li>
+              <li>定義工作流程：誰先接單、誰檢測、誰修復、誰回報。</li>
+              <li>定義訊息格式：工單上要寫哪些欄位。</li>
+              <li>定義確認機制：誰收到、誰完成、誰驗收。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="figure">
+          <svg viewBox="0 0 1100 470" role="img" aria-label="汽車維修廠與網路通訊系統的對照圖">
+            <rect x="20" y="20" width="1060" height="430" rx="24" fill="#f8fbff" stroke="#d8e6f4"/>
+            <text x="300" y="65" text-anchor="middle" font-size="30" font-weight="700" fill="#15304f">維修廠情境</text>
+            <text x="800" y="65" text-anchor="middle" font-size="30" font-weight="700" fill="#15304f">網路對應概念</text>
+
+            <rect x="70" y="100" width="380" height="64" rx="16" fill="#fff" stroke="#d6e4f0"/>
+            <text x="260" y="140" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">共同語言與術語</text>
+            <rect x="650" y="100" width="380" height="64" rx="16" fill="#fff" stroke="#d6e4f0"/>
+            <text x="840" y="140" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">協定 Protocol</text>
+            <line x1="450" y1="132" x2="650" y2="132" stroke="#7ca8d6" stroke-width="4"/>
+            <polygon points="650,132 635,124 635,140" fill="#7ca8d6"/>
+
+            <rect x="70" y="190" width="380" height="64" rx="16" fill="#fff" stroke="#d6e4f0"/>
+            <text x="260" y="230" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">工作流程與分工</text>
+            <rect x="650" y="190" width="380" height="64" rx="16" fill="#fff" stroke="#d6e4f0"/>
+            <text x="840" y="230" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">分層模型 Layered Model</text>
+            <line x1="450" y1="222" x2="650" y2="222" stroke="#7ca8d6" stroke-width="4"/>
+            <polygon points="650,222 635,214 635,230" fill="#7ca8d6"/>
+
+            <rect x="70" y="280" width="380" height="64" rx="16" fill="#fff" stroke="#d6e4f0"/>
+            <text x="260" y="320" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">工單格式與欄位</text>
+            <rect x="650" y="280" width="380" height="64" rx="16" fill="#fff" stroke="#d6e4f0"/>
+            <text x="840" y="320" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">封裝格式 Header / Frame</text>
+            <line x1="450" y1="312" x2="650" y2="312" stroke="#7ca8d6" stroke-width="4"/>
+            <polygon points="650,312 635,304 635,320" fill="#7ca8d6"/>
+
+            <rect x="70" y="370" width="380" height="64" rx="16" fill="#fff" stroke="#d6e4f0"/>
+            <text x="260" y="410" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">完成後回報與驗收</text>
+            <rect x="650" y="370" width="380" height="64" rx="16" fill="#fff" stroke="#d6e4f0"/>
+            <text x="840" y="410" text-anchor="middle" font-size="22" font-weight="700" fill="#15304f">ACK / Error Handling</text>
+            <line x1="450" y1="402" x2="650" y2="402" stroke="#7ca8d6" stroke-width="4"/>
+            <polygon points="650,402 635,394 635,410" fill="#7ca8d6"/>
+          </svg>
+          <div class="caption">圖解 6：影片中的維修廠類比，不是在講修車，而是在講「協作一定要有共同規範」。這和網路世界是一模一樣的道理。</div>
+        </div>
+      </section>
+
+      <section class="section" id="review">
+        <h2>11. 快速複習（白話整理）</h2>
+        <p>如果你只剩 3 分鐘要複習，先看這裡。</p>
+        <div class="accordion">
+          <div class="acc-item open">
+            <button class="acc-head">協定是什麼？ <span>＋</span></button>
+            <div class="acc-panel"><p>協定就是設備之間共同遵守的規則，規定資料怎麼表達、什麼時候送、如何確認、錯誤怎麼處理。</p></div>
+          </div>
+          <div class="acc-item open">
+            <button class="acc-head">模型是做什麼的？ <span>＋</span></button>
+            <div class="acc-panel"><p>模型是把複雜通訊拆層，好讓你比較容易學習、設計、對照協定位置，也方便除錯。</p></div>
+          </div>
+          <div class="acc-item open">
+            <button class="acc-head">協定族為什麼重要？ <span>＋</span></button>
+            <div class="acc-panel"><p>因為實際通訊包含很多工作，不可能一條協定包辦全部，所以要有一整組協定分工合作。</p></div>
+          </div>
+          <div class="acc-item open">
+            <button class="acc-head">標準組織在做什麼？ <span>＋</span></button>
+            <div class="acc-panel"><p>制定或推動標準，讓不同廠商設備能互通，這樣你家電腦、公司交換器、網站伺服器才不會各說各話。</p></div>
+          </div>
+          <div class="acc-item open">
+            <button class="acc-head">封裝的核心觀念是什麼？ <span>＋</span></button>
+            <div class="acc-panel"><p>資料每往下一層，就會多一層控制資訊；接收端再把它一層層拆開。這是網路通訊能被正確引導的基礎。</p></div>
+          </div>
+          <div class="acc-item open">
+            <button class="acc-head">本地與遠端資源差在哪裡？ <span>＋</span></button>
+            <div class="acc-panel"><p>同網段通常可直接通訊；不同網段則要先交給預設閘道，再由路由設備幫你送出去。</p></div>
+          </div>
+        </div>
+        <div class="note">
+          <strong>一句總結整章：</strong>網路之所以能運作，是因為資料傳輸被標準化了；而你之所以能學懂，是因為模型把這些標準分層整理好了。
+        </div>
+      </section>
+
+      <section class="section" id="quiz">
+        <h2>12. 課後考題（Review Quiz）</h2>
+        <p>下面這組題目是依照本段內容設計的複習題。作答後可以立即看到答案與解說，適合課後自我檢查。</p>
+        <div class="quiz-shell">
+          <div class="quiz-top">
+            <div class="progress-wrap">
+              <span class="pill">目前進度：<strong id="answeredCount">0</strong> / 18</span>
+              <div class="progress-bar"><span id="progressFill"></span></div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="quiz-btn" id="checkQuizBtn">批改測驗</button>
+              <button class="quiz-btn secondary" id="resetQuizBtn">重新作答</button>
+            </div>
+          </div>
+          <div class="quiz-list" id="quizList"></div>
+          <div class="scorebox" id="scoreBox"></div>
+        </div>
+      </section>
+
+      <section class="section" id="glossary">
+        <h2>13. 英文術語表（中英對照＋發音）</h2>
+        <p>這裡整理本章最重要的專有名詞。每個詞都可以按按鈕聽英文發音。</p>
+        <div class="glossary-grid" id="glossaryGrid"></div>
+        <div class="footer-note">備註：英文發音功能使用瀏覽器的 <strong>Speech Synthesis API</strong>。若某些瀏覽器或系統未安裝英文字音，可能會因裝置環境而有些差異，但大多數桌機與手機瀏覽器都能正常使用。</div>
+      </section>
+    </main>
+  </div>
+
+<button class="backtop" id="backTop" aria-label="回到頂端" title="回到頂端">↑</button>
+
+<script>
+const quizData = [
+  {q:'1. 協定（Protocol）在網路中的主要作用是什麼？', opts:['讓設備有共同規則可以溝通','讓網線變更長','增加硬碟容量','讓螢幕解析度變高'], answer:0, explain:'協定定義資料格式、時間、確認與錯誤處理等規則，讓設備能彼此理解。'},
+  {q:'2. 下列哪一項最適合當作「協定」的白話說法？', opts:['共同遵守的溝通規則','一條實體網線','一台交換器','一顆 CPU'], answer:0, explain:'協定是規則，不是硬體設備。'},
+  {q:'3. 影片中強調，為什麼只把元件接起來還不夠？', opts:['因為還需要協定與模型才能正確運作','因為插座一定不夠','因為滑鼠一定要更新','因為所有設備都必須同品牌'], answer:0, explain:'光有物理連線，不代表資料就能被正確交換；還需要規則與標準。'},
+  {q:'4. 協定族（Protocol Suite）是什麼？', opts:['一整組互相配合的協定','只包含一條協定的表格','專門放在機櫃裡的工具','單一廠商的產品型號'], answer:0, explain:'完整通訊需不同協定分工合作，因此會形成協定族，例如 TCP/IP。'},
+  {q:'5. 下列哪個是現代網際網路最核心的協定族？', opts:['TCP/IP','OSI','RJ-45','UTP'], answer:0, explain:'TCP/IP 是 Internet 的核心協定族。OSI 是參考模型，不是實際協定族。'},
+  {q:'6. 哪個標準組織最常與 Ethernet、Wi-Fi 標準相關？', opts:['IEEE','IETF','ICANN','ISO'], answer:0, explain:'IEEE 802.3 是 Ethernet，IEEE 802.11 是 Wi-Fi。'},
+  {q:'7. 哪個組織常透過 RFC 文件推動網際網路相關標準？', opts:['IETF','IEEE','ICANN','TIA'], answer:0, explain:'IETF 很有名的成果之一就是 RFC 文件。'},
+  {q:'8. OSI 參考模型共有幾層？', opts:['7 層','4 層','5 層','3 層'], answer:0, explain:'OSI 模型一共有 7 層。'},
+  {q:'9. TCP/IP 模型中，最常被視為處理 IP 位址與跨網路傳送的是哪一層？', opts:['Internet 層','Application 層','Physical 層','Presentation 層'], answer:0, explain:'Internet 層大致對應 OSI 的 Network 層，負責 IP 邏輯位址與跨網路傳送。'},
+  {q:'10. 「資料 → Segment → Packet → Frame → Bits」描述的是什麼流程？', opts:['封裝 Encapsulation','子網切割','位址轉換','媒介選擇'], answer:0, explain:'這正是資料在傳送端逐層封裝的過程。'},
+  {q:'11. 在封裝過程中，Transport 層常加入哪種重要資訊？', opts:['連接埠號 Port Numbers','螢幕亮度','電源瓦數','機櫃高度'], answer:0, explain:'傳輸層如 TCP/UDP 會加入來源與目的連接埠等資訊。'},
+  {q:'12. Frame 主要是哪一層的 PDU？', opts:['資料連結層 Data Link','網路層 Network','應用層 Application','表示層 Presentation'], answer:0, explain:'Frame 是 Layer 2 的 PDU。'},
+  {q:'13. 若目的地在同一個本地網段，主機通常會怎麼做？', opts:['可直接透過交換器找對方','一定先送到 Internet','一定先送到 DNS','一定先關機重開'], answer:0, explain:'同網段通常可以直接通訊，不需要先交給預設閘道。'},
+  {q:'14. 若目的地在不同網段，主機通常會先把封包交給誰？', opts:['預設閘道 Default Gateway','螢幕','鍵盤','印表機'], answer:0, explain:'不同網段時，主機會先把封包交給預設閘道，由路由設備轉送。'},
+  {q:'15. 模型（Model）在網路學習中的價值是什麼？', opts:['把複雜流程分層，方便理解與除錯','增加網路線長度','讓協定自動消失','取代所有硬體設備'], answer:0, explain:'模型最重要的目的就是幫你拆解複雜問題，方便標準化、學習與故障排除。'},
+  {q:'16. 影片中的汽車維修廠活動，主要是在類比什麼觀念？', opts:['沒有共同規則就難以合作','汽車一定比網路難','修車只靠速度','交換器一定比路由器便宜'], answer:0, explain:'活動的核心是說明：沒有共同語言、流程、欄位與確認機制，合作容易失敗。'},
+  {q:'17. 下列哪一項最能代表標準組織存在的好處？', opts:['提升網路互通性','讓所有設備變成同品牌','保證永遠不會故障','讓 IP 位址數量變少'], answer:0, explain:'標準化可讓不同廠商設備更容易互通。'},
+  {q:'18. 接收端把封包逐層拆開、還原成應用資料的過程稱為什麼？', opts:['解封裝 De-encapsulation','廣播 Broadcast','遮罩 Masking','循環 Routing'], answer:0, explain:'傳送端是封裝，接收端對應就是解封裝。'}
+];
+
+const glossaryData = [
+  {en:'Protocol', zh:'協定', desc:'設備之間共同遵守的溝通規則。'},
+  {en:'Model', zh:'模型', desc:'用來理解與拆解通訊流程的分層框架。'},
+  {en:'Protocol Suite', zh:'協定族／協定套件', desc:'一整組互相配合、共同完成通訊任務的協定。'},
+  {en:'Standards Organization', zh:'標準組織', desc:'制定或推動通訊標準，提升網路互通性。'},
+  {en:'Interoperability', zh:'互通性', desc:'不同廠牌、不同系統仍能互相合作與溝通。'},
+  {en:'Reference Model', zh:'參考模型', desc:'例如 OSI 與 TCP/IP，用來對照與理解網路分層。'},
+  {en:'Application Layer', zh:'應用層', desc:'最接近使用者應用服務的一層。'},
+  {en:'Transport Layer', zh:'傳輸層', desc:'處理端對端傳輸、連接埠、可靠性等問題。'},
+  {en:'Internet Layer', zh:'網際網路層', desc:'處理 IP 位址與跨網路傳送。'},
+  {en:'Data Link Layer', zh:'資料連結層', desc:'處理 MAC 位址與區域網路內的資料傳送。'},
+  {en:'Physical Layer', zh:'實體層', desc:'把資料轉成電、光或無線訊號傳送。'},
+  {en:'Encapsulation', zh:'封裝', desc:'資料往下交給各層時逐層加上控制資訊。'},
+  {en:'De-encapsulation', zh:'解封裝', desc:'接收端把逐層資訊拆開，還原成原始資料。'},
+  {en:'Frame', zh:'訊框', desc:'資料連結層的 PDU。'},
+  {en:'Packet', zh:'封包', desc:'網路層的 PDU，常與 IP 一起討論。'},
+  {en:'Segment', zh:'資料段', desc:'傳輸層的 PDU，常與 TCP 關聯。'},
+  {en:'Default Gateway', zh:'預設閘道', desc:'把封包送出本地網段的出入口。'},
+  {en:'Local Resource', zh:'本地資源', desc:'同一個本地網路或網段中的設備與服務。'},
+  {en:'Remote Resource', zh:'遠端資源', desc:'不同網段、不同網路、外部網站或雲端服務。'},
+  {en:'RFC', zh:'徵求意見稿', desc:'IETF 常見文件形式，很多網路標準都記載在 RFC 中。'}
+];
+
+const sidebar = document.getElementById('sidebar');
+const menuBtn = document.getElementById('menuBtn');
+const menuBackdrop = document.getElementById('menuBackdrop');
+const layout = document.getElementById('layout');
+const desktopCollapseBtn = document.getElementById('desktopCollapseBtn');
+const expandAllBtn = document.getElementById('expandAllBtn');
+const speakTitleBtn = document.getElementById('speakTitleBtn');
+const navLinks = [...document.querySelectorAll('#nav a')];
+const searchInput = document.getElementById('searchInput');
+const mainContent = document.getElementById('mainContent');
+
+// 漢堡選單：比照 3.2 的 open class / backdrop 行為
+menuBtn?.addEventListener('click', ()=>{
+  sidebar.classList.toggle('open');
+  menuBackdrop.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', sidebar.classList.contains('open') ? 'true' : 'false');
+});
+menuBackdrop?.addEventListener('click', ()=>{
+  sidebar.classList.remove('open');
+  menuBackdrop.classList.remove('open');
+  menuBtn?.setAttribute('aria-expanded','false');
+});
+navLinks.forEach(a=>a.addEventListener('click', ()=>{
+  sidebar.classList.remove('open');
+  menuBackdrop.classList.remove('open');
+  menuBtn?.setAttribute('aria-expanded','false');
+}));
+
+// 桌機左側欄收合按鈕：比照 3.2 直接切換 layout.sidebar-collapsed
+desktopCollapseBtn?.addEventListener('click', ()=>{
+  layout.classList.toggle('sidebar-collapsed');
+  desktopCollapseBtn.textContent = layout.classList.contains('sidebar-collapsed') ? '›' : '‹';
+});
+
+function updateActiveNav(){
+  const sections = navLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+  let currentId = sections[0]?.id || '';
+  const offset = 140;
+  sections.forEach(sec=>{ if(sec.getBoundingClientRect().top - offset <= 0){ currentId = sec.id; } });
+  navLinks.forEach(link=> link.classList.toggle('active', link.getAttribute('href') === '#' + currentId));
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+
+function speakText(text, lang='en-US'){
+  if(!('speechSynthesis' in window)){
+    alert('此瀏覽器不支援語音發音功能。');
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = lang;
+  const voices = speechSynthesis.getVoices();
+  const preferred = voices.find(v => v.lang.toLowerCase().startsWith(lang.toLowerCase().slice(0,2))) || voices.find(v=>v.lang.toLowerCase().includes('en'));
+  if(preferred) utter.voice = preferred;
+  utter.rate = 0.95;
+  utter.pitch = 1;
+  speechSynthesis.speak(utter);
+}
+
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.speak-btn,[data-speak]');
+  if(btn && btn.dataset.speak){
+    speakText(btn.dataset.speak, btn.dataset.lang || 'en-US');
+  }
+});
+speakTitleBtn?.addEventListener('click', ()=> speakText(speakTitleBtn.dataset.speak, 'en-US'));
+
+const glossaryGrid = document.getElementById('glossaryGrid');
+function renderGlossary(){
+  glossaryGrid.innerHTML = glossaryData.map(item => `
+    <article class="glossary-item">
+      <h4>${item.en}｜${item.zh}</h4>
+      <p>${item.desc}</p>
+      <button class="speak-btn" data-speak="${item.en}" data-lang="en-US">🔊 聽 ${item.en}</button>
+    </article>
+  `).join('');
+}
+renderGlossary();
+
+const quizList = document.getElementById('quizList');
+const answeredCount = document.getElementById('answeredCount');
+const progressFill = document.getElementById('progressFill');
+const scoreBox = document.getElementById('scoreBox');
+const checkQuizBtn = document.getElementById('checkQuizBtn');
+const resetQuizBtn = document.getElementById('resetQuizBtn');
+
+function renderQuiz(){
+  quizList.innerHTML = quizData.map((item, idx)=>`
+    <article class="q" data-index="${idx}">
+      <h4>${item.q}</h4>
+      <div class="opts">
+        ${item.opts.map((opt, optIdx)=>`
+          <label class="opt">
+            <input type="radio" name="q${idx}" value="${optIdx}">
+            <span>${String.fromCharCode(65+optIdx)}. ${opt}</span>
+          </label>
+        `).join('')}
+      </div>
+      <div class="explain"><strong>解說：</strong>${item.explain}</div>
+    </article>
+  `).join('');
+  bindQuizInputs();
+  updateQuizProgress();
+}
+
+function bindQuizInputs(){
+  quizList.querySelectorAll('input[type="radio"]').forEach(input=>{
+    input.addEventListener('change', updateQuizProgress);
+  });
+}
+
+function updateQuizProgress(){
+  const answered = quizData.filter((_, idx)=> quizList.querySelector(`input[name="q${idx}"]:checked`)).length;
+  answeredCount.textContent = answered;
+  progressFill.style.width = (answered / quizData.length * 100) + '%';
+}
+
+function gradeQuiz(){
+  let score = 0;
+  quizList.querySelectorAll('.q').forEach((box, idx)=>{
+    box.classList.add('show');
+    const checked = box.querySelector('input[type="radio"]:checked');
+    const opts = [...box.querySelectorAll('.opt')];
+    opts.forEach(o => o.classList.remove('correct','wrong'));
+    if(checked){
+      const chosen = Number(checked.value);
+      if(chosen === quizData[idx].answer){
+        score++;
+        checked.closest('.opt').classList.add('correct');
+      } else {
+        checked.closest('.opt').classList.add('wrong');
+        const correctInput = box.querySelector(`input[value="${quizData[idx].answer}"]`);
+        correctInput?.closest('.opt').classList.add('correct');
+      }
+    } else {
+      const correctInput = box.querySelector(`input[value="${quizData[idx].answer}"]`);
+      correctInput?.closest('.opt').classList.add('correct');
+    }
+  });
+  const percent = Math.round(score / quizData.length * 100);
+  let level = '繼續加油';
+  if(percent >= 90) level = '非常熟練';
+  else if(percent >= 75) level = '掌握得不錯';
+  else if(percent >= 60) level = '基礎有了，再補強細節';
+  scoreBox.style.display = 'block';
+  scoreBox.innerHTML = `<h3 style="margin:0 0 8px">測驗結果：${score} / ${quizData.length}（${percent}%）</h3>
+    <p style="margin:0 0 8px"><strong>評語：</strong>${level}</p>
+    <p style="margin:0">建議：如果錯在 <strong>OSI / TCP-IP 對照</strong>、<strong>封裝流程</strong>、<strong>本地與遠端資源</strong>，請回到對應章節再看一次圖解，效果會最好。</p>`;
+    scoreBox.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function resetQuiz(){
+  renderQuiz();
+  scoreBox.style.display = 'none';
+  scoreBox.innerHTML = '';
+}
+checkQuizBtn.addEventListener('click', gradeQuiz);
+resetQuizBtn.addEventListener('click', resetQuiz);
+renderQuiz();
+
+expandAllBtn?.addEventListener('click', ()=>{
+  document.querySelectorAll('.acc-item').forEach(item=> item.classList.add('open'));
+});
+document.querySelectorAll('.acc-head').forEach(btn=>{
+  btn.addEventListener('click', ()=> btn.parentElement.classList.toggle('open'));
+});
+
+function clearMarks(root){
+  root.querySelectorAll('mark.search-hit').forEach(mark=>{
+    const text = document.createTextNode(mark.textContent);
+    mark.replaceWith(text);
+  });
+}
+function highlightTerm(term){
+  clearMarks(mainContent);
+  if(!term.trim()) return;
+  const walker = document.createTreeWalker(mainContent, NodeFilter.SHOW_TEXT, {
+    acceptNode(node){
+      if(!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      const parent = node.parentElement;
+      if(!parent) return NodeFilter.FILTER_REJECT;
+      if(['SCRIPT','STYLE','MARK'].includes(parent.tagName)) return NodeFilter.FILTER_REJECT;
+      return node.nodeValue.toLowerCase().includes(term.toLowerCase()) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  });
+  const nodes = [];
+  while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node=>{
+    const value = node.nodeValue;
+    const idx = value.toLowerCase().indexOf(term.toLowerCase());
+    if(idx === -1) return;
+    const before = document.createTextNode(value.slice(0, idx));
+    const mark = document.createElement('mark');
+    mark.className = 'search-hit';
+    mark.textContent = value.slice(idx, idx + term.length);
+    const after = document.createTextNode(value.slice(idx + term.length));
+    const frag = document.createDocumentFragment();
+    frag.append(before, mark, after);
+    node.parentNode.replaceChild(frag, node);
+  });
+}
+searchInput.addEventListener('input', (e)=> highlightTerm(e.target.value));
+
+if(window.speechSynthesis){ window.speechSynthesis.onvoiceschanged = ()=>{}; }
+
+// 2.6 模板式頁面閱讀進度與回到頂端
+const pageProgressBar = document.getElementById('pageProgressBar');
+const backTopBtn = document.getElementById('backTop');
+function updatePageProgress(){
+  const doc = document.documentElement;
+  const max = doc.scrollHeight - doc.clientHeight;
+  const pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+  if(pageProgressBar) pageProgressBar.style.width = pct + '%';
+  if(backTopBtn) backTopBtn.classList.toggle('show', doc.scrollTop > 500);
+}
+window.addEventListener('scroll', updatePageProgress, {passive:true});
+backTopBtn?.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+updatePageProgress();
+</script>
+</body>
+</html>

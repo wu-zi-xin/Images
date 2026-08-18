@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CCNA 3.3 協定族｜TCP/IP 通訊協定堆疊｜完整互動講義</title>
+  <style>
+    :root{
+      --navy:#0b2f55;
+      --navy2:#0e3e70;
+      --blue:#1e73d8;
+      --sky:#eaf4ff;
+      --green:#2f9e62;
+      --purple:#6f35c5;
+      --orange:#d67b16;
+      --red:#c93636;
+      --teal:#0f8b8d;
+      --ink:#142033;
+      --muted:#5c6b7a;
+      --line:#dbe5ef;
+      --paper:#ffffff;
+      --bg:#f3f7fb;
+      --warn:#fff7df;
+      --danger:#fff0f0;
+      --radius:16px;
+      --radius-sm:12px;
+      --shadow:0 12px 30px rgba(10,39,68,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.8}
+    a{color:inherit;text-decoration:none}
+    img,svg{max-width:100%;height:auto;display:block}
+    .top{
+      position:sticky;top:0;z-index:60;
+      height:64px;padding:0 18px;background:linear-gradient(90deg,#082745,#0c3763);
+      color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;
+      box-shadow:0 3px 14px rgba(0,0,0,.15)
+    }
+    .brand-wrap{display:flex;align-items:center;gap:10px;min-width:0}
+    .hamburger{display:none;border:none;background:rgba(255,255,255,.12);color:#fff;border-radius:10px;padding:8px 10px;font-size:18px;cursor:pointer}
+    .desktopCollapseBtn{display:none;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:9px;min-width:36px;height:36px;font-size:22px;line-height:1;cursor:pointer;transition:.2s}
+    .desktopCollapseBtn:hover{background:rgba(255,255,255,.18)}
+    .desktopCollapseBtn:focus{outline:2px solid #8ec9ff;outline-offset:2px}
+    .brand{font-size:18px;font-weight:800;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .subtitle{font-size:12px;opacity:.82}
+    .top-actions{display:flex;align-items:center;gap:10px;font-size:13px}
+    .pill{background:rgba(255,255,255,.12);padding:6px 10px;border-radius:999px;white-space:nowrap}
+    .progress{height:6px;position:fixed;top:64px;left:0;right:0;background:transparent;z-index:61}
+    .progress span{display:block;height:100%;width:0;background:#35a8ff}
+
+    .layout{display:grid;grid-template-columns:290px minmax(0,1fr);min-height:calc(100vh - 64px)}
+    .layout{transition:grid-template-columns .25s ease}
+    .layout.sidebar-collapsed{grid-template-columns:0 minmax(0,1fr)}
+    .layout.sidebar-collapsed .sidebar{width:0;padding-left:0;padding-right:0;overflow:hidden;border:0}
+    .menuBackdrop{position:fixed;inset:64px 0 0 0;background:rgba(7,18,31,.46);backdrop-filter:blur(1px);display:none;z-index:35}
+    .menuBackdrop.show{display:block}
+    .sidebar{
+      position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto;
+      background:#0d3157;color:#fff;padding:20px 16px 24px;z-index:40;transition:width .25s ease,padding .25s ease
+    }
+    .side-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.72;margin:14px 8px 8px}
+    .nav a{display:block;padding:9px 12px;border-radius:10px;color:#dbe9f8;font-size:14px;margin-bottom:4px}
+    .nav a:hover,.nav a.active{background:#1e5d9b;color:#fff}
+    .side-card{background:rgba(255,255,255,.08);padding:14px;border-radius:14px;margin-top:18px;font-size:13px;color:#eaf3ff}
+    .side-card ul{margin:8px 0 0 18px;padding:0}
+    .search input{width:100%;padding:11px 12px;border:1px solid #bfd0df;border-radius:10px;font:inherit}
+    .main{padding:24px;min-width:0}
+
+    .hero,.section,.note-box,.quiz-wrap,.result,.term-table-wrap,.card,.compare-box,.tip,.warn{
+      background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
+    }
+    .hero{padding:26px 24px;margin-bottom:20px}
+    .hero h1{margin:0 0 8px;font-size:32px;line-height:1.25}
+    .hero p{margin:10px 0;color:var(--muted)}
+    .badge-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .badge{background:var(--sky);color:var(--navy2);padding:7px 12px;border-radius:999px;font-size:13px;font-weight:700;border:1px solid #cfe4ff}
+    .section{padding:24px;margin-bottom:18px;scroll-margin-top:84px}
+    .section h2{margin:0 0 8px;font-size:28px;line-height:1.3}
+    .section h3{margin:22px 0 10px;font-size:20px;color:var(--navy2)}
+    .section p,.section li{font-size:15px}
+    .section .lead{font-size:17px;color:#233548}
+    .muted{color:var(--muted)}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .card{padding:18px}
+    .card h4{margin:0 0 8px;font-size:18px;color:var(--navy2)}
+    .note-box{padding:16px;background:#f9fcff}
+    .tip{padding:16px;border-left:6px solid var(--green);background:#f9fffb}
+    .warn{padding:16px;border-left:6px solid var(--orange);background:var(--warn)}
+    .danger{border-left-color:var(--red);background:var(--danger)}
+    .keypoints{padding-left:18px;margin:8px 0}
+    .keypoints li{margin-bottom:8px}
+
+    .diagram{padding:16px;background:linear-gradient(180deg,#fff,#fbfdff);border:1px solid var(--line);border-radius:18px;overflow:auto}
+    .diagram-title{font-size:14px;font-weight:800;color:var(--navy2);margin-bottom:10px}
+    .diagram-caption{font-size:13px;color:var(--muted);margin-top:10px}
+    .legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .legend span{display:inline-flex;align-items:center;gap:8px;font-size:13px;background:#f6f9fd;border:1px solid var(--line);padding:6px 10px;border-radius:999px}
+    .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid var(--line);padding:12px;vertical-align:top;text-align:left}
+    th{background:#eff6ff;color:#123d68;font-size:14px}
+    td{font-size:14px;background:#fff}
+    .compare-box{overflow:auto}
+
+    .tabs{margin-top:16px}
+    .tab-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:12px}
+    .tab-btn{border:1px solid var(--line);background:#f5f8fc;color:#21405e;border-radius:12px;padding:12px 10px;font-weight:800;cursor:pointer}
+    .tab-btn.active{background:#dff2ff;border-color:#9fd2ff;color:#0f4d88}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+    .proto-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+    .proto-card{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+    .proto-card h4{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px;font-size:17px}
+    .proto-meta{font-size:12px;color:var(--muted);font-weight:700}
+    .speak-btn,.mini-btn,.quiz-btn,.ghost-btn{
+      border:none;border-radius:10px;padding:8px 12px;font-weight:800;cursor:pointer;font-size:13px
+    }
+    .speak-btn{background:var(--navy2);color:#fff;white-space:nowrap}
+    .speak-btn:hover{background:#11518f}
+    .mini-btn{background:#eef4fb;color:#14436c;border:1px solid var(--line)}
+    .mini-btn:hover{background:#e1edf9}
+    .ghost-btn{background:#fff;color:#174e81;border:1px solid var(--line)}
+    .quiz-btn{background:var(--blue);color:#fff}
+    .quiz-btn:hover{filter:brightness(.95)}
+
+    .flow-list{counter-reset:step;display:grid;gap:12px;margin-top:16px}
+    .flow-item{position:relative;padding:16px 16px 16px 58px;border:1px solid var(--line);border-radius:16px;background:#fff}
+    .flow-item::before{
+      counter-increment:step;content:counter(step);
+      position:absolute;left:16px;top:16px;width:28px;height:28px;border-radius:50%;
+      background:var(--navy2);color:#fff;display:grid;place-items:center;font-weight:800
+    }
+
+    .osimap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .stack-box{border:1px solid var(--line);border-radius:16px;padding:12px;background:#fff}
+    .layer-row{display:grid;grid-template-columns:130px 1fr;gap:10px;align-items:stretch;margin-bottom:8px}
+    .layer-name{padding:12px;border-radius:12px;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center}
+    .layer-desc{padding:12px;border-radius:12px;background:#f6f9fd;border:1px solid var(--line);font-size:14px}
+
+    .term-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .term-table-wrap{overflow:auto}
+    .term-chip{display:inline-block;background:#f3f8ff;border:1px solid #dce9f8;color:#17456f;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:700}
+
+    .quiz-wrap{padding:18px}
+    .question{padding:16px;border:1px solid var(--line);border-radius:14px;background:#fbfdff;margin-bottom:14px}
+    .question h4{margin:0 0 8px;font-size:17px}
+    .options{display:grid;gap:8px;margin-top:10px}
+    .option{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
+    .option:hover{background:#f6fbff}
+    .option input{margin-top:4px}
+    .feedback{margin-top:10px;padding:12px;border-radius:12px;display:none;font-size:14px}
+    .feedback.ok{display:block;background:#f1fff5;border:1px solid #c7efcf}
+    .feedback.no{display:block;background:#fff4f4;border:1px solid #f0c6c6}
+    .result{padding:18px;margin-top:14px;display:none}
+    .score{font-size:28px;font-weight:900;color:var(--navy2)}
+
+    .footer{color:var(--muted);font-size:13px;padding:8px 2px 40px}
+    .backtop{
+      position:fixed;right:18px;bottom:18px;z-index:50;border:none;border-radius:999px;
+      padding:12px 14px;background:#0d3157;color:#fff;font-weight:800;box-shadow:var(--shadow);cursor:pointer
+    }
+    code.inline{background:#edf5ff;border:1px solid #cfe2f8;padding:2px 6px;border-radius:8px;font-size:.95em}
+
+    @media (max-width: 1040px){
+      .grid-2,.grid-3,.osimap,.proto-grid{grid-template-columns:1fr}
+      .tab-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .layer-row{grid-template-columns:1fr}
+      .hero h1{font-size:28px}
+    }
+    @media (min-width: 861px){
+      .desktopCollapseBtn{display:inline-flex;align-items:center;justify-content:center}
+      .hamburger{display:none!important}
+    }
+    @media (max-width: 860px){
+      .hamburger{display:inline-block}
+      .desktopCollapseBtn{display:none!important}
+      .layout{display:block}
+      .sidebar{
+        position:fixed;left:0;top:64px;width:min(86vw,320px);height:calc(100vh - 64px);
+        transform:translateX(-102%);transition:transform .25s ease;box-shadow:12px 0 30px rgba(0,0,0,.16)
+      }
+      .sidebar.open{transform:translateX(0)}
+      .main{padding:16px}
+      .hero,.section{padding:18px}
+      .top-actions .pill:last-child{display:none}
+    }
+    @media (max-width: 560px){
+      .hero h1{font-size:24px}
+      .section h2{font-size:22px}
+      .tab-buttons{grid-template-columns:1fr}
+      th,td{padding:10px}
+      .brand{font-size:16px}
+      .subtitle{display:none}
+      .progress{top:64px}
+    }
+
+
+    /* ===== 最終版：可讀性、平板與手機優化 ===== */
+    button,input{font:inherit}
+    button{touch-action:manipulation}
+    :focus-visible{outline:3px solid #2d8cff;outline-offset:3px}
+    .main{max-width:1500px;width:100%;margin:0 auto}
+    .section,.hero{overflow:hidden}
+    .diagram svg{min-width:760px}
+    .diagram{scrollbar-width:thin}
+    .diagram::after{content:"";display:block}
+    .quiz-btn,.ghost-btn,.speak-btn,.mini-btn{min-height:40px}
+    .option{min-height:44px}
+
+    @media (max-width: 1040px) and (min-width: 861px){
+      .layout{grid-template-columns:250px minmax(0,1fr)}
+      .main{padding:20px}
+    }
+
+    @media (max-width: 760px){
+      body{line-height:1.72}
+      .main{padding:12px}
+      .hero,.section{padding:16px;border-radius:14px}
+      .hero h1{font-size:23px}
+      .section h2{font-size:21px}
+      .section h3{font-size:18px}
+      .section p,.section li{font-size:15px}
+      .diagram{padding:12px;border-radius:14px;-webkit-overflow-scrolling:touch}
+      .diagram svg{min-width:680px}
+      .diagram-caption{font-size:12px;line-height:1.65}
+      .tab-btn{min-height:46px}
+      .question{padding:14px}
+      .question h4{font-size:16px;line-height:1.55}
+      .option{padding:11px 10px}
+
+      /* 專有名詞表在手機改成卡片，不把四欄硬擠在一起 */
+      #terms .term-table-wrap{overflow:visible;border:0;box-shadow:none;background:transparent}
+      #terms table,#terms tbody,#terms tr,#terms td{display:block;width:100%}
+      #terms thead{display:none}
+      #terms tbody{display:grid;gap:12px}
+      #terms tr{background:#fff;border:1px solid #dbe5ef;border-radius:14px;padding:14px;box-shadow:0 6px 18px rgba(10,39,68,.07)}
+      #terms td{border:0;padding:0;background:transparent;overflow-wrap:anywhere}
+      #terms td+td{margin-top:9px;padding-top:9px;border-top:1px solid #e5edf5}
+      #terms td:nth-child(1)::before{content:"中文";display:block;font-size:11px;font-weight:900;color:#5c6b7a;margin-bottom:4px}
+      #terms td:nth-child(2)::before{content:"English";display:block;font-size:11px;font-weight:900;color:#5c6b7a;margin-bottom:4px;letter-spacing:.04em}
+      #terms td:nth-child(3)::before{content:"白話解釋";display:block;font-size:11px;font-weight:900;color:#5c6b7a;margin-bottom:4px}
+      #terms td:nth-child(4)::before{content:"英文發音";display:block;font-size:11px;font-weight:900;color:#5c6b7a;margin-bottom:6px}
+      #terms .speak-btn{width:100%}
+    }
+
+    @media (max-width: 390px){
+      .main{padding:9px}
+      .hero,.section{padding:14px}
+      .badge{font-size:12px;padding:6px 9px}
+      .top{padding:0 10px}
+      .brand{font-size:15px}
+      .diagram svg{min-width:620px}
+    }
+
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="brand-wrap">
+      <button class="hamburger" id="menuBtn" aria-label="開啟選單">☰</button>
+      <button class="desktopCollapseBtn" id="desktopCollapseBtn" aria-label="收合側邊欄" title="收合／展開側邊欄">‹</button>
+      <div>
+        <div class="brand">CCNA 3.3 協定族｜互動講義</div>
+        <div class="subtitle">Protocol Suite / TCP-IP Stack / Encapsulation</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="pill">單一 HTML｜離線可讀</span>
+      <span class="pill">中英對照＋英文發音＋18 題測驗</span>
+    </div>
+  </header>
+
+  <div class="progress"><span id="progressBar"></span></div>
+  <div class="menuBackdrop" id="menuBackdrop"></div>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-title">課程導覽</div>
+      <nav class="nav" id="nav">
+        <a href="#overview">1. 本段在學什麼</a>
+        <a href="#communication">2. 3.3.1 網路通訊說明</a>
+        <a href="#evolution">3. 3.3.2 協議套件的演變</a>
+        <a href="#example">4. 3.3.3 TCP/IP 協定範例</a>
+        <a href="#stack">5. 3.3.4 TCP/IP 通訊協定堆疊</a>
+        <a href="#process">6. 3.3.5 通信過程</a>
+        <a href="#extra">7. 額外補充重點</a>
+        <a href="#terms">8. 專有名詞中英對照＋發音</a>
+        <a href="#quiz">9. 課後考題</a>
+      </nav>
+      <div class="side-title">快速搜尋</div>
+      <div class="search"><input id="search" placeholder="搜尋：TCP、UDP、IPv4、封裝、Frame…"></div>
+      <div class="side-title">這頁有什麼</div>
+      <div class="side-card">
+        <strong>你會看到：</strong>
+        <ul>
+          <li>白話講解 TCP/IP 四層模型</li>
+          <li>乾淨清楚的示意圖（自適應）</li>
+          <li>常見協定的用途整理</li>
+          <li>英文術語發音按鈕</li>
+          <li>互動式課後測驗</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="hero" id="overview">
+        <h1>3.3 協定族（Protocol Suite）與 TCP/IP 通訊協定堆疊</h1>
+        <p class="lead">這一段是在講：<strong>電腦到底怎麼「有規則地」溝通</strong>。不是只知道有網路線、有 Wi‑Fi 就好，而是要知道資料在送出前會經過哪些規則、被包成什麼格式、由哪些協定處理，最後才會順利送到對方主機。</p>
+        <p>根據你提供的課程影片，本頁整理了 <strong>3.3.1 到 3.3.5</strong> 的重點，並補上容易理解的白話說明、圖像化整理、常見協定用途、專有名詞中英對照，以及課後練習題。</p>
+        <div class="badge-row">
+          <span class="badge">重點一：協定是一套規則</span>
+          <span class="badge">重點二：TCP/IP 是現代網路主流</span>
+          <span class="badge">重點三：資料會封裝與解封裝</span>
+          <span class="badge">重點四：分層可以讓網路更容易設計與除錯</span>
+        </div>
+      </section>
+
+      <section class="section" id="communication">
+        <h2>3.3.1 網路通訊說明</h2>
+        <p class="lead">簡單講，<strong>網路通訊不是隨便把資料丟出去</strong>，而是雙方都要遵守同一套規則。這些規則就叫做 <strong>協定（Protocol）</strong>。</p>
+        <div class="grid-2">
+          <div class="card">
+            <h4>白話理解：像兩個人在聊天</h4>
+            <ul class="keypoints">
+              <li><strong>內容層（Content）</strong>：你要講什麼內容，例如「晚點開會」。</li>
+              <li><strong>規則層（Rules）</strong>：你們要用同一種語言、輪流講話、講完要等回應。</li>
+              <li><strong>實體層（Physical）</strong>：聲音要透過嘴巴、耳朵與空氣傳出去。</li>
+            </ul>
+            <p>電腦網路也一樣：內容、規則、實際傳送媒介，三者都要配合，通訊才會成功。</p>
+          </div>
+          <div class="note-box">
+            <strong>為什麼要分層？</strong>
+            <ul class="keypoints">
+              <li>把複雜問題切小塊：每一層只做好自己的事。</li>
+              <li>更容易替換技術：例如換成 Wi‑Fi，不一定要改上層應用程式。</li>
+              <li>更容易除錯：可以定位是應用層、傳輸層，還是網路存取層出問題。</li>
+              <li>更容易標準化：不同廠牌設備只要遵守同一套標準，就能互通。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="diagram" role="img" aria-label="人類對話與網路分層的類比圖">
+          <div class="diagram-title">圖 1：人類對話 vs. 網路分層（示意）</div>
+          <svg viewBox="0 0 1040 430" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#edf6ff"/>
+                <stop offset="1" stop-color="#ffffff"/>
+              </linearGradient>
+            </defs>
+            <rect x="10" y="10" width="1020" height="410" rx="22" fill="url(#g1)" stroke="#dbe5ef"/>
+            <rect x="60" y="55" width="920" height="80" rx="16" fill="#efe7ff" stroke="#d6c5fb"/>
+            <rect x="60" y="175" width="920" height="80" rx="16" fill="#fff5e6" stroke="#f0d3a8"/>
+            <rect x="60" y="295" width="920" height="80" rx="16" fill="#e8f8f8" stroke="#bde6e6"/>
+            <text x="88" y="92" font-size="28" font-weight="700" fill="#4c2c8a">內容層 Content Layer</text>
+            <text x="88" y="122" font-size="20" fill="#27364a">真正要表達的內容，例如：『今天要交作業』</text>
+            <text x="88" y="212" font-size="28" font-weight="700" fill="#9a5d00">規則層 Rules Layer</text>
+            <text x="88" y="242" font-size="20" fill="#27364a">要用什麼語言？誰先講？有沒有格式？要不要確認收到？</text>
+            <text x="88" y="332" font-size="28" font-weight="700" fill="#0f6f73">實體層 Physical Layer</text>
+            <text x="88" y="362" font-size="20" fill="#27364a">透過嘴巴與聲音傳遞；在電腦網路裡則是網路線、光纖、Wi‑Fi 訊號</text>
+            <circle cx="870" cy="335" r="36" fill="#8ad0d0"/>
+            <circle cx="870" cy="305" r="16" fill="#8ad0d0"/>
+            <circle cx="930" cy="335" r="36" fill="#8ad0d0"/>
+            <circle cx="930" cy="305" r="16" fill="#8ad0d0"/>
+            <path d="M885 318 L916 318" stroke="#0f6f73" stroke-width="6" stroke-linecap="round"/>
+            <path d="M875 288 Q900 264 925 288" stroke="#7d94b8" stroke-width="4" fill="none" stroke-dasharray="6 6"/>
+            <polygon points="925,288 915,283 918,295" fill="#7d94b8"/>
+          </svg>
+          <div class="diagram-caption">這個類比正是影片 3.3.1 想表達的核心：通訊成功，必須同時具備「內容、規則、傳送媒介」。</div>
+        </div>
+      </section>
+
+      <section class="section" id="evolution">
+        <h2>3.3.2 協議套件的演變</h2>
+        <p class="lead">所謂 <strong>協議套件（Protocol Suite）</strong>，就是一組互相配合的協定，一起完成完整的網路通訊服務。</p>
+        <p>影片中提到，從 1970 年代以來，曾經出現過好幾種不同的協議套件；有些是正式標準，有些是特定廠商推出的方案。後來真正成為主流的是 <strong>TCP/IP</strong>。</p>
+        <div class="compare-box">
+          <table>
+            <thead>
+              <tr>
+                <th>協議套件</th>
+                <th>定位</th>
+                <th>代表特徵</th>
+                <th>現在的狀態</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>TCP/IP</strong></td>
+                <td>現代 Internet 的主流協議套件</td>
+                <td>開放、可擴充、跨平台、支援大型互聯網</td>
+                <td><strong>主流中的主流</strong></td>
+              </tr>
+              <tr>
+                <td><strong>ISO / OSI</strong></td>
+                <td>由國際標準組織提出的參考模型</td>
+                <td>七層模型很重要，常用來教學、分析與除錯</td>
+                <td>模型很常用，但實際 OSI 協定本身並未成為主流</td>
+              </tr>
+              <tr>
+                <td><strong>AppleTalk</strong></td>
+                <td>Apple 早期網路架構</td>
+                <td>在舊式 Apple 環境中使用</td>
+                <td>歷史性技術，現今幾乎淘汰</td>
+              </tr>
+              <tr>
+                <td><strong>Novell NetWare</strong></td>
+                <td>Novell 早期網路系統</td>
+                <td>以 IPX/SPX 等協定著名</td>
+                <td>歷史性技術，現今少見</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid-2" style="margin-top:16px">
+          <div class="diagram" role="img" aria-label="協議套件演變示意圖">
+            <div class="diagram-title">圖 2：協議套件演變（簡化）</div>
+            <svg viewBox="0 0 920 380" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="900" height="360" rx="22" fill="#fff" stroke="#dbe5ef"/>
+              <line x1="90" y1="300" x2="840" y2="300" stroke="#9eb4c7" stroke-width="6" stroke-linecap="round"/>
+              <text x="80" y="334" font-size="18" fill="#5c6b7a">1970s</text>
+              <text x="255" y="334" font-size="18" fill="#5c6b7a">1980s</text>
+              <text x="430" y="334" font-size="18" fill="#5c6b7a">1990s</text>
+              <text x="610" y="334" font-size="18" fill="#5c6b7a">2000s</text>
+              <text x="786" y="334" font-size="18" fill="#5c6b7a">Today</text>
+
+              <rect x="85" y="70" width="170" height="62" rx="14" fill="#efe7ff" stroke="#d6c5fb"/>
+              <text x="170" y="105" font-size="24" text-anchor="middle" font-weight="700" fill="#5b33a6">OSI / ISO</text>
+              <text x="170" y="150" font-size="15" text-anchor="middle" fill="#27364a">重要參考模型</text>
+
+              <rect x="280" y="160" width="170" height="62" rx="14" fill="#fff4e3" stroke="#f0d2a1"/>
+              <text x="365" y="197" font-size="24" text-anchor="middle" font-weight="700" fill="#b26400">AppleTalk</text>
+              <text x="365" y="240" font-size="15" text-anchor="middle" fill="#27364a">曾在 Apple 環境使用</text>
+
+              <rect x="480" y="160" width="190" height="62" rx="14" fill="#ffe7eb" stroke="#f2b7c2"/>
+              <text x="575" y="197" font-size="24" text-anchor="middle" font-weight="700" fill="#ad2b49">Novell NetWare</text>
+              <text x="575" y="240" font-size="15" text-anchor="middle" fill="#27364a">IPX / SPX 具代表性</text>
+
+              <rect x="600" y="60" width="230" height="120" rx="18" fill="#e7f6ed" stroke="#bde2c9"/>
+              <text x="715" y="104" font-size="32" text-anchor="middle" font-weight="800" fill="#166a3a">TCP/IP</text>
+              <text x="715" y="134" font-size="20" text-anchor="middle" fill="#27364a">Internet 主流協議套件</text>
+              <text x="715" y="160" font-size="16" text-anchor="middle" fill="#4f6276">開放標準、跨平台、可擴充</text>
+            </svg>
+            <div class="diagram-caption">影片的重點不是背歷史年份，而是要知道：最後真正統一全球網路世界的，是 TCP/IP。</div>
+          </div>
+          <div class="card">
+            <h4>為什麼最後是 TCP/IP 勝出？</h4>
+            <ul class="keypoints">
+              <li><strong>開放標準</strong>：不是某單一廠商獨佔，容易被不同設備採用。</li>
+              <li><strong>可以跨品牌互通</strong>：交換器、路由器、伺服器、電腦都能合作。</li>
+              <li><strong>可以擴展到大型網路</strong>：從家庭到全球 Internet 都能用。</li>
+              <li><strong>分層設計清楚</strong>：方便實作、維護與教學。</li>
+            </ul>
+            <div class="tip"><strong>考試常見觀念：</strong>OSI 七層模型非常重要，但在真實網路運作中，主角是 TCP/IP 協定套件。</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="example">
+        <h2>3.3.3 TCP/IP 協定範例</h2>
+        <p class="lead">影片用「瀏覽網頁」當例子。當你在瀏覽器輸入網站、看到畫面時，其實背後已經有多層協定一起合作。</p>
+        <div class="grid-2">
+          <div class="card">
+            <h4>瀏覽網頁時會發生什麼事？</h4>
+            <ol class="keypoints">
+              <li>使用者在瀏覽器輸入網址，例如 <code class="inline">www.example.com</code>。</li>
+              <li>應用層會用 <strong>HTTP / HTTPS</strong> 與網站互動。</li>
+              <li>傳輸層通常使用 <strong>TCP</strong> 來建立可靠連線。</li>
+              <li>網際網路層使用 <strong>IP</strong> 來決定封包要送去哪台主機。</li>
+              <li>網路存取層使用 <strong>乙太網路（Ethernet）</strong> 或 <strong>WLAN</strong> 把資料實際送出去。</li>
+            </ol>
+          </div>
+          <div class="warn">
+            <strong>很重要的觀念：</strong>
+            <p>「網際網路層」不是指 Internet 網站而已，而是指 <strong>IP 位址與路由</strong> 的那一層。它負責把資料送到正確的目的地。</p>
+            <p>而「網路存取層」則是最接近實際媒介的一層，例如網路卡、MAC 位址、乙太網路訊框、Wi‑Fi 無線傳輸等。</p>
+          </div>
+        </div>
+
+        <div class="diagram" role="img" aria-label="瀏覽網頁的 TCP-IP 協定範例">
+          <div class="diagram-title">圖 3：瀏覽網頁的 TCP/IP 協定範例</div>
+          <svg viewBox="0 0 1040 480" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="1020" height="460" rx="22" fill="#fff" stroke="#dbe5ef"/>
+            <rect x="85" y="150" width="140" height="170" rx="18" fill="#e5f2ff" stroke="#bcd7f8"/>
+            <rect x="120" y="180" width="70" height="60" rx="8" fill="#6ca9e6"/>
+            <rect x="110" y="250" width="90" height="18" rx="4" fill="#6ca9e6"/>
+            <text x="155" y="345" text-anchor="middle" font-size="22" font-weight="700" fill="#16395f">用戶端</text>
+            <text x="155" y="374" text-anchor="middle" font-size="18" fill="#4f6276">Client / Browser</text>
+
+            <rect x="815" y="150" width="140" height="170" rx="18" fill="#ecf9f0" stroke="#bfe4ca"/>
+            <rect x="860" y="180" width="50" height="90" rx="8" fill="#65b88b"/>
+            <rect x="852" y="170" width="66" height="12" rx="4" fill="#65b88b"/>
+            <text x="885" y="345" text-anchor="middle" font-size="22" font-weight="700" fill="#155331">Web 伺服器</text>
+            <text x="885" y="374" text-anchor="middle" font-size="18" fill="#4f6276">Server</text>
+
+            <ellipse cx="520" cy="245" rx="130" ry="78" fill="#f4f8fd" stroke="#c9d9eb" stroke-width="3"/>
+            <text x="520" y="235" text-anchor="middle" font-size="26" font-weight="800" fill="#264769">網際網路</text>
+            <text x="520" y="268" text-anchor="middle" font-size="18" fill="#4f6276">The Network / Internet</text>
+
+            <line x1="225" y1="235" x2="390" y2="235" stroke="#6a7f95" stroke-width="6" stroke-linecap="round"/>
+            <line x1="650" y1="235" x2="815" y2="235" stroke="#6a7f95" stroke-width="6" stroke-linecap="round"/>
+            <polygon points="380,225 408,235 380,245" fill="#6a7f95"/>
+            <polygon points="806,225 834,235 806,245" fill="#6a7f95"/>
+
+            <rect x="260" y="60" width="520" height="72" rx="16" fill="#efe7ff" stroke="#d6c5fb"/>
+            <text x="520" y="92" text-anchor="middle" font-size="26" font-weight="800" fill="#5a339e">應用層 Application</text>
+            <text x="520" y="118" text-anchor="middle" font-size="18" fill="#27364a">HTTP / HTTPS：處理網頁請求與回應</text>
+
+            <rect x="260" y="340" width="520" height="42" rx="14" fill="#eafbf0" stroke="#bfe4ca"/>
+            <text x="520" y="368" text-anchor="middle" font-size="19" font-weight="700" fill="#18623a">下層實體技術：Ethernet 或 WLAN 負責實際傳送</text>
+
+            <g transform="translate(310,150)">
+              <rect width="110" height="44" rx="12" fill="#4a1f88"/>
+              <text x="55" y="29" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">HTTP</text>
+              <rect x="130" width="110" height="44" rx="12" fill="#575757"/>
+              <text x="185" y="29" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">TCP</text>
+              <rect x="260" width="110" height="44" rx="12" fill="#0e8b8b"/>
+              <text x="315" y="29" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">IP</text>
+            </g>
+          </svg>
+          <div class="diagram-caption">你在看的網站畫面，背後其實是多層協定一起合作的成果，不是只有 HTTP 單獨完成。</div>
+        </div>
+      </section>
+
+      <section class="section" id="stack">
+        <h2>3.3.4 TCP/IP 通訊協定堆疊</h2>
+        <p class="lead">影片這一段是核心中的核心。它把 TCP/IP 協定套件拆成 <strong>四層</strong>，並列出每層常見協定。</p>
+
+        <div class="diagram" role="img" aria-label="TCP-IP 四層通訊協定堆疊總覽圖">
+          <div class="diagram-title">圖 4：TCP/IP 四層通訊協定堆疊總覽</div>
+          <svg viewBox="0 0 1100 620" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="1080" height="600" rx="22" fill="#fff" stroke="#dbe5ef"/>
+            <rect x="35" y="40" width="180" height="520" rx="18" fill="#f7fafc" stroke="#dbe5ef"/>
+            <rect x="235" y="40" width="820" height="520" rx="18" fill="#fdfefe" stroke="#dbe5ef"/>
+
+            <g>
+              <rect x="55" y="60" width="140" height="110" rx="14" fill="#6f35c5"/>
+              <text x="125" y="105" text-anchor="middle" font-size="26" font-weight="800" fill="#fff">應用層</text>
+              <text x="125" y="135" text-anchor="middle" font-size="18" fill="#fff">Application</text>
+
+              <rect x="55" y="190" width="140" height="90" rx="14" fill="#1f9ea4"/>
+              <text x="125" y="228" text-anchor="middle" font-size="26" font-weight="800" fill="#fff">傳輸層</text>
+              <text x="125" y="256" text-anchor="middle" font-size="18" fill="#fff">Transport</text>
+
+              <rect x="55" y="300" width="140" height="120" rx="14" fill="#c93636"/>
+              <text x="125" y="347" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">網際網路層</text>
+              <text x="125" y="375" text-anchor="middle" font-size="18" fill="#fff">Internet</text>
+
+              <rect x="55" y="440" width="140" height="100" rx="14" fill="#1976c9"/>
+              <text x="125" y="482" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">網路存取層</text>
+              <text x="125" y="510" text-anchor="middle" font-size="18" fill="#fff">Network Access</text>
+            </g>
+
+            <g font-size="20" font-weight="700">
+              <rect x="255" y="60" width="130" height="44" rx="10" fill="#8b55da"/><text x="320" y="88" fill="#fff" text-anchor="middle">DNS</text>
+              <rect x="405" y="60" width="130" height="44" rx="10" fill="#8b55da"/><text x="470" y="88" fill="#fff" text-anchor="middle">DHCPv4</text>
+              <rect x="555" y="60" width="130" height="44" rx="10" fill="#8b55da"/><text x="620" y="88" fill="#fff" text-anchor="middle">DHCPv6</text>
+              <rect x="705" y="60" width="130" height="44" rx="10" fill="#8b55da"/><text x="770" y="88" fill="#fff" text-anchor="middle">SLAAC</text>
+
+              <rect x="255" y="120" width="130" height="44" rx="10" fill="#8b55da"/><text x="320" y="148" fill="#fff" text-anchor="middle">SMTP</text>
+              <rect x="405" y="120" width="130" height="44" rx="10" fill="#8b55da"/><text x="470" y="148" fill="#fff" text-anchor="middle">POP3</text>
+              <rect x="555" y="120" width="130" height="44" rx="10" fill="#8b55da"/><text x="620" y="148" fill="#fff" text-anchor="middle">IMAP</text>
+
+              <rect x="705" y="120" width="130" height="44" rx="10" fill="#8b55da"/><text x="770" y="148" fill="#fff" text-anchor="middle">FTP</text>
+              <rect x="855" y="120" width="130" height="44" rx="10" fill="#8b55da"/><text x="920" y="148" fill="#fff" text-anchor="middle">SFTP</text>
+
+              <rect x="255" y="180" width="130" height="44" rx="10" fill="#8b55da"/><text x="320" y="208" fill="#fff" text-anchor="middle">TFTP</text>
+              <rect x="405" y="180" width="130" height="44" rx="10" fill="#8b55da"/><text x="470" y="208" fill="#fff" text-anchor="middle">HTTP</text>
+              <rect x="555" y="180" width="130" height="44" rx="10" fill="#8b55da"/><text x="620" y="208" fill="#fff" text-anchor="middle">HTTPS</text>
+              <rect x="705" y="180" width="130" height="44" rx="10" fill="#8b55da"/><text x="770" y="208" fill="#fff" text-anchor="middle">REST</text>
+
+              <rect x="350" y="258" width="170" height="52" rx="12" fill="#1f9ea4"/><text x="435" y="291" fill="#fff" text-anchor="middle">TCP</text>
+              <rect x="560" y="258" width="170" height="52" rx="12" fill="#1f9ea4"/><text x="645" y="291" fill="#fff" text-anchor="middle">UDP</text>
+
+              <rect x="255" y="350" width="130" height="46" rx="10" fill="#dc4d4d"/><text x="320" y="380" fill="#fff" text-anchor="middle">IPv4</text>
+              <rect x="405" y="350" width="130" height="46" rx="10" fill="#dc4d4d"/><text x="470" y="380" fill="#fff" text-anchor="middle">IPv6</text>
+              <rect x="555" y="350" width="130" height="46" rx="10" fill="#dc4d4d"/><text x="620" y="380" fill="#fff" text-anchor="middle">ICMPv4</text>
+              <rect x="705" y="350" width="130" height="46" rx="10" fill="#dc4d4d"/><text x="770" y="380" fill="#fff" text-anchor="middle">ICMPv6</text>
+              <rect x="855" y="350" width="130" height="46" rx="10" fill="#dc4d4d"/><text x="920" y="380" fill="#fff" text-anchor="middle">NAT</text>
+
+              <rect x="330" y="412" width="130" height="46" rx="10" fill="#dc4d4d"/><text x="395" y="442" fill="#fff" text-anchor="middle">OSPF</text>
+              <rect x="480" y="412" width="130" height="46" rx="10" fill="#dc4d4d"/><text x="545" y="442" fill="#fff" text-anchor="middle">EIGRP</text>
+              <rect x="630" y="412" width="130" height="46" rx="10" fill="#dc4d4d"/><text x="695" y="442" fill="#fff" text-anchor="middle">BGP</text>
+              <rect x="780" y="412" width="170" height="46" rx="10" fill="#dc4d4d"/><text x="865" y="442" fill="#fff" text-anchor="middle">ICMPv6 ND</text>
+
+              <rect x="300" y="490" width="150" height="46" rx="10" fill="#1976c9"/><text x="375" y="520" fill="#fff" text-anchor="middle">ARP</text>
+              <rect x="495" y="490" width="190" height="46" rx="10" fill="#1976c9"/><text x="590" y="520" fill="#fff" text-anchor="middle">Ethernet</text>
+              <rect x="730" y="490" width="150" height="46" rx="10" fill="#1976c9"/><text x="805" y="520" fill="#fff" text-anchor="middle">WLAN</text>
+            </g>
+          </svg>
+          <div class="diagram-caption">上圖整理了影片中的核心堆疊內容。注意：不同協定各司其職，不是所有情境都會同時用到每一個協定。</div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="app">應用層</button>
+            <button class="tab-btn" data-tab="transport">傳輸層</button>
+            <button class="tab-btn" data-tab="internet">網際網路層</button>
+            <button class="tab-btn" data-tab="access">網路存取層</button>
+          </div>
+
+          <div class="tab-panel active" id="tab-app">
+            <div class="note-box"><strong>應用層（Application Layer）</strong>：最靠近使用者的一層。它負責提供各種網路服務，例如查網址、拿 IP、收發信、傳檔案、瀏覽網站。</div>
+            <div class="proto-grid">
+              <div class="proto-card">
+                <h4>DNS <button class="speak-btn" data-speak="Domain Name System">🔊 發音</button></h4>
+                <div class="proto-meta">Domain Name System｜網域名稱系統</div>
+                <p>把 <strong>網域名稱</strong> 轉換成 <strong>IP 位址</strong>。例如輸入 <code class="inline">cisco.com</code>，DNS 會幫你找到對應的 IP。</p>
+              </div>
+              <div class="proto-card">
+                <h4>DHCPv4 / DHCPv6 <button class="speak-btn" data-speak="Dynamic Host Configuration Protocol">🔊 發音</button></h4>
+                <div class="proto-meta">Dynamic Host Configuration Protocol｜動態主機設定協定</div>
+                <p>自動分配位址與網路參數。<strong>DHCPv4</strong> 給 IPv4 用；<strong>DHCPv6</strong> 給 IPv6 用。</p>
+              </div>
+              <div class="proto-card">
+                <h4>SLAAC <button class="speak-btn" data-speak="Stateless Address Autoconfiguration">🔊 發音</button></h4>
+                <div class="proto-meta">Stateless Address Autoconfiguration｜無狀態位址自動設定</div>
+                <p>IPv6 主機可以不依賴 DHCPv6，直接根據路由器資訊自動產生自己的 IPv6 位址。</p>
+              </div>
+              <div class="proto-card">
+                <h4>SMTP / POP3 / IMAP <button class="speak-btn" data-speak="Simple Mail Transfer Protocol">🔊 SMTP</button></h4>
+                <div class="proto-meta">電子郵件相關協定</div>
+                <p><strong>SMTP</strong> 用來寄信；<strong>POP3</strong> 常見做法是把信下載到本機；<strong>IMAP</strong> 則強調與伺服器同步，方便多裝置查看同一信箱。</p>
+              </div>
+              <div class="proto-card">
+                <h4>FTP / SFTP / TFTP <button class="speak-btn" data-speak="File Transfer Protocol">🔊 FTP</button></h4>
+                <div class="proto-meta">檔案傳輸協定</div>
+                <p><strong>FTP</strong> 是傳統檔案傳輸；<strong>SFTP</strong> 透過 SSH 加密，比較安全；<strong>TFTP</strong> 非常精簡，常見於設備啟動或備份，但功能少、也不加密。</p>
+              </div>
+              <div class="proto-card">
+                <h4>HTTP / HTTPS / REST <button class="speak-btn" data-speak="Hypertext Transfer Protocol">🔊 HTTP</button></h4>
+                <div class="proto-meta">Web 與 Web 服務</div>
+                <p><strong>HTTP</strong> 用來傳網頁；<strong>HTTPS</strong> 是加密版 HTTP；<strong>REST</strong> 是一種常見 Web API 設計風格，常搭配 HTTP 使用。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="tab-transport">
+            <div class="note-box"><strong>傳輸層（Transport Layer）</strong>：負責主機與主機之間的端對端資料傳輸。它會處理資料切分、可靠性、流量控制、以及應用程式使用的連接埠（Port）。</div>
+            <div class="proto-grid">
+              <div class="proto-card">
+                <h4>TCP <button class="speak-btn" data-speak="Transmission Control Protocol">🔊 發音</button></h4>
+                <div class="proto-meta">Transmission Control Protocol｜傳輸控制協定</div>
+                <p>提供<strong>可靠傳輸</strong>。會確認資料是否收到、依序重組，若遺失還能重傳。常用於網頁、電子郵件、檔案傳輸。</p>
+                <ul class="keypoints">
+                  <li>有連線（Connection-oriented）</li>
+                  <li>有確認機制（ACK）</li>
+                  <li>可靠但負擔較大</li>
+                </ul>
+              </div>
+              <div class="proto-card">
+                <h4>UDP <button class="speak-btn" data-speak="User Datagram Protocol">🔊 發音</button></h4>
+                <div class="proto-meta">User Datagram Protocol｜使用者資料包協定</div>
+                <p>提供<strong>低負擔、低延遲</strong>傳輸，不做複雜確認。適合語音、影音串流、線上遊戲、DNS 查詢等注重速度的情境。</p>
+                <ul class="keypoints">
+                  <li>無連線（Connectionless）</li>
+                  <li>不保證一定送到</li>
+                  <li>速度快、開銷小</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="tab-internet">
+            <div class="note-box"><strong>網際網路層（Internet Layer）</strong>：主要負責 <strong>邏輯位址（IP）</strong> 與 <strong>路由（Routing）</strong>。換句話說，就是「資料要送去哪裡、怎麼繞路過去」。</div>
+            <div class="proto-grid">
+              <div class="proto-card">
+                <h4>IPv4 / IPv6 <button class="speak-btn" data-speak="Internet Protocol version four">🔊 IPv4</button></h4>
+                <div class="proto-meta">Internet Protocol｜網際網路協定</div>
+                <p><strong>IPv4</strong> 與 <strong>IPv6</strong> 都是給封包用的邏輯位址系統。IPv4 比較舊；IPv6 位址空間更大，是未來趨勢。</p>
+              </div>
+              <div class="proto-card">
+                <h4>ICMPv4 / ICMPv6 <button class="speak-btn" data-speak="Internet Control Message Protocol">🔊 發音</button></h4>
+                <div class="proto-meta">Internet Control Message Protocol｜網際網路控制訊息協定</div>
+                <p>用來傳送錯誤與控制訊息，像是 <code class="inline">ping</code>、<code class="inline">traceroute</code> 的基礎都與 ICMP 有關。</p>
+              </div>
+              <div class="proto-card">
+                <h4>NAT <button class="speak-btn" data-speak="Network Address Translation">🔊 發音</button></h4>
+                <div class="proto-meta">Network Address Translation｜網路位址轉換</div>
+                <p>把私有位址轉成公有位址，讓多台內部主機可以共用少量公網 IP 上網。</p>
+              </div>
+              <div class="proto-card">
+                <h4>OSPF / EIGRP / BGP <button class="speak-btn" data-speak="Open Shortest Path First">🔊 OSPF</button></h4>
+                <div class="proto-meta">路由協定</div>
+                <p>這些是路由器之間交換路由資訊用的協定：<strong>OSPF</strong> 是常見的開放式內部路由協定；<strong>EIGRP</strong> 是 Cisco 著名協定；<strong>BGP</strong> 則是 Internet 規模的路由王者。</p>
+              </div>
+              <div class="proto-card">
+                <h4>ICMPv6 ND <button class="speak-btn" data-speak="Neighbor Discovery">🔊 發音</button></h4>
+                <div class="proto-meta">Neighbor Discovery｜鄰居探索</div>
+                <p>IPv6 用它來做很多原本 IPv4 需要 ARP、路由器發現等功能的事情，是 IPv6 很重要的一塊。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="tab-access">
+            <div class="note-box"><strong>網路存取層（Network Access Layer）</strong>：最接近實際媒介的層。它關心的是：資料如何在本地網路上送出去？要用哪種訊框？哪個 MAC 位址？走有線還是無線？</div>
+            <div class="proto-grid">
+              <div class="proto-card">
+                <h4>ARP <button class="speak-btn" data-speak="Address Resolution Protocol">🔊 發音</button></h4>
+                <div class="proto-meta">Address Resolution Protocol｜位址解析協定</div>
+                <p>在 IPv4 網路中，把 <strong>IP 位址</strong> 對應到 <strong>MAC 位址</strong>。主機要在本地網路把資料送給誰，常常得先問 ARP。</p>
+              </div>
+              <div class="proto-card">
+                <h4>Ethernet <button class="speak-btn" data-speak="Ethernet">🔊 發音</button></h4>
+                <div class="proto-meta">乙太網路</div>
+                <p>最常見的有線 LAN 技術。它定義了本地網路中的訊框格式、MAC 位址使用方式與媒介存取方式。</p>
+              </div>
+              <div class="proto-card">
+                <h4>WLAN <button class="speak-btn" data-speak="Wireless Local Area Network">🔊 發音</button></h4>
+                <div class="proto-meta">Wireless LAN｜無線區域網路</div>
+                <p>也就是一般說的 Wi‑Fi。它讓資料透過無線方式在本地網路中傳輸。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="process">
+        <h2>3.3.5 通信過程</h2>
+        <p class="lead">這一段講的是：資料從 Web 伺服器送到網頁客戶端時，<strong>會先一層一層包起來（封裝，Encapsulation）</strong>，到對方後再 <strong>一層一層拆開（解封裝，Decapsulation）</strong>。</p>
+
+        <div class="diagram" role="img" aria-label="資料封裝與解封裝流程圖">
+          <div class="diagram-title">圖 5：資料從伺服器送到客戶端的封裝 / 解封裝流程</div>
+          <svg viewBox="0 0 1280 760" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0b2f55" flood-opacity=".08"/>
+              </filter>
+            </defs>
+            <rect x="10" y="10" width="1260" height="740" rx="22" fill="#fff" stroke="#dbe5ef"/>
+
+            <text x="195" y="65" font-size="28" font-weight="800" text-anchor="middle" fill="#14436c">Web 伺服器（送出端）</text>
+            <text x="1085" y="65" font-size="28" font-weight="800" text-anchor="middle" fill="#14436c">網頁客戶端（接收端）</text>
+
+            <g filter="url(#softShadow)">
+              <rect x="90" y="105" width="440" height="74" rx="18" fill="#18a2aa"/>
+              <rect x="90" y="215" width="500" height="74" rx="18" fill="#5a5a5a"/>
+              <rect x="90" y="325" width="560" height="74" rx="18" fill="#118f94"/>
+              <rect x="90" y="435" width="670" height="74" rx="18" fill="#6f35c5"/>
+              <rect x="90" y="565" width="730" height="84" rx="18" fill="#1976c9"/>
+
+              <rect x="875" y="105" width="305" height="74" rx="18" fill="#6f35c5"/>
+              <rect x="875" y="215" width="305" height="74" rx="18" fill="#118f94"/>
+              <rect x="875" y="325" width="305" height="74" rx="18" fill="#5a5a5a"/>
+              <rect x="875" y="435" width="305" height="74" rx="18" fill="#18a2aa"/>
+              <rect x="875" y="565" width="215" height="84" rx="18" fill="#2f9e62"/>
+            </g>
+
+            <g fill="#fff" font-weight="800">
+              <text x="310" y="149" text-anchor="middle" font-size="27">1. 使用者資料 Data</text>
+
+              <text x="340" y="252" text-anchor="middle" font-size="24">2. TCP 標頭 + Data</text>
+              <text x="340" y="278" text-anchor="middle" font-size="24">= Segment</text>
+
+              <text x="370" y="362" text-anchor="middle" font-size="24">3. IP 標頭 + Segment</text>
+              <text x="370" y="388" text-anchor="middle" font-size="24">= Packet</text>
+
+              <text x="425" y="465" text-anchor="middle" font-size="22">4. Ethernet Header / Trailer</text>
+              <text x="425" y="491" text-anchor="middle" font-size="22">+ Packet = Frame</text>
+
+              <text x="455" y="602" text-anchor="middle" font-size="22">5. Bits 在媒介中傳送</text>
+              <text x="455" y="630" text-anchor="middle" font-size="20">（電訊號 / 光訊號 / 無線訊號）</text>
+
+              <text x="1027" y="149" text-anchor="middle" font-size="25">6. 收到 Frame</text>
+              <text x="1027" y="259" text-anchor="middle" font-size="24">7. 去掉乙太網路資訊</text>
+              <text x="1027" y="369" text-anchor="middle" font-size="24">8. 去掉 IP 標頭</text>
+              <text x="1027" y="479" text-anchor="middle" font-size="24">9. 去掉 TCP 標頭</text>
+              <text x="982" y="612" text-anchor="middle" font-size="26">10. 還原資料</text>
+            </g>
+
+            <g stroke="#c8d6e4" stroke-width="5" stroke-dasharray="14 10">
+              <line x1="740" y1="142" x2="845" y2="142"/>
+              <line x1="740" y1="252" x2="845" y2="252"/>
+              <line x1="740" y1="362" x2="845" y2="362"/>
+              <line x1="740" y1="472" x2="845" y2="472"/>
+            </g>
+
+            <line x1="835" y1="606" x2="875" y2="606" stroke="#6a7f95" stroke-width="10" stroke-linecap="round"/>
+            <line x1="690" y1="606" x2="835" y2="606" stroke="#6a7f95" stroke-width="10" stroke-linecap="round"/>
+            <polygon points="865,594 900,606 865,618" fill="#6a7f95"/>
+            <text x="770" y="575" text-anchor="middle" font-size="20" fill="#4f6276">在網路中傳送</text>
+          </svg>
+          <div class="diagram-caption">已重新優化這張圖：把容易被截掉的長句改成雙行排版、放寬方塊寬度，讓桌機與手機縮放時都不容易出現字被切掉的情況。</div>
+        </div>
+
+        <div class="flow-list">
+          <div class="flow-item"><strong>應用層產生資料：</strong> 例如使用者要開啟網頁，伺服器準備好 HTML、圖片、CSS 等內容。</div>
+          <div class="flow-item"><strong>傳輸層加入 TCP/UDP 資訊：</strong> 如果是網頁，通常會加上 TCP 標頭，形成 <strong>Segment（資料段）</strong>。</div>
+          <div class="flow-item"><strong>網際網路層加入 IP 資訊：</strong> 標示來源 IP 與目的 IP，形成 <strong>Packet（封包）</strong>。</div>
+          <div class="flow-item"><strong>網路存取層加入訊框資訊：</strong> 加上來源/目的 MAC 等資料，形成 <strong>Frame（訊框）</strong>。</div>
+          <div class="flow-item"><strong>實際傳輸：</strong> 訊框轉成 Bits，透過網路線、光纖或 Wi‑Fi 傳出去。</div>
+          <div class="flow-item"><strong>接收端解封裝：</strong> 對方主機收到後，會反過來一層層拆開，最後把原始資料交給瀏覽器或應用程式。</div>
+        </div>
+
+        <div class="tip" style="margin-top:16px">
+          <strong>必背小觀念：</strong> Data → Segment → Packet → Frame → Bits。這串順序在考試與實務上都很常見。
+        </div>
+      </section>
+
+      <section class="section" id="extra">
+        <h2>額外補充重點（很重要，影片沒講或一帶而過的地方）</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h4>1. OSI 模型 vs TCP/IP 模型</h4>
+            <p>很多初學者會混在一起。簡單記：</p>
+            <ul class="keypoints">
+              <li><strong>OSI</strong>：七層，偏教學、分析、理論。</li>
+              <li><strong>TCP/IP</strong>：四層，偏真實網路實作。</li>
+            </ul>
+            <div class="osimap">
+              <div class="stack-box">
+                <h4 style="margin-top:0">OSI 七層</h4>
+                <div class="layer-row"><div class="layer-name" style="background:#7a35c8">7. 應用層</div><div class="layer-desc">Application</div></div>
+                <div class="layer-row"><div class="layer-name" style="background:#8750d5">6. 表示層</div><div class="layer-desc">Presentation</div></div>
+                <div class="layer-row"><div class="layer-name" style="background:#9b6ae0">5. 會議層</div><div class="layer-desc">Session</div></div>
+                <div class="layer-row"><div class="layer-name" style="background:#1e9fa3">4. 傳輸層</div><div class="layer-desc">Transport</div></div>
+                <div class="layer-row"><div class="layer-name" style="background:#cf4343">3. 網路層</div><div class="layer-desc">Network</div></div>
+                <div class="layer-row"><div class="layer-name" style="background:#1d77ca">2. 資料鏈結層</div><div class="layer-desc">Data Link</div></div>
+                <div class="layer-row"><div class="layer-name" style="background:#145ca2">1. 實體層</div><div class="layer-desc">Physical</div></div>
+              </div>
+              <div class="stack-box">
+                <h4 style="margin-top:0">TCP/IP 四層</h4>
+                <div class="layer-row"><div class="layer-name" style="background:#7a35c8">應用層</div><div class="layer-desc">≈ OSI 的應用層＋表示層＋會議層</div></div>
+                <div class="layer-row"><div class="layer-name" style="background:#1e9fa3">傳輸層</div><div class="layer-desc">≈ OSI 的傳輸層</div></div>
+                <div class="layer-row"><div class="layer-name" style="background:#cf4343">網際網路層</div><div class="layer-desc">≈ OSI 的網路層</div></div>
+                <div class="layer-row"><div class="layer-name" style="background:#1d77ca">網路存取層</div><div class="layer-desc">≈ OSI 的資料鏈結層＋實體層</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>2. TCP 跟 UDP 到底怎麼選？</h4>
+            <table>
+              <thead>
+                <tr><th>比較項目</th><th>TCP</th><th>UDP</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>可靠性</td><td>高，會確認與重傳</td><td>低，不保證送達</td></tr>
+                <tr><td>速度 / 開銷</td><td>較慢、開銷較大</td><td>較快、開銷較小</td></tr>
+                <tr><td>常見用途</td><td>HTTP/HTTPS、FTP、Email</td><td>DNS、語音、串流、遊戲</td></tr>
+                <tr><td>適合情境</td><td>資料不能錯、不能少</td><td>速度與即時性更重要</td></tr>
+              </tbody>
+            </table>
+            <div class="warn" style="margin-top:14px"><strong>不要死背成絕對：</strong>有些即時服務也會在應用層做自己的補救機制，所以「TCP=可靠、UDP=快速」是基礎理解，但實際設計會更細緻。</div>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:16px">
+          <div class="card">
+            <h4>常見 PDU 名稱</h4>
+            <ul class="keypoints">
+              <li><strong>Data</strong>：應用層資料</li>
+              <li><strong>Segment</strong>：TCP 資料段</li>
+              <li><strong>Datagram</strong>：常用來指 UDP 資料報</li>
+              <li><strong>Packet</strong>：IP 封包</li>
+              <li><strong>Frame</strong>：乙太網路訊框</li>
+              <li><strong>Bits</strong>：真正在線路或空中傳的位元</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>常見 Port（考試常見）</h4>
+            <ul class="keypoints">
+              <li>HTTP：<strong>80</strong></li>
+              <li>HTTPS：<strong>443</strong></li>
+              <li>DNS：<strong>53</strong></li>
+              <li>SMTP：<strong>25</strong></li>
+              <li>POP3：<strong>110</strong></li>
+              <li>IMAP：<strong>143</strong></li>
+              <li>FTP：<strong>21</strong></li>
+              <li>SSH / SFTP：<strong>22</strong></li>
+              <li>TFTP：<strong>69</strong></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>除錯時的思考順序</h4>
+            <ol class="keypoints">
+              <li>有沒有連到媒介？（線、Wi‑Fi）</li>
+              <li>有沒有正確 IP？</li>
+              <li>DNS 能不能解析？</li>
+              <li>TCP/UDP Port 有沒有被擋？</li>
+              <li>應用程式本身有沒有正常？</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="terms">
+        <h2>專有名詞中英對照＋英文發音</h2>
+        <p class="muted">按右側按鈕可使用瀏覽器的語音功能朗讀英文。若手機或瀏覽器不支援，會跳出提醒。</p>
+        <div class="term-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>中文</th>
+                <th>英文</th>
+                <th>用途 / 白話解釋</th>
+                <th>發音</th>
+              </tr>
+            </thead>
+            <tbody id="termsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="quiz">
+        <h2>課後考題</h2>
+        <p class="lead">做完下面 18 題，檢查你有沒有真的理解「分層、協定、TCP/IP 堆疊、封裝 / 解封裝、常見協定與連接埠」。每題送出後都會顯示解析。</p>
+        <div class="quiz-wrap" id="quizBox"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+          <button class="quiz-btn" id="gradeBtn">送出評分</button>
+          <button class="ghost-btn" id="resetBtn">重做一次</button>
+        </div>
+        <div class="result" id="result"></div>
+      </section>
+
+      <div class="footer">本頁依照你提供的 CCNA 課程影片〈3.3 協定族〉整理，並加入補充說明、圖像化教學、英文發音與互動測驗，以利手機與桌機閱讀。</div>
+    </main>
+  </div>
+
+  <button class="backtop" id="backtop" aria-label="回到頁面頂端">↑ TOP</button>
+
+  <script>
+    const terms = [
+      {zh:'協定', en:'Protocol', speak:'Protocol', desc:'通訊規則。雙方要照同一套規則，資料才能正確收送。'},
+      {zh:'協議套件', en:'Protocol Suite', speak:'Protocol Suite', desc:'一組互相配合的協定，例如 TCP/IP。'},
+      {zh:'傳輸控制協定', en:'Transmission Control Protocol (TCP)', speak:'Transmission Control Protocol', desc:'可靠傳輸，會確認、排序、重傳。'},
+      {zh:'使用者資料包協定', en:'User Datagram Protocol (UDP)', speak:'User Datagram Protocol', desc:'快速、低負擔，但不保證一定送達。'},
+      {zh:'網際網路協定', en:'Internet Protocol (IP)', speak:'Internet Protocol', desc:'負責邏輯位址與路由。'},
+      {zh:'網域名稱系統', en:'Domain Name System (DNS)', speak:'Domain Name System', desc:'把網址轉成 IP 位址。'},
+      {zh:'動態主機設定協定', en:'Dynamic Host Configuration Protocol (DHCP)', speak:'Dynamic Host Configuration Protocol', desc:'自動分配 IP 與網路參數。'},
+      {zh:'無狀態位址自動設定', en:'Stateless Address Autoconfiguration (SLAAC)', speak:'Stateless Address Autoconfiguration', desc:'IPv6 自動取得位址的方式之一。'},
+      {zh:'超文字傳輸協定', en:'Hypertext Transfer Protocol (HTTP)', speak:'Hypertext Transfer Protocol', desc:'傳送網頁資料。'},
+      {zh:'安全超文字傳輸協定', en:'Hypertext Transfer Protocol Secure (HTTPS)', speak:'Hypertext Transfer Protocol Secure', desc:'加密版 HTTP。'},
+      {zh:'位址解析協定', en:'Address Resolution Protocol (ARP)', speak:'Address Resolution Protocol', desc:'把 IPv4 位址對應到 MAC 位址。'},
+      {zh:'乙太網路', en:'Ethernet', speak:'Ethernet', desc:'常見的有線區域網路技術。'},
+      {zh:'無線區域網路', en:'Wireless Local Area Network (WLAN)', speak:'Wireless Local Area Network', desc:'也就是 Wi‑Fi。'},
+      {zh:'封裝', en:'Encapsulation', speak:'Encapsulation', desc:'送出資料時一層一層加上標頭。'},
+      {zh:'解封裝', en:'Decapsulation', speak:'Decapsulation', desc:'接收資料時一層一層拆開標頭。'},
+      {zh:'資料段', en:'Segment', speak:'Segment', desc:'TCP 在傳輸層形成的 PDU。'},
+      {zh:'封包', en:'Packet', speak:'Packet', desc:'IP 在網際網路層形成的 PDU。'},
+      {zh:'訊框', en:'Frame', speak:'Frame', desc:'乙太網路等資料鏈結層使用的 PDU。'}
+    ];
+
+    const quizData = [
+      {
+        q:'1. 下列哪一個最能描述「協定」？',
+        options:['硬體設備的品牌名稱','網路通訊時要遵守的規則','只有路由器才需要的設定','一種電纜接頭規格'],
+        answer:1,
+        explain:'協定就是通訊規則。沒有共同規則，雙方就算連上線也不一定能理解彼此。'
+      },
+      {
+        q:'2. 目前全球 Internet 最主流的協議套件是哪一個？',
+        options:['AppleTalk','Novell NetWare','TCP/IP','OSI'],
+        answer:2,
+        explain:'OSI 常用來當參考模型；真正主流運作的是 TCP/IP。'
+      },
+      {
+        q:'3. 在瀏覽網站時，最常用來傳送網頁內容的應用層協定是？',
+        options:['ARP','HTTP / HTTPS','ICMP','OSPF'],
+        answer:1,
+        explain:'ARP 是做位址解析；ICMP 是控制訊息；OSPF 是路由協定。'
+      },
+      {
+        q:'4. 哪一層負責端對端的可靠傳輸與連接埠（Port）？',
+        options:['應用層','傳輸層','網際網路層','網路存取層'],
+        answer:1,
+        explain:'傳輸層負責 TCP/UDP，也就負責端口與端對端傳送。'
+      },
+      {
+        q:'5. 下列何者屬於網際網路層常見協定？',
+        options:['DNS','HTTP','IPv4','Ethernet'],
+        answer:2,
+        explain:'IPv4 屬於網際網路層；DNS、HTTP 是應用層；Ethernet 屬於網路存取層。'
+      },
+      {
+        q:'6. ARP 的主要用途是什麼？',
+        options:['把網域名稱轉成 IP 位址','把 IP 位址轉成 MAC 位址','建立加密網站連線','交換路由資訊'],
+        answer:1,
+        explain:'ARP 用在本地網路中，把 IPv4 位址對應成目的端的 MAC 位址。'
+      },
+      {
+        q:'7. 封裝（Encapsulation）是指？',
+        options:['資料傳送時一層層加上控制資訊','主機把 IP 改成網域名稱','路由器把封包刪除','把 TCP 改成 UDP'],
+        answer:0,
+        explain:'封裝就是資料往下層走時，逐層加入標頭或相關資訊。'
+      },
+      {
+        q:'8. 下列哪一組 PDU 順序正確？',
+        options:['Frame → Packet → Segment → Data → Bits','Data → Segment → Packet → Frame → Bits','Bits → Frame → Packet → Segment → Data','Data → Packet → Frame → Segment → Bits'],
+        answer:1,
+        explain:'應用層是 Data，接著 TCP Segment、IP Packet、Ethernet Frame，最後在媒介上是 Bits。'
+      },
+      {
+        q:'9. 若你想要強調「可靠送達、可重傳」的傳輸特性，應優先想到哪個協定？',
+        options:['UDP','IP','TCP','ARP'],
+        answer:2,
+        explain:'TCP 的特色就是可靠、可確認與重傳。'
+      },
+      {
+        q:'10. 下列哪一個最可能是使用 UDP 的情境？',
+        options:['網頁登入銀行','下載重要設定檔','即時語音通話','透過 SFTP 傳輸機密文件'],
+        answer:2,
+        explain:'即時語音重視低延遲，常使用 UDP。其他選項多半更需要可靠性與安全性。'
+      },
+      {
+        q:'11. DNS（Domain Name System）的主要工作是什麼？',
+        options:['把網域名稱解析成 IP 位址','把 IPv4 位址解析成 MAC 位址','自動分配交換器連接埠','提供可靠的檔案重傳'],
+        answer:0,
+        explain:'DNS 的核心用途是名稱解析：把人容易記的網域名稱轉成主機可用的 IP 位址。IPv4 對 MAC 的對應則是 ARP 的工作。'
+      },
+      {
+        q:'12. DHCP 最主要的用途是？',
+        options:['自動提供 IP 與相關網路參數','加密 HTTP 流量','交換 Internet 路由資訊','把 Frame 轉成 Bits'],
+        answer:0,
+        explain:'DHCP 可自動提供主機所需的 IP 位址與相關網路參數，減少每台裝置手動設定的工作。'
+      },
+      {
+        q:'13. HTTPS 常見的預設連接埠（Port）是哪一個？',
+        options:['22','53','80','443'],
+        answer:3,
+        explain:'HTTPS 常見預設 Port 是 443；HTTP 常見是 80，DNS 是 53，SSH / SFTP 常見是 22。'
+      },
+      {
+        q:'14. 下列哪一項最符合 Network Access Layer（網路存取層）的工作？',
+        options:['解析網站名稱','決定 TCP 是否重傳','處理本地傳輸的 Frame、MAC 與媒介','提供電子郵件收發功能'],
+        answer:2,
+        explain:'網路存取層最靠近實際媒介，會處理 Frame、MAC 位址，以及 Ethernet / WLAN 等本地傳輸方式。'
+      },
+      {
+        q:'15. 資料送出時，來源與目的 IP 位址主要在哪一層加入？',
+        options:['應用層','傳輸層','網際網路層','網路存取層'],
+        answer:2,
+        explain:'IP 位址屬於網際網路層；這一層把傳輸層資料包成 IP Packet，並加入來源與目的 IP 等資訊。'
+      },
+      {
+        q:'16. 下列哪個敘述最適合比較 OSI 與 TCP/IP？',
+        options:['OSI 是四層、TCP/IP 是七層','OSI 常作為七層參考模型，TCP/IP 是實際網路主流協定套件','兩者完全相同，只是名稱不同','TCP/IP 只用於 Cisco 設備'],
+        answer:1,
+        explain:'OSI 七層模型常用於教學、分析與除錯；TCP/IP 則是現代 Internet 實際運作的主流協定套件。'
+      },
+      {
+        q:'17. 若本地 IPv4 主機知道目的 IP，但需要知道對方的 MAC 位址，常會使用哪個協定？',
+        options:['ARP','DNS','BGP','HTTP'],
+        answer:0,
+        explain:'ARP（Address Resolution Protocol）用來把本地 IPv4 位址對應到 MAC 位址。'
+      },
+      {
+        q:'18. BGP 最具代表性的用途是什麼？',
+        options:['在 Internet 規模交換路由資訊','自動配置 IPv4 位址','把文字網址轉成 IP','讓 Web 瀏覽器顯示 HTML'],
+        answer:0,
+        explain:'BGP 是 Internet 規模的重要路由協定，用於不同自治系統之間交換路由可達性資訊。'
+      }
+    ];
+
+    const termsBody = document.getElementById('termsBody');
+    termsBody.innerHTML = terms.map(t => `
+      <tr>
+        <td><span class="term-chip">${t.zh}</span></td>
+        <td><strong>${t.en}</strong></td>
+        <td>${t.desc}</td>
+        <td><button class="speak-btn" data-speak="${t.speak}">🔊 發音</button></td>
+      </tr>
+    `).join('');
+
+    function speakEnglish(text){
+      if(!('speechSynthesis' in window)){
+        alert('目前瀏覽器不支援語音朗讀功能。');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'en-US';
+      utter.rate = 0.95;
+      utter.pitch = 1;
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v => /en(-|_)?US|English/i.test(v.lang + ' ' + v.name));
+      if(preferred) utter.voice = preferred;
+      window.speechSynthesis.speak(utter);
+    }
+
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('[data-speak]');
+      if(btn){ speakEnglish(btn.dataset.speak); }
+    });
+    window.speechSynthesis?.addEventListener?.('voiceschanged', ()=>{});
+
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    tabButtons.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        tabButtons.forEach(b=>b.classList.remove('active'));
+        tabPanels.forEach(p=>p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    const quizBox = document.getElementById('quizBox');
+    function renderQuiz(){
+      quizBox.innerHTML = quizData.map((item, qi) => `
+        <div class="question" data-q="${qi}">
+          <h4>${item.q}</h4>
+          <div class="options">
+            ${item.options.map((opt, oi)=>`
+              <label class="option">
+                <input type="radio" name="q${qi}" value="${oi}">
+                <span>${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+          <div class="feedback" id="fb${qi}"></div>
+        </div>
+      `).join('');
+      document.getElementById('result').style.display='none';
+      document.getElementById('result').innerHTML='';
+    }
+    renderQuiz();
+
+    document.getElementById('gradeBtn').addEventListener('click', ()=>{
+      let score = 0;
+      let answered = 0;
+      quizData.forEach((item, qi)=>{
+        const selected = document.querySelector(`input[name="q${qi}"]:checked`);
+        const fb = document.getElementById(`fb${qi}`);
+        if(!selected){
+          fb.className = 'feedback no';
+          fb.style.display = 'block';
+          fb.innerHTML = '你還沒作答。<br><strong>提示：</strong>' + item.explain;
+          return;
+        }
+        answered++;
+        const choice = Number(selected.value);
+        if(choice === item.answer){
+          score++;
+          fb.className = 'feedback ok';
+          fb.innerHTML = `✅ 答對了！<br><strong>解析：</strong>${item.explain}`;
+        } else {
+          fb.className = 'feedback no';
+          fb.innerHTML = `❌ 答錯了。正確答案是：<strong>${item.options[item.answer]}</strong><br><strong>解析：</strong>${item.explain}`;
+        }
+        fb.style.display = 'block';
+      });
+      const percent = Math.round(score / quizData.length * 100);
+      const result = document.getElementById('result');
+      let comment = '不錯，已經有基礎概念。';
+      if(percent >= 90) comment = '非常好！你對這段內容掌握得很完整，可以進一步練習封包分析與除錯題。';
+      else if(percent >= 70) comment = '不錯，重點大多有抓到，再複習少數細節會更穩。';
+      else if(percent >= 50) comment = '有概念了，但建議再回頭看一次 TCP/IP 四層和封裝流程。';
+      else comment = '建議重新複習分層概念、協定用途與 PDU 順序。';
+      result.style.display = 'block';
+      result.innerHTML = `
+        <div class="score">${score} / ${quizData.length}（${percent}%）</div>
+        <p>已作答：${answered} 題</p>
+        <p><strong>評語：</strong>${comment}</p>
+      `;
+      result.scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', ()=>{
+      renderQuiz();
+      window.scrollTo({top: document.getElementById('quiz').offsetTop - 70, behavior: 'smooth'});
+    });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const menuBackdrop = document.getElementById('menuBackdrop');
+    const layout = document.querySelector('.layout');
+    const desktopCollapseBtn = document.getElementById('desktopCollapseBtn');
+    const progressBar = document.getElementById('progressBar');
+    const backtop = document.getElementById('backtop');
+    const searchInput = document.getElementById('search');
+
+    function applyDesktopSidebarState(collapsed){
+      if(window.innerWidth <= 860){
+        layout.classList.remove('sidebar-collapsed');
+        if(desktopCollapseBtn) desktopCollapseBtn.style.display = 'none';
+        return;
+      }
+      if(desktopCollapseBtn) desktopCollapseBtn.style.display = 'inline-flex';
+      layout.classList.toggle('sidebar-collapsed', collapsed);
+      if(desktopCollapseBtn){
+        desktopCollapseBtn.textContent = collapsed ? '›' : '‹';
+        desktopCollapseBtn.setAttribute('aria-label', collapsed ? '展開側邊欄' : '收合側邊欄');
+        desktopCollapseBtn.title = collapsed ? '展開側邊欄' : '收合／展開側邊欄';
+      }
+    }
+
+    let desktopSidebarCollapsed = localStorage.getItem('ccna33SidebarCollapsed') === '1';
+    applyDesktopSidebarState(desktopSidebarCollapsed);
+
+    if(desktopCollapseBtn){
+      desktopCollapseBtn.addEventListener('click', ()=>{
+        desktopSidebarCollapsed = !layout.classList.contains('sidebar-collapsed');
+        applyDesktopSidebarState(desktopSidebarCollapsed);
+        localStorage.setItem('ccna33SidebarCollapsed', desktopSidebarCollapsed ? '1' : '0');
+      });
+    }
+
+    function closeMenu(){ sidebar.classList.remove('open'); menuBackdrop.classList.remove('show'); }
+    function openMenu(){ sidebar.classList.add('open'); menuBackdrop.classList.add('show'); }
+    menuBtn.addEventListener('click', ()=> sidebar.classList.contains('open') ? closeMenu() : openMenu());
+    menuBackdrop.addEventListener('click', closeMenu);
+    document.querySelectorAll('.nav a').forEach(a=> a.addEventListener('click', ()=>{ if(window.innerWidth <= 860) closeMenu(); }));
+
+    const navLinks = [...document.querySelectorAll('.nav a')];
+    const sections = navLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, {rootMargin:'-30% 0px -55% 0px', threshold:0});
+    sections.forEach(sec=>observer.observe(sec));
+
+    function updateScrollUI(){
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      if(progressBar) progressBar.style.width = (h ? (window.scrollY / h) * 100 : 0) + '%';
+      backtop.style.opacity = window.scrollY > 400 ? '1' : '';
+      backtop.style.visibility = window.scrollY > 400 ? 'visible' : '';
+      backtop.style.transform = window.scrollY > 400 ? 'none' : '';
+    }
+    window.addEventListener('scroll', updateScrollUI, {passive:true});
+    window.addEventListener('resize', ()=>{ applyDesktopSidebarState(desktopSidebarCollapsed); updateScrollUI(); });
+    updateScrollUI();
+    backtop.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+
+    if(searchInput){
+      searchInput.addEventListener('input', e=>{
+        const q = e.target.value.trim().toLowerCase();
+        sections.forEach(sec=>{
+          if(!q){ sec.style.display = ''; return; }
+          sec.style.display = sec.innerText.toLowerCase().includes(q) ? '' : 'none';
+        });
+      });
+    }
+  </script>
+</body>
+</html>
