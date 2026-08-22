@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>共同科目_節能減碳 51-75題</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+		
+		.responsive-img {
+  max-width: 100%; /* 圖片最大寬度為容器的 100% */
+  height: auto;    /* 高度自動等比例調整，避免變形 */
+  display: block;  /* 消除圖片下方預留的空白縫隙 */
+}
+		
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px; }
+
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .toggle-btn:hover { background-color: #219150; }
+
+        .card-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* 卡片樣式 */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border: 1px solid #eaeaea;
+            position: relative;
+        }
+
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+
+        .question {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* 選項樣式 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            font-size: 1.05em;
+            border-left: 3px solid #cbd5e1;
+        }
+
+        /* 純HTML 摺疊特效設計 */
+        details {
+            background: #fdfefe;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        summary {
+            background: #3498db;
+            color: #ffffff;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
+            cursor: pointer;
+            list-style: none;
+            transition: background 0.3s;
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+
+        /* 解析內容樣式 */
+        .answer-panel {
+            padding: 20px;
+            background: #f4fcf7;
+            border-top: 1px solid #dfe6e9;
+        }
+        .answer-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+
+        .exp-subtitle {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 3px;
+        }
+        .opt-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .opt-list li {
+            margin-bottom: 8px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt {
+            border-left-color: #27ae60 !important;
+            background: #eafaf1 !important;
+        }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>節能減碳共同科目 不分級 工作項目 04：節能減碳</h1>
+    <p>(第51 - 75題)</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 題組 51 -->
+    <div class="card">
+        <span class="theme-badge">主題：建築外殼節能設計</span>
+        <div class="question">51. 有關建築之外殼節能設計，下列敘述何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 開窗區域設置遮陽設備</div>
+            <div class="option">② 大開窗面避免設置於東西日曬方位</div>
+            <div class="option">③ 做好屋頂隔熱設施</div>
+            <div class="option">④ 宜採用全面玻璃造型設計，以利自然採光</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>雖然全面玻璃（如玻璃帷幕）能提供良好的自然採光，但玻璃的隔熱效果極差。在日照強烈的地區，這會讓大量太陽輻射熱進入室內產生「溫室效應」，導致冷氣空調的耗電量急遽增加，是極度不符合外殼節能設計的做法。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 開窗區域設置遮陽設備：正確作法，可阻擋直射陽光。</li>
+                    <li class="wrong-opt">② 大開窗面避免設置於東西日曬方位：正確作法，東西向日照強，避免大開窗可減少熱能進入。</li>
+                    <li class="wrong-opt">③ 做好屋頂隔熱設施：正確作法，可阻隔頂樓熱輻射傳導。</li>
+                    <li class="correct-opt">④ 宜採用全面玻璃造型設計，以利自然採光：錯誤敘述，這會造成室內過熱及空調極度耗能。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 52 -->
+    <div class="card">
+        <span class="theme-badge">主題：燈泡發光效率比較</span>
+        <div class="question">52. 下列何者燈泡的發光效率最高？</div>
+        <div class="options">
+            <div class="option">① LED 燈泡</div>
+            <div class="option">② 省電燈泡</div>
+            <div class="option">③ 白熾燈泡</div>
+            <div class="option">④ 鹵素燈泡</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>發光效率指的是消耗每瓦特電能可產生的光通量（流明/瓦, lm/W）。目前市面上主流照明設備中，LED (發光二極體) 的發光效率最高、壽命最長、產生的廢熱極少，是現行最佳的節能照明選擇。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① LED 燈泡：正確，發光效率最高。</li>
+                    <li class="wrong-opt">② 省電燈泡：錯誤，效率雖高於白熾燈，但不及LED燈泡。</li>
+                    <li class="wrong-opt">③ 白熾燈泡：錯誤，發熱量極大，發光效率最低。</li>
+                    <li class="wrong-opt">④ 鹵素燈泡：錯誤，為改良版白熾燈，效率依然很低。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 53 -->
+    <div class="card">
+        <span class="theme-badge">主題：家電安全使用注意事項</span>
+        <div class="question">53. 有關吹風機使用注意事項，下列敘述何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 請勿在潮濕的地方使用，以免觸電危險</div>
+            <div class="option">② 應保持吹風機進、出風口之空氣流通，以免造成過熱</div>
+            <div class="option">③ 應避免長時間使用，使用時應保持適當的距離</div>
+            <div class="option">④ 可用來作為烘乾棉被及床單等用途</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>吹風機屬於高耗電的發熱電器，內部有高溫電熱絲。若用來烘乾棉被或床單，極易因為出風口被布料遮蔽、散熱不良導致溫度快速飆升，進而引發布料悶燒起火，是非常危險且錯誤的使用方式。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 請勿在潮濕的地方使用，以免觸電危險：正確作法，防範觸電。</li>
+                    <li class="wrong-opt">② 應保持吹風機進、出風口之空氣流通，以免造成過熱：正確作法，維持機器壽命及安全。</li>
+                    <li class="wrong-opt">③ 應避免長時間使用，使用時應保持適當的距離：正確作法，防範過載並保護髮質與皮膚。</li>
+                    <li class="correct-opt">④ 可用來作為烘乾棉被及床單等用途：錯誤敘述，極易引發火災危險。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 54 -->
+    <div class="card">
+        <span class="theme-badge">主題：冷氣機能源效率標示</span>
+        <div class="question">54. 有關無風管空氣調節機的能源效率的描述，下列何者正確？</div>
+        <div class="options">
+            <div class="option">① 冷氣季節性能因數（CSPF）越高越好</div>
+            <div class="option">② 能源效率比（Energy Efficiency Rate）越低越好</div>
+            <div class="option">③ 能源效率等級為 5 級時，最省電且對環境也較友善</div>
+            <div class="option">④ 廠商銷售此類產品時，無須張貼能源效率分級標示圖</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>我國目前針對冷氣機能效，已全面採用「冷氣季節性能因數 (CSPF)」為標準。CSPF 考量了冷氣機在不同季節氣溫與負載條件下的運轉效率。CSPF 數值越高，代表在相同的製冷需求下越省電、能源效率越好。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 冷氣季節性能因數（CSPF）越高越好：正確，數值越大代表越節能。</li>
+                    <li class="wrong-opt">② 能源效率比（Energy Efficiency Rate）越低越好：錯誤，EER同樣是越高越好。</li>
+                    <li class="wrong-opt">③ 能源效率等級為 5 級時，最省電且對環境也較友善：錯誤，1級最省電，5級最耗電。</li>
+                    <li class="wrong-opt">④ 廠商銷售此類產品時，無須張貼能源效率分級標示圖：錯誤，法規強制規定必須張貼標示圖。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 55 -->
+    <div class="card">
+        <span class="theme-badge">主題：防範漏電安全設施</span>
+        <div class="question">55. 為了避免漏電而危害生命安全，下列「不正確」的做法是？</div>
+        <div class="options">
+            <div class="option">① 做好用電設備金屬外殼的接地</div>
+            <div class="option">② 有濕氣的用電場合，線路加裝漏電斷路器</div>
+            <div class="option">③ 加強定期的漏電檢查及維護</div>
+            <div class="option">④ 使用保險絲來防止漏電的危險性</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「保險絲（電力熔絲）」的主要功能是當線路「過載」或發生「短路」產生大電流時，會自動熔斷以保護電線不被燒毀。但人體「漏電觸電」時的電流非常微小（通常不到保險絲的熔斷額定值），保險絲無法切斷電源。防止漏電必須裝設專用的「漏電斷路器」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 做好用電設備金屬外殼的接地：正確作法，可將漏電導至大地。</li>
+                    <li class="wrong-opt">② 有濕氣的用電場合，線路加裝漏電斷路器：正確作法，潮濕處最易漏電傷人。</li>
+                    <li class="wrong-opt">③ 加強定期的漏電檢查及維護：正確作法，防範於未然。</li>
+                    <li class="correct-opt">④ 使用保險絲來防止漏電的危險性：不正確的做法，保險絲無法防止漏電觸電。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 56 -->
+    <div class="card">
+        <span class="theme-badge">主題：線路過載處置</span>
+        <div class="question">56. 用電設備的線路保護用電力熔絲（保險絲）經常燒斷，造成停電的不便，下列「不正確」的作法是？</div>
+        <div class="options">
+            <div class="option">① 換大一級或大兩級規格的保險絲或斷路器就不會燒斷了</div>
+            <div class="option">② 減少線路連接的電氣設備，降低用電量</div>
+            <div class="option">③ 重新設計線路，改較粗的導線或用兩迴路並聯</div>
+            <div class="option">④ 提高用電設備的功率因數</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>保險絲經常燒斷代表該線路已經嚴重過載，此時強行換用更大規格的保險絲，會讓保險絲失去保護作用。當電流持續過大時，保險絲沒斷，反而是牆壁內的電線會因為高溫熔解絕緣外皮，進而引發嚴重的電線走火火災。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 換大一級或大兩級規格的保險絲或斷路器就不會燒斷了：不正確的做法，極易引發電線走火。</li>
+                    <li class="wrong-opt">② 減少線路連接的電氣設備，降低用電量：正確作法，可解決過載問題。</li>
+                    <li class="wrong-opt">③ 重新設計線路，改較粗的導線或用兩迴路並聯：正確作法，從根本提升線路承載力。</li>
+                    <li class="wrong-opt">④ 提高用電設備的功率因數：正確作法，可減少線路上的無效電流。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 57 -->
+    <div class="card">
+        <span class="theme-badge">主題：設備汰換之節電效益</span>
+        <div class="question">57. 政府為推廣節能設備而補助民眾汰換老舊設備，下列何者的節電效益最佳？</div>
+        <div class="options">
+            <div class="option">① 將桌上檯燈光源由螢光燈換為 LED 燈</div>
+            <div class="option">② 優先淘汰 10 年以上的老舊冷氣機為能源效率標示分級中之一級冷氣機</div>
+            <div class="option">③ 汰換電風扇，改裝設能源效率標示分級為一級的冷氣機</div>
+            <div class="option">④ 因為經費有限，選擇便宜的產品比較重要</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>家庭用電中，冷氣機的耗電功率極大，是佔比最高的耗電設備。10年以上的老舊冷氣機不僅壓縮機老化，且當年科技能效極低；若能將其優先汰換為目前最新的第1級能效冷氣，一年省下來的電度數與電費是所有家電中效益最顯著的。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 將桌上檯燈光源由螢光燈換為 LED 燈：省電效益太小(瓦數本身就不高)。</li>
+                    <li class="correct-opt">② 優先淘汰 10 年以上的老舊冷氣機為能源效率標示分級中之一級冷氣機：正確，基數大、改善幅度大，節電效益最佳。</li>
+                    <li class="wrong-opt">③ 汰換電風扇，改裝設能源效率標示分級為一級的冷氣機：錯誤，風扇耗電遠小於冷氣，換成冷氣只會增加耗電。</li>
+                    <li class="wrong-opt">④ 因為經費有限，選擇便宜的產品比較重要：錯誤，便宜產品常是耗電怪獸，長期電費負擔反而更重。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 58 -->
+    <div class="card">
+        <span class="theme-badge">主題：冷氣能力標示單位</span>
+        <div class="question">58. 依據我國現行國家標準規定，冷氣機的冷氣能力標示應以何種單位表示？</div>
+        <div class="options">
+            <div class="option">① kW</div>
+            <div class="option">② BTU/h</div>
+            <div class="option">③ kcal/h</div>
+            <div class="option">④ RT</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>過去台灣冷氣能力常以俗稱的「噸 (RT)」或「kcal/h」、「BTU/h」來表示。但為與國際接軌並統一標準，經濟部標準檢驗局規定現行冷氣機的冷氣能力（製冷量），必須統一標示為「千瓦 (kW)」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① kW：正確，現行法規強制使用的國際標準冷房能力單位。</li>
+                    <li class="wrong-opt">② BTU/h：錯誤，為英制熱量單位，現已不作為法定標示。</li>
+                    <li class="wrong-opt">③ kcal/h：錯誤，為公制熱量單位，曾廣泛使用但已淘汰。</li>
+                    <li class="wrong-opt">④ RT：錯誤，冷凍噸(RT)僅為民間習慣稱呼，並非法定標準單位。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 59 -->
+    <div class="card">
+        <span class="theme-badge">主題：漏電簡易查修方法</span>
+        <div class="question">59. 漏電影響節電成效，並且影響用電安全，簡易的查修方法為？</div>
+        <div class="options">
+            <div class="option">① 電氣材料行買支驗電起子，碰觸電氣設備的外殼，就可查出漏電與否</div>
+            <div class="option">② 用手碰觸就可以知道有無漏電</div>
+            <div class="option">③ 用三用電表檢查</div>
+            <div class="option">④ 看電費單有無紀錄</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>一般民眾在家中要快速且安全地檢查電器外殼是否有漏電，最簡單的方法是使用便宜的「驗電起子（驗電筆）」。將金屬筆尖接觸設備外殼，若內部指示燈亮起，即代表有帶電（漏電）現象，需要檢修。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 電氣材料行買支驗電起子，碰觸電氣設備的外殼，就可查出漏電與否：正確，最簡易且安全。</li>
+                    <li class="wrong-opt">② 用手碰觸就可以知道有無漏電：錯誤，極其危險，可能直接導致感電休克。</li>
+                    <li class="wrong-opt">③ 用三用電表檢查：操作較繁瑣專業，非一般人最簡易的方法。</li>
+                    <li class="wrong-opt">④ 看電費單有無紀錄：錯誤，電費單只會顯示總度數增加，無法直接指出是漏電所致。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 60 -->
+    <div class="card">
+        <span class="theme-badge">主題：老舊通風扇處置</span>
+        <div class="question">60. 使用了 10 幾年的通風換氣扇老舊又骯髒，噪音又大，維修時採取下列哪一種對策最為正確及節能？</div>
+        <div class="options">
+            <div class="option">① 定期拆下來清洗油垢</div>
+            <div class="option">② 不必再猶豫，10 年以上的電扇效率偏低，直接換為高效率通風扇</div>
+            <div class="option">③ 直接噴沙拉脫清潔劑就可以了，省錢又方便</div>
+            <div class="option">④ 高效率通風扇較貴，換同機型的廠內備用品就好了</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電器（尤其是含有馬達的通風扇）使用超過10年後，不僅零件嚴重老化、軸承磨損導致噪音，其能源轉換效率也大不如前。最「節能」且「一勞永逸」的作法就是直接更換為現今擁有節能標章的高效率通風扇（如DC直流變頻馬達風扇），省下的電費很快就能回收成本。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 定期拆下來清洗油垢：治標不治本，無法改善馬達老化低效問題。</li>
+                    <li class="correct-opt">② 不必再猶豫，10 年以上的電扇效率偏低，直接換為高效率通風扇：正確作法，最符合節能與效益。</li>
+                    <li class="wrong-opt">③ 直接噴沙拉脫清潔劑就可以了，省錢又方便：錯誤，可能導致線路短路危險且無法省電。</li>
+                    <li class="wrong-opt">④ 高效率通風扇較貴，換同機型的廠內備用品就好了：錯誤，同舊機型依舊是低效耗能的設計。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 61 -->
+    <div class="card">
+        <span class="theme-badge">主題：電氣設備維修安全</span>
+        <div class="question">61. 電氣設備維修時，在關掉電源後，最好停留 1 至 5 分鐘才開始檢修，其主要的理由為下列何者？</div>
+        <div class="options">
+            <div class="option">① 先平靜心情，做好準備才動手</div>
+            <div class="option">② 讓機器設備降溫下來再查修</div>
+            <div class="option">③ 讓裡面的電容器有時間放電完畢，才安全</div>
+            <div class="option">④ 法規沒有規定，這完全沒有必要</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>許多電氣設備（如冷氣、電源供應器等）內部含有大容量的「電容器」。即使外部電源已經關閉，電容器內部仍會儲存高壓電荷。如果在關機後立刻碰觸內部電路，仍有遭受高壓電擊的致命危險。因此必須等待數分鐘讓電容器自然放電完畢，確保安全。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 先平靜心情，做好準備才動手：非主要原因。</li>
+                    <li class="wrong-opt">② 讓機器設備降溫下來再查修：次要原因，防燙傷但非等待主因。</li>
+                    <li class="correct-opt">③ 讓裡面的電容器有時間放電完畢，才安全：正確，防範電容器殘留高壓電擊。</li>
+                    <li class="wrong-opt">④ 法規沒有規定，這完全沒有必要：錯誤，這是基本且攸關性命的工安常識。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 62 -->
+    <div class="card">
+        <span class="theme-badge">主題：潮濕環境用電安全</span>
+        <div class="question">62. 電氣設備裝設於有潮濕水氣的環境時，最應該優先檢查及確認的措施是？</div>
+        <div class="options">
+            <div class="option">① 有無在線路上裝設漏電斷路器</div>
+            <div class="option">② 電氣設備上有無安全保險絲</div>
+            <div class="option">③ 有無過載及過熱保護設備</div>
+            <div class="option">④ 有無可能傾倒及生鏽</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>水是優良的導電體。在浴室、廚房、戶外等潮濕環境中，電器絕緣一旦受潮劣化，人體觸摸到極易發生嚴重的漏電感電事故。因此，法規強制要求在此類環境的用電線路上，必須安裝高靈敏度的「漏電斷路器」，一偵測到漏電即刻切斷電源保護人命。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 有無在線路上裝設漏電斷路器：正確，防止潮濕引發之漏電感電最關鍵之保護。</li>
+                    <li class="wrong-opt">② 電氣設備上有無安全保險絲：無法防止漏電觸電。</li>
+                    <li class="wrong-opt">③ 有無過載及過熱保護設備：無法防止漏電觸電。</li>
+                    <li class="wrong-opt">④ 有無可能傾倒及生鏽：屬一般外觀檢查，重要性不及漏電防護。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 63 -->
+    <div class="card">
+        <span class="theme-badge">主題：冷氣節能技巧</span>
+        <div class="question">63. 對於使用冷氣如何節能的描述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">① 冷氣溫度設定範圍以 26-28℃為宜</div>
+            <div class="option">② 開冷氣同時開啟窗戶有助於省電</div>
+            <div class="option">③ 冷氣房內配合電風扇使用，可適度調高溫度以節省用電</div>
+            <div class="option">④ 加裝設自動溫控設備，可以避免過冷而浪費能源</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>開啟冷氣時若同時開啟窗戶，會造成室內的冷空氣不斷流失，而室外的高溫熱空氣不斷灌入室內。這將導致冷氣感溫器始終達不到設定溫度，壓縮機只能不斷高負載運轉，是非常浪費電力的行為。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 冷氣溫度設定範圍以 26-28℃為宜：正確觀念。</li>
+                    <li class="correct-opt">② 開冷氣同時開啟窗戶有助於省電：錯誤觀念，冷氣外流會造成嚴重耗能。</li>
+                    <li class="wrong-opt">③ 冷氣房內配合電風扇使用，可適度調高溫度以節省用電：正確觀念，風扇可增加體感涼爽。</li>
+                    <li class="wrong-opt">④ 加裝設自動溫控設備，可以避免過冷而浪費能源：正確觀念。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 64 -->
+    <div class="card">
+        <span class="theme-badge">主題：家庭用電大宗</span>
+        <div class="question">64. 家庭用電最大宗來自於？</div>
+        <div class="options">
+            <div class="option">① 冷氣機</div>
+            <div class="option">② 電腦</div>
+            <div class="option">③ 電視</div>
+            <div class="option">④ 吹風機</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>根據工研院與台電的家庭用電調查統計，冷氣機（空調設備）因為耗電功率大且在夏季使用時間長，全年合計佔家庭總用電量近三成（或夏季一半以上），是毫無疑問的家庭吃電怪獸榜首。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 冷氣機：正確，耗電量為家庭所有設備之冠。</li>
+                    <li class="wrong-opt">② 電腦：錯誤，佔比較低。</li>
+                    <li class="wrong-opt">③ 電視：錯誤，LED電視非常省電。</li>
+                    <li class="wrong-opt">④ 吹風機：錯誤，雖功率高但使用時間極短，總耗電度數不多。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 65 -->
+    <div class="card">
+        <span class="theme-badge">主題：減少空調負載處理</span>
+        <div class="question">65. 冷氣房內為減少日照高溫及降低空調負載，下列何種處理方式錯誤？</div>
+        <div class="options">
+            <div class="option">① 窗戶裝設窗簾或貼隔熱紙</div>
+            <div class="option">② 將窗戶或門開啟，讓屋內外空氣自然對流</div>
+            <div class="option">③ 屋頂加裝隔熱材、高反射率塗料或噴水</div>
+            <div class="option">④ 於屋頂進行薄層綠化</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在使用冷氣空調的房間內，室內溫度通常低於室外。如果將門窗打開讓空氣自然對流，戶外的高溫熱風就會源源不絕地跑進室內，完全抵消冷氣的作用，大幅「增加」而非降低空調的熱負載。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 窗戶裝設窗簾或貼隔熱紙：正確作法，可阻擋輻射熱進入。</li>
+                    <li class="correct-opt">② 將窗戶或門開啟，讓屋內外空氣自然對流：錯誤作法，會引進室外熱氣增加空調負載。</li>
+                    <li class="wrong-opt">③ 屋頂加裝隔熱材、高反射率塗料或噴水：正確作法，有效降低屋頂蓄熱。</li>
+                    <li class="wrong-opt">④ 於屋頂進行薄層綠化：正確作法，植物可遮陽且藉由蒸散作用降溫。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 66 -->
+    <div class="card">
+        <span class="theme-badge">主題：電冰箱散熱空間</span>
+        <div class="question">66. 有關電冰箱放置位置的處理方式，下列何者正確？</div>
+        <div class="options">
+            <div class="option">① 背後緊貼牆壁節省空間</div>
+            <div class="option">② 背後距離牆壁應有 10 公分以上空間，以利散熱</div>
+            <div class="option">③ 室內空間有限，側面緊貼牆壁就可以了</div>
+            <div class="option">④ 冰箱最好貼近流理台，以便存取食材</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電冰箱是透過機體後方或兩側的散熱排將內部的熱量排至室外。如果緊貼牆壁，散熱不良會導致壓縮機難以製冷，除了耗電量大幅增加外，還會縮短冰箱壽命。因此背部及兩側皆須保留適當的通風散熱空間（通常建議10公分以上）。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 背後緊貼牆壁節省空間：錯誤，會造成嚴重散熱不良與耗電。</li>
+                    <li class="correct-opt">② 背後距離牆壁應有 10 公分以上空間，以利散熱：正確，維持良好通風散熱可節能。</li>
+                    <li class="wrong-opt">③ 室內空間有限，側面緊貼牆壁就可以了：錯誤，多數現代冰箱從側面散熱，緊貼會影響效能。</li>
+                    <li class="wrong-opt">④ 冰箱最好貼近流理台，以便存取食材：錯誤，流理台常伴隨瓦斯爐熱源，會增加冰箱負擔。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 67 -->
+    <div class="card">
+        <span class="theme-badge">主題：照明節能改善因素</span>
+        <div class="question">67. 下列何項「不是」照明節能改善需優先考量之因素？</div>
+        <div class="options">
+            <div class="option">① 照明方式是否適當</div>
+            <div class="option">② 燈具之外型是否美觀</div>
+            <div class="option">③ 照明之品質是否適當</div>
+            <div class="option">④ 照度是否適當</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在進行「照明節能改善」工程時，核心目的是在不影響視覺機能的前提下減少電力消耗。因此重點在於照明方式（全面或重點）、照明品質（無眩光、演色性佳）與照度（符合國家標準亮度）。「外型美觀」屬於室內設計裝潢的範疇，並非節能改善的核心優先因素。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 照明方式是否適當：是重要考量，例如改用重點照明可大幅省電。</li>
+                    <li class="correct-opt">② 燈具之外型是否美觀：不是節能改善之優先考量。</li>
+                    <li class="wrong-opt">③ 照明之品質是否適當：是重要考量，如避免刺眼眩光影響工作。</li>
+                    <li class="wrong-opt">④ 照度是否適當：是重要考量，過亮耗能、過暗傷眼。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 68 -->
+    <div class="card">
+        <span class="theme-badge">主題：大型熱水系統節能選用</span>
+        <div class="question">68. 醫院、飯店或宿舍之熱水系統耗能大，要設置熱水系統時，應優先選用何種熱水系統較節能？</div>
+        <div class="options">
+            <div class="option">① 電能熱水系統</div>
+            <div class="option">② 熱泵熱水系統</div>
+            <div class="option">③ 瓦斯熱水系統</div>
+            <div class="option">④ 重油熱水系統</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>對於用水量極大的大型場所，「熱泵熱水系統」是首選。熱泵並非直接燃燒或用電阻製熱，而是運用極少量的電力驅動壓縮機，從周遭空氣中「吸收」免費的熱能來加熱水，其能源轉換效率(COP)極高，能比傳統電熱水系統省下約3/4的龐大能源費用。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 電能熱水系統：錯誤，電阻加熱效率差，費用最昂貴。</li>
+                    <li class="correct-opt">② 熱泵熱水系統：正確，吸收空氣熱能轉換，為目前最節能之商業設備。</li>
+                    <li class="wrong-opt">③ 瓦斯熱水系統：錯誤，成本高於熱泵且有碳排與工安問題。</li>
+                    <li class="wrong-opt">④ 重油熱水系統：錯誤，污染嚴重且不符合現代環保與節能趨勢。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 69 -->
+    <div class="card">
+        <span class="theme-badge">主題：能源標示識別</span>
+        <div class="question">69. 如下圖示為</div>
+		 <img src='https://github.com/wu-zi-xin/Images/blob/main/images/%E5%85%B1%E5%90%8C%E7%A7%91%E7%9B%AE_%E7%AF%80%E8%83%BD%E6%B8%9B%E7%A2%B3/69.png?raw=true' alt='[圖示：呈現溫度計外觀，刻度由下至上分為1至5級，地球在最底端，1級標示耗能較少，5級標示耗能較多]' class='responsive-img'>
+        <div class="options">
+            <div class="option">① 省水標章</div>
+            <div class="option">② 環保標章</div>
+            <div class="option">③ 奈米標章</div>
+            <div class="option">④ 能源效率標示</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>圖中的標示為經濟部推行的「能源效率分級標示」。外觀設計如同溫度計，地球位於底端，代表節能減碳救地球。指標分為1到5級，數字越小(越接近地球的1級)表示耗電量越低、越省電。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 省水標章：錯誤，圖示為水滴箭頭。</li>
+                    <li class="wrong-opt">② 環保標章：錯誤，圖示為綠色樹葉包裹地球。</li>
+                    <li class="wrong-opt">③ 奈米標章：錯誤，與圖示不符。</li>
+                    <li class="correct-opt">④ 能源效率標示：正確，溫度計分級圖為能源效率標示專屬圖案。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 70 -->
+    <div class="card">
+        <span class="theme-badge">主題：夏月電價實施期間</span>
+        <div class="question">70. 台灣電力公司電價表所指的夏月用電月份（電價比其他月份高）是為？</div>
+        <div class="options">
+            <div class="option">① 4/1〜7/31</div>
+            <div class="option">② 5/1〜8/31</div>
+            <div class="option">③ 6/1〜9/30</div>
+            <div class="option">④ 7/1〜10/31</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>台灣因夏季氣候炎熱，冷氣空調大量開啟，為台電供電負載最高、發電成本最昂貴的時期。為以價格誘因引導民眾節約用電，台電明定每年的「6月1日至9月30日」實施單價較高的「夏月電價」。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 4/1〜7/31：錯誤。</li>
+                    <li class="wrong-opt">② 5/1〜8/31：錯誤。</li>
+                    <li class="correct-opt">③ 6/1〜9/30：正確，為法定的夏月電價實施區間。</li>
+                    <li class="wrong-opt">④ 7/1〜10/31：錯誤。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 71 -->
+    <div class="card">
+        <span class="theme-badge">主題：屋頂隔熱措施</span>
+        <div class="question">71. 屋頂隔熱可有效降低空調用電，下列何項措施較不適當？</div>
+        <div class="options">
+            <div class="option">① 屋頂儲水隔熱</div>
+            <div class="option">② 屋頂綠化</div>
+            <div class="option">③ 於適當位置設置太陽能板發電同時加以隔熱</div>
+            <div class="option">④ 鋪設隔熱磚</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>雖然水有比熱大的特性可以隔熱，但實務上「屋頂儲水隔熱」極度不建議。台灣地處地震帶且氣候潮濕多雨，長期儲水極易破壞屋頂防水層造成嚴重漏水，且死水更容易成為登革熱病媒蚊的孳生溫床，百害而無一利。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 屋頂儲水隔熱：不適當，會導致結構漏水及公共衛生(蚊蟲)問題。</li>
+                    <li class="wrong-opt">② 屋頂綠化：適當，利用植物遮陽與蒸散水氣來降溫。</li>
+                    <li class="wrong-opt">③ 於適當位置設置太陽能板發電同時加以隔熱：適當，既可遮陽又能創能，一舉兩得。</li>
+                    <li class="wrong-opt">④ 鋪設隔熱磚：適當，為傳統且有效的阻隔熱輻射方法。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 72 -->
+    <div class="card">
+        <span class="theme-badge">主題：電腦機房節能管理</span>
+        <div class="question">72. 電腦機房使用時間長、耗電量大，下列何項措施對電腦機房之用電管理較不適當？</div>
+        <div class="options">
+            <div class="option">① 機房設定較低之溫度</div>
+            <div class="option">② 設置冷熱通道</div>
+            <div class="option">③ 使用較高效率之空調設備</div>
+            <div class="option">④ 使用新型高效能電腦設備</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>傳統迷思認為機房應該越冷越好，但其實現代伺服器設備的耐溫能力已有提升。若刻意將機房「設定較低之溫度」（例如低於20度），空調冷卻系統的耗電量將呈指數級飆升，造成龐大的能源浪費，是非常不適當的能源管理方式。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 機房設定較低之溫度：不適當，過度製冷是機房耗能的最大元凶。</li>
+                    <li class="wrong-opt">② 設置冷熱通道：適當，阻絕冷熱空氣混合，大幅提升冷氣效率。</li>
+                    <li class="wrong-opt">③ 使用較高效率之空調設備：適當，節省基礎耗能。</li>
+                    <li class="wrong-opt">④ 使用新型高效能電腦設備：適當，源頭減碳並減少發熱量。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 73 -->
+    <div class="card">
+        <span class="theme-badge">主題：省水標章認知</span>
+        <div class="question">73. 有關省水標章之敘述，下列何者正確？</div>
+        <div class="options">
+            <div class="option">① 省水標章是環境部為推動使用節水器材，特別研定以作為消費者辨識省水產品的一種標誌</div>
+            <div class="option">② 獲得省水標章的產品並無嚴格測試，所以對消費者並無一定的保障</div>
+            <div class="option">③ 省水標章能激勵廠商重視省水產品的研發與製造，進而達到推廣節水良性循環之目的</div>
+            <div class="option">④ 省水標章除有用水設備外，亦可使用於冷氣或冰箱上</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>省水標章制度是藉由核發標章的方式，讓消費者能夠輕易辨識並選購節水器材，進而「激勵廠商投入研發製造」，促進市場良性競爭與推廣節水。該標章是由「經濟部水利署」（而非環境部）推動，並且只適用於與「水」相關的衛浴、洗衣等設備，冷氣和冰箱使用的是能源效率標示。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 省水標章是環境部為推動使用節水器材...：錯誤，主管機關為經濟部水利署。</li>
+                    <li class="wrong-opt">② 獲得省水標章的產品並無嚴格測試...：錯誤，必須通過國家嚴格檢測標準才能取得。</li>
+                    <li class="correct-opt">③ 省水標章能激勵廠商重視省水產品的研發與製造...：正確，這正是推行標章制度的核心目的。</li>
+                    <li class="wrong-opt">④ 省水標章除有用水設備外，亦可使用於冷氣或冰箱上：錯誤，冷氣冰箱並非用水設備，不適用省水標章。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 74 -->
+    <div class="card">
+        <span class="theme-badge">主題：節約用水習慣</span>
+        <div class="question">74. 透過淋浴習慣的改變就可以節約用水，下列何者正確？</div>
+        <div class="options">
+            <div class="option">① 淋浴時抹肥皂，無需將蓮蓬頭暫時關上</div>
+            <div class="option">② 等待熱水前流出的冷水可以用水桶接起來再利用</div>
+            <div class="option">③ 淋浴流下的水不可以刷洗浴室地板</div>
+            <div class="option">④ 淋浴沖澡流下的水，可以儲蓄洗菜使用</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>一般家庭管線中會殘存冷水，開啟熱水器後必須等冷水排空才會出熱水。將這段乾淨的「前段冷水」用水桶收集起來，用來沖馬桶、拖地或澆花，是非常實用且正確的節水好習慣。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 淋浴時抹肥皂，無需將蓮蓬頭暫時關上：錯誤，任水白流是浪費行為。</li>
+                    <li class="correct-opt">② 等待熱水前流出的冷水可以用水桶接起來再利用：正確，有效回收乾淨水源。</li>
+                    <li class="wrong-opt">③ 淋浴流下的水不可以刷洗浴室地板：錯誤，這些廢水很適合用來順便刷洗地板。</li>
+                    <li class="wrong-opt">④ 淋浴沖澡流下的水，可以儲蓄洗菜使用：錯誤，洗澡水含有汙垢皮屑及沐浴乳，不可用來清洗食用食材。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 75 -->
+    <div class="card">
+        <span class="theme-badge">主題：家庭省水洗澡方式</span>
+        <div class="question">75. 家人洗澡時，一個接一個連續洗，也是一種有效的省水方式嗎？</div>
+        <div class="options">
+            <div class="option">① 是，因為可以節省等待熱水流出之前所先流失的冷水</div>
+            <div class="option">② 否，這跟省水沒什麼關係，不用這麼麻煩</div>
+            <div class="option">③ 否，因為等熱水時流出的水量不多</div>
+            <div class="option">④ 有可能省水也可能不省水，無法定論</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>如果家人間隔很久才洗澡，熱水管路內的水會冷卻，下一個人洗澡時又必須將管路中的冷水排空浪費掉。若家人「連續洗澡」，管線內的水仍保持熱度，一開即有熱水，這能有效減少每次等待熱水時流失的冷水量，是同時省水又省瓦斯的聰明作法。</p>
+                </div>
+                <span class="exp-subtitle">【各選項解析】</span>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 是，因為可以節省等待熱水流出之前所先流失的冷水：正確，避免管路內熱水冷卻反覆浪費。</li>
+                    <li class="wrong-opt">② 否，這跟省水沒什麼關係，不用這麼麻煩：錯誤，實際上非常有關係。</li>
+                    <li class="wrong-opt">③ 否，因為等熱水時流出的水量不多：錯誤，根據管線長度不同，累積流失的水量驚人。</li>
+                    <li class="wrong-opt">④ 有可能省水也可能不省水，無法定論：錯誤，原理上必定能省水省能。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>

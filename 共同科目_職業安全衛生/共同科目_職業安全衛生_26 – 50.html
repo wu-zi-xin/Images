@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職業安全衛生 - 第26~50題題庫與解析</title>
+    <style>
+        /* 基礎與排版設定 (完美復刻 GitHub 來源樣式) */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .toggle-btn:hover {
+            background-color: #219150;
+        }
+        .card-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        /* 卡片樣式 */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border: 1px solid #eaeaea;
+            position: relative;
+        }
+        /* 主題標籤 */
+        .theme-badge {
+            display: inline-block;
+            background-color: #e8f4fd;
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #b3d7f2;
+        }
+        .question {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        /* 選項樣式 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            font-size: 1.05em;
+            border-left: 3px solid #cbd5e1;
+        }
+        /* 純HTML 摺疊特效設計 */
+        details {
+            background: #fdfefe;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        summary {
+            background: #3498db;
+            color: #ffffff;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
+            cursor: pointer;
+            list-style: none;
+            transition: background 0.3s;
+        }
+        summary:hover {
+            background: #2980b9;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        /* 解析內容樣式 */
+        .answer-panel {
+            padding: 20px;
+            background: #f4fcf7;
+            border-top: 1px solid #dfe6e9;
+        }
+        .answer-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34495e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comprehensive-exp strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .comprehensive-exp p {
+            margin: 0;
+            color: #4b6584;
+            line-height: 1.6;
+        }
+        .explanation {
+            color: #4b6584;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+        .exp-subtitle {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 3px;
+        }
+        .opt-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .opt-list li {
+            margin-bottom: 8px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .correct-opt {
+            border-left-color: #27ae60 !important;
+            background: #eafaf1 !important;
+        }
+        .wrong-opt {
+            border-left-color: #e74c3c !important;
+        }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+		
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) {
+            .card { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>職業安全衛生共同科目題庫</h1>
+    <p>工作項目 01：職業安全衛生 (第 26 - 50 題)</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 題組 26 -->
+    <div class="card">
+        <span class="theme-badge">主題：墜落危險預防</span>
+        <div class="question">26. 對於墜落危險之預防設施，下列敘述何者較為妥適？</div>
+        <div class="options">
+            <div class="option">①在外牆施工架等高處作業應盡量使用繫腰式安全帶</div>
+            <div class="option">②安全帶應確實配掛在低於足下之堅固點</div>
+            <div class="option">③高度 2m 以上之邊緣開口部分處應圍起警示帶</div>
+            <div class="option">④高度 2m 以上之開口處應設護欄或安全網</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在高度 2 公尺以上之高處作業，具有高度墜落危險。法規明定雇主於高度 2 公尺以上之屋頂、邊緣、開口部分，應設置護欄、護蓋或安全網等防墜設施，以從工程面阻絕墜落發生的可能。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 在外牆施工架等高處作業應盡量使用繫腰式安全帶：錯誤，高處作業應優先使用「背負式」安全帶，繫腰式墜落時易傷及脊椎。</li>
+                    <li class="wrong-opt">② 安全帶應確實配掛在低於足下之堅固點：錯誤，安全帶應遵守「高掛低用」原則，掛在肩部以上之堅固點，減少墜落距離。</li>
+                    <li class="wrong-opt">③ 高度 2m 以上之邊緣開口部分處應圍起警示帶：錯誤，警示帶無實體防護力，必須設置實體護欄或安全網。</li>
+                    <li class="correct-opt">④ 高度 2m 以上之開口處應設護欄或安全網：正確，此為法定防墜之基本工程設施。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 27 -->
+    <div class="card">
+        <span class="theme-badge">主題：感電危害症狀</span>
+        <div class="question">27. 對於感電電流流過人體可能呈現的症狀，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①痛覺</div>
+            <div class="option">②強烈痙攣</div>
+            <div class="option">③血壓降低、呼吸急促、精神亢奮</div>
+            <div class="option">④造成組織灼傷</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當人體遭遇感電（觸電）時，電流通過身體會引發肌肉強烈收縮痙攣、神經痛覺，若電流較大則會產生焦耳熱導致組織內部或皮膚灼傷。嚴重者會引起心室纖維顫動或呼吸停止，並伴隨休克（意識不清、血壓降低），但「不會」出現精神亢奮的狀態。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 痛覺：感電時神經受刺激會產生劇痛。</li>
+                    <li class="wrong-opt">② 強烈痙攣：電流會干擾人體生物電信號，造成肌肉不由自主地強烈痙攣。</li>
+                    <li class="correct-opt">③ 血壓降低、呼吸急促、精神亢奮：錯誤，感電休克會導致意識模糊或昏迷，不可能出現精神亢奮，故選此項。</li>
+                    <li class="wrong-opt">④ 造成組織灼傷：電流通過具電阻之人體會產生高熱，造成電弧灼傷或內部組織燒傷。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 28 -->
+    <div class="card">
+        <span class="theme-badge">主題：墜落災害場所</span>
+        <div class="question">28. 下列何者非屬於容易發生墜落災害的作業場所或設施？</div>
+        <div class="options">
+            <div class="option">①施工架</div>
+            <div class="option">②廚房</div>
+            <div class="option">③屋頂</div>
+            <div class="option">④梯子</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「墜落」災害定義為人體由高處向低處掉落（具備明顯高低落差）。施工架、屋頂、梯子皆屬高處作業，容易發生墜落；而廚房通常為平面作業環境，最常見的災害類型為「滑倒（跌倒）」、「燙傷」或「切割傷」，而非墜落。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 施工架：高空作業設備，為典型墜落高風險區。</li>
+                    <li class="correct-opt">② 廚房：正確，平面作業場所，主要風險為滑倒或燙傷，無明顯墜落危害。</li>
+                    <li class="wrong-opt">③ 屋頂：高空作業場所，易發生踏穿或邊緣墜落。</li>
+                    <li class="wrong-opt">④ 梯子：上下設備，若未穩固極易造成人員墜落。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 29 -->
+    <div class="card">
+        <span class="theme-badge">主題：火災爆炸預防</span>
+        <div class="question">29. 下列何者非屬危險物儲存場所應採取之火災爆炸預防措施？</div>
+        <div class="options">
+            <div class="option">①使用工業用電風扇</div>
+            <div class="option">②裝設可燃性氣體偵測裝置</div>
+            <div class="option">③使用防爆電氣設備</div>
+            <div class="option">④標示「嚴禁煙火」</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>危險物儲存場所易有可燃性或易爆性氣體積聚，必須嚴格控制引火源。工業用電風扇的馬達運轉或開關時極易產生電氣火花，若周遭有易燃氣體將直接引發爆炸，因此絕對禁止在該場所使用非防爆型的普通電風扇。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 使用工業用電風扇：正確（為非屬預防措施），一般電風扇會產生火花，不但無法防爆反而會成為引火源。</li>
+                    <li class="wrong-opt">② 裝設可燃性氣體偵測裝置：可及早發現氣體外洩，為正確預防措施。</li>
+                    <li class="wrong-opt">③ 使用防爆電氣設備：防爆設備不會產生外部引火火花，為正確預防措施。</li>
+                    <li class="wrong-opt">④ 標示「嚴禁煙火」：阻絕明火引燃，為正確預防措施。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 30 -->
+    <div class="card">
+        <span class="theme-badge">主題：漏電斷路器</span>
+        <div class="question">30. 雇主於臨時用電設備加裝漏電斷路器，可減少下列何種災害發生？</div>
+        <div class="options">
+            <div class="option">①墜落</div>
+            <div class="option">②物體倒塌、崩塌</div>
+            <div class="option">③感電</div>
+            <div class="option">④被撞</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>漏電斷路器（Earth Leakage Circuit Breaker, ELCB 或 RCD）的作用是當偵測到電路有微小的漏電流（例如電流流經人體導向大地）時，能在極短時間內切斷電源，從而保護人員免於發生嚴重的「感電（觸電）」致死災害。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 墜落：與漏電保護無關。</li>
+                    <li class="wrong-opt">② 物體倒塌、崩塌：與漏電保護無關。</li>
+                    <li class="correct-opt">③ 感電：正確，漏電斷路器專為防止感電設計。</li>
+                    <li class="wrong-opt">④ 被撞：與漏電保護無關。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 31 -->
+    <div class="card">
+        <span class="theme-badge">主題：起重吊掛作業安全</span>
+        <div class="question">31. 雇主要求確實管制人員不得進入吊舉物下方，可避免下列何種災害發生？</div>
+        <div class="options">
+            <div class="option">①感電</div>
+            <div class="option">②墜落</div>
+            <div class="option">③物體飛落</div>
+            <div class="option">④缺氧</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>起重機在吊掛重物時，可能因鋼索斷裂、吊鉤滑脫或綑綁不牢導致重物自高空掉落。嚴禁人員進入吊舉物下方（危險半徑內），能直接避免人員遭受「物體飛落」砸傷或壓死的重大災害。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 感電：與人員進入吊掛下方無直接關聯。</li>
+                    <li class="wrong-opt">② 墜落：墜落是指人員自身從高處掉下。</li>
+                    <li class="correct-opt">③ 物體飛落：正確，物體從高處掉下砸中人員即屬此類災害。</li>
+                    <li class="wrong-opt">④ 缺氧：多發生於局限空間，與吊掛作業無關。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 32 -->
+    <div class="card">
+        <span class="theme-badge">主題：職業疾病定義</span>
+        <div class="question">32. 職業上危害因子所引起的勞工疾病，稱為何種疾病？</div>
+        <div class="options">
+            <div class="option">①職業疾病</div>
+            <div class="option">②法定傳染病</div>
+            <div class="option">③流行性疾病</div>
+            <div class="option">④遺傳性疾病</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《職業安全衛生法》及相關法規之定義，勞工因執行職務，暴露於化學性、物理性、生物性、人因工程等「職業上危害因子」所導致的疾病，統稱為「職業病」或「職業疾病」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 職業疾病：正確，因職務危害因子引起的專有稱呼。</li>
+                    <li class="wrong-opt">② 法定傳染病：由衛福部疾管署依法公告，具傳染性之疾病。</li>
+                    <li class="wrong-opt">③ 流行性疾病：在大範圍人群中廣泛傳播的疾病。</li>
+                    <li class="wrong-opt">④ 遺傳性疾病：因基因或染色體異常所導致的疾病，非環境造成。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 33 -->
+    <div class="card">
+        <span class="theme-badge">主題：承攬管理責任</span>
+        <div class="question">33. 事業招人承攬時，其承攬人就承攬部分負雇主之責任，原事業單位就職業災害補償部分之責任為何？</div>
+        <div class="options">
+            <div class="option">①視職業災害原因判定是否補償</div>
+            <div class="option">②依工程性質決定責任</div>
+            <div class="option">③依承攬契約決定責任</div>
+            <div class="option">④仍應與承攬人負連帶責任</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《勞動基準法》第62條及《職業安全衛生法》相關規定，事業單位將工程交由他人承攬時，若發生職業災害，原事業單位必須與承攬人、次承攬人負「連帶補償責任」。此規定旨在避免原事業單位藉由轉包逃避責任，切實保障罹災勞工的權益。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 視職業災害原因判定是否補償：錯誤，法定為無過失的連帶補償責任。</li>
+                    <li class="wrong-opt">② 依工程性質決定責任：錯誤。</li>
+                    <li class="wrong-opt">③ 依承攬契約決定責任：錯誤，法律強制的連帶責任，不可用私人契約免除對勞工之責。</li>
+                    <li class="correct-opt">④ 仍應與承攬人負連帶責任：正確，原事業單位負有連帶補償責任。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 34 -->
+    <div class="card">
+        <span class="theme-badge">主題：預防職業病對策</span>
+        <div class="question">34. 預防職業病最根本的措施為何？</div>
+        <div class="options">
+            <div class="option">①實施特殊健康檢查</div>
+            <div class="option">②實施作業環境改善</div>
+            <div class="option">③實施定期健康檢查</div>
+            <div class="option">④實施僱用前體格檢查</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在職業衛生的危害控制階層中，最有效且最根本的做法是「源頭管理」，亦即透過工程控制來「實施作業環境改善」（如移除危害物、設置局部排氣、隔離噪音源等）。健康檢查屬於事後的健康監測，無法從源頭消滅危害。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 實施特殊健康檢查：僅能早期發現疾病，無法消除環境危害源。</li>
+                    <li class="correct-opt">② 實施作業環境改善：正確，從源頭工程面改善環境，是最根本的預防對策。</li>
+                    <li class="wrong-opt">③ 實施定期健康檢查：屬於健康監測手段。</li>
+                    <li class="wrong-opt">④ 實施僱用前體格檢查：用以評估勞工是否適任，並非預防環境危害。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 35 -->
+    <div class="card">
+        <span class="theme-badge">主題：風險控制與管理</span>
+        <div class="question">35. 在地下室作業，當通風換氣充分時，則不易發生一氧化碳中毒、缺氧危害或火災爆炸危險。「通風換氣充分」係指下列何種描述？</div>
+        <div class="options">
+            <div class="option">①風險控制方法</div>
+            <div class="option">②發生機率</div>
+            <div class="option">③危害源</div>
+            <div class="option">④風險</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>危害源（Hazard）是指導致危害的根源（如一氧化碳）；風險（Risk）是危害發生機率與嚴重度的乘積。而「通風換氣充分」是一種工程控制手段，用以降低危害發生的機率，因此屬於「風險控制方法」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 風險控制方法：正確，通風換氣屬於降低風險的工程控制手段。</li>
+                    <li class="wrong-opt">② 發生機率：通風會降低發生機率，但其本身不是機率的描述。</li>
+                    <li class="wrong-opt">③ 危害源：有毒氣體才是危害源。</li>
+                    <li class="wrong-opt">④ 風險：風險是機率與嚴重性的綜合評估結果。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 36 -->
+    <div class="card">
+        <span class="theme-badge">主題：機械設備危害</span>
+        <div class="question">36. 勞工為節省時間，在未斷電情況下清理機臺，易發生危害為何？</div>
+        <div class="options">
+            <div class="option">①捲夾</div>
+            <div class="option">②缺氧</div>
+            <div class="option">③墜落</div>
+            <div class="option">④崩塌</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>旋轉機具或機臺在維修、清理時若未落實「斷電、上鎖、掛牌（LOTO）」，機臺可能突然運轉，導致勞工的肢體或衣物被旋轉、傳動部件給捲入或夾傷。因此清理機臺最大的動態危害即為「捲夾」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 捲夾：正確，未斷電機臺運作最容易導致捲入夾傷。</li>
+                    <li class="wrong-opt">② 缺氧：屬局限空間或氣體外洩之危害。</li>
+                    <li class="wrong-opt">③ 墜落：指從高處掉下。</li>
+                    <li class="wrong-opt">④ 崩塌：指土石、堆疊物倒塌。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 37 -->
+    <div class="card">
+        <span class="theme-badge">主題：化學物質暴露途徑</span>
+        <div class="question">37. 工作場所具有揮發性化學有害物質進入人體，最常見途徑為下列何者？</div>
+        <div class="options">
+            <div class="option">①口腔</div>
+            <div class="option">②呼吸道</div>
+            <div class="option">③皮膚</div>
+            <div class="option">④眼睛</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>化學物質進入人體主要有三種途徑：呼吸道（吸入）、皮膚（接觸吸收）、消化道（食入）。當物質具有「揮發性」時，會大量散布於空氣中形成蒸氣，勞工在工作中最難以防避且最常見的途徑就是經由「呼吸道」吸入體內。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 口腔：通常因飲食衛生不良造成食入，非揮發性氣體最常見途徑。</li>
+                    <li class="correct-opt">② 呼吸道：正確，揮發性化學氣體極易隨呼吸進入肺部。</li>
+                    <li class="wrong-opt">③ 皮膚：可經由接觸吸收，但對於揮發性氣體而言，呼吸道吸入更為主要。</li>
+                    <li class="wrong-opt">④ 眼睛：眼睛會受到刺激，但非主要吸收進入全身循環的途徑。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 38 -->
+    <div class="card">
+        <span class="theme-badge">主題：活線作業防護</span>
+        <div class="question">38. 活線作業勞工應佩戴何種防護手套？</div>
+        <div class="options">
+            <div class="option">①棉紗手套</div>
+            <div class="option">②耐熱手套</div>
+            <div class="option">③絕緣手套</div>
+            <div class="option">④防振手套</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>活線作業即指在電氣設備或線路仍「帶電」的狀態下進行施工或維修。為防止電流通過人體造成感電事故，作業人員必須使用具備高阻抗防護能力的「絕緣防護具」，因此必須佩戴檢驗合格的絕緣手套。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 棉紗手套：不具絕緣性，且容易吸水導電。</li>
+                    <li class="wrong-opt">② 耐熱手套：防高溫燙傷，但不保證具備電氣絕緣效能。</li>
+                    <li class="correct-opt">③ 絕緣手套：正確，為防止感電的必備防護具。</li>
+                    <li class="wrong-opt">④ 防振手套：用於操作鏈鋸等震動機具，防白指症，無絕緣功能。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 39 -->
+    <div class="card">
+        <span class="theme-badge">主題：電氣災害種類</span>
+        <div class="question">39. 下列何者非屬電氣災害之種類？</div>
+        <div class="options">
+            <div class="option">①電弧灼傷</div>
+            <div class="option">②電氣火災</div>
+            <div class="option">③靜電危害</div>
+            <div class="option">④雷電閃爍</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>職場安全衛生所探討的「電氣災害」，主要是針對人為建置的電氣設備、線路設計不良或操作不當所造成的危害（如感電、電弧灼傷、電氣火災、靜電引爆等）。「雷電閃爍（雷擊）」屬於自然界的大氣放電現象（天然災害），一般不歸類在常規的職場電氣災害分類中。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 電弧灼傷：短路高熱電弧傷人，屬電氣災害。</li>
+                    <li class="wrong-opt">② 電氣火災：漏電或過載引發火災，屬電氣災害。</li>
+                    <li class="wrong-opt">③ 靜電危害：靜電放電引燃易爆物，屬電氣災害。</li>
+                    <li class="correct-opt">④ 雷電閃爍：正確，雷擊屬天災現象。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 40 -->
+    <div class="card">
+        <span class="theme-badge">主題：墜落潛在危害因子</span>
+        <div class="question">40. 下列何者非屬於工作場所作業會發生墜落災害的潛在危害因子？</div>
+        <div class="options">
+            <div class="option">①開口未設置護欄</div>
+            <div class="option">②未設置安全之上下設備</div>
+            <div class="option">③未確實配戴耳罩</div>
+            <div class="option">④屋頂開口下方未張掛安全網</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>墜落災害的核心原因在於「高低落差」及「防墜防護不足」。開口無護欄、無安全上下通道、未張掛安全網皆是直接導致墜落的硬體缺失。而「未配戴耳罩」會造成聽力受損（噪音危害），與墜落災害無關。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 開口未設置護欄：為墜落危害因子。</li>
+                    <li class="wrong-opt">② 未設置安全之上下設備：人員攀爬易發生墜落危害。</li>
+                    <li class="correct-opt">③ 未確實配戴耳罩：正確，此為噪音危害因子，與墜落無關。</li>
+                    <li class="wrong-opt">④ 屋頂開口下方未張掛安全網：防護不足，為墜落危害因子。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 41 -->
+    <div class="card">
+        <span class="theme-badge">主題：噪音防治對策</span>
+        <div class="question">41. 在噪音防治之對策中，從下列何者著手最為有效？</div>
+        <div class="options">
+            <div class="option">①偵測儀器</div>
+            <div class="option">②噪音源</div>
+            <div class="option">③傳播途徑</div>
+            <div class="option">④個人防護具</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在所有危害預防階層（Hierarchy of Controls）中，最根本且最有效的對策永遠是「消除或工程控制（源頭管理）」。因此防治噪音最有效的方法就是從「噪音源」本身進行改善（例如更換低噪音機具、加裝隔音罩、定期潤滑保養），其次才是阻隔傳播途徑，最後才是個人防護具。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 偵測儀器：僅能測量數值，無法降低噪音。</li>
+                    <li class="correct-opt">② 噪音源：正確，從源頭消除或降低噪音是最有效的工程對策。</li>
+                    <li class="wrong-opt">③ 傳播途徑：阻絕傳播有效，但不如直接改善源頭徹底。</li>
+                    <li class="wrong-opt">④ 個人防護具：防護層級最低，當工程控制無法達到標準時的最後防線。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 42 -->
+    <div class="card">
+        <span class="theme-badge">主題：熱危害症狀</span>
+        <div class="question">42. 勞工於室外高氣溫作業環境工作，可能對身體產生之熱危害，下列何者非屬熱危害之症狀？</div>
+        <div class="options">
+            <div class="option">①熱衰竭</div>
+            <div class="option">②中暑</div>
+            <div class="option">③熱痙攣</div>
+            <div class="option">④痛風</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>高氣溫作業容易導致人體體溫調節機能失常，產生「熱病」。常見的熱危害症狀依嚴重程度包含：熱暈厥、熱痙攣（鹽分流失肌肉抽筋）、熱衰竭（水分流失休克）、中暑（體溫失控飆高昏迷）。而「痛風」是尿酸代謝異常導致關節發炎，與環境高溫無直接關聯。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 熱衰竭：水分過度流失引起之熱危害。</li>
+                    <li class="wrong-opt">② 中暑：體溫調節中樞衰竭，為最嚴重的熱危害。</li>
+                    <li class="wrong-opt">③ 熱痙攣：大量流汗致電解質失衡引發抽筋，屬熱危害。</li>
+                    <li class="correct-opt">④ 痛風：正確，代謝性疾病，非熱危害症狀。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 43 -->
+    <div class="card">
+        <span class="theme-badge">主題：源頭管理對策</span>
+        <div class="question">43. 下列何者是消除職業病發生率之源頭管理對策？</div>
+        <div class="options">
+            <div class="option">①使用個人防護具</div>
+            <div class="option">②健康檢查</div>
+            <div class="option">③改善作業環境</div>
+            <div class="option">④多運動</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「源頭管理」意味著從源頭根除或減輕危害因子的存在。在安全衛生管理上，透過工程控制「改善作業環境」（例如：引進局部排氣裝置抽走毒氣、替換掉有毒溶劑）才是從根本消除疾病發生率的做法。防護具與健檢都是末端的防護與監測。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 使用個人防護具：末端防護對策，非源頭。</li>
+                    <li class="wrong-opt">② 健康檢查：醫學監測手段，無法改變工作環境危害。</li>
+                    <li class="correct-opt">③ 改善作業環境：正確，透過工程面消滅危害，屬源頭管理。</li>
+                    <li class="wrong-opt">④ 多運動：為個人健康促進，無法消除職場特定危害因子。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 44 -->
+    <div class="card">
+        <span class="theme-badge">主題：職業病危害因子分類</span>
+        <div class="question">44. 下列何者非職業病預防之危害因子？</div>
+        <div class="options">
+            <div class="option">①遺傳性疾病</div>
+            <div class="option">②物理性危害</div>
+            <div class="option">③人因工程危害</div>
+            <div class="option">④化學性危害</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>職業環境中的危害因子主要分為四大類：物理性（噪音、高溫、輻射）、化學性（粉塵、有機溶劑）、生物性（細菌、病毒）、以及人因工程（不當姿勢、重複動作）。「遺傳性疾病」是由父母先天基因決定，並非職場環境所產生的預防危害因子。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 遺傳性疾病：正確，此為先天基因引起，非職場危害因子。</li>
+                    <li class="wrong-opt">② 物理性危害：為常見職場危害（如噪音、高溫）。</li>
+                    <li class="wrong-opt">③ 人因工程危害：為常見職場危害（如滑鼠手、下背痛）。</li>
+                    <li class="wrong-opt">④ 化學性危害：為常見職場危害（如溶劑中毒）。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 45 -->
+    <div class="card">
+        <span class="theme-badge">主題：合梯安全規定</span>
+        <div class="question">45. 依職業安全衛生設施規則規定，下列何者非屬使用合梯，應符合之規定？</div>
+        <div class="options">
+            <div class="option">①合梯應具有堅固之構造</div>
+            <div class="option">②合梯材質不得有顯著之損傷、腐蝕等</div>
+            <div class="option">③梯腳與地面之角度應在 80 度以上</div>
+            <div class="option">④有安全之防滑梯面</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《職業安全衛生設施規則》第230條規定，合梯（A字梯）應具堅固構造、不得有顯著損傷、踏板有防滑，並且「兩梯腳間有繫材扣牢」，並應展開至「安全張開角度」（一般約75度）。規定中並無「梯腳與地面角度應在 80 度以上」之要求（80度過於陡直容易向後翻覆）。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 合梯應具有堅固之構造：為法規要求之安全條件。</li>
+                    <li class="wrong-opt">② 合梯材質不得有顯著之損傷、腐蝕等：為法規要求之安全條件。</li>
+                    <li class="correct-opt">③ 梯腳與地面之角度應在 80 度以上：正確，法規並無此 80 度以上之規定，且角度過大極易傾倒。</li>
+                    <li class="wrong-opt">④ 有安全之防滑梯面：為法規要求之安全條件。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 46 -->
+    <div class="card">
+        <span class="theme-badge">主題：電氣工作安全防護</span>
+        <div class="question">46. 下列何者非屬勞工從事電氣工作安全之規定？</div>
+        <div class="options">
+            <div class="option">①使其使用電工安全帽</div>
+            <div class="option">②穿戴絕緣防護具</div>
+            <div class="option">③停電作業應斷開、檢電、接地及掛牌</div>
+            <div class="option">④穿戴棉質手套絕緣</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>從事電氣作業時最重要的是「絕緣」與「斷電」。棉質手套不僅不具備絕緣電阻，且容易吸收手汗或環境水分，吸水後反而成為良好的導體，極易引發嚴重感電事故。因此絕對不能將棉質手套當作絕緣防護具使用。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 使其使用電工安全帽：正確的規定，防止頭部觸電與撞擊。</li>
+                    <li class="wrong-opt">② 穿戴絕緣防護具：正確的規定，如絕緣手套、絕緣鞋。</li>
+                    <li class="wrong-opt">③ 停電作業應斷開、檢電、接地及掛牌：正確的停電安全程序（LOTO）。</li>
+                    <li class="correct-opt">④ 穿戴棉質手套絕緣：錯誤，棉手套不絕緣且易吸水導電，故選此項。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 47 -->
+    <div class="card">
+        <span class="theme-badge">主題：防範感電措施</span>
+        <div class="question">47. 為防止勞工感電，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①使用防水插頭</div>
+            <div class="option">②避免不當延長接線</div>
+            <div class="option">③設備有金屬外殼保護即可免接地</div>
+            <div class="option">④電線架高或加以防護</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>金屬外殼本身是優良的導體。當電氣設備內部絕緣劣化發生漏電時，電流會傳導到金屬外殼上。人員一旦碰觸外殼就會感電。因此，具金屬外殼的設備「必須」實施設備接地，將漏電流導入大地，以保護人員安全，絕不能因為有外殼就免接地。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 使用防水插頭：可防潮濕漏電，正確防護措施。</li>
+                    <li class="wrong-opt">② 避免不當延長接線：可防過載及絕緣皮破損，正確防護措施。</li>
+                    <li class="correct-opt">③ 設備有金屬外殼保護即可免接地：敘述錯誤，金屬外殼漏電最危險，依法必須接地。</li>
+                    <li class="wrong-opt">④ 電線架高或加以防護：避免人員或機具壓壞電線絕緣，正確防護措施。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 48 -->
+    <div class="card">
+        <span class="theme-badge">主題：肌肉骨骼傷害主因</span>
+        <div class="question">48. 不當抬舉導致肌肉骨骼傷害或肌肉疲勞之現象，可歸類為下列何者？</div>
+        <div class="options">
+            <div class="option">①感電事件</div>
+            <div class="option">②不當動作</div>
+            <div class="option">③不安全環境</div>
+            <div class="option">④被撞事件</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>因搬運、抬舉重物時姿勢不良（如彎腰搬重物而非屈膝）所造成的下背痛、扭傷或肌肉疲勞，屬於人因工程危害的一環。在勞工安全分析分類中，這純粹起因於個人的操作姿勢與施力方式錯誤，故歸類為「不當動作（不安全行為）」。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 感電事件：屬電氣危害。</li>
+                    <li class="correct-opt">② 不當動作：正確，不當抬舉姿勢即為不當動作（不安全行為）。</li>
+                    <li class="wrong-opt">③ 不安全環境：指現場照明不佳、地板濕滑等硬體環境缺失。</li>
+                    <li class="wrong-opt">④ 被撞事件：指被移動物體或車輛撞擊。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 49 -->
+    <div class="card">
+        <span class="theme-badge">主題：鑽孔機操作防護</span>
+        <div class="question">49. 使用鑽孔機時，不應使用下列何護具？</div>
+        <div class="options">
+            <div class="option">①耳塞</div>
+            <div class="option">②防塵口罩</div>
+            <div class="option">③手套</div>
+            <div class="option">④護目鏡</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>鑽孔機（鑽床）、車床、銑床等具有高速「旋轉」工件或刀具的機械設備，法規明文嚴禁操作人員佩戴手套。因為手套的纖維極易被高速旋轉的鑽頭勾住，進而將勞工的手部或整支手臂捲入機器中，造成嚴重的斷肢或碎裂傷害。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="wrong-opt">① 耳塞：可防機具噪音，應使用。</li>
+                    <li class="wrong-opt">② 防塵口罩：可防鑽孔產生的粉塵，應使用。</li>
+                    <li class="correct-opt">③ 手套：正確，旋轉機械絕對禁止戴手套，防捲入危害。</li>
+                    <li class="wrong-opt">④ 護目鏡：可防金屬或木屑碎屑飛濺傷眼，應使用。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- 題組 50 -->
+    <div class="card">
+        <span class="theme-badge">主題：腕道症候群成因</span>
+        <div class="question">50. 腕道症候群常發生於下列何種作業？</div>
+        <div class="options">
+            <div class="option">①電腦鍵盤作業</div>
+            <div class="option">②潛水作業</div>
+            <div class="option">③堆高機作業</div>
+            <div class="option">④第一種壓力容器作業</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>腕道症候群（Carpal Tunnel Syndrome，俗稱滑鼠手）屬於人因工程危害的累積性肌肉骨骼傷害。主要好發於需長時間、高頻率、重複性使用手腕與手指的作業人員，如頻繁的「電腦鍵盤與滑鼠操作」、生產線組裝等，導致正中神經在手腕處受到壓迫而引起麻木及疼痛。</p>
+                </div>
+                <strong class="exp-subtitle">【各選項解析】</strong>
+                <ul class="opt-list">
+                    <li class="correct-opt">① 電腦鍵盤作業：正確，重複性手腕動作極易引發腕道症候群。</li>
+                    <li class="wrong-opt">② 潛水作業：主要危害為異常氣壓（潛涵症、減壓症）。</li>
+                    <li class="wrong-opt">③ 堆高機作業：主要危害為車輛翻覆或撞擊。</li>
+                    <li class="wrong-opt">④ 第一種壓力容器作業：主要危害為爆炸。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>

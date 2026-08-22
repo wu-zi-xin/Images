@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作倫理與職業道德 76-100題</title>
+    <style>
+        /* 基礎與排版設定 */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        .question { 
+            font-size: 1.15em; 
+            font-weight: bold; 
+            color: #34495e; 
+            margin-bottom: 15px; 
+            line-height: 1.5; 
+        }
+
+        /* 選項樣式 */
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            margin-bottom: 20px; 
+        }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+
+        /* 純HTML 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+
+        /* 解析內容樣式 */
+        .answer-panel { 
+            padding: 20px; 
+            background: #f4fcf7; 
+            border-top: 1px solid #dfe6e9; 
+        }
+        .answer-title { 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            color: #27ae60; 
+            margin-bottom: 15px; 
+        }
+
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { 
+            background: #eef2f5; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #34495e; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .comprehensive-exp strong { 
+            color: #2c3e50; 
+            display: block; 
+            margin-bottom: 8px; 
+            font-size: 1.05em; 
+        }
+        .comprehensive-exp p { 
+            margin: 0; 
+            color: #4b6584; 
+            line-height: 1.6; 
+        }
+        .explanation { 
+            color: #4b6584; 
+            font-size: 1em; 
+            line-height: 1.7; 
+        }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        .opt-list { 
+            margin: 0; 
+            padding-left: 0; 
+            list-style: none; 
+        }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #3498db; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>工作倫理與職業道德</h1>
+    <p>第76 - 100題 測驗與解析</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 第76題 -->
+    <div class="card">
+        <div class="theme-badge">主題：利益衝突迴避</div>
+        <div class="question">76. 依公職人員利益衝突迴避法規定，公職人員甲與其小舅子乙（二親等以內的關係人）間，下列何種行為不違反該法？</div>
+        <div class="options">
+            <div class="option">①甲要求受其監督之機關聘用小舅子乙</div>
+            <div class="option">②小舅子乙以請託關說之方式，請求甲之服務機關通過其名下農地變更使用申請案</div>
+            <div class="option">③關係人乙經政府採購法公開招標程序，並主動在投標文件表明與甲的身分關係，取得甲服務機關之年度採購標案</div>
+            <div class="option">④甲、乙兩人均自認為人公正，處事坦蕩，任何往來都是清者自清，不需擔心任何問題</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《公職人員利益衝突迴避法》，雖然公職人員的關係人原則上不得與其服務之機關為買賣、租賃、承攬等交易行為，但若該交易是透過「公平、公開之招標程序」，並且關係人在投標文件中「主動據實表明身分關係」，則屬於法定之例外允許範圍，並不違法。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①要求聘用小舅子：錯誤，濫用職權安插親屬，嚴重違反利益迴避。</li>
+                        <li class="wrong-opt">②請託關說農地變更：錯誤，利用裙帶關係請託關說為法規明文禁止之行為。</li>
+                        <li class="correct-opt">③公開招標並主動表明身分：正確，合法透明的競爭並履行揭露義務，免除黑箱疑慮。</li>
+                        <li class="wrong-opt">④自認公正即可：錯誤，法律講求實質的程序與迴避作為，而非個人主觀認知。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第77題 -->
+    <div class="card">
+        <div class="theme-badge">主題：採購倫理</div>
+        <div class="question">77. 大雄擔任公司部門主管，代表公司向公務機關投標，為使公司順利取得標案，可以向公務機關的採購人員為以下何種行為？</div>
+        <div class="options">
+            <div class="option">①為社交禮俗需要，贈送價值昂貴的名牌手錶作為見面禮</div>
+            <div class="option">②為與公務機關間有良好互動，招待至有女陪侍場所飲宴</div>
+            <div class="option">③為了解招標文件內容，提出招標文件疑義並請說明</div>
+            <div class="option">④為避免報價錯誤，要求提供底價作為參考</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在參與政府採購時，廠商與公務機關間應保持合法、透明的互動。依《政府採購法》規定，廠商對於招標文件內容有疑義時，得向招標機關請求釋疑，這是保障廠商權益且合法的正式程序。其他贈禮、飲宴與探詢底價皆屬違法行賄與刺探機密之行為。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①贈送名牌手錶：錯誤，價值昂貴的禮品已超越社交禮俗，構成賄賂。</li>
+                        <li class="wrong-opt">②招待至有女陪侍場所：錯誤，此為提供不正利益，涉犯貪污治罪條例。</li>
+                        <li class="correct-opt">③提出招標文件疑義：正確，這是合法的採購行政程序。</li>
+                        <li class="wrong-opt">④要求提供底價：錯誤，底價屬絕對機密，探詢及洩漏皆觸犯洩密與圖利罪。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第78題 -->
+    <div class="card">
+        <div class="theme-badge">主題：政府採購人員倫理</div>
+        <div class="question">78. 下列關於政府採購人員之敘述，何者未違反相關規定？</div>
+        <div class="options">
+            <div class="option">①非主動向廠商求取，是偶發地收到廠商致贈價值在新臺幣 500 元以下之廣告物、促銷品、紀念品</div>
+            <div class="option">②要求廠商提供與採購無關之額外服務</div>
+            <div class="option">③利用職務關係向廠商借貸</div>
+            <div class="option">④利用職務關係媒介親友至廠商處所任職</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《公務員廉政倫理規範》，公務員原則上不得收受與職務有利害關係者的餽贈。但有例外規定：若為偶發而無影響特定權利義務之虞，且屬公務禮儀或市價在新臺幣500元以下之廣告物、促銷品、紀念品等，得受贈之。因此選項①為合規的例外狀況。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①偶發收到500元以下紀念品：正確，符合正常社交禮俗標準之例外規定。</li>
+                        <li class="wrong-opt">②要求提供額外服務：錯誤，此為藉勢藉端勒索或不當索求。</li>
+                        <li class="wrong-opt">③向廠商借貸：錯誤，公務員不得與職務有利害關係者有不當財務往來。</li>
+                        <li class="wrong-opt">④媒介親友任職：錯誤，利用職權圖利關係人，嚴重違反紀律。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第79題 -->
+    <div class="card">
+        <div class="theme-badge">主題：假訊息防制</div>
+        <div class="question">79. 下列敘述何者錯誤？</div>
+        <div class="options">
+            <div class="option">①憲法保障言論自由，但散布假新聞、假消息仍須面對法律責任</div>
+            <div class="option">②在網路或 Line 社群網站收到假訊息，可以敘明案情並附加截圖檔，向法務部調查局檢舉</div>
+            <div class="option">③對新聞媒體報導有意見，向國家通訊傳播委員會申訴</div>
+            <div class="option">④自己或他人捏造、扭曲、竄改或虛構的訊息，只要一小部分能證明是真的，就不會構成假訊息</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>假訊息（Disinformation）的特徵是「惡意、虛假、造成危害」。即使一則訊息中摻雜了一小部分真實的事實，但若其核心內容經過捏造、扭曲或移花接木，目的在於誤導大眾或造成社會恐慌，整體上依然構成假訊息，無法因為部分真實而免責。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①散布假消息須負法律責任：錯誤，此敘述完全正確（如社維法或刑法）。</li>
+                        <li class="wrong-opt">②收到假訊息可截圖檢舉：錯誤，此為正確的防制與檢舉途徑。</li>
+                        <li class="wrong-opt">③對新聞有意見向NCC申訴：錯誤，此為正確的主管機關申訴管道。</li>
+                        <li class="correct-opt">④一小部分是真的就不構成假訊息：正確，此敘述錯誤。移花接木的半真半假往往是假訊息最常見的危害手法。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第80題 -->
+    <div class="card">
+        <div class="theme-badge">主題：法紀認知與保密義務</div>
+        <div class="question">80. 下列敘述何者正確？</div>
+        <div class="options">
+            <div class="option">①公務機關委託的代檢（代驗）業者，不是公務員，不會觸犯到刑法的罪責</div>
+            <div class="option">②賄賂或不正利益，只限於法定貨幣，給予網路遊戲幣沒有違法的問題</div>
+            <div class="option">③在靠北公務員社群網站，覺得可受公評且匿名發文，就可以謾罵公務機關對特定案件的檢查情形</div>
+            <div class="option">④受公務機關委託辦理案件，除履行採購契約應辦事項外，對於蒐集到的個人資料，也要遵守相關保護及保密規定</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>受公務機關委託執行公權力或處理公務的業者（如代檢廠），在執行該項業務時，依法受個人資料保護法及相關保密條款的嚴格約束，不得擅自外洩民眾個資。且在《刑法》定義上，受託行使公權力者被視為「授權公務員」，其貪瀆行為同樣適用貪污治罪條例。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①業者不會觸犯刑法：錯誤，受託行使公權力者為「授權公務員」，有刑法適用。</li>
+                        <li class="wrong-opt">②遊戲幣沒有違法：錯誤，具備經濟價值或滿足慾望的虛擬寶物亦算「不正利益」。</li>
+                        <li class="wrong-opt">③匿名發文謾罵：錯誤，匿名與可受公評並非免死金牌，不實謾罵仍涉公然侮辱或誹謗罪。</li>
+                        <li class="correct-opt">④委託辦理需遵守保密規定：正確，受託廠商對所接觸的個資負有相同的保護責任。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第81題 -->
+    <div class="card">
+        <div class="theme-badge">主題：聯合國反貪腐公約</div>
+        <div class="question">81. 有關促進參與及預防貪腐的敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①我國非聯合國會員國，無須落實聯合國反貪腐公約規定</div>
+            <div class="option">②推動政府部門以外之個人及團體積極參與預防和打擊貪腐</div>
+            <div class="option">③提高決策過程之透明度，並促進公眾在決策過程中發揮作用</div>
+            <div class="option">④對公職人員訂定執行公務之行為守則或標準</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為了與國際接軌並展現打擊貪腐的決心，我國雖然目前並非聯合國會員國，但立法院已於2015年通過《聯合國反貪腐公約施行法》，將該公約國內法化。因此，我國各級政府機關與人民絕對有義務並已實際落實該公約的各項反貪規範。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①無須落實公約規定：正確，此敘述錯誤。我國已透過國內立法自主落實。</li>
+                        <li class="wrong-opt">②推動非政府部門參與：錯誤，為公約鼓勵公私協力反貪的正確措施。</li>
+                        <li class="wrong-opt">③提高決策透明度：錯誤，為反貪腐的重要預防機制。</li>
+                        <li class="wrong-opt">④訂定行為守則：錯誤，如我國的公務員廉政倫理規範，是正確的作法。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第82題 -->
+    <div class="card">
+        <div class="theme-badge">主題：吹哨者保護制度</div>
+        <div class="question">82. 為建立良好之公司治理制度，公司內部宜納入何種檢舉人制度？</div>
+        <div class="options">
+            <div class="option">①告訴乃論制度</div>
+            <div class="option">②吹哨者（whistleblower）保護程序及保護制度</div>
+            <div class="option">③不告不理制度</div>
+            <div class="option">④非告訴乃論制度</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「吹哨者（Whistleblower）」是指內部知情員工揭發企業或組織內部違法、舞弊行為的人。建立良好的公司治理，必須提供吹哨者完善的匿名檢舉管道、身分保密及免受報復（如解解、降職等）的保護制度，才能有效嚇阻內部貪腐。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①告訴乃論制度：錯誤，這是刑法上須由被害人提告才追究的法律名詞。</li>
+                        <li class="correct-opt">②吹哨者保護程序及保護制度：正確，為現代企業內控防弊的核心機制。</li>
+                        <li class="wrong-opt">③不告不理制度：錯誤，這是訴訟法上的原則，不適用於公司治理的內部揭弊。</li>
+                        <li class="wrong-opt">④非告訴乃論制度：錯誤，為刑法概念（公訴罪），非公司內部制度。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第83題 -->
+    <div class="card">
+        <div class="theme-badge">主題：誠信經營守則</div>
+        <div class="question">83. 有關公司訂定誠信經營守則時，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①避免與涉有不誠信行為者進行交易</div>
+            <div class="option">②防範侵害營業秘密、商標權、專利權、著作權及其他智慧財產權</div>
+            <div class="option">③建立有效之會計制度及內部控制制度</div>
+            <div class="option">④防範檢舉</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>企業推動誠信經營守則，旨在建立透明、負責、守法的組織文化。這包含篩選交易對象、尊重智財權以及健全財會內控。相對地，公司應「鼓勵並保護」內部員工檢舉不法（建立吹哨管道），而非「防範檢舉」，防範檢舉形同包庇犯罪，與誠信經營背道而馳。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①避免與不誠信者交易：錯誤，此為正確的風險控管作法。</li>
+                        <li class="wrong-opt">②防範侵害智財權：錯誤，尊重智財為誠信經營要件。</li>
+                        <li class="wrong-opt">③建立有效內控制度：錯誤，內控為防弊之根本。</li>
+                        <li class="correct-opt">④防範檢舉：正確，此敘述錯誤。企業應該「鼓勵檢舉」而非「防範檢舉」。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第84題 -->
+    <div class="card">
+        <div class="theme-badge">主題：國際乘車禮儀</div>
+        <div class="question">84. 乘坐轎車時，如有司機駕駛，按照國際乘車禮儀，以司機的方位來看，首位應為</div>
+        <div class="options">
+            <div class="option">①後排右側</div>
+            <div class="option">②前座右側</div>
+            <div class="option">③後排左側</div>
+            <div class="option">④後排中間</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依照國際商務禮儀與乘車規範，當有專職司機（非主人親自駕駛）駕駛左駕車輛時，最尊貴的首位(大位)為「後排右側」（便於乘客從人行道安全上下車），第二位為「後排左側」，第三位為「後排中間」，第四位(或隨扈/秘書座)為「前座右側」。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①後排右側：正確，此為有司機時的首座大位。</li>
+                        <li class="wrong-opt">②前座右側：錯誤，通常是秘書或隨扈的位置。</li>
+                        <li class="wrong-opt">③後排左側：錯誤，此為第二位。</li>
+                        <li class="wrong-opt">④後排中間：錯誤，此為第三位。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第85題 -->
+    <div class="card">
+        <div class="theme-badge">主題：職場出勤紀律</div>
+        <div class="question">85. 今天好友突然來電，想來個「說走就走的旅行」，因此，無法去上班，下列何者作法不適當？</div>
+        <div class="options">
+            <div class="option">①發送 E-MAIL 給主管與人事部門，並收到回覆</div>
+            <div class="option">②什麼都無需做，等公司打電話來確認後，再告知即可</div>
+            <div class="option">③用 LINE 傳訊息給主管，並確認讀取且有回覆</div>
+            <div class="option">④打電話給主管與人事部門請假</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>不論請假原因為何，員工皆有義務依公司規定事先或即時完成請假手續，讓主管能調度人力。「什麼都不做」就直接不到班，構成了職場上最忌諱的「曠職/曠工」。這不僅極度缺乏責任感與職業道德，連續曠職更可能遭雇主合法解僱。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①發信並收到回覆：錯誤，這是一種通知並確認的妥當請假方式。</li>
+                        <li class="correct-opt">②什麼都無需做等公司打電話：正確，這是最不適當、形同惡意曠職的行為。</li>
+                        <li class="wrong-opt">③LINE傳訊並確認回覆：錯誤，在現代職場，確認主管知悉的即時訊息亦屬適當。</li>
+                        <li class="wrong-opt">④打電話請假：錯誤，這是最直接且負責的請假方式。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第86題 -->
+    <div class="card">
+        <div class="theme-badge">主題：職場公私分明</div>
+        <div class="question">86. 每天下班回家後，就懶得再出門去買菜，利用上班時間瀏覽線上購物網站，發現有很多限時搶購的便宜商品，還能在下班前就可以送到公司，下班順便帶回家，省掉好多時間，下列何者最適當？</div>
+        <div class="options">
+            <div class="option">①可以，又沒離開工作崗位，且能節省時間</div>
+            <div class="option">②可以，還能介紹同事一同團購，省更多的錢，增進同事情誼</div>
+            <div class="option">③不可以，應該把商品寄回家，不是公司</div>
+            <div class="option">④不可以，上班不能從事個人私務，應該等下班後再網路購物</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>上班時間是員工提供勞務以換取雇主薪資的時段，該段時間內的專注力與公司提供的網路、電腦設備皆屬公司資源。利用上班時間逛網購、處理私人事務，即是俗稱的「薪水小偷」，違反了最基本的敬業精神與公私分明的職業道德。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①沒離開崗位即可：錯誤，心思與網路資源已偏離公務。</li>
+                        <li class="wrong-opt">②介紹同事團購：錯誤，不但自己摸魚，還拉同事一起荒廢工作，影響更甚。</li>
+                        <li class="wrong-opt">③寄回家才對：錯誤，重點在於「上班時間不可網購」，與寄件地址無關。</li>
+                        <li class="correct-opt">④不可以，上班不能從事私務：正確，明確點出公私分明的底線。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第87題 -->
+    <div class="card">
+        <div class="theme-badge">主題：職場環境規範</div>
+        <div class="question">87. 宜樺家中養了一隻貓，由於最近生病，獸醫師建議要有人一直陪牠，這樣會恢復快一點，辦公室雖然禁止攜帶寵物，但因為上班家裡無人陪伴，所以準備帶牠到辦公室一起上班，下列何者最適當？</div>
+        <div class="options">
+            <div class="option">①可以，只要我放在寵物箱，不要影響工作即可</div>
+            <div class="option">②可以，同事們都答應也不反對</div>
+            <div class="option">③可以，雖然貓會發出聲音，大小便有異味，只要處理好不影響工作即可</div>
+            <div class="option">④不可以，可以送至專門機構照護或請專人照顧，以免影響工作</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>職場有其明文的環境管理規範，「禁止攜帶寵物」是為了維護全體員工的環境衛生、避免干擾及預防潛在的過敏問題。員工面臨私人照顧困境時，應循合法的外部管道（如請假照護、送寵物旅館）解決，不可將私人的困難轉嫁為破壞公司規定的藉口。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①放在寵物箱即可：錯誤，依然違反明文禁止規定。</li>
+                        <li class="wrong-opt">②同事答應即可：錯誤，公司規定凌駕於少數同事間的私下默契。</li>
+                        <li class="wrong-opt">③處理好即可：錯誤，明知有異味與噪音還帶來，極度影響職場環境。</li>
+                        <li class="correct-opt">④不可以，應尋求專門機構：正確，展現尊重規定與解決問題的成熟態度。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第88題 -->
+    <div class="card">
+        <div class="theme-badge">主題：性別平等工作法（職場性騷擾界定）</div>
+        <div class="question">88. 根據性別平等工作法，下列何者非屬職場性騷擾？</div>
+        <div class="options">
+            <div class="option">①公司員工執行職務時，客戶對其講黃色笑話，該員工感覺被冒犯</div>
+            <div class="option">②雇主對求職者要求交往，作為僱用與否之交換條件</div>
+            <div class="option">③公司員工執行職務時，遭到同事以「女人就是沒大腦」性別歧視用語加以辱罵，該員工感覺其人格尊嚴受損</div>
+            <div class="option">④公司員工下班後搭乘捷運，在捷運上遭到其他乘客偷拍</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>《性別平等工作法》規範的「職場性騷擾」要件，必須發生於「執行職務時」或與「僱用/升遷條件（交換型）」相關。選項④發生在下班後的公共場所（捷運），且加害者為不相干的乘客，此情況適用《性騷擾防治法》或《刑法》妨害秘密罪，但並非「性別平等工作法」所定義的職場性騷擾。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①客戶講黃色笑話：錯誤，執行職務時遭客戶騷擾，屬敵意環境性騷擾。</li>
+                        <li class="wrong-opt">②交往作為僱用條件：錯誤，此為典型的「交換型職場性騷擾」。</li>
+                        <li class="wrong-opt">③性別歧視辱罵：錯誤，具性別意味的言詞破壞工作環境，同屬職場性騷擾。</li>
+                        <li class="correct-opt">④下班捷運遭偷拍：正確，非發生於執行職務期間，非屬「性平工作法」範疇。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第89題 -->
+    <div class="card">
+        <div class="theme-badge">主題：性別歧視</div>
+        <div class="question">89. 根據性別平等工作法，下列何者非屬職場性別歧視？</div>
+        <div class="options">
+            <div class="option">①雇主考量男性賺錢養家之社會期待，提供男性高於女性之薪資</div>
+            <div class="option">②雇主考量女性以家庭為重之社會期待，裁員時優先資遣女性</div>
+            <div class="option">③雇主事先與員工約定倘其有懷孕之情事，必須離職</div>
+            <div class="option">④有未滿 2 歲子女之男性員工，也可申請每日六十分鐘的哺乳時間</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>《性別平等工作法》第18條規定，子女未滿二歲須受僱者親自哺（集）乳者，除規定之休息時間外，雇主應每日另給哺（集）乳時間六十分鐘。近年修法為推動性別平權與分擔育兒責任，此權利「不分男女員工」皆可申請。這是落實平權的法定福利措施，絕非性別歧視。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①提供男性較高薪資：錯誤，同工不同酬為標準的薪資性別歧視。</li>
+                        <li class="wrong-opt">②優先資遣女性：錯誤，基於刻板印象的解僱歧視。</li>
+                        <li class="wrong-opt">③約定懷孕離職：錯誤，這被稱為「單身條款或禁孕條款」，法律明定無效且構成嚴重歧視。</li>
+                        <li class="correct-opt">④男性也可申請哺乳(育兒)時間：正確，此為友善育兒之法定平權規範，非歧視。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第90題 -->
+    <div class="card">
+        <div class="theme-badge">主題：雇主防治性騷擾責任</div>
+        <div class="question">90. 根據性別平等工作法，有關雇主防治性騷擾之責任與罰則，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①僱用受僱者 30 人以上者，應訂定性騷擾防治措施、申訴及懲戒規範</div>
+            <div class="option">②雇主知悉性騷擾發生時，應採取立即有效之糾正及補救措施</div>
+            <div class="option">③雇主違反應訂定性騷擾防治措施之規定時，處以罰鍰即可，不用公布其姓名</div>
+            <div class="option">④雇主違反應訂定性騷擾申訴管道者，應限期令其改善，屆期未改善者，應按次處罰</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《性別平等工作法》相關罰則規定，雇主若違反防治性騷擾之義務（如未訂定防治措施、知悉後未採取有效補救措施等），主管機關除了處以高額罰鍰外，依法還會「公布其名稱或姓名、負責人姓名」，並限期令其改善，以達到社會警示效果。故稱「不用公布其姓名」是錯誤的。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①30人以上須訂定防治措施：錯誤，此敘述為法規明定的正確雇主責任。</li>
+                        <li class="wrong-opt">②知悉後應採取有效補救：錯誤，此為法規明定的正確作為。</li>
+                        <li class="correct-opt">③處以罰鍰即可，不用公布姓名：正確，此敘述錯誤。依法必須公布公司與負責人姓名。</li>
+                        <li class="wrong-opt">④屆期未改按次處罰：錯誤，此敘述為正確的行政罰則。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第91題 -->
+    <div class="card">
+        <div class="theme-badge">主題：性騷擾防治法（損害賠償）</div>
+        <div class="question">91. 根據性騷擾防治法，有關性騷擾之責任與罰則，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①對他人為性騷擾者，如果沒有造成他人財產上之損失，就無需負擔金錢賠償之責任</div>
+            <div class="option">②對於因教育、訓練、醫療、公務、業務、求職，受自己監督、照護之人，利用權勢或機會為性騷擾者，得加重科處罰鍰至二分之一</div>
+            <div class="option">③意圖性騷擾，乘人不及抗拒而為親吻、擁抱或觸摸其臀部、胸部或其他身體隱私處之行為者，處 2 年以下有期徒刑、拘役或併科 10 萬元以下罰金</div>
+            <div class="option">④對他人為權勢性騷擾以外之性騷擾者，由直轄市、縣（市）主管機關處 1 萬元以上 10 萬元以下罰鍰</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《性騷擾防治法》第9條規定，對他人為性騷擾者，負損害賠償責任。「前項情形，雖非財產上之損害，亦得請求賠償相當之金額（精神慰撫金），其名譽被侵害者，並得請求回復名譽之適當處分。」因此，即使沒有實質的財務損失，加害人仍須賠償受害人心理及精神上的損害。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①無財產損失無需金錢賠償：正確，此敘述錯誤。受害人依法可請求非財產上損害(精神撫慰金)。</li>
+                        <li class="wrong-opt">②權勢性騷加重罰鍰：錯誤，此為正確的加重罰則規定。</li>
+                        <li class="wrong-opt">③乘人不及抗拒觸摸隱私處有刑責：錯誤，此為性騷擾罪之正確刑責(最重可處2年)。</li>
+                        <li class="wrong-opt">④一般性騷處行政罰鍰：錯誤，此為正確的行政裁罰規定。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第92題 -->
+    <div class="card">
+        <div class="theme-badge">主題：職場性騷擾範疇</div>
+        <div class="question">92. 根據性別平等工作法規範職場性騷擾範疇，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①上班執行職務時，任何人以性要求、具有性意味或性別歧視之言詞或行為，造成敵意性、脅迫性或冒犯性之工作環境</div>
+            <div class="option">②對僱用、求職或執行職務關係受自己指揮、監督之人，利用權勢或機會為性騷擾</div>
+            <div class="option">③與朋友聚餐後回家時，被陌生人以盯梢、守候、尾隨跟蹤</div>
+            <div class="option">④雇主對受僱者或求職者為明示或暗示之性要求、具有性意味或性別歧視之言詞或行為</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「下班後與朋友聚餐回家被陌生人跟蹤」這件事，發生的時間點並非執行職務期間，且加害者與受害者之間並無職場上（雇主、主管、同事、客戶）的關聯。因此此情境應適用《跟蹤騷擾防制法》及一般《性騷擾防治法》，而非專管職場場域的《性別平等工作法》。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①敵意性工作環境：錯誤，此為法定的職場性騷擾定義之一。</li>
+                        <li class="wrong-opt">②利用權勢機會性騷擾：錯誤，此為法定的權勢型職場性騷擾。</li>
+                        <li class="correct-opt">③下班回家遭陌生人尾隨：正確，此非職場範疇，不適用性平工作法。</li>
+                        <li class="wrong-opt">④雇主明示暗示性要求：錯誤，此為典型的交換型職場性騷擾。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第93題 -->
+    <div class="card">
+        <div class="theme-badge">主題：CEDAW (性別歧視)</div>
+        <div class="question">93. 根據消除對婦女一切形式歧視公約（CEDAW）之直接歧視及間接歧視意涵，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①老闆得知小黃懷孕後，故意將小黃調任薪資待遇較差的工作，意圖使其自行離開職場，小黃老闆的行為是直接歧視</div>
+            <div class="option">②某餐廳於網路上招募外場服務生，條件以未婚年輕女性優先錄取，明顯以性或性別差異為由所實施的差別待遇，為直接歧視</div>
+            <div class="option">③某公司員工值班注意事項排除女性員工參與夜間輪值，是考量女性有人身安全及家庭照顧等需求，為維護女性權益之措施，非直接歧視</div>
+            <div class="option">④某科技公司規定男女員工之加班時數上限及加班費或津貼不同，認為女性能力有限，且無法長時間工作，限制女性獲取薪資及升遷機會，這規定是直接歧視</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>表面上看似出於「保護女性安全或家庭照顧」的考量而剝奪女性參與夜間輪值的機會（這通常意味著剝奪了夜班津貼或升遷歷練），實際上是基於傳統父權的「性別刻板印象」，在勞動條件上直接以性別畫下限制，這依然構成明目張膽的「直接歧視」，絕非維護權益的合法措施。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①懷孕逼退屬直接歧視：錯誤，敘述正確，懷孕歧視為性別歧視之延伸。</li>
+                        <li class="wrong-opt">②限未婚年輕女性屬直接歧視：錯誤，敘述正確，明顯違反就業服務法之平權規定。</li>
+                        <li class="correct-opt">③假借保護排除夜間輪值非歧視：正確，此敘述錯誤。剝奪工作機會與津貼即為直接歧視。</li>
+                        <li class="wrong-opt">④不同性別不同津貼屬直接歧視：錯誤，敘述正確，同工不同酬為直接歧視。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第94題 -->
+    <div class="card">
+        <div class="theme-badge">主題：菸害防制法 (年齡限制)</div>
+        <div class="question">94. 目前菸害防制法規範，「不可販賣菸品」給未滿幾歲的人？</div>
+        <div class="options">
+            <div class="option">①20</div>
+            <div class="option">②19</div>
+            <div class="option">③18</div>
+            <div class="option">④17</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為保護青少年健康，避免大腦發育期受尼古丁危害，我國《菸害防制法》已於112年（2023年）修正實施，將合法吸菸年齡及不得供應菸品之對象年齡，由原先的18歲提高至「未滿20歲」。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①20：正確，現行法規已將門檻提高至未滿20歲。</li>
+                        <li class="wrong-opt">②19：錯誤。</li>
+                        <li class="wrong-opt">③18：錯誤，這是修法前的舊規定。</li>
+                        <li class="wrong-opt">④17：錯誤。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第95題 -->
+    <div class="card">
+        <div class="theme-badge">主題：菸害防制法 (勸阻權)</div>
+        <div class="question">95. 按菸害防制法規定，下列敘述何者錯誤？</div>
+        <div class="options">
+            <div class="option">①只有老闆、店員才可以出面勸阻在禁菸場所抽菸的人</div>
+            <div class="option">②任何人都可以出面勸阻在禁菸場所抽菸的人</div>
+            <div class="option">③餐廳、旅館設置室內吸菸室，需經專業技師簽證核可</div>
+            <div class="option">④加油站屬易燃易爆場所，任何人都可以勸阻在禁菸場所抽菸的人</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《菸害防制法》第18條第2項規定：「於前條全面禁菸之場所吸菸者，該場所負責人及從業人員應予勸阻；在場之其他人亦得予勸阻。」因此防制菸害是全民的責任，「任何人」皆有權利出面勸阻違規吸菸者，絕非僅限於老闆或店員。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①只有老闆店員可勸阻：正確，此敘述錯誤。法規賦予「任何人」皆可勸阻之權。</li>
+                        <li class="wrong-opt">②任何人都可以勸阻：錯誤，此為正確的法規敘述。</li>
+                        <li class="wrong-opt">③室內吸菸室需簽證核可：錯誤，此為正確敘述，吸菸室須符合嚴格的獨立排風等規範。</li>
+                        <li class="wrong-opt">④加油站任何人皆可勸阻：錯誤，此亦為正確敘述，保護公安人人有責。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第96題 -->
+    <div class="card">
+        <div class="theme-badge">主題：菸害對人體的影響</div>
+        <div class="question">96. 關於菸品對人體危害的敘述，下列何者正確？</div>
+        <div class="options">
+            <div class="option">①只要開電風扇、或是抽風機就可以去除菸霧中的有害物質</div>
+            <div class="option">②指定菸品（如：加熱菸）只要通過健康風險評估，就不會危害健康，因此工作時如果想吸菸，就可以在職場拿出來使用</div>
+            <div class="option">③雖然自己不吸菸，同事在旁邊吸菸，就會增加自己得肺癌的機率</div>
+            <div class="option">④只要不將菸吸入肺部，就不會對身體造成傷害</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>醫學研究證實，二手菸（被動吸菸）被國際癌症研究署（IARC）列為「一級致癌物」，含有數百種有毒與致癌化學物質。即使自己不吸菸，長期暴露於同事散發的二手菸環境中，罹患肺癌、心血管疾病等致命疾病的機率仍會大幅攀升。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①抽風機可去除有害物：錯誤，通風設備無法完全消除殘留的毒性微粒(三手菸)。</li>
+                        <li class="wrong-opt">②加熱菸無害可在職場使用：錯誤，加熱菸仍有危害且同樣受禁菸場所規範，不可在室內職場使用。</li>
+                        <li class="correct-opt">③吸二手菸會增加得肺癌機率：正確，二手菸是明確的一級致癌物。</li>
+                        <li class="wrong-opt">④不吸入肺就不傷身：錯誤，口腔黏膜仍會吸收有毒物質，增加口腔癌、喉癌風險。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第97題 -->
+    <div class="card">
+        <div class="theme-badge">主題：職場禁菸效益</div>
+        <div class="question">97. 職場禁菸的好處不包括</div>
+        <div class="options">
+            <div class="option">①降低吸菸者的菸品使用量，有助於減少吸菸導致的疾病而請假</div>
+            <div class="option">②避免同事因為被動吸菸而生病</div>
+            <div class="option">③讓吸菸者菸癮降低，戒菸較容易成功</div>
+            <div class="option">④吸菸者不能抽菸會影響工作效率</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>推動無菸職場的目的在於促進員工健康、減少疾病請假率並保護不吸菸者免受二手菸危害。選項④「不能抽菸會影響效率」是吸菸者成癮後尼古丁戒斷的藉口，這並不是禁菸所帶來的「好處」，相反地，成功戒菸後精神與專注力反而會提升。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①減少疾病請假：錯誤，這是實質的好處。</li>
+                        <li class="wrong-opt">②避免被動吸菸生病：錯誤，保障非吸菸者健康是最大好處。</li>
+                        <li class="wrong-opt">③助於戒菸：錯誤，限制環境有助於降低菸癮發作頻率。</li>
+                        <li class="correct-opt">④影響工作效率：正確，這不僅不是好處，也是戒斷初期的短暫迷思。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第98題 -->
+    <div class="card">
+        <div class="theme-badge">主題：戒菸管道與協助</div>
+        <div class="question">98. 大多數的吸菸者都嘗試過戒菸，但是很少自己戒菸成功。吸菸的同事要戒菸，怎樣建議他是無效的？</div>
+        <div class="options">
+            <div class="option">①鼓勵他撥打戒菸專線 0800-63-63-63，取得相關建議與協助</div>
+            <div class="option">②建議他到醫療院所、社區藥局找藥物戒菸</div>
+            <div class="option">③建議他參加醫院或衛生所辦理的戒菸班</div>
+            <div class="option">④戒菸是自己的事，別人幫不了忙</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>菸草中的尼古丁具強烈的高成癮性，被視為一種慢性疾病。單靠個人意志力戒菸成功率極低（不到一成）。正確的作法應是尋求外部的專業支持（如戒菸專線、門診藥物治療、支持團體）。告訴對方「別人幫不了忙」是非常消極、錯誤且無效的建議。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①撥打戒菸專線：錯誤，這是有效且免費的心理支持與諮詢管道。</li>
+                        <li class="wrong-opt">②找藥物戒菸：錯誤，醫療級的戒菸輔助藥物能大幅提高成功率。</li>
+                        <li class="wrong-opt">③參加戒菸班：錯誤，同儕支持系統非常有效。</li>
+                        <li class="correct-opt">④別人幫不了忙：正確，這種冷漠的說法與現代戒菸醫療觀念相悖，屬無效建議。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第99題 -->
+    <div class="card">
+        <div class="theme-badge">主題：菸害防制法 (場所標示罰則)</div>
+        <div class="question">99. 禁菸場所負責人未於場所入口處設置明顯禁菸標示，要罰該場所負責人多少元？</div>
+        <div class="options">
+            <div class="option">①2 千至 1 萬</div>
+            <div class="option">②1 萬至 5 萬</div>
+            <div class="option">③1 萬至 25 萬</div>
+            <div class="option">④20 萬至 100 萬</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《菸害防制法》的規定，法定全面禁菸場所（如醫療機構、學校、大眾運輸站、三人以上室內工作場所等）之負責人，負有於所有入口處設置明顯禁菸標示之義務，若未設置，將處以新臺幣1萬元以上5萬元以下之罰鍰，並令限期改正。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①2千至1萬：錯誤，這是罰「違規吸菸行為人」的金額。</li>
+                        <li class="correct-opt">②1萬至5萬：正確，這針對「未設置禁菸標示」的場所負責人之罰金。</li>
+                        <li class="wrong-opt">③1萬至25萬：錯誤。</li>
+                        <li class="wrong-opt">④20萬至100萬：錯誤。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第100題 -->
+    <div class="card">
+        <div class="theme-badge">主題：電子煙的危害</div>
+        <div class="question">100. 目前電子煙是非法的，下列對電子煙的敘述，何者錯誤？</div>
+        <div class="options">
+            <div class="option">①跟吸菸一樣會成癮</div>
+            <div class="option">②會有爆炸危險</div>
+            <div class="option">③沒有燃燒的菸草，也沒有二手煙的問題</div>
+            <div class="option">④可能造成嚴重肺損傷</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>電子煙雖然不需像傳統紙菸點火燃燒，但其加熱煙油後所產生的氣霧（Vapor）依然含有尼古丁、甲醛、乙醛、重金屬等大量有毒物質。吸食者吐出的煙霧會飄散於空氣中，對周遭旁人同樣會造成嚴重的「二手煙氣霧」危害，絕非「沒有二手煙問題」。我國現已全面禁止電子煙。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①跟吸菸一樣會成癮：錯誤，煙油多含高濃度尼古丁，極易成癮。</li>
+                        <li class="wrong-opt">②會有爆炸危險：錯誤，劣質電池與加熱元件確有爆炸之虞。</li>
+                        <li class="correct-opt">③沒有二手煙問題：正確，此敘述錯誤。電子煙排出的二手氣霧同樣有毒。</li>
+                        <li class="wrong-opt">④可能造成嚴重肺損傷：錯誤，已知會引發「電子煙相關肺傷害(EVALI)」。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作倫理與職業道德 51-75題</title>
+    <style>
+        /* 基礎與排版設定 */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        .question { 
+            font-size: 1.15em; 
+            font-weight: bold; 
+            color: #34495e; 
+            margin-bottom: 15px; 
+            line-height: 1.5; 
+        }
+
+        /* 選項樣式 */
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            margin-bottom: 20px; 
+        }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+
+        /* 純HTML 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+
+        /* 解析內容樣式 */
+        .answer-panel { 
+            padding: 20px; 
+            background: #f4fcf7; 
+            border-top: 1px solid #dfe6e9; 
+        }
+        .answer-title { 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            color: #27ae60; 
+            margin-bottom: 15px; 
+        }
+
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { 
+            background: #eef2f5; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #34495e; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .comprehensive-exp strong { 
+            color: #2c3e50; 
+            display: block; 
+            margin-bottom: 8px; 
+            font-size: 1.05em; 
+        }
+        .comprehensive-exp p { 
+            margin: 0; 
+            color: #4b6584; 
+            line-height: 1.6; 
+        }
+        .explanation { 
+            color: #4b6584; 
+            font-size: 1em; 
+            line-height: 1.7; 
+        }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        .opt-list { 
+            margin: 0; 
+            padding-left: 0; 
+            list-style: none; 
+        }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #3498db; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>工作倫理與職業道德</h1>
+    <p>第51 - 75題 測驗與解析</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 第51題 -->
+    <div class="card">
+        <div class="theme-badge">主題：職業道德</div>
+        <div class="question">51. 下列何者符合專業人員的職業道德？</div>
+        <div class="options">
+            <div class="option">①未經雇主同意，於上班時間從事私人事務</div>
+            <div class="option">②利用雇主的機具設備私自接單生產</div>
+            <div class="option">③未經顧客同意，任意散佈或利用顧客資料</div>
+            <div class="option">④盡力維護雇主及客戶的權益</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>專業人員的首要職業道德就是秉持誠信原則，忠於職守，在合法合規的前提下盡力維護雇主及客戶的正當權益。前三項皆屬公器私用、洩漏機密或違反工作規定的違背職務行為。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①上班時間從事私事：錯誤，違反職場紀律與對雇主的契約義務。</li>
+                        <li class="wrong-opt">②私自接單生產：錯誤，屬於公器私用、圖利自己甚至涉嫌背信罪。</li>
+                        <li class="wrong-opt">③任意散佈顧客資料：錯誤，嚴重違反個人資料保護法及職業保密義務。</li>
+                        <li class="correct-opt">④盡力維護雇主及客戶權益：正確，這是專業從業人員最基本的職業素養與道德。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第52題 -->
+    <div class="card">
+        <div class="theme-badge">主題：工作態度</div>
+        <div class="question">52. 身為公司員工必須維護公司利益，下列何者是正確的工作態度或行為？</div>
+        <div class="options">
+            <div class="option">①將公司逾期的產品更改標籤</div>
+            <div class="option">②施工時以省時、省料為獲利首要考量，不顧品質</div>
+            <div class="option">③服務時優先考量公司的利益，顧客權益次之</div>
+            <div class="option">④工作時謹守本分，以積極態度解決問題</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>維護公司利益不能以犧牲道德、違法或欺騙客戶為代價。真正的維護公司利益，是藉由積極的工作態度、解決問題的能力，以及提供良好的產品與服務品質來累積公司的長期商譽。欺騙消費者或偷工減料，最終會使公司面臨法律制裁並失去市場。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①更改逾期標籤：錯誤，這是詐欺消費者的違法行為，會毀掉公司商譽。</li>
+                        <li class="wrong-opt">②不顧品質偷工減料：錯誤，劣質工程會引發公共安全危機與賠償責任。</li>
+                        <li class="wrong-opt">③顧客權益次之：錯誤，優質企業應兼顧雙贏，不應輕視或犧牲客戶權益。</li>
+                        <li class="correct-opt">④謹守本分、積極解決問題：正確，這是展現敬業與負責任的最佳態度。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第53題 -->
+    <div class="card">
+        <div class="theme-badge">主題：客戶服務</div>
+        <div class="question">53. 身為專業技術工作人士，應以何種認知及態度服務客戶？</div>
+        <div class="options">
+            <div class="option">①若客戶不瞭解，就儘量減少成本支出，抬高報價</div>
+            <div class="option">②遇到維修問題，儘量拖過保固期</div>
+            <div class="option">③主動告知可能碰到問題及預防方法</div>
+            <div class="option">④隨著個人心情來提供服務的內容及品質</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>專業技術人員應利用自身的專業知識協助客戶解決問題，而非利用資訊落差（資訊不對稱）去欺騙或坑殺客戶。主動提供問題的風險分析與預防保養建議，能建立長久的客戶信任感，是高度職業素養的展現。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①欺瞞客戶抬高報價：錯誤，違反誠信原則的惡劣商業手法。</li>
+                        <li class="wrong-opt">②拖延過保固期：錯誤，逃避責任，損害客戶應有的售後服務權益。</li>
+                        <li class="correct-opt">③主動告知預防方法：正確，以專業協助客戶，發揮技術人員的價值。</li>
+                        <li class="wrong-opt">④隨心情提供服務：錯誤，專業人士應有穩定的情緒管理與一致的服務標準。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第54題 -->
+    <div class="card">
+        <div class="theme-badge">主題：專業服務態度</div>
+        <div class="question">54. 因為工作本身需要高度專業技術及知識，所以在對客戶服務時應如何？</div>
+        <div class="options">
+            <div class="option">①不用理會顧客的意見</div>
+            <div class="option">②保持親切、真誠、客戶至上的態度</div>
+            <div class="option">③若價錢較低，就敷衍了事</div>
+            <div class="option">④以專業機密為由，不用對客戶說明及解釋</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>雖然專業技術人員擁有較高的技術知識門檻，但「服務態度」依然是建立良好醫病/客企關係的關鍵。不論專業領域多麼艱深，都應該以淺顯易懂、親切真誠的方式向客戶說明，不能以傲慢的態度拒絕溝通。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①不用理會顧客意見：錯誤，顧客的反饋是服務改善的基礎。</li>
+                        <li class="correct-opt">②保持親切、真誠：正確，專業也需要良好的溝通與服務態度作為橋樑。</li>
+                        <li class="wrong-opt">③價錢低就敷衍：錯誤，接案即代表承諾，應維持一定的專業品質。</li>
+                        <li class="wrong-opt">④以機密為由不解釋：錯誤，技術細節或許涉密，但處理方式、結果與風險仍需向客戶詳加說明。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第55題 -->
+    <div class="card">
+        <div class="theme-badge">主題：時間管理</div>
+        <div class="question">55. 從事專業性工作，在與客戶約定時間應</div>
+        <div class="options">
+            <div class="option">①保持彈性，任意調整</div>
+            <div class="option">②儘可能準時，依約定時間完成工作</div>
+            <div class="option">③能拖就拖，能改就改</div>
+            <div class="option">④自己方便就好，不必理會客戶的要求</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「守時」與「依約交付」是商業誠信與專業素養的最基本要求。無論技術多麼高超，若無法在承諾的時間內完成任務，將徹底失去客戶的信任，並可能導致客戶蒙受後續的時程損失。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①保持彈性任意調整：錯誤，合約或承諾不容許單方面任意更改。</li>
+                        <li class="correct-opt">②儘可能準時依約完成：正確，嚴格的時間管理是專業人士的標配。</li>
+                        <li class="wrong-opt">③能拖就拖：錯誤，嚴重破壞自身信譽的行為。</li>
+                        <li class="wrong-opt">④自己方便就好：錯誤，過度自我中心，缺乏服務精神。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第56題 -->
+    <div class="card">
+        <div class="theme-badge">主題：服務原則</div>
+        <div class="question">56. 從事專業性工作，在服務顧客時應有的態度為何？</div>
+        <div class="options">
+            <div class="option">①選擇最安全、經濟及有效的方法完成工作</div>
+            <div class="option">②選擇工時較長、獲利較多的方法服務客戶</div>
+            <div class="option">③為了降低成本，可以降低安全標準</div>
+            <div class="option">④不必顧及雇主和顧客的立場</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>專業人員在執行業務時，其決策應當綜合考量「安全（不可妥協）」、「經濟（為客戶節省不必要開支）」以及「有效（解決根本問題）」。這是職業道德中為客戶謀求最佳利益的核心體現。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①選擇最安全經濟有效的方法：正確，創造客戶、公司與社會的三贏。</li>
+                        <li class="wrong-opt">②選工時長獲利多的方法：錯誤，這是惡意圖利、浪費客戶資源的行為。</li>
+                        <li class="wrong-opt">③降低安全標準：錯誤，安全防護涉及生命財產，絕不可因成本考量而打折扣。</li>
+                        <li class="wrong-opt">④不必顧及立場：錯誤，忽視利害關係人的專業是傲慢且不負責任的。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第57題 -->
+    <div class="card">
+        <div class="theme-badge">主題：敬業精神</div>
+        <div class="question">57. 以下哪一項員工的作為符合敬業精神？</div>
+        <div class="options">
+            <div class="option">①利用正常工作時間從事私人事務</div>
+            <div class="option">②運用雇主的資源，從事個人工作</div>
+            <div class="option">③未經雇主同意擅離工作崗位</div>
+            <div class="option">④謹守職場紀律及禮節，尊重客戶隱私</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「敬業」意指對自己所從事的工作充滿責任感並嚴格要求自我。這包含了遵守公司的各項紀律規範（如不擅離職守、不公器私用）、注重職場禮儀，並在業務中嚴格保密、尊重並保護客戶的隱私資料。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①工作時間從事私事：錯誤，俗稱薪水小偷，缺乏敬業精神。</li>
+                        <li class="wrong-opt">②運用雇主資源做個人工作：錯誤，公器私用，違反職業道德。</li>
+                        <li class="wrong-opt">③擅離工作崗位：錯誤，違反基本職場紀律。</li>
+                        <li class="correct-opt">④謹守紀律與禮節，尊重隱私：正確，充分體現對工作與客戶的尊重。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第58題 -->
+    <div class="card">
+        <div class="theme-badge">主題：公私分明</div>
+        <div class="question">58. 小張獲選為小孩學校的家長會長，這個月要召開會議，沒時間準備資料，所以，利用上班期間有空檔非休息時間來完成，請問是否可以？</div>
+        <div class="options">
+            <div class="option">①可以，因為不耽誤他的工作</div>
+            <div class="option">②可以，因為他能力好，能夠同時完成很多事</div>
+            <div class="option">③不可以，因為這是私事，不可以利用上班時間完成</div>
+            <div class="option">④可以，只要不要被發現</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>勞動契約中，員工領取雇主的薪資，即有義務於「表定上班時間」內全心投入公務。即便個人工作效率高而有空檔，該時段依然屬於雇主購買的時間，不應用來處理如家長會等純屬私人的事務，公私分明是職場倫理的底線。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①不耽誤工作就可以：錯誤，上班時段的每一分鐘本質上都應運用於公事。</li>
+                        <li class="wrong-opt">②能力好就可以：錯誤，能力好不代表能將公家時間挪作私用。</li>
+                        <li class="correct-opt">③不可以，私事不能用上班時間：正確，堅守公私界線。</li>
+                        <li class="wrong-opt">④只要不被發現：錯誤，道德與倫理訴求自律，非取決於是否被抓包。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第59題 -->
+    <div class="card">
+        <div class="theme-badge">主題：公車私用</div>
+        <div class="question">59. 小吳是公司的專用司機，為了能夠隨時用車，經過公司同意，每晚都將公司的車開回家，然而，他發現反正每天上班路線，都要經過女兒學校，就順便載女兒上學，請問可以嗎？</div>
+        <div class="options">
+            <div class="option">①可以，反正順路</div>
+            <div class="option">②不可以，這是公司的車不能私用</div>
+            <div class="option">③可以，只要不被公司發現即可</div>
+            <div class="option">④可以，要資源須有效使用</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>公司同意將公務車開回家，是為了因應「隨時出勤」的公務需求，而非將車輛所有權或私人使用權賦予員工。公車私用（如載送親屬）即使「順路」，一旦發生車禍意外將衍生複雜的保險理賠與公家財產責任歸屬問題。因此嚴格來說，公車就是不能私用。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①可以，反正順路：錯誤，順路不能改變公務車屬性的事實。</li>
+                        <li class="correct-opt">②不可以，公司的車不能私用：正確，公器不私用是基本規範。</li>
+                        <li class="wrong-opt">③只要不被發現即可：錯誤，這是一種心存僥倖的違規心態。</li>
+                        <li class="wrong-opt">④要資源有效使用：錯誤，資源有效使用需基於「合法授權」的框架下。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第60題 -->
+    <div class="card">
+        <div class="theme-badge">主題：職場新人態度</div>
+        <div class="question">60. 小江是職場上的新鮮人，剛進公司不久，他應該具備怎樣的態度？</div>
+        <div class="options">
+            <div class="option">①上班、下班，管好自己便可</div>
+            <div class="option">②仔細觀察公司生態，加入某些小團體，以做為後盾</div>
+            <div class="option">③只要做好人脈關係，這樣以後就好辦事</div>
+            <div class="option">④努力做好自己職掌的業務，樂於工作，與同事之間有良好的互動，相互協助</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>初入職場的新鮮人，最重要的任務是熟悉並精進自己負責的業務，建立起專業度。同時，職場是團隊合作的環境，應抱持開放、友善的態度與同事良性互動，避免陷入職場政治、結黨營私或表現出各掃門前雪的孤立態度。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①管好自己便可：錯誤，現代職場高度仰賴團隊協作。</li>
+                        <li class="wrong-opt">②加入小團體做後盾：錯誤，搞小圈圈容易造成內部對立與派系鬥爭。</li>
+                        <li class="wrong-opt">③只要做好人脈關係：錯誤，沒有本職專業做基礎，空有人脈無法長久立足。</li>
+                        <li class="correct-opt">④努力做好業務並與同事良好互動：正確，這是最健康且積極的職場心態。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第61題 -->
+    <div class="card">
+        <div class="theme-badge">主題：商務禮儀</div>
+        <div class="question">61. 在公司內部行使商務禮儀的過程，主要以參與者在公司中的何種條件來訂定順序？</div>
+        <div class="options">
+            <div class="option">①年齡</div>
+            <div class="option">②性別</div>
+            <div class="option">③社會地位</div>
+            <div class="option">④職位</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>在私人社交場合，禮儀順序常以長幼(年齡)或女士優先(性別)為主；然而在「商務禮儀」與企業運作環境中，為了組織管理與指揮鏈的明確性，最優先的排序原則是「職位高低」。即下級尊命於上級，無論性別或年齡。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①年齡：錯誤，年紀長短非企業管理的主要排序依據。</li>
+                        <li class="wrong-opt">②性別：錯誤，職場強調平權，不以性別決定階級尊卑。</li>
+                        <li class="wrong-opt">③社會地位：錯誤，在公司內部首重內部組織架構。</li>
+                        <li class="correct-opt">④職位：正確，商務禮儀依據職級階層來判定座位、介紹順序等規範。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第62題 -->
+    <div class="card">
+        <div class="theme-badge">主題：新人融入職場</div>
+        <div class="question">62. 一位職場新鮮人剛進公司時，良好的工作態度是</div>
+        <div class="options">
+            <div class="option">①多觀察、多學習，了解企業文化和價值觀</div>
+            <div class="option">②多打聽哪一個部門比較輕鬆，升遷機會較多</div>
+            <div class="option">③多探聽哪一個公司在找人，隨時準備跳槽走人</div>
+            <div class="option">④多遊走各部門認識同事，建立自己的小圈圈</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>初入一間新公司，首要之務是「接地氣」，透過多看、多聽、多學，了解公司的運作模式、企業文化及核心價值。有了正確的認知，才能調整自己的步伐快速融入團隊，發揮所長。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①多觀察學習企業文化：正確，虛心求教是新人最佳的保護色與成長捷徑。</li>
+                        <li class="wrong-opt">②打聽哪裡輕鬆好升遷：錯誤，表現出好逸惡勞與投機的心態。</li>
+                        <li class="wrong-opt">③探聽跳槽機會：錯誤，缺乏對現職的忠誠度與定性。</li>
+                        <li class="wrong-opt">④建立小圈圈：錯誤，應與全體同事和睦相處，而非拉幫結派。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第63題 -->
+    <div class="card">
+        <div class="theme-badge">主題：CEDAW (性別平權)</div>
+        <div class="question">63. 根據消除對婦女一切形式歧視公約(CEDAW)，下列何者正確？</div>
+        <div class="options">
+            <div class="option">①對婦女的歧視指基於性別而作的任何區別、排斥或限制</div>
+            <div class="option">②只關心女性在政治方面的人權和基本自由</div>
+            <div class="option">③未要求政府需消除個人或企業對女性的歧視</div>
+            <div class="option">④傳統習俗應予保護及傳承，即使含有歧視女性的部分，也不可以改變</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>聯合國《消除對婦女一切形式歧視公約(CEDAW)》第1條明確定義：「對婦女的歧視」一詞指基於性別而作的任何區別、排斥或限制，其影響或其目的均足以妨礙或否認婦女在政治、經濟、社會、文化、公民或任何其他方面的人權和基本自由。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①指基於性別而作的區別或排斥：正確，為公約對歧視的核心定義。</li>
+                        <li class="wrong-opt">②只關心政治方面：錯誤，範圍涵蓋政治、經濟、社會、文化等所有生活面向。</li>
+                        <li class="wrong-opt">③未要求政府消除私人歧視：錯誤，公約要求締約國採取一切適當措施消除任何個人、組織或企業的歧視。</li>
+                        <li class="wrong-opt">④含有歧視的習俗不可改變：錯誤，公約明確要求締約國改變建基於性別偏見的社會和文化行為模式。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第64題 -->
+    <div class="card">
+        <div class="theme-badge">主題：CEDAW (直接歧視)</div>
+        <div class="question">64. 某規範明定地政機關進用女性測量助理名額，不得超過該機關測量助理名額總數二分之一，根據消除對婦女一切形式歧視公約(CEDAW)，下列何者正確？</div>
+        <div class="options">
+            <div class="option">①限制女性測量助理人數比例，屬於直接歧視</div>
+            <div class="option">②土地測量經常在戶外工作，基於保護女性所作的限制，不屬性別歧視</div>
+            <div class="option">③此項二分之一規定是為促進男女比例平衡</div>
+            <div class="option">④此限制是為確保機關業務順暢推動，並未歧視女性</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>當規章或法令直接以「性別（女性）」為基準，明文設下名額上限或剝奪特定機會時，即構成標準的「直接歧視」。以「保護」為名的工作限制，若非基於生理不可抗力的絕對因素，往往是基於性別刻板印象，依然構成違法歧視。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①限制比例屬直接歧視：正確，明文以性別做差別待遇即為直接歧視。</li>
+                        <li class="wrong-opt">②基於保護不屬歧視：錯誤，過度的父權保護主義實質上剝奪了女性的就業選擇權。</li>
+                        <li class="wrong-opt">③為促進平衡：錯誤，人資進用應以能力適任為考量，而非設定具排斥性的天花板。</li>
+                        <li class="wrong-opt">④為確保業務順暢並未歧視：錯誤，預設女性會阻礙業務順暢本身就是嚴重的刻板偏見。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第65題 -->
+    <div class="card">
+        <div class="theme-badge">主題：CEDAW (間接歧視)</div>
+        <div class="question">65. 根據消除對婦女一切形式歧視公約(CEDAW)之間接歧視意涵，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①一項法律、政策、方案或措施表面上對男性和女性無任何歧視，但實際上卻產生歧視女性的效果</div>
+            <div class="option">②察覺間接歧視的一個方法，是善加利用性別統計與性別分析</div>
+            <div class="option">③如果未正視歧視之結構和歷史模式，及忽略男女權力關係之不平等，可能使現有不平等狀況更為惡化</div>
+            <div class="option">④不論在任何情況下，只要以相同方式對待男性和女性，就能避免間接歧視之產生</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「間接歧視」是指規定或條件表面上看似中立、對所有人都適用，但因男女先天生理或後天社會角色（如生育、育兒）的不同，導致女性在實踐上面臨不成比例的困難。因此，單純以「相同方式」對待（齊頭式平等），往往無法解決根深蒂固的不平等，甚至會導致間接歧視，有時需要採取「實質平等」的積極平權措施。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①表面中立實際卻產生歧視效果：錯誤，此為間接歧視的正確定義。</li>
+                        <li class="wrong-opt">②利用統計分析察覺歧視：錯誤，這是正確且科學的性別主流化作法。</li>
+                        <li class="wrong-opt">③忽視結構問題會惡化現況：錯誤，這是正確的社科分析觀點。</li>
+                        <li class="correct-opt">④以相同方式對待就能避免：正確，此敘述錯誤。盲目的相同對待反而會造成或加劇「間接歧視」。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第66題 -->
+    <div class="card">
+        <div class="theme-badge">主題：菸害防制法</div>
+        <div class="question">66. 下列何者不是菸害防制法之立法目的？</div>
+        <div class="options">
+            <div class="option">①防制菸害</div>
+            <div class="option">②保護未成年免於菸害</div>
+            <div class="option">③保護孕婦免於菸害</div>
+            <div class="option">④促進菸品的使用</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>《菸害防制法》第1條明定，為防制菸害，維護國民健康，特制定本法。其核心精神在於降低吸菸人口、防堵二手菸危害、以及嚴格限制孕婦與未成年人接觸菸品。因此「促進菸品使用」完全違背該法維護國民健康的立法初衷。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①防制菸害：錯誤，這是立法的首要目的。</li>
+                        <li class="wrong-opt">②保護未成年免於菸害：錯誤，法規嚴禁供應菸品予未成年人。</li>
+                        <li class="wrong-opt">③保護孕婦免於菸害：錯誤，法規特別強調保護孕婦免受菸害威脅。</li>
+                        <li class="correct-opt">④促進菸品的使用：正確，這是完全與立法目的背道而馳的敘述。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第67題 -->
+    <div class="card">
+        <div class="theme-badge">主題：菸害防制法罰則</div>
+        <div class="question">67. 按菸害防制法規定，在禁菸場所吸菸會被罰多少錢？</div>
+        <div class="options">
+            <div class="option">①新臺幣 2 千元至 1 萬元罰鍰</div>
+            <div class="option">②新臺幣 1 千元至 5 千元罰鍰</div>
+            <div class="option">③新臺幣 1 萬元至 5 萬元罰鍰</div>
+            <div class="option">④新臺幣 2 萬元至 10 萬元罰鍰</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《菸害防制法》相關罰則規定，於法定的全面禁菸場所（如醫院、學校、大眾運輸工具、三人以上室內工作場所等）吸菸者，依法將被處以新臺幣2,000元以上10,000元以下罰鍰。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①2千元至1萬元：正確，為法定對違規吸菸行為人的裁罰基準。</li>
+                        <li class="wrong-opt">②1千元至5千元：錯誤。</li>
+                        <li class="wrong-opt">③1萬元至5萬元：錯誤，這是對場所負責人（如未設置禁菸標示）的處罰層級。</li>
+                        <li class="wrong-opt">④2萬元至10萬元：錯誤。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第68題 -->
+    <div class="card">
+        <div class="theme-badge">主題：個人資料保護法</div>
+        <div class="question">68. 請問下列何者不是個人資料保護法所定義的個人資料？</div>
+        <div class="options">
+            <div class="option">①身分證號碼</div>
+            <div class="option">②最高學歷</div>
+            <div class="option">③職稱</div>
+            <div class="option">④護照號碼</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《個資法》第2條，個人資料指自然人之姓名、出生年月日、國民身分證統一編號、護照號碼、特徵、指紋、婚姻、家庭、教育（學歷）、職業、病歷等「得以直接或間接方式識別該個人之資料」。「職稱」（例如：經理、工程師）如果沒有結合公司名稱、姓名或其他特徵，單獨存在時無法識別特定個人，因而不屬於受保護的個資範疇。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①身分證號碼：錯誤，具備唯一性，是最核心的個資。</li>
+                        <li class="wrong-opt">②最高學歷：錯誤，屬於法條明定的「教育」類個資。</li>
+                        <li class="correct-opt">③職稱：正確，單一「職稱」無法特定識別某人，不屬個資。</li>
+                        <li class="wrong-opt">④護照號碼：錯誤，具備唯一性，為法定個資。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第69題 -->
+    <div class="card">
+        <div class="theme-badge">主題：專利權</div>
+        <div class="question">69. 有關專利權的敘述，下列何者正確？</div>
+        <div class="options">
+            <div class="option">①專利有規定保護年限，當某商品、技術的專利保護年限屆滿，任何人皆可免費運用該項專利</div>
+            <div class="option">②我發明了某項商品，卻被他人率先申請專利權，我仍可主張擁有這項商品的專利權</div>
+            <div class="option">③製造方法可以申請新型專利權</div>
+            <div class="option">④在本國申請專利之商品進軍國外，不需向他國申請專利權</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>專利制度的核心精神是「以公開換取保護」。發明人公開技術，國家賦予其一定期限的專屬排他權（如發明20年）。一旦期限屆滿，專利即失效並成為公共財，任何人都可以自由且免費實施該項技術，藉此促進社會產業進步。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①年限屆滿任何人皆可免費運用：正確，符合專利公共化的特性。</li>
+                        <li class="wrong-opt">②他人先申請我仍可主張：錯誤，我國專利採「先申請原則」，被捷足先登即喪失專利權。</li>
+                        <li class="wrong-opt">③製造方法申請新型專利：錯誤，新型專利僅保護「物品之形狀、構造或組合」，製造方法須申請「發明專利」。</li>
+                        <li class="wrong-opt">④進軍國外不需他國申請：錯誤，專利採「屬地主義」，需逐國申請方受當地保護。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第70題 -->
+    <div class="card">
+        <div class="theme-badge">主題：著作權</div>
+        <div class="question">70. 下列何者行為會有侵害著作權的問題？</div>
+        <div class="options">
+            <div class="option">①將報導事件事實的新聞文字轉貼於自己的社群網站</div>
+            <div class="option">②直接轉貼高普考考古題在 FACEBOOK</div>
+            <div class="option">③以分享網址的方式轉貼資訊分享於社群網站</div>
+            <div class="option">④將講師的授課內容錄音，複製多份分贈友人</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>講師的授課內容（講課口述）屬於語文著作，受到《著作權法》保護。學生上課未經同意錄音已涉及侵害「重製權」，若進一步複製多份並分贈給未修課的友人，則同時侵害了作者的重製權與散布權，構成嚴重侵權行為。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①轉貼單純事實新聞：錯誤，依第9條，單純傳達事實之新聞報導不得為著作權之標的。</li>
+                        <li class="wrong-opt">②轉貼高普考考古題：錯誤，依第9條，依法令舉行之各類考試試題不得為著作權之標的。</li>
+                        <li class="wrong-opt">③以網址分享：錯誤，單純貼超連結(超鏈結)並不構成網路重製或公開傳輸，合法且常見。</li>
+                        <li class="correct-opt">④錄音授課並複製分贈：正確，此舉侵害講者的語文著作重製及散布權。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第71題 -->
+    <div class="card">
+        <div class="theme-badge">主題：著作權概念</div>
+        <div class="question">71. 有關著作權之概念，下列何者正確？</div>
+        <div class="options">
+            <div class="option">①國外學者之著作，可受我國著作權法的保護</div>
+            <div class="option">②公務機關所函頒之公文，受我國著作權法的保護</div>
+            <div class="option">③著作權要待向智慧財產權申請通過後才可主張</div>
+            <div class="option">④以傳達事實之新聞報導的語文著作，依然受著作權之保障</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>基於國際條約（如WTO之TRIPS協定）與互惠原則，外國人之著作只要符合法規要件（例如同步或在我國首次發行，或所屬國與我國有互惠協定），其著作在我國亦受到《著作權法》的同等保護。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①國外學者著作可受保護：正確，透過國際公約及互惠原則，外國人著作在台同受保護。</li>
+                        <li class="wrong-opt">②公文受保護：錯誤，憲法、法律、命令、公文皆不得為著作權標的。</li>
+                        <li class="wrong-opt">③需申請通過才可主張：錯誤，我國著作權採「創作保護主義」，作品完成當下即受保護，免申請。</li>
+                        <li class="wrong-opt">④單純新聞事實受保障：錯誤，單純傳達事實之新聞報導不受著作權法保護。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第72題 -->
+    <div class="card">
+        <div class="theme-badge">主題：商標權</div>
+        <div class="question">72. 某廠商之商標在我國已經獲准註冊，請問若希望將商品行銷販賣到國外，請問是否需在當地申請註冊才能主張商標權？</div>
+        <div class="options">
+            <div class="option">①是，因為商標權註冊採取屬地保護原則</div>
+            <div class="option">②否，因為我國申請註冊之商標權在國外也會受到承認</div>
+            <div class="option">③不一定，需視我國是否與商品希望行銷販賣的國家訂有相互商標承認之協定</div>
+            <div class="option">④不一定，需視商品希望行銷販賣的國家是否為 WTO 會員國</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>商標權與專利權相同，皆採取嚴格的「屬地主義」（Territoriality）。這意味著權利人如果在某國想要享有商標保護，就必須親自向該國家的商標主管機關提出申請並獲准。台灣核發的商標證書效力無法及於其他國家。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①是，採屬地保護原則：正確，一國註冊僅在該國境內有效。</li>
+                        <li class="wrong-opt">②否，在國外會受承認：錯誤，商標無自動全球生效機制。</li>
+                        <li class="wrong-opt">③視有無相互承認協定：錯誤，國際間通常有「優先權」協定，但仍必須「逐國申請註冊」，無自動生效之相互承認。</li>
+                        <li class="wrong-opt">④視是否為WTO會員：錯誤，WTO會員國間仍需依法至各國當地申請註冊。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第73題 -->
+    <div class="card">
+        <div class="theme-badge">主題：營業秘密</div>
+        <div class="question">73. 下列何者不屬於營業秘密？</div>
+        <div class="options">
+            <div class="option">①具廣告性質的不動產交易底價</div>
+            <div class="option">②須授權取得之產品設計或開發流程圖示</div>
+            <div class="option">③公司內部管制的各種計畫方案</div>
+            <div class="option">④不是公開可查知的客戶名單分析資料</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>《營業秘密法》規定受保護的資訊必須符合三大要件：秘密性、經濟性及保密措施。既然是「具廣告性質」的不動產底價，代表其目的就是要向廣大大眾公開宣傳以吸引買氣。既然已經主動公開，便徹底喪失了「秘密性」，自然不受營業秘密法保護。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①具廣告性質之底價：正確，因已對外公開，不具秘密性，非屬營業秘密。</li>
+                        <li class="wrong-opt">②需授權之設計圖示：錯誤，屬典型受保護的技術性營業秘密。</li>
+                        <li class="wrong-opt">③內部管制的計畫方案：錯誤，屬未公開的商業性營業秘密。</li>
+                        <li class="wrong-opt">④非公開之客戶分析資料：錯誤，屬極具經濟價值的商業性營業秘密。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第74題 -->
+    <div class="card">
+        <div class="theme-badge">主題：營業秘密分類</div>
+        <div class="question">74. 營業秘密可分為「技術機密」與「商業機密」，下列何者屬於「商業機密」？</div>
+        <div class="options">
+            <div class="option">①程式</div>
+            <div class="option">②設計圖</div>
+            <div class="option">③商業策略</div>
+            <div class="option">④生產製程</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>營業秘密大體分為兩類：與研發、生產直接相關的稱為「技術性營業秘密」（如配方、程式、製程、設計圖）；與營運、行銷管理相關的稱為「商業性營業秘密」（如客戶名單、定價策略、行銷企劃、人事薪資）。故商業策略為商業機密。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①程式：錯誤，軟體原始碼為技術機密。</li>
+                        <li class="wrong-opt">②設計圖：錯誤，圖紙規範為技術機密。</li>
+                        <li class="correct-opt">③商業策略：正確，與經營佈局有關，屬典型的商業機密。</li>
+                        <li class="wrong-opt">④生產製程：錯誤，與產線製法有關，為技術機密。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第75題 -->
+    <div class="card">
+        <div class="theme-badge">主題：利益衝突迴避</div>
+        <div class="question">75. 某甲在公務機關擔任首長，其弟弟乙是某協會的理事長，乙為舉辦協會活動，決定向甲服務的機關申請經費補助，下列有關利益衝突迴避之敘述，何者正確？</div>
+        <div class="options">
+            <div class="option">①協會是舉辦慈善活動，甲認為是好事，所以指示機關承辦人補助活動經費</div>
+            <div class="option">②機關未經公開公平方式，私下直接對協會補助活動經費新臺幣 10 萬元</div>
+            <div class="option">③甲應自行迴避該案審查，避免瓜田李下，防止利益衝突</div>
+            <div class="option">④乙為順利取得補助，應該隱瞞是機關首長甲之弟弟的身分</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《公職人員利益衝突迴避法》規定，公職人員於執行職務時，若牽涉到自身或其關係人（如二親等內之親屬）之利益，應「自行迴避」，不得參與該案的審查與決策。如此才能確保行政中立，防止利益輸送或瓜田李下之嫌。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①指示承辦人補助：錯誤，不論活動性質為何，主管指示圖利關係人即屬違法。</li>
+                        <li class="wrong-opt">②私下直接補助：錯誤，機關經費運用需受嚴格監督，私下補助嚴重違法。</li>
+                        <li class="correct-opt">③甲應自行迴避：正確，這是最合法且標準的利益衝突迴避作法。</li>
+                        <li class="wrong-opt">④隱瞞身分：錯誤，關係人亦有主動揭露身分之義務，隱瞞將面臨重罰。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>

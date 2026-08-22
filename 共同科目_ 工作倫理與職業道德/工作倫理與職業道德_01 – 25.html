@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作倫理與職業道德 01-25題</title>
+    <style>
+        /* 基礎與排版設定 (復刻 GitHub 來源樣式) */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "微軟正黑體", sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px 10px; 
+            line-height: 1.6; 
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; font-size: 1.8em; margin-bottom: 5px; }
+        .header p { color: #7f8c8d; font-size: 1em; margin-top: 0; margin-bottom: 20px;}
+        
+        /* JavaScript 按鈕樣式 */
+        .toggle-btn { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 1em; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .toggle-btn:hover { background-color: #219150; }
+        .card-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+
+        /* 卡片樣式 */
+        .card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea; 
+            position: relative; 
+        }
+
+        /* 主題標籤 */
+        .theme-badge { 
+            display: inline-block; 
+            background-color: #e8f4fd; 
+            color: #2980b9; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            border: 1px solid #b3d7f2; 
+        }
+        .question { 
+            font-size: 1.15em; 
+            font-weight: bold; 
+            color: #34495e; 
+            margin-bottom: 15px; 
+            line-height: 1.5; 
+        }
+
+        /* 選項樣式 */
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            margin-bottom: 20px; 
+        }
+        .option { 
+            background: #f8f9fa; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            color: #555; 
+            font-size: 1.05em; 
+            border-left: 3px solid #cbd5e1; 
+        }
+
+        /* 純HTML 摺疊特效設計 */
+        details { 
+            background: #fdfefe; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        summary { 
+            background: #3498db; 
+            color: #ffffff; 
+            padding: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            text-align: center; 
+            cursor: pointer; 
+            list-style: none; 
+            transition: background 0.3s; 
+        }
+        summary:hover { background: #2980b9; }
+        summary::-webkit-details-marker { display: none; }
+
+        /* 解析內容樣式 */
+        .answer-panel { 
+            padding: 20px; 
+            background: #f4fcf7; 
+            border-top: 1px solid #dfe6e9; 
+        }
+        .answer-title { 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            color: #27ae60; 
+            margin-bottom: 15px; 
+        }
+
+        /* 綜合解析區塊樣式 */
+        .comprehensive-exp { 
+            background: #eef2f5; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #34495e; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .comprehensive-exp strong { 
+            color: #2c3e50; 
+            display: block; 
+            margin-bottom: 8px; 
+            font-size: 1.05em; 
+        }
+        .comprehensive-exp p { 
+            margin: 0; 
+            color: #4b6584; 
+            line-height: 1.6; 
+        }
+        .explanation { 
+            color: #4b6584; 
+            font-size: 1em; 
+            line-height: 1.7; 
+        }
+        .exp-subtitle { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            display: block; 
+            border-bottom: 1px dashed #cbd5e1; 
+            padding-bottom: 3px; 
+        }
+        .opt-list { 
+            margin: 0; 
+            padding-left: 0; 
+            list-style: none; 
+        }
+        .opt-list li { 
+            margin-bottom: 8px; 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #3498db; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+        }
+        .correct-opt { border-left-color: #27ae60 !important; background: #eafaf1 !important; }
+        .wrong-opt { border-left-color: #e74c3c !important; }
+		
+		/* --- 右下角浮動漢堡選單設計 --- */
+        .fab-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: #3498db;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+        .fab-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 85px; /* 在按鈕的上方 */
+            right: 25px;
+            z-index: 99;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 280px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dfe6e9;
+        }
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-action {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .fab-action:hover { background: #f0f3f4; filter: brightness(0.95); }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            max-height: 40vh; /* 避免選單太高，設定最高高度並加上滾動條 */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .q-grid-btn {
+            background: #ecf0f1;
+            color: #34495e;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .q-grid-btn:hover { background: #3498db; color: white; }
+
+        /* 手機版設定調整 */
+        @media (max-width: 600px) {
+            .fab-btn {
+                bottom: 15px; right: 15px;
+                width: 42px; height: 42px; font-size: 20px;
+            }
+            .fab-menu { bottom: 65px; right: 15px; width: 250px; }
+            .q-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+
+        /* 手機版自適應優化 */
+        @media (max-width: 600px) { 
+            .card { padding: 15px; } 
+            .header h1 { font-size: 1.5em; } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>工作倫理與職業道德</h1>
+    <p>第01 - 25題 測驗與解析</p>
+    <button id="toggleBtn" class="toggle-btn" onclick="toggleAll()">展開所有解析</button>
+</div>
+
+<div class="card-container">
+
+    <!-- 第01題 -->
+    <div class="card">
+        <div class="theme-badge">主題：個人資料保護法</div>
+        <div class="question">1. 下列何者「違反」個人資料保護法？</div>
+        <div class="options">
+            <div class="option">①公司基於人事管理之特定目的，張貼榮譽榜揭示績優員工姓名</div>
+            <div class="option">②縣市政府提供村里長轄區內符合資格之老人名冊供發放敬老金</div>
+            <div class="option">③網路購物公司為辦理退貨，將客戶之住家地址提供予宅配公司</div>
+            <div class="option">④學校將應屆畢業生之住家地址提供補習班招生使用</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《個人資料保護法》規定，蒐集之個人資料應於特定目的之必要範圍內利用 [1]。學校將應屆畢業生之住家地址提供給補習班作為招生使用，已逾越原先基於教育與學生管理目的所蒐集的範圍，且未依法取得當事人同意，屬於違法之特定目的外利用行為 [1]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①公司基於人事管理之特定目的，張貼榮譽榜揭示姓名：錯誤，符合原蒐集之特定目的，屬合法利用 [1]。</li>
+                        <li class="wrong-opt">②縣市政府提供老人名冊發放敬老金：錯誤，屬於公務機關執行法定職務必要範圍內之利用 [1]。</li>
+                        <li class="wrong-opt">③購物公司提供地址給宅配公司：錯誤，此為履行契約義務之必要行為，符合個資法規範 [1]。</li>
+                        <li class="correct-opt">④學校將學生地址提供補習班：正確，此為逾越特定目的且未經同意的違法行為 [1]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第02題 -->
+    <div class="card">
+        <div class="theme-badge">主題：個人資料保護法 - 行銷規定</div>
+        <div class="question">2. 非公務機關利用個人資料進行行銷時，下列敘述何者錯誤？</div>
+        <div class="options">
+            <div class="option">①若已取得當事人書面同意，當事人即不得拒絕利用其個人資料行銷</div>
+            <div class="option">②於首次行銷時，應提供當事人表示拒絕行銷之方式</div>
+            <div class="option">③當事人表示拒絕接受行銷時，應停止利用其個人資料</div>
+            <div class="option">④倘非公務機關違反「應即停止利用其個人資料行銷」之義務，未於限期內改正者，按次處新臺幣 2 萬元以上 20 萬元以下罰鍰</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《個人資料保護法》第20條第2、3項規定，非公務機關依規定利用個人資料行銷者，當事人表示拒絕接受行銷時，應即停止利用其個人資料行銷 [1]。無論先前是否取得書面同意，當事人皆保有隨時拒絕被推銷的權利，企業不可剝奪 [1]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①若已取得書面同意即不得拒絕：正確，此敘述錯誤。當事人事後仍可隨時拒絕行銷 [1]。</li>
+                        <li class="wrong-opt">②首次行銷應提供拒絕方式：錯誤，此敘述為正確的法規要求 [1]。</li>
+                        <li class="wrong-opt">③當事人拒絕時應停止利用：錯誤，此敘述為正確的企業法定義務 [1]。</li>
+                        <li class="wrong-opt">④違反停止義務可按次處罰鍰：錯誤，此敘述為正確的罰則規定 [1]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第03題 -->
+    <div class="card">
+        <div class="theme-badge">主題：個人資料保護法 - 團體訴訟</div>
+        <div class="question">3. 個人資料保護法規定為保護當事人權益，幾人以上的當事人提出告訴，就可以進行團體訴訟？</div>
+        <div class="options">
+            <div class="option">①5 人</div>
+            <div class="option">②10 人</div>
+            <div class="option">③15 人</div>
+            <div class="option">④20 人</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《個人資料保護法》第34條規定，對於同一原因事實造成多數當事人權利受侵害之事件，財團法人或公益社團法人經受有損害之當事人二十人以上以書面授與訴訟實施權者，得以自己之名義，提起損害賠償訴訟 [2]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①5 人：錯誤，人數不足法定門檻 [2]。</li>
+                        <li class="wrong-opt">②10 人：錯誤，人數不足法定門檻 [2]。</li>
+                        <li class="wrong-opt">③15 人：錯誤，人數不足法定門檻 [2]。</li>
+                        <li class="correct-opt">④20 人：正確，個資法明定為20人以上 [2]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第04題 -->
+    <div class="card">
+        <div class="theme-badge">主題：個人資料保護法 - 蒐集與處理</div>
+        <div class="question">4. 關於個人資料保護法的敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①公務機關執行法定職務必要範圍內，可以蒐集、處理或利用一般性個人資料</div>
+            <div class="option">②間接蒐集之個人資料，於處理或利用前，不必告知當事人個人資料來源</div>
+            <div class="option">③非公務機關亦應維護個人資料之正確，並主動或依當事人之請求更正或補充</div>
+            <div class="option">④外國學生在臺灣短期進修或留學，也受到我國個人資料保護法的保障</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《個人資料保護法》第9條規定，公務機關或非公務機關非由當事人提供（即間接蒐集）而蒐集個人資料時，應於處理或利用前，向當事人告知個人資料來源及法定的應告知事項，並非「不必告知」 [2]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①公務機關依法定職務範圍可處理個資：錯誤，此為正確敘述 [2]。</li>
+                        <li class="correct-opt">②間接蒐集不必告知個資來源：正確，此敘述錯誤，依法必須告知來源 [2]。</li>
+                        <li class="wrong-opt">③非公務機關應維護資料正確並接受更正：錯誤，此為正確的法定義務 [2]。</li>
+                        <li class="wrong-opt">④外國學生受我國個資法保障：錯誤，此為正確敘述，法律保障不分國籍 [2]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第05題 -->
+    <div class="card">
+        <div class="theme-badge">主題：個人資料保護法 - 適用範圍</div>
+        <div class="question">5. 關於個人資料保護法的敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①不管是否使用電腦處理的個人資料，都受個人資料保護法保護</div>
+            <div class="option">②公務機關依法執行公權力，不受個人資料保護法規範</div>
+            <div class="option">③身分證字號、婚姻、指紋都是個人資料</div>
+            <div class="option">④我的病歷資料雖然是由醫生所撰寫，但也屬於是我的個人資料範圍</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>《個人資料保護法》的規範對象同時包含了「公務機關」與「非公務機關」。公務機關雖然依法執行公權力，但其蒐集、處理與利用個人資料的行為，仍必須遵守個資法的相關規定，絕非不受規範 [2]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①無論電腦或紙本皆受保護：錯誤，此為正確敘述 [2]。</li>
+                        <li class="correct-opt">②公務機關不受規範：正確，此敘述錯誤，公務機關仍受個資法嚴格約束 [2]。</li>
+                        <li class="wrong-opt">③身分證字號、婚姻、指紋等均屬個資：錯誤，此為正確敘述 [2]。</li>
+                        <li class="wrong-opt">④病歷資料屬個人資料範圍：錯誤，此為正確敘述（且病歷屬特種個資） [2]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第06題 -->
+    <div class="card">
+        <div class="theme-badge">主題：個人資料保護法 - 應告知事項</div>
+        <div class="question">6. 對於依照個人資料保護法應告知之事項，下列何者不在法定應告知的事項內？</div>
+        <div class="options">
+            <div class="option">①個人資料利用之期間、地區、對象及方式</div>
+            <div class="option">②蒐集之目的</div>
+            <div class="option">③蒐集機關的負責人姓名</div>
+            <div class="option">④如拒絕提供或提供不正確個人資料將造成之影響</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《個人資料保護法》第8條規定，直接蒐集個資之應告知事項包括：1.機關名稱；2.蒐集之目的；3.個人資料之類別；4.個人資料利用之期間、地區、對象及方式；5.當事人依第三條規定得行使之權利及方式；6.當事人得自由選擇提供個人資料時，不提供將對其權益之影響。法定事項中並不要求告知「蒐集機關的負責人姓名」 [2]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①利用之期間、地區、對象及方式：錯誤，此為法定的第4款應告知事項 [2]。</li>
+                        <li class="wrong-opt">②蒐集之目的：錯誤，此為法定的第2款應告知事項 [2]。</li>
+                        <li class="correct-opt">③蒐集機關的負責人姓名：正確，此非個資法第8條明定之應告知義務 [2]。</li>
+                        <li class="wrong-opt">④拒絕提供之影響：錯誤，此為法定的第6款應告知事項 [2]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第07題 -->
+    <div class="card">
+        <div class="theme-badge">主題：個人資料保護法 - 當事人權利</div>
+        <div class="question">7. 請問下列何者非為個人資料保護法第 3 條所規範之當事人權利？</div>
+        <div class="options">
+            <div class="option">①查詢或請求閱覽</div>
+            <div class="option">②請求刪除他人之資料</div>
+            <div class="option">③請求補充或更正</div>
+            <div class="option">④請求停止蒐集、處理或利用</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《個人資料保護法》第3條規定，當事人就「其」個人資料享有包含查詢、閱覽、製給複製本、補充、更正、停止蒐集處理或利用，以及刪除的權利。這些權利僅限於針對「自己」的資料行使，無權去請求刪除「他人」的資料 [3]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①查詢或請求閱覽：錯誤，屬於當事人的合法權利 [3]。</li>
+                        <li class="correct-opt">②請求刪除他人之資料：正確，個資權利為專屬權，不能跨越干涉他人資料 [3]。</li>
+                        <li class="wrong-opt">③請求補充或更正：錯誤，屬於當事人的合法權利 [3]。</li>
+                        <li class="wrong-opt">④請求停止蒐集、處理或利用：錯誤，屬於當事人的合法權利 [3]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第08題 -->
+    <div class="card">
+        <div class="theme-badge">主題：資訊安全與個資保護</div>
+        <div class="question">8. 下列何者非安全使用電腦內的個人資料檔案的做法？</div>
+        <div class="options">
+            <div class="option">①利用帳號與密碼登入機制來管理可以存取個資者的人</div>
+            <div class="option">②規範不同人員可讀取的個人資料檔案範圍</div>
+            <div class="option">③個人資料檔案使用完畢後立即退出應用程式，不得留置於電腦中</div>
+            <div class="option">④為確保重要的個人資料可即時取得，將登入密碼標示在螢幕下方</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>帳號密碼是保護資訊系統中個人資料的第一道防線，將密碼直接寫在螢幕下方或明顯處，等同於讓任何人都能輕易登入系統盜取資料，是嚴重的資訊安全漏洞與錯誤習慣 [3]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①利用帳密機制管理：錯誤，這是正確的存取控制作法 [3]。</li>
+                        <li class="wrong-opt">②規範不同人員的權限範圍：錯誤，這是符合權限最小化原則的安全作法 [3]。</li>
+                        <li class="wrong-opt">③使用完畢立即退出應用程式：錯誤，這是防止他人趁機操作的良好習慣 [3]。</li>
+                        <li class="correct-opt">④將密碼標示在螢幕下方：正確，這是資安大忌，非安全的做法 [3]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第09題 -->
+    <div class="card">
+        <div class="theme-badge">主題：個人資料保護法 - 國際傳輸</div>
+        <div class="question">9. 下列何者行為非屬個人資料保護法所稱之國際傳輸？</div>
+        <div class="options">
+            <div class="option">①將個人資料傳送給地方政府</div>
+            <div class="option">②將個人資料傳送給美國的分公司</div>
+            <div class="option">③將個人資料傳送給法國的人事部門</div>
+            <div class="option">④將個人資料傳送給日本的委託公司</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《個人資料保護法》第2條之定義，「國際傳輸」係指將個人資料作跨國（境）之處理或利用。傳送資料給本國的地方政府，資料並未跨越國境，屬於國內傳輸 [3]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①傳送給地方政府：正確，因為未跨越國境，非屬國際傳輸 [3]。</li>
+                        <li class="wrong-opt">②傳送給美國的分公司：錯誤，已跨國，屬國際傳輸 [3]。</li>
+                        <li class="wrong-opt">③傳送給法國的人事部門：錯誤，已跨國，屬國際傳輸 [3]。</li>
+                        <li class="wrong-opt">④傳送給日本的委託公司：錯誤，已跨國，屬國際傳輸 [3]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第10題 -->
+    <div class="card">
+        <div class="theme-badge">主題：智慧財產權 - 商標權</div>
+        <div class="question">10. 有關智慧財產權行為之敘述，下列何者有誤？</div>
+        <div class="options">
+            <div class="option">①製造、販售仿冒註冊商標的商品雖已侵害商標權，但不屬於公訴罪之範疇</div>
+            <div class="option">②以 101 大樓、美麗華百貨公司做為拍攝電影的背景，屬於合理使用的範圍</div>
+            <div class="option">③原作者自行創作某音樂作品後，即可宣稱擁有該作品之著作權</div>
+            <div class="option">④著作權是為促進文化發展為目的，所保護的財產權之一</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>我國《商標法》中對於惡意製造或販賣仿冒品的行為，因其嚴重妨害市場交易與工商秩序，故定為非告訴乃論之罪（俗稱公訴罪），檢察官可主動偵辦，無須商標權人提告才能追究 [3]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①仿冒商標不屬公訴罪：正確，此敘述有誤，商標侵權依法屬非告訴乃論（公訴罪） [3]。</li>
+                        <li class="wrong-opt">②作為電影背景屬合理使用：錯誤，此敘述正確，戶外建築地標作為背景入鏡通常符合著作權法之合理使用 [3]。</li>
+                        <li class="wrong-opt">③創作完成即擁有著作權：錯誤，此敘述正確，我國著作權採創作保護主義 [3]。</li>
+                        <li class="wrong-opt">④著作權目的為促進文化發展：錯誤，此敘述為著作權法第1條之立法宗旨 [3]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第11題 -->
+    <div class="card">
+        <div class="theme-badge">主題：智慧財產權 - 專利權期限</div>
+        <div class="question">11. 專利權又可區分為發明、新型與設計三種專利權，其中發明專利權是否有保護期限？期限為何？</div>
+        <div class="options">
+            <div class="option">①有，5 年</div>
+            <div class="option">②有，20 年</div>
+            <div class="option">③有，50 年</div>
+            <div class="option">④無期限，只要申請後就永久歸申請人所有</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依我國《專利法》規定，專利權制度是給予發明人一定期間的專屬權利以換取技術公開。發明專利權期限，自申請日起算20年屆滿；新型為10年；設計為15年。並非永久保護 [4]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①有，5 年：錯誤，期限過短 [4]。</li>
+                        <li class="correct-opt">②有，20 年：正確，發明專利期限為申請日起算20年 [4]。</li>
+                        <li class="wrong-opt">③有，50 年：錯誤，此為著作財產權的一般存續期間基準 [4]。</li>
+                        <li class="wrong-opt">④無期限：錯誤，專利皆有法定期限以平衡公共利益 [4]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第12題 -->
+    <div class="card">
+        <div class="theme-badge">主題：智慧財產權 - 著作人歸屬</div>
+        <div class="question">12. 受僱人於職務上所完成之著作，如果沒有特別以契約約定，其著作人為下列何者？</div>
+        <div class="options">
+            <div class="option">①雇用人</div>
+            <div class="option">②受僱人</div>
+            <div class="option">③雇用公司或機關法人代表</div>
+            <div class="option">④由雇用人指定之自然人或法人</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：②</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《著作權法》第11條規定，受雇人於職務上完成之著作，以該受雇人為著作人（享有著作人格權）。但契約約定以雇用人為著作人者，從其約定。故在沒有特別約定的情況下，法律保障實際創作者（受僱人）為著作人 [4]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①雇用人：錯誤，需有特別約定才能以雇用人為著作人 [4]。</li>
+                        <li class="correct-opt">②受僱人：正確，無約定時以實際創作者（受僱人）為著作人 [4]。</li>
+                        <li class="wrong-opt">③雇用公司或機關法人代表：錯誤，非法律預設之著作人 [4]。</li>
+                        <li class="wrong-opt">④由雇用人指定：錯誤，不能單方指定，需雙方約定 [4]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第13題 -->
+    <div class="card">
+        <div class="theme-badge">主題：智慧財產權 - 著作財產權歸屬</div>
+        <div class="question">13. 任職於某公司的程式設計工程師，因職務所編寫之電腦程式，如果沒有特別以契約約定，則該電腦程式之著作財產權歸屬下列何者？</div>
+        <div class="options">
+            <div class="option">①公司</div>
+            <div class="option">②編寫程式之工程師</div>
+            <div class="option">③公司全體股東共有</div>
+            <div class="option">④公司與編寫程式之工程師共有</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>承續《著作權法》第11條規定，受雇人於職務上完成之著作，雖然預設以受雇人為「著作人」，但是「著作財產權」依法預設是歸「雇用人」（即公司）享有。這是因為公司提供了薪資與資源供其研發 [4]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①公司：正確，職務著作之財產權依法預設歸雇用人享有 [4]。</li>
+                        <li class="wrong-opt">②編寫程式之工程師：錯誤，工程師享有的是著作人格權，非財產權 [4]。</li>
+                        <li class="wrong-opt">③公司全體股東共有：錯誤，權利屬於法人主體（公司），非股東個人共有 [4]。</li>
+                        <li class="wrong-opt">④共有：錯誤，未約定時權利專屬於公司 [4]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第14題 -->
+    <div class="card">
+        <div class="theme-badge">主題：智慧財產權 - 侵權責任</div>
+        <div class="question">14. 某公司員工因執行業務，擅自以重製之方法侵害他人之著作財產權，若被害人提起告訴，下列對於處罰對象的敘述，何者正確？</div>
+        <div class="options">
+            <div class="option">①僅處罰侵犯他人著作財產權之員工</div>
+            <div class="option">②僅處罰雇用該名員工的公司</div>
+            <div class="option">③該名員工及其雇主皆須受罰</div>
+            <div class="option">④員工只要在從事侵犯他人著作財產權之行為前請示雇主並獲同意，便可以不受處罰</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《著作權法》第101條針對法人或自然人併罰的規定，受雇人因執行業務犯侵害著作權之罪者，除了處罰實際進行侵權行為的受雇人之外，對於雇用該員工的公司（法人）亦會科以罰金。即採取「兩罰制」 [4]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①僅處罰員工：錯誤，雇主亦須負連帶責任 [4]。</li>
+                        <li class="wrong-opt">②僅處罰公司：錯誤，實際侵權之行為人(員工)仍有刑責 [4]。</li>
+                        <li class="correct-opt">③員工及其雇主皆須受罰：正確，符合著作權法之法人併罰規定 [4]。</li>
+                        <li class="wrong-opt">④請示雇主便可免責：錯誤，違法侵權行為不會因為雇主同意就合法免責 [4]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第15題 -->
+    <div class="card">
+        <div class="theme-badge">主題：智慧財產權 - 專利權歸屬</div>
+        <div class="question">15. 受僱人於職務上所完成之發明、新型或設計，其專利申請權及專利權如未特別約定屬於下列何者？</div>
+        <div class="options">
+            <div class="option">①雇用人</div>
+            <div class="option">②受僱人</div>
+            <div class="option">③雇用人所指定之自然人或法人</div>
+            <div class="option">④雇用人與受僱人共有</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依我國《專利法》第7條規定，受雇人於職務上所完成之發明、新型或設計，因係利用雇主的資源與薪資所完成，其專利申請權及專利權依法預設屬於「雇用人」。當然，若雙方契約另有約定，則從其約定 [4, 5]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①雇用人：正確，法定預設歸屬於雇用人 [4, 5]。</li>
+                        <li class="wrong-opt">②受僱人：錯誤，受僱人僅享有姓名表示權，專利權預屬雇用人 [4, 5]。</li>
+                        <li class="wrong-opt">③雇用人指定之人：錯誤，法律無此自動移轉之規定 [4, 5]。</li>
+                        <li class="wrong-opt">④共有：錯誤，除非特別約定，否則預設由雇用人單獨取得 [4, 5]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第16題 -->
+    <div class="card">
+        <div class="theme-badge">主題：智慧財產權 - 專利權歸屬約定</div>
+        <div class="question">16. 任職大發公司的郝聰明，專門從事技術研發，有關研發技術的專利申請權及專利權歸屬，下列敘述何者錯誤？</div>
+        <div class="options">
+            <div class="option">①職務上所完成的發明，除契約另有約定外，專利申請權及專利權屬於大發公司</div>
+            <div class="option">②職務上所完成的發明，雖然專利申請權及專利權屬於大發公司，但是郝聰明享有姓名表示權</div>
+            <div class="option">③郝聰明完成非職務上的發明，應即以書面通知大發公司</div>
+            <div class="option">④大發公司與郝聰明之雇傭契約約定，郝聰明非職務上的發明，全部屬於公司，約定有效</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《專利法》第8條規定，受雇人完成「非職務上」之發明，其專利申請權及專利權歸屬於「受雇人」。為保障發明人權益，同條文明定：若雇主與員工簽訂契約，約定員工「非職務上發明」也全歸公司所有，該約定依法是無效的（俗稱霸王條款無效） [5]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①職務發明歸公司：錯誤，此敘述符合專利法規定 [5]。</li>
+                        <li class="wrong-opt">②發明人享有姓名表示權：錯誤，此敘述完全正確，尊重發明人人格權 [5]。</li>
+                        <li class="wrong-opt">③非職務發明應書面通知公司：錯誤，此亦為正確敘述，以便公司判斷是否動用公司資源 [5]。</li>
+                        <li class="correct-opt">④約定非職務發明全歸公司屬有效：正確，此選項敘述有誤，法律明定此類契約條款無效 [5]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第17題 -->
+    <div class="card">
+        <div class="theme-badge">主題：智慧財產權 - 著作權保護客體</div>
+        <div class="question">17. 有關著作權的敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①我們到表演場所觀看表演時，不可隨便錄音或錄影</div>
+            <div class="option">②到攝影展上，拿相機拍攝展示的作品，分贈給朋友，是侵害著作權的行為</div>
+            <div class="option">③網路上供人下載的免費軟體，都不受著作權法保護，所以我可以燒成大補帖光碟，再去賣給別人</div>
+            <div class="option">④高普考試題，不受著作權法保護</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>網路上提供免費下載的軟體（Freeware 或 Open Source）依然受到《著作權法》的保護。作者只是免費授權一般人使用，並未放棄著作財產權，擅自將其重製成光碟並販售營利，已經嚴重侵害原作者的重製權與散布權 [5]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①不可隨便錄音錄影：錯誤，此敘述正確，擅自錄影侵害重製權 [5]。</li>
+                        <li class="wrong-opt">②拍攝展示品分贈屬侵權：錯誤，此敘述正確，未經同意重製散布屬侵權 [5]。</li>
+                        <li class="correct-opt">③免費軟體不受保護可販賣：正確，此敘述錯誤，免費軟體仍受完整著作權保護 [5]。</li>
+                        <li class="wrong-opt">④考試題不受保護：錯誤，此敘述正確，依著作權法第9條，依法令舉行之各類考試試題不得為著作權之標的 [5]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第18題 -->
+    <div class="card">
+        <div class="theme-badge">主題：智慧財產權 - 網路著作權</div>
+        <div class="question">18. 有關著作權的敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①撰寫碩博士論文時，在合理範圍內引用他人的著作，只要註明出處，不會構成侵害著作權</div>
+            <div class="option">②在網路散布盜版光碟，不管有沒有營利，會構成侵害著作權</div>
+            <div class="option">③在網路的部落格看到一篇文章很棒，只要註明出處，就可以把文章複製在自己的部落格</div>
+            <div class="option">④將補習班老師的上課內容錄音檔，放到網路上拍賣，會構成侵害著作權</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>「註明出處」並非免死金牌！將他人文章「全文複製」到自己的部落格，已經逾越了《著作權法》第52條的「合理引用」範圍，侵害了原作者的重製權與公開傳輸權，必須取得原作者的授權才能轉載 [5, 6]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①合理範圍內引用並註明出處合法：錯誤，此為正確敘述，符合合理使用規範 [5, 6]。</li>
+                        <li class="wrong-opt">②散布盜版不論是否營利皆侵權：錯誤，此為正確敘述，散布侵權物即觸法 [5, 6]。</li>
+                        <li class="correct-opt">③註明出處即可全文複製：正確，此敘述錯誤，全文複製不屬合理使用 [5, 6]。</li>
+                        <li class="wrong-opt">④上課錄音上網拍賣侵權：錯誤，此為正確敘述，侵害語文著作之重製與散布權 [5, 6]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第19題 -->
+    <div class="card">
+        <div class="theme-badge">主題：智慧財產權 - 商標侵權</div>
+        <div class="question">19. 有關商標權的敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①要取得商標權一定要申請商標註冊</div>
+            <div class="option">②商標註冊後可取得 10 年商標權</div>
+            <div class="option">③商標註冊後，3 年不使用，會被廢止商標權</div>
+            <div class="option">④在夜市買的仿冒品，品質不好，上網拍賣，不會構成侵權</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依據《商標法》規定，未經商標權人同意而販賣標示相同或近似商標的仿冒品，無論商品的品質好壞，只要有販售或意圖販售之行為，即構成商標權之侵害，須面臨相關民刑事責任 [6]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①取得商標須註冊：錯誤，此為正確敘述，我國採註冊保護主義 [6]。</li>
+                        <li class="wrong-opt">②註冊後取得10年商標權：錯誤，此為正確敘述，期滿可延展 [6]。</li>
+                        <li class="wrong-opt">③3年不使用可被廢止：錯誤，此為正確的商標法廢止事由 [6]。</li>
+                        <li class="correct-opt">④品質差的仿冒品拍賣不侵權：正確，此敘述錯誤，只要是仿冒品即構成侵權 [6]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第20題 -->
+    <div class="card">
+        <div class="theme-badge">主題：營業秘密法 - 權利歸屬</div>
+        <div class="question">20. 有關營業秘密的敘述，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①受雇人於非職務上研究或開發之營業秘密，仍歸雇用人所有</div>
+            <div class="option">②營業秘密不得為質權及強制執行之標的</div>
+            <div class="option">③營業秘密所有人得授權他人使用其營業秘密</div>
+            <div class="option">④營業秘密得全部或部分讓與他人或與他人共有</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《營業秘密法》第4條規定，受雇人於「非職務上」研究或開發之營業秘密，其權利歸屬應為「受雇人」自己所有，而非雇用人。此規定旨在保障員工在工作職責外的個人創作與研發成果 [6]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①非職務開發歸雇用人：正確，此敘述錯誤，依法應歸受雇人所有 [6]。</li>
+                        <li class="wrong-opt">②不得為質權及強制執行標的：錯誤，此為正確敘述，營業秘密性質特殊不得設質 [6]。</li>
+                        <li class="wrong-opt">③得授權他人使用：錯誤，此為正確敘述 [6]。</li>
+                        <li class="wrong-opt">④得讓與或共有：錯誤，此為正確敘述，可作為交易客體 [6]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第21題 -->
+    <div class="card">
+        <div class="theme-badge">主題：營業秘密法 - 授權限制</div>
+        <div class="question">21. 甲公司將其新開發受營業秘密法保護之技術，授權乙公司使用，下列何者錯誤？</div>
+        <div class="options">
+            <div class="option">①乙公司已獲授權，所以可以未經甲公司同意，再授權丙公司使用</div>
+            <div class="option">②約定授權使用限於一定之地域、時間</div>
+            <div class="option">③約定授權使用限於特定之內容、一定之使用方法</div>
+            <div class="option">④要求被授權人乙公司在一定期間負有保密義務</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：①</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《營業秘密法》第7條規定，營業秘密之被授權人，非經營業秘密所有人同意，不得將其獲授權之營業秘密「再授權」第三人使用。因此乙公司無權擅自轉授權給丙公司 [6]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="correct-opt">①可未經同意再授權丙公司：正確，此敘述錯誤，必須經過原權利人(甲公司)同意 [6]。</li>
+                        <li class="wrong-opt">②授權可限於特定地域/時間：錯誤，此為正確合法的授權契約內容 [6]。</li>
+                        <li class="wrong-opt">③授權可限於特定內容/方法：錯誤，此為正確合法的限制範圍 [6]。</li>
+                        <li class="wrong-opt">④要求被授權人負保密義務：錯誤，此為保護營業秘密必要的合理手段 [6]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第22題 -->
+    <div class="card">
+        <div class="theme-badge">主題：營業秘密法 - 侵權行為</div>
+        <div class="question">22. 甲公司嚴格保密之最新配方產品大賣，下列何者侵害甲公司之營業秘密？</div>
+        <div class="options">
+            <div class="option">①鑑定人 A 因司法審理而知悉配方</div>
+            <div class="option">②甲公司授權乙公司使用其配方</div>
+            <div class="option">③甲公司之 B 員工擅自將配方盜賣給乙公司</div>
+            <div class="option">④甲公司與乙公司協議共有配方</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>《營業秘密法》第10條列舉之侵權行為包含以竊取、詐欺、脅迫、賄賂、擅自重製、違反保密義務等不正當方法取得、洩漏或使用營業秘密。員工擅自盜賣公司配方牟利，為最典型的違法洩密與侵權行為 [6, 7]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①因司法審理而知悉：錯誤，此屬依法令執行職務，且鑑定人依法亦有保密義務，非惡意侵權 [6, 7]。</li>
+                        <li class="wrong-opt">②合法授權：錯誤，此為合法商業行為 [6, 7]。</li>
+                        <li class="correct-opt">③員工盜賣配方：正確，此為明顯違反保密義務及以不正當方法侵害營業秘密 [6, 7]。</li>
+                        <li class="wrong-opt">④協議共有：錯誤，雙方合意處分權利屬合法行為 [6, 7]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第23題 -->
+    <div class="card">
+        <div class="theme-badge">主題：營業秘密法 - 損害賠償</div>
+        <div class="question">23. 故意侵害他人之營業秘密，法院因被害人之請求，最高得酌定損害額幾倍之賠償？</div>
+        <div class="options">
+            <div class="option">①1 倍</div>
+            <div class="option">②2 倍</div>
+            <div class="option">③3 倍</div>
+            <div class="option">④4 倍</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>依《營業秘密法》第13條第2項規定，如被害人能證明侵權行為人係「故意」為之者，法院得依被害人之請求，依侵害情節，酌定損害額以上之賠償。但其賠償額不得超過已證明損害額之「三倍」（即懲罰性賠償） [7]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①1 倍：錯誤，法定可達數倍懲罰性賠償 [7]。</li>
+                        <li class="wrong-opt">②2 倍：錯誤 [7]。</li>
+                        <li class="correct-opt">③3 倍：正確，最高為損害額的三倍 [7]。</li>
+                        <li class="wrong-opt">④4 倍：錯誤 [7]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第24題 -->
+    <div class="card">
+        <div class="theme-badge">主題：營業秘密法 - 離職保密義務</div>
+        <div class="question">24. 受雇者因承辦業務而知悉營業秘密，在離職後對於該營業秘密的處理方式，下列敘述何者正確？</div>
+        <div class="options">
+            <div class="option">①聘雇關係解除後便不再負有保障營業秘密之責</div>
+            <div class="option">②僅能自用而不得販售獲取利益</div>
+            <div class="option">③自離職日起 3 年後便不再負有保障營業秘密之責</div>
+            <div class="option">④離職後仍不得洩漏該營業秘密</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：④</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>營業秘密具有財產權性質，員工離職雖然解除勞動契約，但對於任職期間因職務知悉的公司營業秘密，依法依然負有保密義務，不得未經授權洩漏或供自己與他人不法使用，否則將觸犯營業秘密法 [7]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①離職後不負保密責任：錯誤，保密義務延續於離職之後 [7]。</li>
+                        <li class="wrong-opt">②僅能自用不得販售：錯誤，未經授權連自用都構成侵權 [7]。</li>
+                        <li class="wrong-opt">③3年後解除保密：錯誤，保密義務期限依秘密存續與否或契約約定而定，無法定自動解除年限 [7]。</li>
+                        <li class="correct-opt">④離職後不得洩漏：正確，無論何時皆不得洩漏前雇主的營業秘密 [7]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 第25題 -->
+    <div class="card">
+        <div class="theme-badge">主題：營業秘密法 - 法律責任</div>
+        <div class="question">25. 按照現行法律規定，侵害他人營業秘密，其法律責任為</div>
+        <div class="options">
+            <div class="option">①僅需負刑事責任</div>
+            <div class="option">②僅需負民事損害賠償責任</div>
+            <div class="option">③刑事責任與民事損害賠償責任皆須負擔</div>
+            <div class="option">④刑事責任與民事損害賠償責任皆不須負擔</div>
+        </div>
+        <details class="qa-details">
+            <summary>💡 點擊展開解答與解析</summary>
+            <div class="answer-panel">
+                <div class="answer-title">✅ 正確答案：③</div>
+                <div class="comprehensive-exp">
+                    <strong>【綜合解析】</strong>
+                    <p>為強化對產業技術與核心競爭力的保護，我國現行《營業秘密法》已不僅限於民事損害賠償。對於意圖獲取不法利益而竊取、擅自重製或洩漏營業秘密者，亦增訂了明確的刑事罰則。因此侵權者將面臨民事賠償與刑事刑責的雙重制裁 [7]。</p>
+                </div>
+                <div class="explanation">
+                    <span class="exp-subtitle">【各選項解析】</span>
+                    <ul class="opt-list">
+                        <li class="wrong-opt">①僅需負刑事責任：錯誤，亦須賠償被害人損失 [7]。</li>
+                        <li class="wrong-opt">②僅需負民事損害：錯誤，亦有刑事責任相伴 [7]。</li>
+                        <li class="correct-opt">③刑事與民事皆須負擔：正確，我國採雙軌並行之處罰規範 [7]。</li>
+                        <li class="wrong-opt">④皆不須負擔：錯誤，嚴重違反法治原則 [7]。</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- 漢堡選單按鈕與彈出面板 -->
+    <div id="fabBtn" class="fab-btn" title="開啟選單">☰</div>
+
+    <div id="fabMenu" class="fab-menu">
+        <div class="fab-action" onclick="scrollToTop()">▲ 回到頂部</div>
+        <div class="fab-action" onclick="forceCollapseAll()" style="color: #e74c3c;">✖ 全部收合</div>
+        <div class="fab-action" onclick="forceExpandAll()" style="color: #27ae60;">＋ 全部展開</div>
+        
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 12px 0;">
+        <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-align: center;">跳轉至指定題號</div>
+        
+        <!-- 題號按鈕會由 JavaScript 自動生成在這裡 -->
+        <div class="q-grid" id="qGrid"></div>
+    </div>
+
+<script>
+        // --- 1. 原本最上方的展開/收合按鈕 ---
+        let isExpanded = false;
+        function toggleAll() {
+            if (isExpanded) { forceCollapseAll(); } 
+            else { forceExpandAll(); }
+        }
+
+        // 強制全部展開
+        function forceExpandAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.setAttribute('open', ''));
+            isExpanded = true;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show'); // 點擊後關閉選單
+        }
+
+        // 強制全部收合
+        function forceCollapseAll() {
+            document.querySelectorAll('.qa-details').forEach(detail => detail.removeAttribute('open'));
+            isExpanded = false;
+            updateTopButton();
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+
+        function updateTopButton() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                if (isExpanded) {
+                    toggleBtn.innerText = '收合所有解析';
+                    toggleBtn.style.backgroundColor = '#e74c3c';
+                } else {
+                    toggleBtn.innerText = '展開所有解析';
+                    toggleBtn.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+// --- 2. 漢堡選單動態功能 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const fabBtn = document.getElementById('fabBtn');
+            const fabMenu = document.getElementById('fabMenu');
+            const qGrid = document.getElementById('qGrid');
+            const cards = document.querySelectorAll('.card');
+
+            // 點擊漢堡按鈕切換選單
+            fabBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fabMenu.classList.toggle('show');
+            });
+
+            // 點擊選單外部時，自動關閉選單
+            document.addEventListener('click', function(e) {
+                if (!fabMenu.contains(e.target) && e.target !== fabBtn) {
+                    fabMenu.classList.remove('show');
+                }
+            });
+
+            // 自動為每題生成 ID 與跳轉按鈕 (抓取實際題號)
+            cards.forEach((card, index) => {
+                // 1. 找到這張卡片裡面的題目文字
+                const questionElement = card.querySelector('.question');
+                let displayNum = String(index + 1); // 預設值，萬一抓不到才用流水號
+
+                if (questionElement) {
+                    // 2. 抓取題目文字 (例如 "26. 依據...")
+                    const text = questionElement.innerText;
+                    // 3. 用正規表達式抓出開頭的數字
+                    const match = text.match(/^\s*(\d+)/);
+                    if (match && match[1]) {
+                        displayNum = match[1]; // 成功抓到！把 displayNum 變成實際題號
+                    }
+                }
+
+                card.id = 'q' + displayNum; // 給題目加上 id (例如 id="q26")
+
+                const btn = document.createElement('button');
+                btn.className = 'q-grid-btn';
+                btn.innerText = displayNum; // 按鈕上顯示真實題號
+                btn.onclick = () => {
+                    // 平滑滾動到該題，留 15px 的上方間距避免貼齊邊緣
+                    const topPos = card.getBoundingClientRect().top + window.scrollY - 15;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    // 跳轉後自動關閉選單
+                    fabMenu.classList.remove('show'); 
+                };
+                qGrid.appendChild(btn);
+            });
+        });
+
+        // --- 3. 回到頂部功能 ---
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById('fabMenu').classList.remove('show');
+        }
+    </script>
+
+
+</body>
+</html>
