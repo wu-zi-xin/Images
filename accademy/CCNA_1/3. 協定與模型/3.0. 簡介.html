@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:16px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:14px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:15px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:14px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:15px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:14px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:13px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* ============================================================
+   通勤大字舒適版：提升晃動、戶外光線與短距離閱讀時的可讀性
+   ============================================================ */
+h1{font-size:30px;line-height:1.22}
+.lead{font-size:17px;line-height:1.78}
+.audio-title{font-size:15px;line-height:1.45}
+.audio-sub{font-size:12.5px;line-height:1.5}
+.inline-transcript{font-size:16px;line-height:1.85;padding:12px 12px 4px}
+.panel summary{font-size:16px;line-height:1.55;padding:14px}
+.panel-body{font-size:16px;line-height:1.82;padding:0 14px 14px}
+.choice{font-size:16px;line-height:1.55;padding:15px 16px;min-height:50px}
+.feedback{font-size:15.5px;line-height:1.7}
+.btn{font-size:16px;min-height:50px;padding:14px 16px}
+.term-zh{font-size:20px;line-height:1.4}
+.term-en{font-size:14px;line-height:1.5}
+.term-exp{font-size:16px;line-height:1.82}
+.term-transcript{font-size:16px;line-height:1.85}
+.term-play{width:44px;height:44px;flex-basis:44px}
+.term-en-play{width:30px;height:30px;flex-basis:30px;font-size:12px}
+.recall-score{font-size:14px;line-height:1.55}
+.recall-q{font-size:17px;line-height:1.65}
+.recall-choice{font-size:16px;line-height:1.55;padding:13px 14px;min-height:48px}
+.recall-feedback{font-size:15px;line-height:1.7}
+.callout{font-size:16px;line-height:1.75}
+.section-kicker{font-size:13px}
+.play{width:44px;height:44px}
+.audio{grid-template-columns:44px 1fr;padding:12px}
+@media(max-width:360px){
+  h1{font-size:27px}
+  .lead{font-size:16.5px}
+  .inline-transcript,.panel-body,.term-exp,.term-transcript,.choice,.recall-choice,.callout{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  title: "3.0 協定和模型｜簡介",
+  brand: "CCNA 通勤微課",
+  segments: [
+    {
+      eyebrow: "01 · 為什麼要學",
+      title: "連上了，為什麼還需要協定？",
+      lead: "網路元件完成設定與連接後，還需要共同規則，才能知道彼此該怎麼溝通。",
+      time: "約 60 秒",
+      visualHtml: `<div class="bigmath" style="font-size:25px;line-height:1.55;letter-spacing:0">設定＋連接<br>≠<br>一定能互通</div>`,
+      audio: [
+        {
+          title: "白話解釋 · 本模組在解決什麼？",
+          subtitle: "先抓住整章主線",
+          text: "你已經知道網路的基本元件和初始設定，但把元件接起來之後，還要有共同規則，才知道它們能不能一起運作。這些共同規則就是協定。課程也會用模型幫你把抽象的規則視覺化，理解規則在網路通訊中的位置。"
+        }
+      ],
+      panels: [
+        { title: "來源重點", kind: "note", body: "影片 3.0.1 的核心是：協定是由標準組織訂立的規則集；模型用來協助視覺化規則，以及理解規則在網路中的位置。" },
+        { title: "為什麼模型有用？", kind: "why", body: "規則本身是抽象的，不像設備可以直接拿起來觀察。影片用『模型』作為理解工具，幫助學習者掌握協定與實際網路運作之間的關係。" }
+      ],
+      quiz: {
+        prompt: "依影片介紹，哪一個最直接代表網路通訊中的『共同規則』？",
+        choices: [
+          { label: "A　協定（Protocol）", correct: true },
+          { label: "B　網路線長度", correct: false },
+          { label: "C　螢幕解析度", correct: false }
+        ],
+        correctText: "✅ 對。影片把協定描述為網路元件遵循的共同規則。",
+        wrongText: "提示：想想影片中『由標準組織訂立的規則集』指的是什麼。"
+      }
+    },
+    {
+      eyebrow: "02 · 學習地圖",
+      title: "這一章會學到哪些內容？",
+      lead: "先知道整章的範圍，後面遇到每個名詞時會比較容易放回正確位置。",
+      time: "約 75 秒",
+      visualHtml: `<div class="callout"><b>主題標題：</b>協定和模型<br><b>主題目標：</b>說明網路通訊協定如何讓裝置存取本機和遠端網路資源。</div>
+      <div class="callout" style="margin-top:8px"><b>本章 7 個主題：</b><br>規則 · Protocols · 協定族 · 標準組織 · 參考模型 · 數據封裝 · 資料存取</div>`,
+      audio: [
+        {
+          title: "導覽語音 · 先看全貌",
+          subtitle: "這一段只建立學習地圖",
+          text: "這個主題叫做協定和模型。影片列出的學習內容包括規則、Protocols，也就是協定、協定族、標準組織、參考模型、數據封裝，以及資料存取。參考模型的部分會使用 TCP/IP 模型和 OSI 模型來說明標準化的通訊過程。"
+        }
+      ],
+      panels: [
+        { title: "各主題的課程目標", kind: "detail", body: "規則：描述規則的類型必須成功溝通。<br><br>Protocols：解釋為什麼協議在網路通信中是必要的。<br><br>協定族：解釋堅持協議套件的目的。<br><br>標準組織：解釋標準組織在建立協議方面的作用與網路互通性。<br><br>參考模型：說明如何使用 TCP/IP 模型和 OSI 模型來促進標準化的溝通過程。<br><br>數據封裝：解釋數據封裝如何允許數據透過資訊。<br><br>資料存取：解釋本地主機如何訪問網路上的本地資源。" }
+      ]
+    },
+    {
+      eyebrow: "03 · 課堂活動",
+      title: "語言不通，怎麼把車修對？",
+      lead: "Cisco 用一個非網路情境，讓你先體驗『沒有共同規則就很難正確溝通』。",
+      time: "約 60 秒",
+      visualHtml: `<div class="callout"><b>情境：</b>你買了一輛新車，使用約一週後發現運作不正常。附近唯一、而且朋友高度推薦的維修廠裡，所有技師都說另一種語言。</div>`,
+      audio: [
+        {
+          title: "情境語音 · 先抓住問題",
+          subtitle: "不是考修車，是考溝通",
+          text: "你需要把車修好，但你和維修技師語言不通，而且不確定車子是否還能安全開回家另找方法。活動要求你想出一種和維修廠合作的方式，確保你的汽車可以被正確修理。真正的挑戰是：雙方要怎麼建立一套可以互相理解的溝通方式。"
+        }
+      ],
+      quiz: {
+        prompt: "哪一個做法最符合這個活動真正要你解決的問題？",
+        choices: [
+          { label: "A　直接猜技師想表達什麼", correct: false },
+          { label: "B　建立雙方都能理解的溝通方式，並確認維修需求", correct: true },
+          { label: "C　只告訴技師『車壞了』就離開", correct: false }
+        ],
+        correctText: "✅ 沒錯。題目要求的是設計一個 communications model，讓維修需求能被正確理解與執行。",
+        wrongText: "提示：題目的關鍵字是『ensure your automobile is fixed correctly』。"
+      },
+      panels: [
+        { title: "活動原始任務", kind: "note", body: "你必須找到和維修廠合作的方法，確保汽車被正確修好。題目接著問：你將如何與技師溝通？請設計一個 communications model。" }
+      ]
+    },
+    {
+      eyebrow: "04 · 設計通訊模型",
+      title: "把『我想修好車』變成可確認的訊息",
+      lead: "下面是一個依活動題意整理的參考作法；它不是 Cisco 題目唯一指定的標準答案。",
+      time: "約 90 秒",
+      visualHtml: `<div class="bigmath" style="font-size:20px;line-height:1.7;letter-spacing:0;text-align:left;padding-left:18px">① 確定要傳達的問題<br>② 建立共同表達方式<br>③ 傳達可觀察到的症狀<br>④ 讓對方重述／指出理解<br>⑤ 雙方確認維修要求</div>`,
+      audio: [
+        {
+          title: "解題語音 · 一個可行模型",
+          subtitle: "從活動要求反推步驟",
+          text: "一個可行的做法，是先明確整理你要傳達的問題，再和技師建立雙方都能理解的表達方式，例如翻譯、圖片、手勢或示範。接著描述你實際觀察到的汽車症狀，而不是只說它壞了。最後，請技師用可理解的方式重述或指出他理解到的問題，再由雙方確認維修要求。這個流程的重點是降低誤解，並且加入確認。"
+        }
+      ],
+      panels: [
+        { title: "為什麼要有『確認』？", kind: "why", body: "如果只有『送出訊息』，你仍不知道對方是否理解正確。依活動『確保汽車被正確修好』的要求，溝通模型必須能檢查雙方是否對維修需求有共同理解。" },
+        { title: "反思題參考答案", kind: "detail", body: "重要步驟可以包括：先界定要表達的車況問題、選擇雙方都能理解的溝通方式、提供具體症狀、讓技師回覆他理解的內容、最後再次確認維修要求。理由是這些步驟能降低語言差異造成的訊息遺失或誤解。這是依題意整理的參考作法，不是題目明定的唯一答案。" }
+      ],
+      quiz: {
+        prompt: "如果你只能在模型裡再加入一個動作，哪個最能降低『雙方以為自己講懂了，其實理解不同』的風險？",
+        choices: [
+          { label: "A　請對方重述／指出他理解的維修需求", correct: true },
+          { label: "B　把同一句話講得更大聲", correct: false },
+          { label: "C　完全不確認，直接開始維修", correct: false }
+        ],
+        correctText: "✅ 對。回覆與確認能檢查訊息是否真的被正確理解。",
+        wrongText: "提示：要降低誤解，關鍵不是『送更多訊息』，而是確認對方理解到什麼。"
+      }
+    },
+    {
+      eyebrow: "05 · 收尾",
+      title: "這段簡介真正要帶走什麼？",
+      lead: "影片還沒開始深入講每一種協定；這一段只先建立整章的學習方向。",
+      time: "約 45 秒",
+      visualHtml: `<div class="bigmath" style="font-size:22px;line-height:1.65;letter-spacing:0">共同規則 → 協定<br>理解規則位置 → 模型<br>確保理解一致 → 溝通確認</div>`,
+      audio: [
+        {
+          title: "總複習語音",
+          subtitle: "下車前再聽一次",
+          text: "今天先記住三件事。第一，網路元件要成功溝通，需要共同規則，也就是協定。第二，模型可以幫助我們理解抽象規則和它們在網路中的位置。第三，Cisco 的修車活動提醒我們，有效溝通不只要把訊息送出去，還要建立共同表達方式並確認對方理解正確。後續章節才會繼續深入規則、協定族、標準組織、TCP/IP 與 OSI 模型、數據封裝和資料存取。"
+        }
+      ],
+      panels: [
+        { title: "本課文字摘要", kind: "note", open: true, body: "本微課依 3.0 簡介影片畫面與附加的 Cisco Class Activity 重新組織。影片本身是簡介，因此這裡不提前補充後續章節尚未教到的技術細節。" }
+      ]
+    }
+  ],
+
+  glossary: [
+    {
+      zh: "協定",
+      en: "Protocol",
+      explanation: "影片把協定描述成共同遵循的規則；有了協定，網路元件才有一致的溝通方式。",
+      audioText: "協定，英文是 Protocol。影片把協定描述成共同遵循的規則；有了協定，網路元件才有一致的溝通方式。",
+      enAudioText: "Protocol"
+    },
+    {
+      zh: "協定族",
+      en: "Protocol Suite",
+      explanation: "本章學習地圖中的一個主題，後續會說明為什麼要遵循一組相互配合的協定。",
+      audioText: "協定族，英文是 Protocol Suite。它是本章學習地圖中的一個主題，後續會說明為什麼要遵循一組相互配合的協定。",
+      enAudioText: "Protocol Suite"
+    },
+    {
+      zh: "標準組織",
+      en: "Standards Organization",
+      explanation: "影片指出協定規則由標準組織訂立；本章也會談標準組織與網路互通性的關係。",
+      audioText: "標準組織，英文是 Standards Organization。影片指出協定規則由標準組織訂立；本章也會談標準組織與網路互通性的關係。",
+      enAudioText: "Standards Organization"
+    },
+    {
+      zh: "參考模型",
+      en: "Reference Model",
+      explanation: "用來協助視覺化抽象規則與通訊過程；影片列出 TCP/IP 模型和 OSI 模型。",
+      audioText: "參考模型，英文是 Reference Model。它用來協助視覺化抽象規則與通訊過程；影片列出 TCP/IP 模型和 OSI 模型。",
+      enAudioText: "Reference Model"
+    },
+    {
+      zh: "TCP/IP 模型",
+      en: "TCP/IP Model",
+      explanation: "影片在參考模型的學習目標中明確列出的模型之一。",
+      audioText: "TCP/IP 模型，英文是 TCP/IP Model。它是影片在參考模型學習目標中明確列出的模型之一。",
+      enAudioText: "TCP/IP Model"
+    },
+    {
+      zh: "OSI 模型",
+      en: "OSI Model",
+      explanation: "影片在參考模型的學習目標中明確列出的另一個模型。",
+      audioText: "OSI 模型，英文是 OSI Model。它是影片在參考模型學習目標中明確列出的另一個模型。",
+      enAudioText: "O S I Model"
+    },
+    {
+      zh: "數據封裝",
+      en: "Data Encapsulation",
+      explanation: "本章後續主題之一；這支簡介只列出它是學習內容，尚未展開技術細節。",
+      audioText: "數據封裝，英文是 Data Encapsulation。它是本章後續主題之一；這支簡介只列出它是學習內容，尚未展開技術細節。",
+      enAudioText: "Data Encapsulation"
+    },
+    {
+      zh: "資料存取",
+      en: "Data Access",
+      explanation: "本章後續主題之一；簡介把它放在裝置存取本機與遠端網路資源的學習脈絡中。",
+      audioText: "資料存取，英文是 Data Access。它是本章後續主題之一；簡介把它放在裝置存取本機與遠端網路資源的學習脈絡中。",
+      enAudioText: "Data Access"
+    }
+  ],
+
+  termQuiz: [
+    {
+      question: "「協定」的英文名稱是哪一個？",
+      choices: [
+        { label: "Protocol", correct: true },
+        { label: "Reference Model", correct: false },
+        { label: "Data Access", correct: false }
+      ],
+      correctText: "對，協定就是 Protocol。",
+      wrongText: "回想第一段：共同遵循的規則叫做什麼？"
+    },
+    {
+      question: "Protocol Suite 對應哪一個中文術語？",
+      choices: [
+        { label: "協定族", correct: true },
+        { label: "標準組織", correct: false },
+        { label: "資料存取", correct: false }
+      ],
+      correctText: "沒錯，Protocol Suite 對應協定族。",
+      wrongText: "提示：Suite 有『一組』的概念，回想本章的主題清單。"
+    },
+    {
+      question: "哪一個術語最符合『訂立協定規則，並與網路互通性有關』？",
+      choices: [
+        { label: "標準組織", correct: true },
+        { label: "資料存取", correct: false },
+        { label: "數據封裝", correct: false }
+      ],
+      correctText: "對，影片把協定規則和標準組織連在一起。",
+      wrongText: "回想 3.0.1：協定是由哪一類組織訂立的規則集？"
+    },
+    {
+      question: "Reference Model 的中文是哪一個？",
+      choices: [
+        { label: "參考模型", correct: true },
+        { label: "協定族", correct: false },
+        { label: "資料存取", correct: false }
+      ],
+      correctText: "對，Reference Model 就是參考模型。",
+      wrongText: "提示：TCP/IP 和 OSI 在影片中被放在哪一類模型之下？"
+    },
+    {
+      question: "影片列出的參考模型之一是哪一個？",
+      choices: [
+        { label: "TCP/IP Model", correct: true },
+        { label: "Repair Model", correct: false },
+        { label: "Screen Model", correct: false }
+      ],
+      correctText: "對，TCP/IP Model 是影片明確列出的參考模型之一。",
+      wrongText: "回想 3.0.2 的『參考模型』那一列。"
+    },
+    {
+      question: "OSI Model 對應哪一個中文名稱？",
+      choices: [
+        { label: "OSI 模型", correct: true },
+        { label: "協定族", correct: false },
+        { label: "標準組織", correct: false }
+      ],
+      correctText: "沒錯，OSI Model 就是 OSI 模型。",
+      wrongText: "這題是中英配對，回想 TCP/IP 旁邊另一個模型名稱。"
+    },
+    {
+      question: "Data Encapsulation 對應哪一個本章主題？",
+      choices: [
+        { label: "數據封裝", correct: true },
+        { label: "資料存取", correct: false },
+        { label: "參考模型", correct: false }
+      ],
+      correctText: "對，Data Encapsulation 對應數據封裝。",
+      wrongText: "提示：Encapsulation 在本章主題清單中對應『封裝』。"
+    },
+    {
+      question: "「資料存取」的英文名稱是哪一個？",
+      choices: [
+        { label: "Data Access", correct: true },
+        { label: "Protocol Suite", correct: false },
+        { label: "Reference Model", correct: false }
+      ],
+      correctText: "對，資料存取就是 Data Access。",
+      wrongText: "回想本章最後一個主題的中英配對。"
+    }
+  ],
+
+  recallQuiz: [
+    {
+      question: "3.0.1 為什麼說只完成網路元件的設定與連接還不夠？",
+      choices: [
+        { label: "因為元件還需要共同遵循的溝通規則", correct: true },
+        { label: "因為所有設備都必須是同一品牌", correct: false },
+        { label: "因為每台設備都必須使用相同螢幕", correct: false }
+      ],
+      correctText: "對。這就是影片用協定帶出的核心問題。",
+      wrongText: "回想第一段：『設定＋連接』之後，還缺少什麼？"
+    },
+    {
+      question: "影片為什麼接著介紹『模型』？",
+      choices: [
+        { label: "幫助視覺化抽象規則及其在網路中的位置", correct: true },
+        { label: "用來取代所有網路設備", correct: false },
+        { label: "只用來計算網路線長度", correct: false }
+      ],
+      correctText: "沒錯。模型是理解抽象規則與通訊過程的工具。",
+      wrongText: "提示：規則看不見，所以影片需要一種方法幫你『看懂』它。"
+    },
+    {
+      question: "修車活動中，真正需要設計的是什麼？",
+      choices: [
+        { label: "一套能讓雙方互相理解並確認維修需求的溝通模型", correct: true },
+        { label: "新的汽車引擎", correct: false },
+        { label: "更大的維修廠", correct: false }
+      ],
+      correctText: "對。活動要求你設計 communications model，確保汽車被正確修理。",
+      wrongText: "回想題目最後一句：Design a communications model。"
+    },
+    {
+      question: "依本微課的參考作法，哪個動作最能確認對方沒有誤解？",
+      choices: [
+        { label: "請對方重述或指出他理解的需求，再由雙方確認", correct: true },
+        { label: "只把同一句話重複很多次", correct: false },
+        { label: "完全省略回覆與確認", correct: false }
+      ],
+      correctText: "對。確認是把『訊息已送出』變成『理解已核對』的關鍵。",
+      wrongText: "提示：題目要的是降低誤解，而不是增加單向訊息量。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

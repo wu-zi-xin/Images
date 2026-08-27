@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:16px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:14px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:15px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:14px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:15px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:14px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:13px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* ===== 通勤大字舒適版：閱讀與觸控優化 ===== */
+h1{
+  font-size:30px;
+  line-height:1.28;
+}
+.lead{
+  font-size:17px;
+  line-height:1.75;
+}
+.callout{
+  font-size:16px;
+  line-height:1.75;
+}
+.audio{
+  grid-template-columns:46px 1fr;
+  gap:11px;
+  padding:13px;
+}
+.play{
+  width:46px;
+  height:46px;
+  min-width:46px;
+  min-height:46px;
+}
+.audio-title{
+  font-size:15px;
+}
+.audio-sub{
+  font-size:12.5px;
+}
+.inline-transcript{
+  font-size:16px;
+  line-height:1.82;
+  padding:12px 12px 3px;
+}
+.inline-transcript::before{
+  font-size:11.5px;
+}
+.panel summary{
+  font-size:16px;
+  line-height:1.55;
+  padding:14px 14px;
+}
+.panel-body{
+  font-size:16px;
+  line-height:1.82;
+  padding:0 14px 14px;
+}
+.choice{
+  font-size:16px;
+  line-height:1.55;
+  padding:15px 16px;
+  min-height:48px;
+}
+.feedback{
+  font-size:16px;
+  line-height:1.7;
+}
+.btn{
+  font-size:16px;
+  min-height:50px;
+  padding:14px 16px;
+}
+.term-zh{
+  font-size:20px;
+}
+.term-en{
+  font-size:14px;
+  line-height:1.5;
+}
+.term-en-play{
+  width:30px;
+  height:30px;
+  flex-basis:30px;
+  font-size:12px;
+}
+.term-play{
+  width:46px;
+  height:46px;
+  flex-basis:46px;
+}
+.term-exp{
+  font-size:16px;
+  line-height:1.8;
+}
+.term-transcript{
+  font-size:16px;
+  line-height:1.82;
+}
+.term-transcript::before{
+  font-size:11.5px;
+}
+.recall-score{
+  font-size:14px;
+}
+.recall-q{
+  font-size:16px;
+  line-height:1.65;
+}
+.recall-choice{
+  font-size:16px;
+  line-height:1.55;
+  padding:13px 14px;
+  min-height:48px;
+}
+.recall-feedback{
+  font-size:16px;
+  line-height:1.7;
+}
+.chapter-name{
+  font-size:14px;
+  line-height:1.5;
+}
+.chapter-kicker,
+.chapter-nav-count,
+.chapter-num{
+  font-size:11.5px;
+}
+.section-kicker,
+.assist-label,
+.eyebrow{
+  font-size:13px;
+}
+.tiny{
+  font-size:12.5px;
+  line-height:1.6;
+}
+
+/* visualHtml 中原本偏小的學習文字同步放大 */
+.visual span[style*="font-size:11px"],
+.visual div[style*="font-size:11px"],
+.visual span[style*="font-size:11.5px"],
+.visual div[style*="font-size:11.5px"],
+.visual span[style*="font-size:12px"],
+.visual div[style*="font-size:12px"],
+.visual span[style*="font-size:14px"],
+.visual div[style*="font-size:14px"],
+.visual small{
+  font-size:14px !important;
+  line-height:1.5;
+}
+.visual [style*="font-size:15px"]{
+  font-size:16px !important;
+}
+
+/* 窄螢幕仍維持主要正文至少 16px */
+@media(max-width:360px){
+  h1{font-size:28px}
+  .lead{font-size:17px}
+  .callout,
+  .inline-transcript,
+  .panel-body,
+  .choice,
+  .feedback,
+  .term-exp,
+  .term-transcript,
+  .recall-q,
+  .recall-choice,
+  .recall-feedback{
+    font-size:16px;
+  }
+  .audio-title{font-size:14px}
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  title: "3.7 資料存取｜IP 與資料連結位址怎麼合作",
+  brand: "通勤微課｜3.7 資料存取",
+  segments: [
+    {
+      eyebrow: "01 · 先分清楚兩種位址",
+      title: "IP 位址管端到端；資料連結位址管眼前這一跳",
+      lead: "兩層都有來源與目的地，但它們解決的是不同距離的傳遞問題。",
+      time: "約 45 秒",
+      visualHtml: `<div style="display:grid;gap:10px"><div class="callout"><b>第 3 層｜IP 位址</b><br>原始來源 → 最終目的地</div><div class="callout"><b>第 2 層｜資料連結位址</b><br>一個 NIC → 同一網路上的另一個 NIC</div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 為什麼要兩套位址？",
+          subtitle: "先建立整課的核心模型",
+          text: "資料從來源送到目的地時，網路層和資料連結層都會用到位址，但用途不同。網路層的來源和目的地位址，負責把 IP 封包從原始來源一路指向最終目的地；資料連結層的來源和目的地位址，則負責把資料連結框架從一個網路介面卡送到同一個網路上的另一個網路介面卡。"
+        }
+      ],
+      panels: [
+        { title: "一句話記法", kind: "why", body: "把 IP 位址想成『整趟旅程的起點與終點』；把資料連結位址想成『目前這一段路要交給誰』。" },
+        { title: "影片中的分層位置", kind: "detail", body: "影片同時呈現：實體層處理計時與同步位元；資料連結層放目的與來源實體位址；網路層放來源與目的邏輯網路位址；傳輸層使用目的與來源程序號；上層承載編碼後的應用資料。" }
+      ]
+    },
+    {
+      eyebrow: "02 · 第 3 層邏輯位址",
+      title: "IP 封包帶著來源 IP 與目的 IP",
+      lead: "不論兩台裝置在同一網路或不同網路，IP 位址都用來標示原始來源與最終目的地。",
+      time: "約 55 秒",
+      visualHtml: `<div class="bigmath" style="font-size:22px;line-height:1.55;letter-spacing:0">192.168.1.110<br><span style="font-size:14px;color:#6b7280">來源 IP</span><br>↓<br>172.16.1.99<br><span style="font-size:14px;color:#6b7280">目的 IP</span></div>`,
+      audio: [
+        {
+          title: "白話解釋 · IP 位址看什麼？",
+          subtitle: "來源、目的地，以及網路部分",
+          text: "IP 位址是第 3 層的邏輯位址。IP 封包包含來源 IP 位址，也就是傳送裝置的位址；也包含目的 IP 位址，也就是接收裝置的位址。IP 位址還可以分成兩部分：左側是網路部分，IPv6 也稱前綴；剩下的是主機部分，IPv6 可稱介面識別碼。判斷 IPv4 的網路部分要使用子網路遮罩；IPv6 則使用前綴長度。"
+        }
+      ],
+      panels: [
+        { title: "網路部分與主機部分", kind: "detail", body: "同一網路中的主機，網路部分相同，而主機部分不同。主機部分用來識別該網路上的特定裝置；影片也指出，每個裝置或介面的這個識別部分應是唯一的。" }
+      ],
+      quiz: {
+        prompt: "要判斷一個 IPv4 位址的『網路部分』，應使用什麼？",
+        choices: [
+          { label: "A　子網路遮罩", correct: true },
+          { label: "B　MAC 位址", correct: false },
+          { label: "C　IP 位址最右邊的數字", correct: false }
+        ],
+        correctText: "✅ 對。IPv4 使用子網路遮罩來辨識位址中的網路部分。",
+        wrongText: "提示：影片特別把 IPv4 的子網路遮罩，和 IPv6 的前綴長度放在一起說明。"
+      }
+    },
+    {
+      eyebrow: "03 · 同一個 IP 網路",
+      title: "同網路時，資料連結框架可以直接交給目標主機",
+      lead: "PC1 與 FTP 主機的網路部分相同，因此不需要先把框架交給路由器。",
+      time: "約 50 秒",
+      visualHtml: `<div class="callout"><b>PC1</b>　192.168.1.110　／　MAC AA-AA-AA-AA-AA-AA<br><div style="text-align:center;font-size:22px;margin:8px 0">↓ 同一網路，直接傳遞 ↓</div><b>FTP 主機</b>　192.168.1.9　／　MAC CC-CC-CC-CC-CC-CC</div>`,
+      audio: [
+        {
+          title: "範例語音 · PC1 傳給 FTP 主機",
+          subtitle: "同網路時看 IP，也看 MAC",
+          text: "影片的同網路範例中，PC1 的 IPv4 位址是 192.168.1.110，FTP 主機是 192.168.1.9。兩者的網路部分相同，所以它們位在同一個 IP 網路。這時資料連結框架會直接送到接收裝置；在乙太網路上，資料連結位址就是 MAC 位址。框架的來源 MAC 是 PC1 的 MAC，目的 MAC 則是 FTP 主機的 MAC。"
+        }
+      ],
+      quiz: {
+        prompt: "PC1 要傳資料給同一 IP 網路中的 FTP 主機，乙太網路框架的目的 MAC 應該是誰的？",
+        choices: [
+          { label: "A　FTP 主機的 MAC", correct: true },
+          { label: "B　預設閘道的 MAC", correct: false },
+          { label: "C　PC1 自己的 MAC", correct: false }
+        ],
+        correctText: "✅ 沒錯。同網路可以直接交付，因此目的 MAC 就是目標主機的 MAC。",
+        wrongText: "再想一次：只有要前往不同 IP 網路時，第一跳才需要先交給路由器。"
+      }
+    },
+    {
+      eyebrow: "04 · 不同的 IP 網路",
+      title: "跨網路時，IP 指向最終主機；第一個框架先交給預設閘道",
+      lead: "PC1 是 192.168.1.110，Web 伺服器是 172.16.1.99；網路部分不同。",
+      time: "約 60 秒",
+      visualHtml: `<div style="display:grid;gap:9px"><div class="callout"><b>第 3 層</b>　來源 IP 192.168.1.110 → 目的 IP 172.16.1.99</div><div class="callout"><b>第一跳第 2 層</b>　來源 MAC：PC1 → 目的 MAC：R1／預設閘道</div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 為什麼不是直接用伺服器的 MAC？",
+          subtitle: "跨網路先找下一跳",
+          text: "當來源與接收端位在不同的 IP 網路時，來源 IP 和目的 IP 仍然代表原始主機與最終主機。影片的例子是 PC1 192.168.1.110 要到 Web 伺服器 172.16.1.99。因為兩邊的網路部分不同，PC1 無法在本地網路中直接把乙太網路框架交給遠端伺服器，所以第一個資料連結框架的目的 MAC 會是本地路由器，也就是預設閘道的 MAC。"
+        }
+      ],
+      panels: [
+        { title: "影片中的第一跳", kind: "detail", body: "範例中，PC1 的來源 MAC 是 AA-AA-AA-AA-AA-AA；第一跳的目的 MAC 是 R1 的 11-11-11-11-11-11。IP 標頭仍保留來源 192.168.1.110 與目的 172.16.1.99。" }
+      ],
+      quiz: {
+        prompt: "目的 IP 在不同網路時，PC1 第一個乙太網路框架的目的 MAC 應指向哪裡？",
+        choices: [
+          { label: "A　遠端 Web 伺服器", correct: false },
+          { label: "B　本地預設閘道／路由器", correct: true },
+          { label: "C　PC1 自己", correct: false }
+        ],
+        correctText: "✅ 對。跨網路時，資料連結層先把框架交給下一跳，也就是預設閘道。",
+        wrongText: "提示：IP 可以指向遠端最終目的地，但乙太網路框架只能先送到同一個本地網路上的下一個 NIC。"
+      }
+    },
+    {
+      eyebrow: "05 · 每一跳都重新封裝",
+      title: "IP 位址維持端到端；資料連結位址會逐跳改寫",
+      lead: "路由器收到框架後會移除原本的第 2 層資訊，再為下一段鏈路建立新的資料連結資訊。",
+      time: "約 60 秒",
+      visualHtml: `<div style="display:grid;gap:8px"><div class="callout"><b>第 1 跳</b>　PC1 MAC → R1 MAC</div><div class="callout"><b>中間跳</b>　新的來源資料連結位址 → 下一跳資料連結位址</div><div class="callout"><b>最後一跳</b>　路由器資料連結位址 → Web 伺服器資料連結位址</div><div class="tiny" style="margin-top:2px">IP：192.168.1.110 → 172.16.1.99 持續指向原始來源與最終目的地</div></div>`,
+      audio: [
+        {
+          title: "解題語音 · 什麼會變、什麼不變？",
+          subtitle: "這是整課最容易混淆的地方",
+          text: "資料連結層的工作範圍是一段本地鏈路。當 IP 封包從主機到路由器、再到另一台路由器、最後到伺服器時，每一段都會把同一個 IP 封包重新封裝進新的資料連結框架。路由器會移除收到的第 2 層資訊，並在送出前加入下一段需要的新資料連結資訊。因此來源和目的 IP 持續代表原始來源與最終目的地，但資料連結來源與目的位址會依每一跳改變。"
+        }
+      ],
+      panels: [
+        { title: "資料連結框架裡的兩個位址", kind: "detail", body: "來源資料連結位址是『送出這個框架的 NIC』的實體位址；目的資料連結位址是『接收這個框架的 NIC』的實體位址。目的 NIC 可能是下一跳路由器，也可能已經是最終目的地裝置。" }
+      ],
+      quiz: {
+        prompt: "哪一個敘述最符合跨越多台路由器時的情況？",
+        choices: [
+          { label: "A　來源與目的 MAC 從頭到尾不變", correct: false },
+          { label: "B　IP 端點維持，資料連結位址逐跳改變", correct: true },
+          { label: "C　每一跳都把目的 IP 改成路由器 IP", correct: false }
+        ],
+        correctText: "✅ 正確。第 3 層描述端到端，第 2 層描述目前這一跳。",
+        wrongText: "回想路由器的動作：收到框架後移除第 2 層資訊，再為出口鏈路建立新的第 2 層資訊。"
+      }
+    },
+    {
+      eyebrow: "06 · 看封包欄位的順序",
+      title: "乙太網路框架先看目的 MAC，再看來源 MAC",
+      lead: "影片的檢查題特別要求分清資料連結層與網路層欄位。",
+      time: "約 40 秒",
+      visualHtml: `<div class="bigmath" style="font-size:19px;line-height:1.8;letter-spacing:0">L2：目的 MAC ｜ 來源 MAC<br><span style="font-size:15px;color:#6b7280">↓ 承載</span><br>L3：來源 IP ｜ 目的 IP</div>`,
+      audio: [
+        {
+          title: "總整理解釋 · 不要把 MAC 和 IP 混在一起",
+          subtitle: "用欄位位置再複習一次",
+          text: "在影片的框架圖中，資料連結層標頭先放目的地，再放來源，也就是目的 MAC、來源 MAC；接著承載網路層的 IP 封包，而 IP 標頭裡會有來源 IP 與目的 IP。影片的理解檢查也強調：網路層位址是邏輯位址，資料連結層位址是實體位址；IPv4 位址長度是 32 位元，IPv6 位址長度是 128 位元。"
+        }
+      ],
+      panels: [
+        { title: "常見混淆", kind: "why", body: "『目的 MAC』不一定是『最終目的主機的 MAC』。只有最終主機與來源在同一個本地網路時才會直接是它；跨網路時，目的 MAC 先指向下一跳路由器。" }
+      ]
+    },
+    {
+      eyebrow: "07 · 實作入口",
+      title: "用 Wireshark 把位址真的看出來",
+      lead: "影片後段安排兩個實驗室：安裝 Wireshark，以及使用 Wireshark 查看網路流量。",
+      time: "約 35 秒",
+      visualHtml: `<div class="callout"><b>影片中的實作方向</b><br>① 安裝 Wireshark<br>② 使用 Wireshark 擷取與分析網路流量</div>`,
+      audio: [
+        {
+          title: "實作提醒",
+          subtitle: "影片只提供實驗室入口與用途說明",
+          text: "影片介紹 Wireshark 是一種免費的軟體協定分析器，也就是封包擷取與分析工具，可用於網路故障診斷、分析、軟體與協定開發，以及教育。這一節後面提供安裝 Wireshark，以及使用 Wireshark 查看網路流量的實驗室。影片畫面沒有展開完整實驗步驟，因此實際操作流程應依原課程的實驗室說明進行。"
+        }
+      ],
+      panels: [
+        { title: "本課帶走什麼", kind: "note", open: true, body: "先用 IP 判斷『最終要去哪裡、是不是同網路』；再用資料連結位址判斷『這一跳要交給哪個 NIC』。跨路由器時，IP 端點維持，資料連結框架逐跳重建。" }
+      ]
+    }
+  ],
+
+  glossary: [
+    {
+      zh: "IP 位址",
+      en: "IP Address",
+      explanation: "第 3 層的邏輯位址，用來標示 IP 封包的原始來源與最終目的地。",
+      audioText: "IP 位址，英文是 IP Address。它是第 3 層的邏輯位址，用來標示 IP 封包的原始來源與最終目的地。",
+      enAudioText: "IP Address"
+    },
+    {
+      zh: "網路部分／前綴",
+      en: "Network Portion / Prefix",
+      explanation: "IP 位址左側用來識別所屬網路的部分；IPv6 常稱 Prefix。",
+      audioText: "網路部分，英文可說 Network Portion；IPv6 常稱 Prefix。它是 IP 位址左側用來識別所屬網路的部分。",
+      enAudioText: "Network Portion. Prefix."
+    },
+    {
+      zh: "主機部分／介面識別碼",
+      en: "Host Portion / Interface ID",
+      explanation: "IP 位址中網路部分以外的剩餘部分，用來識別該網路上的特定裝置或介面。",
+      audioText: "主機部分，英文是 Host Portion；IPv6 可稱 Interface ID。它用來識別該網路上的特定裝置或介面。",
+      enAudioText: "Host Portion. Interface ID."
+    },
+    {
+      zh: "MAC 位址",
+      en: "MAC Address",
+      explanation: "乙太網路中的資料連結層實體位址，用在同一段本地鏈路的框架傳遞。",
+      audioText: "MAC 位址，英文是 MAC Address。它是乙太網路中的資料連結層實體位址，用在同一段本地鏈路的框架傳遞。",
+      enAudioText: "MAC Address"
+    },
+    {
+      zh: "網路介面卡",
+      en: "Network Interface Card (NIC)",
+      explanation: "資料連結框架從一個 NIC 傳到同網路上的另一個 NIC；框架的來源與目的位址都對應介面。",
+      audioText: "網路介面卡，英文是 Network Interface Card，縮寫 NIC。資料連結框架是在同一網路上，從一個 NIC 傳到另一個 NIC。",
+      enAudioText: "Network Interface Card. N I C."
+    },
+    {
+      zh: "預設閘道",
+      en: "Default Gateway",
+      explanation: "當目的地位在不同 IP 網路時，本地主機第一個要把資料連結框架交給的路由器。",
+      audioText: "預設閘道，英文是 Default Gateway。當目的地位在不同 IP 網路時，本地主機第一個要把資料連結框架交給的路由器就是預設閘道。",
+      enAudioText: "Default Gateway"
+    },
+    {
+      zh: "IP 封包",
+      en: "IP Packet",
+      explanation: "第 3 層的資料單位，內含來源 IP 與目的 IP；跨多段鏈路時會被重新封裝進不同的資料連結框架。",
+      audioText: "IP 封包，英文是 IP Packet。它是第 3 層的資料單位，包含來源 IP 與目的 IP，跨越多段鏈路時會被重新封裝進不同的資料連結框架。",
+      enAudioText: "IP Packet"
+    },
+    {
+      zh: "資料連結框架",
+      en: "Data Link Frame",
+      explanation: "第 2 層的傳送單位，帶有目前這一跳的來源與目的資料連結位址。",
+      audioText: "資料連結框架，英文是 Data Link Frame。它是第 2 層的傳送單位，帶有目前這一跳的來源與目的資料連結位址。",
+      enAudioText: "Data Link Frame"
+    },
+    {
+      zh: "Wireshark",
+      en: "Wireshark",
+      explanation: "影片介紹的免費軟體協定分析器，可用來擷取與分析網路流量。",
+      audioText: "Wireshark。影片把它介紹為免費的軟體協定分析器，可用來擷取與分析網路流量。",
+      enAudioText: "Wireshark"
+    }
+  ],
+
+  termQuiz: [
+    {
+      question: "「IP 位址」的英文名稱是哪一個？",
+      choices: [
+        { label: "IP Address", correct: true },
+        { label: "MAC Address", correct: false },
+        { label: "Data Link Frame", correct: false }
+      ],
+      correctText: "對，IP 位址就是 IP Address，屬於第 3 層邏輯位址。",
+      wrongText: "回想第 3 層用來標示原始來源與最終目的地的那組位址。"
+    },
+    {
+      question: "IPv6 中，IP 位址左側用來識別網路的部分常稱為什麼？",
+      choices: [
+        { label: "Prefix", correct: true },
+        { label: "Port", correct: false },
+        { label: "Frame", correct: false }
+      ],
+      correctText: "沒錯，IPv6 常把網路部分稱為 Prefix。",
+      wrongText: "提示：它和 IPv4 的 Network Portion 是同一類概念。"
+    },
+    {
+      question: "Host Portion / Interface ID 主要用來識別什麼？",
+      choices: [
+        { label: "所屬網路", correct: false },
+        { label: "網路上的特定裝置或介面", correct: true },
+        { label: "傳輸層程序號", correct: false }
+      ],
+      correctText: "對。網路部分辨識網路，剩下的部分辨識該網路上的裝置或介面。",
+      wrongText: "先分成兩部分想：左側辨識網路，剩餘部分辨識誰。"
+    },
+    {
+      question: "乙太網路中的資料連結層實體位址叫什麼？",
+      choices: [
+        { label: "MAC Address", correct: true },
+        { label: "IP Address", correct: false },
+        { label: "Prefix Length", correct: false }
+      ],
+      correctText: "正確，乙太網路的資料連結位址就是 MAC Address。",
+      wrongText: "回想同網路直接傳遞時，PC1 與 FTP 主機旁邊的 AA、CC 那串位址。"
+    },
+    {
+      question: "NIC 的完整英文名稱是哪一個？",
+      choices: [
+        { label: "Network Interface Card", correct: true },
+        { label: "Network Internet Code", correct: false },
+        { label: "Node Interface Channel", correct: false }
+      ],
+      correctText: "對，NIC 是 Network Interface Card。",
+      wrongText: "它就是裝置連上網路所使用的『網路介面卡』。"
+    },
+    {
+      question: "當目的地在不同 IP 網路時，第一跳通常要交給哪個角色？",
+      choices: [
+        { label: "Default Gateway", correct: true },
+        { label: "Host Portion", correct: false },
+        { label: "Wireshark", correct: false }
+      ],
+      correctText: "對，跨網路時第一個資料連結目的地是本地預設閘道。",
+      wrongText: "回想：遠端伺服器不在本地鏈路上，所以先交給本地路由器。"
+    },
+    {
+      question: "哪一個術語指第 3 層、內含來源 IP 與目的 IP 的資料單位？",
+      choices: [
+        { label: "IP Packet", correct: true },
+        { label: "Data Link Frame", correct: false },
+        { label: "MAC Address", correct: false }
+      ],
+      correctText: "沒錯，IP Packet 是第 3 層資料單位。",
+      wrongText: "它會被裝進第 2 層框架中再送過實體媒介。"
+    },
+    {
+      question: "Data Link Frame 對應哪一個中文名稱？",
+      choices: [
+        { label: "資料連結框架", correct: true },
+        { label: "IP 封包", correct: false },
+        { label: "子網路遮罩", correct: false }
+      ],
+      correctText: "正確。資料連結框架承載目前這一跳的資料連結位址。",
+      wrongText: "回想『每一跳都會重新建立』的是哪一個第 2 層單位。"
+    },
+    {
+      question: "影片介紹哪一個工具可用來擷取與分析網路流量？",
+      choices: [
+        { label: "Wireshark", correct: true },
+        { label: "Default Gateway", correct: false },
+        { label: "Interface ID", correct: false }
+      ],
+      correctText: "對，影片後段安排了 Wireshark 安裝與查看網路流量的實驗室。",
+      wrongText: "提示：這是影片最後實驗室名稱中直接出現的工具。"
+    }
+  ],
+
+  recallQuiz: [
+    {
+      question: "PC1 與目的主機位在同一個 IP 網路時，資料連結層通常怎麼送？",
+      choices: [
+        { label: "先送預設閘道", correct: false },
+        { label: "直接把框架送給目的主機的 NIC", correct: true },
+        { label: "把目的 IP 改成路由器 IP", correct: false }
+      ],
+      correctText: "對。同網路時可直接交付，目的 MAC 是目標主機的 MAC。",
+      wrongText: "回想 FTP 主機範例：192.168.1.110 與 192.168.1.9 的網路部分相同。"
+    },
+    {
+      question: "PC1 要連到不同 IP 網路的 Web 伺服器時，第一個框架的目的 MAC 是誰？",
+      choices: [
+        { label: "本地預設閘道的 MAC", correct: true },
+        { label: "遠端 Web 伺服器的 MAC", correct: false },
+        { label: "PC1 的來源 MAC", correct: false }
+      ],
+      correctText: "沒錯。跨網路先把第 2 層框架交給本地路由器。",
+      wrongText: "IP 可以直接指出遠端終點，但第 2 層只能處理目前所在的本地鏈路。"
+    },
+    {
+      question: "IP 封包跨越多台路由器時，哪一項通常維持代表原始來源與最終目的地？",
+      choices: [
+        { label: "來源與目的 IP", correct: true },
+        { label: "來源與目的 MAC", correct: false },
+        { label: "每一跳的資料連結框架", correct: false }
+      ],
+      correctText: "對。第 3 層維持端到端的來源與目的概念。",
+      wrongText: "想想路由器會重新建立哪一層的標頭：會改的是第 2 層，不是把最終目的 IP 換掉。"
+    },
+    {
+      question: "路由器把 IP 封包轉送到下一段鏈路前，會對第 2 層資訊做什麼？",
+      choices: [
+        { label: "沿用原框架完全不改", correct: false },
+        { label: "移除收到的第 2 層資訊，再建立新的資料連結資訊", correct: true },
+        { label: "把來源 IP 改成路由器 IP", correct: false }
+      ],
+      correctText: "正確。這就是為什麼資料連結位址會逐跳改變。",
+      wrongText: "回想『每一跳重新封裝』：路由器要為出口鏈路建立新的第 2 層框架。"
+    },
+    {
+      question: "什麼工具用來判斷 IPv4 位址中的網路部分？",
+      choices: [
+        { label: "子網路遮罩", correct: true },
+        { label: "目的 MAC", correct: false },
+        { label: "網路介面卡名稱", correct: false }
+      ],
+      correctText: "對。IPv4 用子網路遮罩；影片也提到 IPv6 使用前綴長度。",
+      wrongText: "回想第 3 層邏輯位址那一段，影片特別註記了 IPv4 與 IPv6 的判斷方式。"
+    },
+    {
+      question: "依影片的框架圖，資料連結層標頭中的兩個位址順序是哪一個？",
+      choices: [
+        { label: "目的 MAC → 來源 MAC", correct: true },
+        { label: "來源 IP → 目的 IP", correct: false },
+        { label: "來源 MAC → 目的 IP", correct: false }
+      ],
+      correctText: "對。影片的檢查題也用這個順序確認你沒有把 L2 與 L3 混在一起。",
+      wrongText: "回想框架圖左側的綠色區塊：先是目的地，再是來源。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

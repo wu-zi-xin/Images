@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:16px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:14px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:15px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:14px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:15px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:14px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:13px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* ===== 通勤大字舒適版：閱讀與觸控優化 ===== */
+h1{
+  font-size:30px;
+  line-height:1.28;
+}
+.lead{
+  font-size:17px;
+  line-height:1.75;
+}
+.callout{
+  font-size:16px;
+  line-height:1.75;
+}
+.audio{
+  grid-template-columns:46px 1fr;
+  gap:11px;
+  padding:13px;
+}
+.play{
+  width:46px;
+  height:46px;
+  min-width:46px;
+  min-height:46px;
+}
+.audio-title{
+  font-size:15px;
+}
+.audio-sub{
+  font-size:12.5px;
+}
+.inline-transcript{
+  font-size:16px;
+  line-height:1.82;
+  padding:12px 12px 3px;
+}
+.inline-transcript::before{
+  font-size:11.5px;
+}
+.panel summary{
+  font-size:16px;
+  line-height:1.55;
+  padding:14px 14px;
+}
+.panel-body{
+  font-size:16px;
+  line-height:1.82;
+  padding:0 14px 14px;
+}
+.choice{
+  font-size:16px;
+  line-height:1.55;
+  padding:15px 16px;
+  min-height:48px;
+}
+.feedback{
+  font-size:16px;
+  line-height:1.7;
+}
+.btn{
+  font-size:16px;
+  min-height:50px;
+  padding:14px 16px;
+}
+.term-zh{
+  font-size:20px;
+}
+.term-en{
+  font-size:14px;
+  line-height:1.5;
+}
+.term-en-play{
+  width:30px;
+  height:30px;
+  flex-basis:30px;
+  font-size:12px;
+}
+.term-play{
+  width:46px;
+  height:46px;
+  flex-basis:46px;
+}
+.term-exp{
+  font-size:16px;
+  line-height:1.8;
+}
+.term-transcript{
+  font-size:16px;
+  line-height:1.82;
+}
+.term-transcript::before{
+  font-size:11.5px;
+}
+.recall-score{
+  font-size:14px;
+}
+.recall-q{
+  font-size:16px;
+  line-height:1.65;
+}
+.recall-choice{
+  font-size:16px;
+  line-height:1.55;
+  padding:13px 14px;
+  min-height:48px;
+}
+.recall-feedback{
+  font-size:16px;
+  line-height:1.7;
+}
+.chapter-name{
+  font-size:14px;
+  line-height:1.5;
+}
+.chapter-kicker,
+.chapter-nav-count,
+.chapter-num{
+  font-size:11.5px;
+}
+.section-kicker,
+.assist-label,
+.eyebrow{
+  font-size:13px;
+}
+.tiny{
+  font-size:12.5px;
+  line-height:1.6;
+}
+
+/* visualHtml 中原本 11px / 11.5px / 12px / 14px / 15px 的學習文字同步放大 */
+.visual span[style*="font-size:11px"],
+.visual div[style*="font-size:11px"],
+.visual span[style*="font-size:11.5px"],
+.visual div[style*="font-size:11.5px"],
+.visual span[style*="font-size:12px"],
+.visual div[style*="font-size:12px"],
+.visual small{
+  font-size:14px !important;
+  line-height:1.5;
+}
+.visual [style*="font-size:14px"],
+.visual [style*="font-size:15px"]{
+  font-size:16px !important;
+}
+
+/* 對照圖等整體使用 12px 的容器，也提升可讀性 */
+.visual [style*="font-size:12px"] .callout{
+  font-size:15px !important;
+}
+
+/* 窄螢幕仍維持主要正文至少 16px */
+@media(max-width:360px){
+  h1{font-size:28px}
+  .lead{font-size:17px}
+  .callout,
+  .inline-transcript,
+  .panel-body,
+  .choice,
+  .feedback,
+  .term-exp,
+  .term-transcript,
+  .recall-q,
+  .recall-choice,
+  .recall-feedback{
+    font-size:16px;
+  }
+  .audio-title{font-size:14px}
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  title: "3.5 參考模型＋Packet Tracer｜OSI 與 TCP/IP 實作",
+  brand: "通勤微課 · 網路基礎",
+  segments: [
+    {
+      eyebrow: "01 · 為什麼要分層",
+      title: "複雜的網路，為什麼要拆成一層一層？",
+      lead: "分層模型把複雜的網路工作拆成可獨立理解、設計與修改的部分。",
+      time: "約 70 秒",
+      visualHtml: `<div style="display:grid;gap:8px"><div class="callout"><b>把網路想成一棟大樓：</b>每一層負責自己的工作，只要上下層的接口清楚，就不用一次理解整棟樓。</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="callout"><b>好處 1</b><br>協定設計更清楚</div><div class="callout"><b>好處 2</b><br>不同廠商可互通</div><div class="callout"><b>好處 3</b><br>一層改變不必牽動全部</div><div class="callout"><b>好處 4</b><br>有共同語言描述網路</div></div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 分層的核心價值",
+          subtitle: "先懂為什麼，再背模型",
+          text: "網路運作很複雜，所以會用分層模型，把不同工作拆開來理解。每一層負責特定功能，並和上下層透過已經定義好的介面合作。這樣做有幾個好處：協定比較容易設計，不同廠商的產品比較容易互通，一層的技術改變也比較不會影響其他層，而且大家可以用同一套語言描述網路的功能與能力。"
+        }
+      ],
+      panels: [
+        { title: "本段原文重點", kind: "note", body: "影片列出的分層模型優點包括：協助通訊協定設計、促進不同廠商產品之間的競爭與互通、避免單一協定層的技術或功能改變影響相鄰層，以及提供描述網路功能與能力的共同語言。" }
+      ],
+      quiz: {
+        prompt: "如果某一層的技術更新，而其他層不必跟著全部重做，最符合哪個分層優點？",
+        choices: [
+          { label: "A　降低不同層之間的相互影響", correct: true },
+          { label: "B　讓所有層使用同一個協定", correct: false },
+          { label: "C　把網路模型變成實際網路", correct: false }
+        ],
+        correctText: "✅ 對。分層讓每層的責任與介面較清楚，降低改動擴散到其他層的機會。",
+        wrongText: "提示：想想『改一層，不必整個網路架構一起改』是在說哪一個好處。"
+      }
+    },
+    {
+      eyebrow: "02 · 兩種參考模型",
+      title: "這堂課其實在比較兩張『網路地圖』",
+      lead: "影片使用兩個分層模型：OSI 參考模型與 TCP/IP 模型。模型是網路運作的表示，不是實際網路本身。",
+      time: "約 50 秒",
+      visualHtml: `<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center"><div class="bigmath" style="font-size:22px;padding:16px 8px">OSI<br><span style="font-size:12px;font-weight:700">7 層</span></div><div style="font-weight:950;color:#6b7280">↔</div><div class="bigmath" style="font-size:22px;padding:16px 8px">TCP/IP<br><span style="font-size:12px;font-weight:700">4 層</span></div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 模型不是網路本身",
+          subtitle: "先建立正確心智圖",
+          text: "這一課會看到兩種用來描述網路運作的分層模型：OSI 參考模型，以及 TCP/IP 模型。要特別記得，模型只是用來表示和說明網路如何運作的工具，不是實際的網路。接下來先看 OSI 的七層，再看 TCP/IP 的四層，最後把它們對起來。"
+        }
+      ],
+      panels: [
+        { title: "兩種模型的角色", kind: "why", body: "OSI 偏向通用的參考架構，用來描述每一層應該發生哪些功能；TCP/IP 模型則緊密對應 TCP/IP 協定套件的結構。" }
+      ]
+    },
+    {
+      eyebrow: "03 · OSI 參考模型",
+      title: "OSI 有 7 層：先記順序，再理解每層在做什麼",
+      lead: "由上到下是：應用、表示、會談、傳輸、網路、資料鏈結、實體。",
+      time: "約 100 秒",
+      visualHtml: `<div style="display:grid;gap:5px">${[
+        ['7','應用層','Application'],['6','表示層','Presentation'],['5','會談層','Session'],['4','傳輸層','Transport'],['3','網路層','Network'],['2','資料鏈結層','Data Link'],['1','實體層','Physical']
+      ].map(x=>`<div style="display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid #e6e8ec;border-radius:12px;background:#f8fafc"><b>${x[0]}</b><b>${x[1]}</b><span style="font-size:11px;color:#6b7280">${x[2]}</span></div>`).join('')}</div>`,
+      audio: [
+        {
+          title: "白話解釋 · 七層功能",
+          subtitle: "從使用者一路走到底層媒介",
+          text: "OSI 參考模型共有七層。第七層應用層，處理應用程式之間的通訊協定。第六層表示層，負責資料的共同表示。第五層會談層，組織對話並管理資料交換。第四層傳輸層，把資料分段並在端點之間重新組合。第三層網路層，讓資料片段可以在已識別的終端裝置之間跨網路傳送。第二層資料鏈結層，描述裝置如何透過共同媒介交換資料框。第一層實體層，處理實際連線、訊號與位元傳輸所需的機械、電氣與程序性方法。"
+        }
+      ],
+      panels: [
+        { title: "OSI 模型在說什麼？", kind: "why", body: "影片強調，OSI 參考模型提供各層可能發生的功能與服務清單；它描述某個層級需要做什麼，但不規定一定要用哪一種具體方法完成。" },
+        { title: "快速分組記憶", kind: "detail", body: "可把 7～5 層先看成偏向應用與資料呈現／對話管理，4 層負責端到端傳輸，3 層處理跨網路傳遞，2～1 層則更靠近實際媒介與傳輸。這只是幫助記憶的分組，不取代七層本身。" }
+      ],
+      quiz: {
+        prompt: "OSI 模型中，哪一層負責把資料分段，並在端點通訊之間重新組合？",
+        choices: [
+          { label: "A　傳輸層 Transport", correct: true },
+          { label: "B　網路層 Network", correct: false },
+          { label: "C　表示層 Presentation", correct: false }
+        ],
+        correctText: "✅ 正確。OSI 第 4 層傳輸層負責資料的分段與重新組合。",
+        wrongText: "提示：題目說的是端點之間的分段與重組，不是決定跨網路的路徑。"
+      }
+    },
+    {
+      eyebrow: "04 · TCP/IP 協定模型",
+      title: "TCP/IP 只有 4 層，而且直接對應協定套件",
+      lead: "由上到下是：應用、傳輸、網際網路、網路存取。",
+      time: "約 75 秒",
+      visualHtml: `<div style="display:grid;gap:7px"><div class="callout"><b>4 · 應用層</b><br>資料呈現給使用者、編碼、對話控制</div><div class="callout"><b>3 · 傳輸層</b><br>支援不同網路上的裝置彼此通訊</div><div class="callout"><b>2 · 網際網路層</b><br>決定資料在網路中的最佳路徑</div><div class="callout"><b>1 · 網路存取層</b><br>控制構成網路的硬體裝置與媒體</div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 四層怎麼分工",
+          subtitle: "對照影片中的 TCP/IP 表格",
+          text: "TCP/IP 模型是一種協定模型，因為它描述 TCP/IP 協定套件在每一層會發生的功能。它分成四層。應用層把資料呈現給使用者，也包含編碼和對話控制；傳輸層支援不同網路上的裝置互相通訊；網際網路層負責決定資料在網路中的最佳路徑；網路存取層則控制構成網路的硬體裝置與媒體。"
+        }
+      ],
+      panels: [
+        { title: "協定例子放在哪？", kind: "detail", body: "影片的對照圖把 HTTP、DNS、DHCP、FTP 放在上層；TCP、UDP 放在傳輸層；IPv4、IPv6、ICMPv4、ICMPv6 放在網際網路／網路層的位置。" },
+        { title: "RFC 是什麼？", kind: "note", body: "影片指出，TCP/IP 標準與協定的定義會在公開論壇討論，並發布於公開可取得的 IETF RFC 文件。" }
+      ],
+      quiz: {
+        prompt: "在 TCP/IP 模型裡，決定資料在網路中最佳路徑的是哪一層？",
+        choices: [
+          { label: "A　應用層", correct: false },
+          { label: "B　網際網路層 Internet", correct: true },
+          { label: "C　網路存取層", correct: false }
+        ],
+        correctText: "✅ 對。TCP/IP 的網際網路層負責路徑相關功能。",
+        wrongText: "提示：想想哪一層和 IP、跨網路傳送最接近。"
+      }
+    },
+    {
+      eyebrow: "05 · OSI ↔ TCP/IP 對照",
+      title: "最重要的對照：7 層如何合成 4 層",
+      lead: "上三層合成應用層；中間兩層幾乎一對一；底下兩層合成網路存取層。",
+      time: "約 70 秒",
+      visualHtml: `<div style="display:grid;grid-template-columns:1fr 34px 1fr;gap:6px;align-items:stretch;font-size:12px"><div style="display:grid;gap:4px"><div class="callout"><b>OSI 7 應用</b></div><div class="callout"><b>OSI 6 表示</b></div><div class="callout"><b>OSI 5 會談</b></div><div class="callout"><b>OSI 4 傳輸</b></div><div class="callout"><b>OSI 3 網路</b></div><div class="callout"><b>OSI 2 資料鏈結</b></div><div class="callout"><b>OSI 1 實體</b></div></div><div style="display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:950">→</div><div style="display:grid;grid-template-rows:3fr 1fr 1fr 2fr;gap:4px"><div class="callout" style="display:flex;align-items:center"><b>TCP/IP 應用層</b></div><div class="callout" style="display:flex;align-items:center"><b>TCP/IP 傳輸層</b></div><div class="callout" style="display:flex;align-items:center"><b>TCP/IP 網際網路層</b></div><div class="callout" style="display:flex;align-items:center"><b>TCP/IP 網路存取層</b></div></div></div>`,
+      audio: [
+        {
+          title: "解題語音 · 一次把對照記住",
+          subtitle: "考試最常用的映射",
+          text: "把兩個模型對照時，先抓四個區塊。OSI 的第七、六、五層，也就是應用、表示、會談，合在 TCP/IP 的應用層。OSI 第四層傳輸層，對應 TCP/IP 傳輸層。OSI 第三層網路層，對應 TCP/IP 網際網路層。OSI 第二層資料鏈結層和第一層實體層，合在 TCP/IP 的網路存取層。記成三合一、一對一、一對一、二合一。"
+        }
+      ],
+      panels: [
+        { title: "為什麼不是完全一樣？", kind: "why", body: "TCP/IP 模型的應用層與網路存取層比較寬；OSI 會把這些功能再細分。例如 OSI 把表示與會談分成獨立層，也把資料鏈結與實體分開。" },
+        { title: "網路存取層的差異", kind: "detail", body: "影片說明，TCP/IP 協定套件在網路存取層不指定實際媒介傳輸時所用的具體協定，而是描述從網際網路層交給實體網路協定的 handoff；OSI 第 1、2 層則更細緻地描述媒體存取與透過網路傳送資料所需的程序。" }
+      ],
+      quiz: {
+        prompt: "OSI 的表示層與會談層，在 TCP/IP 模型中通常歸到哪裡？",
+        choices: [
+          { label: "A　應用層", correct: true },
+          { label: "B　傳輸層", correct: false },
+          { label: "C　網路存取層", correct: false }
+        ],
+        correctText: "✅ 正確。OSI 的 7、6、5 層都映射到 TCP/IP 的應用層。",
+        wrongText: "提示：記口訣『三合一、一對一、一對一、二合一』。"
+      }
+    },
+    {
+      eyebrow: "06 · 收尾",
+      title: "下車前，只帶走這 4 件事",
+      lead: "不必把所有文字背起來；先把模型用途、層數、順序與對照叫得回來。",
+      time: "約 45 秒",
+      visualHtml: `<div style="display:grid;gap:7px"><div class="callout"><b>① 分層：</b>降低複雜度、清楚分工</div><div class="callout"><b>② OSI：</b>7 層參考模型</div><div class="callout"><b>③ TCP/IP：</b>4 層協定模型</div><div class="callout"><b>④ 對照：</b>3 合 1／1 對 1／1 對 1／2 合 1</div></div>`,
+      audio: [
+        {
+          title: "總複習語音",
+          subtitle: "下車前再聽一次",
+          text: "最後快速回想。第一，分層模型把複雜網路拆成分工清楚的層級。第二，OSI 有七層，從應用、表示、會談、傳輸、網路、資料鏈結到實體。第三，TCP/IP 有四層，從應用、傳輸、網際網路到網路存取。第四，兩者對照時記住三合一、一對一、一對一、二合一。只要這四件事能從記憶中叫回來，這一課的骨架就抓住了。"
+        }
+      ],
+      panels: [
+        { title: "本課文字摘要", kind: "note", open: true, body: "分層模型提供共同的描述方式並降低不同層之間的相互影響。OSI 是七層參考模型；TCP/IP 是四層協定模型。OSI 7～5 對應 TCP/IP 應用層，OSI 4 對應傳輸層，OSI 3 對應網際網路層，OSI 2～1 對應網路存取層。" }
+      ]
+
+    },
+    {
+      eyebrow: "07 · Packet Tracer 實作目的",
+      title: "把抽象模型變成看得見的封包流程",
+      lead: "這份實作的目標，是用 Packet Tracer Simulation 模式觀察 HTTP 流量、TCP/IP 協定套件，以及它們和 OSI 模型的關係。",
+      time: "約 70 秒",
+      visualHtml: `<div style="display:grid;gap:8px"><div class="callout"><b>你會看到：</b>資料在網路中移動時，如何被拆成較小的單位，並在不同層被辨識。</div><div class="callout"><b>關鍵名詞：</b>PDU（Protocol Data Unit）會和 TCP/IP／OSI 的特定層級對應。</div><div class="callout"><b>核心目的：</b>把 encapsulation，也就是封裝過程，從抽象概念變成可逐步觀察的事件。</div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 為什麼要做模擬",
+          subtitle: "把七層、四層真正接到封包上",
+          text: "前面學到 OSI 和 TCP/IP 模型，但模型真正有用的地方，是你能把實際網路事件放回各層去理解。這份 Packet Tracer 實作會讓你觀察一個網頁請求在網路中移動時，每一層看到什麼。資料在傳送過程中會被拆成較小的部分，每個部分可視為和特定層級相關的協定資料單元，也就是 PDU。透過 Simulation 模式，你可以一步一步看見這些 PDU 與封裝過程。"
+        }
+      ],
+      panels: [
+        { title: "實作分成兩部分", kind: "note", body: "Part 1：Examine HTTP Web Traffic，觀察 HTTP 網頁流量。Part 2：Display Elements of the TCP/IP Protocol Suite，查看 TCP/IP 協定套件中的其他事件與協定。" }
+      ],
+      quiz: {
+        prompt: "這份 Packet Tracer 實作最主要想讓你看見什麼？",
+        choices: [
+          { label: "A　資料在各層移動時的 PDU 與封裝過程", correct: true },
+          { label: "B　如何安裝一台實體路由器", correct: false },
+          { label: "C　如何把 OSI 模型改成五層", correct: false }
+        ],
+        correctText: "✅ 對。Simulation 模式的重點就是把各層與 PDU、封裝流程視覺化。",
+        wrongText: "提示：文件強調可以逐層查看資料內容與 PDU。"
+      }
+    },
+    {
+      eyebrow: "08 · 切到 Simulation 模式",
+      title: "第一步不是發送封包，而是先『把時間停下來』",
+      lead: "Packet Tracer 預設是 Realtime；切到 Simulation 後，事件變成可以逐步前進。",
+      time: "約 70 秒",
+      visualHtml: `<div style="display:grid;gap:8px"><div class="callout"><b>1.</b> 右下角從 Realtime 切到 <b>Simulation</b></div><div class="callout"><b>2.</b> 在 Event List Filters 只保留 <b>HTTP</b></div><div class="callout"><b>3.</b> 若事件太多，用 Edit Filters → Show All/None 清除，再從 Misc 選 HTTP</div></div>`,
+      audio: [
+        {
+          title: "操作語音 · 建立乾淨的觀察環境",
+          subtitle: "先只看 HTTP，避免事件太雜",
+          text: "Packet Tracer 一開始會在 Realtime 模式運作，協定依接近真實的時間持續執行。這份實作要先切到 Simulation 模式。文件把它形容成可以把時間停下來：封包會以動畫信封顯示，時間由事件驅動，而且你可以一步一步前進。切換後，在 Event List Filters 先只保留 HTTP，這樣後面觀察網頁請求時不會被其他事件干擾。"
+        }
+      ],
+      panels: [
+        { title: "Event List Filters 怎麼整理？", kind: "detail", body: "如果 HTTP 不是唯一可見事件，開啟 Edit Filters。可先用 Show All/None 把所有勾選清空，再到 Misc 分頁選取 HTTP，最後關閉篩選視窗。" }
+      ],
+      quiz: {
+        prompt: "為什麼這個實作要使用 Simulation 模式？",
+        choices: [
+          { label: "A　可以用事件驅動方式逐步查看封包事件", correct: true },
+          { label: "B　它會自動提供所有題目的答案", correct: false },
+          { label: "C　它會停用所有網路協定", correct: false }
+        ],
+        correctText: "✅ 正確。Simulation 模式讓事件可逐步前進，便於觀察封包。",
+        wrongText: "提示：文件提到 animated envelopes、event driven，以及 step through networking events。"
+      }
+    },
+    {
+      eyebrow: "09 · 產生 HTTP 網頁流量",
+      title: "用 www.osi.local 製造一條可以追蹤的 HTTP 流量",
+      lead: "Web Client 開啟瀏覽器後，輸入指定網址；接著要用 Capture/Forward 讓事件一步一步出現。",
+      time: "約 80 秒",
+      visualHtml: `<div style="display:grid;gap:7px"><div class="callout"><b>Web Client</b> → Desktop → Web Browser</div><div class="bigmath" style="font-size:24px;letter-spacing:0">www.osi.local</div><div class="callout">按 <b>Go</b> 後，再按 <b>Capture/Forward × 4</b>，Event List 應出現四個事件。</div></div>`,
+      audio: [
+        {
+          title: "操作語音 · 為什麼按 Go 還不夠",
+          subtitle: "Simulation 的時間由事件推進",
+          text: "接下來選取 Web Client，打開 Desktop 分頁，再開啟 Web Browser。在網址欄輸入 www.osi.local 並按 Go。這時因為 Simulation 模式的時間是事件驅動，所以畫面不會像 Realtime 一樣自然一路跑完。你需要使用 Capture/Forward 逐步推進。文件要求按四次，之後 Event List 應該會出現四個事件。"
+        }
+      ],
+      panels: [
+        { title: "操作觀察題：瀏覽器畫面有變嗎？", kind: "why", body: "按 Capture/Forward 四次後，回頭看 Web Client 的 Web Browser，記錄頁面是否有變化。PDF 只要求你實際觀察，沒有提供標準答案，因此這裡不預填。" }
+      ],
+      quiz: {
+        prompt: "在 Simulation 模式輸入網址並按 Go 後，為什麼還要使用 Capture/Forward？",
+        choices: [
+          { label: "A　因為 Simulation 的時間是事件驅動，要手動逐步顯示網路事件", correct: true },
+          { label: "B　因為 Go 只負責清除 Event List", correct: false },
+          { label: "C　因為 Capture/Forward 會把 HTTP 改成 DNS", correct: false }
+        ],
+        correctText: "✅ 對。Capture/Forward 是用來一步一步推進模擬事件。",
+        wrongText: "提示：Simulation 不會像 Realtime 一樣自動按真實時間跑完。"
+      }
+    },
+    {
+      eyebrow: "10 · 第一個 HTTP PDU",
+      title: "點開彩色方塊，把 HTTP 事件拆回 OSI 各層",
+      lead: "傳送起點先看 Outbound；事件走到中間後，才同時看得到 Inbound 與 Outbound。",
+      time: "約 110 秒",
+      visualHtml: `<div style="display:grid;gap:7px"><div class="callout"><b>起點：</b>OSI Model + Outbound PDU Details</div><div class="callout"><b>中間事件：</b>會多出 Inbound PDU Details</div><div class="callout"><b>最後事件：</b>OSI Model + Inbound PDU Details</div><div class="callout"><b>逐層觀察：</b>Layer 7 → Layer 4 → Layer 3 → Layer 2</div></div>`,
+      audio: [
+        {
+          title: "解題語音 · 從應用一路看到資料鏈結",
+          subtitle: "先看欄位，再看它屬於哪一層",
+          text: "點 Event List 裡第一個 HTTP 事件的彩色方塊，會開啟 PDU Information at Device。因為這是傳輸起點，一開始只有 OSI Model 和 Outbound PDU Details。接著在 OSI Model 的 Out Layers 依序觀察第七層、第四層、第三層與第二層。PDF 會要求你記錄 Layer 7 的步驟說明、Layer 4 的目的埠、Layer 3 的目的 IP，以及 Layer 2 顯示的資訊。這些數值必須以你實際模擬畫面為準，文件本身沒有直接給答案。"
+        }
+      ],
+      panels: [
+        { title: "操作觀察清單", kind: "detail", body: "① Layer 7：In Layers／Out Layers 下方的編號步驟寫了什麼？ ② Layer 4：Dst Port 是多少？ ③ Layer 3：Dest. IP 是多少？ ④ Layer 2：顯示哪些資訊？請從 Packet Tracer 實際讀值。" },
+        { title: "Outbound PDU Details 要看什麼？", kind: "why", body: "PDU Formats 的欄位會反映 TCP/IP 模型的各層資訊。文件特別指出，Ethernet II 區段比 OSI Model 的 Layer 2 顯示更詳細，包含 DEST MAC 與 SRC MAC 等欄位。" }
+      ],
+      quiz: {
+        prompt: "為什麼第一個 HTTP 傳輸事件只有 OSI Model 與 Outbound PDU Details？",
+        choices: [
+          { label: "A　因為這是傳輸起點，資料尚未以 Inbound 形式到達裝置", correct: true },
+          { label: "B　因為 HTTP 不使用任何輸入資料", correct: false },
+          { label: "C　因為 Simulation 模式不支援 Inbound", correct: false }
+        ],
+        correctText: "✅ 正確。起點事件只有 Outbound；中間事件才會同時看到 Inbound 與 Outbound。",
+        wrongText: "提示：想想資料剛從 Web Client 開始送出時，還沒有『進入』這個裝置的那一側。"
+      }
+    },
+    {
+      eyebrow: "11 · 沿著 PDU 看資料方向",
+      title: "同一筆資料，進裝置與出裝置時會看到什麼差別？",
+      lead: "接續事件可以看出資料進入裝置、經過各層，再由另一方向送出的過程。",
+      time: "約 85 秒",
+      visualHtml: `<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center"><div class="callout"><b>In Layers</b><br>箭頭向上：資料往高層處理</div><div style="font-size:24px;font-weight:950">→</div><div class="callout"><b>Out Layers</b><br>頂端箭頭向右：伺服器開始回送資訊</div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 看箭頭就知道資料正在去哪裡",
+          subtitle: "把封裝與解封裝連成一條路",
+          text: "往下一個事件看時，你可能會遇到只有 Layer 1 啟用的畫面。文件解釋，這代表裝置正在把 frame 從 buffer 移到網路上。再往後的 HTTP 事件，PDU 視窗會同時有 In Layers 和 Out Layers。In Layers 下方的箭頭往上，表示資料正在往上層處理；到最上方後箭頭往右，表示伺服器接著把資訊送回用戶端。這就是把資料進入、處理、再送出的方向視覺化。"
+        }
+      ],
+      panels: [
+        { title: "操作觀察題：In 和 Out 最大差異是什麼？", kind: "why", body: "PDF 要求比較 In Layers 與 Out Layers 的主要差異，並查看 Inbound／Outbound PDU Details。答案依你實際事件畫面而定，因此此微課保留為觀察題。" },
+        { title: "最後一個事件會看到幾個頁籤？", kind: "detail", body: "文件前面已說明：當事件是這串流量的最後一個事件時，只會顯示 OSI Model 與 Inbound PDU Details。你可以回到最後一個彩色方塊確認。" }
+      ],
+      quiz: {
+        prompt: "在同時有 In Layers 與 Out Layers 的事件中，In Layers 下方箭頭向上代表什麼？",
+        choices: [
+          { label: "A　資料正在往較高層處理", correct: true },
+          { label: "B　封包正在被永久刪除", correct: false },
+          { label: "C　網路已切回 Realtime", correct: false }
+        ],
+        correctText: "✅ 對。箭頭向上表示資料沿層級往上處理。",
+        wrongText: "提示：文件直接用箭頭方向說明 data is travelling。"
+      }
+    },
+    {
+      eyebrow: "12 · 不只 HTTP：ARP、DNS、TCP",
+      title: "把所有事件打開，才看得到 TCP/IP 協定套件彼此合作",
+      lead: "HTTP 網頁請求背後還會出現 ARP、DNS 與額外的 TCP 事件。",
+      time: "約 95 秒",
+      visualHtml: `<div style="display:grid;gap:7px"><div class="callout"><b>ARP</b>：取得目的主機的 MAC 位址</div><div class="callout"><b>DNS</b>：把名稱，例如 www.osi.local，轉換成 IP 位址</div><div class="callout"><b>TCP events</b>：連線、協商通訊參數，以及中斷通訊工作階段</div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 一個網頁請求其實不是只有 HTTP",
+          subtitle: "把協定套件看成合作團隊",
+          text: "第二部分要把 Event List Filters 的事件全部顯示出來。這時你會看到 HTTP 之外的事件。文件說明，ARP 會為目的主機請求 MAC 位址；DNS 會把像 www.osi.local 這樣的名稱轉成 IP 位址；另外的 TCP 事件則負責建立連線、協商通訊參數，以及中斷裝置之間的通訊工作階段。這讓你看到 TCP/IP 協定套件不是單一協定，而是一群協定一起合作。"
+        }
+      ],
+      panels: [
+        { title: "DNS 事件怎麼觀察？", kind: "detail", body: "點第一個 DNS 事件，查看 OSI Model 與 PDU Detail。Layer 7 反白時，In／Out Layers 下方會出現對目前動作的描述，例如 DNS client sends a DNS query to the DNS server。接著查看 Outbound PDU Details 的 DNS QUERY 區段。" },
+        { title: "操作觀察題：DNS 回覆", kind: "why", body: "PDF 要求你記錄 DNS QUERY 的 NAME 欄位，以及最後一個 DNS 事件中 DNS ANSWER 的 ADDRESS 值與 PDU 擷取裝置。這些欄位必須從實際 Packet Tracer 畫面讀取，文件未提供答案。" }
+      ],
+      quiz: {
+        prompt: "哪一個協定在這份實作中負責把 www.osi.local 這類名稱轉成 IP 位址？",
+        choices: [
+          { label: "A　DNS", correct: true },
+          { label: "B　ARP", correct: false },
+          { label: "C　Ethernet II", correct: false }
+        ],
+        correctText: "✅ 正確。文件明確說明 DNS 負責把名稱轉換成 IP 位址。",
+        wrongText: "提示：ARP 找的是 MAC 位址；這題問的是名稱轉 IP。"
+      }
+    },
+    {
+      eyebrow: "13 · TCP 連線與實作收尾",
+      title: "最後把『服務、連線、埠』一起看回 Layer 4",
+      lead: "TCP 事件讓你觀察通訊通道何時建立，也提醒你：伺服器必須在特定埠上等待服務請求。",
+      time: "約 85 秒",
+      visualHtml: `<div style="display:grid;gap:8px"><div class="callout"><b>先找：</b>第一個 HTTP 事件之後緊接的 TCP 事件</div><div class="callout"><b>看 Layer 4：</b>事件資訊會顯示通訊通道已經 ESTABLISHED</div><div class="callout"><b>再找最後一個 TCP 事件：</b>依顯示步驟判斷該事件的目的</div></div>`,
+      audio: [
+        {
+          title: "總結語音 · 從模型回到真實服務",
+          subtitle: "Layer 4 的埠把用戶端請求送到正確服務",
+          text: "在後面的 TCP 事件中，文件要求你查看 OSI Model 的 Layer 4。其中一個事件會顯示通訊通道已經建立，也就是 ESTABLISHED。再往最後一個 TCP 事件看，則要根據畫面步驟判斷事件目的。這份實作最後提醒：用戶端會向伺服器上的特定服務發出請求，而伺服器必須在特定 port 上等待這些請求。PDF 要你從實際 capture 裡找出 Web 與 DNS 服務的監聽埠；文件沒有直接列出數字，所以應以 Packet Tracer 畫面為準。"
+        }
+      ],
+      panels: [
+        { title: "挑戰題 1：Web Server 的 Web request 監聽埠", kind: "detail", body: "回到 Packet Tracer capture，查看 OSI Model 的 Layer 4 port information，記錄 Web Server 為 web request 監聽的 port。PDF 僅提出問題，未提供標準答案。" },
+        { title: "挑戰題 2：Web Server 的 DNS request 監聽埠", kind: "detail", body: "同樣從實際 capture 的 Layer 4 資訊讀取 DNS request 使用的 server port。不要只憑記憶填寫，這個活動的目的就是從模擬中驗證。" }
+      ],
+      quiz: {
+        prompt: "PDF 為什麼要你在 Layer 4 觀察 port information？",
+        choices: [
+          { label: "A　因為伺服器上的不同服務會在特定埠等待用戶端請求", correct: true },
+          { label: "B　因為 Layer 4 用來顯示實體纜線種類", correct: false },
+          { label: "C　因為所有服務都固定使用相同埠", correct: false }
+        ],
+        correctText: "✅ 對。文件最後把 Layer 4 的埠資訊連到伺服器提供的特定服務。",
+        wrongText: "提示：題目重點是『specific services』與『listen on specific ports』。"
+      }
+    }
+  ],
+
+  glossary: [
+    { zh: "分層模型", en: "Layered Model", explanation: "把複雜的網路功能拆成多個層級，每層負責特定工作，並透過明確介面和相鄰層合作。", audioText: "分層模型，英文是 Layered Model。它把複雜的網路功能拆成多個層級，每層負責特定工作，並透過明確介面和相鄰層合作。", enAudioText: "Layered Model" },
+    { zh: "OSI 參考模型", en: "OSI Reference Model", explanation: "七層的通用參考架構，用來描述網路各層應該提供哪些功能與服務。", audioText: "OSI 參考模型，英文是 OSI Reference Model。它是七層的通用參考架構，用來描述網路各層應該提供哪些功能與服務。", enAudioText: "O S I Reference Model" },
+    { zh: "TCP/IP 模型", en: "TCP/IP Model", explanation: "四層的協定模型，緊密對應 TCP/IP 協定套件各層的功能。", audioText: "TCP/IP 模型，英文是 TCP/IP Model。它是四層的協定模型，緊密對應 TCP/IP 協定套件各層的功能。", enAudioText: "T C P I P Model" },
+    { zh: "應用層", en: "Application Layer", explanation: "最靠近使用者與應用服務的層。OSI 是第七層；TCP/IP 也有應用層，但範圍包含 OSI 的上三層。", audioText: "應用層，英文是 Application Layer。它最靠近使用者與應用服務。OSI 是第七層；TCP/IP 的應用層範圍則包含 OSI 的上三層。", enAudioText: "Application Layer" },
+    { zh: "表示層", en: "Presentation Layer", explanation: "OSI 第六層，負責資料的共同表示，讓應用層服務之間能交換資料。", audioText: "表示層，英文是 Presentation Layer。它是 OSI 第六層，負責資料的共同表示，讓應用層服務之間能交換資料。", enAudioText: "Presentation Layer" },
+    { zh: "會談層", en: "Session Layer", explanation: "OSI 第五層，用來組織對話並管理資料交換。", audioText: "會談層，英文是 Session Layer。它是 OSI 第五層，用來組織對話並管理資料交換。", enAudioText: "Session Layer" },
+    { zh: "傳輸層", en: "Transport Layer", explanation: "OSI 第四層，也對應 TCP/IP 傳輸層；處理端點之間的傳輸服務與資料分段／重組。", audioText: "傳輸層，英文是 Transport Layer。它是 OSI 第四層，也對應 TCP/IP 傳輸層；處理端點之間的傳輸服務與資料分段和重組。", enAudioText: "Transport Layer" },
+    { zh: "網路層", en: "Network Layer", explanation: "OSI 第三層，負責讓資料在已識別的終端裝置之間跨網路傳送。", audioText: "網路層，英文是 Network Layer。它是 OSI 第三層，負責讓資料在已識別的終端裝置之間跨網路傳送。", enAudioText: "Network Layer" },
+    { zh: "資料鏈結層", en: "Data Link Layer", explanation: "OSI 第二層，描述裝置如何透過共同媒介交換資料框。", audioText: "資料鏈結層，英文是 Data Link Layer。它是 OSI 第二層，描述裝置如何透過共同媒介交換資料框。", enAudioText: "Data Link Layer" },
+    { zh: "實體層", en: "Physical Layer", explanation: "OSI 第一層，處理實際媒介、連線、訊號與位元傳輸相關的機械、電氣與程序性方法。", audioText: "實體層，英文是 Physical Layer。它是 OSI 第一層，處理實際媒介、連線、訊號與位元傳輸相關的機械、電氣與程序性方法。", enAudioText: "Physical Layer" },
+    { zh: "網際網路層", en: "Internet Layer", explanation: "TCP/IP 第二層，負責跨網路傳送與決定最佳路徑，對應 OSI 的網路層。", audioText: "網際網路層，英文是 Internet Layer。它是 TCP/IP 第二層，負責跨網路傳送與決定最佳路徑，對應 OSI 的網路層。", enAudioText: "Internet Layer" },
+    { zh: "網路存取層", en: "Network Access Layer", explanation: "TCP/IP 最底層，涵蓋構成網路的硬體裝置與媒體，對應 OSI 的資料鏈結層與實體層。", audioText: "網路存取層，英文是 Network Access Layer。它是 TCP/IP 最底層，涵蓋構成網路的硬體裝置與媒體，對應 OSI 的資料鏈結層與實體層。", enAudioText: "Network Access Layer" },
+    { zh: "徵求意見稿", en: "Request for Comments, RFC", explanation: "IETF 公開發布、用來記錄與討論網際網路標準和協定定義的文件。", audioText: "徵求意見稿，英文是 Request for Comments，縮寫 RFC。它是 IETF 公開發布、用來記錄與討論網際網路標準和協定定義的文件。", enAudioText: "Request for Comments, R F C" },
+    { zh: "Packet Tracer 模擬模式", en: "Packet Tracer Simulation Mode", explanation: "讓網路事件以事件驅動方式逐步前進，封包會顯示成動畫信封，適合觀察每一步發生什麼。", audioText: "Packet Tracer 模擬模式，英文是 Packet Tracer Simulation Mode。它讓網路事件以事件驅動方式逐步前進，適合觀察每一步封包處理。", enAudioText: "Packet Tracer Simulation Mode" },
+    { zh: "協定資料單元", en: "Protocol Data Unit, PDU", explanation: "資料在網路中被分成較小部分後，和 TCP/IP／OSI 特定層級相關聯的資料單位。", audioText: "協定資料單元，英文是 Protocol Data Unit，縮寫 PDU。它是資料在網路中移動時，和特定 TCP/IP 或 OSI 層級相關聯的資料單位。", enAudioText: "Protocol Data Unit, P D U" },
+    { zh: "封裝過程", en: "Encapsulation Process", explanation: "資料在不同網路層被加入與各層相關資訊的過程；這份實作用 Simulation 模式把它視覺化。", audioText: "封裝過程，英文是 Encapsulation Process。這份實作使用 Simulation 模式，讓你逐層觀察資料與 PDU，理解封裝如何發生。", enAudioText: "Encapsulation Process" },
+    { zh: "擷取／前進", en: "Capture/Forward", explanation: "Simulation 模式中的逐步前進控制，讓事件驅動的網路模擬顯示下一個事件。", audioText: "擷取前進，英文是 Capture Forward。它是 Simulation 模式中用來逐步推進網路事件的控制。", enAudioText: "Capture Forward" },
+    { zh: "事件清單篩選器", en: "Event List Filters", explanation: "用來控制 Simulation Panel 中要顯示哪些事件類型；實作一開始只保留 HTTP。", audioText: "事件清單篩選器，英文是 Event List Filters。它用來控制 Simulation Panel 中要顯示哪些事件類型。", enAudioText: "Event List Filters" },
+    { zh: "位址解析協定", en: "Address Resolution Protocol, ARP", explanation: "這份實作中，ARP 用來為目的主機請求 MAC 位址。", audioText: "位址解析協定，英文是 Address Resolution Protocol，縮寫 ARP。這份實作中，它用來為目的主機請求 MAC 位址。", enAudioText: "Address Resolution Protocol, A R P" },
+    { zh: "DNS 名稱解析", en: "DNS", explanation: "把名稱，例如 www.osi.local，轉換成 IP 位址的服務。", audioText: "DNS 名稱解析，英文縮寫是 DNS。這份實作中，DNS 負責把像 www.osi.local 這樣的名稱轉換成 IP 位址。", enAudioText: "D N S" },
+    { zh: "PDU 詳細資料", en: "PDU Details", explanation: "Packet Tracer 中用來查看各層欄位的詳細檢視；Outbound／Inbound 會隨事件所在位置而出現。", audioText: "PDU 詳細資料，英文是 PDU Details。它讓你查看封包在 Outbound 或 Inbound 方向的各層欄位與詳細內容。", enAudioText: "P D U Details" }
+  ],
+
+  termQuiz: [
+    { question: "「分層模型」的英文名稱是哪一個？", choices: [{label:"Layered Model",correct:true},{label:"Network Access Layer",correct:false},{label:"Protocol Frame",correct:false}], correctText:"對，分層模型就是 Layered Model。", wrongText:"回想第一張術語卡：它描述把複雜功能拆成一層一層。" },
+    { question: "OSI Reference Model 對應哪個中文名稱？", choices: [{label:"OSI 參考模型",correct:true},{label:"TCP/IP 模型",correct:false},{label:"網路存取層",correct:false}], correctText:"沒錯，OSI Reference Model 就是 OSI 參考模型。", wrongText:"提示：它是七層的通用參考架構。" },
+    { question: "哪個術語是『四層、緊密對應 TCP/IP 協定套件』？", choices: [{label:"TCP/IP 模型",correct:true},{label:"OSI 參考模型",correct:false},{label:"資料鏈結層",correct:false}], correctText:"對，這是 TCP/IP 模型。", wrongText:"回想：這個模型只有四層。" },
+    { question: "Application Layer 的中文是？", choices: [{label:"應用層",correct:true},{label:"表示層",correct:false},{label:"會談層",correct:false}], correctText:"正確，Application Layer 是應用層。", wrongText:"它是最靠近使用者與應用服務的層。" },
+    { question: "「表示層」的英文是？", choices: [{label:"Presentation Layer",correct:true},{label:"Session Layer",correct:false},{label:"Physical Layer",correct:false}], correctText:"對，表示層是 Presentation Layer。", wrongText:"提示：它負責資料的共同表示。" },
+    { question: "Session Layer 對應哪個中文名稱？", choices: [{label:"會談層",correct:true},{label:"傳輸層",correct:false},{label:"網路層",correct:false}], correctText:"沒錯，Session Layer 是會談層。", wrongText:"它負責組織對話與管理資料交換。" },
+    { question: "哪一個英文術語對應『傳輸層』？", choices: [{label:"Transport Layer",correct:true},{label:"Internet Layer",correct:false},{label:"Data Link Layer",correct:false}], correctText:"對，傳輸層是 Transport Layer。", wrongText:"回想端點之間的分段與重組。" },
+    { question: "Network Layer 的中文是？", choices: [{label:"網路層",correct:true},{label:"網際網路層",correct:false},{label:"網路存取層",correct:false}], correctText:"正確，OSI 的 Network Layer 是網路層。", wrongText:"注意：這題問的是 OSI 用語，不是 TCP/IP 的 Internet Layer。" },
+    { question: "「資料鏈結層」的英文是？", choices: [{label:"Data Link Layer",correct:true},{label:"Network Layer",correct:false},{label:"Physical Layer",correct:false}], correctText:"對，資料鏈結層是 Data Link Layer。", wrongText:"它在 OSI 第 2 層，和資料框交換有關。" },
+    { question: "Physical Layer 對應哪個中文名稱？", choices: [{label:"實體層",correct:true},{label:"表示層",correct:false},{label:"應用層",correct:false}], correctText:"沒錯，Physical Layer 是實體層。", wrongText:"提示：它處理實際媒介與位元傳輸。" },
+    { question: "哪個 TCP/IP 術語負責跨網路路徑，並對應 OSI 網路層？", choices: [{label:"網際網路層 Internet Layer",correct:true},{label:"網路存取層 Network Access Layer",correct:false},{label:"應用層 Application Layer",correct:false}], correctText:"對，這是 Internet Layer，網際網路層。", wrongText:"想想 IP 所在的那一層。" },
+    { question: "Network Access Layer 的中文是？", choices: [{label:"網路存取層",correct:true},{label:"網路層",correct:false},{label:"資料鏈結層",correct:false}], correctText:"正確，Network Access Layer 是網路存取層。", wrongText:"它是 TCP/IP 最底層，涵蓋 OSI 第 1、2 層的範圍。" },
+    { question: "RFC 的完整英文名稱是哪一個？", choices: [{label:"Request for Comments",correct:true},{label:"Reference for Communication",correct:false},{label:"Routing Frame Control",correct:false}], correctText:"對，RFC 是 Request for Comments。", wrongText:"回想 IETF 公開發布的標準與協定文件。" },
+    { question: "Packet Tracer Simulation Mode 最重要的特性是哪一個？", choices: [{label:"可以逐步推進事件並觀察封包",correct:true},{label:"會自動隱藏所有封包",correct:false},{label:"只能查看實體層",correct:false}], correctText:"對，Simulation Mode 讓事件驅動的封包流程可以一步一步查看。", wrongText:"回想文件說的 stop time、animated envelopes 與 step through events。" },
+    { question: "PDU 的完整英文是哪一個？", choices: [{label:"Protocol Data Unit",correct:true},{label:"Packet Direction Utility",correct:false},{label:"Protocol Device User",correct:false}], correctText:"正確，PDU 是 Protocol Data Unit。", wrongText:"提示：它和 TCP/IP／OSI 的特定層相關。" },
+    { question: "Encapsulation Process 對應哪個中文概念？", choices: [{label:"封裝過程",correct:true},{label:"事件篩選",correct:false},{label:"路由更新",correct:false}], correctText:"對，Encapsulation Process 是封裝過程。", wrongText:"這份實作的目的之一，就是把這個過程視覺化。" },
+    { question: "Capture/Forward 在 Simulation 模式中做什麼？", choices: [{label:"逐步推進到下一個網路事件",correct:true},{label:"關閉所有事件",correct:false},{label:"把 HTTP 轉成 ARP",correct:false}], correctText:"正確，Capture/Forward 用來逐步推進事件。", wrongText:"回想輸入 www.osi.local 後，為什麼還要按四次。" },
+    { question: "Event List Filters 的用途是？", choices: [{label:"決定哪些事件類型要顯示",correct:true},{label:"設定伺服器 IP",correct:false},{label:"建立新的 OSI 層",correct:false}], correctText:"對，它用來篩選 Simulation Panel 中可見的事件類型。", wrongText:"一開始你就是用它只保留 HTTP。" },
+    { question: "ARP 在這份實作中負責什麼？", choices: [{label:"為目的主機請求 MAC 位址",correct:true},{label:"把名稱轉成 IP 位址",correct:false},{label:"顯示網頁內容",correct:false}], correctText:"正確，ARP 用來請求目的主機的 MAC 位址。", wrongText:"提示：名稱轉 IP 是 DNS。" },
+    { question: "哪個術語在實作中負責把 www.osi.local 轉成 IP 位址？", choices: [{label:"DNS",correct:true},{label:"ARP",correct:false},{label:"PDU",correct:false}], correctText:"對，DNS 負責名稱到 IP 的轉換。", wrongText:"回想 Part 2 對 DNS 的說明。" },
+    { question: "PDU Details 主要讓你做什麼？", choices: [{label:"查看 Inbound／Outbound 封包各層的詳細欄位",correct:true},{label:"直接改寫 OSI 模型",correct:false},{label:"移除所有 TCP 事件",correct:false}], correctText:"對，PDU Details 用來查看封包細節。", wrongText:"提示：文件要求你比較 IP、TCP、HTTP 與 Ethernet II 區段的資訊。" }
+  ],
+
+  recallQuiz: [
+    { question: "分層模型最核心的價值是什麼？", choices: [{label:"把複雜網路功能拆成分工清楚、介面明確的層",correct:true},{label:"讓所有網路只剩一種協定",correct:false},{label:"把模型直接當成實際網路設備",correct:false}], correctText:"對。分層的核心是降低複雜度、清楚分工並控制改動影響。", wrongText:"想想為什麼一層改變時，不希望全部一起重做。" },
+    { question: "下列哪一組是正確的 OSI 由上到下順序？", choices: [{label:"應用→表示→會談→傳輸→網路→資料鏈結→實體",correct:true},{label:"應用→傳輸→會談→網路→表示→實體→資料鏈結",correct:false},{label:"實體→網路→資料鏈結→傳輸→應用→表示→會談",correct:false}], correctText:"正確，這就是 OSI 七層由上到下的順序。", wrongText:"提示：最上面是應用，最下面是實體。" },
+    { question: "TCP/IP 四層由上到下是哪一組？", choices: [{label:"應用→傳輸→網際網路→網路存取",correct:true},{label:"應用→會談→網路→實體",correct:false},{label:"表示→傳輸→資料鏈結→實體",correct:false}], correctText:"對，TCP/IP 是應用、傳輸、網際網路、網路存取。", wrongText:"回想四層模型，比 OSI 少了表示、會談等獨立層。" },
+    { question: "把 OSI 對到 TCP/IP 時，哪個敘述正確？", choices: [{label:"OSI 7～5 合成 TCP/IP 應用層；OSI 2～1 合成網路存取層",correct:true},{label:"OSI 7～6 合成傳輸層；OSI 3～1 合成網際網路層",correct:false},{label:"每一層都完全一對一",correct:false}], correctText:"正確。記住三合一、一對一、一對一、二合一。", wrongText:"提示：TCP/IP 上下兩端比較寬，中間兩層和 OSI 比較接近。" },
+    { question: "影片為什麼說 TCP/IP 與 OSI 不是完全相同的分層？", choices: [{label:"TCP/IP 的應用層與網路存取層較寬，OSI 把相關功能再細分",correct:true},{label:"OSI 沒有傳輸層",correct:false},{label:"TCP/IP 沒有任何網路路徑功能",correct:false}], correctText:"對。兩者的核心功能可以對照，但分層粒度不完全一樣。", wrongText:"回想 OSI 為什麼有 7 層，而 TCP/IP 只有 4 層。" },
+    { question: "為什麼 Packet Tracer Simulation 模式適合學 OSI／TCP-IP？", choices: [{label:"因為可以逐步查看資料在各層的 PDU 與事件",correct:true},{label:"因為它只顯示 Layer 7",correct:false},{label:"因為它會跳過封裝過程",correct:false}], correctText:"對。它把原本抽象的分層與封裝過程變成可逐步觀察的事件。", wrongText:"回想這份實作的 Background：view the data contents at each layer。" },
+    { question: "輸入 www.osi.local 後，為什麼按 Capture/Forward 四次？", choices: [{label:"因為 Simulation 模式是事件驅動，要逐步推進網路事件",correct:true},{label:"因為每按一次就切換一個 OSI 模型",correct:false},{label:"因為 HTTP 固定需要四個封包",correct:false}], correctText:"正確。文件指定四次是為了讓 Event List 出現四個事件；關鍵原理是事件驅動。", wrongText:"不要把『四次』誤解成 HTTP 永遠只有四個封包。" },
+    { question: "一個網頁請求背後，哪個配對符合 PDF 的說明？", choices: [{label:"ARP 找 MAC；DNS 名稱轉 IP；TCP 管理連線／參數／中斷",correct:true},{label:"DNS 找 MAC；ARP 顯示網頁；TCP 決定實體媒介",correct:false},{label:"ARP、DNS、TCP 都只負責 Layer 1",correct:false}], correctText:"對，這三類事件分工不同，但共同支援一次網頁通訊。", wrongText:"回想 Part 2 對 ARP、DNS 與 additional TCP events 的三句說明。" },
+    { question: "為什麼 PDF 的部分 port、IP、MAC、DNS Answer 題目不直接在微課中給答案？", choices: [{label:"因為文件要求從 Packet Tracer 實際 capture 讀值，PDF 本身沒有提供那些答案",correct:true},{label:"因為這些欄位和網路無關",correct:false},{label:"因為 Simulation 模式看不到這些欄位",correct:false}], correctText:"對。這些題目的學習目的就是讓你實際觀察並驗證。", wrongText:"回想這些問題後面都留有 Type your answers here，而不是文件直接給值。" }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

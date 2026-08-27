@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:16px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:14px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:15px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:14px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:15px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:14px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:13px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* ===== 通勤大字舒適版：閱讀與觸控優化 ===== */
+h1{
+  font-size:30px;
+  line-height:1.28;
+}
+.lead{
+  font-size:17px;
+  line-height:1.75;
+}
+.callout{
+  font-size:16px;
+  line-height:1.75;
+}
+.audio{
+  grid-template-columns:46px 1fr;
+  gap:11px;
+  padding:13px;
+}
+.play{
+  width:46px;
+  height:46px;
+  min-width:46px;
+  min-height:46px;
+}
+.audio-title{
+  font-size:15px;
+}
+.audio-sub{
+  font-size:12.5px;
+}
+.inline-transcript{
+  font-size:16px;
+  line-height:1.82;
+  padding:12px 12px 3px;
+}
+.inline-transcript::before{
+  font-size:11.5px;
+}
+.panel summary{
+  font-size:16px;
+  line-height:1.55;
+  padding:14px 14px;
+}
+.panel-body{
+  font-size:16px;
+  line-height:1.82;
+  padding:0 14px 14px;
+}
+.choice{
+  font-size:16px;
+  line-height:1.55;
+  padding:15px 16px;
+  min-height:48px;
+}
+.feedback{
+  font-size:16px;
+  line-height:1.7;
+}
+.btn{
+  font-size:16px;
+  min-height:50px;
+  padding:14px 16px;
+}
+.term-zh{
+  font-size:20px;
+}
+.term-en{
+  font-size:14px;
+  line-height:1.5;
+}
+.term-en-play{
+  width:30px;
+  height:30px;
+  flex-basis:30px;
+  font-size:12px;
+}
+.term-play{
+  width:46px;
+  height:46px;
+  flex-basis:46px;
+}
+.term-exp{
+  font-size:16px;
+  line-height:1.8;
+}
+.term-transcript{
+  font-size:16px;
+  line-height:1.82;
+}
+.term-transcript::before{
+  font-size:11.5px;
+}
+.recall-score{
+  font-size:14px;
+}
+.recall-q{
+  font-size:16px;
+  line-height:1.65;
+}
+.recall-choice{
+  font-size:16px;
+  line-height:1.55;
+  padding:13px 14px;
+  min-height:48px;
+}
+.recall-feedback{
+  font-size:16px;
+  line-height:1.7;
+}
+.chapter-name{
+  font-size:14px;
+  line-height:1.5;
+}
+.chapter-kicker,
+.chapter-nav-count,
+.chapter-num{
+  font-size:11.5px;
+}
+.section-kicker,
+.assist-label,
+.eyebrow{
+  font-size:13px;
+}
+.tiny{
+  font-size:12.5px;
+  line-height:1.6;
+}
+
+/* 課程 visualHtml 中原本偏小的 12px 小字同步放大 */
+.visual span[style*="font-size:12px"],
+.visual div[style*="font-size:12px"],
+.visual small{
+  font-size:14px !important;
+  line-height:1.5;
+}
+
+/* 若視覺區有 15px 主要文字，提升至 16px */
+.visual [style*="font-size:15px"]{
+  font-size:16px !important;
+}
+
+/* 窄螢幕仍維持主要正文至少 16px */
+@media(max-width:360px){
+  h1{font-size:28px}
+  .lead{font-size:17px}
+  .callout,
+  .inline-transcript,
+  .panel-body,
+  .choice,
+  .feedback,
+  .term-exp,
+  .term-transcript,
+  .recall-q,
+  .recall-choice,
+  .recall-feedback{
+    font-size:16px;
+  }
+  .audio-title{font-size:14px}
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  "title": "3.2 通訊協定",
+  "brand": "通勤微課 · 3.2 通訊協定",
+  "segments": [
+    {
+      "eyebrow": "01 · 先抓核心",
+      "title": "為什麼網路裝置需要「共同規則」？",
+      "lead": "要讓終端裝置透過網路互相通訊，參與通訊的裝置必須遵守相同的規則；這些規則就是協定。",
+      "time": "約 55 秒",
+      "visualHtml": "<div class='callout' style='text-align:center;font-weight:850;font-size:15px'><div style='display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap'><span style='padding:8px 10px;border:1px solid #e6e8ec;border-radius:11px;background:#fff'>終端裝置</span><span>→</span><span style='padding:8px 12px;border-radius:11px;background:#111827;color:#fff'>共同協定</span><span>→</span><span style='padding:8px 10px;border:1px solid #e6e8ec;border-radius:11px;background:#fff'>網路／終端裝置</span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 協定到底是什麼？",
+          "subtitle": "先記住共同規則這個概念",
+          "text": "如果兩台裝置想透過網路交換訊息，不能各自用自己的方式。它們必須遵守相同的規則。影片把這些規則稱為協定。協定會規定裝置之間交換訊息時要使用的共同格式與規則，而且可以由終端裝置或中介裝置，以軟體、硬體或兩者一起實現。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "影片原本強調的三件事",
+          "kind": "note",
+          "body": "<b>① 共同規則：</b>裝置要能互通，必須理解同一套協定。<br><b>② 格式與規則：</b>協定定義交換訊息時的格式與處理方式。<br><b>③ 功能不同：</b>不同協定各有自己的功能、格式與通訊規則。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "02 · 協定類型",
+      "title": "不是所有協定都做同一件事",
+      "lead": "影片把常見協定分成四類：網路通訊、網路安全、路由，以及服務發現。",
+      "time": "約 75 秒",
+      "visualHtml": "<div style='display:grid;grid-template-columns:1fr 1fr;gap:8px'><div class='callout'><b>網路通訊</b><br><span style='font-size:12px'>例：TCP、HTTP</span></div><div class='callout'><b>網路安全</b><br><span style='font-size:12px'>例：SSH、SSL、TLS</span></div><div class='callout'><b>路由</b><br><span style='font-size:12px'>例：OSPF、BGP</span></div><div class='callout'><b>服務發現</b><br><span style='font-size:12px'>例：DHCP、DNS</span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 四種協定在分工什麼？",
+          "subtitle": "用功能分類，不要只背縮寫",
+          "text": "第一類是網路通訊協定，讓兩個或更多裝置透過一個或多個網路進行通訊，影片列出 TCP 和 HTTP 等例子。第二類是網路安全協定，用來保護資料並提供驗證、完整性和加密，例子有 SSH、SSL 和 TLS。第三類是路由通訊協定，讓路由器交換路由資訊、比較路徑，再選擇到目的地網路的最佳路徑，例子有 OSPF 和 BGP。第四類是服務發現協定，用於自動偵測裝置或服務，影片列出 DHCP 和 DNS。"
+        }
+      ],
+      "quiz": {
+        "prompt": "影片原測驗：BGP 和 OSPF 是哪種類型協定的例子？",
+        "choices": [
+          {
+            "label": "A　網路通訊",
+            "correct": false
+          },
+          {
+            "label": "B　網路安全性",
+            "correct": false
+          },
+          {
+            "label": "C　路由（routing）",
+            "correct": true
+          },
+          {
+            "label": "D　服務探索",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 沒錯。OSPF 與 BGP 都是影片列出的路由通訊協定例子。",
+        "wrongText": "提示：想想哪一類協定負責交換路由資訊、比較路徑並選擇最佳路徑。"
+      }
+    },
+    {
+      "eyebrow": "03 · 訊息怎麼找到目的地",
+      "title": "編址：每一站都要看得懂訊息要去哪裡",
+      "lead": "影片用 IPv4 標頭示範：傳送者、沿途路由器與接收端都必須理解相同的協定資訊。",
+      "time": "約 60 秒",
+      "visualHtml": "<div class='callout'><div style='font-size:12px;color:#6b7280;margin-bottom:8px'>訊息 = <b style='color:#6d28d9'>IP 標頭</b> + 資料</div><div style='display:flex;align-items:center;justify-content:space-between;gap:6px;text-align:center;font-size:12px;font-weight:800'><span>傳送端<br><small>加上 IPv4 標頭</small></span><span>→</span><span>路由器<br><small>看懂標頭後轉發</small></span><span>→</span><span>接收端<br><small>看懂 IPv4 後接收</small></span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 編址在做什麼？",
+          "subtitle": "把影片的 IPv4 圖變成一句話",
+          "text": "協定的一項功能是編址。編址會識別訊息的發送者與預期接收者，使用的是協定所定義的尋址方案。影片的例子中，電腦使用 IPv4 標頭在網路上送出訊息；路由器因為理解 IPv4 標頭，所以能轉發；目的端因為理解 IPv4，所以能接受訊息。影片也指出，乙太網路、IPv4 和 IPv6 都提供定址功能。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "為什麼一定要大家都理解同一協定？",
+          "kind": "why",
+          "body": "如果傳送端使用某種協定建立訊息，但中間設備或接收端無法理解其中的格式與規則，就無法依協定資訊正確轉發或接收。影片用『理解 IPv4 標頭』示範這件事。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "04 · 傳輸品質",
+      "title": "訊息不只要送到，還要有秩序、有控制、能發現錯誤",
+      "lead": "影片列出可靠性、流量控制、順序與錯誤偵測，說明通訊協定如何管理傳輸過程。",
+      "time": "約 80 秒",
+      "visualHtml": "<div style='display:grid;gap:7px'><div class='callout'><b>可靠性</b>　提供有保證的傳遞機制；影片指出 TCP 提供可靠傳遞。</div><div class='callout'><b>流量控制</b>　確保兩個通訊裝置之間的資料能有效率地流動；TCP 提供流量控制。</div><div class='callout'><b>順序</b>　為每個資料傳輸片段加上唯一標示，接收端依排序資訊重新組裝。</div><div class='callout'><b>錯誤偵測</b>　判斷資料在傳輸時是否損壞；影片列出乙太網路、IPv4、IPv6、TCP。</div></div>",
+      "audio": [
+        {
+          "title": "解題語音 · 四種功能怎麼分？",
+          "subtitle": "用問題反推功能",
+          "text": "看到可靠性，就問訊息能不能被保證傳遞；影片指出 TCP 提供可靠傳遞。看到流量控制，就問兩端之間的資料流動能不能維持有效率；TCP 也提供流量控制。看到順序，就想每個傳輸片段有唯一的標示，接收端用排序資訊把資料重新組裝，尤其在資料遺失、延遲或亂序時很重要。看到錯誤偵測，就問傳輸中的資料有沒有損壞。"
+        }
+      ],
+      "quiz": {
+        "prompt": "影片原測驗：什麼是網路通訊中的排序功能目的？",
+        "choices": [
+          {
+            "label": "A　唯一標記傳輸的資料段，以便接收裝置重新組裝",
+            "correct": true
+          },
+          {
+            "label": "B　判斷資料在傳輸過程中是否損毀",
+            "correct": false
+          },
+          {
+            "label": "C　確保傳送者和接收者之間有效率地流動資料",
+            "correct": false
+          },
+          {
+            "label": "D　保證資料傳遞",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。排序功能用唯一標示協助接收端依正確順序重新組裝資料。",
+        "wrongText": "提示：題目問的是『順序』，不是可靠性、流量控制或錯誤偵測。"
+      }
+    },
+    {
+      "eyebrow": "05 · 應用程式端",
+      "title": "使用者看到網頁時，協定也在處理「程式對程式」的通訊",
+      "lead": "影片把應用程式介面列為協定功能之一，並以瀏覽網頁時使用 HTTP 或 HTTPS 為例。",
+      "time": "約 45 秒",
+      "visualHtml": "<div class='callout' style='text-align:center'><b>Web 用戶端</b><br><span style='font-size:12px;color:#6b7280'>HTTP / HTTPS</span><br>⇅<br><b>Web 伺服器</b></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 應用程式彼此怎麼談？",
+          "subtitle": "把『網頁』連回協定功能",
+          "text": "影片指出，協定的功能還包含處理程序對處理程序之間的通訊，也就是網路應用程式彼此交換資訊。舉例來說，當使用者瀏覽一個網頁時，HTTP 或 HTTPS 通訊協定會用在用戶端與伺服器的 Web 處理程序之間。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "06 · 協定互動",
+      "title": "一次 Web 存取，通常不是只靠一個協定",
+      "lead": "影片用 HTTP、TCP、IP、乙太網路示範：不同協定各做一部分工作，合起來才完成通訊。",
+      "time": "約 85 秒",
+      "visualHtml": "<div style='max-width:260px;margin:0 auto;border:1px solid #e6e8ec;border-radius:18px;overflow:hidden;text-align:center;font-weight:900'><div style='padding:12px;background:#991b1b;color:white'>HTTP</div><div style='padding:12px;background:#166534;color:white'>TCP</div><div style='padding:12px;background:#a16207;color:white'>IP</div><div style='padding:12px;background:#1e3a8a;color:white'>乙太網路</div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 四層各做什麼？",
+          "subtitle": "照影片的 Web 伺服器例子往下看",
+          "text": "當裝置要存取 Web 伺服器的網頁，影片示範多個協定一起工作。HTTP 控制 Web 伺服器與 Web 用戶端互動的方式，並定義請求和回應的格式。TCP 管理單一對話，負責可靠傳遞與終端裝置之間的流量控制。IP 負責從發送者到接收者傳送訊息，路由器使用 IP 來轉發跨越多個網路的訊息。乙太網路則負責在同一個區域網路，也就是 LAN 中，從一個 NIC 到另一個 NIC 的訊息傳遞。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "把四個協定串成一句話",
+          "kind": "detail",
+          "body": "<b>HTTP</b> 定義 Web 用戶端／伺服器互動 → <b>TCP</b> 管理可靠傳遞與流量 → <b>IP</b> 讓訊息跨網路往目的地前進 → <b>乙太網路</b> 負責同一 LAN 內 NIC 之間的傳遞。"
+        }
+      ],
+      "quiz": {
+        "prompt": "影片原測驗：哪個協定負責保證訊息的可靠傳遞？",
+        "choices": [
+          {
+            "label": "A　TCP",
+            "correct": true
+          },
+          {
+            "label": "B　IP",
+            "correct": false
+          },
+          {
+            "label": "C　HTTP",
+            "correct": false
+          },
+          {
+            "label": "D　乙太網路",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 正確。影片明確指出 TCP 提供可靠傳遞。",
+        "wrongText": "提示：在 HTTP、TCP、IP、乙太網路四個協定中，哪一個同時被影片提到『可靠傳遞』與『流量控制』？"
+      }
+    },
+    {
+      "eyebrow": "07 · 下車前複習",
+      "title": "今天真正要帶走的三個觀念",
+      "lead": "先不要背全部縮寫，先把協定的角色架構記住。",
+      "time": "約 35 秒",
+      "visualHtml": "<div class='bigmath' style='font-size:20px;line-height:1.7;letter-spacing:0;text-align:left'>① 協定＝共同的通訊規則<br>② 不同協定負責不同功能<br>③ 一次網路通訊會同時使用多個協定</div>",
+      "audio": [
+        {
+          "title": "總複習語音",
+          "subtitle": "下車前再聽一次",
+          "text": "這一課先記三件事。第一，協定是裝置之間交換訊息時共同遵守的格式與規則。第二，不同協定負責不同功能，例如安全、路由、服務發現、編址、可靠性、流量控制、順序和錯誤偵測。第三，一次通訊通常需要多個協定一起工作；影片的 Web 例子就是 HTTP、TCP、IP 和乙太網路各自分工。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "本課文字摘要",
+          "kind": "note",
+          "open": true,
+          "body": "如果題目給你一個協定名稱，先判斷它屬於哪一類或負責哪個功能；如果題目給你一個通訊情境，就想是哪個協定在處理應用互動、可靠傳輸、跨網路轉送或 LAN 內傳遞。"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "zh": "超文本傳輸協定",
+      "en": "HTTP",
+      "explanation": "影片用在 Web 用戶端與 Web 伺服器互動；它定義雙方交換的請求與回應格式。",
+      "audioText": "超文本傳輸協定，影片標示為 HTTP。它控制 Web 用戶端與 Web 伺服器互動的方式，並定義請求與回應的格式。",
+      "enAudioText": "HTTP"
+    },
+    {
+      "zh": "傳輸控制協定",
+      "en": "TCP",
+      "explanation": "影片指出 TCP 管理單一對話，提供可靠傳遞與終端裝置之間的流量控制，也提供排序服務。",
+      "audioText": "傳輸控制協定，影片標示為 TCP。它管理單一對話，提供可靠傳遞、流量控制與排序服務。",
+      "enAudioText": "TCP"
+    },
+    {
+      "zh": "互聯網協定",
+      "en": "IP",
+      "explanation": "影片指出 IP 負責從發送者到接收者傳送訊息，路由器用它轉發跨越多個網路的訊息。",
+      "audioText": "互聯網協定，影片標示為 IP。它負責從發送者到接收者傳送訊息，路由器會用 IP 來轉發跨越多個網路的訊息。",
+      "enAudioText": "IP"
+    },
+    {
+      "zh": "開放最短路徑優先",
+      "en": "OSPF",
+      "explanation": "影片列出的路由通訊協定範例之一；路由協定用來交換路由資訊、比較路徑並選擇最佳路徑。",
+      "audioText": "開放最短路徑優先，影片標示為 OSPF。它是影片列出的路由通訊協定範例之一。",
+      "enAudioText": "OSPF"
+    },
+    {
+      "zh": "邊界閘道通訊協定",
+      "en": "BGP",
+      "explanation": "影片列出的路由通訊協定範例之一，和 OSPF 一起出現在路由協定類型中。",
+      "audioText": "邊界閘道通訊協定，影片標示為 BGP。它是影片列出的路由通訊協定範例之一。",
+      "enAudioText": "BGP"
+    },
+    {
+      "zh": "安全殼層",
+      "en": "SSH",
+      "explanation": "影片列為網路安全協定的例子；這一類協定用來保護資料，提供驗證、完整性和加密。",
+      "audioText": "安全殼層，影片標示為 SSH。影片把它列為網路安全協定的例子。",
+      "enAudioText": "SSH"
+    },
+    {
+      "zh": "安全通訊端層",
+      "en": "SSL",
+      "explanation": "影片列為網路安全協定的例子之一，和 SSH、TLS 一起出現。",
+      "audioText": "安全通訊端層，影片標示為 SSL。它是影片列出的網路安全協定例子之一。",
+      "enAudioText": "SSL"
+    },
+    {
+      "zh": "傳輸層安全性",
+      "en": "TLS",
+      "explanation": "影片列為網路安全協定的例子之一，和 SSH、SSL 一起出現。",
+      "audioText": "傳輸層安全性，影片標示為 TLS。它是影片列出的網路安全協定例子之一。",
+      "enAudioText": "TLS"
+    },
+    {
+      "zh": "動態主機設定通訊協定",
+      "en": "DHCP",
+      "explanation": "影片把 DHCP 列為服務發現協定的例子；本微課只保留影片對它的分類用途。",
+      "audioText": "動態主機設定通訊協定，影片標示為 DHCP。影片把 DHCP 列為服務發現協定的例子。",
+      "enAudioText": "DHCP"
+    },
+    {
+      "zh": "域名系統",
+      "en": "DNS",
+      "explanation": "影片把 DNS 列為服務發現協定的例子，並提到它用於執行位址轉換。",
+      "audioText": "域名系統，影片標示為 DNS。影片把 DNS 列為服務發現協定的例子，並提到它用於執行位址轉換。",
+      "enAudioText": "DNS"
+    }
+  ],
+  "termQuiz": [
+    {
+      "question": "「超文本傳輸協定」在影片中標示為哪個縮寫？",
+      "choices": [
+        {
+          "label": "HTTP",
+          "correct": true
+        },
+        {
+          "label": "TCP",
+          "correct": false
+        },
+        {
+          "label": "BGP",
+          "correct": false
+        }
+      ],
+      "correctText": "對，超文本傳輸協定對應 HTTP。",
+      "wrongText": "回想 Web 用戶端與 Web 伺服器互動那一層的縮寫。"
+    },
+    {
+      "question": "TCP 對應哪個中文專有名詞？",
+      "choices": [
+        {
+          "label": "傳輸控制協定",
+          "correct": true
+        },
+        {
+          "label": "互聯網協定",
+          "correct": false
+        },
+        {
+          "label": "安全通訊端層",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，TCP 是傳輸控制協定。",
+      "wrongText": "提示：影片說它負責可靠傳遞與流量控制。"
+    },
+    {
+      "question": "哪個縮寫代表影片中『從發送者到接收者傳送訊息，並由路由器跨網路轉發』的協定？",
+      "choices": [
+        {
+          "label": "IP",
+          "correct": true
+        },
+        {
+          "label": "HTTP",
+          "correct": false
+        },
+        {
+          "label": "SSL",
+          "correct": false
+        }
+      ],
+      "correctText": "對，這是 IP。",
+      "wrongText": "想想影片的 IPv4 標頭與路由器轉發例子。"
+    },
+    {
+      "question": "開放最短路徑優先的縮寫是哪一個？",
+      "choices": [
+        {
+          "label": "OSPF",
+          "correct": true
+        },
+        {
+          "label": "BGP",
+          "correct": false
+        },
+        {
+          "label": "DNS",
+          "correct": false
+        }
+      ],
+      "correctText": "對，開放最短路徑優先對應 OSPF。",
+      "wrongText": "它和 BGP 一起被列為路由通訊協定例子。"
+    },
+    {
+      "question": "BGP 對應哪個中文專有名詞？",
+      "choices": [
+        {
+          "label": "邊界閘道通訊協定",
+          "correct": true
+        },
+        {
+          "label": "安全殼層",
+          "correct": false
+        },
+        {
+          "label": "傳輸層安全性",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，BGP 對應邊界閘道通訊協定。",
+      "wrongText": "提示：BGP 是影片列出的路由通訊協定例子。"
+    },
+    {
+      "question": "安全殼層在影片中標示為哪個縮寫？",
+      "choices": [
+        {
+          "label": "SSH",
+          "correct": true
+        },
+        {
+          "label": "SSL",
+          "correct": false
+        },
+        {
+          "label": "TLS",
+          "correct": false
+        }
+      ],
+      "correctText": "對，安全殼層對應 SSH。",
+      "wrongText": "三個選項都在安全協定那一列；回想名稱配對。"
+    },
+    {
+      "question": "SSL 對應哪個中文專有名詞？",
+      "choices": [
+        {
+          "label": "安全通訊端層",
+          "correct": true
+        },
+        {
+          "label": "安全殼層",
+          "correct": false
+        },
+        {
+          "label": "傳輸層安全性",
+          "correct": false
+        }
+      ],
+      "correctText": "對，SSL 對應安全通訊端層。",
+      "wrongText": "回想 SSH、SSL、TLS 三個名稱的中英配對。"
+    },
+    {
+      "question": "傳輸層安全性在影片中標示為哪個縮寫？",
+      "choices": [
+        {
+          "label": "TLS",
+          "correct": true
+        },
+        {
+          "label": "TCP",
+          "correct": false
+        },
+        {
+          "label": "BGP",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，傳輸層安全性對應 TLS。",
+      "wrongText": "提示：它和 SSH、SSL 同屬影片列出的網路安全協定例子。"
+    },
+    {
+      "question": "哪個縮寫是影片列出的服務發現協定例子，而且和主機設定有關？",
+      "choices": [
+        {
+          "label": "DHCP",
+          "correct": true
+        },
+        {
+          "label": "OSPF",
+          "correct": false
+        },
+        {
+          "label": "HTTP",
+          "correct": false
+        }
+      ],
+      "correctText": "對，影片把 DHCP 列為服務發現協定例子。",
+      "wrongText": "提示：另一個服務發現協定例子是 DNS。"
+    },
+    {
+      "question": "域名系統在影片中標示為哪個縮寫？",
+      "choices": [
+        {
+          "label": "DNS",
+          "correct": true
+        },
+        {
+          "label": "DHCP",
+          "correct": false
+        },
+        {
+          "label": "IP",
+          "correct": false
+        }
+      ],
+      "correctText": "對，域名系統對應 DNS。",
+      "wrongText": "回想影片原測驗中，DNS 和 DHCP 被一起選為服務探索協定。"
+    }
+  ],
+  "recallQuiz": [
+    {
+      "question": "影片原測驗：哪兩個協定是服務探索協定的範例？",
+      "choices": [
+        {
+          "label": "DNS 與 DHCP",
+          "correct": true
+        },
+        {
+          "label": "TCP 與 SSH",
+          "correct": false
+        },
+        {
+          "label": "OSPF 與 BGP",
+          "correct": false
+        }
+      ],
+      "correctText": "對，影片原測驗的正確選項是 DNS 與 DHCP。",
+      "wrongText": "提示：OSPF、BGP 是路由協定；SSH 是安全協定。"
+    },
+    {
+      "question": "如果題目說『讓路由器交換路由資訊、比較路徑並選擇最佳路徑』，這是在描述哪一類協定？",
+      "choices": [
+        {
+          "label": "路由通訊協定",
+          "correct": true
+        },
+        {
+          "label": "網路安全協定",
+          "correct": false
+        },
+        {
+          "label": "服務發現協定",
+          "correct": false
+        }
+      ],
+      "correctText": "對，這就是路由通訊協定的功能。",
+      "wrongText": "回想 OSPF 與 BGP 被放在哪一類。"
+    },
+    {
+      "question": "哪個協定功能用來識別訊息的發送者與預期接收者？",
+      "choices": [
+        {
+          "label": "編址",
+          "correct": true
+        },
+        {
+          "label": "流量控制",
+          "correct": false
+        },
+        {
+          "label": "錯誤偵測",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，編址負責識別發送者與預期接收者。",
+      "wrongText": "想想 IPv4 標頭在影片中的作用。"
+    },
+    {
+      "question": "資料片段可能遺失、延遲或亂序時，哪個功能幫助接收端依正確順序重新組裝？",
+      "choices": [
+        {
+          "label": "順序",
+          "correct": true
+        },
+        {
+          "label": "可靠性",
+          "correct": false
+        },
+        {
+          "label": "服務發現",
+          "correct": false
+        }
+      ],
+      "correctText": "對，排序資訊讓接收端重新組裝資料。",
+      "wrongText": "這一題對應影片原測驗的『排序功能目的』。"
+    },
+    {
+      "question": "存取 Web 伺服器時，哪個配對最符合影片對協定分工的描述？",
+      "choices": [
+        {
+          "label": "HTTP 處理 Web 互動；TCP 處理可靠傳遞；IP 負責跨網路轉送；乙太網路負責 LAN 內 NIC 之間傳遞",
+          "correct": true
+        },
+        {
+          "label": "HTTP 選最佳路徑；TCP 做名稱轉換；IP 提供 Web 請求；乙太網路做服務發現",
+          "correct": false
+        },
+        {
+          "label": "四個協定都負責完全相同的功能",
+          "correct": false
+        }
+      ],
+      "correctText": "正確。影片的重點就是多個協定分工合作，而不是由單一協定包辦所有工作。",
+      "wrongText": "回想影片的四層堆疊：HTTP、TCP、IP、乙太網路。"
+    },
+    {
+      "question": "如果只能用一句話說明本課核心，哪個最接近影片內容？",
+      "choices": [
+        {
+          "label": "裝置遵守共同協定，並由不同協定分工完成一段網路通訊",
+          "correct": true
+        },
+        {
+          "label": "只要所有裝置都使用 TCP，就不需要其他協定",
+          "correct": false
+        },
+        {
+          "label": "協定只用在路由器，終端裝置不需要理解協定",
+          "correct": false
+        }
+      ],
+      "correctText": "對，這同時抓到『共同規則』與『多協定分工』兩個核心。",
+      "wrongText": "回想第一段的共同規則，以及最後 HTTP／TCP／IP／乙太網路一起工作的例子。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

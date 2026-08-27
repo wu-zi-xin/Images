@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:16px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:14px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:15px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:14px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:15px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:14px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:13px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* ===== 通勤大字舒適版：閱讀與觸控優化 ===== */
+h1{
+  font-size:30px;
+  line-height:1.28;
+}
+.lead{
+  font-size:17px;
+  line-height:1.75;
+}
+.callout{
+  font-size:16px;
+  line-height:1.75;
+}
+.audio{
+  grid-template-columns:46px 1fr;
+  gap:11px;
+  padding:13px;
+}
+.play{
+  width:46px;
+  height:46px;
+  min-width:46px;
+  min-height:46px;
+}
+.audio-title{
+  font-size:15px;
+}
+.audio-sub{
+  font-size:12.5px;
+}
+.inline-transcript{
+  font-size:16px;
+  line-height:1.82;
+  padding:12px 12px 3px;
+}
+.inline-transcript::before{
+  font-size:11.5px;
+}
+.panel summary{
+  font-size:16px;
+  line-height:1.55;
+  padding:14px 14px;
+}
+.panel-body{
+  font-size:16px;
+  line-height:1.82;
+  padding:0 14px 14px;
+}
+.choice{
+  font-size:16px;
+  line-height:1.55;
+  padding:15px 16px;
+  min-height:48px;
+}
+.feedback{
+  font-size:16px;
+  line-height:1.7;
+}
+.btn{
+  font-size:16px;
+  min-height:50px;
+  padding:14px 16px;
+}
+.term-zh{
+  font-size:20px;
+}
+.term-en{
+  font-size:14px;
+  line-height:1.5;
+}
+.term-en-play{
+  width:30px;
+  height:30px;
+  flex-basis:30px;
+  font-size:12px;
+}
+.term-play{
+  width:46px;
+  height:46px;
+  flex-basis:46px;
+}
+.term-exp{
+  font-size:16px;
+  line-height:1.8;
+}
+.term-transcript{
+  font-size:16px;
+  line-height:1.82;
+}
+.term-transcript::before{
+  font-size:11.5px;
+}
+.recall-score{
+  font-size:14px;
+}
+.recall-q{
+  font-size:16px;
+  line-height:1.65;
+}
+.recall-choice{
+  font-size:16px;
+  line-height:1.55;
+  padding:13px 14px;
+  min-height:48px;
+}
+.recall-feedback{
+  font-size:16px;
+  line-height:1.7;
+}
+.chapter-name{
+  font-size:14px;
+  line-height:1.5;
+}
+.chapter-kicker,
+.chapter-nav-count,
+.chapter-num{
+  font-size:11.5px;
+}
+.section-kicker,
+.assist-label,
+.eyebrow{
+  font-size:13px;
+}
+.tiny{
+  font-size:12.5px;
+  line-height:1.6;
+}
+
+/* visualHtml 中原本 11.5px / 12px / 14px 的學習文字同步放大 */
+.visual span[style*="font-size:12px"],
+.visual div[style*="font-size:12px"],
+.visual span[style*="font-size:11.5px"],
+.visual div[style*="font-size:11.5px"],
+.visual small{
+  font-size:14px !important;
+  line-height:1.5;
+}
+.visual [style*="font-size:14px"]{
+  font-size:16px !important;
+}
+
+/* 窄螢幕仍維持主要正文至少 16px */
+@media(max-width:360px){
+  h1{font-size:28px}
+  .lead{font-size:17px}
+  .callout,
+  .inline-transcript,
+  .panel-body,
+  .choice,
+  .feedback,
+  .term-exp,
+  .term-transcript,
+  .recall-q,
+  .recall-choice,
+  .recall-feedback{
+    font-size:16px;
+  }
+  .audio-title{font-size:14px}
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  "title": "3.3 協定族：TCP/IP 協定堆疊與通信過程",
+  "brand": "通勤微課｜3.3 協定族",
+  "segments": [
+    {
+      "eyebrow": "01 · 先抓住核心",
+      "title": "協定族不是一條規則，而是一組會合作的協定",
+      "lead": "網路通信要成功，常常不是靠單一協定，而是不同層次的規則一起工作。",
+      "time": "約 55 秒",
+      "visualHtml": "<div style=\"display:grid;gap:7px\"><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">內容層</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">要傳什麼資訊</div></div><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">規則層</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">雙方怎麼互動、怎麼確認</div></div><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">實體層</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">訊號實際怎麼送出去</div></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 什麼是協定族？",
+          "subtitle": "用人與人的溝通來理解",
+          "text": "協定族可以想成一整套彼此配合的溝通規則。就像兩個人對話，不只要有想說的內容，還要使用彼此懂的語言、遵守互動規則，最後還要透過聲音或其他實體方式把訊息送出去。網路也是一樣，不同協定分工合作，才能完成一次完整的通信。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "為什麼要分層？",
+          "kind": "why",
+          "body": "影片用「堆疊」來表示協定之間的互動。較高層的服務會依賴較低層提供的功能，因此把協定依層次整理，可以比較容易看懂每一層負責什麼。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "02 · 協定族的演變",
+      "title": "曾經有多套協定族並存",
+      "lead": "TCP/IP、ISO、AppleTalk、Novell NetWare 都曾用不同協定組合完成各層工作。",
+      "time": "約 45 秒",
+      "visualHtml": "<div class=\"callout\"><b>影片中的比較：</b><br>同樣可分成應用、傳輸、網際網路、網路存取等層次，但不同協定族在各層採用的協定並不相同。</div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 為什麼會有不同協定族？",
+          "subtitle": "先看「功能相同、規則不同」",
+          "text": "協定族是一組一起工作的協定。影片回顧網路發展時指出，曾經有多套不同的協定族，由不同標準組織或廠商發展。它們都想完成網路通信所需的各種工作，但每一層採用的實際協定可能不同。這也是為什麼學習 TCP/IP 時，要先分清楚『層的功能』和『這一層使用哪些協定』是兩件事。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "影片列出的協定族",
+          "kind": "note",
+          "body": "TCP/IP、ISO、AppleTalk、Novell NetWare。這一段的重點不是背完每套舊協定，而是理解：同一個分層功能，可以由不同協定族用不同協定來實作。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "03 · TCP/IP 實際範例",
+      "title": "開網頁時，HTTP、TCP、IP、乙太網路各做一段工作",
+      "lead": "同一份網頁資料，會一路經過不同層的協定。",
+      "time": "約 60 秒",
+      "visualHtml": "<div style=\"display:grid;gap:7px\"><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">應用層 · HTTP</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">處理 Web 內容與服務</div></div><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">傳輸層 · TCP</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">在主機上的程序之間傳送資料</div></div><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">網際網路層 · IP</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">負責 IP 封包與跨網路傳遞</div></div><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">網路存取層 · 乙太網路 / WLAN</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">把資料送上實際網路媒介</div></div></div>",
+      "audio": [
+        {
+          "title": "解題語音 · 一次網頁通信怎麼看？",
+          "subtitle": "從上到下對齊四層",
+          "text": "影片用 Web 瀏覽器和 Web 伺服器之間的通信做例子。應用層可以使用 HTTP，傳輸層使用 TCP，網際網路層使用 IP；到了網路存取層，常見的區域網路技術則是乙太網路或 WLAN。重點是，同一筆資料不是只靠一個協定送到底，而是每一層接手自己負責的部分。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "影片特別提醒",
+          "kind": "why",
+          "body": "影片將 TCP/IP 通訊協定放在應用、傳輸與網際網路層說明；在網路存取層則舉乙太網路與 WLAN 為常見區域網路協定，負責透過實體媒介承載 IP 資料。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "04 · 四層地圖",
+      "title": "先記職責，再記協定名稱",
+      "lead": "看到任何協定，先問它在四層中的哪一層、負責哪一類工作。",
+      "time": "約 55 秒",
+      "visualHtml": "<div style=\"display:grid;gap:7px\"><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">應用層</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">名稱、主機設定、電子郵件、檔案傳輸、Web 服務</div></div><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">傳輸層</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">連接導向 TCP／非連接導向 UDP</div></div><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">網際網路層</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">IP、訊息傳送與路由相關協定</div></div><div style=\"padding:11px 12px;border:1px solid #e6e8ec;border-radius:13px;background:#f8fafc\"><div style=\"font-weight:900;font-size:14px\">網路存取層</div><div style=\"font-size:12px;color:#6b7280;margin-top:3px\">位址解析、乙太網路、WLAN</div></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 四層怎麼記？",
+          "subtitle": "用問題分類，不用一次背整張表",
+          "text": "TCP/IP 的協定堆疊可以用四個問題來記。應用層問的是『使用者或應用需要什麼服務』；傳輸層問的是『兩端程式之間怎麼傳』；網際網路層問的是『封包怎麼在網路之間到達目的地』；網路存取層則問『資料怎麼在本地網路與實體媒介上送出去』。先掌握這四個職責，再把協定放回對的位置。"
+        }
+      ],
+      "quiz": {
+        "prompt": "如果你看到 DHCP，第一個應該把它歸到哪一層？",
+        "choices": [
+          {
+            "label": "A　應用層",
+            "correct": true
+          },
+          {
+            "label": "B　傳輸層",
+            "correct": false
+          },
+          {
+            "label": "C　網際網路層",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。影片把 DHCPv4、DHCPv6 與 SLAAC 放在應用層的主機設定類別。",
+        "wrongText": "提示：想想 DHCP 解決的是主機設定與位址資訊取得，不是在做路由或程序間傳輸。"
+      }
+    },
+    {
+      "eyebrow": "05 · 應用層",
+      "title": "應用層把網路功能變成使用者真正會用到的服務",
+      "lead": "DNS、DHCP、電子郵件、檔案傳輸、Web 服務都出現在這一層。",
+      "time": "約 65 秒",
+      "visualHtml": "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:7px\"><div class=\"callout\"><b>名稱</b><br>DNS</div><div class=\"callout\"><b>主機設定</b><br>DHCPv4 / DHCPv6 / SLAAC</div><div class=\"callout\"><b>電子郵件</b><br>SMTP / POP3 / IMAP</div><div class=\"callout\"><b>檔案與 Web</b><br>FTP / SFTP / TFTP / HTTP / HTTPS / REST</div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 不要死背一長串",
+          "subtitle": "把協定按任務分組",
+          "text": "影片在應用層列出很多協定。最省力的記法不是硬背縮寫，而是先看它們解決什麼任務。DNS 處理名稱與 IP 位址之間的對應；DHCP 類協定處理主機設定；SMTP、POP3、IMAP 和電子郵件有關；FTP、SFTP、TFTP 用在檔案傳輸；HTTP、HTTPS 與 REST 則和 Web 服務有關。看到名稱時，先把它放回任務類別。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "影片中的應用層清單",
+          "kind": "detail",
+          "body": "<b>名稱系統：</b>DNS<br><b>主機設定：</b>DHCPv4、DHCPv6、SLAAC<br><b>電子郵件：</b>SMTP、POP3、IMAP<br><b>檔案傳輸：</b>FTP、SFTP、TFTP<br><b>網路服務：</b>HTTP、HTTPS、REST"
+        }
+      ]
+    },
+    {
+      "eyebrow": "06 · 傳輸層",
+      "title": "TCP 與 UDP 的關鍵差異：要不要確認傳送結果",
+      "lead": "影片把 TCP 放在連接導向，把 UDP 放在非連接導向。",
+      "time": "約 60 秒",
+      "visualHtml": "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px\"><div class=\"callout\"><b>TCP</b><br>可靠、會確認傳遞結果</div><div class=\"callout\"><b>UDP</b><br>不確認資料報是否成功送達</div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · TCP 跟 UDP 怎麼分？",
+          "subtitle": "抓住影片最強調的差異",
+          "text": "在傳輸層，影片把 TCP 描述成連接導向的傳輸協定，支援不同主機上程序之間的可靠通信，並會對傳送成功與否作確認。UDP 則是非連接導向，讓一台主機上的程序把資料報送給另一台主機上的程序，但不會確認資料報是否成功送達。先記住『TCP 會確認，UDP 不確認』，再往下補細節。"
+        }
+      ],
+      "quiz": {
+        "prompt": "哪一個敘述最符合影片對 UDP 的說明？",
+        "choices": [
+          {
+            "label": "A　每次都會確認資料是否成功送達",
+            "correct": false
+          },
+          {
+            "label": "B　不會確認資料報是否成功送達",
+            "correct": true
+          },
+          {
+            "label": "C　主要負責把名稱轉成 IP 位址",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 沒錯。影片把 UDP 放在非連接導向，並強調它不確認資料報是否成功送達。",
+        "wrongText": "再想 TCP 與 UDP 的對比：哪一個在影片中被描述為會確認傳送結果？"
+      }
+    },
+    {
+      "eyebrow": "07 · 網際網路層與網路存取層",
+      "title": "上層決定怎麼到目的地，下層把資料真正送上網路",
+      "lead": "IP、ICMP、路由協定在網際網路層；ARP、乙太網路、WLAN 在網路存取層。",
+      "time": "約 70 秒",
+      "visualHtml": "<div style=\"display:grid;gap:8px\"><div class=\"callout\"><b>網際網路層</b><br>IPv4 / IPv6 / NAT · ICMPv4 / ICMPv6 · OSPF / EIGRP / BGP</div><div class=\"callout\"><b>網路存取層</b><br>ARP · 乙太網路 · WLAN</div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 兩層不要混在一起",
+          "subtitle": "一層處理 IP 與路由，一層處理本地傳送",
+          "text": "網際網路層主要出現 IP、控制訊息與路由相關協定。影片列出 IPv4、IPv6、NAT，也列出 ICMPv4、ICMPv6，以及 OSPF、EIGRP、BGP 等路由協定。再往下的網路存取層，則有 ARP、乙太網路和 WLAN。ARP 用來建立 IP 位址與硬體位址之間的對應，而乙太網路與 WLAN 負責本地網路上的資料傳送。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "IP 位址版本",
+          "kind": "detail",
+          "body": "影片指出 IPv4 使用 32 位元位址，IPv6 使用 128 位元位址。"
+        },
+        {
+          "title": "路由與控制訊息",
+          "kind": "detail",
+          "body": "影片在網際網路層列出 ICMPv4、ICMPv6，以及 OSPF、EIGRP、BGP。這一課的主要目的，是先知道它們屬於網際網路層，而不是一次背完所有細節。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "08 · 傳送端封裝",
+      "title": "送資料時：一層一層往外加資訊",
+      "lead": "使用者資料會依序變成 TCP 段、IP 封包、乙太網路訊框，最後送成位元。",
+      "time": "約 65 秒",
+      "visualHtml": "<div style=\"display:grid;gap:5px\"><div style=\"text-align:center;padding:10px;border:1px solid #e6e8ec;border-radius:13px;background:#fff\"><div style=\"font-weight:950\">使用者資料</div><div style=\"font-size:11.5px;color:#6b7280;margin-top:2px\">應用產生的內容</div></div><div style=\"text-align:center;font-weight:900;color:#6b7280\">↓</div><div style=\"text-align:center;padding:10px;border:1px solid #e6e8ec;border-radius:13px;background:#fff\"><div style=\"font-weight:950\">TCP 段</div><div style=\"font-size:11.5px;color:#6b7280;margin-top:2px\">傳輸層加入資訊</div></div><div style=\"text-align:center;font-weight:900;color:#6b7280\">↓</div><div style=\"text-align:center;padding:10px;border:1px solid #e6e8ec;border-radius:13px;background:#fff\"><div style=\"font-weight:950\">IP 封包</div><div style=\"font-size:11.5px;color:#6b7280;margin-top:2px\">網際網路層加入資訊</div></div><div style=\"text-align:center;font-weight:900;color:#6b7280\">↓</div><div style=\"text-align:center;padding:10px;border:1px solid #e6e8ec;border-radius:13px;background:#fff\"><div style=\"font-weight:950\">乙太網路訊框</div><div style=\"font-size:11.5px;color:#6b7280;margin-top:2px\">網路存取層加入資訊</div></div><div style=\"text-align:center;font-weight:900;color:#6b7280\">↓</div><div style=\"text-align:center;padding:10px;border:1px solid #e6e8ec;border-radius:13px;background:#fff\"><div style=\"font-weight:950\">位元</div><div style=\"font-size:11.5px;color:#6b7280;margin-top:2px\">在媒介上傳送</div></div></div>",
+      "audio": [
+        {
+          "title": "解題語音 · 封裝順序",
+          "subtitle": "跟著影片動畫走一次",
+          "text": "影片的 Web 伺服器動畫展示了封裝。最裡面先是使用者資料；傳輸層加入自己的資訊後，形成 TCP 段；網際網路層再形成 IP 封包；網路存取層再形成乙太網路訊框；最後資料以位元的形式在網路媒介上送出去。記住方向：傳送端是從上層往下層，一層一層把需要的控制資訊加上去。"
+        }
+      ],
+      "quiz": {
+        "prompt": "依影片動畫，哪一個順序最接近傳送端的封裝流程？",
+        "choices": [
+          {
+            "label": "A　使用者資料 → TCP 段 → IP 封包 → 乙太網路訊框",
+            "correct": true
+          },
+          {
+            "label": "B　IP 封包 → 使用者資料 → TCP 段 → 乙太網路訊框",
+            "correct": false
+          },
+          {
+            "label": "C　乙太網路訊框 → IP 封包 → TCP 段 → 使用者資料",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。傳送端由上往下封裝：資料 → TCP 段 → IP 封包 → 乙太網路訊框。",
+        "wrongText": "提示：先從使用者真正要傳的資料開始，再往下經過傳輸層、網際網路層、網路存取層。"
+      }
+    },
+    {
+      "eyebrow": "09 · 接收端解封裝",
+      "title": "收到資料時，順序完全反過來",
+      "lead": "接收端逐層拿掉外層資訊，最後把原本的使用者資料交給應用程式。",
+      "time": "約 55 秒",
+      "visualHtml": "<div style=\"display:grid;gap:5px\"><div style=\"text-align:center;padding:10px;border:1px solid #e6e8ec;border-radius:13px;background:#fff\"><div style=\"font-weight:950\">乙太網路訊框</div><div style=\"font-size:11.5px;color:#6b7280;margin-top:2px\">先處理本地網路外層</div></div><div style=\"text-align:center;font-weight:900;color:#6b7280\">↓</div><div style=\"text-align:center;padding:10px;border:1px solid #e6e8ec;border-radius:13px;background:#fff\"><div style=\"font-weight:950\">IP 封包</div><div style=\"font-size:11.5px;color:#6b7280;margin-top:2px\">再交給網際網路層</div></div><div style=\"text-align:center;font-weight:900;color:#6b7280\">↓</div><div style=\"text-align:center;padding:10px;border:1px solid #e6e8ec;border-radius:13px;background:#fff\"><div style=\"font-weight:950\">TCP 段</div><div style=\"font-size:11.5px;color:#6b7280;margin-top:2px\">再交給傳輸層</div></div><div style=\"text-align:center;font-weight:900;color:#6b7280\">↓</div><div style=\"text-align:center;padding:10px;border:1px solid #e6e8ec;border-radius:13px;background:#fff\"><div style=\"font-weight:950\">使用者資料</div><div style=\"font-size:11.5px;color:#6b7280;margin-top:2px\">最後交給應用程式</div></div></div>",
+      "audio": [
+        {
+          "title": "總複習語音 · 一送一收",
+          "subtitle": "把整支影片的通信流程收起來",
+          "text": "接收端做的事和傳送端相反。收到資料後，先處理並移除乙太網路訊框的資訊，再處理 IP 封包，再處理 TCP 段，最後把原本的使用者資料交給應用程式。整堂課最重要的畫面，就是協定分層合作：傳送時逐層封裝，接收時逐層解封裝，每一層只處理自己負責的資訊。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "下車前只記這一句",
+          "kind": "note",
+          "open": true,
+          "body": "<b>協定族 = 多層協定合作。</b><br>傳送：資料 → TCP 段 → IP 封包 → 乙太網路訊框 → 位元。<br>接收：把這些外層資訊反向逐層移除，還原成使用者資料。"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "zh": "協定族",
+      "en": "Protocol Suite",
+      "explanation": "一組彼此協調、一起完成網路通信工作的協定。",
+      "audioText": "協定族，英文是 Protocol Suite。它是一組彼此協調、一起完成網路通信工作的協定。",
+      "enAudioText": "Protocol Suite"
+    },
+    {
+      "zh": "TCP/IP 協定族",
+      "en": "TCP/IP Protocol Suite",
+      "explanation": "本課用來說明分層通信的主要協定族，包含應用、傳輸、網際網路等層的多種協定。",
+      "audioText": "TCP/IP 協定族，英文是 TCP/IP Protocol Suite。本課用它來說明不同層的協定如何合作完成網路通信。",
+      "enAudioText": "TCP/IP Protocol Suite"
+    },
+    {
+      "zh": "應用層",
+      "en": "Application Layer",
+      "explanation": "提供名稱、主機設定、電子郵件、檔案傳輸與 Web 等應用服務。",
+      "audioText": "應用層，英文是 Application Layer。它提供名稱、主機設定、電子郵件、檔案傳輸與 Web 等應用服務。",
+      "enAudioText": "Application Layer"
+    },
+    {
+      "zh": "傳輸層",
+      "en": "Transport Layer",
+      "explanation": "負責不同主機上的程序之間如何傳送資料，影片以 TCP 與 UDP 為代表。",
+      "audioText": "傳輸層，英文是 Transport Layer。它負責不同主機上的程序之間如何傳送資料，影片以 TCP 與 UDP 為代表。",
+      "enAudioText": "Transport Layer"
+    },
+    {
+      "zh": "網際網路層",
+      "en": "Internet Layer",
+      "explanation": "處理 IP、控制訊息與路由相關工作，讓封包能跨網路傳遞。",
+      "audioText": "網際網路層，英文是 Internet Layer。它處理 IP、控制訊息與路由相關工作，讓封包能跨網路傳遞。",
+      "enAudioText": "Internet Layer"
+    },
+    {
+      "zh": "網路存取層",
+      "en": "Network Access Layer",
+      "explanation": "處理位址解析與本地網路傳送，影片列出 ARP、乙太網路與 WLAN。",
+      "audioText": "網路存取層，英文是 Network Access Layer。它處理位址解析與本地網路傳送，影片列出 ARP、乙太網路與 WLAN。",
+      "enAudioText": "Network Access Layer"
+    },
+    {
+      "zh": "超文字傳輸協定",
+      "en": "Hypertext Transfer Protocol (HTTP)",
+      "explanation": "影片在 Web 範例中使用的應用層協定。",
+      "audioText": "超文字傳輸協定，英文是 Hypertext Transfer Protocol，縮寫 HTTP。影片在 Web 範例中把它放在應用層。",
+      "enAudioText": "Hypertext Transfer Protocol. H T T P."
+    },
+    {
+      "zh": "傳輸控制協定",
+      "en": "Transmission Control Protocol (TCP)",
+      "explanation": "傳輸層的連接導向協定，影片強調它提供可靠通信並確認傳送結果。",
+      "audioText": "傳輸控制協定，英文是 Transmission Control Protocol，縮寫 TCP。它位於傳輸層，影片強調可靠通信與傳送確認。",
+      "enAudioText": "Transmission Control Protocol. T C P."
+    },
+    {
+      "zh": "使用者資料報協定",
+      "en": "User Datagram Protocol (UDP)",
+      "explanation": "傳輸層的非連接導向協定，影片強調它不確認資料報是否成功送達。",
+      "audioText": "使用者資料報協定，英文是 User Datagram Protocol，縮寫 UDP。它位於傳輸層，影片強調不確認資料報是否成功送達。",
+      "enAudioText": "User Datagram Protocol. U D P."
+    },
+    {
+      "zh": "網際網路協定",
+      "en": "Internet Protocol (IP)",
+      "explanation": "網際網路層的核心協定，影片的通信動畫中資料會被封裝成 IP 封包。",
+      "audioText": "網際網路協定，英文是 Internet Protocol，縮寫 IP。它位於網際網路層，通信時資料會形成 IP 封包。",
+      "enAudioText": "Internet Protocol. I P."
+    },
+    {
+      "zh": "乙太網路",
+      "en": "Ethernet",
+      "explanation": "影片列出的常見網路存取層技術，負責在本地網路媒介上承載資料。",
+      "audioText": "乙太網路，英文是 Ethernet。影片把它列為常見的網路存取層技術，負責在本地網路媒介上承載資料。",
+      "enAudioText": "Ethernet"
+    },
+    {
+      "zh": "位址解析協定",
+      "en": "Address Resolution Protocol (ARP)",
+      "explanation": "影片指出 ARP 用來提供 IP 位址與硬體位址之間的動態位址對應。",
+      "audioText": "位址解析協定，英文是 Address Resolution Protocol，縮寫 ARP。影片指出它用來提供 IP 位址與硬體位址之間的動態對應。",
+      "enAudioText": "Address Resolution Protocol. A R P."
+    },
+    {
+      "zh": "網域名稱系統",
+      "en": "Domain Name System (DNS)",
+      "explanation": "應用層的名稱系統，把網域名稱與 IP 位址建立對應。",
+      "audioText": "網域名稱系統，英文是 Domain Name System，縮寫 DNS。它在應用層負責名稱系統，建立網域名稱與 IP 位址的對應。",
+      "enAudioText": "Domain Name System. D N S."
+    },
+    {
+      "zh": "動態主機設定協定",
+      "en": "Dynamic Host Configuration Protocol (DHCP)",
+      "explanation": "影片放在應用層的主機設定類別，用來提供主機所需的 IP 設定資訊。",
+      "audioText": "動態主機設定協定，英文是 Dynamic Host Configuration Protocol，縮寫 DHCP。影片把它放在應用層的主機設定類別。",
+      "enAudioText": "Dynamic Host Configuration Protocol. D H C P."
+    },
+    {
+      "zh": "封裝",
+      "en": "Encapsulation",
+      "explanation": "傳送端從上層往下層時，每一層把自己的控制資訊加到資料外面。",
+      "audioText": "封裝，英文是 Encapsulation。傳送端從上層往下層時，每一層把自己的控制資訊加到資料外面。",
+      "enAudioText": "Encapsulation"
+    },
+    {
+      "zh": "解封裝",
+      "en": "Decapsulation",
+      "explanation": "接收端逐層移除外層資訊，最後把原本的使用者資料交給應用程式。",
+      "audioText": "解封裝，英文是 Decapsulation。接收端逐層移除外層資訊，最後把原本的使用者資料交給應用程式。",
+      "enAudioText": "Decapsulation"
+    }
+  ],
+  "termQuiz": [
+    {
+      "question": "「協定族」的英文是哪一個？",
+      "choices": [
+        {
+          "label": "Protocol Suite",
+          "correct": true
+        },
+        {
+          "label": "Network Frame",
+          "correct": false
+        },
+        {
+          "label": "Routing Table",
+          "correct": false
+        }
+      ],
+      "correctText": "對，協定族就是 Protocol Suite：一組彼此配合的通信協定。",
+      "wrongText": "回想第一段：不是單一 protocol，而是一整套一起工作的 protocols。"
+    },
+    {
+      "question": "TCP/IP Protocol Suite 對應哪個中文名稱？",
+      "choices": [
+        {
+          "label": "TCP/IP 協定族",
+          "correct": true
+        },
+        {
+          "label": "網路存取層",
+          "correct": false
+        },
+        {
+          "label": "位址解析協定",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，TCP/IP Protocol Suite 就是 TCP/IP 協定族。",
+      "wrongText": "提示：Suite 在這堂課中是『一組協定』的意思。"
+    },
+    {
+      "question": "Application Layer 是哪一層？",
+      "choices": [
+        {
+          "label": "應用層",
+          "correct": true
+        },
+        {
+          "label": "傳輸層",
+          "correct": false
+        },
+        {
+          "label": "網際網路層",
+          "correct": false
+        }
+      ],
+      "correctText": "對。DNS、DHCP、電子郵件、檔案與 Web 服務都被放在應用層。",
+      "wrongText": "回想四層最上面：直接面對應用服務的是哪一層？"
+    },
+    {
+      "question": "「傳輸層」的英文是哪一個？",
+      "choices": [
+        {
+          "label": "Transport Layer",
+          "correct": true
+        },
+        {
+          "label": "Internet Layer",
+          "correct": false
+        },
+        {
+          "label": "Application Layer",
+          "correct": false
+        }
+      ],
+      "correctText": "對，傳輸層是 Transport Layer，代表協定是 TCP 與 UDP。",
+      "wrongText": "提示：TCP 和 UDP 都在這一層。"
+    },
+    {
+      "question": "Internet Layer 對應哪個中文名稱？",
+      "choices": [
+        {
+          "label": "網際網路層",
+          "correct": true
+        },
+        {
+          "label": "網路存取層",
+          "correct": false
+        },
+        {
+          "label": "應用層",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯。IP、ICMP 與路由相關協定在影片中都放在網際網路層。",
+      "wrongText": "想想 IP 位於哪一層。"
+    },
+    {
+      "question": "「網路存取層」的英文是哪一個？",
+      "choices": [
+        {
+          "label": "Network Access Layer",
+          "correct": true
+        },
+        {
+          "label": "Transport Layer",
+          "correct": false
+        },
+        {
+          "label": "Internet Layer",
+          "correct": false
+        }
+      ],
+      "correctText": "對。ARP、乙太網路與 WLAN 都出現在這一層。",
+      "wrongText": "提示：這一層最接近本地網路媒介。"
+    },
+    {
+      "question": "HTTP 的完整英文名稱是哪一個？",
+      "choices": [
+        {
+          "label": "Hypertext Transfer Protocol",
+          "correct": true
+        },
+        {
+          "label": "Host Transfer Process",
+          "correct": false
+        },
+        {
+          "label": "Hyperlink Transport Program",
+          "correct": false
+        }
+      ],
+      "correctText": "對，HTTP 是 Hypertext Transfer Protocol。",
+      "wrongText": "回想 Web 範例中的應用層紫色方塊。"
+    },
+    {
+      "question": "Transmission Control Protocol 的縮寫是什麼？",
+      "choices": [
+        {
+          "label": "TCP",
+          "correct": true
+        },
+        {
+          "label": "UDP",
+          "correct": false
+        },
+        {
+          "label": "ARP",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，Transmission Control Protocol 就是 TCP。",
+      "wrongText": "提示：它是影片中會確認傳送結果的傳輸層協定。"
+    },
+    {
+      "question": "哪個英文名稱對應「使用者資料報協定」？",
+      "choices": [
+        {
+          "label": "User Datagram Protocol (UDP)",
+          "correct": true
+        },
+        {
+          "label": "Internet Protocol (IP)",
+          "correct": false
+        },
+        {
+          "label": "Domain Name System (DNS)",
+          "correct": false
+        }
+      ],
+      "correctText": "對，使用者資料報協定就是 User Datagram Protocol，UDP。",
+      "wrongText": "回想 TCP 的另一個傳輸層搭檔。"
+    },
+    {
+      "question": "Internet Protocol 的縮寫是哪一個？",
+      "choices": [
+        {
+          "label": "IP",
+          "correct": true
+        },
+        {
+          "label": "HTTP",
+          "correct": false
+        },
+        {
+          "label": "ARP",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Internet Protocol 縮寫為 IP。",
+      "wrongText": "提示：影片中的封裝結果之一叫 IP 封包。"
+    },
+    {
+      "question": "Ethernet 對應哪個中文名稱？",
+      "choices": [
+        {
+          "label": "乙太網路",
+          "correct": true
+        },
+        {
+          "label": "網域名稱系統",
+          "correct": false
+        },
+        {
+          "label": "動態主機設定協定",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，Ethernet 就是乙太網路。",
+      "wrongText": "提示：它是影片列出的常見網路存取技術。"
+    },
+    {
+      "question": "哪一個術語是 Address Resolution Protocol？",
+      "choices": [
+        {
+          "label": "ARP",
+          "correct": true
+        },
+        {
+          "label": "DNS",
+          "correct": false
+        },
+        {
+          "label": "HTTP",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Address Resolution Protocol 就是 ARP。",
+      "wrongText": "回想用來建立 IP 位址與硬體位址對應的協定。"
+    },
+    {
+      "question": "DNS 的完整英文名稱是哪一個？",
+      "choices": [
+        {
+          "label": "Domain Name System",
+          "correct": true
+        },
+        {
+          "label": "Dynamic Network Service",
+          "correct": false
+        },
+        {
+          "label": "Data Naming Standard",
+          "correct": false
+        }
+      ],
+      "correctText": "對，DNS 是 Domain Name System。",
+      "wrongText": "提示：它處理『名稱』與 IP 位址的對應。"
+    },
+    {
+      "question": "Dynamic Host Configuration Protocol 的縮寫是什麼？",
+      "choices": [
+        {
+          "label": "DHCP",
+          "correct": true
+        },
+        {
+          "label": "ICMP",
+          "correct": false
+        },
+        {
+          "label": "SFTP",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，Dynamic Host Configuration Protocol 就是 DHCP。",
+      "wrongText": "回想應用層『主機設定』類別中的協定。"
+    },
+    {
+      "question": "傳送端逐層把控制資訊加到資料外面，叫什麼？",
+      "choices": [
+        {
+          "label": "Encapsulation",
+          "correct": true
+        },
+        {
+          "label": "Decapsulation",
+          "correct": false
+        },
+        {
+          "label": "Resolution",
+          "correct": false
+        }
+      ],
+      "correctText": "對，這叫 Encapsulation，封裝。",
+      "wrongText": "提示：這是資料從上層往下層送時發生的動作。"
+    },
+    {
+      "question": "Decapsulation 對應哪個中文名稱？",
+      "choices": [
+        {
+          "label": "解封裝",
+          "correct": true
+        },
+        {
+          "label": "封裝",
+          "correct": false
+        },
+        {
+          "label": "位址解析",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Decapsulation 就是解封裝，發生在接收端。",
+      "wrongText": "提示：接收端是在把外層資訊一層一層拿掉。"
+    }
+  ],
+  "recallQuiz": [
+    {
+      "question": "哪個說法最能描述本課的「協定族」？",
+      "choices": [
+        {
+          "label": "一組分工合作、共同完成通信的協定",
+          "correct": true
+        },
+        {
+          "label": "只負責把網站名稱轉成 IP 的單一協定",
+          "correct": false
+        },
+        {
+          "label": "只存在於網路存取層的硬體規格",
+          "correct": false
+        }
+      ],
+      "correctText": "對。這是整課的核心：一次通信通常要靠多個協定分層合作。",
+      "wrongText": "回想兩個人溝通的比喻：內容、規則、實體方式不是同一件事，但要一起合作。"
+    },
+    {
+      "question": "影片的 Web 範例中，從上到下最合理的搭配是哪一組？",
+      "choices": [
+        {
+          "label": "HTTP → TCP → IP → 乙太網路",
+          "correct": true
+        },
+        {
+          "label": "TCP → HTTP → 乙太網路 → IP",
+          "correct": false
+        },
+        {
+          "label": "IP → DNS → TCP → HTTP",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯。影片用 HTTP、TCP、IP 與乙太網路示範不同層協定如何接力。",
+      "wrongText": "先從應用層開始，再往傳輸層、網際網路層、網路存取層想。"
+    },
+    {
+      "question": "影片對 TCP 與 UDP 的主要對比是什麼？",
+      "choices": [
+        {
+          "label": "TCP 會確認傳送結果；UDP 不確認資料報是否成功送達",
+          "correct": true
+        },
+        {
+          "label": "TCP 在應用層；UDP 在網際網路層",
+          "correct": false
+        },
+        {
+          "label": "TCP 負責名稱解析；UDP 負責位址解析",
+          "correct": false
+        }
+      ],
+      "correctText": "對。先抓這個差異，就能把兩者的角色分開。",
+      "wrongText": "回想傳輸層那一段：哪一個被描述成可靠、會做確認？"
+    },
+    {
+      "question": "接收端收到乙太網路訊框並移除外層後，下一個主要要處理的是什麼？",
+      "choices": [
+        {
+          "label": "IP 封包",
+          "correct": true
+        },
+        {
+          "label": "HTTP 網頁內容直接交給使用者",
+          "correct": false
+        },
+        {
+          "label": "DNS 名稱查詢",
+          "correct": false
+        }
+      ],
+      "correctText": "對。接收端解封裝時，乙太網路外層拿掉後，接著處理 IP 封包。",
+      "wrongText": "想像影片動畫的巢狀結構：乙太網路訊框裡面包著哪一層？"
+    },
+    {
+      "question": "哪個順序最完整地描述傳送端到接收端的核心流程？",
+      "choices": [
+        {
+          "label": "逐層封裝 → 以位元傳送 → 接收端反向逐層解封裝",
+          "correct": true
+        },
+        {
+          "label": "先解封裝 → 再封裝 → 最後才傳送",
+          "correct": false
+        },
+        {
+          "label": "每一層各自重新產生一份獨立的使用者資料",
+          "correct": false
+        }
+      ],
+      "correctText": "答對了。這就是影片通信動畫真正想建立的整體心智模型。",
+      "wrongText": "回想方向：傳送端是往下加外層；接收端是反方向把外層拿掉。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>
