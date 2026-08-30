@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:30px;line-height:1.22;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:17px;line-height:1.75;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:13px 14px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:16px;line-height:1.75;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:46px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:46px;height:46px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:15px;margin-bottom:2px}.audio-sub{font-size:12px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:12px 11px 3px;border-top:1px solid rgba(255,255,255,.16);font-size:16px;line-height:1.8;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:14px 13px;font-size:16px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 14px;font-size:16px;line-height:1.8;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:15px 15px;font-size:16px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:12px 13px;border-radius:13px;background:#f8fafc;font-size:16px;line-height:1.7}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:15px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:20px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:13px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:46px;height:46px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 46px;line-height:1}.term-exp{font-size:16px;line-height:1.8;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:16px;line-height:1.8;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:16px;line-height:1.65;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:13px 12px;font-size:16px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:10px 11px;border-radius:11px;background:#f8fafc;font-size:16px;line-height:1.7}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:29px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.compare-card{padding:14px;border:1px solid var(--line);border-radius:17px;background:var(--soft)}.compare-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:6px}.compare-title{font-size:18px;font-weight:950;overflow-wrap:anywhere}.compare-copy{font-size:16px;line-height:1.7;color:#374151;margin-top:7px}.flow{display:grid;gap:8px;align-items:center}.flow-node{padding:13px;border-radius:15px;border:1px solid var(--line);background:#f8fafc;text-align:center}.flow-node b{display:block;font-size:16px;line-height:1.5;overflow-wrap:anywhere}.flow-node span{display:block;font-size:12px;color:var(--muted);margin-top:3px}.flow-arrow{text-align:center;font-size:22px;font-weight:900}.cmd-card{display:grid;gap:7px}.cmd-line{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#111827;color:#f9fafb;border-radius:11px;padding:10px 11px;font-size:14px;line-height:1.55;overflow-wrap:anywhere}.cmd-line.emph{font-size:15px;font-weight:900}.cmd-note{font-size:16px;line-height:1.7;color:#4b5563;margin:0 2px 4px}.decision{display:grid;gap:8px}.decision-q{font-size:18px;font-weight:950;text-align:center;padding:14px;background:#111827;color:#fff;border-radius:16px}.decision-row{display:grid;grid-template-columns:90px 1fr;gap:8px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px}.decision-row span{font-size:13px;color:var(--muted);font-weight:900}.decision-row b{font-size:16px;line-height:1.55}.cmd-sequence{display:grid;gap:8px}.cmd-sequence>div{display:grid;grid-template-columns:34px 1fr;gap:9px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:#fff}.cmd-sequence>div>span{width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:#111827;color:#fff;border-radius:10px;font-size:13px;font-weight:900}.cmd-sequence code{font-size:14px;font-weight:900;overflow-wrap:anywhere}.cmd-sequence b{font-size:16px;line-height:1.55}.step-flow{display:grid;gap:8px}.step-flow>div{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:start;padding:11px 12px;border:1px solid var(--line);border-radius:14px;background:#fff}.step-flow b{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#111827;color:#fff}.step-flow span{font-size:16px;line-height:1.65}.panel-extra{font-size:16px;line-height:1.8;margin:10px 0 0}.memory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.memory-grid div{padding:12px 8px;border:1px solid var(--line);border-radius:13px;background:#fff;text-align:center}.memory-grid b{display:block;font-size:24px;margin-bottom:4px}.memory-grid span{font-size:13px;line-height:1.4;overflow-wrap:anywhere}.checklist{display:grid;gap:8px}.checklist div{font-size:16px;line-height:1.6;padding:10px 12px;border:1px solid var(--line);border-radius:13px;background:#f8fafc}@media(max-width:380px){.compare-grid{grid-template-columns:1fr}.decision-row{grid-template-columns:78px 1fr}.memory-grid{grid-template-columns:1fr}.cmd-line{font-size:13px}}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  title: "2.5 儲存設定檔｜Cisco IOS 設定保存與還原",
+  brand: "CCNA 通勤微課｜2.5 儲存設定檔",
+  segments: [
+    {
+      eyebrow: "01 · 先分清兩份設定",
+      title: "running-config 跟 startup-config 差在哪？",
+      lead: "一份是設備現在正在用的設定；另一份是重新開機後要載入的設定。先分清 RAM 與 NVRAM，後面的儲存、還原才不會混亂。",
+      time: "約 70 秒",
+      visualHtml: `<div class="compare-grid"><div class="compare-card"><div class="compare-kicker">RAM · 現在正在跑</div><div class="compare-title">running-config</div><div class="compare-copy">修改後立刻影響設備運作；斷電或重新啟動後，未儲存的內容會消失。</div></div><div class="compare-card"><div class="compare-kicker">NVRAM · 下次開機要用</div><div class="compare-title">startup-config</div><div class="compare-copy">保存啟動時要載入的設定；非揮發性記憶體斷電後仍可保留內容。</div></div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 兩份設定怎麼記",
+          subtitle: "先把『現在』和『下次開機』分開",
+          text: "把 Cisco 交換器想成正在編輯一份設定草稿。running-config 是現在設備正在使用的版本，放在 RAM；你在 CLI 做的修改通常會立刻反映在這裡。startup-config 則放在 NVRAM，是設備重新啟動時要載入的版本。只改 running-config 而沒有儲存，重新開機後這些變更可能就不見了。"
+        }
+      ],
+      panels: [
+        { title: "查看兩份設定的命令", kind: "detail", body: `<div class="cmd-card"><div class="cmd-line">show running-config</div><div class="cmd-note">查看目前 RAM 中的執行設定。</div><div class="cmd-line">show startup-config</div><div class="cmd-note">查看 NVRAM 中的啟動設定。</div></div>` }
+      ]
+    },
+    {
+      eyebrow: "02 · 把修改真的存下來",
+      title: "完成設定後，要從 running-config 存到 startup-config",
+      lead: "儲存不是自動發生。你要主動把目前執行中的設定複製到 NVRAM，才能避免重新啟動或斷電後遺失。",
+      time: "約 65 秒",
+      visualHtml: `<div class="flow"><div class="flow-node"><b>running-config</b><span>RAM</span></div><div class="flow-arrow">→</div><div class="flow-node"><b>copy running-config startup-config</b><span>儲存</span></div><div class="flow-arrow">→</div><div class="flow-node"><b>startup-config</b><span>NVRAM</span></div></div>`,
+      quiz: {
+        prompt: "你剛完成交換器設定，希望斷電後仍保留。下一個最關鍵的動作是？",
+        choices: [
+          { label: "A　執行 reload", correct: false },
+          { label: "B　執行 copy running-config startup-config", correct: true },
+          { label: "C　只執行 show running-config", correct: false }
+        ],
+        correctText: "✅ 對。這會把目前 running-config 備份成 NVRAM 裡的 startup-config。",
+        wrongText: "提示：查看設定不等於儲存；重新啟動前要先把目前執行設定寫進 NVRAM。"
+      },
+      audio: [
+        {
+          title: "解題語音 · 儲存時腦中怎麼想",
+          subtitle: "先確認，再複製，再驗證",
+          text: "儲存設定時可以固定用三步思考。第一，先用 show running-config 確認現在的設定正確。第二，在特權 EXEC 模式執行 copy running-config startup-config，看到目的檔名提示時接受 startup-config，完成後會看到 OK。第三，再用 show startup-config 或查看 NVRAM，確認設定真的被保存。"
+        }
+      ],
+      panels: [
+        { title: "命令縮寫", kind: "note", body: `<div class="cmd-card"><div class="cmd-line">copy run start</div><div class="cmd-note">課程實作會問這個儲存命令的最短常用縮寫。</div><div class="cmd-line">show run</div><div class="cmd-note">show running-config 的常用縮寫。</div></div>` }
+      ]
+    },
+    {
+      eyebrow: "03 · 改錯了但還沒存",
+      title: "未儲存的變更，可以用 reload 回到啟動設定",
+      lead: "如果 running-config 的修改不如預期，而且還沒存進 startup-config，可以逐條移除改動，或重新載入裝置。",
+      time: "約 70 秒",
+      visualHtml: `<div class="decision"><div class="decision-q">running-config 改錯了，而且還沒儲存？</div><div class="decision-row"><span>少量錯誤</span><b>逐條移除／修正命令</b></div><div class="decision-row"><span>想整體回復</span><b>reload → 不儲存變更</b></div></div>`,
+      quiz: {
+        prompt: "執行 reload 時，IOS 發現有尚未儲存的變更並詢問是否儲存。你的目標是捨棄這些變更，應怎麼回答？",
+        choices: [
+          { label: "A　yes", correct: false },
+          { label: "B　no", correct: true },
+          { label: "C　copy", correct: false }
+        ],
+        correctText: "✅ 沒錯。選 no，才不會在 reload 前把原本想捨棄的變更存進 startup-config。",
+        wrongText: "想一想：你的目標是『捨棄』未儲存變更，所以不能在重新載入前把它保存。"
+      },
+      audio: [
+        {
+          title: "白話解釋 · reload 的角色",
+          subtitle: "它會造成短暫離線",
+          text: "reload 可以讓設備重新啟動並重新載入 startup-config，因此能丟掉尚未儲存的 running-config 變更。要注意，重新載入期間設備會短暫離線，可能造成網路中斷。如果 IOS 問你是否要先儲存目前變更，而你的目的就是捨棄它們，就要回答 no。"
+        }
+      ],
+      panels: [
+        { title: "為什麼不是每次都 reload？", kind: "why", body: "因為 reload 會讓設備重新啟動，期間會暫時無法轉送流量。若只是少量命令輸入錯誤，先逐條修正通常比整台設備重新載入更合適。" }
+      ]
+    },
+    {
+      eyebrow: "04 · 連已儲存的設定都不要",
+      title: "startup-config 已經存錯：erase startup-config 再重新載入",
+      lead: "如果不需要的變更已經寫進 NVRAM，只 reload 還是會把錯誤的 startup-config 載回來。這時要先清除啟動設定。",
+      time: "約 75 秒",
+      visualHtml: `<div class="cmd-sequence"><div><span>1</span><code>erase startup-config</code></div><div><span>2</span><b>按 Enter 確認</b></div><div><span>3</span><code>reload</code></div><div><span>4</span><b>重新啟動後回到預設啟動狀態</b></div></div>`,
+      audio: [
+        {
+          title: "操作語音 · 清除 NVRAM 中的啟動設定",
+          subtitle: "這一步比單純 reload 更徹底",
+          text: "當不需要的設定已經被存進 startup-config，就要在特權 EXEC 模式使用 erase startup-config。交換器會要求確認，按 Enter 接受。startup-config 從 NVRAM 移除後，再重新載入設備，RAM 中目前的 running-config 也會隨重啟消失；設備不再有剛才那份已儲存的啟動設定。"
+        },
+        {
+          title: "影片示範 · 如何確認有沒有真的存進 NVRAM",
+          subtitle: "儲存後先看，再做重啟／清除測試",
+          alt: true,
+          text: "示範中先執行 copy running-config startup-config，看到 OK，再用 dir nvram: 檢查 NVRAM 目錄中出現 startup-config。這能把『我下了儲存命令』和『檔案真的存在』分成兩次確認。"
+        }
+      ],
+      panels: [
+        { title: "指令小抄", kind: "detail", body: `<div class="cmd-card"><div class="cmd-line">dir nvram:</div><div class="cmd-note">查看 NVRAM 目錄與其中的 startup-config。</div><div class="cmd-line">erase startup-config</div><div class="cmd-note">移除已儲存的啟動設定。</div><div class="cmd-line">reload</div><div class="cmd-note">重新載入設備。</div></div>` }
+      ]
+    },
+    {
+      eyebrow: "05 · 把設定另外備份成文字檔",
+      title: "用終端模擬軟體的 logging 擷取完整設定",
+      lead: "除了存進 NVRAM，也可以把 CLI 顯示的設定留成文字檔，方便備份、編輯與之後手動套回設備。",
+      time: "約 85 秒",
+      visualHtml: `<div class="step-flow"><div><b>1</b><span>用 PuTTY／Tera Term 連到設備</span></div><div><b>2</b><span>開啟 Logging，選 All session output，指定檔名與位置</span></div><div><b>3</b><span>執行 show running-config 或 show startup-config</span></div><div><b>4</b><span>終端視窗輸出被寫入文字檔</span></div></div>`,
+      quiz: {
+        prompt: "在 PuTTY 中想把 CLI 顯示內容完整記錄到檔案，影片示範選擇哪一種 logging？",
+        choices: [
+          { label: "A　All session output", correct: true },
+          { label: "B　None", correct: false },
+          { label: "C　只記錄 SSH packets", correct: false }
+        ],
+        correctText: "✅ 對。影片示範開啟 All session output，並指定例如 MySwitchLogs 的記錄檔。",
+        wrongText: "回想 PuTTY 的 Logging 畫面：重點是把終端機看到的整段輸出保存下來。"
+      },
+      audio: [
+        {
+          title: "白話解釋 · 為什麼還要文字備份",
+          subtitle: "NVRAM 之外再留一份可攜副本",
+          text: "文字檔備份的價值，是把設定搬到設備外。先在 PuTTY 或 Tera Term 開啟記錄功能，指定輸出檔案，再在特權 EXEC 模式顯示 running-config 或 startup-config。終端機看到的文字就會被保存。之後若要還原，可以先整理文字內容，進入全域設定模式，再把 CLI 命令貼回終端視窗，讓它們套用成新的 running-config。"
+        }
+      ],
+      panels: [
+        { title: "還原文字備份的兩步", kind: "detail", body: `<div class="cmd-sequence compact"><div><span>1</span><b>進入全域設定模式</b></div><div><span>2</span><b>把整理過的文字命令貼到終端視窗</b></div></div><p class="panel-extra">貼入的文字會被 CLI 當成命令執行，形成裝置目前的執行設定。</p>` }
+      ]
+    },
+    {
+      eyebrow: "06 · Packet Tracer 實作 1",
+      title: "先看預設狀態，再建立 S1 的基本設定",
+      lead: "實作先進入特權 EXEC 模式查看 running-config，接著設定主機名稱與 console 存取。",
+      time: "約 90 秒",
+      visualHtml: `<div class="cmd-card"><div class="cmd-line">Switch&gt; enable</div><div class="cmd-line">Switch# show running-config</div><div class="cmd-line">Switch# configure terminal</div><div class="cmd-line">Switch(config)# hostname S1</div><div class="cmd-line">S1(config)# line console 0</div><div class="cmd-line">S1(config-line)# password letmein</div><div class="cmd-line">S1(config-line)# login</div></div>`,
+      quiz: {
+        prompt: "console line 已設定 password letmein，但沒有輸入 login。最可能發生什麼事？",
+        choices: [
+          { label: "A　console 仍不會依這個密碼進行登入驗證", correct: true },
+          { label: "B　交換器會自動儲存到 NVRAM", correct: false },
+          { label: "C　enable secret 會被停用", correct: false }
+        ],
+        correctText: "✅ 對。login 會要求該 line 使用已設定的密碼進行登入驗證。",
+        wrongText: "提示：password 是設定密碼內容；login 才是要求這條 line 在登入時使用密碼驗證。"
+      },
+      audio: [
+        {
+          title: "實作語音 · 先建立可驗證的基礎設定",
+          subtitle: "S1 從預設狀態開始",
+          text: "Packet Tracer 練習先在 S1 的 CLI 按 Enter，使用 enable 進入特權 EXEC 模式，再用 show running-config 查看目前設定。接著進入全域設定模式，把主機名稱改成 S1。要保護 console，進入 line console 0，設定 password letmein，再輸入 login，離開後重新連線就應該看到密碼提示。"
+        }
+      ],
+      panels: [
+        { title: "練習裡要觀察什麼？", kind: "note", body: "除了照著輸入命令，還要觀察提示字元如何從 Switch&gt;、Switch#、Switch(config)# 變化，以及 startup-config 尚未存在時，設備如何回應。" }
+      ]
+    },
+    {
+      eyebrow: "07 · Packet Tracer 實作 2",
+      title: "保護特權模式，並處理明文密碼",
+      lead: "這一段的重點不是只把密碼打進去，而是看懂 enable password、enable secret 與密碼加密設定之間的差異。",
+      time: "約 95 秒",
+      visualHtml: `<div class="cmd-card"><div class="cmd-line">S1(config)# enable password c1$c0</div><div class="cmd-line">S1(config)# enable secret itsasecret</div><div class="cmd-line">S1(config)# service password-encryption</div><div class="cmd-note">練習用密碼僅為教材指定值。</div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · enable secret 優先",
+          subtitle: "兩者同時存在時要用 secret",
+          text: "練習先設定 enable password c1$c0，之後再設定 enable secret itsasecret。教材特別指出，當兩者同時存在時，enable secret 會覆蓋 enable password 的作用，進入特權 EXEC 模式時要輸入 enable secret。接著用 show running-config 觀察設定，再用 service password-encryption 讓原本以明文顯示的 console 與 enable password 轉成加密形式顯示。"
+        }
+      ],
+      panels: [
+        { title: "驗證順序", kind: "detail", body: `<div class="step-flow"><div><b>1</b><span>登出並重新連入 console，驗證 console 密碼</span></div><div><b>2</b><span>輸入 enable，驗證特權模式密碼</span></div><div><b>3</b><span>show running-config，觀察密碼顯示方式</span></div><div><b>4</b><span>設定 service password-encryption 後再檢查</span></div></div>` }
+      ]
+    },
+    {
+      eyebrow: "08 · Packet Tracer 實作 3",
+      title: "加上 MOTD，最後把 S1 儲存到 NVRAM",
+      lead: "先完成登入警告訊息，再檢查 running-config；確認無誤後才執行本章最核心的儲存命令。",
+      time: "約 85 秒",
+      visualHtml: `<div class="cmd-card"><div class="cmd-line">S1(config)# banner motd "This is a secure system. Authorized Access Only!"</div><div class="cmd-line">S1# show run</div><div class="cmd-line emph">S1# copy running-config startup-config</div><div class="cmd-line">Destination filename [startup-config]? ← Enter</div><div class="cmd-line">[OK]</div></div>`,
+      quiz: {
+        prompt: "S1 已完成主機名稱、密碼、加密與 MOTD。哪個步驟才能確保斷電後設定仍保留？",
+        choices: [
+          { label: "A　只要看到 S1# 就代表已儲存", correct: false },
+          { label: "B　執行 copy running-config startup-config", correct: true },
+          { label: "C　再次輸入 enable", correct: false }
+        ],
+        correctText: "✅ 正確。教材明確要求把 running configuration 備份到 NVRAM。",
+        wrongText: "提示：CLI 提示字元只代表目前模式，不代表設定已寫入 NVRAM。"
+      },
+      audio: [
+        {
+          title: "實作語音 · 完成後一定要存",
+          subtitle: "這就是 2.5 的核心收尾動作",
+          text: "MOTD banner 會在使用者登入交換器時顯示，用來提供提示或未授權存取警告。完成 S1 設定後，先用 show run 確認內容，再執行 copy running-config startup-config。接受預設目的檔名後看到 OK，代表設定已寫入啟動設定。最後再查看 startup-config，確認剛才輸入的變更都有被記錄。"
+        }
+      ],
+      panels: [
+        { title: "這段要牢記的三個字", kind: "why", body: `<div class="memory-grid"><div><b>看</b><span>show run</span></div><div><b>存</b><span>copy run start</span></div><div><b>驗</b><span>show startup-config</span></div></div>` }
+      ]
+    },
+    {
+      eyebrow: "09 · Packet Tracer 實作 4",
+      title: "最後用 S2 重做一次，確認你不是只會照抄",
+      lead: "S2 要自行完成相同類型的設定：裝置名稱、console 保護、特權密碼、MOTD、密碼加密、驗證與儲存。",
+      time: "約 75 秒",
+      visualHtml: `<div class="checklist"><div>□ hostname S2</div><div>□ console password：letmein ＋ login</div><div>□ enable password：c1$c0</div><div>□ enable secret：itsasecret</div><div>□ MOTD banner</div><div>□ service password-encryption</div><div>□ show running-config 驗證</div><div>□ copy running-config startup-config 儲存</div></div>`,
+      audio: [
+        {
+          title: "總複習語音",
+          subtitle: "下車前把整章串成一條線",
+          text: "這一章最重要的不是背很多命令，而是知道設定在哪裡、什麼時候會消失、怎麼保存與怎麼回復。running-config 在 RAM，是現在正在用的設定；startup-config 在 NVRAM，是重新開機時要載入的設定。完成修改後用 copy running-config startup-config 保存；未儲存的錯誤可用 reload 捨棄；已存錯的 startup-config 可先 erase startup-config 再重新載入；需要設備外備份時，可以用終端 logging 把 show running-config 或 show startup-config 的輸出存成文字檔。最後在 Packet Tracer 用 S1 與 S2 把查看、設定、驗證、儲存完整做一遍。"
+        }
+      ],
+      panels: [
+        { title: "本課文字摘要", kind: "note", open: true, body: "核心流程：先看 running-config → 修改並驗證 → 儲存到 startup-config → 必要時查看 NVRAM／startup-config 驗證。若修改還沒存，可選擇修正或 reload 捨棄；若錯誤已經存進 NVRAM，使用 erase startup-config 後再重新載入。設備外備份則可透過終端機 logging 擷取成文字檔。" }
+      ]
+    }
+  ],
+
+  glossary: [
+    {
+      zh: "執行設定",
+      en: "running-config",
+      explanation: "設備目前正在使用的設定，儲存在 RAM。CLI 的多數設定變更會先反映在這裡；未儲存的內容在重新啟動後可能消失。",
+      audioText: "執行設定，英文是 running-config。它是設備目前正在使用、存放在 RAM 裡的設定；如果沒有另外儲存，重新啟動後未保存的變更可能會消失。",
+      enAudioText: "running config"
+    },
+    {
+      zh: "啟動設定",
+      en: "startup-config",
+      explanation: "設備開機或重新載入時使用的設定，儲存在 NVRAM；斷電後仍會保留。",
+      audioText: "啟動設定，英文是 startup-config。它保存在 NVRAM，設備重新開機時會載入這份設定。",
+      enAudioText: "startup config"
+    },
+    {
+      zh: "隨機存取記憶體",
+      en: "RAM — Random Access Memory",
+      explanation: "running-config 所在的位置。它是揮發性記憶體，設備斷電或重新啟動時內容不會像 NVRAM 一樣被保留。",
+      audioText: "隨機存取記憶體，英文是 RAM，Random Access Memory。running-config 存在 RAM；這是揮發性記憶體。",
+      enAudioText: "Random Access Memory"
+    },
+    {
+      zh: "非揮發性隨機存取記憶體",
+      en: "NVRAM — Non-Volatile Random-Access Memory",
+      explanation: "startup-config 的儲存位置。非揮發性代表斷電後仍可保留內容。",
+      audioText: "非揮發性隨機存取記憶體，英文是 NVRAM，Non-Volatile Random-Access Memory。startup-config 儲存在這裡，斷電後仍會保留。",
+      enAudioText: "Non-Volatile Random-Access Memory"
+    },
+    {
+      zh: "特權 EXEC 模式",
+      en: "Privileged EXEC Mode",
+      explanation: "提示字元通常以井字號結尾，可執行 show、copy、reload、erase startup-config 等管理命令。",
+      audioText: "特權 EXEC 模式，英文是 Privileged EXEC Mode。進入後提示字元通常以井字號結尾，可以執行查看、儲存、重新載入與清除啟動設定等管理命令。",
+      enAudioText: "Privileged EXEC Mode"
+    },
+    {
+      zh: "儲存執行設定",
+      en: "copy running-config startup-config",
+      explanation: "把目前 running-config 複製成 startup-config，寫入 NVRAM，避免重新啟動或斷電後遺失變更。",
+      audioText: "儲存執行設定的核心命令是 copy running-config startup-config。它把目前執行設定保存成啟動設定。",
+      enAudioText: "copy running config startup config"
+    },
+    {
+      zh: "重新載入",
+      en: "reload",
+      explanation: "重新啟動設備。未儲存的 running-config 變更可藉由重新載入而捨棄，但設備會短暫離線。",
+      audioText: "重新載入，英文命令是 reload。它會重新啟動設備；如果目的是捨棄未儲存變更，遇到儲存提示時不要先把變更保存。",
+      enAudioText: "reload"
+    },
+    {
+      zh: "清除啟動設定",
+      en: "erase startup-config",
+      explanation: "從 NVRAM 移除 startup-config。當不需要的設定已經被儲存時，可先清除再重新載入設備。",
+      audioText: "清除啟動設定的命令是 erase startup-config。它會從 NVRAM 移除已儲存的啟動設定。",
+      enAudioText: "erase startup config"
+    },
+    {
+      zh: "工作階段記錄",
+      en: "Session Logging",
+      explanation: "在 PuTTY 或 Tera Term 等終端模擬軟體中，把終端視窗輸出記錄成文字檔的功能。",
+      audioText: "工作階段記錄，英文是 Session Logging。它可以把終端機顯示的設定輸出保存成文字檔，作為設備外的備份。",
+      enAudioText: "Session Logging"
+    },
+    {
+      zh: "每日訊息橫幅",
+      en: "MOTD Banner — Message of the Day Banner",
+      explanation: "使用者登入交換器時會看到的訊息，可用來提供提示或警告未授權存取。",
+      audioText: "每日訊息橫幅，英文是 MOTD Banner，Message of the Day Banner。它會在使用者登入設備時顯示，可用來提供提示或未授權存取警告。",
+      enAudioText: "Message of the Day Banner"
+    },
+    {
+      zh: "特權模式加密密碼",
+      en: "enable secret",
+      explanation: "用來保護特權 EXEC 模式的加密 secret。教材指出，若同時設定 enable password 與 enable secret，應使用 enable secret 進入特權模式。",
+      audioText: "特權模式加密密碼，命令是 enable secret。教材指出，如果 enable password 和 enable secret 同時存在，進入特權 EXEC 模式時要使用 enable secret。",
+      enAudioText: "enable secret"
+    }
+  ],
+
+  termQuiz: [
+    {
+      question: "哪一個名稱代表『目前正在 RAM 中被設備使用的設定』？",
+      choices: [
+        { label: "startup-config", correct: false },
+        { label: "running-config", correct: true },
+        { label: "MOTD Banner", correct: false }
+      ],
+      correctText: "對，running-config 是目前正在執行的設定。",
+      wrongText: "回想『現在正在跑』這個提示：它位於 RAM。"
+    },
+    {
+      question: "startup-config 主要儲存在哪裡？",
+      choices: [
+        { label: "RAM", correct: false },
+        { label: "NVRAM", correct: true },
+        { label: "console line", correct: false }
+      ],
+      correctText: "沒錯，startup-config 儲存在 NVRAM。",
+      wrongText: "提示：它要在斷電後仍保留，所以不是 RAM。"
+    },
+    {
+      question: "RAM 的英文完整名稱是哪一個？",
+      choices: [
+        { label: "Random Access Memory", correct: true },
+        { label: "Remote Access Mode", correct: false },
+        { label: "Reload And Monitor", correct: false }
+      ],
+      correctText: "對，RAM 是 Random Access Memory。",
+      wrongText: "回想 running-config 所在的揮發性記憶體名稱。"
+    },
+    {
+      question: "NVRAM 最符合哪一個中文概念？",
+      choices: [
+        { label: "非揮發性隨機存取記憶體", correct: true },
+        { label: "網路虛擬路由模式", correct: false },
+        { label: "僅供暫存的揮發性記憶體", correct: false }
+      ],
+      correctText: "正確。Non-Volatile 的重點就是斷電後仍能保留內容。",
+      wrongText: "先抓住 Non-Volatile 這個字：它的意思是非揮發性。"
+    },
+    {
+      question: "可執行 copy、reload、erase startup-config 等管理命令的模式叫什麼？",
+      choices: [
+        { label: "Privileged EXEC Mode", correct: true },
+        { label: "User EXEC Mode only", correct: false },
+        { label: "Session Logging", correct: false }
+      ],
+      correctText: "對，這些管理命令在特權 EXEC 模式使用。",
+      wrongText: "回想提示字元從 > 變成 # 之後的模式名稱。"
+    },
+    {
+      question: "『把目前執行設定保存成啟動設定』的命令是哪一個？",
+      choices: [
+        { label: "copy running-config startup-config", correct: true },
+        { label: "erase startup-config", correct: false },
+        { label: "show running-config", correct: false }
+      ],
+      correctText: "對。來源是 running-config，目的地是 startup-config。",
+      wrongText: "用『來源 → 目的地』來想：現在正在跑的設定，要存成下次開機設定。"
+    },
+    {
+      question: "reload 在本課主要用來做什麼？",
+      choices: [
+        { label: "重新啟動設備，並可藉此捨棄未儲存的變更", correct: true },
+        { label: "把密碼自動改成 enable secret", correct: false },
+        { label: "把所有終端輸出存成文字檔", correct: false }
+      ],
+      correctText: "沒錯。reload 會重新載入設備，過程中會短暫離線。",
+      wrongText: "回想影片提到的缺點：設備會有短暫時間離線。"
+    },
+    {
+      question: "哪個命令會從 NVRAM 移除啟動設定？",
+      choices: [
+        { label: "erase startup-config", correct: true },
+        { label: "show startup-config", correct: false },
+        { label: "service password-encryption", correct: false }
+      ],
+      correctText: "對，erase startup-config 用來清除已儲存的啟動設定。",
+      wrongText: "關鍵動詞是『清除』，不是查看或加密。"
+    },
+    {
+      question: "Session Logging 在這一課的用途是什麼？",
+      choices: [
+        { label: "把終端機輸出保存成文字備份", correct: true },
+        { label: "把 NVRAM 轉成 RAM", correct: false },
+        { label: "建立新的 enable secret", correct: false }
+      ],
+      correctText: "正確。它讓你在設備外保留 CLI 設定文字。",
+      wrongText: "回想 PuTTY 的 Logging 畫面與 All session output。"
+    },
+    {
+      question: "MOTD Banner 的英文完整概念是哪一個？",
+      choices: [
+        { label: "Message of the Day Banner", correct: true },
+        { label: "Mode of Terminal Debug", correct: false },
+        { label: "Memory Output Text Database", correct: false }
+      ],
+      correctText: "對，MOTD 是 Message of the Day。",
+      wrongText: "它是登入時看到的『每日訊息』與警告橫幅。"
+    },
+    {
+      question: "enable secret 在教材中的角色是什麼？",
+      choices: [
+        { label: "保護特權 EXEC 模式；與 enable password 同時存在時使用它", correct: true },
+        { label: "只用來保護 console line", correct: false },
+        { label: "只用來儲存 startup-config", correct: false }
+      ],
+      correctText: "沒錯。教材明確指出 enable secret 會優先於 enable password。",
+      wrongText: "回想 Packet Tracer 的 Step 6：它是較新的加密 secret，用於特權模式。"
+    }
+  ],
+
+  recallQuiz: [
+    {
+      question: "你修改了 hostname，但還沒儲存。此時突然斷電，最可能失去哪一份內容？",
+      choices: [
+        { label: "尚未寫入 startup-config 的 running-config 變更", correct: true },
+        { label: "NVRAM 本身一定會被清空", correct: false },
+        { label: "MOTD 一定會永久保留，不受儲存影響", correct: false }
+      ],
+      correctText: "對。未儲存的變更只在 RAM 的 running-config，斷電後會失去。",
+      wrongText: "先判斷這次修改有沒有從 RAM 寫進 NVRAM。"
+    },
+    {
+      question: "設定完成後的最佳收尾順序是哪一個？",
+      choices: [
+        { label: "show run → copy running-config startup-config → 驗證 startup-config", correct: true },
+        { label: "erase startup-config → reload → show run", correct: false },
+        { label: "reload → enable → 不檢查設定", correct: false }
+      ],
+      correctText: "正確：先看、再存、最後驗。",
+      wrongText: "回想 S1 儲存段落的三字口訣：看、存、驗。"
+    },
+    {
+      question: "running-config 改錯而且尚未儲存，想整體回到原本啟動設定。哪個做法符合課程？",
+      choices: [
+        { label: "reload，遇到儲存提示時回答 no", correct: true },
+        { label: "先 copy running-config startup-config 再 reload", correct: false },
+        { label: "先 erase startup-config，再把錯誤設定存回去", correct: false }
+      ],
+      correctText: "對。不要在 reload 前把原本想捨棄的變更存下來。",
+      wrongText: "如果你先 copy run start，就等於把錯誤正式保存了。"
+    },
+    {
+      question: "錯誤設定已經寫進 startup-config，想清掉它。哪個流程最符合影片？",
+      choices: [
+        { label: "erase startup-config → 確認 → reload", correct: true },
+        { label: "show run → enable → login", correct: false },
+        { label: "service password-encryption → reload", correct: false }
+      ],
+      correctText: "正確。先清 NVRAM 裡的啟動設定，再重新載入。",
+      wrongText: "只 reload 會再次讀取那份已經存錯的 startup-config。"
+    },
+    {
+      question: "你要把設備設定另外留成可編輯文字備份，最合理的流程是？",
+      choices: [
+        { label: "開啟終端 logging → 顯示 running/startup config → 保存輸出檔", correct: true },
+        { label: "只執行 enable secret", correct: false },
+        { label: "只查看 dir nvram:，不記錄終端輸出", correct: false }
+      ],
+      correctText: "沒錯。影片示範就是利用終端機的 session logging 擷取設定文字。",
+      wrongText: "重點是要把終端視窗顯示的文字真正寫到設備外的檔案。"
+    },
+    {
+      question: "Packet Tracer 的 S2 練習真正要確認的是什麼？",
+      choices: [
+        { label: "能獨立重做設定、驗證並把設定保存到 startup-config", correct: true },
+        { label: "只要把主機名稱改成 S2 就完成", correct: false },
+        { label: "只要會背密碼，不必驗證與儲存", correct: false }
+      ],
+      correctText: "對。S2 是把前面查看、設定、保護、驗證與儲存整套流程再做一次。",
+      wrongText: "回想 PDF 最後要求：名稱、console、特權密碼、MOTD、加密、確認設定，以及儲存。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

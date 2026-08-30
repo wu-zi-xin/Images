@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:16px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:14px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:15px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:14px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:15px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:14px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:13px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* 通勤大字舒適版：依課程規格覆寫主要閱讀字級 */
+h1{font-size:30px}
+.lead{font-size:17px;line-height:1.75}
+.callout{font-size:16px;line-height:1.75}
+.inline-transcript{font-size:16px;line-height:1.8}
+.panel-body{font-size:16px;line-height:1.8}
+.choice{font-size:16px;line-height:1.55;min-height:48px}
+.feedback{font-size:16px;line-height:1.7}
+.term-exp,.term-transcript{font-size:16px;line-height:1.8}
+.recall-q,.recall-choice{font-size:16px;line-height:1.6}
+.recall-choice{min-height:46px}
+.audio-title{font-size:14px}
+.audio-sub{font-size:12px}
+code{overflow-wrap:anywhere}
+@media(max-width:360px){h1{font-size:28px}.lead{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  title: "2.2 IOS 導航｜CLI 模式與切換",
+  brand: "CCNA 通勤微課",
+  segments: [
+    {
+      eyebrow: "01 · 主要命令模式",
+      title: "先看提示字元：你現在能做多少事？",
+      lead: "IOS CLI 不是所有命令都能在同一個地方輸入；先辨認目前模式，再決定下一步。",
+      time: "約 55 秒",
+      visualHtml: `<div style="display:grid;gap:10px">
+        <div class="callout"><b>使用者 EXEC 模式</b><br><code style="font-size:18px;font-weight:900">Switch&gt;</code><br>只能存取有限數量的基本監視命令。</div>
+        <div class="callout"><b>特權 EXEC 模式</b><br><code style="font-size:18px;font-weight:900">Switch#</code><br>可存取更多命令與功能，也是進入設定模式前的重要位置。</div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 先認位置",
+          subtitle: "不看畫面也能跟上",
+          text: "在 Cisco IOS 裡，命令會依目前模式分層。看到 Switch 大於符號，代表你在使用者 EXEC 模式；看到 Switch 井字號，代表你在特權 EXEC 模式。先認得提示字元，就知道目前大概有哪些操作權限，也知道接下來該往哪個模式移動。"
+        }
+      ],
+      quiz: {
+        prompt: "看到哪一個提示字元，代表目前在特權 EXEC 模式？",
+        choices: [
+          { label: "A　Switch>", correct: false },
+          { label: "B　Switch#", correct: true },
+          { label: "C　Switch(config)#", correct: false }
+        ],
+        correctText: "✅ 對。Switch# 代表特權 EXEC 模式。",
+        wrongText: "提示：使用者 EXEC 以 > 結尾；特權 EXEC 以 # 結尾。"
+      }
+    },
+    {
+      eyebrow: "02 · 設定模式與子模式",
+      title: "要改設定，就會進入 config 的層級",
+      lead: "全域設定模式影響裝置整體；再往下可以進入線路或介面等子設定模式。",
+      time: "約 65 秒",
+      visualHtml: `<div style="display:grid;gap:8px">
+        <div class="callout"><code style="font-size:17px;font-weight:900">Switch(config)#</code><br><b>全域設定模式</b>：用來進行會影響裝置整體的設定。</div>
+        <div class="callout"><code style="font-size:17px;font-weight:900">Switch(config-line)#</code><br><b>線路設定模式</b>：用於主控台、SSH、Telnet 或 AUX 存取相關設定。</div>
+        <div class="callout"><code style="font-size:17px;font-weight:900">Switch(config-if)#</code><br><b>介面設定模式</b>：用於交換器連接埠或網路介面設定。</div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 為什麼有子模式？",
+          subtitle: "不同設定放在不同層級",
+          text: "如果要修改裝置設定，會先進入全域設定模式，提示字元會出現 config。接著依要設定的對象，再進入子設定模式。例如線路設定模式的提示字元是 config-line，介面設定模式則是 config-if。這些提示字元不只是外觀不同，而是在告訴你目前正在設定哪一類物件。"
+        }
+      ],
+      panels: [
+        { title: "把模式想成資料夾", kind: "why", body: "可以把 IOS 模式想成一層一層的資料夾：EXEC 是入口；全域設定是設定區；line 與 interface 則是更細的子資料夾。命令是否可用，取決於你目前站在哪一層。" }
+      ]
+    },
+    {
+      eyebrow: "03 · 提示字元判讀",
+      title: "提示字元就是你的『目前位置』",
+      lead: "在輸入命令前，先用提示字元確認自己身在何處。",
+      time: "約 50 秒",
+      visualHtml: `<div style="border:1px solid #e6e8ec;border-radius:18px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:1.15fr 1fr;padding:11px 12px;background:#f8fafc;font-weight:900"><span>提示字元</span><span>所在模式</span></div>
+        <div style="display:grid;grid-template-columns:1.15fr 1fr;padding:11px 12px;border-top:1px solid #e6e8ec"><code>Switch&gt;</code><span>使用者 EXEC</span></div>
+        <div style="display:grid;grid-template-columns:1.15fr 1fr;padding:11px 12px;border-top:1px solid #e6e8ec"><code>Switch#</code><span>特權 EXEC</span></div>
+        <div style="display:grid;grid-template-columns:1.15fr 1fr;padding:11px 12px;border-top:1px solid #e6e8ec"><code>Switch(config)#</code><span>全域設定</span></div>
+        <div style="display:grid;grid-template-columns:1.15fr 1fr;padding:11px 12px;border-top:1px solid #e6e8ec"><code>Switch(config-line)#</code><span>線路設定</span></div>
+        <div style="display:grid;grid-template-columns:1.15fr 1fr;padding:11px 12px;border-top:1px solid #e6e8ec"><code>Switch(config-if)#</code><span>介面設定</span></div>
+      </div>`,
+      audio: [
+        {
+          title: "解題語音 · 先看括號",
+          subtitle: "快速判讀模式",
+          text: "判讀提示字元時，可以先看結尾。如果只有大於符號，是使用者 EXEC；只有井字號，是特權 EXEC。如果看到括號 config，就已經進入設定層級。config-line 代表線路子模式，config-if 代表介面子模式。做題或實作時，先認提示字元，再想命令，會比直接背命令穩定。"
+        }
+      ],
+      quiz: {
+        prompt: "目前提示字元是 Switch(config-line)#。你最直接能判斷出什麼？",
+        choices: [
+          { label: "A　正在使用者 EXEC 模式", correct: false },
+          { label: "B　正在設定線路相關項目", correct: true },
+          { label: "C　已經離開設定模式", correct: false }
+        ],
+        correctText: "✅ 沒錯。config-line 就是在告訴你目前位於線路設定子模式。",
+        wrongText: "先看括號裡的關鍵字：line 指向線路設定子模式。"
+      }
+    },
+    {
+      eyebrow: "04 · EXEC 模式切換",
+      title: "enable 往上，disable 回來",
+      lead: "在使用者 EXEC 與特權 EXEC 之間，最重要的是把方向記清楚。",
+      time: "約 45 秒",
+      visualHtml: `<div class="bigmath" style="font-size:21px;line-height:1.8;letter-spacing:0">
+        <code>Switch&gt;</code><br>
+        <span style="font-size:15px">↓ enable</span><br>
+        <code>Switch#</code><br>
+        <span style="font-size:15px">↓ disable</span><br>
+        <code>Switch&gt;</code>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 記方向",
+          subtitle: "enable 進特權，disable 回使用者",
+          text: "從使用者 EXEC 模式要進入特權 EXEC 模式，輸入 enable。從特權 EXEC 模式要回到使用者 EXEC 模式，輸入 disable。畫面上最直接的變化，就是提示字元從大於符號變成井字號，或再從井字號回到大於符號。"
+        }
+      ],
+      quiz: {
+        prompt: "你目前看到 Switch>，下一步要進入特權 EXEC 模式，應輸入什麼？",
+        choices: [
+          { label: "A　enable", correct: true },
+          { label: "B　disable", correct: false },
+          { label: "C　exit", correct: false }
+        ],
+        correctText: "✅ enable 會把 Switch> 帶到 Switch#。",
+        wrongText: "想像權限往上一層：enable 是進入特權 EXEC 的命令。"
+      }
+    },
+    {
+      eyebrow: "05 · 進入全域設定",
+      title: "configure terminal 進 config，exit 退一層",
+      lead: "真正要設定交換器時，要先站在特權 EXEC，再進入全域設定模式。",
+      time: "約 60 秒",
+      visualHtml: `<div class="bigmath" style="font-size:19px;line-height:1.75;letter-spacing:0">
+        <code>Switch#</code><br>
+        <span style="font-size:14px">configure terminal</span><br>
+        ↓<br>
+        <code>Switch(config)#</code><br>
+        <span style="font-size:14px">exit</span><br>
+        ↓<br>
+        <code>Switch#</code>
+      </div>`,
+      audio: [
+        {
+          title: "解題語音 · 兩步進設定",
+          subtitle: "先特權，再 config",
+          text: "要進入全域設定模式，先確定提示字元是 Switch 井字號，也就是特權 EXEC。接著輸入 configure terminal，提示字元會變成 Switch 括號 config 井字號。若在全域設定模式輸入 exit，就會退回特權 EXEC。"
+        }
+      ],
+      panels: [
+        { title: "影片中也示範縮寫", kind: "note", body: "示範畫面使用了 <code>config t</code> 作為 <code>configure terminal</code> 的縮寫形式；核心概念仍是從特權 EXEC 進入全域設定模式。" }
+      ],
+      quiz: {
+        prompt: "現在是 Switch#。要進入 Switch(config)#，哪個命令符合影片中的流程？",
+        choices: [
+          { label: "A　configure terminal", correct: true },
+          { label: "B　disable", correct: false },
+          { label: "C　end", correct: false }
+        ],
+        correctText: "✅ 對。從特權 EXEC 使用 configure terminal 進入全域設定模式。",
+        wrongText: "先找『進入設定』的命令；disable 是回使用者 EXEC，end 是離開設定層級。"
+      }
+    },
+    {
+      eyebrow: "06 · 子模式間導航",
+      title: "exit 退一層；end 或 Ctrl+Z 直接回特權 EXEC",
+      lead: "設定層級變多後，重點不是死背畫面，而是知道每個離開命令會把你帶到哪裡。",
+      time: "約 75 秒",
+      visualHtml: `<div style="display:grid;gap:9px">
+        <div class="callout"><code>Switch(config)# line console 0</code><br>→ <code>Switch(config-line)#</code></div>
+        <div class="callout"><b>exit</b>：從子設定模式退回上一層，例如 <code>config-line</code> 回 <code>config</code>。</div>
+        <div class="callout"><b>end</b> 或 <b>Ctrl+Z</b>：從設定模式直接回到 <code>Switch#</code>。</div>
+        <div class="callout">也可以直接輸入另一個子設定命令，例如從 <code>config-line</code> 輸入 <code>interface FastEthernet 0/1</code>，直接移到 <code>config-if</code>。</div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 三種移動方式",
+          subtitle: "退一層、回頂層、直接換子模式",
+          text: "進入子設定模式後，exit 是退回上一層。若想從設定層級直接回到特權 EXEC，可以輸入 end，或使用 Ctrl 加 Z。影片也示範了另一種方式：不一定要先退出目前子模式，直接輸入另一個子設定命令，就能從線路設定切到介面設定，提示字元會從 config-line 變成 config-if。"
+        }
+      ],
+      panels: [
+        { title: "命令路徑例子", kind: "detail", body: "<code>Switch(config-line)# exit</code> → <code>Switch(config)#</code><br><br><code>Switch(config-line)# end</code> → <code>Switch#</code><br><br><code>Switch(config-line)# interface FastEthernet 0/1</code> → <code>Switch(config-if)#</code>" }
+      ],
+      quiz: {
+        prompt: "你在 Switch(config-line)#，想一次回到 Switch#，哪個做法最直接？",
+        choices: [
+          { label: "A　exit", correct: false },
+          { label: "B　end", correct: true },
+          { label: "C　disable", correct: false }
+        ],
+        correctText: "✅ end 會直接離開設定層級，回到特權 EXEC。",
+        wrongText: "exit 通常只退上一層；題目要你一次回到 Switch#。"
+      }
+    },
+    {
+      eyebrow: "07 · 語法檢查練習",
+      title: "練模式切換時，先確認提示字元有沒有跟著變",
+      lead: "語法檢查器的重點，是讓你反覆練『命令 → 提示字元 → 下一個模式』的連鎖反應。",
+      time: "約 55 秒",
+      visualHtml: `<div style="background:#161a16;color:#f8fafc;border-radius:18px;padding:15px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.75;overflow:auto">
+        Switch&gt; enable<br>
+        Switch# configure terminal<br>
+        Switch(config)# interface vlan 1<br>
+        Switch(config-if)# line console 0<br>
+        Switch(config-line)# end<br>
+        Switch#
+      </div>`,
+      audio: [
+        {
+          title: "練習語音 · 每一步都看 prompt",
+          subtitle: "不要只看命令有沒有打對",
+          text: "做模式導航練習時，每輸入一個命令，都要立刻確認提示字元是否變成預期的模式。這樣你練到的不是一串孤立命令，而是一條完整路徑。影片的語法檢查器就是用來練這件事：enable 進特權 EXEC，configure terminal 進全域設定，再進介面或線路子模式，最後用 end 回到特權 EXEC。"
+        }
+      ],
+      panels: [
+        { title: "練習工具的限制", kind: "why", body: "課程提醒：語法檢查器是模擬工具，設計來練特定命令與模式，不代表具備真實設備的所有功能。先在安全的非生產環境練習，再用更完整的模擬工具或設備驗證操作。" }
+      ]
+    },
+    {
+      eyebrow: "08 · 下車前總複習",
+      title: "真正要帶走的是『看位置，再選命令』",
+      lead: "IOS 導航不是背一長串指令；核心是知道自己在哪個模式，以及下一步要去哪裡。",
+      time: "約 40 秒",
+      visualHtml: `<div class="bigmath" style="font-size:18px;line-height:1.7;letter-spacing:0;text-align:left;padding-left:18px">
+        ① <code>&gt;</code> = 使用者 EXEC<br>
+        ② <code>#</code> = 特權 EXEC<br>
+        ③ <code>(config)</code> = 設定層級<br>
+        ④ <b>enable</b> 往特權<br>
+        ⑤ <b>configure terminal</b> 進全域設定<br>
+        ⑥ <b>exit</b> 退一層；<b>end / Ctrl+Z</b> 回特權
+      </div>`,
+      audio: [
+        {
+          title: "總複習語音",
+          subtitle: "下車前再聽一次",
+          text: "這堂課最重要的不是死背所有命令，而是先看提示字元判斷目前模式。大於符號是使用者 EXEC，井字號是特權 EXEC，括號 config 代表設定層級。enable 進入特權 EXEC，configure terminal 進入全域設定，exit 往上一層，end 或 Ctrl 加 Z 可以直接回到特權 EXEC。每次輸入命令後，都確認提示字元是否如預期改變。"
+        }
+      ],
+      panels: [
+        { title: "本課文字摘要", kind: "note", open: true, body: "模式決定命令可用範圍；提示字元顯示目前模式；導航命令則負責在模式之間移動。實作時把這三件事連在一起看，就能降低在錯誤模式輸入命令的機率。" }
+      ]
+    }
+  ],
+
+  glossary: [
+    {
+      zh: "Cisco IOS",
+      en: "Cisco Internetwork Operating System",
+      explanation: "Cisco 網路設備使用的作業系統；本課聚焦它的 CLI 命令模式與模式間導航。",
+      audioText: "Cisco IOS，英文是 Cisco Internetwork Operating System。它是 Cisco 網路設備使用的作業系統；本課聚焦它的命令列介面模式與模式間導航。",
+      enAudioText: "Cisco Internetwork Operating System"
+    },
+    {
+      zh: "命令列介面",
+      en: "Command-Line Interface, CLI",
+      explanation: "以文字命令操作裝置的介面。IOS 會依目前命令模式限制可使用的命令。",
+      audioText: "命令列介面，英文是 Command-Line Interface，縮寫 CLI。它是以文字命令操作裝置的介面；IOS 會依目前命令模式限制可使用的命令。",
+      enAudioText: "Command-Line Interface"
+    },
+    {
+      zh: "使用者 EXEC 模式",
+      en: "User EXEC Mode",
+      explanation: "提示字元通常以 > 結尾，例如 Switch>；只能存取有限數量的基本監視命令。",
+      audioText: "使用者 EXEC 模式，英文是 User EXEC Mode。提示字元通常以大於符號結尾，例如 Switch 大於符號；只能存取有限數量的基本監視命令。",
+      enAudioText: "User EXEC Mode"
+    },
+    {
+      zh: "特權 EXEC 模式",
+      en: "Privileged EXEC Mode",
+      explanation: "提示字元以 # 結尾，例如 Switch#；可存取更多命令與功能，也是進入設定模式的起點。",
+      audioText: "特權 EXEC 模式，英文是 Privileged EXEC Mode。提示字元以井字號結尾，例如 Switch 井字號；可存取更多命令與功能，也是進入設定模式的起點。",
+      enAudioText: "Privileged EXEC Mode"
+    },
+    {
+      zh: "全域設定模式",
+      en: "Global Configuration Mode",
+      explanation: "提示字元為 Switch(config)#；用於會影響裝置整體的設定，也是進入各種子設定模式前的主要層級。",
+      audioText: "全域設定模式，英文是 Global Configuration Mode。提示字元為 Switch 括號 config 井字號；用於會影響裝置整體的設定，也是進入各種子設定模式前的主要層級。",
+      enAudioText: "Global Configuration Mode"
+    },
+    {
+      zh: "線路設定模式",
+      en: "Line Configuration Mode",
+      explanation: "提示字元常見為 Switch(config-line)#；用於主控台、SSH、Telnet 或 AUX 存取相關設定。",
+      audioText: "線路設定模式，英文是 Line Configuration Mode。提示字元常見為 Switch 括號 config-line 井字號；用於主控台、SSH、Telnet 或 AUX 存取相關設定。",
+      enAudioText: "Line Configuration Mode"
+    },
+    {
+      zh: "介面設定模式",
+      en: "Interface Configuration Mode",
+      explanation: "提示字元常見為 Switch(config-if)#；用於交換器連接埠或網路介面相關設定。",
+      audioText: "介面設定模式，英文是 Interface Configuration Mode。提示字元常見為 Switch 括號 config-if 井字號；用於交換器連接埠或網路介面相關設定。",
+      enAudioText: "Interface Configuration Mode"
+    }
+  ],
+
+  termQuiz: [
+    {
+      question: "「使用者 EXEC 模式」的英文名稱是哪一個？",
+      choices: [
+        { label: "User EXEC Mode", correct: true },
+        { label: "Privileged EXEC Mode", correct: false },
+        { label: "Global Configuration Mode", correct: false }
+      ],
+      correctText: "對。使用者 EXEC 模式就是 User EXEC Mode，提示字元以 > 結尾。",
+      wrongText: "回想 Switch> 對應的模式名稱。"
+    },
+    {
+      question: "Privileged EXEC Mode 對應哪一個中文名稱？",
+      choices: [
+        { label: "特權 EXEC 模式", correct: true },
+        { label: "線路設定模式", correct: false },
+        { label: "使用者 EXEC 模式", correct: false }
+      ],
+      correctText: "沒錯。Privileged EXEC Mode 就是特權 EXEC 模式。",
+      wrongText: "提示：這個模式的提示字元是 Switch#。"
+    },
+    {
+      question: "哪個英文術語代表『命令列介面』？",
+      choices: [
+        { label: "Command-Line Interface, CLI", correct: true },
+        { label: "Line Configuration Mode", correct: false },
+        { label: "Global Configuration Mode", correct: false }
+      ],
+      correctText: "對。CLI 是 Command-Line Interface 的縮寫。",
+      wrongText: "回想本課操作 IOS 時，是用文字命令與裝置互動。"
+    },
+    {
+      question: "Global Configuration Mode 的典型提示字元是哪一個？",
+      choices: [
+        { label: "Switch(config)#", correct: true },
+        { label: "Switch>", correct: false },
+        { label: "Switch(config-line)#", correct: false }
+      ],
+      correctText: "對。全域設定模式以 (config)# 辨識。",
+      wrongText: "先找只有 config、還沒有 line 或 if 的提示字元。"
+    },
+    {
+      question: "Switch(config-line)# 對應哪個英文術語？",
+      choices: [
+        { label: "Line Configuration Mode", correct: true },
+        { label: "Interface Configuration Mode", correct: false },
+        { label: "User EXEC Mode", correct: false }
+      ],
+      correctText: "對。config-line 對應 Line Configuration Mode。",
+      wrongText: "提示字元中已經直接出現 line。"
+    },
+    {
+      question: "哪個模式最符合『用於交換器連接埠或網路介面相關設定』？",
+      choices: [
+        { label: "Interface Configuration Mode", correct: true },
+        { label: "Line Configuration Mode", correct: false },
+        { label: "User EXEC Mode", correct: false }
+      ],
+      correctText: "沒錯。Interface Configuration Mode 就是介面設定模式。",
+      wrongText: "回想提示字元中的 if，是 interface 的縮寫。"
+    },
+    {
+      question: "Cisco Internetwork Operating System 在本課簡稱什麼？",
+      choices: [
+        { label: "IOS", correct: true },
+        { label: "CLI", correct: false },
+        { label: "EXEC", correct: false }
+      ],
+      correctText: "對。Cisco Internetwork Operating System 在本課以 IOS 表示。",
+      wrongText: "CLI 是操作介面；題目問的是 Cisco 的作業系統名稱。"
+    }
+  ],
+
+  recallQuiz: [
+    {
+      question: "目前是 Switch>。要進入特權 EXEC 模式，下一個命令是什麼？",
+      choices: [
+        { label: "enable", correct: true },
+        { label: "configure terminal", correct: false },
+        { label: "end", correct: false }
+      ],
+      correctText: "對。enable 會把提示字元從 Switch> 帶到 Switch#。",
+      wrongText: "先想使用者 EXEC 到特權 EXEC 的方向。"
+    },
+    {
+      question: "目前是 Switch#。要進入全域設定模式，哪個命令符合本課流程？",
+      choices: [
+        { label: "configure terminal", correct: true },
+        { label: "disable", correct: false },
+        { label: "line console 0", correct: false }
+      ],
+      correctText: "沒錯。configure terminal 會進入 Switch(config)#。",
+      wrongText: "線路子模式要先建立在設定層級之下；先進全域設定。"
+    },
+    {
+      question: "你在 Switch(config-line)#。只想退回上一層 Switch(config)#，應用哪個命令？",
+      choices: [
+        { label: "exit", correct: true },
+        { label: "end", correct: false },
+        { label: "disable", correct: false }
+      ],
+      correctText: "對。exit 會從子設定模式退回上一層。",
+      wrongText: "end 會直接回特權 EXEC；題目只要退一層。"
+    },
+    {
+      question: "你在任一設定子模式，想直接回到 Switch#，哪個做法符合影片？",
+      choices: [
+        { label: "end 或 Ctrl+Z", correct: true },
+        { label: "disable", correct: false },
+        { label: "enable", correct: false }
+      ],
+      correctText: "對。end 或 Ctrl+Z 可以直接回到特權 EXEC。",
+      wrongText: "想一個『直接離開設定層級』的做法，而不是逐層退出。"
+    },
+    {
+      question: "為什麼每輸入一個導航命令後，都要確認提示字元？",
+      choices: [
+        { label: "因為提示字元會顯示目前所在模式，能確認是否到達預期層級", correct: true },
+        { label: "因為提示字元會顯示網路速度", correct: false },
+        { label: "因為提示字元會自動保存所有設定", correct: false }
+      ],
+      correctText: "沒錯。提示字元就是目前模式的即時位置標記。",
+      wrongText: "回想本課核心：先看位置，再選命令。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

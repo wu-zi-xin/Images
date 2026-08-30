@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:16px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:14px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:15px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:14px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:15px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:14px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:13px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* ===== CCNA 2.9 通勤大字舒適版 ===== */
+h1{font-size:30px;line-height:1.22}
+.lead{font-size:17px;line-height:1.72}
+.inline-transcript{font-size:16px;line-height:1.8;padding-bottom:5px}
+.panel summary{font-size:16px;min-height:48px}
+.panel-body{font-size:16px;line-height:1.8}
+.choice{font-size:16px;line-height:1.55;min-height:52px}
+.feedback{font-size:16px;line-height:1.7}
+.term-exp,.term-transcript{font-size:16px;line-height:1.8}
+.term-en{font-size:14px;line-height:1.45}
+.recall-q,.recall-choice{font-size:16px;line-height:1.6}
+.recall-choice{min-height:50px}
+.recall-feedback{font-size:16px;line-height:1.7}
+.play,.term-play{width:44px;height:44px;min-width:44px;min-height:44px}
+.term-en-play{width:32px;height:32px;min-width:32px;min-height:32px}
+.btn{min-height:50px;font-size:16px}
+.callout{font-size:16px;line-height:1.75}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.concept-flow{display:grid;grid-template-columns:1fr auto 1.25fr auto 1fr;align-items:center;gap:7px;padding:12px;background:#f8fafc;border:1px solid var(--line);border-radius:18px}
+.flow-box{min-width:0;text-align:center;padding:12px 8px;background:#fff;border:1px solid var(--line);border-radius:14px}.flow-box.strong{background:#111827;color:#fff}.flow-box b{display:block;font-size:15px}.flow-box span{display:block;margin-top:5px;font-size:12px;line-height:1.45;color:#6b7280}.flow-box.strong span{color:#d1d5db}.flow-arrow{font-weight:900;color:#9ca3af}
+.mode-stack{display:grid;gap:8px}.mode-card{display:grid;grid-template-columns:110px 1fr;gap:4px 10px;align-items:center;padding:12px 13px;border:1px solid var(--line);border-radius:15px;background:#f8fafc}.mode-card.dark{background:#111827;color:#fff}.mode-card code{font-size:17px;font-weight:900}.mode-card b{font-size:16px}.mode-card span{grid-column:2;font-size:13px;line-height:1.45;color:#6b7280}.mode-card.dark span{color:#cbd5e1}.mode-down{text-align:center;font-size:13px;color:#6b7280;font-weight:800}.mode-down code{font-size:13px}
+.cli-help{display:grid;gap:9px}.cli-help>div{display:flex;align-items:center;gap:12px;padding:12px 13px;border:1px solid var(--line);border-radius:14px;background:#f8fafc}.cli-help code{min-width:120px;font-size:15px;font-weight:900}.cli-help span{font-size:15px;line-height:1.5}
+.security-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.security-grid>div{padding:12px;border:1px solid var(--line);border-radius:14px;background:#f8fafc}.security-grid .tag{display:inline-block;font-size:11px;font-weight:900;color:#6b7280;margin-bottom:5px}.security-grid b{display:block;font-size:16px;overflow-wrap:anywhere}.security-grid small{display:block;margin-top:5px;font-size:12px;color:#6b7280;line-height:1.45}
+.memory-map{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}.mem-box{padding:16px 10px;text-align:center;border:1px solid var(--line);border-radius:16px;background:#f8fafc}.mem-box.ram{background:#eff6ff}.mem-box b{display:block;font-size:24px}.mem-box span{display:block;margin:5px 0;font-size:15px;font-weight:900}.mem-box small{display:block;font-size:12px;line-height:1.5;color:#6b7280}.copy-arrows{display:grid;gap:16px;font-size:11px;font-weight:900;color:#6b7280;white-space:nowrap}
+.subnet-card{border:1px solid var(--line);border-radius:17px;padding:13px;background:#f8fafc}.subnet-row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line)}.subnet-row span{font-size:13px;font-weight:900;color:#6b7280}.subnet-row code{font-size:16px;font-weight:900}.subnet-result{margin-top:11px;padding:12px;text-align:center;background:#111827;color:#fff;border-radius:13px;font-size:16px}.subnet-result b{font-size:20px}
+.svi-card{display:grid;grid-template-columns:58px 1fr auto;gap:9px;align-items:center;border:1px solid var(--line);background:#f8fafc;border-radius:15px;padding:10px;margin-bottom:8px}.switch-shape{width:58px;height:44px;display:flex;align-items:center;justify-content:center;background:#111827;color:#fff;border-radius:10px;font-weight:950}.svi-line span{display:block;font-size:11px;color:#6b7280;font-weight:900}.svi-line code{font-size:14px;font-weight:900}.svi-ip{text-align:right}.svi-ip b{display:block;font-size:15px}.svi-ip small{font-size:11px;color:#6b7280}
+.topology{padding:12px;border:1px solid var(--line);border-radius:18px;background:#f8fafc}.top-row{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:7px;align-items:center}.node{padding:10px;text-align:center;border-radius:13px;border:1px solid var(--line);background:#fff}.node.switch{background:#111827;color:#fff}.node b{display:block;font-size:18px}.node small{display:block;font-size:11px;line-height:1.4;margin-top:4px;color:#6b7280}.node.switch small{color:#cbd5e1}.cable{text-align:center}.cable span{display:block;font-size:12px;font-weight:900}.cable small{display:block;font-size:10px;color:#6b7280;margin-top:3px}.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:45px;margin-top:10px}.leg{text-align:center;font-size:12px;font-weight:900}.leg>small{display:block;font-size:10px;color:#6b7280;margin:3px 0 7px}.node.pc{font-weight:700}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:9px}.steps>div{display:grid;grid-template-columns:34px 1fr;gap:9px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:11px;background:#f8fafc}.steps b{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#111827;color:#fff}.steps span{font-size:14px;line-height:1.55;font-weight:800}.steps code{font-size:12px}
+.verify-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.verify-grid>div{padding:11px;border:1px solid var(--line);border-radius:13px;background:#f8fafc}.verify-grid .wide{grid-column:1/-1}.verify-grid code{display:block;font-size:13px;font-weight:900}.verify-grid span{display:block;margin-top:5px;font-size:12px;line-height:1.5;color:#6b7280}
+.codeblock{white-space:pre-wrap;overflow-x:auto;background:#111827;color:#f9fafb;border-radius:13px;padding:13px;font-size:14px;line-height:1.65;margin:8px 0}.source-note{font-size:13px;line-height:1.65;color:#6b7280;margin:8px 0 0}
+@media(max-width:390px){h1{font-size:28px}.concept-flow{grid-template-columns:1fr}.flow-arrow{transform:rotate(90deg);text-align:center}.mode-card{grid-template-columns:1fr}.mode-card span{grid-column:1}.security-grid,.steps,.verify-grid{grid-template-columns:1fr}.verify-grid .wide{grid-column:auto}.memory-map{grid-template-columns:1fr}.copy-arrows{display:flex;justify-content:center;gap:22px}.svi-card{grid-template-columns:52px 1fr}.svi-ip{grid-column:2;text-align:left}.top-row{grid-template-columns:1fr}.cable{padding:3px 0}.bottom-row{gap:12px}.cli-help>div{align-items:flex-start;flex-direction:column;gap:4px}.cli-help code{min-width:0}}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  "title": "2.9 模組練習與測驗：基本交換器與終端裝置設定",
+  "brand": "CCNA 2.9｜通勤微課",
+  "segments": [
+    {
+      "eyebrow": "01 · 先看全貌",
+      "title": "你其實是在用 IOS 的 CLI 管理網路設備",
+      "lead": "先把角色分清楚：作業系統負責設備運作，CLI 是你下命令的入口，Shell 則在使用者與核心之間傳遞操作。",
+      "time": "約 70 秒",
+      "visualHtml": "<div class=\"concept-flow\"><div class=\"flow-box\"><b>你</b><span>輸入命令</span></div><div class=\"flow-arrow\">→</div><div class=\"flow-box strong\"><b>CLI / Shell</b><span>接收與解讀</span></div><div class=\"flow-arrow\">→</div><div class=\"flow-box\"><b>IOS / Kernel</b><span>控制設備</span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 先建立心智模型",
+          "subtitle": "不看畫面也能跟上",
+          "text": "這一單元先把網路設備當成一台有作業系統的電腦來看。Cisco IOS 是設備的作業系統；你通常透過命令列介面，也就是 CLI，輸入文字命令。影片中的模組測驗還特別考到 Shell：它的角色是介於使用者和作業系統核心之間，讓你的操作能被系統處理。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "本課來源範圍",
+          "kind": "note",
+          "body": "本微課依照上傳的 2.9 模組影片、Packet Tracer、實體實驗與 Physical Mode 文件重新整理。影片的單元總結涵蓋 IOS、CLI、命令模式、設定檔、IPv4、DHCP、SVI 與驗證；PDF 則提供兩台交換器與兩台 PC 的實作拓樸與位址。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "02 · 命令模式",
+      "title": "看到提示字元，就要知道自己在哪一層",
+      "lead": "使用者 EXEC、特權 EXEC、全域設定模式的權限不同；先看提示字元，再決定下一個命令。",
+      "time": "約 90 秒",
+      "visualHtml": "<div class=\"mode-stack\"><div class=\"mode-card\"><code>Switch&gt;</code><b>使用者 EXEC</b><span>有限的檢視與基本操作</span></div><div class=\"mode-down\">輸入 <code>enable</code> ↓</div><div class=\"mode-card dark\"><code>Switch#</code><b>特權 EXEC</b><span>可存取更多監控與管理命令</span></div><div class=\"mode-down\">輸入 <code>configure terminal</code> ↓</div><div class=\"mode-card\"><code>Switch(config)#</code><b>全域設定</b><span>進一步進到 line / interface 等子模式</span></div></div>",
+      "quiz": {
+        "prompt": "影片測驗有考：哪個提示字元代表使用者 EXEC 模式？",
+        "choices": [
+          {
+            "label": "A　Switch>",
+            "correct": true
+          },
+          {
+            "label": "B　Switch#",
+            "correct": false
+          },
+          {
+            "label": "C　Switch(config)#",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。使用者 EXEC 模式以 > 結尾；特權 EXEC 才是 #。",
+        "wrongText": "提示：先把『> = 使用者 EXEC、# = 特權 EXEC』記成一組。"
+      },
+      "audio": [
+        {
+          "title": "白話解釋 · 模式就是權限階梯",
+          "subtitle": "先辨識，再下命令",
+          "text": "把 IOS 模式想成一層一層的權限階梯。剛進設備時通常在使用者 EXEC，提示字元以大於符號結尾。輸入 enable 之後進入特權 EXEC，提示字元變成井字號。再輸入 configure terminal 才進入全域設定模式。影片測驗也考到 enable secret 是用來保護特權 EXEC 的存取。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "離開設定模式怎麼做？",
+          "kind": "detail",
+          "body": "影片的單元總結指出，可以使用 <code>exit</code> 回到較上一層的模式。做題時不要只背命令，也要同時看提示字元判斷目前位置。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "03 · CLI 幫助",
+      "title": "不必把所有命令背完：先學會問 IOS",
+      "lead": "上下文相關說明能列出目前模式可用的命令，也能提示某個命令後面可接的關鍵字與參數。",
+      "time": "約 65 秒",
+      "visualHtml": "<div class=\"cli-help\"><div><code>Switch# ?</code><span>看目前可用命令</span></div><div><code>Switch# show ?</code><span>看 show 後可接什麼</span></div><div><code>Tab</code><span>補齊已輸入的命令片段</span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 把問號當成導航",
+          "subtitle": "影片測驗的高頻觀念",
+          "text": "Cisco IOS 的上下文相關說明很重要。問號可以在目前模式中列出可用命令，也可以在已輸入的命令後面，告訴你接下來有哪些關鍵字或參數可用。影片測驗把這兩個功能一起考。與其死背所有語法，不如先會用問號確認下一步。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "命令語法要看什麼？",
+          "kind": "why",
+          "body": "影片的單元總結強調：IOS 命令有特定格式或語法，而且只能在適當的模式下執行。做題時若命令本身看起來正確，但所在模式不對，一樣不能完成工作。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "04 · 名稱與存取保護",
+      "title": "先讓設備有身分，再限制誰能進管理模式",
+      "lead": "教材要求設定 hostname、密碼與 MOTD banner；模組測驗則特別考 hostname 規則與 enable secret。",
+      "time": "約 90 秒",
+      "visualHtml": "<div class=\"security-grid\"><div><span class=\"tag\">名稱</span><b>S1 / S2</b><small>hostname</small></div><div><span class=\"tag\">特權</span><b>enable secret</b><small>保護 privileged EXEC</small></div><div><span class=\"tag\">主控台</span><b>console password</b><small>實驗使用 cisco</small></div><div><span class=\"tag\">警告</span><b>MOTD banner</b><small>未授權存取警示</small></div></div>",
+      "quiz": {
+        "prompt": "依影片測驗的命名原則，下列哪一個最符合 Cisco hostname 規則？",
+        "choices": [
+          {
+            "label": "A　1st Switch",
+            "correct": false
+          },
+          {
+            "label": "B　S1",
+            "correct": true
+          },
+          {
+            "label": "C　Switch Room",
+            "correct": false
+          },
+          {
+            "label": "D　#Core",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ S1 符合影片測驗強調的重點：以字母開頭、不含空格，且名稱長度受限制。",
+        "wrongText": "回想影片題目：主機名稱要以字母開頭，而且不能包含空格。"
+      },
+      "audio": [
+        {
+          "title": "白話解釋 · 安全設定分層看",
+          "subtitle": "不要把各種密碼混在一起",
+          "text": "設備名稱讓你知道自己正在設定哪一台交換器。接著是存取保護：實驗文件指定 class 作為特權 EXEC 密碼，cisco 作為 console 存取密碼；Packet Tracer 評量版本另外要求把明文密碼加密，並設定適當的 MOTD 警告。影片測驗則提醒，enable secret 保護的是特權 EXEC，而不是一般使用者 EXEC。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "Packet Tracer 評量版與實驗版有什麼差異？",
+          "kind": "note",
+          "body": "一頁式 Packet Tracer 評量文件的名稱、密碼與 IP 欄位可能由活動動態產生，因此畫面上的空白不能自行補值；三頁 Lab / Physical Mode 文件則明確提供 S1、S2、PC-A、PC-B 的固定位址，並指定 <code>class</code> 與 <code>cisco</code>。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "05 · 設定檔與記憶體",
+      "title": "正在用的設定在 RAM；開機要載入的設定在 NVRAM",
+      "lead": "running-config 和 startup-config 的差別，是模組測驗最容易混淆的地方之一。",
+      "time": "約 100 秒",
+      "visualHtml": "<div class=\"memory-map\"><div class=\"mem-box ram\"><b>RAM</b><span>running-config</span><small>目前正在生效<br>重新啟動會失去揮發性內容</small></div><div class=\"copy-arrows\"><span>儲存 →</span><span>← 載入</span></div><div class=\"mem-box\"><b>NVRAM</b><span>startup-config</span><small>開機時使用的設定檔</small></div></div>",
+      "quiz": {
+        "prompt": "影片第 10 題：<code>copy startup-config running-config</code> 的效果是什麼？",
+        "choices": [
+          {
+            "label": "A　把目前設定存到 NVRAM",
+            "correct": false
+          },
+          {
+            "label": "B　把啟動設定載入目前的 running-config／RAM",
+            "correct": true
+          },
+          {
+            "label": "C　清除交換器所有設定",
+            "correct": false
+          },
+          {
+            "label": "D　讓變更成為下一次開機設定",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。方向從 startup 到 running：把啟動設定載入目前正在使用的設定。",
+        "wrongText": "先看 copy 後面的順序：來源是 startup-config，目的地是 running-config。"
+      },
+      "audio": [
+        {
+          "title": "白話解釋 · 先記方向，不要只背字串",
+          "subtitle": "running 與 startup 的核心差異",
+          "text": "running-config 是設備目前正在使用的設定，存在 RAM；startup-config 是開機時要讀取的設定，存在 NVRAM。影片測驗指出，直接修改 IOS 設定後會立即套用到目前設定，不需要重新啟動。若要讓變更在下次開機後仍保留，就要把目前設定保存成啟動設定。反過來，copy startup-config running-config 是把 NVRAM 裡的啟動設定載入目前的設定。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "教材要求的儲存動作",
+          "kind": "detail",
+          "body": "Lab 與 Physical Mode 都要求把目前設定保存到 NVRAM 的 startup file。常見 IOS 寫法是 <code>copy running-config startup-config</code>。這裡的命令骨架是把教材的『save configuration』要求轉成常見 IOS CLI 寫法；教材也提醒不同交換器型號與 IOS 版本可能有些差異。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "06 · IPv4、遮罩與 DHCP",
+      "title": "IP 位址告訴你是哪台主機；遮罩告訴你哪一部分是網路",
+      "lead": "模組測驗同時考靜態／動態位址觀念、DHCP 功能，以及用子網路遮罩找出網路位址。",
+      "time": "約 110 秒",
+      "visualHtml": "<div class=\"subnet-card\"><div class=\"subnet-row\"><span>IP</span><code>10.1.100.50</code></div><div class=\"subnet-row\"><span>Mask</span><code>255.255.0.0 = /16</code></div><div class=\"subnet-result\">網路位址 → <b>10.1.0.0</b></div></div><div class=\"callout\" style=\"margin-top:10px\"><b>DHCP：</b>自動把 IP 位址等網路設定提供給終端主機。</div>",
+      "quiz": {
+        "prompt": "影片第 14 題：IP 位址 10.1.100.50 使用 255.255.0.0，屬於哪個子網路？",
+        "choices": [
+          {
+            "label": "A　10.1.0.0",
+            "correct": true
+          },
+          {
+            "label": "B　10.0.0.0",
+            "correct": false
+          },
+          {
+            "label": "C　10.1.100.32",
+            "correct": false
+          },
+          {
+            "label": "D　10.1.100.0",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ /16 保留前兩個八位元組作為網路部分，所以網路位址是 10.1.0.0。",
+        "wrongText": "255.255.0.0 等於 /16；先保留 10.1，再把主機部分歸零。"
+      },
+      "audio": [
+        {
+          "title": "解題語音 · /16 怎麼看",
+          "subtitle": "跟著遮罩判斷網路部分",
+          "text": "255.255.0.0 代表前十六個位元是網路部分，也就是前兩個十進位八位元組要保留。10.1.100.50 因此前兩段保留成 10.1，後兩段屬於主機部分，找網路位址時歸零，所以答案是 10.1.0.0。另一方面，影片也考 DHCP：它的作用是自動把 IP 位址等設定提供給終端主機。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "本實驗為什麼可以不填 default gateway？",
+          "kind": "why",
+          "body": "Physical Mode 文件明確指出：PC-A 與 PC-B 在這個練習中可暫時把 default gateway 留白，因為拓樸沒有連接路由器；兩台 PC 都在同一個 192.168.1.0/24 網路中。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "07 · SVI 與交換器管理 IP",
+      "title": "Layer 2 交換器也需要一個可管理的 IP：放在 SVI 上",
+      "lead": "教材的兩台交換器都把管理 IP 設在 VLAN 1 的 SVI；影片測驗也直接問預設 SVI 是哪個 VLAN。",
+      "time": "約 85 秒",
+      "visualHtml": "<div class=\"svi-card\"><div class=\"switch-shape\">S1</div><div class=\"svi-line\"><span>SVI</span><code>interface vlan 1</code></div><div class=\"svi-ip\"><b>192.168.1.1</b><small>255.255.255.0</small></div></div><div class=\"svi-card\"><div class=\"switch-shape\">S2</div><div class=\"svi-line\"><span>SVI</span><code>interface vlan 1</code></div><div class=\"svi-ip\"><b>192.168.1.2</b><small>255.255.255.0</small></div></div>",
+      "quiz": {
+        "prompt": "影片第 4 題：Cisco 交換器上的預設 SVI 是哪一個？",
+        "choices": [
+          {
+            "label": "A　VLAN 1",
+            "correct": true
+          },
+          {
+            "label": "B　VLAN 99",
+            "correct": false
+          },
+          {
+            "label": "C　VLAN 100",
+            "correct": false
+          },
+          {
+            "label": "D　VLAN 999",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ VLAN 1。這也是本實驗 S1、S2 配置管理 IP 的介面。",
+        "wrongText": "回想 Addressing Table：S1 與 S2 的 Interface 欄都是 VLAN 1。"
+      },
+      "audio": [
+        {
+          "title": "白話解釋 · SVI 是管理入口",
+          "subtitle": "把實體埠和管理 IP 分開想",
+          "text": "這個實驗不是把管理 IP 直接設在 FastEthernet 實體埠，而是設在 VLAN 1 的交換虛擬介面，也就是 SVI。Addressing Table 指定 S1 的 VLAN 1 是 192.168.1.1，S2 的 VLAN 1 是 192.168.1.2，遮罩都為 255.255.255.0。設定完成並啟用之後，就能從同一網段的 PC 測試到交換器。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "常見 IOS 命令骨架",
+          "kind": "detail",
+          "body": "依教材要求轉成常見 IOS CLI 寫法，可先進入 <code>interface vlan 1</code>，再設定 <code>ip address 192.168.1.1 255.255.255.0</code>，並啟用介面。S2 則使用 192.168.1.2。這是依教材動作整理的命令骨架；不同 IOS 版本的顯示與細節可能略有差異。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "08 · Packet Tracer 拓樸",
+      "title": "先接對線，再談設定：兩台交換器、兩台 PC",
+      "lead": "Physical Mode 文件把每一條線的類型與埠號都指定清楚；接錯埠或線材，後面設定正確也無法完成評分。",
+      "time": "約 100 秒",
+      "visualHtml": "<div class=\"topology\"><div class=\"top-row\"><div class=\"node switch\"><b>S1</b><small>VLAN1 192.168.1.1</small></div><div class=\"cable\"><span>F0/1 ↔ F0/1</span><small>Cross-Over</small></div><div class=\"node switch\"><b>S2</b><small>VLAN1 192.168.1.2</small></div></div><div class=\"bottom-row\"><div class=\"leg\"><span>F0/6 ↓ Fa0</span><small>Straight-Through</small><div class=\"node pc\"><b>PC-A</b><small>192.168.1.10/24</small></div></div><div class=\"leg\"><span>F0/18 ↓ Fa0</span><small>Straight-Through</small><div class=\"node pc\"><b>PC-B</b><small>192.168.1.11/24</small></div></div></div></div>",
+      "audio": [
+        {
+          "title": "步驟語音 · 接線與位址一起記",
+          "subtitle": "Physical Mode 的固定配置",
+          "text": "Physical Mode 的拓樸很固定。S1 的 FastEthernet 0/1 用 Copper Cross-Over 連到 S2 的 FastEthernet 0/1。S1 的 FastEthernet 0/6 用 Copper Straight-Through 連到 PC-A；S2 的 FastEthernet 0/18 用 Straight-Through 連到 PC-B。IP 則是 S1 192.168.1.1、S2 192.168.1.2、PC-A 192.168.1.10、PC-B 192.168.1.11，全部是 255.255.255.0。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "連線燈號要注意什麼？",
+          "kind": "note",
+          "body": "Physical Mode 文件說明：剛把裝置接到交換器埠時，link light 一開始可能呈現 amber；大約一分鐘後會轉為 green。教材後面也要求記錄 F0/1、F0/6、F0/18 與 VLAN 1 的介面狀態。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "09 · 實作設定順序",
+      "title": "把 S1 做完，再用同一套思路做 S2",
+      "lead": "不要把命令當一長串背誦；把流程拆成『進入 → 命名與保護 → SVI → banner → 儲存 → 驗證』。",
+      "time": "約 120 秒",
+      "visualHtml": "<div class=\"steps\"><div><b>1</b><span>Console 連線<br><code>enable</code> → global config</span></div><div><b>2</b><span>hostname<br>密碼與 MOTD</span></div><div><b>3</b><span>VLAN 1 SVI<br>設定管理 IP</span></div><div><b>4</b><span>儲存<br>show / ping 驗證</span></div></div>",
+      "audio": [
+        {
+          "title": "步驟語音 · 設定時腦中要有順序",
+          "subtitle": "從 S1 複製思考方式到 S2",
+          "text": "實驗要求先用 console 進入交換器，進到全域設定模式，替交換器命名，設定本機密碼與登入警告，接著設定並啟用 VLAN 1 的 SVI，最後儲存設定並使用 show 命令檢查。S1 完成後，再把相同步驟套用到 S2，只要把 hostname 與管理 IP 換成 S2 對應的值。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "S1 常見 IOS CLI 命令骨架",
+          "kind": "detail",
+          "body": "<pre class=\"codeblock\">enable\nconfigure terminal\nhostname S1\nenable secret class\nline console 0\n password cisco\n login\n exit\ninterface vlan 1\n ip address 192.168.1.1 255.255.255.0\n no shutdown\n exit\nbanner motd #Unauthorized access prohibited#\nend\ncopy running-config startup-config</pre><p class=\"source-note\">這個區塊是把教材明確要求的動作轉成常見 IOS CLI 命令骨架，方便實作；文件本身主要描述任務，不逐行列出所有命令。</p>"
+        },
+        {
+          "title": "S2 要改哪裡？",
+          "kind": "note",
+          "body": "沿用同一流程，把 hostname 改為 <code>S2</code>，VLAN 1 的 IP 改為 <code>192.168.1.2 255.255.255.0</code>。Lab 文件還要求停用不必要的 DNS lookup；一頁式 Packet Tracer 評量則另有『加密所有明文密碼』等要求，實際活動若產生不同值，應以活動畫面為準。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "10 · 驗證與除錯",
+      "title": "最後不是『看起來設好了』，而是要證明它真的通",
+      "lead": "PC 先確認自己的 IP，再用 ping 驗證端到端；交換器則用 show 命令確認設定、版本與介面狀態。",
+      "time": "約 95 秒",
+      "visualHtml": "<div class=\"verify-grid\"><div><code>ipconfig /all</code><span>確認 PC 位址</span></div><div><code>show running-config</code><span>確認目前設定</span></div><div><code>show version</code><span>看 IOS / 裝置資訊</span></div><div><code>show ip interface brief</code><span>快速看介面狀態</span></div><div class=\"wide\"><code>ping 192.168.1.11</code><span>PC-A → PC-B，教材預期成功</span></div></div>",
+      "quiz": {
+        "prompt": "依教材，PC-A 要測試 PC-B 的連通性，應該使用哪個命令？",
+        "choices": [
+          {
+            "label": "A　ping 192.168.1.11",
+            "correct": true
+          },
+          {
+            "label": "B　ping 192.168.1.1",
+            "correct": false
+          },
+          {
+            "label": "C　copy startup-config running-config",
+            "correct": false
+          },
+          {
+            "label": "D　show version",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ PC-B 的位址是 192.168.1.11；Physical Mode 文件示範 4 次 Reply、0% loss。",
+        "wrongText": "先回想 Addressing Table：PC-B 的 NIC IP 是 192.168.1.11。"
+      },
+      "audio": [
+        {
+          "title": "總複習語音",
+          "subtitle": "下車前再聽一次",
+          "text": "完成這一單元，要能把整條路徑串起來：先接對拓樸，設定 PC 的 IPv4 位址；用 console 進交換器，辨識 IOS 模式，完成 hostname、存取保護、VLAN 1 SVI 與管理 IP；知道 running-config 在 RAM、startup-config 在 NVRAM；儲存之後，用 show 命令檢查，再用 ping 證明 PC、交換器之間真的能互通。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "教材最後要求你驗證哪些方向？",
+          "kind": "detail",
+          "body": "Lab 與 Physical Mode 都要求：從 PC ping S1 與 S2，結果應成功；再從交換器 ping PC-A 與 PC-B，也應成功。Physical Mode 另示範 PC-A 執行 <code>ping 192.168.1.11</code> 時收到 4 個 Reply，0% loss。"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "zh": "命令列介面",
+      "en": "Command-Line Interface (CLI)",
+      "explanation": "以文字命令操作 Cisco IOS 的介面；本單元的大部分交換器設定都透過 CLI 完成。",
+      "audioText": "命令列介面，英文是 Command-Line Interface，簡稱 CLI。它是用文字命令操作 Cisco IOS 的介面；本單元的大部分交換器設定都透過 CLI 完成。",
+      "enAudioText": "Command-Line Interface"
+    },
+    {
+      "zh": "外殼",
+      "en": "Shell",
+      "explanation": "影片測驗強調它介於使用者與作業系統核心之間，負責讓使用者操作能交給系統處理。",
+      "audioText": "外殼，英文是 Shell。影片測驗強調它介於使用者與作業系統核心之間，負責讓使用者操作能交給系統處理。",
+      "enAudioText": "Shell"
+    },
+    {
+      "zh": "使用者 EXEC 模式",
+      "en": "User EXEC Mode",
+      "explanation": "登入後的基本模式，提示字元通常以 > 結尾，可用的命令與檢視範圍較有限。",
+      "audioText": "使用者 EXEC 模式，英文是 User EXEC Mode。登入後的基本模式，提示字元通常以大於符號結尾，可用的命令與檢視範圍較有限。",
+      "enAudioText": "User EXEC Mode"
+    },
+    {
+      "zh": "特權 EXEC 模式",
+      "en": "Privileged EXEC Mode",
+      "explanation": "輸入 enable 後進入，提示字元以 # 結尾，可存取更多管理與設定相關命令。",
+      "audioText": "特權 EXEC 模式，英文是 Privileged EXEC Mode。輸入 enable 後進入，提示字元以井字號結尾，可存取更多管理與設定相關命令。",
+      "enAudioText": "Privileged EXEC Mode"
+    },
+    {
+      "zh": "全域設定模式",
+      "en": "Global Configuration Mode",
+      "explanation": "從特權 EXEC 進入的設定層級，提示字元含有 (config)#，再由此進入 line 或 interface 等子模式。",
+      "audioText": "全域設定模式，英文是 Global Configuration Mode。從特權 EXEC 進入的設定層級，提示字元含有 config 井字號，再由此進入 line 或 interface 等子模式。",
+      "enAudioText": "Global Configuration Mode"
+    },
+    {
+      "zh": "主機名稱",
+      "en": "Hostname",
+      "explanation": "設備的名稱，例如本實驗的 S1、S2。影片測驗強調名稱以字母開頭、不含空格，且長度受限制。",
+      "audioText": "主機名稱，英文是 Hostname。它是設備的名稱，例如本實驗的 S1、S2。影片測驗強調名稱以字母開頭、不含空格，且長度受限制。",
+      "enAudioText": "Hostname"
+    },
+    {
+      "zh": "特權密碼",
+      "en": "Enable Secret",
+      "explanation": "用來保護 privileged EXEC 存取；影片測驗直接考它保護的是特權 EXEC。",
+      "audioText": "特權密碼，英文是 Enable Secret。它用來保護 privileged EXEC 存取；影片測驗直接考它保護的是特權 EXEC。",
+      "enAudioText": "Enable Secret"
+    },
+    {
+      "zh": "執行設定",
+      "en": "Running Configuration",
+      "explanation": "設備現在正在使用、立即生效的設定，與 RAM 的目前運作狀態相關。",
+      "audioText": "執行設定，英文是 Running Configuration。它是設備現在正在使用、立即生效的設定，與 RAM 的目前運作狀態相關。",
+      "enAudioText": "Running Configuration"
+    },
+    {
+      "zh": "啟動設定",
+      "en": "Startup Configuration",
+      "explanation": "設備開機時使用的設定檔，儲存在 NVRAM。",
+      "audioText": "啟動設定，英文是 Startup Configuration。它是設備開機時使用的設定檔，儲存在 NVRAM。",
+      "enAudioText": "Startup Configuration"
+    },
+    {
+      "zh": "隨機存取記憶體",
+      "en": "RAM",
+      "explanation": "影片測驗指出重新啟動設備時 RAM 會失去內容；running-config 與目前運作狀態在這裡。",
+      "audioText": "隨機存取記憶體，英文是 RAM。影片測驗指出重新啟動設備時 RAM 會失去內容；running-config 與目前運作狀態在這裡。",
+      "enAudioText": "RAM"
+    },
+    {
+      "zh": "非揮發性隨機存取記憶體",
+      "en": "NVRAM",
+      "explanation": "重新啟動後仍保留內容；Cisco 路由器或交換器的 startup-config 儲存在這裡。",
+      "audioText": "非揮發性隨機存取記憶體，英文是 NVRAM。重新啟動後仍保留內容；Cisco 路由器或交換器的 startup-config 儲存在這裡。",
+      "enAudioText": "NVRAM"
+    },
+    {
+      "zh": "交換虛擬介面",
+      "en": "Switch Virtual Interface (SVI)",
+      "explanation": "交換器上的虛擬 Layer 3 管理介面。本實驗在 interface VLAN 1 上配置 S1、S2 的管理 IP。",
+      "audioText": "交換虛擬介面，英文是 Switch Virtual Interface，簡稱 SVI。它是交換器上的虛擬 Layer 3 管理介面。本實驗在 interface VLAN 1 上配置 S1、S2 的管理 IP。",
+      "enAudioText": "Switch Virtual Interface"
+    },
+    {
+      "zh": "動態主機設定協定",
+      "en": "Dynamic Host Configuration Protocol (DHCP)",
+      "explanation": "自動把 IP 位址等網路設定提供給終端主機；影片測驗直接考這項功能。",
+      "audioText": "動態主機設定協定，英文是 Dynamic Host Configuration Protocol，簡稱 DHCP。它會自動把 IP 位址等網路設定提供給終端主機；影片測驗直接考這項功能。",
+      "enAudioText": "Dynamic Host Configuration Protocol"
+    },
+    {
+      "zh": "子網路遮罩",
+      "en": "Subnet Mask",
+      "explanation": "用來區分 IPv4 位址中的網路部分與主機部分；例如 255.255.0.0 等於 /16。",
+      "audioText": "子網路遮罩，英文是 Subnet Mask。它用來區分 IPv4 位址中的網路部分與主機部分；例如 255.255.0.0 等於斜線十六。",
+      "enAudioText": "Subnet Mask"
+    },
+    {
+      "zh": "連通性測試",
+      "en": "Ping",
+      "explanation": "用來測試網路上另一個裝置或網站是否可達；本實驗用它驗證 PC 與交換器的端到端連線。",
+      "audioText": "連通性測試，英文是 Ping。它用來測試網路上另一個裝置或網站是否可達；本實驗用它驗證 PC 與交換器的端到端連線。",
+      "enAudioText": "Ping"
+    }
+  ],
+  "termQuiz": [
+    {
+      "question": "「命令列介面」的英文名稱是哪一個？",
+      "choices": [
+        {
+          "label": "Command-Line Interface (CLI)",
+          "correct": true
+        },
+        {
+          "label": "Switch Virtual Interface (SVI)",
+          "correct": false
+        },
+        {
+          "label": "Global Configuration Mode",
+          "correct": false
+        }
+      ],
+      "correctText": "CLI 就是 Command-Line Interface。",
+      "wrongText": "回想第一張術語卡的英文全名。"
+    },
+    {
+      "question": "Shell 在本課最接近哪個中文名稱？",
+      "choices": [
+        {
+          "label": "外殼",
+          "correct": true
+        },
+        {
+          "label": "啟動設定",
+          "correct": false
+        },
+        {
+          "label": "子網路遮罩",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Shell 對應『外殼』。",
+      "wrongText": "它是使用者和核心之間的介面。"
+    },
+    {
+      "question": "哪個模式的提示字元通常以 > 結尾？",
+      "choices": [
+        {
+          "label": "使用者 EXEC 模式",
+          "correct": true
+        },
+        {
+          "label": "特權 EXEC 模式",
+          "correct": false
+        },
+        {
+          "label": "全域設定模式",
+          "correct": false
+        }
+      ],
+      "correctText": "> 是使用者 EXEC。",
+      "wrongText": "把 > 和使用者 EXEC 綁在一起記。"
+    },
+    {
+      "question": "Privileged EXEC Mode 對應哪一個中文名稱？",
+      "choices": [
+        {
+          "label": "特權 EXEC 模式",
+          "correct": true
+        },
+        {
+          "label": "使用者 EXEC 模式",
+          "correct": false
+        },
+        {
+          "label": "交換虛擬介面",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Privileged EXEC Mode 是特權 EXEC 模式。",
+      "wrongText": "輸入 enable 後進入的模式。"
+    },
+    {
+      "question": "哪個模式的提示字元含有 (config)#？",
+      "choices": [
+        {
+          "label": "全域設定模式",
+          "correct": true
+        },
+        {
+          "label": "使用者 EXEC 模式",
+          "correct": false
+        },
+        {
+          "label": "特權 EXEC 模式",
+          "correct": false
+        }
+      ],
+      "correctText": "對，(config)# 是全域設定模式。",
+      "wrongText": "看到 config 就想到設定層級。"
+    },
+    {
+      "question": "Hostname 是什麼？",
+      "choices": [
+        {
+          "label": "主機名稱",
+          "correct": true
+        },
+        {
+          "label": "啟動設定",
+          "correct": false
+        },
+        {
+          "label": "連通性測試",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Hostname 就是主機名稱。",
+      "wrongText": "S1、S2 是本實驗的例子。"
+    },
+    {
+      "question": "哪個術語用來保護 privileged EXEC 的存取？",
+      "choices": [
+        {
+          "label": "Enable Secret",
+          "correct": true
+        },
+        {
+          "label": "DHCP",
+          "correct": false
+        },
+        {
+          "label": "Subnet Mask",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Enable Secret 保護特權 EXEC。",
+      "wrongText": "影片第 3 題直接考這個對應。"
+    },
+    {
+      "question": "設備目前正在使用、立即生效的設定叫什麼？",
+      "choices": [
+        {
+          "label": "Running Configuration",
+          "correct": true
+        },
+        {
+          "label": "Startup Configuration",
+          "correct": false
+        },
+        {
+          "label": "NVRAM",
+          "correct": false
+        }
+      ],
+      "correctText": "對，是 Running Configuration。",
+      "wrongText": "關鍵字是『目前正在使用』。"
+    },
+    {
+      "question": "Startup Configuration 對應哪個中文？",
+      "choices": [
+        {
+          "label": "啟動設定",
+          "correct": true
+        },
+        {
+          "label": "執行設定",
+          "correct": false
+        },
+        {
+          "label": "命令列介面",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Startup Configuration 是啟動設定。",
+      "wrongText": "它是開機時使用的設定檔。"
+    },
+    {
+      "question": "哪個記憶體重新啟動時會失去內容？",
+      "choices": [
+        {
+          "label": "RAM",
+          "correct": true
+        },
+        {
+          "label": "NVRAM",
+          "correct": false
+        },
+        {
+          "label": "Flash",
+          "correct": false
+        }
+      ],
+      "correctText": "對，是 RAM。",
+      "wrongText": "影片第 9 題的關鍵是揮發性。"
+    },
+    {
+      "question": "startup-config 儲存在哪一種記憶體？",
+      "choices": [
+        {
+          "label": "NVRAM",
+          "correct": true
+        },
+        {
+          "label": "RAM",
+          "correct": false
+        },
+        {
+          "label": "ROM",
+          "correct": false
+        }
+      ],
+      "correctText": "對，是 NVRAM。",
+      "wrongText": "影片第 13 題就是這個配對。"
+    },
+    {
+      "question": "SVI 的英文全名是哪一個？",
+      "choices": [
+        {
+          "label": "Switch Virtual Interface",
+          "correct": true
+        },
+        {
+          "label": "Switch VLAN Internet",
+          "correct": false
+        },
+        {
+          "label": "System Virtual IOS",
+          "correct": false
+        }
+      ],
+      "correctText": "對，SVI = Switch Virtual Interface。",
+      "wrongText": "它是交換器的虛擬管理介面。"
+    },
+    {
+      "question": "哪個協定會自動提供 IP 位址等網路設定給終端？",
+      "choices": [
+        {
+          "label": "DHCP",
+          "correct": true
+        },
+        {
+          "label": "Ping",
+          "correct": false
+        },
+        {
+          "label": "CLI",
+          "correct": false
+        }
+      ],
+      "correctText": "對，是 DHCP。",
+      "wrongText": "想起『自動取得 IP』。"
+    },
+    {
+      "question": "255.255.0.0 這類資訊的專有名詞是什麼？",
+      "choices": [
+        {
+          "label": "Subnet Mask",
+          "correct": true
+        },
+        {
+          "label": "Hostname",
+          "correct": false
+        },
+        {
+          "label": "Enable Secret",
+          "correct": false
+        }
+      ],
+      "correctText": "對，是 Subnet Mask。",
+      "wrongText": "它用來分出網路部分和主機部分。"
+    },
+    {
+      "question": "Ping 在本課主要用來做什麼？",
+      "choices": [
+        {
+          "label": "測試連通性",
+          "correct": true
+        },
+        {
+          "label": "儲存設定",
+          "correct": false
+        },
+        {
+          "label": "進入特權 EXEC",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Ping 用來驗證是否可達。",
+      "wrongText": "實驗最後用它證明 PC 與交換器真的互通。"
+    }
+  ],
+  "recallQuiz": [
+    {
+      "question": "路由器有有效 IOS 與 startup-config，也有 enable secret，但沒有 console 密碼；開機後最先可看到哪個命令模式？",
+      "choices": [
+        {
+          "label": "全域設定模式",
+          "correct": false
+        },
+        {
+          "label": "Setup 模式",
+          "correct": false
+        },
+        {
+          "label": "特權 EXEC 模式",
+          "correct": false
+        },
+        {
+          "label": "使用者 EXEC 模式",
+          "correct": true
+        }
+      ],
+      "correctText": "對。這就是影片第 7 題的核心：沒有 console 密碼時，開機後會進到使用者 EXEC。",
+      "wrongText": "回想模式階梯：一般登入的起點是使用者 EXEC；enable secret 是進特權 EXEC 時才會用到。"
+    },
+    {
+      "question": "重新啟動 Cisco 路由器或交換器時，哪一種記憶體會失去其內容？",
+      "choices": [
+        {
+          "label": "ROM",
+          "correct": false
+        },
+        {
+          "label": "Flash",
+          "correct": false
+        },
+        {
+          "label": "NVRAM",
+          "correct": false
+        },
+        {
+          "label": "RAM",
+          "correct": true
+        }
+      ],
+      "correctText": "對。影片第 9 題答案是 RAM；它屬於揮發性記憶體。",
+      "wrongText": "提示：startup-config 要能在重新啟動後保留，所以它不會放在會消失的那一種記憶體。"
+    },
+    {
+      "question": "<code>copy startup-config running-config</code> 最符合哪個敘述？",
+      "choices": [
+        {
+          "label": "把目前設定儲存成啟動設定",
+          "correct": false
+        },
+        {
+          "label": "把 NVRAM 的啟動設定載入目前 running-config",
+          "correct": true
+        },
+        {
+          "label": "刪除所有設定",
+          "correct": false
+        },
+        {
+          "label": "只把 IOS 映像檔複製到 RAM",
+          "correct": false
+        }
+      ],
+      "correctText": "對。看方向：startup 是來源，running 是目的地。",
+      "wrongText": "不要只看 copy；先讀來源與目的地的順序。"
+    },
+    {
+      "question": "DHCP 的核心功能是什麼？",
+      "choices": [
+        {
+          "label": "自動將 IP 位址等設定提供給終端主機",
+          "correct": true
+        },
+        {
+          "label": "把 IP 位址轉成網域名稱",
+          "correct": false
+        },
+        {
+          "label": "提供交換器遠端管理本身",
+          "correct": false
+        },
+        {
+          "label": "執行端到端連線測試",
+          "correct": false
+        }
+      ],
+      "correctText": "對。這與影片第 11 題一致。",
+      "wrongText": "想像一台剛接上網路的 PC：DHCP 幫它自動取得網路參數。"
+    },
+    {
+      "question": "Cisco IOS CLI 的上下文相關說明可以做什麼？",
+      "choices": [
+        {
+          "label": "只在命令錯誤後顯示錯誤訊息",
+          "correct": false
+        },
+        {
+          "label": "列出目前模式可用命令，並提示後續關鍵字或參數",
+          "correct": true
+        },
+        {
+          "label": "自動選出最佳命令並執行",
+          "correct": false
+        },
+        {
+          "label": "直接替使用者完成整台交換器設定",
+          "correct": false
+        }
+      ],
+      "correctText": "對。影片第 12 題同時考這兩個功能。",
+      "wrongText": "提示：問號的價值在『列出選項』與『告訴你下一步能接什麼』。"
+    },
+    {
+      "question": "10.1.100.50 搭配 255.255.0.0，網路位址是哪一個？",
+      "choices": [
+        {
+          "label": "10.1.0.0",
+          "correct": true
+        },
+        {
+          "label": "10.0.0.0",
+          "correct": false
+        },
+        {
+          "label": "10.1.100.0",
+          "correct": false
+        },
+        {
+          "label": "10.1.100.32",
+          "correct": false
+        }
+      ],
+      "correctText": "對。255.255.0.0 = /16，保留前兩個八位元組，主機部分歸零。",
+      "wrongText": "把 /16 想成『前兩段保留、後兩段歸零』。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

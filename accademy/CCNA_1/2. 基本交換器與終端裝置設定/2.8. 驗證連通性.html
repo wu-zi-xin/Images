@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:16px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:14px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:15px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:14px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:15px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:14px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:13px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+</style>
+
+<style>
+/* 2.8 課程內容：通勤大字舒適版覆寫 */
+h1{font-size:30px}.lead{font-size:17px;line-height:1.75}.inline-transcript{font-size:16px;line-height:1.8}.panel-body{font-size:16px;line-height:1.8}.choice{font-size:16px;line-height:1.55;min-height:50px}.feedback{font-size:16px;line-height:1.7}.term-exp,.term-transcript{font-size:16px;line-height:1.8}.term-en{font-size:15px}.recall-q,.recall-choice{font-size:16px;line-height:1.65}.recall-choice{min-height:48px}.recall-feedback{font-size:16px;line-height:1.7}.callout{font-size:16px;line-height:1.75}.btn{min-height:50px}.play{width:44px;height:44px}.audio{grid-template-columns:44px 1fr}.term-play{width:44px;height:44px;flex-basis:44px}
+.net-card,.code-card,.ping-card{border:1px solid var(--line);border-radius:18px;background:#f8fafc;padding:14px}.net-title,.code-head{font-size:13px;font-weight:950;margin-bottom:10px;color:#475569}.net-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:8px 0}.node{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}.node b,.node span{display:block}.node b{font-size:15px}.node span{font-size:13px;color:#475569;margin-top:3px}.link{font-size:11px;color:#64748b;text-align:center}.code-card pre{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:9px}.status-grid div{border:1px solid var(--line);border-radius:12px;padding:9px;background:#fff}.status-grid b,.status-grid span{display:block}.status-grid b{font-size:11px;color:#64748b}.status-grid span{font-size:13px;font-weight:850;margin-top:3px;overflow-wrap:anywhere}.flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:9px;font-size:13px}.flow span{padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:#fff}.ping-card{display:grid;gap:9px}.ping-card>div:not(.arrow){display:grid;gap:4px}.ping-card b{font-size:13px}.ping-card code,.mini-codes code{font-size:15px;font-weight:850}.ping-card span{font-size:13px;color:#475569}.arrow{text-align:center;font-size:12px;color:#64748b}.route{display:flex;align-items:center;gap:6px;overflow-x:auto;padding:10px 2px}.route div,.end{min-width:96px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px;text-align:center}.route b,.route span,.end b,.end span{display:block}.route b,.end b{font-size:14px}.route span,.end span{font-size:12px;color:#64748b;margin-top:3px}.route i{font-style:normal;font-size:12px;color:#64748b;white-space:nowrap}.mini-codes{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.mini-codes code{background:#111827;color:#fff;border-radius:10px;padding:8px 10px}.bi-flow{display:flex;justify-content:center;align-items:center;gap:14px;margin:8px 0}.bi-arrow{font-size:28px;font-weight:900}.compact{margin-top:10px}
+@media(max-width:360px){h1{font-size:28px}.net-row{grid-template-columns:1fr}.link{padding:2px 0}.status-grid{grid-template-columns:1fr}.route{padding-bottom:12px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  "title": "CCNA 2.8 驗證連通性",
+  "brand": "CCNA 通勤微課",
+  "segments": [
+    {
+      "eyebrow": "01 · 為什麼要驗證",
+      "title": "設定完成，不等於網路真的可用",
+      "lead": "這一課的任務是把「設定看起來正確」變成「介面真的啟用，而且裝置彼此真的能通」。",
+      "time": "約 55 秒",
+      "visualHtml": "<div class=\"net-card\">\n        <div class=\"net-title\">本課 Packet Tracer 拓撲</div>\n        <div class=\"net-row\"><div class=\"node\"><b>S1 · VLAN 1</b><span>192.168.1.2/24</span></div><div class=\"link\">Fa0/1 ───── Fa0/1</div><div class=\"node\"><b>S2 · VLAN 1</b><span>192.168.1.3/24</span></div></div>\n        <div class=\"net-row\"><div class=\"node\"><b>PC-A</b><span>192.168.1.10/24 · 接 S1 Fa0/6</span></div><div class=\"link\">同一個 /24 網路</div><div class=\"node\"><b>PC-B</b><span>192.168.1.11/24 · 接 S2 Fa0/18</span></div></div>\n      </div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 驗證在驗什麼？",
+          "subtitle": "先建立整課判斷順序",
+          "text": "前面的設定只是把位址和基本參數放進裝置。這一課要做的是驗證：先確認交換器的介面狀態與 IP 位址，再用 ping 實際測試裝置之間能不能互相連通。影片使用兩台交換器 S1、S2，以及 PC-A、PC-B；四個位址都在 192.168.1.0/24 這個網路。"
+        },
+        {
+          "title": "補充語音 · PC 端先看什麼？",
+          "subtitle": "對照課程頁面的指令提示",
+          "alt": true,
+          "text": "在 PC 上，可以用 ipconfig 檢查主機的網路設定；在 Cisco 交換器上，則用 show ip interface brief 快速檢查介面與 IP 狀態。兩邊都是先確認本機設定，再往連通性測試前進。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "本課四個位址",
+          "kind": "note",
+          "body": "S1 的 VLAN 1 是 <code>192.168.1.2/24</code>；S2 的 VLAN 1 是 <code>192.168.1.3/24</code>；PC-A 是 <code>192.168.1.10/24</code>；PC-B 是 <code>192.168.1.11/24</code>。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "02 · 先看 S1",
+      "title": "show ip interface brief：先找出「有位址但沒啟用」",
+      "lead": "影片先由 PC-A 透過主控台連到 S1，進入 CLI，再檢查交換器介面摘要。",
+      "time": "約 70 秒",
+      "visualHtml": "<div class=\"code-card\"><div class=\"code-head\">S1 · 檢查介面</div><pre>S1&gt; enable\nS1# show ip interface brief\n...\nVlan1   192.168.1.2   YES manual   administratively down   down</pre></div>\n      <div class=\"status-grid\"><div><b>IP 位址</b><span>192.168.1.2</span></div><div><b>Status</b><span>administratively down</span></div><div><b>Protocol</b><span>down</span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 這個輸出怎麼讀？",
+          "subtitle": "先抓 Vlan1 這一列",
+          "text": "在 S1 執行 show ip interface brief，可以看到 Vlan1 已經有 192.168.1.2，但狀態是 administratively down，線路協定也是 down。也就是說，位址雖然已經設好，這個介面目前仍被管理性關閉，還不能把它當成正常啟用的介面。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "影片中的存取流程",
+          "kind": "detail",
+          "body": "影片示範從 PC 接上交換器主控台，使用終端模擬程式進入命令列，接著用 <code>enable</code> 進入 Privileged EXEC mode，再執行檢查命令。"
+        }
+      ],
+      "quiz": {
+        "prompt": "S1 的 Vlan1 已有 192.168.1.2，但顯示 administratively down。現在最重要的判斷是什麼？",
+        "choices": [
+          {
+            "label": "A　IP 位址一定打錯了",
+            "correct": false
+          },
+          {
+            "label": "B　介面被管理性關閉，還沒有啟用",
+            "correct": true
+          },
+          {
+            "label": "C　PC-B 的 IP 位址不存在",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。重點不是「有沒有 IP」而已，而是介面狀態仍是 administratively down。",
+        "wrongText": "回到 Vlan1 那一列：它已經有 IP，真正異常的是 Status 與 Protocol。"
+      }
+    },
+    {
+      "eyebrow": "03 · 啟用 S1",
+      "title": "no shutdown：把 VLAN 1 從關閉切成 up",
+      "lead": "看到 administratively down 後，影片進入設定模式，對 interface vlan 1 下 no shutdown。",
+      "time": "約 55 秒",
+      "visualHtml": "<div class=\"code-card\"><div class=\"code-head\">S1 · 啟用 VLAN 1 介面</div><pre>S1# configure terminal\nS1(config)# interface vlan 1\nS1(config-if)# no shutdown\n\n%LINK-5-CHANGED: Interface Vlan1, changed state to up\n%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up</pre></div>\n      <div class=\"flow\"><span>administratively down / down</span><b>→ no shutdown →</b><span>up / up</span></div>",
+      "audio": [
+        {
+          "title": "解題語音 · 正確操作順序",
+          "subtitle": "從檢查結果走到修正",
+          "text": "修正 S1 時，先進入 global configuration mode，再進入 interface vlan 1 的 interface configuration mode，然後輸入 no shutdown。影片接著看到系統訊息指出 Vlan1 的介面與 line protocol 都變成 up。回到特權 EXEC 模式後，再用 show ip interface brief 重新驗證，確認不是只下了命令，而是真的變成 up、up。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "為什麼還要再跑一次 show？",
+          "kind": "why",
+          "body": "這堂課的核心是「驗證」。輸入 <code>no shutdown</code> 是動作；再次執行 <code>show ip interface brief</code> 看見 <code>up / up</code> 才是確認結果。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "04 · 同樣檢查 S2",
+      "title": "把同一套判斷複製到 S2",
+      "lead": "影片接著從 PC-B 連到 S2；S2 的 VLAN 1 也一開始是 administratively down。",
+      "time": "約 70 秒",
+      "visualHtml": "<div class=\"code-card\"><div class=\"code-head\">S2 · 設定並啟用 VLAN 1</div><pre>S2# configure terminal\nS2(config)# interface vlan 1\nS2(config-if)# ip address 192.168.1.3 255.255.255.0\nS2(config-if)# no shutdown\n\n%LINK-5-CHANGED: Interface Vlan1, changed state to up\n%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up</pre></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 不要只會修一台",
+          "subtitle": "第二台用相同思路驗證",
+          "text": "S2 的流程和 S1 一樣：先看 show ip interface brief 的結果，再針對 Vlan1 修正。影片在 S2 上設定 192.168.1.3、遮罩 255.255.255.0，並輸入 no shutdown。看到介面和 line protocol 變成 up 後，再用 show ip interface brief 確認 192.168.1.3 的狀態已經正常。"
+        }
+      ],
+      "quiz": {
+        "prompt": "哪一個結果最能表示交換器的 VLAN 1 已經通過這一步的介面驗證？",
+        "choices": [
+          {
+            "label": "A　有 IP，但是 administratively down / down",
+            "correct": false
+          },
+          {
+            "label": "B　IP 顯示 unassigned",
+            "correct": false
+          },
+          {
+            "label": "C　正確 IP，而且 Status / Protocol 都是 up / up",
+            "correct": true
+          }
+        ],
+        "correctText": "✅ 沒錯。地址要對，介面與 line protocol 也都要是 up。",
+        "wrongText": "這一段不是只看 IP；影片修正後的關鍵畫面是 Vlan1 的狀態變成 up / up。"
+      }
+    },
+    {
+      "eyebrow": "05 · 開始 ping",
+      "title": "先從 PC-A 測到 S1，再重測一次",
+      "lead": "介面確認正常後，影片進入端對端連通性測試，第一個目標是 S1 的 192.168.1.2。",
+      "time": "約 55 秒",
+      "visualHtml": "<div class=\"ping-card\"><div><b>第一次</b><code>ping 192.168.1.2</code><span>Sent 4 · Received 3 · Lost 1 (25% loss)</span></div><div class=\"arrow\">↓ 再測一次</div><div><b>第二次</b><code>ping 192.168.1.2</code><span>Sent 4 · Received 4 · Lost 0 (0% loss)</span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 第一個 timeout 怎麼處理？",
+          "subtitle": "照影片的觀察方式，不急著下結論",
+          "text": "PC-A 第一次 ping 192.168.1.2 時，四個請求裡第一個出現 Request timed out，後面三個成功，所以統計是百分之二十五遺失。影片沒有停在這裡，而是把同一個 ping 再做一次；第二次四個回應全部成功，遺失率變成百分之零。這裡要記住的操作習慣是：看到第一次結果後，要再測一次確認結果是否穩定。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "影片實際看到的兩次結果",
+          "kind": "detail",
+          "body": "第一次：<code>Sent = 4, Received = 3, Lost = 1 (25% loss)</code>。第二次：<code>Sent = 4, Received = 4, Lost = 0 (0% loss)</code>。本微課只保留影片呈現的觀察，不額外推定第一次逾時的原因。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "06 · 把測試範圍往外拉",
+      "title": "PC-A → S2 → PC-B：逐步確認更遠的目標",
+      "lead": "本機交換器可達後，影片繼續測另一台交換器與另一台 PC。",
+      "time": "約 65 秒",
+      "visualHtml": "<div class=\"route\"><div><b>PC-A</b><span>192.168.1.10</span></div><i>ping</i><div><b>S1</b><span>192.168.1.2</span></div><i>→</i><div><b>S2</b><span>192.168.1.3</span></div><i>→</i><div><b>PC-B</b><span>192.168.1.11</span></div></div>\n      <div class=\"mini-codes\"><code>ping 192.168.1.3</code><code>ping 192.168.1.11</code></div>",
+      "audio": [
+        {
+          "title": "解題語音 · 一站一站往外測",
+          "subtitle": "建立可重複的驗證順序",
+          "text": "PC-A 接著 ping S2 的 192.168.1.3。影片再次示範第一次可能先看到一個逾時，再重複測試並得到完整成功回應。接著再從 PC-A ping PC-B 的 192.168.1.11，畫面顯示四個回應都成功。這樣就不只是知道本機交換器可達，而是一路確認到另一端的交換器和主機。"
+        }
+      ],
+      "quiz": {
+        "prompt": "PC-A 已經能 ping 到 S1。影片下一步如何擴大驗證範圍？",
+        "choices": [
+          {
+            "label": "A　先測 S2 的 192.168.1.3，再測 PC-B 的 192.168.1.11",
+            "correct": true
+          },
+          {
+            "label": "B　直接刪除所有 IP 設定",
+            "correct": false
+          },
+          {
+            "label": "C　只看拓撲上的綠色線，不再使用 ping",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。影片是把目標由近到遠擴大：S1 → S2 → PC-B。",
+        "wrongText": "回想影片的順序：先確認兩台交換器的管理位址，再確認另一端 PC。"
+      }
+    },
+    {
+      "eyebrow": "07 · 雙向確認",
+      "title": "PC-B 再 ping 回 PC-A，才完成影片的雙向測試",
+      "lead": "最後不只從 A 測到 B；影片切到 PC-B，反向 ping 192.168.1.10。",
+      "time": "約 45 秒",
+      "visualHtml": "<div class=\"bi-flow\"><div class=\"end\"><b>PC-A</b><span>192.168.1.10</span></div><div class=\"bi-arrow\">⇄</div><div class=\"end\"><b>PC-B</b><span>192.168.1.11</span></div></div>\n      <div class=\"code-card compact\"><pre>PC-B&gt; ping 192.168.1.10\nSent = 4, Received = 4, Lost = 0 (0% loss)</pre></div>",
+      "audio": [
+        {
+          "title": "總複習語音",
+          "subtitle": "下車前把整套流程記成一句話",
+          "text": "這堂課的完整流程可以記成四步：第一，確認 PC 與交換器的 IP 設定；第二，用 show ip interface brief 檢查 VLAN 1 的位址和狀態；第三，若看到 administratively down，就進入介面設定模式使用 no shutdown，再重新確認 up、up；第四，用 ping 從 PC-A 逐步測到 S1、S2、PC-B，最後由 PC-B 反向 ping PC-A，確認端對端連通性。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "本課最短判斷口訣",
+          "kind": "note",
+          "open": true,
+          "body": "<b>先看介面，再測連通。</b><br>介面：<code>show ip interface brief</code> → 必要時 <code>no shutdown</code> → 確認 <code>up / up</code>。<br>連通：<code>ping</code> 由近到遠，最後再做反向測試。"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "zh": "IP 設定檢查指令",
+      "en": "ipconfig",
+      "explanation": "在 PC 端查看主機網路設定的指令。課程頁面把它和交換器的 show ip interface brief 並列，作為驗證設定的基本工具。",
+      "audioText": "IP 設定檢查指令，英文指令是 ipconfig。在 PC 端用來查看主機網路設定；本課把它當成開始驗證之前的本機檢查工具。",
+      "enAudioText": "ipconfig"
+    },
+    {
+      "zh": "顯示 IP 介面摘要",
+      "en": "show ip interface brief",
+      "explanation": "Cisco CLI 的快速檢查命令，用一張摘要表同時看介面、IP 位址、Status 與 Protocol。影片用它找出 VLAN 1 是否為 administratively down 或 up。",
+      "audioText": "顯示 IP 介面摘要，英文指令是 show ip interface brief。它能快速列出介面、IP 位址、Status 和 Protocol，是本課檢查交換器介面的主要命令。",
+      "enAudioText": "show ip interface brief"
+    },
+    {
+      "zh": "VLAN 1 介面",
+      "en": "Interface VLAN 1",
+      "explanation": "影片在 S1 與 S2 上檢查與設定的 VLAN 介面。S1 使用 192.168.1.2，S2 使用 192.168.1.3，並透過這一列觀察 up/down 狀態。",
+      "audioText": "VLAN 1 介面，英文是 Interface VLAN 1。影片在兩台交換器上都針對 VLAN 1 檢查 IP 與介面狀態，並使用 no shutdown 啟用它。",
+      "enAudioText": "Interface VLAN 1"
+    },
+    {
+      "zh": "管理性關閉",
+      "en": "administratively down",
+      "explanation": "show ip interface brief 中的狀態文字，表示介面目前被管理性關閉。影片中的 S1 與 S2 一開始都曾出現這個狀態。",
+      "audioText": "管理性關閉，英文是 administratively down。它表示介面目前被管理性關閉；本課看到這個狀態後，會進一步使用 no shutdown 啟用介面。",
+      "enAudioText": "administratively down"
+    },
+    {
+      "zh": "取消關閉命令",
+      "en": "no shutdown",
+      "explanation": "在介面設定模式中用來啟用介面的命令。影片執行後看到 Interface Vlan1 與 line protocol 都 changed state to up。",
+      "audioText": "取消關閉命令，英文指令是 no shutdown。在介面設定模式輸入後，用來把介面從管理性關閉切換為啟用狀態。",
+      "enAudioText": "no shutdown"
+    },
+    {
+      "zh": "特權 EXEC 模式",
+      "en": "Privileged EXEC Mode",
+      "explanation": "影片透過 enable 進入的 CLI 模式，可執行 show ip interface brief 等檢查工作，提示字元通常以井字號結尾。",
+      "audioText": "特權 EXEC 模式，英文是 Privileged EXEC Mode。影片使用 enable 進入這個模式，再執行 show ip interface brief 來檢查交換器狀態。",
+      "enAudioText": "Privileged EXEC Mode"
+    },
+    {
+      "zh": "全域設定模式",
+      "en": "Global Configuration Mode",
+      "explanation": "要修改交換器設定時先進入的模式。影片由這裡再進到 interface vlan 1 的介面設定模式。",
+      "audioText": "全域設定模式，英文是 Global Configuration Mode。要修改交換器設定時先進入這個模式，再進一步選擇要設定的介面。",
+      "enAudioText": "Global Configuration Mode"
+    },
+    {
+      "zh": "介面設定模式",
+      "en": "Interface Configuration Mode",
+      "explanation": "針對特定介面下設定命令的模式。影片在 interface vlan 1 中輸入 IP 位址與 no shutdown。",
+      "audioText": "介面設定模式，英文是 Interface Configuration Mode。影片在 interface vlan 1 的介面設定模式中輸入 IP 位址與 no shutdown。",
+      "enAudioText": "Interface Configuration Mode"
+    },
+    {
+      "zh": "連通性測試指令",
+      "en": "ping",
+      "explanation": "用來測試另一個 IP 目標是否能回應。影片從 PC-A 測 S1、S2、PC-B，也從 PC-B 反向測回 PC-A。",
+      "audioText": "連通性測試指令，英文指令是 ping。本課用它從 PC-A 測 S1、S2 和 PC-B，最後再從 PC-B 反向測回 PC-A。",
+      "enAudioText": "ping"
+    },
+    {
+      "zh": "端對端連通性",
+      "en": "End-to-End Connectivity",
+      "explanation": "確認通訊不是只到本機介面，而是真的能從一端走到另一端。影片用多次 ping 與反向 ping 來完成這個驗證。",
+      "audioText": "端對端連通性，英文是 End-to-End Connectivity。它要確認通訊真的能從一端到另一端；本課最後用 PC-A 和 PC-B 的雙向 ping 來驗證。",
+      "enAudioText": "End-to-End Connectivity"
+    }
+  ],
+  "termQuiz": [
+    {
+      "question": "在 PC 端查看主機網路設定，本課頁面提示使用哪個指令？",
+      "choices": [
+        {
+          "label": "ping",
+          "correct": false
+        },
+        {
+          "label": "ipconfig",
+          "correct": true
+        },
+        {
+          "label": "no shutdown",
+          "correct": false
+        }
+      ],
+      "correctText": "對，PC 端先用 ipconfig 檢查本機網路設定。",
+      "wrongText": "想想課程頁面把哪個 PC 指令和 show ip interface brief 並列。"
+    },
+    {
+      "question": "哪個 Cisco 指令可以快速看到介面、IP、Status 與 Protocol？",
+      "choices": [
+        {
+          "label": "show ip interface brief",
+          "correct": true
+        },
+        {
+          "label": "ipconfig",
+          "correct": false
+        },
+        {
+          "label": "ping",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，show ip interface brief 是本課最主要的交換器介面檢查命令。",
+      "wrongText": "回想 S1、S2 都用同一個 show 指令找出 Vlan1 狀態。"
+    },
+    {
+      "question": "影片在 S1、S2 上主要檢查與啟用哪一個介面？",
+      "choices": [
+        {
+          "label": "Interface VLAN 1",
+          "correct": true
+        },
+        {
+          "label": "Loopback 0",
+          "correct": false
+        },
+        {
+          "label": "Serial 0/0/0",
+          "correct": false
+        }
+      ],
+      "correctText": "對，影片針對 Interface VLAN 1 進行檢查、設定與 no shutdown。",
+      "wrongText": "回想命令列中的 interface vlan 1。"
+    },
+    {
+      "question": "administratively down 最符合哪個中文意思？",
+      "choices": [
+        {
+          "label": "管理性關閉",
+          "correct": true
+        },
+        {
+          "label": "端對端連通",
+          "correct": false
+        },
+        {
+          "label": "自動取得 IP",
+          "correct": false
+        }
+      ],
+      "correctText": "對，這就是影片看到後需要處理的「管理性關閉」。",
+      "wrongText": "它描述的是介面被管理者關閉，而不是 IP 取得方式。"
+    },
+    {
+      "question": "要把影片中的 VLAN 1 介面從管理性關閉切成啟用，使用哪個命令？",
+      "choices": [
+        {
+          "label": "shutdown",
+          "correct": false
+        },
+        {
+          "label": "no shutdown",
+          "correct": true
+        },
+        {
+          "label": "ipconfig",
+          "correct": false
+        }
+      ],
+      "correctText": "對，no shutdown 是本課修正介面狀態的關鍵命令。",
+      "wrongText": "回想 interface vlan 1 裡緊接著輸入的那一行。"
+    },
+    {
+      "question": "Privileged EXEC Mode 是影片透過哪個動作進入、再執行 show 命令的模式？",
+      "choices": [
+        {
+          "label": "enable",
+          "correct": true
+        },
+        {
+          "label": "ping",
+          "correct": false
+        },
+        {
+          "label": "ip address",
+          "correct": false
+        }
+      ],
+      "correctText": "對，影片用 enable 進入 Privileged EXEC Mode。",
+      "wrongText": "回想 intro 畫面寫著 Use enable to enter privileged EXEC mode。"
+    },
+    {
+      "question": "Global Configuration Mode 的角色是什麼？",
+      "choices": [
+        {
+          "label": "開始修改全域設定，再進入特定介面設定",
+          "correct": true
+        },
+        {
+          "label": "只顯示 ping 統計",
+          "correct": false
+        },
+        {
+          "label": "只在 PC 上查看 IP",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，影片先進全域設定模式，再進 interface vlan 1。",
+      "wrongText": "想想 configure terminal 之後，下一步才是 interface vlan 1。"
+    },
+    {
+      "question": "在 Interface Configuration Mode 中，本課做了哪類操作？",
+      "choices": [
+        {
+          "label": "針對 VLAN 1 設定 IP 或下 no shutdown",
+          "correct": true
+        },
+        {
+          "label": "開啟瀏覽器",
+          "correct": false
+        },
+        {
+          "label": "只觀看拓撲，不輸入命令",
+          "correct": false
+        }
+      ],
+      "correctText": "對，這個模式就是針對選定介面下設定。",
+      "wrongText": "回想提示字元 S2(config-if)# 後面的 ip address 與 no shutdown。"
+    },
+    {
+      "question": "哪個指令負責測試另一個 IP 是否能回應？",
+      "choices": [
+        {
+          "label": "ping",
+          "correct": true
+        },
+        {
+          "label": "enable",
+          "correct": false
+        },
+        {
+          "label": "show ip interface brief",
+          "correct": false
+        }
+      ],
+      "correctText": "對，ping 是本課第二部分的連通性測試主角。",
+      "wrongText": "這個指令在 PC-A 與 PC-B 的 Command Prompt 中重複使用。"
+    },
+    {
+      "question": "「確認通訊真的能從一端到另一端」對應哪個英文術語？",
+      "choices": [
+        {
+          "label": "Global Configuration Mode",
+          "correct": false
+        },
+        {
+          "label": "End-to-End Connectivity",
+          "correct": true
+        },
+        {
+          "label": "administratively down",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，End-to-End Connectivity 就是端對端連通性。",
+      "wrongText": "這正是 2.8.2 標題要測的連通性範圍。"
+    }
+  ],
+  "recallQuiz": [
+    {
+      "question": "S1 的 Vlan1 顯示 192.168.1.2，但 Status 是 administratively down。下一步最符合影片流程的是？",
+      "choices": [
+        {
+          "label": "進入 interface vlan 1，執行 no shutdown，再重新 show 驗證",
+          "correct": true
+        },
+        {
+          "label": "立刻改 PC-B 的位址",
+          "correct": false
+        },
+        {
+          "label": "不做任何處理，直接視為正常",
+          "correct": false
+        }
+      ],
+      "correctText": "對。先修正介面，再用 show 命令確認真的變成 up / up。",
+      "wrongText": "關鍵不是重新猜 IP，而是處理「管理性關閉」並再次驗證。"
+    },
+    {
+      "question": "哪一組是影片使用的 S1、S2 管理位址？",
+      "choices": [
+        {
+          "label": "S1 192.168.1.2；S2 192.168.1.3",
+          "correct": true
+        },
+        {
+          "label": "S1 192.168.1.10；S2 192.168.1.11",
+          "correct": false
+        },
+        {
+          "label": "S1 10.0.0.1；S2 10.0.0.2",
+          "correct": false
+        }
+      ],
+      "correctText": "對，.2 與 .3 是兩台交換器 VLAN 1 的位址；.10 與 .11 是兩台 PC。",
+      "wrongText": "回想拓撲：交換器在上方是 .2、.3；PC 在下方是 .10、.11。"
+    },
+    {
+      "question": "PC-A 第一次 ping 192.168.1.2 出現 1 個 timeout、後面 3 個成功。影片接著怎麼做？",
+      "choices": [
+        {
+          "label": "把同一個 ping 再做一次，確認第二次 4/4 成功",
+          "correct": true
+        },
+        {
+          "label": "立刻刪除 VLAN 1",
+          "correct": false
+        },
+        {
+          "label": "直接宣布整個網路故障",
+          "correct": false
+        }
+      ],
+      "correctText": "對。影片用重測確認結果，第二次得到 0% loss。",
+      "wrongText": "回想畫面緊接著再次輸入 ping 192.168.1.2。"
+    },
+    {
+      "question": "PC-A 已能到 S1 後，影片把測試目標依序擴大到哪裡？",
+      "choices": [
+        {
+          "label": "S2 192.168.1.3，再到 PC-B 192.168.1.11",
+          "correct": true
+        },
+        {
+          "label": "只重複測 PC-A 自己",
+          "correct": false
+        },
+        {
+          "label": "直接測網際網路公開網站",
+          "correct": false
+        }
+      ],
+      "correctText": "對，影片把連通性測試由近到遠往另一端推進。",
+      "wrongText": "記住兩個下一站：交換器 S2 的 .3，接著 PC-B 的 .11。"
+    },
+    {
+      "question": "最後要完成影片的雙向驗證，PC-B 應該 ping 哪個位址？",
+      "choices": [
+        {
+          "label": "192.168.1.10",
+          "correct": true
+        },
+        {
+          "label": "192.168.1.3",
+          "correct": false
+        },
+        {
+          "label": "255.255.255.0",
+          "correct": false
+        }
+      ],
+      "correctText": "對，192.168.1.10 是 PC-A；影片最後由 PC-B 反向 ping 回去並成功。",
+      "wrongText": "回想拓撲中 PC-A 的位址是 .10。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>
