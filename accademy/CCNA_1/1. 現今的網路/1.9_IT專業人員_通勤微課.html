@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:30px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:17px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:16px;line-height:1.8;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:16px;line-height:1.8;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:16px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:16px;line-height:1.7}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:16px;line-height:1.8;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:16px;line-height:1.8;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:16px;line-height:1.65;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:12px 13px;font-size:16px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:10px 11px;border-radius:11px;background:#f8fafc;font-size:16px;line-height:1.7}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+.course-map{display:grid;gap:10px}.course-box{padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--soft);font-size:16px;line-height:1.65}.course-box b{display:block;font-size:17px;margin-bottom:3px}.course-arrow{text-align:center;font-weight:950;font-size:22px}.equation{padding:18px 12px;border:1px solid var(--line);border-radius:18px;background:var(--soft);text-align:center;font-size:19px;font-weight:900;line-height:1.6}.skill-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.skill-chip{padding:12px 10px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:16px;font-weight:850;text-align:center;line-height:1.45}.path-stack{display:grid;gap:9px}.path-card{padding:13px;border:1px solid var(--line);border-radius:15px;background:var(--soft);font-size:16px;line-height:1.65}.path-card strong{display:block;margin-bottom:3px}.flow-steps{display:grid;gap:8px;counter-reset:flow}.flow-step{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;padding:11px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:16px;line-height:1.5}.flow-step::before{counter-increment:flow;content:counter(flow);width:34px;height:34px;border-radius:11px;background:#111827;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:950}.keyword-wrap{display:flex;flex-wrap:wrap;gap:8px}.keyword{padding:9px 11px;border-radius:999px;background:#f3f4f6;border:1px solid var(--line);font-size:16px;font-weight:800}.lab-card{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--soft)}.lab-label{font-size:12px;color:var(--muted);font-weight:900;letter-spacing:.08em}.lab-title{font-size:20px;font-weight:950;line-height:1.45;margin-top:5px}.source-limit{font-size:16px;line-height:1.75;color:#374151}.source-limit b{color:#111827}@media(max-width:360px){h1{font-size:28px}.skill-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  title: "1.9 IT 專業人員｜CCNA 與網路就業機會",
+  brand: "CCNA 通勤微課",
+  segments: [
+    {
+      eyebrow: "01 · 職涯起點",
+      title: "先把工作角色和需要的技能對上",
+      lead: "不論你已經開始 IT 職涯，或仍在準備，教材先提醒：要了解不同 IT 工作類型，以及每種工作需要的技能。",
+      time: "約 55 秒",
+      visualHtml: `<div class="course-map"><div class="course-box"><b>已經開始 IT 職涯</b>確認目前角色需要哪些技能</div><div class="course-box"><b>仍在準備 IT 職涯</b>先看清楚工作類型和技能要求</div><div class="course-arrow">↓</div><div class="equation">工作角色 ↔ 所需技能</div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 先看方向",
+          subtitle: "不看畫面也能跟上",
+          text: "這一節先從職涯方向開始。不論你已經踏入資訊科技工作，或還在替未來做準備，都要先了解不同的 IT 工作類型，以及這些工作需要哪些技能。重點不是先背一張證照清單，而是先把工作角色和技能需求對起來。"
+        }
+      ],
+      panels: [
+        { title: "為什麼先談工作角色？", kind: "why", body: "教材指出，網路工程師所需的角色和技能正在演進，而且比以往更加重要。因此，理解『工作要做什麼』和『需要會什麼』，是後面理解 CCNA 與就業選項的起點。" }
+      ],
+      quiz: {
+        prompt: "依照教材，準備 IT 職涯時首先應該掌握哪件事？",
+        choices: [
+          { label: "A　不同 IT 工作類型與所需技能", correct: true },
+          { label: "B　只記住一個求職網站名稱", correct: false },
+          { label: "C　只看認證級別，不看工作角色", correct: false }
+        ],
+        correctText: "✅ 對。教材先要求把 IT 工作類型與所需技能對起來。",
+        wrongText: "提示：回想本節第一個重點，不是先選網站或級別，而是先理解工作和技能的配對。"
+      }
+    },
+    {
+      eyebrow: "02 · CCNA",
+      title: "CCNA 在證明什麼？",
+      lead: "Cisco Certified Network Associate（CCNA）用來證明基礎技術知識，並確保學習者掌握採用下一代技術所需的技能組合。",
+      time: "約 55 秒",
+      visualHtml: `<div class="equation">CCNA<br><span style="font-size:16px;font-weight:800">基礎技術知識 ＋ 下一代技術所需技能組合</span></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 認證的角色",
+          subtitle: "先理解它要證明什麼",
+          text: "CCNA 的完整名稱是 Cisco Certified Network Associate。教材把它定位成一項能證明基礎技術知識的認證，同時也要讓你具備採用下一代技術所需的技能組合。換句話說，這裡強調的不只是知道網路名詞，而是把基礎能力和新的技術方向連在一起。"
+        }
+      ],
+      panels: [
+        { title: "教材怎麼描述網路工程師？", kind: "note", body: "教材指出，網路工程師所需的角色與技能正在演進，而且比以往更加重要。CCNA 被放在這個脈絡中，作為基礎知識與技能組合的證明。" }
+      ]
+    },
+    {
+      eyebrow: "03 · 新版重點",
+      title: "新版 CCNA 把哪些主題放進核心？",
+      lead: "教材說明，CCNA 整合並更新三個課程和一個考試，涵蓋網路技術的基本主題。",
+      time: "約 65 秒",
+      visualHtml: `<div class="skill-grid"><div class="skill-chip">IP 基礎</div><div class="skill-chip">安全</div><div class="skill-chip">無線</div><div class="skill-chip">虛擬化</div><div class="skill-chip">自動化</div><div class="skill-chip">網路可程式化</div></div>`,
+      audio: [
+        {
+          title: "重點語音 · 六個方向",
+          subtitle: "把主題分組記",
+          text: "新版 CCNA 涵蓋網路技術的基本主題。教材特別點出 IP 基礎與安全，也包含無線、虛擬化、自動化，以及網路可程式化。記憶時可以把前兩個看成核心基礎與保護，再把後四個看成現代網路環境中需要面對的技術方向。"
+        }
+      ],
+      panels: [
+        { title: "完整教材敘述", kind: "detail", body: "教材說明，適用於網路工程師的 CCNA 整合和更新三個課程和一個考試，涵蓋所有網路技術的基本主題；全新 CCNA 著重於 IP 基礎和安全主題，以及無線、虛擬化、自動化和網路可程式化。" }
+      ],
+      quiz: {
+        prompt: "哪一組完全是教材列出的新版 CCNA 重點？",
+        choices: [
+          { label: "A　IP 基礎、安全、無線、虛擬化、自動化、網路可程式化", correct: true },
+          { label: "B　Careers、Employment Opportunities、Indeed", correct: false },
+          { label: "C　Talent Bridge Matching Engine、Glassdoor、Monster", correct: false }
+        ],
+        correctText: "✅ 正確。這六個主題都直接出現在教材的 CCNA 說明中。",
+        wrongText: "提示：求職網站與功能表是在後面的『網路工作』段落，不是 CCNA 技術主題。"
+      }
+    },
+    {
+      eyebrow: "04 · 認證路徑",
+      title: "認證不只一條路，級別也不只一種",
+      lead: "教材除了 CCNA，也提到 DevNet、專業認證，以及 associate、specialist、professional、expert 等級。",
+      time: "約 70 秒",
+      visualHtml: `<div class="path-stack"><div class="path-card"><strong>DevNet 認證</strong>associate · specialist · professional</div><div class="path-card"><strong>專業認證例子</strong>Cisco Enterprise Advanced Infrastructure Specialist</div><div class="path-card"><strong>教材列出的可開始級別</strong>associate · specialist · professional · expert</div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 怎麼看這些路徑",
+          subtitle: "不要把不同資訊混在一起",
+          text: "教材接著把認證路徑拉開來看。新的 DevNet 認證包含 associate、specialist 和 professional 等級，用來驗證軟體開發技能。教材也舉出 Cisco Enterprise Advanced Infrastructure Specialist，作為依工作角色和興趣驗證技能的專業認證選項。另一個重點是，教材說你可以從想要的地方開始，沒有先決條件也可以開始取得 associate、specialist、professional 或 expert 級認證。"
+        },
+        {
+          title: "持續發展 · CCNA 之後",
+          subtitle: "認證不是一次性的終點",
+          alt: true,
+          text: "教材最後補充，CCNA 現在也提供重新認證，以及持續發展的推廣教育學分。這表示認證路徑同時包含後續更新與持續學習的概念。"
+        }
+      ],
+      quiz: {
+        prompt: "教材中，新的 DevNet 認證明確列出哪些等級？",
+        choices: [
+          { label: "A　associate、specialist、professional", correct: true },
+          { label: "B　professional、expert、Careers", correct: false },
+          { label: "C　CCNA、Indeed、Monster", correct: false }
+        ],
+        correctText: "✅ 對。DevNet 在教材中列出的等級是 associate、specialist、professional。",
+        wrongText: "提示：expert 出現在教材另一句『可開始取得的級別』裡，不是 DevNet 那句列出的三個等級。"
+      }
+    },
+    {
+      eyebrow: "05 · 找工作入口",
+      title: "先用 NetAcad 的 Careers 流程找機會",
+      lead: "教材提供一條具體的 NetAcad 求職路徑，並提到 Talent Bridge Matching Engine。",
+      time: "約 65 秒",
+      visualHtml: `<div class="flow-steps"><div class="flow-step">在 netacad.com 開啟 <b>Careers</b></div><div class="flow-step">選取 <b>Employment Opportunities</b></div><div class="flow-step">使用 <b>Talent Bridge Matching Engine</b></div><div class="flow-step">找所在地的就業機會</div></div>`,
+      audio: [
+        {
+          title: "操作語音 · NetAcad 求職路徑",
+          subtitle: "照順序記就好",
+          text: "取得 CCNA 之後，教材把焦點轉到工作機會。在 netacad.com，可以先開啟 Careers，再選取 Employment Opportunities。接著可以使用 Talent Bridge Matching Engine，尋找你居住地附近的就業機會。教材也建議搜尋 Cisco，以及尋找 Cisco 網路學院學生和校友的 Cisco 合作夥伴與經銷商工作。"
+        }
+      ],
+      panels: [
+        { title: "這段要記的不是網址細節，而是流程", kind: "why", body: "教材把『認證』和『求職』直接接在一起：先具備可被辨識的技能，再透過 NetAcad 的 Careers 與 Employment Opportunities 尋找實際機會。" }
+      ],
+      quiz: {
+        prompt: "依教材，在 netacad.com 的求職流程中，Careers 之後要選哪個項目？",
+        choices: [
+          { label: "A　Employment Opportunities", correct: true },
+          { label: "B　Cisco Enterprise Advanced Infrastructure Specialist", correct: false },
+          { label: "C　DevNet professional", correct: false }
+        ],
+        correctText: "✅ 正確。流程是 Careers → Employment Opportunities。",
+        wrongText: "提示：回想畫面中的兩個英文功能名稱，它們是一前一後的導覽路徑。"
+      }
+    },
+    {
+      eyebrow: "06 · 搜尋關鍵字",
+      title: "再把搜尋範圍拉到一般求職網站",
+      lead: "教材點名 Indeed、Glassdoor、Monster，也提供了可直接拿來搜尋的工作關鍵字。",
+      time: "約 65 秒",
+      visualHtml: `<div class="course-box"><b>求職網站</b>Indeed · Glassdoor · Monster</div><div style="height:10px"></div><div class="keyword-wrap"><span class="keyword">IT</span><span class="keyword">網路管理員</span><span class="keyword">網路架構設計人員</span><span class="keyword">電腦系統管理員</span><span class="keyword">Cisco CCNA</span></div>`,
+      audio: [
+        {
+          title: "搜尋語音 · 平台加關鍵字",
+          subtitle: "把教材建議直接變成搜尋式",
+          text: "除了 NetAcad，教材也建議使用線上搜尋引擎尋找 IT 工作，例如 Indeed、Glassdoor 和 Monster。搜尋詞彙可以使用 IT、網路管理員、網路架構設計人員、電腦系統管理員，也可以直接使用 Cisco CCNA。這一段的實用重點，就是把平台名稱和職務或認證關鍵字組合起來找工作。"
+        }
+      ],
+      quiz: {
+        prompt: "下列哪一個是教材明確建議可用的搜尋詞彙？",
+        choices: [
+          { label: "A　Cisco CCNA", correct: true },
+          { label: "B　Employment Opportunities Specialist", correct: false },
+          { label: "C　Talent Bridge Professional", correct: false }
+        ],
+        correctText: "✅ 對。教材明確說可以使用 Cisco CCNA 一詞進行搜尋。",
+        wrongText: "提示：題目要找的是『搜尋詞彙』，不是把不同功能或認證名稱拼在一起。"
+      }
+    },
+    {
+      eyebrow: "07 · 實驗任務",
+      title: "把資訊變成實際的就業機會搜尋",
+      lead: "影片最後進入「研究資訊科技 IT 及網路就業機會」實驗；錄影中可見的第一部分是「搜尋工作機會」。",
+      time: "約 40 秒",
+      visualHtml: `<div class="lab-card"><div class="lab-label">1.9.3 實驗</div><div class="lab-title">研究資訊科技 IT 及網路就業機會</div><div class="course-arrow">↓</div><div class="course-box"><b>第 1 部分</b>搜尋工作機會</div></div>`,
+      audio: [
+        {
+          title: "收尾語音 · 從知道到行動",
+          subtitle: "本段只整理影片實際可見內容",
+          text: "影片最後進入一個實驗，標題是研究資訊科技 IT 及網路就業機會。錄影中可以看到的第一個目標是第 1 部分，搜尋工作機會。它正好把前面的內容串起來：先理解技能和認證，再使用 NetAcad、求職網站和關鍵字，把資訊轉成實際的工作搜尋。"
+        }
+      ],
+      panels: [
+        { title: "來源範圍說明", kind: "note", open: true, body: "<div class='source-limit'><b>這支錄影只顯示到實驗的第 1 部分標題。</b> 後續實驗步驟沒有出現在影片可見範圍，因此本微課不自行補寫未出現的實驗內容。</div>" }
+      ]
+    }
+  ],
+
+  glossary: [
+    {
+      zh: "CCNA 認證",
+      en: "Cisco Certified Network Associate",
+      explanation: "教材用來證明基礎技術知識，並確保學習者掌握採用下一代技術所需技能組合的認證。",
+      audioText: "CCNA 認證，英文完整名稱是 Cisco Certified Network Associate。教材用它來證明基礎技術知識，並確保學習者掌握採用下一代技術所需的技能組合。",
+      enAudioText: "Cisco Certified Network Associate"
+    },
+    {
+      zh: "DevNet 認證",
+      en: "DevNet",
+      explanation: "教材提到的新認證路徑，包含 associate、specialist 與 professional 等級，用來驗證軟體開發技能。",
+      audioText: "DevNet 認證，英文名稱是 DevNet。教材指出，它包含 associate、specialist 與 professional 等級，用來驗證軟體開發技能。",
+      enAudioText: "DevNet"
+    },
+    {
+      zh: "人才橋接配對引擎",
+      en: "Talent Bridge Matching Engine",
+      explanation: "教材在 NetAcad 求職流程中提到的計畫，可用來尋找居住所在地的就業機會。",
+      audioText: "人才橋接配對引擎，英文是 Talent Bridge Matching Engine。教材在 NetAcad 求職流程中提到它，可以用來尋找居住所在地的就業機會。",
+      enAudioText: "Talent Bridge Matching Engine"
+    },
+    {
+      zh: "Cisco 企業進階基礎架構專家認證",
+      en: "Cisco Enterprise Advanced Infrastructure Specialist",
+      explanation: "教材舉出的專業認證選項之一，可依工作角色與興趣來驗證技能。",
+      audioText: "Cisco 企業進階基礎架構專家認證，英文是 Cisco Enterprise Advanced Infrastructure Specialist。教材把它列為可依工作角色與興趣驗證技能的專業認證選項之一。",
+      enAudioText: "Cisco Enterprise Advanced Infrastructure Specialist"
+    }
+  ],
+
+  termQuiz: [
+    {
+      question: "「CCNA」的完整英文名稱是哪一個？",
+      choices: [
+        { label: "Cisco Certified Network Associate", correct: true },
+        { label: "Talent Bridge Matching Engine", correct: false },
+        { label: "Cisco Enterprise Advanced Infrastructure Specialist", correct: false }
+      ],
+      correctText: "對，CCNA 對應 Cisco Certified Network Associate。把縮寫和完整名稱一起記。",
+      wrongText: "提示：回想第一張術語卡，CCNA 的完整名稱以 Cisco Certified 開頭。"
+    },
+    {
+      question: "哪個名稱是教材中用來驗證軟體開發技能的新認證路徑？",
+      choices: [
+        { label: "DevNet", correct: true },
+        { label: "Employment Opportunities", correct: false },
+        { label: "Monster", correct: false }
+      ],
+      correctText: "沒錯，教材說新的 DevNet 認證可驗證軟體開發技能。",
+      wrongText: "提示：這個名稱和 associate、specialist、professional 三個等級一起出現。"
+    },
+    {
+      question: "Talent Bridge Matching Engine 在教材中主要用來做什麼？",
+      choices: [
+        { label: "尋找居住所在地的就業機會", correct: true },
+        { label: "列出 CCNA 六個技術主題", correct: false },
+        { label: "提供 CCNA 重新認證學分", correct: false }
+      ],
+      correctText: "對。它出現在 NetAcad 的求職流程裡，用來找所在地的就業機會。",
+      wrongText: "提示：回想 Careers → Employment Opportunities 之後出現的工具。"
+    },
+    {
+      question: "哪個完整名稱是教材舉出的專業認證選項之一？",
+      choices: [
+        { label: "Cisco Enterprise Advanced Infrastructure Specialist", correct: true },
+        { label: "Talent Bridge Matching Engine", correct: false },
+        { label: "Employment Opportunities", correct: false }
+      ],
+      correctText: "正確。教材用它作為依工作角色和興趣驗證技能的專業認證例子。",
+      wrongText: "提示：這個名稱以 Cisco Enterprise 開頭，而且結尾是 Specialist。"
+    },
+    {
+      question: "看到「Cisco Certified Network Associate」時，應該立刻回想哪個縮寫？",
+      choices: [
+        { label: "CCNA", correct: true },
+        { label: "DevNet", correct: false },
+        { label: "IT", correct: false }
+      ],
+      correctText: "對，Cisco Certified Network Associate 就是 CCNA。這題從完整名稱反向叫回縮寫。",
+      wrongText: "提示：回想本課第二段的認證名稱。"
+    }
+  ],
+
+  recallQuiz: [
+    {
+      question: "這一節一開始為什麼要先了解 IT 工作類型與所需技能？",
+      choices: [
+        { label: "因為要把職涯角色和需要具備的技能對起來", correct: true },
+        { label: "因為只要選一個求職網站就能決定職涯", correct: false },
+        { label: "因為認證級別可以取代所有工作技能", correct: false }
+      ],
+      correctText: "對。整節的起點就是把工作角色與技能需求連起來。",
+      wrongText: "回想第一段：教材先談的是『工作類型搭配所需技能』。"
+    },
+    {
+      question: "哪一個選項最完整地重現教材列出的新版 CCNA 技術方向？",
+      choices: [
+        { label: "IP 基礎、安全、無線、虛擬化、自動化、網路可程式化", correct: true },
+        { label: "Careers、Indeed、Glassdoor、Monster", correct: false },
+        { label: "associate、specialist、professional、expert", correct: false }
+      ],
+      correctText: "正確。這六項是教材明確列出的新版 CCNA 重點。",
+      wrongText: "提示：一組是技術主題，另外兩組分別是求職與認證級別資訊。"
+    },
+    {
+      question: "如果依教材使用 NetAcad 找工作，正確的操作順序是哪一個？",
+      choices: [
+        { label: "Careers → Employment Opportunities → Talent Bridge Matching Engine", correct: true },
+        { label: "Talent Bridge Matching Engine → DevNet → Careers", correct: false },
+        { label: "CCNA → Monster → specialist", correct: false }
+      ],
+      correctText: "對。這就是影片中『網路工作』段落提供的具體路徑。",
+      wrongText: "提示：先進 Careers，再找 Employment Opportunities，之後才使用配對工具。"
+    },
+    {
+      question: "教材除了 NetAcad，還建議怎麼擴大 IT 工作搜尋？",
+      choices: [
+        { label: "使用 Indeed、Glassdoor、Monster，並搭配 IT、職務名稱或 Cisco CCNA 等關鍵字", correct: true },
+        { label: "只搜尋 Cisco Enterprise Advanced Infrastructure Specialist 這一個名稱", correct: false },
+        { label: "只看認證級別，不使用任何職務關鍵字", correct: false }
+      ],
+      correctText: "沒錯。教材同時給了網站和搜尋詞彙，讓求職搜尋更具體。",
+      wrongText: "回想『網路工作』第二段：它列出三個網站，也列出多個搜尋詞彙。"
+    },
+    {
+      question: "影片最後可見的 1.9.3 實驗第 1 部分是什麼？",
+      choices: [
+        { label: "搜尋工作機會", correct: true },
+        { label: "重新認證 CCNA", correct: false },
+        { label: "建立 Talent Bridge Matching Engine", correct: false }
+      ],
+      correctText: "對。錄影最後可見的第 1 部分就是『搜尋工作機會』。",
+      wrongText: "提示：最後一個畫面進入『研究資訊科技 IT 及網路就業機會』實驗。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

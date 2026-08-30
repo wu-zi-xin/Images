@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:30px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:17px;line-height:1.75;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:16px;line-height:1.8;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:16px;line-height:1.8;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:16px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:16px;line-height:1.7}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:16px;line-height:1.8;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:16px;line-height:1.8;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:16px;line-height:1.7;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:12px 13px;font-size:16px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:10px 11px;border-radius:11px;background:#f8fafc;font-size:16px;line-height:1.7}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:28px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* 1.4 一般網路類型：手機微課視覺 */
+.size-ladder{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:center;gap:7px;padding:13px;background:#f8fafc;border:1px solid var(--line);border-radius:18px}.size-ladder div{text-align:center;min-width:0}.size-ladder b{display:block;font-size:18px}.size-ladder span{display:block;font-size:13px;line-height:1.35;color:#4b5563;margin-top:3px}.size-ladder i{font-style:normal;color:#9ca3af;font-weight:900}
+.scenario-grid,.four-factors,.takeaways{display:grid;grid-template-columns:1fr 1fr;gap:9px}.scenario-grid div,.four-factors div,.takeaways div{border:1px solid var(--line);background:#f8fafc;border-radius:15px;padding:12px}.scenario-grid strong,.four-factors b,.takeaways b{display:block;font-size:15px;line-height:1.35}.scenario-grid span,.four-factors span,.takeaways span{display:block;margin-top:5px;font-size:14px;line-height:1.5;color:#4b5563}.takeaways{grid-template-columns:1fr}.takeaways div{padding:13px}
+.lanwan{display:grid;grid-template-columns:1fr 92px 1fr;gap:8px;align-items:center}.netbox{border:2px solid #d1d5db;border-radius:18px;padding:15px 10px;text-align:center;background:#f8fafc}.netbox b{display:block;font-size:25px}.netbox span{display:block;font-size:14px;font-weight:800;margin-top:3px}.netbox small{display:block;color:#6b7280;margin-top:5px;line-height:1.4}.wan-link{text-align:center;font-size:13px;font-weight:900;line-height:1.45;padding:9px 4px;border-top:3px solid #111827;border-bottom:3px solid #111827}
+.internet-map{position:relative;min-height:215px;border:1px solid var(--line);border-radius:20px;background:#f8fafc;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px}.internet-map span{display:flex;align-items:center;justify-content:center;border:1px solid #d1d5db;border-radius:999px;background:#fff;font-size:14px;font-weight:900;min-height:52px}.internet-map b{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:132px;height:132px;border-radius:50%;background:#111827;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:20px;box-shadow:0 10px 25px rgba(17,24,39,.2)}.internet-map small{font-size:11px;line-height:1.35;margin-top:4px;color:#d1d5db}
+.access-rings{display:flex;justify-content:center;padding:6px}.ring{border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900}.ring.internet{width:270px;height:270px;background:#f3f4f6;border:1px solid #d1d5db;flex-direction:column;justify-content:flex-start;padding-top:15px}.ring.extranet{width:205px;height:205px;background:#e5e7eb;border:1px solid #cbd5e1;margin-top:8px;flex-direction:column;justify-content:flex-start;padding-top:15px}.ring.intranet{width:135px;height:135px;background:#111827;color:#fff;margin-top:9px;flex-direction:column}.ring.intranet small{display:block;font-size:10px;font-weight:700;line-height:1.35;padding:0 8px;margin-top:5px;color:#d1d5db}
+.extranet-flow{display:grid;grid-template-columns:1fr 110px 1fr;align-items:center;gap:8px}.extranet-flow>div{border:1px solid var(--line);border-radius:17px;padding:15px 10px;text-align:center;background:#f8fafc;font-size:14px;font-weight:900;line-height:1.45}.extranet-flow small{font-weight:600;color:#6b7280}.extranet-flow strong{text-align:center;font-size:12px;line-height:1.4;padding:8px;border-top:3px solid #111827;border-bottom:3px solid #111827}
+@media(max-width:380px){.size-ladder{grid-template-columns:1fr 1fr;gap:7px}.size-ladder i{display:none}.scenario-grid,.four-factors{grid-template-columns:1fr}.lanwan{grid-template-columns:1fr}.wan-link{border-left:3px solid #111827;border-right:3px solid #111827;border-top:0;border-bottom:0}.extranet-flow{grid-template-columns:1fr}.extranet-flow strong{border-left:3px solid #111827;border-right:3px solid #111827;border-top:0;border-bottom:0}.access-rings{transform:scale(.9);transform-origin:top center;margin-bottom:-24px}}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  "title": "1.4 一般網路類型",
+  "brand": "CCNA 通勤微課",
+  "segments": [
+    {
+      "eyebrow": "01 · 先建立尺度感",
+      "title": "網路可以小到家裡，也可以大到全球",
+      "lead": "先別把「網路」只想成網際網路；網路本身可以有非常不同的規模。",
+      "time": "約 55 秒",
+      "visualHtml": "<div class=\"size-ladder\"><div><b>小</b><span>家庭</span></div><i>→</i><div><b>中</b><span>辦公室／企業</span></div><i>→</i><div><b>大</b><span>多地點</span></div><i>→</i><div><b>全球</b><span>網路互連</span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 先抓住範圍",
+          "subtitle": "不看畫面也能跟上",
+          "text": "網路沒有固定大小。最簡單的家庭網路只需要連接少量裝置；企業或學校的網路可能跨越多個位置，連接很多使用者與裝置；當許多不同網路再彼此互連，規模就能擴大到全球。這一課要做的第一件事，就是先用規模與用途分辨不同網路。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "本段只要記住",
+          "kind": "note",
+          "body": "同樣都叫「網路」，服務範圍、使用者數量與管理方式可以差很多；因此後面才需要 LAN、WAN、Internet、Intranet、Extranet 這些不同名稱。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "02 · 四種規模情境",
+      "title": "從家庭、SOHO，一路看到全球網路",
+      "lead": "影片用四個情境讓你看到：網路規模是連續變大的，不是只有一種樣子。",
+      "time": "約 65 秒",
+      "visualHtml": "<div class=\"scenario-grid\"><div><strong>🏠 小型家庭</strong><span>少量裝置彼此連接，並連上網際網路</span></div><div><strong>💼 SOHO</strong><span>家庭／小型辦公室連到公司網路或共用資源</span></div><div><strong>🏢 中大型</strong><span>公司、學校等，多位置與大量互連裝置</span></div><div><strong>🌍 全球</strong><span>許多不同網路跨地域彼此互連</span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 四種常見尺度",
+          "subtitle": "先建立具體畫面",
+          "text": "小型家庭網路通常只服務少量使用者和裝置。小型辦公室與家庭辦公室，也就是 SOHO，會讓家庭辦公室或遠端辦公室的使用者連到公司網路，或存取集中共享的資源。再往上，中大型網路像公司或學校，可能包含多個位置與大量互連裝置。最大的情況則是把分散在全球各地的許多網路連接起來。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "SOHO 是什麼？",
+          "kind": "why",
+          "body": "SOHO 是 Small Office/Home Office。影片把它放在小型家庭網路與中大型網路之間，重點是讓小型／家庭辦公環境能連到公司網路或中央共享資源。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "03 · 判斷網路規模",
+      "title": "網路基礎架構的大小，看四個面向",
+      "lead": "不只看「地圖有多大」，還要看使用者、服務與管理責任。",
+      "time": "約 50 秒",
+      "visualHtml": "<div class=\"four-factors\"><div><b>① 覆蓋區域</b><span>地理範圍有多大</span></div><div><b>② 使用者</b><span>連接多少使用者</span></div><div><b>③ 服務</b><span>服務數量與類型</span></div><div><b>④ 管理</b><span>誰負責擁有與管理</span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 不要只看距離",
+          "subtitle": "四個判斷點一次記",
+          "text": "影片指出，網路基礎架構的規模會受到四件事影響：它覆蓋的區域大小、連接的使用者數量、可用服務的數量與類型，以及負責管理的組織。這四個面向能幫你理解，為什麼不同情境會採用不同的網路架構。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "04 · LAN 與 WAN",
+      "title": "LAN 管較小範圍；WAN 把遠方的網路連起來",
+      "lead": "這是本課最重要的一組對比：Local Area Network 與 Wide Area Network。",
+      "time": "約 80 秒",
+      "visualHtml": "<div class=\"lanwan\"><div class=\"netbox\"><b>LAN</b><span>家庭／辦公室／校園</span><small>較小地理範圍</small></div><div class=\"wan-link\">WAN<br>跨地域連線</div><div class=\"netbox\"><b>LAN</b><span>另一個分支</span><small>由 WAN 互連</small></div></div>",
+      "audio": [
+        {
+          "title": "LAN · 區域網路",
+          "subtitle": "先記範圍與管理",
+          "text": "LAN 是區域網路。它用來連接較小地理區域中的使用者與終端裝置，例如家庭、學校、辦公大樓或企業中的某個部門。LAN 通常由單一組織或個人管理，並在這個區域內提供網路連線。"
+        },
+        {
+          "title": "WAN · 廣域網路",
+          "subtitle": "再記跨地域互連",
+          "alt": true,
+          "text": "WAN 是廣域網路。它跨越較大的地理區域，把不同地點的 LAN 或其他網路互相連接，例如城市、州、省、國家或大陸之間。WAN 通常由服務供應商參與管理，讓相距很遠的區域網路能彼此通訊。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "一秒判斷法",
+          "kind": "why",
+          "body": "如果題目強調「小範圍內直接服務使用者與終端裝置」，先想到 <b>LAN</b>；如果強調「跨較大地理區域、把不同網路互連」，先想到 <b>WAN</b>。"
+        },
+        {
+          "title": "影片中的 WAN 特徵",
+          "kind": "detail",
+          "body": "WAN 跨越較大的地理區域；通常會涉及服務供應商；它的角色是讓彼此分離的 LAN 之間能建立連線。"
+        }
+      ],
+      "quiz": {
+        "prompt": "如果兩個分公司各自有 LAN，而現在要跨城市把兩個 LAN 連起來，最符合哪一種網路？",
+        "choices": [
+          {
+            "label": "A　LAN",
+            "correct": false
+          },
+          {
+            "label": "B　WAN",
+            "correct": true
+          },
+          {
+            "label": "C　Intranet",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。題目的關鍵是「跨較大地理區域，把兩個 LAN 互連」，因此是 WAN。",
+        "wrongText": "再看關鍵字：不是在單一小範圍內連終端裝置，而是把不同地點的 LAN 接起來。"
+      }
+    },
+    {
+      "eyebrow": "05 · 網際網路",
+      "title": "Internet 的本質：很多網路再互相連接",
+      "lead": "網際網路不是一個超大的單一 LAN，而是互連網路的集合。",
+      "time": "約 45 秒",
+      "visualHtml": "<div class=\"internet-map\"><span>LAN</span><span>WAN</span><span>LAN</span><span>WAN</span><b>Internet<br><small>互連網路的集合</small></b></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · Network of networks",
+          "subtitle": "把層次想清楚",
+          "text": "影片把網際網路描述成互連網路，也就是 internetwork 的集合。你可以把它想成很多 LAN 和 WAN 再彼此連接：每個組織可以有自己的網路，而這些網路經由更大的互連形成全球性的網際網路。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "容易混淆的地方",
+          "kind": "why",
+          "body": "LAN、WAN 是網路基礎架構的類型；Internet 則是許多不同網路彼此互連後形成的全球集合。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "06 · Intranet",
+      "title": "Intranet 是組織內部的私有網路",
+      "lead": "重點不是距離，而是「誰被允許存取」。",
+      "time": "約 55 秒",
+      "visualHtml": "<div class=\"access-rings\"><div class=\"ring internet\">Internet<div class=\"ring extranet\">Extranet<div class=\"ring intranet\">Intranet<br><small>授權的組織內部使用者</small></div></div></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 內部網路",
+          "subtitle": "用存取權限理解",
+          "text": "Intranet，也就是內部網路，是組織擁有的私有網路連線。它的目的，是讓組織的成員、員工或其他獲得授權的人存取內部資源。判斷 Intranet 時，最重要的線索是『組織內部』與『只有被授權的人能存取』。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "07 · Extranet",
+      "title": "Extranet 把特定外部人員安全地帶進來",
+      "lead": "它不是把內部資料完全公開，而是給需要合作的外部人員有限、受控的存取。",
+      "time": "約 70 秒",
+      "visualHtml": "<div class=\"extranet-flow\"><div>合作夥伴／供應商<br><small>不同組織</small></div><strong>受控、安全存取</strong><div>組織內部資料<br><small>Intranet 資源</small></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 外部網路",
+          "subtitle": "抓住「外部但獲授權」",
+          "text": "Extranet，也就是外部網路，讓在不同組織工作、但確實需要使用某些組織資料的人，取得安全而受控的存取權。影片的例子包括：公司讓外部供應商或承包商存取必要資料；醫院提供預約系統給醫師替病人安排預約；地方教育單位向所屬學校提供預算與人事資訊。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "Intranet vs Extranet",
+          "kind": "detail",
+          "body": "<b>Intranet：</b>主要給組織內部或已授權的成員使用。<br><b>Extranet：</b>把部分資源安全地開放給其他組織中的合作對象。兩者都不是對所有人完全公開。"
+        }
+      ],
+      "quiz": {
+        "prompt": "某公司讓外部供應商登入指定系統查看合作所需資料，最符合哪個概念？",
+        "choices": [
+          {
+            "label": "A　Intranet",
+            "correct": false
+          },
+          {
+            "label": "B　Extranet",
+            "correct": true
+          },
+          {
+            "label": "C　LAN",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。供應商屬於不同組織，但獲得受控存取權，這正是 Extranet 的典型情境。",
+        "wrongText": "想想使用者身分：他不是組織內部員工，而是外部合作對象。"
+      }
+    },
+    {
+      "eyebrow": "08 · 下車前總複習",
+      "title": "用三句話把整課收起來",
+      "lead": "如果只能帶走三件事，就記這三組判斷。",
+      "time": "約 40 秒",
+      "visualHtml": "<div class=\"takeaways\"><div><b>LAN ↔ WAN</b><span>小範圍 vs 跨地域互連</span></div><div><b>Internet</b><span>許多網路互連形成的集合</span></div><div><b>Intranet ↔ Extranet</b><span>內部授權 vs 外部合作授權</span></div></div>",
+      "audio": [
+        {
+          "title": "總複習語音",
+          "subtitle": "最後再聽一次",
+          "text": "第一，LAN 服務較小的地理範圍，WAN 則跨較大的地理區域把不同網路連起來。第二，Internet 是許多 LAN 和 WAN 互連後形成的網路集合。第三，Intranet 是組織內部的私有網路；Extranet 則把部分資源安全地開放給其他組織中獲授權的合作對象。"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "zh": "小型辦公室／家庭辦公室",
+      "en": "Small Office/Home Office (SOHO)",
+      "explanation": "影片用來描述家庭辦公室或小型辦公環境；這類網路可讓使用者連到公司網路或中央共享資源。",
+      "audioText": "小型辦公室／家庭辦公室，英文是 Small Office Home Office，縮寫 SOHO。它描述家庭辦公室或小型辦公環境，能讓使用者連到公司網路或中央共享資源。",
+      "enAudioText": "Small Office Home Office, S O H O"
+    },
+    {
+      "zh": "區域網路",
+      "en": "Local Area Network (LAN)",
+      "explanation": "在較小地理區域中連接使用者與終端裝置的網路，例如家庭、辦公室、學校或企業內部的一個範圍。",
+      "audioText": "區域網路，英文是 Local Area Network，縮寫 LAN。它在較小地理區域中連接使用者與終端裝置。",
+      "enAudioText": "Local Area Network, L A N"
+    },
+    {
+      "zh": "廣域網路",
+      "en": "Wide Area Network (WAN)",
+      "explanation": "跨越較大的地理區域，把不同地點的 LAN 或其他網路互相連接。",
+      "audioText": "廣域網路，英文是 Wide Area Network，縮寫 WAN。它跨越較大的地理區域，把不同地點的 LAN 或其他網路互相連接。",
+      "enAudioText": "Wide Area Network, W A N"
+    },
+    {
+      "zh": "互連網路",
+      "en": "Internetwork",
+      "explanation": "多個網路彼此互連後形成的網路集合；影片用這個概念說明網際網路。",
+      "audioText": "互連網路，英文是 Internetwork。它指多個網路彼此互連後形成的網路集合，影片用這個概念來理解網際網路。",
+      "enAudioText": "Internetwork"
+    },
+    {
+      "zh": "內部網路",
+      "en": "Intranet",
+      "explanation": "屬於組織、供組織成員、員工或其他獲授權人員存取的私有網路。",
+      "audioText": "內部網路，英文是 Intranet。它是組織的私有網路，供組織成員、員工或其他獲授權人員存取。",
+      "enAudioText": "Intranet"
+    },
+    {
+      "zh": "外部網路",
+      "en": "Extranet",
+      "explanation": "讓不同組織中的合作對象，在有需要時安全、受控地存取某些組織資料。",
+      "audioText": "外部網路，英文是 Extranet。它讓不同組織中的合作對象，在有需要時安全而受控地存取某些組織資料。",
+      "enAudioText": "Extranet"
+    }
+  ],
+  "termQuiz": [
+    {
+      "question": "「區域網路」的英文名稱是哪一個？",
+      "choices": [
+        {
+          "label": "Wide Area Network (WAN)",
+          "correct": false
+        },
+        {
+          "label": "Local Area Network (LAN)",
+          "correct": true
+        },
+        {
+          "label": "Extranet",
+          "correct": false
+        }
+      ],
+      "correctText": "對，區域網路就是 Local Area Network，縮寫 LAN。",
+      "wrongText": "回想：LAN 的 L 是 Local，代表較小、局部的地理範圍。"
+    },
+    {
+      "question": "Wide Area Network 對應哪一個中文術語？",
+      "choices": [
+        {
+          "label": "區域網路",
+          "correct": false
+        },
+        {
+          "label": "廣域網路",
+          "correct": true
+        },
+        {
+          "label": "內部網路",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，Wide Area Network 就是廣域網路，縮寫 WAN。",
+      "wrongText": "Wide 的意思是範圍廣，想想跨城市、國家或更大範圍的網路。"
+    },
+    {
+      "question": "家庭辦公室或小型辦公環境，常用哪個縮寫？",
+      "choices": [
+        {
+          "label": "SOHO",
+          "correct": true
+        },
+        {
+          "label": "WAN",
+          "correct": false
+        },
+        {
+          "label": "ISP",
+          "correct": false
+        }
+      ],
+      "correctText": "對，SOHO 是 Small Office/Home Office。",
+      "wrongText": "回想影片的第二個網路規模頁籤：小型辦公室與家庭辦公室。"
+    },
+    {
+      "question": "哪個英文術語表示「多個網路彼此互連後形成的集合」？",
+      "choices": [
+        {
+          "label": "Intranet",
+          "correct": false
+        },
+        {
+          "label": "Internetwork",
+          "correct": true
+        },
+        {
+          "label": "SOHO",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Internetwork 就是互連網路；影片用它來說明 Internet 的本質。",
+      "wrongText": "題目強調的是 network 與 network 之間再互連，不是組織內部私有網路。"
+    },
+    {
+      "question": "Intranet 對應哪一個中文術語？",
+      "choices": [
+        {
+          "label": "外部網路",
+          "correct": false
+        },
+        {
+          "label": "內部網路",
+          "correct": true
+        },
+        {
+          "label": "廣域網路",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Intranet 是內部網路，重點是組織內部與授權存取。",
+      "wrongText": "Intra- 可以聯想到『內部』，使用者主要是組織內部或獲授權成員。"
+    },
+    {
+      "question": "『不同組織中的合作對象，可安全存取部分組織資料』最符合哪個術語？",
+      "choices": [
+        {
+          "label": "Extranet",
+          "correct": true
+        },
+        {
+          "label": "Intranet",
+          "correct": false
+        },
+        {
+          "label": "LAN",
+          "correct": false
+        }
+      ],
+      "correctText": "對，Extranet 是外部網路，重點是外部合作對象的受控存取。",
+      "wrongText": "抓住『不同組織』這個線索：它不是單純的內部網路。"
+    }
+  ],
+  "recallQuiz": [
+    {
+      "question": "哪一個網路基礎結構可讓您存取小型地理區域（通常是企業、家庭或小型企業部門中的網路）中的使用者和終端裝置？",
+      "choices": [
+        {
+          "label": "外部網路",
+          "correct": false
+        },
+        {
+          "label": "內部網路",
+          "correct": false
+        },
+        {
+          "label": "區域網路",
+          "correct": true
+        },
+        {
+          "label": "廣域網路",
+          "correct": false
+        }
+      ],
+      "correctText": "正確。小型地理區域中的使用者與終端裝置，對應區域網路 LAN。",
+      "wrongText": "回想 LAN 的核心線索：Local、較小地理範圍、直接連接當地的使用者與終端裝置。"
+    },
+    {
+      "question": "組織若要讓在不同組織工作、但需要存取組織資料的人取得安全且受控的存取權，應使用哪一種網路？",
+      "choices": [
+        {
+          "label": "外部網路",
+          "correct": true
+        },
+        {
+          "label": "內部網路",
+          "correct": false
+        },
+        {
+          "label": "區域網路",
+          "correct": false
+        },
+        {
+          "label": "廣域網路",
+          "correct": false
+        }
+      ],
+      "correctText": "正確。這正是外部網路 Extranet 的用途。",
+      "wrongText": "題目中的關鍵是『不同組織』但又需要『安全存取』某些資料。"
+    },
+    {
+      "question": "哪個網路基礎設施提供了存取較大地理區域的其他網路，而且通常由電信／服務供應商參與管理？",
+      "choices": [
+        {
+          "label": "外部網路",
+          "correct": false
+        },
+        {
+          "label": "內部網路",
+          "correct": false
+        },
+        {
+          "label": "區域網路",
+          "correct": false
+        },
+        {
+          "label": "廣域網路",
+          "correct": true
+        }
+      ],
+      "correctText": "正確。跨較大地理區域互連其他網路的是廣域網路 WAN。",
+      "wrongText": "回想 WAN：Wide、跨較大地理區域、連接不同 LAN／網路。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

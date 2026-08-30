@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>1.5 網際網路連線｜CCNA 通勤微課</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:30px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:17px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:16px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:14px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:16px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:16px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:16px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:16px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:16px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:16px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:16px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:16px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:16px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:16px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:16px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:28px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+.micro-visual{display:grid;gap:10px;padding:13px;background:#f8fafc;border:1px solid var(--line);border-radius:19px}
+.route-row{display:grid;grid-template-columns:minmax(0,1.2fr) auto minmax(0,.65fr) auto minmax(0,1fr);gap:7px;align-items:center;font-size:14px;font-weight:850;line-height:1.35}
+.route-end,.route-node{padding:10px 8px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:center}.route-node{background:#111827;color:#fff}.route-arrow{text-align:center;color:#6b7280;font-size:18px}
+.option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.option-card{border:1px solid var(--line);border-radius:15px;background:#fff;padding:11px;min-width:0}.option-card strong{display:block;font-size:16px;margin-bottom:5px}.option-card span{display:block;color:#4b5563;font-size:14px;line-height:1.55}
+.option-card.full{grid-column:1/-1}.three-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.three-grid .option-card{padding:10px 7px;text-align:center}.three-grid .option-card span{font-size:13px}.visual-caption{font-size:14px;line-height:1.55;color:#4b5563;margin-top:1px}
+.need-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.need-pill{padding:12px 7px;text-align:center;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:14px;font-weight:900;line-height:1.4}
+.network-stack{display:grid;gap:8px}.network-line{display:grid;grid-template-columns:84px 1fr 72px;gap:8px;align-items:center;padding:9px;border:1px solid var(--line);background:#fff;border-radius:13px;font-size:14px;font-weight:800}.network-cloud{text-align:center;border:1px dashed #9ca3af;border-radius:999px;padding:8px 6px;background:#f8fafc}.network-rule{text-align:center;color:#6b7280;font-size:12px}.converged-hub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:center}.device{padding:10px 5px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:center;font-size:14px;font-weight:850}.hub{grid-column:1/-1;padding:13px;border-radius:16px;background:#111827;color:#fff;text-align:center;font-weight:900}.summary-list{display:grid;gap:8px}.summary-item{padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#fff;font-size:16px;line-height:1.55}
+@media(max-width:380px){.route-row{grid-template-columns:1fr;}.route-arrow{transform:rotate(90deg)}.option-grid,.three-grid,.need-grid,.converged-hub{grid-template-columns:1fr}.option-card.full,.hub{grid-column:auto}.network-line{grid-template-columns:72px 1fr 58px;font-size:13px}}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  title: "1.5 網際網路連線",
+  brand: "CCNA 通勤微課",
+  segments: [
+    {
+      eyebrow: "01 · 先建立全貌",
+      title: "不是每個人都用同一種方式連上網際網路",
+      lead: "家庭、遠端工作者、小型辦公室與企業，需求不同，因此會選擇不同的服務供應商與連線方式。",
+      time: "約 70 秒",
+      visualHtml: `<div class="micro-visual">
+        <div class="route-row"><span class="route-end">家庭／遠端／小型辦公室</span><span class="route-arrow">→</span><span class="route-node">ISP</span><span class="route-arrow">→</span><span class="route-end">網際網路</span></div>
+        <div class="route-row"><span class="route-end">組織／企業</span><span class="route-arrow">→</span><span class="route-node">SP</span><span class="route-arrow">→</span><span class="route-end">網際網路＋其他公司</span></div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 先分清楚使用情境",
+          subtitle: "抓住本節的分類方式",
+          text: "這一節先提醒我們，連上網際網路沒有唯一方法。家庭使用者、遠端工作者和小型辦公室通常會連到 ISP，再取得網際網路服務。組織除了要連上網際網路，也常需要和其他公司連線，而且還要支援 IP 電話、視訊會議和資料中心儲存，所以會需要更快速、較適合商務的連線，並由服務供應商，也就是 SP，提供服務。"
+        }
+      ],
+      panels: [
+        { title: "影片列出的常見選項", kind: "note", body: "家庭與小型辦公室常見的選項包括有線電視纜線、DSL、行動通訊、衛星與撥接電話。企業常見的商務連線則包括商務 DSL、專屬租用電路與都會乙太網路。" }
+      ]
+    },
+    {
+      eyebrow: "02 · 家庭／小型辦公室",
+      title: "先看兩種常見的有線寬頻：纜線與 DSL",
+      lead: "兩者都提供高頻寬、高可用性，而且能隨時連到網際網路；差別在使用的基礎線路。",
+      time: "約 75 秒",
+      visualHtml: `<div class="option-grid">
+        <div class="option-card"><strong>有線電視纜線</strong><span>網際網路資料訊號和有線電視走在同一條纜線上。</span></div>
+        <div class="option-card"><strong>DSL</strong><span>在電話線上運行，提供高頻寬、高可用性與隨時連線。</span></div>
+        <div class="option-card full"><strong>家庭／小型辦公室常見：ADSL</strong><span>非對稱 DSL 的下載速度比上傳速度快。</span></div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 纜線和 DSL 差在哪？",
+          subtitle: "記基礎線路，不要只背名字",
+          text: "有線電視纜線通常由有線電視服務供應商提供，網際網路資料訊號會和有線電視使用同一條纜線傳輸。DSL 則在電話線上運行。影片指出，這兩種方式都能提供高頻寬、高可用性，而且可以隨時連線。一般的小型辦公室與家庭辦公室常使用非對稱 DSL，也就是 ADSL；非對稱的重點是下載速度比上傳速度快。"
+        }
+      ],
+      panels: [
+        { title: "怎麼記 ADSL？", kind: "why", body: "影片直接給的判斷線索是「下載速度比上傳速度快」。因此看到家庭或小型辦公室的 DSL 情境，可以先想到 ADSL 的非對稱特性。" }
+      ]
+    },
+    {
+      eyebrow: "03 · 家庭／小型辦公室",
+      title: "沒有固定線路時，還有行動、衛星與撥接",
+      lead: "選哪一種，不只看速度；影片最後特別強調地理位置與服務供應商是否可用。",
+      time: "約 80 秒",
+      visualHtml: `<div class="micro-visual">
+        <div class="three-grid">
+          <div class="option-card"><strong>行動通訊</strong><span>有手機訊號就能使用；受手機功能與基地台限制。</span></div>
+          <div class="option-card"><strong>衛星</strong><span>適合沒有網際網路連線的地方；碟型天線需對衛星有無阻礙視距。</span></div>
+          <div class="option-card"><strong>撥接電話</strong><span>電話線＋數據機，費用較低，但頻寬低。</span></div>
+        </div>
+        <div class="visual-caption"><b>選擇原則：</b>地理位置 ＋ 服務供應商的可用性。</div>
+      </div>`,
+      quiz: {
+        prompt: "一般而言，小型辦公室與家庭辦公室常使用哪一種 DSL，而且下載速度比上傳速度快？",
+        choices: [
+          { label: "A　ADSL", correct: true },
+          { label: "B　SDSL", correct: false },
+          { label: "C　Metro Ethernet", correct: false }
+        ],
+        correctText: "✅ 對。影片把 ADSL 的關鍵特徵說成：下載速度比上傳速度快。",
+        wrongText: "再想一下：題目在問「非對稱」的 DSL，也就是上下行速度不相同。"
+      },
+      audio: [
+        {
+          title: "解題後再聽 · 三種替代方式",
+          subtitle: "把適用情境一起記",
+          text: "行動通訊使用行動電話網路，只要有行動電話訊號就能連線，但表現會受到手機功能和基地台連線限制。衛星的優點是能在沒有一般網際網路連線的地方提供服務，不過衛星碟型天線需要對衛星有無阻礙的視距。撥接電話使用電話線和數據機，費用相對低，但頻寬不足以進行大型資料傳輸；影片說它對旅行中的行動存取仍然有用。"
+        }
+      ],
+      panels: [
+        { title: "為什麼不能只比較速度？", kind: "why", body: "本頁的結論不是「哪一種永遠最好」，而是連線選擇取決於所在地，以及當地服務供應商能提供哪些服務。" }
+      ]
+    },
+    {
+      eyebrow: "04 · 企業連線",
+      title: "企業要的不只是『能上網』，而是商務等級的連線",
+      lead: "相較於家庭使用者，企業可能需要更高頻寬、專屬頻寬與受管理的服務。",
+      time: "約 65 秒",
+      visualHtml: `<div class="micro-visual">
+        <div class="need-grid">
+          <div class="need-pill">更高的頻寬</div>
+          <div class="need-pill">專屬頻寬</div>
+          <div class="need-pill">受管理的服務</div>
+        </div>
+        <div class="visual-caption">這些連線要支援商務用途，例如 IP 電話、視訊會議與資料中心儲存。</div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 企業需求為什麼不同？",
+          subtitle: "先懂需求，再記選項",
+          text: "影片把企業和家庭的差別放在需求上。企業可能需要更高的頻寬、專屬頻寬，以及受管理的服務。前一頁也提到，組織的網路要支援 IP 電話、視訊會議和資料中心儲存。因為需求更高，所以企業的連線選項也和家庭使用者不同，而且實際可選的服務會因附近的服務供應商類型而不同。"
+        }
+      ]
+    },
+    {
+      eyebrow: "05 · 企業連線",
+      title: "企業常見四種選項：租用電路、都會乙太網路、商務 DSL、衛星",
+      lead: "這四種選項的差別，主要在專用性、使用的網路技術，以及當地有沒有有線方案。",
+      time: "約 95 秒",
+      visualHtml: `<div class="option-grid">
+        <div class="option-card"><strong>專屬租用電路</strong><span>服務供應商網路內的保留電路，可連接地理上分離的辦公室。</span></div>
+        <div class="option-card"><strong>都會乙太網路</strong><span>把區域網路存取技術延伸到 WAN；影片提醒乙太網路本身是 LAN 技術。</span></div>
+        <div class="option-card"><strong>商務 DSL</strong><span>常見選項是 SDSL，可提供上傳與下載相同的高速頻寬。</span></div>
+        <div class="option-card"><strong>衛星</strong><span>在無法使用有線解決方案時提供連線。</span></div>
+      </div>`,
+      quiz: {
+        prompt: "哪一個企業連線選項，影片說是把區域網路存取技術延伸到 WAN？",
+        choices: [
+          { label: "A　都會乙太網路（Metro Ethernet）", correct: true },
+          { label: "B　撥接電話", correct: false },
+          { label: "C　ADSL", correct: false }
+        ],
+        correctText: "✅ 沒錯。影片說都會乙太網路把區域網路存取技術延伸至 WAN，並補充乙太網路是 LAN 技術。",
+        wrongText: "提示：題目中的線索是「乙太網路」與「延伸到 WAN」。"
+      },
+      audio: [
+        {
+          title: "解題語音 · 四種方案怎麼分？",
+          subtitle: "用一句話抓住每個選項",
+          text: "專屬租用電路是服務供應商網路中的保留電路，用來連接地理上分離的辦公室，可以用月租或年租。都會乙太網路在影片中也提到有時被稱為乙太網路 WAN；它把區域網路存取技術延伸到 WAN，而乙太網路本身是 LAN 技術。商務 DSL 有不同形式，影片舉的常見選項是 SDSL，特點是上傳和下載都能提供相同的高速頻寬。最後，如果沒有可用的有線解決方案，衛星服務可以提供連線。"
+        }
+      ],
+      panels: [
+        { title: "企業方案也沒有單一答案", kind: "note", body: "和家庭連線一樣，影片最後仍回到同一個選擇原則：要看地理位置，以及服務供應商的可用性。" }
+      ]
+    },
+    {
+      eyebrow: "06 · 統合網路前的世界",
+      title: "傳統上，資料、電話和視訊是三套彼此分離的網路",
+      lead: "不同網路各用自己的技術、介質、規則與標準，因此彼此無法直接溝通。",
+      time: "約 70 秒",
+      visualHtml: `<div class="network-stack">
+        <div class="network-line"><span>電腦裝置</span><span class="network-cloud">電腦網路</span><span class="network-rule">自己的規則</span></div>
+        <div class="network-line"><span>電話裝置</span><span class="network-cloud">電話網路</span><span class="network-rule">自己的規則</span></div>
+        <div class="network-line"><span>視訊裝置</span><span class="network-cloud">廣播網路</span><span class="network-rule">自己的規則</span></div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 傳統分離網路",
+          subtitle: "先理解為什麼需要統合",
+          text: "影片用三十年前的學校當例子。當時有些教室會分別接到資料網路、電話網路和視訊網路。這些不同網路彼此無法通訊，每一套網路使用不同的技術來攜帶通訊訊號，也有自己的一套規則和標準來確保通訊成功。結果就是，多種服務要分別在多個網路上執行。"
+        }
+      ],
+      panels: [
+        { title: "這一段真正要記什麼？", kind: "why", body: "不是背三張圖，而是記住「一種服務一套網路」：資料、電話與視訊各走各的基礎架構。" }
+      ]
+    },
+    {
+      eyebrow: "07 · 統合網路",
+      title: "現在，一個網路基礎架構可以同時傳資料、語音和視訊",
+      lead: "統合網路把原本分開的服務整合到同一個網路，並使用相同的規則、協定與實作標準。",
+      time: "約 75 秒",
+      visualHtml: `<div class="micro-visual">
+        <div class="converged-hub">
+          <div class="device">💻 資料</div><div class="device">☎️ 語音</div><div class="device">📺 視訊</div>
+          <div class="hub">同一個統合網路基礎架構</div>
+          <div class="device">💻 裝置</div><div class="device">☎️ 裝置</div><div class="device">📺 裝置</div>
+        </div>
+      </div>`,
+      quiz: {
+        prompt: "哪一句最符合影片對統合網路的描述？",
+        choices: [
+          { label: "A　資料、語音、視訊必須各自使用不同網路", correct: false },
+          { label: "B　同一個網路基礎架構可在不同類型裝置間傳遞資料、語音與視訊", correct: true },
+          { label: "C　統合網路只用來傳電話語音", correct: false }
+        ],
+        correctText: "✅ 對。統合網路的核心就是「一個網路、多種服務與裝置」。",
+        wrongText: "回想前一段和這一段的對比：以前是多個分離網路，現在是同一個基礎架構。"
+      },
+      audio: [
+        {
+          title: "白話解釋 · 什麼叫統合？",
+          subtitle: "把前後兩張圖疊在一起想",
+          text: "今天，原本分離的資料、電話和視訊網路可以統合在一起。和專用網路不同，統合網路能在同一個網路基礎架構上的多種不同類型裝置之間，傳遞資料、語音和視訊。影片也指出，這個網路基礎架構使用相同的規則、協定和實作標準，所以一個統合式資料網路就能承載多項服務。"
+        }
+      ]
+    },
+    {
+      eyebrow: "08 · 下車前總複習",
+      title: "把 1.5 網際網路連線濃縮成三個判斷",
+      lead: "先判斷使用情境，再看可用連線，最後理解網路正在從分離走向統合。",
+      time: "約 55 秒",
+      visualHtml: `<div class="summary-list">
+        <div class="summary-item"><b>① 誰在用？</b> 家庭／小型辦公室與企業的需求不同。</div>
+        <div class="summary-item"><b>② 哪個方案可用？</b> 地理位置與服務供應商可用性會限制選擇。</div>
+        <div class="summary-item"><b>③ 網路怎麼承載服務？</b> 傳統分離網路各走各的；統合網路可在同一基礎架構承載資料、語音和視訊。</div>
+      </div>`,
+      audio: [
+        {
+          title: "總複習語音",
+          subtitle: "只聽這段也能抓住本節主線",
+          text: "這一節的主線可以分成三步。第一，先看使用者是家庭、小型辦公室還是企業，因為需求不同。第二，再從當地可用的連線方式裡選擇；家庭常見纜線、DSL、行動、衛星與撥接，企業則會用到專屬租用電路、都會乙太網路、商務 DSL 或衛星，而地理位置與服務供應商可用性都會影響選擇。第三，網路架構也從過去資料、電話、視訊各自分離，走向同一個基礎架構可以同時承載多項服務的統合網路。"
+        }
+      ],
+      panels: [
+        { title: "本課文字摘要", kind: "note", open: true, body: "家庭與小型辦公室通常透過 ISP 存取網際網路；企業因商務需求，可能使用更高頻寬、專屬頻寬與受管理的 SP 服務。家庭常見連線包括有線電視纜線、DSL、行動通訊、衛星與撥接；企業常見選項包括專屬租用電路、都會乙太網路、商務 DSL 與衛星。連線選擇取決於地理位置與服務供應商可用性。傳統資料、電話、視訊網路彼此分離；統合網路則在同一基礎架構上承載資料、語音與視訊。" }
+      ]
+    }
+  ],
+
+  glossary: [
+    {
+      zh: "網際網路服務供應商",
+      en: "ISP",
+      explanation: "影片中，家庭使用者、遠端工作者與小型辦公室通常要連到 ISP，才能取得網際網路服務。",
+      audioText: "網際網路服務供應商，影片使用縮寫 ISP。家庭使用者、遠端工作者與小型辦公室通常連到 ISP，才能取得網際網路服務。",
+      enAudioText: "I S P"
+    },
+    {
+      zh: "服務供應商",
+      en: "SP",
+      explanation: "影片用 SP 表示提供商務連線的服務供應商；企業常需要更快、專屬或受管理的連線服務。",
+      audioText: "服務供應商，影片使用縮寫 SP。企業常需要更快、專屬或受管理的商務連線，因此會使用 SP 提供的服務。",
+      enAudioText: "S P"
+    },
+    {
+      zh: "數位用戶線路",
+      en: "DSL",
+      explanation: "在電話線上運行的網際網路連線方式；影片指出它可提供高頻寬、高可用性與隨時連線。",
+      audioText: "數位用戶線路，縮寫 DSL。它在電話線上運行，影片指出它可以提供高頻寬、高可用性與隨時連線。",
+      enAudioText: "D S L"
+    },
+    {
+      zh: "非對稱 DSL",
+      en: "ADSL",
+      explanation: "家庭與小型辦公室常見的 DSL 形式；影片的關鍵特徵是下載速度比上傳速度快。",
+      audioText: "非對稱 DSL，縮寫 ADSL。影片指出，家庭與小型辦公室常使用它，而且下載速度比上傳速度快。",
+      enAudioText: "A D S L"
+    },
+    {
+      zh: "都會乙太網路",
+      en: "Metro Ethernet",
+      explanation: "企業連線選項之一；影片說它把區域網路存取技術延伸至 WAN，並提醒乙太網路是 LAN 技術。",
+      audioText: "都會乙太網路，英文是 Metro Ethernet。它是企業連線選項之一，影片說它把區域網路存取技術延伸至 WAN。",
+      enAudioText: "Metro Ethernet"
+    },
+    {
+      zh: "廣域網路",
+      en: "WAN",
+      explanation: "影片在都會乙太網路的說明中提到，區域網路存取技術可延伸至 WAN。",
+      audioText: "廣域網路，影片使用縮寫 WAN。在都會乙太網路的說明中，區域網路存取技術會延伸至 WAN。",
+      enAudioText: "W A N"
+    },
+    {
+      zh: "區域網路",
+      en: "LAN",
+      explanation: "影片提醒乙太網路是 LAN 技術，並用它和 WAN 的延伸情境做對照。",
+      audioText: "區域網路，影片使用縮寫 LAN。影片提醒乙太網路是 LAN 技術，並和延伸至 WAN 的情境做對照。",
+      enAudioText: "L A N"
+    },
+    {
+      zh: "對稱數位用戶迴路",
+      en: "SDSL",
+      explanation: "商務 DSL 的常見選項；影片說它可提供上傳與下載相同的高速頻寬。",
+      audioText: "對稱數位用戶迴路，縮寫 SDSL。影片把它列為商務 DSL 的常見選項，特點是上傳與下載都有相同的高速頻寬。",
+      enAudioText: "S D S L"
+    },
+    {
+      zh: "傳統分離網路",
+      en: "Traditional Separate Networks",
+      explanation: "資料、電話與視訊各自使用不同網路、技術、規則與標準，多種服務在多個網路上執行。",
+      audioText: "傳統分離網路，英文是 Traditional Separate Networks。資料、電話與視訊各自使用不同網路、技術、規則與標準，多種服務分別在多個網路上執行。",
+      enAudioText: "Traditional Separate Networks"
+    },
+    {
+      zh: "統合網路",
+      en: "Converged Networks",
+      explanation: "在同一個網路基礎架構上，讓不同類型裝置傳遞資料、語音與視訊，並使用相同的規則、協定與實作標準。",
+      audioText: "統合網路，英文是 Converged Networks。它在同一個網路基礎架構上，讓不同類型裝置傳遞資料、語音與視訊，並使用相同的規則、協定與實作標準。",
+      enAudioText: "Converged Networks"
+    }
+  ],
+
+  termQuiz: [
+    {
+      question: "影片中，家庭、遠端工作者與小型辦公室通常連到哪一種供應商來取得網際網路？",
+      choices: [{label:"ISP",correct:true},{label:"SP",correct:false},{label:"WAN",correct:false}],
+      correctText: "對，這一類使用者通常透過 ISP 取得網際網路服務。",
+      wrongText: "回想第一段：家庭／遠端／小型辦公室 → 哪個縮寫？"
+    },
+    {
+      question: "SP 在本課是用來表示哪一類角色？",
+      choices: [{label:"提供商務連線的服務供應商",correct:true},{label:"家庭用的撥接數據機",correct:false},{label:"一種 DSL 形式",correct:false}],
+      correctText: "沒錯。影片用 SP 說明提供商務連線的服務供應商。",
+      wrongText: "提示：企業需要更快速、專屬或受管理的連線時會用到它。"
+    },
+    {
+      question: "數位用戶線路的縮寫是什麼？",
+      choices: [{label:"DSL",correct:true},{label:"LAN",correct:false},{label:"ISP",correct:false}],
+      correctText: "對，數位用戶線路就是 DSL。",
+      wrongText: "回想它在電話線上運行，而且本課多次用三個字母表示。"
+    },
+    {
+      question: "ADSL 最容易用哪個特徵叫回來？",
+      choices: [{label:"下載速度比上傳速度快",correct:true},{label:"上傳與下載速度相同",correct:false},{label:"只能透過衛星使用",correct:false}],
+      correctText: "對，這就是影片對 ADSL 的非對稱特徵。",
+      wrongText: "提示：A 代表這裡的重點是『非對稱』。"
+    },
+    {
+      question: "Metro Ethernet 的中文名稱是哪一個？",
+      choices: [{label:"都會乙太網路",correct:true},{label:"傳統分離網路",correct:false},{label:"撥接電話",correct:false}],
+      correctText: "正確，Metro Ethernet 就是都會乙太網路。",
+      wrongText: "回想企業連線那張圖，中間有一條乙太網路選項。"
+    },
+    {
+      question: "WAN 在本課的中文名稱是哪一個？",
+      choices: [{label:"廣域網路",correct:true},{label:"區域網路",correct:false},{label:"統合網路",correct:false}],
+      correctText: "對，WAN 對應廣域網路。",
+      wrongText: "把它和 LAN 做對照：WAN 是範圍較大的那一個。"
+    },
+    {
+      question: "LAN 在本課的中文名稱是哪一個？",
+      choices: [{label:"區域網路",correct:true},{label:"廣域網路",correct:false},{label:"服務供應商",correct:false}],
+      correctText: "對，LAN 對應區域網路。",
+      wrongText: "提示：影片說乙太網路是這一類技術。"
+    },
+    {
+      question: "哪個縮寫對應『上傳與下載都提供相同高速頻寬』的商務 DSL？",
+      choices: [{label:"SDSL",correct:true},{label:"ADSL",correct:false},{label:"ISP",correct:false}],
+      correctText: "沒錯，影片把 SDSL 的重點放在上下行相同的高速頻寬。",
+      wrongText: "回想『對稱』兩個字：上下行要相同。"
+    },
+    {
+      question: "Traditional Separate Networks 對應哪個中文概念？",
+      choices: [{label:"傳統分離網路",correct:true},{label:"統合網路",correct:false},{label:"都會乙太網路",correct:false}],
+      correctText: "正確。它描述資料、電話、視訊各自走不同網路。",
+      wrongText: "回想上一代架構：三種服務是分開的。"
+    },
+    {
+      question: "Converged Networks 對應哪個中文概念？",
+      choices: [{label:"統合網路",correct:true},{label:"撥接網路",correct:false},{label:"專屬租用電路",correct:false}],
+      correctText: "對，Converged Networks 就是統合網路。",
+      wrongText: "提示：一個網路承載資料、語音與視訊。"
+    },
+    {
+      question: "『乙太網路是 LAN 技術，但可透過某企業方案把區域網路存取技術延伸至 WAN』，這個方案是？",
+      choices: [{label:"Metro Ethernet",correct:true},{label:"ADSL",correct:false},{label:"撥接電話",correct:false}],
+      correctText: "對。這題從定義反向叫回 Metro Ethernet。",
+      wrongText: "線索就在『乙太網路』與『延伸至 WAN』。"
+    },
+    {
+      question: "『同一個網路基礎架構可以承載資料、語音與視訊』，這個概念的英文是？",
+      choices: [{label:"Converged Networks",correct:true},{label:"Traditional Separate Networks",correct:false},{label:"Metro Ethernet",correct:false}],
+      correctText: "正確，這是在從定義反向回想 Converged Networks。",
+      wrongText: "先排除『分離』：題目描述的是把服務整合在一起。"
+    }
+  ],
+
+  recallQuiz: [
+    {
+      question: "家庭或小型辦公室在選擇網際網路連線時，影片最後強調哪兩個因素？",
+      choices: [
+        {label:"地理位置與服務供應商的可用性",correct:true},
+        {label:"只看下載速度",correct:false},
+        {label:"只看設備品牌",correct:false}
+      ],
+      correctText: "對。影片明確說連線選擇取決於地理位置與服務供應商的可用性。",
+      wrongText: "回想家庭連線那頁最下方的總結句。"
+    },
+    {
+      question: "為什麼 ADSL 被稱為『非對稱』？",
+      choices: [
+        {label:"下載速度比上傳速度快",correct:true},
+        {label:"上傳與下載速度相同",correct:false},
+        {label:"它同時使用衛星與電話線",correct:false}
+      ],
+      correctText: "沒錯，影片就是用下載快於上傳來說明 ADSL。",
+      wrongText: "先想『非對稱』：上下兩個方向的速度不一樣。"
+    },
+    {
+      question: "相較於家庭使用者，企業連線可能特別需要哪些能力？",
+      choices: [
+        {label:"更高頻寬、專屬頻寬與受管理的服務",correct:true},
+        {label:"只需要低頻寬撥接",correct:false},
+        {label:"不需要連到其他公司",correct:false}
+      ],
+      correctText: "對，這三項就是企業需求頁面最核心的差異。",
+      wrongText: "回想企業頁面一開始列出的三個需求。"
+    },
+    {
+      question: "影片如何說明都會乙太網路和 LAN／WAN 的關係？",
+      choices: [
+        {label:"把區域網路存取技術延伸至 WAN，而乙太網路是 LAN 技術",correct:true},
+        {label:"它只在電話線上運行",correct:false},
+        {label:"它是家庭常用的非對稱 DSL",correct:false}
+      ],
+      correctText: "正確。這是企業連線頁面對 Metro Ethernet 的重點說明。",
+      wrongText: "提示：關鍵字是『乙太網路』『LAN』『延伸』『WAN』。"
+    },
+    {
+      question: "傳統分離網路和統合網路最核心的差別是什麼？",
+      choices: [
+        {label:"前者讓資料、電話、視訊各走不同網路；後者可在同一基礎架構承載多項服務",correct:true},
+        {label:"前者一定較快，後者一定較慢",correct:false},
+        {label:"兩者其實完全相同",correct:false}
+      ],
+      correctText: "對。這就是 1.5.4 兩張圖的完整對比。",
+      wrongText: "回想兩個標題：Traditional Separate Networks 與 Converged Networks。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

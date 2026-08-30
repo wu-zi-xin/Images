@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>CCNA 1.2 網路元件｜手機通勤微課</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:30px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:17px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:16px;line-height:1.8;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:13px 13px;font-size:16px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:16px;line-height:1.8;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:16px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:16px;line-height:1.8;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:16px;line-height:1.8;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:16px;line-height:1.65;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:13px 12px;font-size:16px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:10px 11px;border-radius:11px;background:#f8fafc;font-size:16px;line-height:1.7}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* CCNA 1.2 course visuals: compact, text-first and mobile friendly */
+.flow-card,.endpoint-flow,.middle-map{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;padding:16px;background:#f8fafc;border:1px solid var(--line);border-radius:20px}
+.node,.end-node,.mini-lan{min-height:112px;border:1px solid #d9dde5;border-radius:16px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px;gap:5px}
+.node-icon,.end-node span,.mini-lan span{font-size:30px}.node small,.peer small,.media-item small{font-size:13px;color:var(--muted);line-height:1.4}.flow-arrow{text-align:center;font-weight:950;font-size:22px;white-space:nowrap}.flow-arrow span{display:block;font-size:11px;color:var(--muted);margin:3px 0}.peer-grid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}.peer{border:1px solid var(--line);border-radius:18px;padding:16px 10px;text-align:center;background:#f8fafc;display:grid;gap:5px}.peer>span{font-size:34px}.peer-link{font-size:28px;font-weight:950}.network-cloud{border:1px dashed #94a3b8;border-radius:999px;padding:18px 10px;text-align:center;font-size:14px;color:#475569}.network-cloud strong{font-size:20px;color:#111827}.mid-devices{display:grid;gap:7px}.mid-devices span{font-size:13px;font-weight:850;background:#111827;color:#fff;border-radius:11px;padding:9px 10px;text-align:center}.media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.media-item{border:1px solid var(--line);border-radius:17px;padding:14px 7px;background:#f8fafc;text-align:center;display:grid;gap:5px}.media-item>span{font-size:30px}.media-item b{font-size:15px}.btn{font-size:16px;min-height:48px}.play,.term-play{min-width:44px;min-height:44px}.audio-title{font-size:15px}.audio-sub{font-size:12px}.term-zh{font-size:19px}.term-en{font-size:14px}
+@media(max-width:360px){.flow-card,.endpoint-flow,.middle-map{grid-template-columns:1fr;}.flow-arrow{transform:rotate(90deg);padding:3px}.peer-grid{grid-template-columns:1fr}.peer-link{transform:rotate(90deg)}.media-grid{grid-template-columns:1fr 1fr}.media-item:last-child{grid-column:1/-1}}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  "title": "CCNA 1.2 網路元件：主機、終端裝置、中介設備與網路媒體",
+  "brand": "CCNA 通勤微課｜1.2 網路元件",
+  "segments": [
+    {
+      "eyebrow": "01 · 1.2.1 主機角色",
+      "title": "主機在網路中，可以扮演用戶端或伺服器",
+      "lead": "先抓住角色差異：用戶端「提出請求」，伺服器「提供資訊或服務」；兩者都屬於直接參與網路通訊的主機。",
+      "time": "約 70 秒",
+      "visualHtml": "<div class=\"flow-card\"><div class=\"node\"><span class=\"node-icon\">💻</span><b>用戶端</b><small>提出請求</small></div><div class=\"flow-arrow\">→<span>網路</span>→</div><div class=\"node\"><span class=\"node-icon\">🗄️</span><b>伺服器</b><small>提供服務</small></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 主機、用戶端與伺服器",
+          "subtitle": "先把三個角色分清楚",
+          "text": "所有連接到網路、並直接參與網路通訊的電腦都屬於主機。主機可以是用戶端，也可以是伺服器。用戶端會用軟體向伺服器提出請求並顯示取得的資訊；伺服器則是在主機上執行特定伺服器軟體，向網路上的其他主機提供資訊或服務。"
+        },
+        {
+          "title": "例子 · 瀏覽網頁時發生什麼事？",
+          "subtitle": "把角色放進熟悉情境",
+          "alt": true,
+          "text": "例如你用 Web 瀏覽器瀏覽網頁時，瀏覽器屬於用戶端軟體；另一端的 Web 伺服器執行伺服器軟體，讓用戶端可以存取伺服器上的網頁。影片也列出電子郵件、Web 和檔案三種常見的伺服器軟體類型。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "IP 位址在這裡扮演什麼角色？",
+          "kind": "why",
+          "body": "影片指出，主機是網路上為通訊目的被指派編號的裝置；這個編號就是網際網路協定（IP）位址。IP 位址可用來識別特定網路中的主機，並識別主機及主機所在的網路。"
+        },
+        {
+          "title": "影片列出的常見伺服器類型",
+          "kind": "detail",
+          "body": "<b>電子郵件：</b>伺服器執行電子郵件伺服器軟體，用戶端用郵件軟體存取伺服器上的郵件。<br><b>Web：</b>伺服器執行 Web 伺服器軟體，用戶端用瀏覽器存取網頁。<br><b>檔案：</b>檔案伺服器把公司檔案和使用者檔案集中儲存，用戶端再透過用戶端軟體存取。"
+        }
+      ],
+      "quiz": {
+        "prompt": "哪一個角色會使用用戶端軟體，向伺服器請求並顯示資訊？",
+        "choices": [
+          {
+            "label": "A　用戶端",
+            "correct": true
+          },
+          {
+            "label": "B　伺服器",
+            "correct": false
+          },
+          {
+            "label": "C　網路媒體",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。用戶端負責提出請求並顯示從伺服器取得的資訊。",
+        "wrongText": "提示：想想瀏覽器位在哪一端——它是提出請求的一方。"
+      }
+    },
+    {
+      "eyebrow": "02 · 1.2.2 對等",
+      "title": "對等網路：同一台電腦可同時是用戶端和伺服器",
+      "lead": "在小型企業或家庭網路中，電腦不一定只扮演單一角色；它可以一邊使用別人的資源，一邊分享自己的資源。",
+      "time": "約 55 秒",
+      "visualHtml": "<div class=\"peer-grid\"><div class=\"peer\"><span>🖨️</span><b>列印共用</b><small>這台電腦分享印表機</small></div><div class=\"peer-link\">⇄</div><div class=\"peer\"><span>📁</span><b>檔案共用</b><small>這台電腦分享檔案</small></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 什麼是對等網路？",
+          "subtitle": "一台電腦可以有兩種角色",
+          "text": "用戶端和伺服器軟體通常在單獨的伺服器上執行，但一台電腦也可以同時兼任兩個角色。在小企業和家庭中，許多電腦在網路中既是伺服器又是用戶端，這種網路稱為對等式網路。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "對等式網路的優點",
+          "kind": "why",
+          "body": "影片列出的優點包括：容易設定、較低複雜度；因為可能不需要網路裝置和專用伺服器，所以成本較低；也適合傳送檔案、共用印表機等簡單工作。"
+        },
+        {
+          "title": "對等式網路的缺點",
+          "kind": "detail",
+          "body": "影片列出的缺點包括：無集中管理、沒有那麼安全、不可擴充；而且所有設備都可能同時作為用戶端與伺服器，這可能降低設備效能。"
+        }
+      ],
+      "quiz": {
+        "prompt": "哪一句最符合影片中的「對等式網路」？",
+        "choices": [
+          {
+            "label": "A　每台電腦只能是用戶端",
+            "correct": false
+          },
+          {
+            "label": "B　一台電腦可以同時是用戶端和伺服器",
+            "correct": true
+          },
+          {
+            "label": "C　一定要有專用伺服器才能運作",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 沒錯。對等式網路的關鍵就是設備可同時扮演用戶端和伺服器。",
+        "wrongText": "再想一次：影片用「分享印表機」和「分享檔案」說明同一台電腦可以提供也可以使用資源。"
+      }
+    },
+    {
+      "eyebrow": "03 · 1.2.3 終端裝置",
+      "title": "終端裝置是訊息的來源或目的地",
+      "lead": "辨認終端裝置時，不要只看外觀；關鍵是它是否位在通訊的起點或終點。",
+      "time": "約 45 秒",
+      "visualHtml": "<div class=\"endpoint-flow\"><div class=\"end-node\"><span>💻</span><b>來源終端裝置</b></div><div class=\"network-cloud\">資料流<br><strong>→ → →</strong></div><div class=\"end-node\"><span>🖥️</span><b>目的地終端裝置</b></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 終端裝置的兩件事",
+          "subtitle": "有位址，而且是資料的起點或終點",
+          "text": "終端裝置是人們最熟悉的網路設備。為了區分一個終端裝置與另一個終端裝置，網路上的每個終端裝置都有一個位址。當終端裝置開始通訊時，它會使用目的地終端裝置的位址，指定訊息要傳送到哪裡。終端裝置就是透過網路傳輸訊息的來源或目的地。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "看圖時怎麼判斷？",
+          "kind": "note",
+          "body": "影片的動畫讓資料從一個 LAN 中的終端裝置出發，流經網路，再抵達另一端的終端裝置。判斷重點不是它中間經過幾台設備，而是誰產生訊息、誰最後接收訊息。"
+        }
+      ],
+      "quiz": {
+        "prompt": "在一次網路通訊中，終端裝置最核心的角色是什麼？",
+        "choices": [
+          {
+            "label": "A　只負責選擇網路路徑",
+            "correct": false
+          },
+          {
+            "label": "B　作為訊息的來源或目的地",
+            "correct": true
+          },
+          {
+            "label": "C　只用來連接網路纜線",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 正確。終端裝置位在通訊的起點或終點。",
+        "wrongText": "提示：影片直接說明，終端裝置是透過網路傳輸訊息的「來源或目的地」。"
+      }
+    },
+    {
+      "eyebrow": "04 · 1.2.4 中介設備",
+      "title": "中介設備把裝置與網路連起來，並幫助資料找到路徑",
+      "lead": "路由器、交換器、防火牆等設備不是訊息的最終起點或終點，而是在中間維持連線與資料流動。",
+      "time": "約 65 秒",
+      "visualHtml": "<div class=\"middle-map\"><div class=\"mini-lan\">LAN<br><span>💻 🖥️</span></div><div class=\"mid-devices\"><span>▣ 交換器</span><span>◉ 路由器</span><span>▥ 防火牆</span></div><div class=\"mini-lan\">LAN<br><span>🖥️ 💻</span></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 為什麼需要中介設備？",
+          "subtitle": "它們位在資料旅程的中間",
+          "text": "中介設備會把個別終端裝置連接至網路，也可以連接多個獨立的網路，形成網際網路。這些設備提供連線能力，並確保資料能在網路上流動。它們會利用目的地主機位址，以及網路互連的相關資訊，決定訊息在網路中應採用的路徑。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "影片列出的中介設備例子",
+          "kind": "note",
+          "body": "無線路由器、LAN 交換器、路由器、多層交換器、防火牆設備。這一段影片把它們放在同一類，是因為它們都位於通訊路徑中間，負責連接、轉送或控制資料流。"
+        },
+        {
+          "title": "中介設備可以執行哪些功能？",
+          "kind": "detail",
+          "body": "影片列出：重新產生和傳輸通訊訊號；維護網路與網際網路可用路徑的資訊；將錯誤和通訊故障通知其他設備；連線故障時使用備用路徑傳送資料；依優先順序分類和傳送訊息；依安全設定允許或拒絕資料通行。"
+        }
+      ],
+      "quiz": {
+        "prompt": "中介設備會參考什麼資訊，來決定訊息在網路中應採用的路徑？",
+        "choices": [
+          {
+            "label": "A　目的地主機位址與網路互連資訊",
+            "correct": true
+          },
+          {
+            "label": "B　終端裝置螢幕大小",
+            "correct": false
+          },
+          {
+            "label": "C　使用者正在開啟的應用程式顏色",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 對。影片指出會使用目的地主機位址與網路互連資訊來決定路徑。",
+        "wrongText": "提示：找的是能告訴設備「資料要去哪裡、網路怎麼連」的資訊。"
+      }
+    },
+    {
+      "eyebrow": "05 · 1.2.5 網路媒體",
+      "title": "資料要走過媒體：銅纜、光纖或無線",
+      "lead": "媒體就是訊息從來源傳到目的地的通道；不同媒體用不同形式承載資料。",
+      "time": "約 65 秒",
+      "visualHtml": "<div class=\"media-grid\"><div class=\"media-item\"><span>🔌</span><b>銅纜</b><small>電氣脈衝</small></div><div class=\"media-item\"><span>✨</span><b>光纖</b><small>光脈衝</small></div><div class=\"media-item\"><span>📡</span><b>無線</b><small>電磁波</small></div></div>",
+      "audio": [
+        {
+          "title": "白話解釋 · 三種網路媒體",
+          "subtitle": "同樣是資料，承載方式不同",
+          "text": "通訊會在媒體上透過網路傳輸。媒體也就是通道，是訊息從來源傳送到目的地的路徑。影片列出三種主要媒體：纜線內的金屬線，也就是銅纜，資料被編碼為電氣脈衝；光纖纜線內使用玻璃或塑膠纖維，資料被編碼為光脈衝；無線傳輸則讓資料透過調變為特定頻率的電磁波傳送。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "選擇網路媒體時，影片要你看四件事",
+          "kind": "detail",
+          "body": "① 媒體可以成功攜帶訊號的最大距離。<br>② 要安裝媒體的環境。<br>③ 必須傳輸的資料量與速度。<br>④ 媒體本身與安裝的成本。"
+        }
+      ],
+      "quiz": {
+        "prompt": "當資料被編碼為光脈衝時，使用的是哪一種媒體？",
+        "choices": [
+          {
+            "label": "A　無線傳輸",
+            "correct": false
+          },
+          {
+            "label": "B　光纖纜線",
+            "correct": true
+          },
+          {
+            "label": "C　銅纜",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 正確。影片的測驗也以這個判斷為重點：光脈衝對應光纖纜線。",
+        "wrongText": "提示：把三種承載方式配對——銅纜是電氣脈衝，光纖是光脈衝，無線是電磁波。"
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "zh": "主機",
+      "en": "Host",
+      "explanation": "連接到網路並直接參與網路通訊的電腦或裝置；影片指出主機會被指派用於通訊識別的 IP 位址。",
+      "audioText": "主機，英文是 Host。它是連接到網路並直接參與網路通訊的電腦或裝置；影片指出主機會被指派用於通訊識別的 IP 位址。",
+      "enAudioText": "Host"
+    },
+    {
+      "zh": "用戶端",
+      "en": "Client",
+      "explanation": "一種類型的主機，使用用戶端軟體向伺服器提出請求，並顯示從伺服器取得的資訊。",
+      "audioText": "用戶端，英文是 Client。它是一種類型的主機，使用用戶端軟體向伺服器提出請求，並顯示從伺服器取得的資訊。",
+      "enAudioText": "Client"
+    },
+    {
+      "zh": "伺服器",
+      "en": "Server",
+      "explanation": "安裝特定伺服器軟體、可向網路上其他主機提供資訊或服務的主機。",
+      "audioText": "伺服器，英文是 Server。它是安裝特定伺服器軟體、可向網路上其他主機提供資訊或服務的主機。",
+      "enAudioText": "Server"
+    },
+    {
+      "zh": "IP 位址",
+      "en": "IP Address",
+      "explanation": "影片將它描述為用來識別特定網路中主機的編號，並可識別主機及其所在網路。",
+      "audioText": "IP 位址，英文是 IP Address。影片將它描述為用來識別特定網路中主機的編號，並可識別主機及其所在網路。",
+      "enAudioText": "IP Address"
+    },
+    {
+      "zh": "對等式網路",
+      "en": "Peer-to-Peer Network",
+      "explanation": "在這種網路中，一台電腦可以同時兼任用戶端與伺服器；影片以小企業和家庭網路為例。",
+      "audioText": "對等式網路，英文是 Peer-to-Peer Network。在這種網路中，一台電腦可以同時兼任用戶端與伺服器。",
+      "enAudioText": "Peer-to-Peer Network"
+    },
+    {
+      "zh": "終端裝置",
+      "en": "End Device",
+      "explanation": "網路訊息的來源或目的地；每個終端裝置都有位址，用來區分裝置並指定訊息目的地。",
+      "audioText": "終端裝置，英文是 End Device。它是網路訊息的來源或目的地；每個終端裝置都有位址。",
+      "enAudioText": "End Device"
+    },
+    {
+      "zh": "中介設備",
+      "en": "Intermediary Device",
+      "explanation": "位在通訊路徑中間，連接終端裝置或多個網路，並協助資料在網路上流動與選擇路徑。",
+      "audioText": "中介設備，英文是 Intermediary Device。它位在通訊路徑中間，連接終端裝置或多個網路，並協助資料在網路上流動與選擇路徑。",
+      "enAudioText": "Intermediary Device"
+    },
+    {
+      "zh": "網路媒體",
+      "en": "Network Media",
+      "explanation": "承載網路通訊的通道，也就是訊息從來源傳送到目的地所經過的路徑。",
+      "audioText": "網路媒體，英文是 Network Media。它是承載網路通訊的通道，也就是訊息從來源傳送到目的地所經過的路徑。",
+      "enAudioText": "Network Media"
+    },
+    {
+      "zh": "銅纜",
+      "en": "Copper Cable",
+      "explanation": "使用金屬線承載資料；影片指出資料在其中被編碼為電氣脈衝。",
+      "audioText": "銅纜，英文是 Copper Cable。它使用金屬線承載資料，資料在其中被編碼為電氣脈衝。",
+      "enAudioText": "Copper Cable"
+    },
+    {
+      "zh": "光纖纜線",
+      "en": "Fiber-Optic Cable",
+      "explanation": "使用玻璃或塑膠纖維承載資料；影片指出資料在其中被編碼為光脈衝。",
+      "audioText": "光纖纜線，英文是 Fiber-Optic Cable。它使用玻璃或塑膠纖維承載資料，資料在其中被編碼為光脈衝。",
+      "enAudioText": "Fiber-Optic Cable"
+    },
+    {
+      "zh": "無線傳輸",
+      "en": "Wireless Transmission",
+      "explanation": "不使用實體纜線承載訊號；影片指出資料透過調變為特定頻率的電磁波傳送。",
+      "audioText": "無線傳輸，英文是 Wireless Transmission。影片指出資料透過調變為特定頻率的電磁波傳送。",
+      "enAudioText": "Wireless Transmission"
+    }
+  ],
+  "termQuiz": [
+    {
+      "question": "「主機」的英文名稱是哪一個？",
+      "choices": [
+        {
+          "label": "Host",
+          "correct": true
+        },
+        {
+          "label": "Media",
+          "correct": false
+        },
+        {
+          "label": "Client",
+          "correct": false
+        }
+      ],
+      "correctText": "對，主機就是 Host。",
+      "wrongText": "回想第一段：連接到網路並直接參與通訊的裝置稱為主機。"
+    },
+    {
+      "question": "Client 對應哪一個中文專有名詞？",
+      "choices": [
+        {
+          "label": "伺服器",
+          "correct": false
+        },
+        {
+          "label": "用戶端",
+          "correct": true
+        },
+        {
+          "label": "中介設備",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，Client 就是用戶端。",
+      "wrongText": "提示：它是提出請求、顯示伺服器資訊的一方。"
+    },
+    {
+      "question": "哪一個英文術語對應「伺服器」？",
+      "choices": [
+        {
+          "label": "Server",
+          "correct": true
+        },
+        {
+          "label": "Host Address",
+          "correct": false
+        },
+        {
+          "label": "End Device",
+          "correct": false
+        }
+      ],
+      "correctText": "正確，伺服器是 Server。",
+      "wrongText": "回想提供 Web、電子郵件或檔案服務的那一端。"
+    },
+    {
+      "question": "影片中用來識別特定網路內主機的編號，稱為什麼？",
+      "choices": [
+        {
+          "label": "IP 位址",
+          "correct": true
+        },
+        {
+          "label": "媒體距離",
+          "correct": false
+        },
+        {
+          "label": "電氣脈衝",
+          "correct": false
+        }
+      ],
+      "correctText": "對，是 IP 位址（IP Address）。",
+      "wrongText": "提示：第一段把它和主機識別直接連在一起。"
+    },
+    {
+      "question": "Peer-to-Peer Network 對應哪一個中文名稱？",
+      "choices": [
+        {
+          "label": "對等式網路",
+          "correct": true
+        },
+        {
+          "label": "網路媒體",
+          "correct": false
+        },
+        {
+          "label": "終端裝置",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，Peer-to-Peer Network 就是對等式網路。",
+      "wrongText": "想想「同一台電腦可同時是用戶端和伺服器」的那一段。"
+    },
+    {
+      "question": "「網路訊息的來源或目的地」對應哪個名詞？",
+      "choices": [
+        {
+          "label": "中介設備",
+          "correct": false
+        },
+        {
+          "label": "終端裝置",
+          "correct": true
+        },
+        {
+          "label": "伺服器軟體",
+          "correct": false
+        }
+      ],
+      "correctText": "對，這就是終端裝置（End Device）。",
+      "wrongText": "提示：它位在通訊的起點或終點。"
+    },
+    {
+      "question": "Intermediary Device 對應哪一個中文專有名詞？",
+      "choices": [
+        {
+          "label": "中介設備",
+          "correct": true
+        },
+        {
+          "label": "主機",
+          "correct": false
+        },
+        {
+          "label": "銅纜",
+          "correct": false
+        }
+      ],
+      "correctText": "正確，中介設備就是 Intermediary Device。",
+      "wrongText": "提示：路由器、交換器、防火牆被列在這一類。"
+    },
+    {
+      "question": "哪一個名詞指「訊息從來源傳到目的地的通道」？",
+      "choices": [
+        {
+          "label": "網路媒體",
+          "correct": true
+        },
+        {
+          "label": "用戶端",
+          "correct": false
+        },
+        {
+          "label": "伺服器",
+          "correct": false
+        }
+      ],
+      "correctText": "對，這就是網路媒體（Network Media）。",
+      "wrongText": "回想最後一段：銅纜、光纖、無線都是它的類型。"
+    },
+    {
+      "question": "Copper Cable 對應哪一個中文名稱？",
+      "choices": [
+        {
+          "label": "無線傳輸",
+          "correct": false
+        },
+        {
+          "label": "銅纜",
+          "correct": true
+        },
+        {
+          "label": "光纖纜線",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，Copper Cable 是銅纜。",
+      "wrongText": "提示：它使用金屬線，資料被編碼為電氣脈衝。"
+    },
+    {
+      "question": "資料被編碼為「光脈衝」時，對應哪個術語？",
+      "choices": [
+        {
+          "label": "光纖纜線",
+          "correct": true
+        },
+        {
+          "label": "銅纜",
+          "correct": false
+        },
+        {
+          "label": "無線傳輸",
+          "correct": false
+        }
+      ],
+      "correctText": "對，是光纖纜線（Fiber-Optic Cable）。",
+      "wrongText": "提示：名稱中就有「光」；影片的原始測驗也考了這個配對。"
+    },
+    {
+      "question": "Wireless Transmission 對應哪一個中文名稱？",
+      "choices": [
+        {
+          "label": "無線傳輸",
+          "correct": true
+        },
+        {
+          "label": "對等式網路",
+          "correct": false
+        },
+        {
+          "label": "終端裝置",
+          "correct": false
+        }
+      ],
+      "correctText": "正確，Wireless Transmission 是無線傳輸。",
+      "wrongText": "提示：它以特定頻率的電磁波傳送資料。"
+    }
+  ],
+  "recallQuiz": [
+    {
+      "question": "你用瀏覽器向某台電腦要求網頁時，哪一端負責提供 Web 服務？",
+      "choices": [
+        {
+          "label": "用戶端",
+          "correct": false
+        },
+        {
+          "label": "伺服器",
+          "correct": true
+        },
+        {
+          "label": "網路媒體",
+          "correct": false
+        }
+      ],
+      "correctText": "對。瀏覽器是用戶端軟體，提供 Web 服務的是執行 Web 伺服器軟體的伺服器。",
+      "wrongText": "回想第一段：誰「提出請求」，誰「提供服務」？"
+    },
+    {
+      "question": "對等式網路最具代表性的特徵是哪一個？",
+      "choices": [
+        {
+          "label": "每台電腦固定只扮演一種角色",
+          "correct": false
+        },
+        {
+          "label": "同一台電腦可以同時是用戶端和伺服器",
+          "correct": true
+        },
+        {
+          "label": "一定要集中管理",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯。這也是它適合小型、簡單資源共享情境的原因之一。",
+      "wrongText": "想想影片中的列印共用與檔案共用。"
+    },
+    {
+      "question": "資料從一台電腦出發、最後到另一台電腦；這兩端在影片中屬於什麼？",
+      "choices": [
+        {
+          "label": "終端裝置",
+          "correct": true
+        },
+        {
+          "label": "中介設備",
+          "correct": false
+        },
+        {
+          "label": "網路媒體",
+          "correct": false
+        }
+      ],
+      "correctText": "對。終端裝置是訊息的來源或目的地。",
+      "wrongText": "提示：它們是資料旅程的起點與終點。"
+    },
+    {
+      "question": "當資料跨越多個網路時，哪一類設備會使用目的地主機位址與互連資訊協助決定路徑？",
+      "choices": [
+        {
+          "label": "中介設備",
+          "correct": true
+        },
+        {
+          "label": "終端裝置",
+          "correct": false
+        },
+        {
+          "label": "用戶端軟體",
+          "correct": false
+        }
+      ],
+      "correctText": "正確。這是中介設備在網路中維持資料流動的重要工作。",
+      "wrongText": "回想路由器、交換器和防火牆所在的那一段。"
+    },
+    {
+      "question": "當資料被編碼為光脈衝時，應該聯想到哪一種網路媒體？",
+      "choices": [
+        {
+          "label": "銅纜",
+          "correct": false
+        },
+        {
+          "label": "光纖纜線",
+          "correct": true
+        },
+        {
+          "label": "無線傳輸",
+          "correct": false
+        }
+      ],
+      "correctText": "對。光脈衝對應光纖纜線。",
+      "wrongText": "把三種媒體和承載形式再配對一次：電氣脈衝、光脈衝、電磁波。"
+    },
+    {
+      "question": "選擇網路媒體時，下列哪一組全部都是影片列出的考量？",
+      "choices": [
+        {
+          "label": "距離、安裝環境、資料量與速度、成本",
+          "correct": true
+        },
+        {
+          "label": "螢幕尺寸、鍵盤種類、作業系統、顏色",
+          "correct": false
+        },
+        {
+          "label": "只有成本，其他都不用考慮",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯。影片最後列出的四個面向就是距離、環境、資料量與速度，以及成本。",
+      "wrongText": "回想網路媒體段落最下面的四個選擇準則。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>1.8 網路安全｜CCNA 通勤微課</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:16px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:14px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:15px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:14px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:15px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:14px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:13px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* ===== 本課：通勤大字舒適版與簡化視覺 ===== */
+h1{font-size:30px}
+.lead{font-size:17px;line-height:1.75}
+.callout{font-size:16px;line-height:1.75}
+.inline-transcript{font-size:16px;line-height:1.8}
+.panel summary{font-size:16px}
+.panel-body{font-size:16px;line-height:1.8}
+.choice{font-size:16px;line-height:1.55;min-height:50px}
+.feedback{font-size:16px;line-height:1.7}
+.term-en{font-size:15px;line-height:1.5}
+.term-exp{font-size:16px;line-height:1.75}
+.term-transcript{font-size:16px;line-height:1.8}
+.recall-q{font-size:16px;line-height:1.65}
+.recall-choice{font-size:16px;line-height:1.55;min-height:48px}
+.recall-feedback{font-size:16px;line-height:1.7}
+.btn{min-height:48px}.play{min-width:40px;min-height:40px}
+
+.micro-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.micro-card{border:1px solid var(--line);border-radius:16px;padding:13px;background:#fff;min-width:0}
+.micro-card strong{display:block;font-size:16px;line-height:1.45;margin-bottom:5px}
+.micro-card span{display:block;font-size:15px;line-height:1.65;color:#4b5563}
+.micro-card.full{grid-column:1/-1}
+.goal-card{display:grid;grid-template-columns:1fr 52px 1fr;gap:8px;align-items:center;padding:16px;border:1px solid var(--line);border-radius:20px;background:var(--soft)}
+.goal-side{text-align:center;font-size:17px;font-weight:950;line-height:1.45}
+.goal-plus{text-align:center;font-size:26px;font-weight:950;color:#6b7280}
+.threat-source{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.source-card{border-radius:18px;padding:16px 12px;text-align:center;border:1px solid var(--line);background:#fff}
+.source-card .icon{font-size:27px;margin-bottom:6px}.source-card b{font-size:17px}.source-card p{font-size:15px;line-height:1.55;color:#4b5563;margin:7px 0 0}
+.threat-list{display:grid;gap:8px}
+.threat-row{border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:#fff;display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:start}
+.threat-num{width:28px;height:28px;border-radius:9px;background:#111827;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900}
+.threat-copy b{font-size:16px;line-height:1.45}.threat-copy div{font-size:15px;line-height:1.6;color:#4b5563;margin-top:2px}
+.layer-stack{display:grid;gap:7px}
+.layer{border:1px solid var(--line);border-radius:14px;padding:12px 13px;background:#fff;font-size:16px;font-weight:850;line-height:1.5}
+.layer small{display:block;color:#6b7280;font-size:14px;font-weight:650;line-height:1.55;margin-top:3px}
+.endpoint-flow{display:grid;grid-template-columns:1fr 42px 1fr;gap:7px;align-items:center}
+.endpoint{border:1px solid var(--line);border-radius:17px;padding:14px 10px;text-align:center;background:#fff;font-size:15px;line-height:1.55;font-weight:850}
+.arrow{text-align:center;font-size:22px;color:#6b7280;font-weight:900}
+.control-grid{display:grid;gap:8px}
+.control-card{border:1px solid var(--line);border-radius:15px;padding:12px;background:#fff}
+.control-card b{font-size:16px;display:block;margin-bottom:4px}.control-card span{font-size:15px;line-height:1.6;color:#4b5563}
+.final-triad{display:grid;gap:8px}
+.final-pill{border:1px solid var(--line);border-radius:999px;padding:11px 14px;background:#fff;font-size:16px;font-weight:850;text-align:center;line-height:1.45}
+.source-note{font-size:13px;line-height:1.6;color:#6b7280;margin-top:10px;text-align:center}
+@media(max-width:360px){h1{font-size:28px}.micro-grid,.threat-source{grid-template-columns:1fr}.micro-card.full{grid-column:auto}.goal-card{grid-template-columns:1fr}.goal-plus{transform:rotate(90deg)}.endpoint-flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  title: "1.8 網路安全：安全性威脅與安全解決方案",
+  brand: "CCNA 通勤微課",
+  segments: [
+    {
+      eyebrow: "01 · 核心目標",
+      title: "網路安全不是只擋攻擊：還要維持服務品質",
+      lead: "影片先建立一個核心觀念：安全必須配合環境、工具與需求，在保護資料的同時，仍讓使用者取得期待的網路服務。",
+      time: "約 55 秒",
+      visualHtml: `<div class="goal-card"><div class="goal-side">保護資料<br>降低威脅</div><div class="goal-plus">＋</div><div class="goal-side">維持使用者<br>期待的服務品質</div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 網路安全要兼顧什麼？",
+          subtitle: "不看畫面也能跟上",
+          text: "網路安全是電腦網路不可缺少的一部分，不論是一個連上網際網路的家庭，還是有成千上萬名使用者的公司，都要考慮自己的環境、工具和需求。安全的目的不只是保護資料和減輕威脅，也要同時維持使用者所期待的網路服務品質。"
+        }
+      ],
+      panels: [
+        { title: "影片原文脈絡", kind: "note", body: "影片指出，保護網路涉及協定、技術、設備、工具和技能；威脅來源可能在外部，也可能在內部。現今許多外部網路安全威脅都源自網際網路。" }
+      ]
+    },
+    {
+      eyebrow: "02 · 威脅來源",
+      title: "外部威脅與內部威脅，都必須一起處理",
+      lead: "外部攻擊常從網際網路進來，但資料洩漏也可能由內部使用者、遺失或遭竊的裝置、誤用，甚至惡意員工造成。",
+      time: "約 55 秒",
+      visualHtml: `<div class="threat-source"><div class="source-card"><div class="icon">🌐</div><b>外部威脅</b><p>來源可在組織之外，許多威脅源自網際網路。</p></div><div class="source-card"><div class="icon">🏢</div><b>內部威脅</b><p>內部使用者、裝置遺失或遭竊、誤用或惡意員工都可能造成風險。</p></div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 為什麼不能只看外面？",
+          subtitle: "安全政策要同時看兩個方向",
+          text: "影片特別提醒，網路威脅不只來自外部。研究顯示，常見的資料洩漏也可能由網路內部使用者造成，例如裝置遺失或遭竊、員工意外誤用，甚至商業環境中的惡意員工。隨著 BYOD 策略演進，企業資料更容易受到攻擊，所以安全政策必須同時處理外部與內部威脅。"
+        }
+      ],
+      panels: [
+        { title: "BYOD 在本段扮演什麼角色？", kind: "why", body: "影片把 BYOD 策略演進放在內部威脅的脈絡中：裝置與資料使用情境增加後，企業資料更容易暴露於攻擊，因此不能只把防線放在網際網路邊界。" }
+      ]
+    },
+    {
+      eyebrow: "03 · 常見外部威脅",
+      title: "先記住七種常見外部威脅各自做什麼",
+      lead: "不要只背名稱；先把每一種威脅和它造成的結果連起來。",
+      time: "約 90 秒",
+      visualHtml: `<div class="threat-list">
+        <div class="threat-row"><div class="threat-num">1</div><div class="threat-copy"><b>病毒、蠕蟲和木馬程式</b><div>在使用者裝置上執行的惡意軟體或程式碼。</div></div></div>
+        <div class="threat-row"><div class="threat-num">2</div><div class="threat-copy"><b>間諜軟體和廣告軟體</b><div>安裝在使用者裝置上，偷偷收集有關使用者的資訊。</div></div></div>
+        <div class="threat-row"><div class="threat-num">3</div><div class="threat-copy"><b>零日攻擊</b><div>也稱零時攻擊，發生在漏洞變得已知的第一天。</div></div></div>
+        <div class="threat-row"><div class="threat-num">4</div><div class="threat-copy"><b>威脅行為者攻擊</b><div>惡意的人攻擊使用者設備或網路資源。</div></div></div>
+        <div class="threat-row"><div class="threat-num">5</div><div class="threat-copy"><b>阻斷服務攻擊</b><div>拖慢設備和程式的速度，或讓它們當機。</div></div></div>
+        <div class="threat-row"><div class="threat-num">6</div><div class="threat-copy"><b>資料攔截和盜竊</b><div>擷取來自組織網路的私密資訊。</div></div></div>
+        <div class="threat-row"><div class="threat-num">7</div><div class="threat-copy"><b>身份盜竊</b><div>竊取使用者登入憑證，以存取私密資料。</div></div></div>
+      </div>`,
+      quiz: {
+        prompt: "哪一種威脅的結果是『拖慢設備和程式的速度，或讓它們當機』？",
+        choices: [
+          { label: "A　間諜軟體和廣告軟體", correct: false },
+          { label: "B　阻斷服務攻擊", correct: true },
+          { label: "C　身份盜竊", correct: false }
+        ],
+        correctText: "✅ 對。影片把阻斷服務攻擊描述為會拖慢設備和程式，或使其當機。",
+        wrongText: "回想『可用性』受到影響的那一項：它會讓設備或程式變慢，甚至當機。"
+      },
+      audio: [
+        {
+          title: "總整理語音 · 七種威脅",
+          subtitle: "把名稱和作用配成一組",
+          text: "七種常見外部威脅可以這樣記。病毒、蠕蟲和木馬程式是在裝置上執行惡意程式碼；間諜軟體和廣告軟體會偷偷收集使用者資訊；零日攻擊發生在漏洞變得已知的第一天；威脅行為者會攻擊設備或網路資源；阻斷服務攻擊會拖慢設備和程式，或讓它們當機；資料攔截和盜竊會擷取組織網路的私密資訊；身份盜竊則竊取登入憑證來存取私密資料。"
+        }
+      ]
+    },
+    {
+      eyebrow: "04 · 防禦觀念",
+      title: "沒有單一解法：安全要在多個階層一起實作",
+      lead: "影片的關鍵原則是多層防護：一個安全元件若沒有辨識或保護成功，其他元件仍可能接手。",
+      time: "約 60 秒",
+      visualHtml: `<div class="layer-stack"><div class="layer">第 1 層 · 終端保護<small>在使用者裝置上降低惡意軟體感染。</small></div><div class="layer">第 2 層 · 網路邊界與流量過濾<small>封鎖未經授權的存取，控制進出流量。</small></div><div class="layer">第 3 層 · 企業級控制<small>以更細緻的防火牆、ACL、IPS、VPN 等元件一起運作。</small></div></div>`,
+      quiz: {
+        prompt: "為什麼影片主張使用多個安全解決方案，而不是只依賴一個元件？",
+        choices: [
+          { label: "A　因為一個元件若失敗，其他元件仍可能保護網路", correct: true },
+          { label: "B　因為每個安全元件都必須執行完全相同的工作", correct: false },
+          { label: "C　因為只有大型公司才需要網路安全", correct: false }
+        ],
+        correctText: "✅ 沒錯。影片明確指出：如果一個安全元件無法識別和保護網路，其他元件或許會成功。",
+        wrongText: "想想『多個階層』的目的：不是重複同一件事，而是避免單點失效。"
+      },
+      audio: [
+        {
+          title: "白話解釋 · 多層防護",
+          subtitle: "不要把全部希望放在一個設備上",
+          text: "沒有任何一種解決方案可以保護網路免於現有的各種威脅。因此，安全應該在多個階層中實作，使用多個安全解決方案。如果一個安全元件無法識別和保護網路，其他元件或許會成功。"
+        }
+      ]
+    },
+    {
+      eyebrow: "05 · 家用與小型辦公室",
+      title: "基本安全先做兩件事：保護終端，再過濾未授權存取",
+      lead: "影片把家用或小型辦公室的基本安全元件聚焦在防毒／反間諜軟體與防火牆過濾。",
+      time: "約 65 秒",
+      visualHtml: `<div class="endpoint-flow"><div class="endpoint">終端裝置<br><span style="font-weight:650;color:#6b7280">防毒＋反間諜軟體</span></div><div class="arrow">→</div><div class="endpoint">網路出入口<br><span style="font-weight:650;color:#6b7280">防火牆過濾</span></div></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 家用網路的基本做法",
+          subtitle: "先把最基本的兩層做好",
+          text: "家用網路安全實作通常相當基本。防毒和反間諜軟體有助於保護終端裝置免受惡意軟體感染；防火牆過濾則會封鎖進出網路的未經授權存取。影片也提到，這可以是主機上的基本防火牆系統，也可以是家用路由器上的基本過濾服務。"
+        }
+      ],
+      panels: [
+        { title: "影片另外提到的做法", kind: "note", body: "除了在終端設備上實作安全，也可以在連接到網際網路的網點實作，甚至依賴 ISP 提供的簽約服務。" }
+      ]
+    },
+    {
+      eyebrow: "06 · 企業網路",
+      title: "企業需要更細緻的流量控制、威脅辨識與遠端安全存取",
+      lead: "較大型的網路仍會使用防毒、反間諜程式和防火牆過濾，但還有四個影片特別列出的企業級元件。",
+      time: "約 80 秒",
+      visualHtml: `<div class="control-grid"><div class="control-card"><b>專用防火牆系統</b><span>提供更先進的防火牆功能，可更細微地過濾大量流量。</span></div><div class="control-card"><b>存取控制清單（ACL）</b><span>可基於 IP 位址和應用程式，進一步過濾存取和流量轉送。</span></div><div class="control-card"><b>入侵防禦系統（IPS）</b><span>可識別快速擴散的威脅，例如零時差攻擊。</span></div><div class="control-card"><b>虛擬私有網路（VPN）</b><span>為遠端工作者提供組織的安全存取。</span></div></div>`,
+      quiz: {
+        prompt: "哪個選項會為遠端工作者提供組織的安全存取？",
+        choices: [
+          { label: "A　專用防火牆系統", correct: false },
+          { label: "B　存取控制清單（ACL）", correct: false },
+          { label: "C　虛擬私有網路（VPN）", correct: true },
+          { label: "D　阻斷服務（DoS）", correct: false }
+        ],
+        correctText: "✅ 正確。影片把 VPN 定義為可為遠端工作者提供組織的安全存取。",
+        wrongText: "回想哪個元件專門出現在『遠端工作者』的描述中。"
+      },
+      audio: [
+        {
+          title: "白話解釋 · 四個企業級元件",
+          subtitle: "每個元件各解一種問題",
+          text: "企業網路通常由許多元件組成，這些元件可以一起監控和過濾流量。影片列出四個額外需求：專用防火牆系統可以更細微地過濾大量流量；存取控制清單，也就是 ACL，可以基於 IP 位址和應用程式進一步過濾存取和流量轉送；入侵防禦系統，也就是 IPS，可以識別快速擴散的威脅；虛擬私有網路，也就是 VPN，可以為遠端工作者提供組織的安全存取。"
+        }
+      ]
+    },
+    {
+      eyebrow: "07 · 收尾",
+      title: "安全解決方案必須跟著環境與網路趨勢調整",
+      lead: "最後不是再多背一個設備，而是記住設計安全時的三個判斷：環境、需求、變化。",
+      time: "約 50 秒",
+      visualHtml: `<div class="final-triad"><div class="final-pill">① 考量環境</div><div class="final-pill">② 同時保護資料與服務品質</div><div class="final-pill">③ 適應持續成長與變化的網路趨勢</div></div>`,
+      audio: [
+        {
+          title: "總複習語音",
+          subtitle: "下車前只記這三件事",
+          text: "這一課最後要帶走三件事。第一，威脅可能來自外部，也可能來自內部。第二，沒有單一安全元件可以處理所有威脅，所以要用多層安全解決方案。第三，安全需求必須考量環境、應用程式和運算需求，在保護資料的同時維持服務品質，而且安全方案要能適應不斷成長與不斷變化的網路趨勢。"
+        }
+      ],
+      panels: [
+        { title: "本課文字摘要", kind: "note", open: true, body: "威脅面：外部威脅有惡意程式、間諜／廣告軟體、零日攻擊、威脅行為者攻擊、阻斷服務、資料攔截與盜竊、身份盜竊；內部威脅同樣重要。防禦面：家用與小型辦公室可從終端保護與防火牆過濾做起；企業再加入專用防火牆、ACL、IPS、VPN 等元件，形成多層防護。" },
+        { title: "影片最後一句的方向", kind: "detail", body: "影片指出，研究網路安全威脅與緩解技術時，首先要明確了解用於組織網路服務的基本交換和路由基礎設備。" }
+      ]
+    }
+  ],
+
+  glossary: [
+    {
+      zh: "BYOD",
+      en: "BYOD",
+      explanation: "影片在內部威脅脈絡中指出，隨著 BYOD 策略演進，企業資料更容易受到攻擊，因此安全政策必須同時處理內部與外部威脅。",
+      audioText: "BYOD。影片在內部威脅脈絡中指出，隨著 BYOD 策略演進，企業資料更容易受到攻擊，因此安全政策必須同時處理內部與外部威脅。",
+      enAudioText: "BYOD"
+    },
+    {
+      zh: "阻斷服務攻擊",
+      en: "DoS",
+      explanation: "影片描述這類攻擊會拖慢設備和程式的速度，或使它們當機。",
+      audioText: "阻斷服務攻擊，影片的題目使用縮寫 DoS。這類攻擊會拖慢設備和程式的速度，或使它們當機。",
+      enAudioText: "DoS"
+    },
+    {
+      zh: "存取控制清單",
+      en: "ACL",
+      explanation: "可基於 IP 位址和應用程式，進一步過濾存取和流量轉送。",
+      audioText: "存取控制清單，縮寫是 ACL。它可基於 IP 位址和應用程式，進一步過濾存取和流量轉送。",
+      enAudioText: "ACL"
+    },
+    {
+      zh: "入侵防禦系統",
+      en: "IPS",
+      explanation: "可識別快速擴散的威脅；影片以零時差或零時差攻擊作為例子。",
+      audioText: "入侵防禦系統，縮寫是 IPS。它可識別快速擴散的威脅，影片以零時差或零時差攻擊作為例子。",
+      enAudioText: "IPS"
+    },
+    {
+      zh: "虛擬私有網路",
+      en: "VPN",
+      explanation: "可為遠端工作者提供組織的安全存取。",
+      audioText: "虛擬私有網路，縮寫是 VPN。它可為遠端工作者提供組織的安全存取。",
+      enAudioText: "VPN"
+    }
+  ],
+
+  termQuiz: [
+    {
+      question: "來源中提到，哪個策略演進會讓企業資料更容易受到攻擊？",
+      choices: [
+        { label: "BYOD", correct: true },
+        { label: "ACL", correct: false },
+        { label: "IPS", correct: false }
+      ],
+      correctText: "對。影片是在內部威脅的段落提到 BYOD 策略演進。",
+      wrongText: "回想內部威脅那段：它談到裝置與企業資料使用情境增加。"
+    },
+    {
+      question: "『阻斷服務攻擊』在影片測驗選項中使用哪個縮寫？",
+      choices: [
+        { label: "VPN", correct: false },
+        { label: "DoS", correct: true },
+        { label: "ACL", correct: false }
+      ],
+      correctText: "沒錯，影片測驗中寫作阻斷服務（DoS）。",
+      wrongText: "回想會拖慢設備或使其當機的那個威脅。"
+    },
+    {
+      question: "ACL 對應哪個中文名稱？",
+      choices: [
+        { label: "存取控制清單", correct: true },
+        { label: "入侵防禦系統", correct: false },
+        { label: "虛擬私有網路", correct: false }
+      ],
+      correctText: "對，ACL 就是存取控制清單。",
+      wrongText: "回想哪個元件可依 IP 位址和應用程式進一步過濾存取。"
+    },
+    {
+      question: "哪個縮寫對應『入侵防禦系統』？",
+      choices: [
+        { label: "IPS", correct: true },
+        { label: "ACL", correct: false },
+        { label: "VPN", correct: false }
+      ],
+      correctText: "正確，入侵防禦系統是 IPS。",
+      wrongText: "它是用來識別快速擴散威脅的企業級元件。"
+    },
+    {
+      question: "哪個縮寫對應『虛擬私有網路』？",
+      choices: [
+        { label: "DoS", correct: false },
+        { label: "VPN", correct: true },
+        { label: "IPS", correct: false }
+      ],
+      correctText: "對，虛擬私有網路是 VPN。",
+      wrongText: "回想哪個元件是為遠端工作者提供組織安全存取。"
+    }
+  ],
+
+  recallQuiz: [
+    {
+      question: "整堂課最核心的防禦原則是哪一個？",
+      choices: [
+        { label: "只要一台防火牆就足以處理所有威脅", correct: false },
+        { label: "使用多個安全解決方案，在多個階層實作防護", correct: true },
+        { label: "只處理來自網際網路的外部威脅", correct: false }
+      ],
+      correctText: "對。影片明確指出，沒有單一解法可防禦所有現有威脅，因此要在多個階層使用多個安全解決方案。",
+      wrongText: "回想：如果一個安全元件沒有成功，影片希望什麼來接手？"
+    },
+    {
+      question: "哪一項最符合影片對『身份盜竊』的描述？",
+      choices: [
+        { label: "竊取使用者登入憑證，以存取私密資料", correct: true },
+        { label: "偷偷收集使用者資訊的裝置軟體", correct: false },
+        { label: "拖慢設備和程式，或使其當機", correct: false }
+      ],
+      correctText: "正確。身份盜竊的關鍵是取得登入憑證，進而存取私密資料。",
+      wrongText: "把三個結果分開想：偷憑證、偷收集資訊、讓服務變慢，分別是哪一類？"
+    },
+    {
+      question: "家用或小型辦公室網路的兩個基本安全元件是什麼？",
+      choices: [
+        { label: "防毒／反間諜軟體，加上防火牆過濾", correct: true },
+        { label: "只有 VPN", correct: false },
+        { label: "只有 ACL 與 IPS", correct: false }
+      ],
+      correctText: "對。影片先從終端的防毒／反間諜軟體，再到封鎖未授權存取的防火牆過濾。",
+      wrongText: "回想家用網路那一段：一個保護終端，一個控制網路出入口。"
+    },
+    {
+      question: "哪個企業級元件可基於 IP 位址和應用程式進一步過濾存取和流量轉送？",
+      choices: [
+        { label: "ACL", correct: true },
+        { label: "VPN", correct: false },
+        { label: "DoS", correct: false }
+      ],
+      correctText: "沒錯，就是存取控制清單 ACL。",
+      wrongText: "它的名稱本身就包含『存取控制』四個字。"
+    },
+    {
+      question: "安全設計除了保護資料，還要同時顧到什麼？",
+      choices: [
+        { label: "使用者所期待的網路服務品質", correct: true },
+        { label: "讓所有流量完全停止", correct: false },
+        { label: "只追求安全設備數量越多越好", correct: false }
+      ],
+      correctText: "正確。影片一開始就把『資料安全』與『使用者期待的網路服務品質』放在一起。",
+      wrongText: "回到第一段：安全不能讓網路失去原本要提供的服務。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

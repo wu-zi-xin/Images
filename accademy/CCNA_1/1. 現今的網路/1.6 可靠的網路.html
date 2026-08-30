@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:30px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:17px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:16px;line-height:1.8;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:16px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:16px;line-height:1.8;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:16px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:16px;line-height:1.7}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:20px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:16px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:16px;line-height:1.8;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:16px;line-height:1.8;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:16px;line-height:1.7;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:16px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:16px;line-height:1.7}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:28px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  title: "1.6 可靠的網路",
+  brand: "CCNA 通勤微課",
+  segments: [
+    {
+      eyebrow: "01 · 網路架構",
+      title: "可靠網路，要同時顧好四件事",
+      lead: "網路架構要能支撐人員、裝置、資訊與各種應用服務，並隨需求成長。",
+      time: "約 55 秒",
+      visualHtml: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+        <div class="callout" style="text-align:center"><b>容錯</b><br><span style="font-size:16px">故障時仍能繼續</span></div>
+        <div class="callout" style="text-align:center"><b>可延展性</b><br><span style="font-size:16px">成長時維持效能</span></div>
+        <div class="callout" style="text-align:center"><b>服務品質</b><br><span style="font-size:16px">重要流量有優先順序</span></div>
+        <div class="callout" style="text-align:center"><b>安全性</b><br><span style="font-size:16px">保護設備與資訊</span></div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 先抓整課地圖",
+          subtitle: "四個特性就是本課主線",
+          text: "可靠的網路不是只看連線有沒有存在。隨著網路連接更多人、裝置與服務，網路架構必須建立在標準之上，並同時處理四個基本特性：容錯、可延展性、服務品質，也就是 QoS，以及安全性。後面就依序看這四件事。"
+        }
+      ],
+      panels: [
+        { title: "網路架構在本課指什麼？", kind: "note", body: "影片將「網路架構」描述為支援基礎設施與程式設計服務、規則或通訊協定，讓資料能在網路上移動的技術。重點不是某一台設備，而是整體網路如何被設計與運作。" }
+      ]
+    },
+    {
+      eyebrow: "02 · 容錯",
+      title: "一條路壞了，資料要能換另一條路",
+      lead: "容錯的核心，是限制故障影響的裝置數目，並讓服務可以快速恢復。",
+      time: "約 70 秒",
+      visualHtml: `<div class="callout" style="font-size:16px">
+        <div style="font-weight:900;margin-bottom:8px">目的地</div>
+        <div style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+          <span style="padding:8px 10px;border:1px solid #d1d5db;border-radius:999px">路徑 A ✕</span>
+          <span>→</span>
+          <span style="padding:8px 10px;border:1px solid #d1d5db;border-radius:999px"><b>備援路徑 B ✓</b></span>
+        </div>
+        <div style="margin-top:10px">某條路徑失效時，訊息改走不同鏈路。</div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 容錯怎麼做到？",
+          subtitle: "關鍵是多條可用路徑",
+          text: "容錯網路會限制故障期間受到影響的裝置數目，並允許服務快速恢復。做法之一，是讓訊息來源到目的地之間存在多個路徑。某一條路徑失效時，訊息可以立刻改走其他鏈路；這種多個路徑到同一目的地的設計，就叫做備援。"
+        },
+        {
+          title: "再理解一次 · 封包交換",
+          subtitle: "同一段訊息不必綁死同一條路",
+          alt: true,
+          text: "影片也用封包交換說明容錯。訊息會被分割成封包，每個封包都包含來源與目的地資訊。路由器會依當時的網路狀況轉送封包，因此不同封包可以經過不同路徑抵達相同目的地。"
+        }
+      ],
+      panels: [
+        { title: "為什麼備援很重要？", kind: "why", body: "如果只有單一路徑，該路徑失效就會直接中斷通訊；有備援時，故障可以被繞過，讓使用者受到的影響降低。" }
+      ]
+    },
+    {
+      eyebrow: "03 · 可延展性",
+      title: "網路變大，不該拖慢原本的使用者",
+      lead: "可延展性是把新使用者與新應用加入既有網路，同時維持既有服務的效能。",
+      time: "約 55 秒",
+      visualHtml: `<div class="bigmath" style="font-size:22px;line-height:1.55;letter-spacing:0">既有網路<br>＋ 新使用者／新網段<br>＝ <b>維持既有效能</b></div>`,
+      audio: [
+        {
+          title: "白話解釋 · 可延展不是重做一次",
+          subtitle: "成長時仍能沿用既有設計",
+          text: "可延展的網路可以快速擴充，以支援新的使用者和應用程式，而且不會降低現有使用者所取得服務的效能。影片特別指出，遵循公認的標準和協定，可以讓軟體與硬體廠商專注在產品和服務，而不必每次擴充都重新設計一套新的規則。"
+        }
+      ],
+      panels: [
+        { title: "判斷口訣", kind: "note", body: "看到「加入更多使用者、更多裝置或新網段，但現有使用者效能不要下降」，就把它連到 <strong>可延展性</strong>。" }
+      ],
+      quiz: {
+        prompt: "設計師遵循公認標準與協定，最直接支援哪一個基本特性？",
+        choices: [
+          { label: "A　容錯", correct: false },
+          { label: "B　可延展性", correct: true },
+          { label: "C　服務品質（QoS）", correct: false },
+          { label: "D　安全性", correct: false }
+        ],
+        correctText: "✅ 對。影片把公認標準與協定直接連到可延展性：網路可擴充而不必重新發明規則。",
+        wrongText: "提示：想想『網路要長大，但不用重新設計一套規則』是哪個特性。"
+      }
+    },
+    {
+      eyebrow: "04 · 服務品質",
+      title: "壅塞時，不是所有流量都一樣急",
+      lead: "QoS 讓網路能依流量與組織需求，管理傳輸的優先順序。",
+      time: "約 75 秒",
+      visualHtml: `<div style="display:grid;gap:9px">
+        <div class="callout" style="font-size:16px"><b>IP 語音（VoIP）</b><br>需要優先考慮，維持流暢、不間斷的通話體驗。</div>
+        <div class="callout" style="font-size:16px"><b>一般網頁流量</b><br>在壅塞時可以接受較低的優先順序。</div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · QoS 在解什麼問題？",
+          subtitle: "需求超過容量時，決定誰先走",
+          text: "服務品質，也就是 QoS，是現代網路的重要需求。當頻寬需求超過可用容量時，就會發生壅塞。網路可以利用 QoS 機制管理流量，讓不同類型的通訊得到不同優先順序；影片的例子是，IP 語音通話需要優先考慮，而一般網頁通訊可以接受較低的優先順序。"
+        }
+      ],
+      panels: [
+        { title: "頻寬與壅塞", kind: "detail", body: "影片以每秒可傳輸的位元數來描述頻寬，常用單位是 bps。當同時通訊造成需求超過可用頻寬，就可能形成網路壅塞。" },
+        { title: "為什麼語音要優先？", kind: "why", body: "影片強調即時語音需要流暢、不間斷的使用者體驗，因此在壅塞時比一般網頁流量更需要被優先處理。" }
+      ]
+    },
+    {
+      eyebrow: "05 · 網路安全",
+      title: "先保護網路設備，再保護設備上的管理軟體",
+      lead: "網路基礎架構本身就是重要資產，不能讓未經授權的人取得控制權。",
+      time: "約 60 秒",
+      visualHtml: `<div class="callout" style="font-size:16px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:center">
+          <div style="padding:10px;border:1px solid #e5e7eb;border-radius:12px"><b>實體設備</b><br>防止未授權存取</div>
+          <div style="padding:10px;border:1px solid #e5e7eb;border-radius:12px"><b>管理軟體</b><br>防止未授權控制</div>
+        </div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 基礎架構安全",
+          subtitle: "設備和管理面都要保護",
+          text: "網路基礎架構、伺服器與連接裝置上的資料，都是重要的個人或企業資產。影片把網路安全分成兩類問題：網路基礎架構安全，以及資訊安全。保護基礎架構時，要保護提供網路連線的裝置，也要防止未經授權的人存取設備上的管理軟體。"
+        }
+      ],
+      panels: [
+        { title: "安全性不只是在防資料外洩", kind: "why", body: "本段先處理的是網路設備與管理面的安全；下一段才聚焦封包與儲存在網路裝置上的資訊。" }
+      ]
+    },
+    {
+      eyebrow: "06 · 資訊安全",
+      title: "資訊安全的三個要求：機密、完整、可用",
+      lead: "除了設備，網路管理員也要保護傳輸中的封包與儲存在連接裝置上的資訊。",
+      time: "約 70 秒",
+      visualHtml: `<div style="display:grid;gap:9px">
+        <div class="callout" style="font-size:16px"><b>機密性</b>：只有預期且授權的收件者可以存取與讀取資料。</div>
+        <div class="callout" style="font-size:16px"><b>完整性</b>：資料從來源到目的地傳輸時沒有被修改。</div>
+        <div class="callout" style="font-size:16px"><b>可用性</b>：授權使用者能及時、可靠地存取獲准使用的資料。</div>
+      </div>`,
+      audio: [
+        {
+          title: "白話解釋 · 三個安全目標",
+          subtitle: "把三個詞和定義一起記",
+          text: "資訊安全在本課有三個主要要求。第一是機密性，表示只有預期而且被授權的收件者可以存取與讀取資料。第二是完整性，表示資料從來源傳到目的地時沒有被修改。第三是可用性，表示被授權的使用者可以及時而且可靠地存取獲准使用的資料。"
+        }
+      ],
+      quiz: {
+        prompt: "機密性、完整性、可用性，屬於哪一個基本特性的要求？",
+        choices: [
+          { label: "A　容錯", correct: false },
+          { label: "B　可延展性", correct: false },
+          { label: "C　服務品質（QoS）", correct: false },
+          { label: "D　安全性", correct: true }
+        ],
+        correctText: "✅ 沒錯。這三項都是影片列出的網路安全要求。",
+        wrongText: "提示：這三個詞都在 1.6.5 網路安全的資訊安全段落裡。"
+      }
+    }
+  ],
+
+  glossary: [
+    {
+      zh: "容錯",
+      en: "Fault Tolerance",
+      explanation: "限制故障影響範圍，並讓網路在失效時能快速恢復或改走其他可用路徑。",
+      audioText: "容錯，英文是 Fault Tolerance。它的重點是限制故障影響範圍，並讓網路在失效時能快速恢復或改走其他可用路徑。",
+      enAudioText: "Fault Tolerance"
+    },
+    {
+      zh: "備援",
+      en: "Redundancy",
+      explanation: "來源到同一目的地存在多個路徑；其中一條失效時，可以改走其他路徑。",
+      audioText: "備援，英文是 Redundancy。它表示來源到同一目的地存在多個路徑，其中一條失效時，可以改走其他路徑。",
+      enAudioText: "Redundancy"
+    },
+    {
+      zh: "封包交換",
+      en: "Packet Switching",
+      explanation: "訊息被分成封包，路由器依當時網路狀況轉送；不同封包可以走不同路徑。",
+      audioText: "封包交換，英文是 Packet Switching。訊息會被分成封包，路由器依當時網路狀況轉送，不同封包可以走不同路徑。",
+      enAudioText: "Packet Switching"
+    },
+    {
+      zh: "可延展性",
+      en: "Scalability",
+      explanation: "加入新的使用者和應用程式時，仍維持現有使用者取得服務的效能。",
+      audioText: "可延展性，英文是 Scalability。它表示加入新的使用者和應用程式時，仍能維持現有使用者取得服務的效能。",
+      enAudioText: "Scalability"
+    },
+    {
+      zh: "服務品質",
+      en: "Quality of Service (QoS)",
+      explanation: "在網路流量競爭時，依通訊類型與組織需求管理傳輸優先順序。",
+      audioText: "服務品質，英文是 Quality of Service，縮寫 QoS。它在網路流量競爭時，依通訊類型與組織需求管理傳輸優先順序。",
+      enAudioText: "Quality of Service, Q O S"
+    },
+    {
+      zh: "頻寬",
+      en: "Bandwidth",
+      explanation: "影片以每秒可傳輸的位元數來描述網路可用的傳輸容量，常見單位是 bps。",
+      audioText: "頻寬，英文是 Bandwidth。影片以每秒可傳輸的位元數來描述網路可用的傳輸容量，常見單位是 bps。",
+      enAudioText: "Bandwidth"
+    },
+    {
+      zh: "網路壅塞",
+      en: "Network Congestion",
+      explanation: "當頻寬需求超過可用容量時出現的狀況，QoS 可用來管理此時的流量優先順序。",
+      audioText: "網路壅塞，英文是 Network Congestion。當頻寬需求超過可用容量時就可能發生，QoS 可以用來管理這時的流量優先順序。",
+      enAudioText: "Network Congestion"
+    },
+    {
+      zh: "IP 語音",
+      en: "Voice over IP (VoIP)",
+      explanation: "影片中的即時語音例子；在壅塞時通常需要較高優先順序，以維持流暢通話。",
+      audioText: "IP 語音，英文是 Voice over IP，縮寫 VoIP。影片用它當成即時語音流量的例子，在壅塞時通常需要較高優先順序，以維持流暢通話。",
+      enAudioText: "Voice over IP, VoIP"
+    },
+    {
+      zh: "機密性",
+      en: "Confidentiality",
+      explanation: "只有預期且授權的收件者可以存取與讀取資料。",
+      audioText: "機密性，英文是 Confidentiality。它表示只有預期而且被授權的收件者可以存取與讀取資料。",
+      enAudioText: "Confidentiality"
+    },
+    {
+      zh: "完整性",
+      en: "Integrity",
+      explanation: "確保資料從來源到目的地傳輸時沒有被修改。",
+      audioText: "完整性，英文是 Integrity。它表示資料從來源到目的地傳輸時沒有被修改。",
+      enAudioText: "Integrity"
+    },
+    {
+      zh: "可用性",
+      en: "Availability",
+      explanation: "確保授權使用者可以及時、可靠地存取獲准使用的資料。",
+      audioText: "可用性，英文是 Availability。它表示授權使用者可以及時而且可靠地存取獲准使用的資料。",
+      enAudioText: "Availability"
+    }
+  ],
+
+  termQuiz: [
+    {
+      question: "「容錯」的英文名稱是哪一個？",
+      choices: [
+        { label: "Scalability", correct: false },
+        { label: "Fault Tolerance", correct: true },
+        { label: "Availability", correct: false }
+      ],
+      correctText: "對，容錯就是 Fault Tolerance。",
+      wrongText: "回想：容錯描述的是故障發生後仍能維持或恢復服務。"
+    },
+    {
+      question: "Redundancy 對應哪一個中文專有名詞？",
+      choices: [
+        { label: "備援", correct: true },
+        { label: "頻寬", correct: false },
+        { label: "完整性", correct: false }
+      ],
+      correctText: "沒錯，Redundancy 就是備援，多條路徑是它的典型樣子。",
+      wrongText: "提示：一條路失效時，還有另一條路可以走。"
+    },
+    {
+      question: "『訊息切成封包，不同封包可依網路狀況走不同路徑』是哪個術語？",
+      choices: [
+        { label: "封包交換", correct: true },
+        { label: "服務品質", correct: false },
+        { label: "可用性", correct: false }
+      ],
+      correctText: "對，這就是封包交換 Packet Switching。",
+      wrongText: "回想容錯段落：每個封包都有來源與目的地資訊。"
+    },
+    {
+      question: "Scalability 對應哪一個中文名稱？",
+      choices: [
+        { label: "安全性", correct: false },
+        { label: "可延展性", correct: true },
+        { label: "容錯", correct: false }
+      ],
+      correctText: "對，Scalability 是可延展性。",
+      wrongText: "提示：加入更多使用者仍維持原有效能。"
+    },
+    {
+      question: "Quality of Service 的常用縮寫是哪一個？",
+      choices: [
+        { label: "QoS", correct: true },
+        { label: "bps", correct: false },
+        { label: "VoIP", correct: false }
+      ],
+      correctText: "對，Quality of Service 縮寫 QoS。",
+      wrongText: "回想：這個機制負責管理流量優先順序。"
+    },
+    {
+      question: "Bandwidth 對應哪一個中文術語？",
+      choices: [
+        { label: "頻寬", correct: true },
+        { label: "壅塞", correct: false },
+        { label: "備援", correct: false }
+      ],
+      correctText: "沒錯，Bandwidth 就是頻寬。",
+      wrongText: "提示：影片用每秒傳輸位元數來描述它。"
+    },
+    {
+      question: "『需求超過可用頻寬容量』最接近哪個術語？",
+      choices: [
+        { label: "Network Congestion", correct: true },
+        { label: "Packet Switching", correct: false },
+        { label: "Redundancy", correct: false }
+      ],
+      correctText: "對，這是 Network Congestion，網路壅塞。",
+      wrongText: "提示：QoS 常在這種流量競爭狀況下發揮作用。"
+    },
+    {
+      question: "VoIP 的完整英文名稱是哪一個？",
+      choices: [
+        { label: "Voice over IP", correct: true },
+        { label: "Value of Internet Path", correct: false },
+        { label: "Virtual over Internet Protocol", correct: false }
+      ],
+      correctText: "對，VoIP 是 Voice over IP。",
+      wrongText: "提示：影片把它當成需要優先考慮的即時語音流量。"
+    },
+    {
+      question: "『只有預期且授權的收件者可以讀取資料』是哪個安全要求？",
+      choices: [
+        { label: "機密性 Confidentiality", correct: true },
+        { label: "完整性 Integrity", correct: false },
+        { label: "可用性 Availability", correct: false }
+      ],
+      correctText: "對，這是在說機密性 Confidentiality。",
+      wrongText: "提示：關鍵字是『誰可以看』。"
+    },
+    {
+      question: "Integrity 對應哪一個中文安全要求？",
+      choices: [
+        { label: "機密性", correct: false },
+        { label: "完整性", correct: true },
+        { label: "可用性", correct: false }
+      ],
+      correctText: "對，Integrity 是完整性，重點是資料沒有被修改。",
+      wrongText: "提示：想『資料內容有沒有被改掉』。"
+    },
+    {
+      question: "『授權使用者能及時、可靠地存取資料』是哪個安全要求？",
+      choices: [
+        { label: "Confidentiality", correct: false },
+        { label: "Integrity", correct: false },
+        { label: "Availability", correct: true }
+      ],
+      correctText: "對，這是 Availability，可用性。",
+      wrongText: "提示：關鍵字是『需要時能不能取得』。"
+    }
+  ],
+
+  recallQuiz: [
+    {
+      question: "當設計師遵循公認的標準和協定，網路架構的哪一個基本特性最直接得到支援？",
+      choices: [
+        { label: "容錯", correct: false },
+        { label: "可延展性", correct: true },
+        { label: "QoS", correct: false },
+        { label: "安全性", correct: false }
+      ],
+      correctText: "對。影片說明公認的標準與協定讓網路更容易擴充，不必重新設計一套規則。",
+      wrongText: "提示：想『加入更多使用者與應用，但維持既有效能』。"
+    },
+    {
+      question: "機密性、完整性和可用性，是網路架構哪一個基本特性的要求？",
+      choices: [
+        { label: "容錯", correct: false },
+        { label: "可延展性", correct: false },
+        { label: "QoS", correct: false },
+        { label: "安全性", correct: true }
+      ],
+      correctText: "沒錯。這三個要求都屬於影片的網路安全內容。",
+      wrongText: "提示：它們分別在回答誰能讀、資料有沒有被改、需要時能不能取得。"
+    },
+    {
+      question: "路由器要在網路壅塞時優先處理語音通訊，應使用哪一類策略？",
+      choices: [
+        { label: "容錯", correct: false },
+        { label: "可延展性", correct: false },
+        { label: "QoS", correct: true },
+        { label: "安全性", correct: false }
+      ],
+      correctText: "對。QoS 用來管理不同流量的優先順序，影片以 VoIP 與一般網頁流量作比較。",
+      wrongText: "提示：題目問的是『壅塞時誰先走』。"
+    },
+    {
+      question: "具有多個路徑到同一目的地，被稱為備援；這最直接是哪一個基本特性的例子？",
+      choices: [
+        { label: "容錯", correct: true },
+        { label: "可延展性", correct: false },
+        { label: "QoS", correct: false },
+        { label: "安全性", correct: false }
+      ],
+      correctText: "對。備援路徑讓某一路徑失效時仍可改走其他路徑，是容錯設計。",
+      wrongText: "提示：想『一條路壞掉，資料還能到目的地』。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>通勤微課｜可變段落模板</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17191f;--muted:#6b7280;--line:#e6e8ec;--dark:#111827;--soft:#f8fafc;--shadow:0 18px 50px rgba(15,23,42,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Roboto,Arial,sans-serif}button{font:inherit}.page{max-width:470px;margin:0 auto;padding:16px 12px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 4px 12px}.brand{font-size:14px;font-weight:900;min-width:0}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.mode,.chapter-toggle{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:7px 10px;border-radius:999px}.chapter-toggle{cursor:pointer;color:var(--ink);font-weight:850}.chapter-toggle[aria-expanded="true"]{background:#111827;color:#fff;border-color:#111827}.shell{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.progress-wrap{padding:15px 18px 0}.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.track{height:6px;background:#eceef2;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--dark);width:0;transition:.3s}.chapter-nav{display:none;margin:12px 18px 0;padding:8px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}.chapter-nav.open{display:block}.chapter-nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 8px}.chapter-nav-title{font-size:13px;font-weight:900}.chapter-nav-count{font-size:11px;color:var(--muted)}.chapter-list{display:grid;gap:6px}.chapter-item{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px;cursor:pointer;color:var(--ink)}.chapter-item:hover{background:#fff}.chapter-item.active{background:#fff;border-color:#d7dbe2}.chapter-num{width:28px;height:28px;border-radius:9px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.chapter-item.active .chapter-num{background:#111827;color:#fff}.chapter-copy{min-width:0}.chapter-kicker{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:2px}.chapter-name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere}.screen{padding:23px 19px 18px;min-height:640px;display:flex;flex-direction:column}.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:900;margin-bottom:13px}h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.02em}.lead{font-size:16px;line-height:1.65;color:#374151;margin:0 0 17px}.visual{margin:6px 0 14px}.bigmath{font-variant-numeric:tabular-nums;text-align:center;font-weight:950;font-size:36px;letter-spacing:.04em;padding:20px 10px;background:var(--soft);border:1px solid var(--line);border-radius:20px}.callout{padding:12px 13px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.65;color:#4b5563}.audio-stack{display:grid;gap:8px;margin:5px 0 12px}.audio{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;background:var(--dark);color:#fff;padding:11px;border-radius:17px}.audio.alt{background:#eef2ff;color:#1f2937;border:1px solid #dbe3ff}.play{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:#fff;color:#111827;font-weight:900}.alt .play{background:#111827;color:#fff}.audio-title{font-weight:850;font-size:13px;margin-bottom:2px}.audio-sub{font-size:11.5px;color:#cbd5e1}.alt .audio-sub{color:#64748b}.inline-transcript{grid-column:1/-1;margin-top:2px;padding:10px 11px 2px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;line-height:1.75;color:#e5e7eb}.alt .inline-transcript{border-top-color:#dbe3ff;color:#334155}.inline-transcript::before{content:"文字稿";display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.assist{border-top:1px solid var(--line);margin-top:3px;padding-top:8px}.assist-label{font-size:12px;font-weight:900;color:var(--muted);margin:4px 0 8px}.panel{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:8px;overflow:hidden}.panel summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:14px;font-weight:850;display:flex;align-items:center;justify-content:space-between}.panel summary::-webkit-details-marker{display:none}.panel summary::after{content:'＋';color:#9ca3af;font-size:18px}.panel[open] summary::after{content:'－'}.panel-body{padding:0 13px 13px;font-size:14px;line-height:1.72;color:#374151}.panel.why{background:#fffbeb}.panel.detail{background:#eff6ff}.panel.note{background:#f8fafc}.quiz{display:grid;gap:9px;margin:8px 0 12px}.choice{border:1px solid var(--line);background:#fff;border-radius:15px;text-align:left;padding:14px 15px;font-size:15px;font-weight:800;cursor:pointer}.choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.feedback{display:none;padding:11px 13px;border-radius:13px;background:#f8fafc;font-size:14px;line-height:1.6}.feedback.show{display:block}.footer{margin-top:auto;padding-top:15px;display:flex;gap:9px}.btn{flex:1;border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer}.secondary{background:#f3f4f6;color:#1f2937}.primary{background:#111827;color:#fff}.btn:disabled{opacity:.35}.tiny{text-align:center;color:var(--muted);font-size:11.5px;margin-top:10px}.empty{padding:28px 16px;text-align:center;color:var(--muted);line-height:1.7}.term-grid{display:grid;gap:10px;margin:8px 0 12px}.term-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px}.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.term-zh{font-size:18px;font-weight:950}.term-en-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}.term-en{font-size:12px;color:var(--muted)}.term-en-play{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111827;padding:0;font-size:11px;font-weight:900;cursor:pointer;flex:0 0 24px;line-height:1}.term-play{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#111827;color:#fff;padding:0;font-size:16px;font-weight:900;cursor:pointer;flex:0 0 40px;line-height:1}.term-exp{font-size:14px;line-height:1.7;color:#374151;margin-top:10px}.term-transcript{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.75;color:#4b5563}.term-transcript::before{content:'語音逐字稿';display:block;font-size:10.5px;letter-spacing:.08em;font-weight:900;color:#9ca3af;margin-bottom:4px}.recall-score{font-size:13px;color:var(--muted);margin:2px 0 12px}.recall-item{border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:11px;background:#fff}.recall-q{font-weight:900;font-size:15px;line-height:1.55;margin-bottom:9px}.recall-options{display:grid;gap:7px}.recall-choice{border:1px solid var(--line);background:#fff;border-radius:13px;text-align:left;padding:11px 12px;font-size:14px;font-weight:750;cursor:pointer}.recall-choice.correct{border-color:#99f6e4;background:#ecfdf5;color:#065f46}.recall-choice.wrong{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.recall-feedback{display:none;margin-top:8px;padding:9px 10px;border-radius:11px;background:#f8fafc;font-size:13px;line-height:1.55}.recall-feedback.show{display:block}.section-kicker{font-size:12px;color:var(--muted);font-weight:900;margin-bottom:10px}@media(max-width:360px){h1{font-size:24px}.screen{min-height:620px}.bigmath{font-size:31px}.audio-title{font-size:12px}.mode{display:none}.topbar{align-items:flex-start}}
+
+/* ===== 本課依「通勤大字舒適版」規格覆寫 ===== */
+h1{font-size:30px;line-height:1.22}
+.lead{font-size:17px;line-height:1.75}
+.inline-transcript{font-size:16px;line-height:1.8}
+.panel-body{font-size:16px;line-height:1.8}
+.term-exp,.term-transcript{font-size:16px;line-height:1.8}
+.choice,.recall-q,.recall-choice{font-size:16px;line-height:1.6}
+.callout{font-size:16px;line-height:1.75}
+.choice{min-height:52px}.recall-choice{min-height:48px}.btn{min-height:48px}
+.play,.term-play{width:44px;height:44px}.audio{grid-template-columns:44px 1fr}
+.term-en-play{width:32px;height:32px;flex-basis:32px;font-size:13px}
+.screen{min-height:680px}
+.micro-card,.world-flow,.cloud-box,.edu-flow,.takeaway-list{border:1px solid var(--line);background:var(--soft);border-radius:20px;padding:16px}
+.micro-label{font-size:13px;font-weight:900;color:var(--muted);text-align:center;margin-bottom:9px}
+.pill-row{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}.pill-row span{background:#fff;border:1px solid var(--line);padding:9px 11px;border-radius:999px;font-size:16px;font-weight:850}
+.micro-arrow{text-align:center;color:var(--muted);font-size:14px;font-weight:850;margin:12px 0}
+.hero-pill{background:#111827;color:#fff;border-radius:16px;padding:14px 16px;text-align:center;font-size:20px;font-weight:950}
+.world-flow{display:grid;gap:8px;text-align:center}.world-node{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;font-size:17px;font-weight:900}.world-node.wide{font-size:16px}.world-line{font-size:14px;color:var(--muted);font-weight:900}
+.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.impact-grid div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px;text-align:center;font-size:17px;font-weight:900}.flow-strip{margin-top:10px;display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap;background:#f8fafc;border:1px solid var(--line);padding:12px;border-radius:14px;font-size:14px}.flow-strip span{color:var(--muted)}
+.cloud-box{text-align:center}.cloud-title{font-size:28px;font-weight:950}.cloud-copy{margin-top:7px;font-size:16px;line-height:1.6}.location-row{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:10px}.location-row span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 11px;font-size:15px;font-weight:850}
+.edu-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:stretch}.edu-step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:4px}.edu-step b{font-size:15px}.edu-step small{font-size:12px;line-height:1.45;color:var(--muted)}.edu-arrow{display:flex;align-items:center;font-size:17px;color:var(--muted);font-weight:900}
+.takeaway-list{display:grid;gap:9px}.takeaway-list div{display:grid;grid-template-columns:88px 1fr;gap:8px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.takeaway-list b{font-size:16px}.takeaway-list span{font-size:16px;line-height:1.6;color:#374151}
+@media(max-width:390px){.edu-flow{grid-template-columns:1fr}.edu-arrow{justify-content:center;transform:rotate(90deg)}.takeaway-list div{grid-template-columns:76px 1fr}h1{font-size:28px}}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><div class="brand" id="brand">通勤微課 Template</div><div class="top-actions"><div class="mode">🎧 語音＋同步逐字稿</div><button type="button" class="chapter-toggle" id="chapterToggle" aria-expanded="false" aria-controls="chapterNav">段落</button></div></div>
+  <main class="shell">
+    <div class="progress-wrap"><div class="progress-row"><span id="stepLabel"></span><span id="timeLabel"></span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="課程段落導覽"><div class="chapter-nav-head"><div class="chapter-nav-title">跳到某一段</div><div class="chapter-nav-count" id="chapterNavCount"></div></div><div class="chapter-list" id="chapterList"></div></nav>
+    <div id="lessonRoot"></div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   通勤微課內容模板
+
+   核心原則：
+   1. segments 沒有固定數量。依影片真正的「學習單元」決定。
+   2. 不要為了湊段落而切段，也不要把兩個需要獨立理解的概念硬塞同一段。
+   3. 每段 audio[].text 同時是「語音內容」與「逐字文字稿」的唯一來源，
+      因此語音唸的字與畫面文字必定一致。
+   4. audio、panels、quiz、visualHtml 都是可選的；內容需要才放。
+   5. glossary 是課程結尾的專有名詞整理，可選、數量不限；每個術語提供中英對照、白話解釋與語音逐字稿。
+   6. termQuiz 緊接在專有名詞後面，專門幫助記熟術語；至少讓每個重要術語被考到一次。
+   7. terminology 的 en 欄位後面可顯示獨立英文發音按鈕；若提供 enAudioText，英文按鈕優先播放它。
+      題型可輪替「中→英」「英→中」「解釋→名詞」，題數依術語數量決定，太多時自動分頁。
+   7. recallQuiz 是最後的整課回想測驗，可選、題數不固定；依課程真正需要記住的重點決定。
+   8. time 只是估計，不要求每段等長。
+   9. 段落導覽會依實際內容自動產生，使用者可從任何位置直接跳到指定段落。
+   ============================================================ */
+
+const COURSE = {
+  "title": "1.1 網路影響我們的生活",
+  "brand": "CCNA 通勤微課",
+  "segments": [
+    {
+      "eyebrow": "01 · 為什麼要連線",
+      "title": "通訊幾乎和基本生存需求一樣重要",
+      "lead": "先抓住這堂課的起點：人不只需要生存，也需要與他人互動與溝通。",
+      "time": "約 60 秒",
+      "visualHtml": "\n        <div class=\"micro-card\">\n          <div class=\"micro-label\">維持生命</div>\n          <div class=\"pill-row\"><span>空氣</span><span>水</span><span>食物</span><span>住所</span></div>\n          <div class=\"micro-arrow\">↓ 接近同等重要</div>\n          <div class=\"hero-pill\">與他人通訊</div>\n        </div>\n      ",
+      "audio": [
+        {
+          "title": "白話解釋 · 這堂課從哪裡開始？",
+          "subtitle": "不看畫面也能跟上",
+          "text": "影片先把通訊放在人類需求的脈絡裡理解。空氣、水、食物和住所是維持生命的基本需求，而與他人互動和通訊也非常重要。這就是後面要談網路的原因：網路的價值，不只是連接設備，而是讓人可以更容易地彼此連結。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "原始內容在強調什麼？",
+          "kind": "why",
+          "body": "影片的 1.1.1 先比較『維持生命』與『與他人互動』兩類需求，再指出通訊對我們幾乎同樣重要。這一段的重點不是替需求排名，而是建立一個直覺：人需要連結，因此網路會深刻影響生活。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "02 · 網路把距離縮短",
+      "title": "網路讓溝通變得即時，也讓遠方的人更容易連在一起",
+      "lead": "想法、新聞與朋友，不再一定要被地理距離隔開。",
+      "time": "約 70 秒",
+      "visualHtml": "\n        <div class=\"world-flow\">\n          <div class=\"world-node\">有想法的人</div>\n          <div class=\"world-line\">立即通訊</div>\n          <div class=\"world-node\">另一端的人</div>\n          <div class=\"world-line\">幾秒內傳開</div>\n          <div class=\"world-node wide\">新聞・發現・遊戲・聯繫</div>\n        </div>\n      ",
+      "audio": [
+        {
+          "title": "白話解釋 · 網路改變了什麼？",
+          "subtitle": "從時間與距離來看",
+          "text": "在網路出現之前，距離常常會拖慢溝通。影片指出，今天我們可以以前所未有的方式連結：有想法的人能立刻和別人溝通，新聞事件與新的發現可以在幾秒鐘內傳到世界各地，朋友即使被海洋和大陸分開，也能保持聯繫，甚至一起玩遊戲。"
+        },
+        {
+          "title": "再想一層 · 什麼叫『無邊界』？",
+          "subtitle": "連到後面的 1.1.3",
+          "alt": true,
+          "text": "影片後面把這種改變稱為『無邊界』。意思不是世界真的沒有國界，而是網路技術讓國界、地理距離和某些實體限制變得沒有以前那麼重要，原本很難跨越的障礙正在減少。"
+        }
+      ],
+      "quiz": {
+        "prompt": "哪一個例子最符合影片所說『網路縮短距離』的效果？",
+        "choices": [
+          {
+            "label": "A　朋友隔著海洋與大陸，仍能聯繫並一起玩遊戲",
+            "correct": true
+          },
+          {
+            "label": "B　所有訊息都必須先寄紙本文件",
+            "correct": false
+          },
+          {
+            "label": "C　只有在同一棟建築裡的人才能分享想法",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 沒錯。影片直接用跨海洋、跨大陸的朋友仍能聯繫與玩遊戲，說明網路如何降低距離造成的限制。",
+        "wrongText": "回想 1.1.1：影片特別強調人即使相隔海洋與大陸，也能保持聯繫。"
+      }
+    },
+    {
+      "eyebrow": "03 · 從連線到全球社群",
+      "title": "即時通訊不只連起個人，也改變社會互動方式",
+      "lead": "網際網路影響社交、商業、政治與個人互動，並促成全球社群。",
+      "time": "約 75 秒",
+      "visualHtml": "\n        <div class=\"impact-grid\">\n          <div>社交</div><div>商業</div><div>政治</div><div>個人互動</div>\n        </div>\n        <div class=\"flow-strip\"><b>即時通訊</b><span>→</span><b>全球社群</b><span>→</span><b>跨地點／時區互動</b></div>\n      ",
+      "audio": [
+        {
+          "title": "白話解釋 · 為什麼不只是聊天？",
+          "subtitle": "把個人連線放大到社會層次",
+          "text": "影片說，網際網路已經改變我們社交、商業、政治和個人互動的方式。因為網路通訊具有即時性，人們可以建立全球社群，讓社交互動不再只看所在位置或時區。換句話說，網路把『一個人可以聯絡另一個人』放大成『不同地方的人可以形成共同社群』。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "線上社群為什麼重要？",
+          "kind": "detail",
+          "body": "影片進一步指出，建立線上社群來交流想法和資訊，可能增加全球各地的生產力機會。這裡的關鍵因果是：能跨距離交流 → 更容易共享想法與資訊 → 產生更多合作與生產力的可能。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "04 · 雲端讓資料跟著你",
+      "title": "不只人能連線，資料與應用也能跨地點存取",
+      "lead": "火車、公園、山頂——地點改變，資料不一定要跟著消失。",
+      "time": "約 65 秒",
+      "visualHtml": "\n        <div class=\"cloud-box\">\n          <div class=\"cloud-title\">☁ 雲端</div>\n          <div class=\"cloud-copy\">文件・圖片・資料・應用程式</div>\n        </div>\n        <div class=\"location-row\"><span>🚆 火車</span><span>🌳 公園</span><span>⛰ 山頂</span></div>\n        <div class=\"micro-arrow\">在不同裝置上存取</div>\n      ",
+      "audio": [
+        {
+          "title": "白話解釋 · 雲端帶來的改變",
+          "subtitle": "從『人在移動』來理解",
+          "text": "影片用很具體的情境說明雲端：我們可以把文件和圖片儲存在雲端，並隨時隨地存取。無論是在火車上、公園裡，還是站在山頂上，都可以在裝置上存取自己的資料和應用程式。這讓『資料在哪裡』和『人現在在哪裡』不必被綁在一起。"
+        }
+      ],
+      "quiz": {
+        "prompt": "依影片內容，哪一個最能表達雲端的用途？",
+        "choices": [
+          {
+            "label": "A　只能在原本那台電腦、原本那個地點開啟資料",
+            "correct": false
+          },
+          {
+            "label": "B　儲存文件和圖片，並能在不同地點與裝置上存取",
+            "correct": true
+          },
+          {
+            "label": "C　把所有資料列印成紙本後隨身攜帶",
+            "correct": false
+          }
+        ],
+        "correctText": "✅ 正確。影片直接用火車、公園與山頂的例子說明，雲端讓資料與應用可以隨時隨地存取。",
+        "wrongText": "回想影片的三個地點：火車、公園、山頂。這些例子都在強調『隨時隨地存取』。"
+      }
+    },
+    {
+      "eyebrow": "05 · 科技進步，教育也要跟上",
+      "title": "網路改變世界，也改變培養技術人才的方法",
+      "lead": "影片用思科網路學院說明：當科技快速演進，學習方式也需要進步。",
+      "time": "約 85 秒",
+      "visualHtml": "\n        <div class=\"edu-flow\">\n          <div class=\"edu-step\"><b>科技演進</b><small>事情更簡單、更快速</small></div>\n          <div class=\"edu-arrow\">→</div>\n          <div class=\"edu-step\"><b>教育演進</b><small>實作・回饋・多語言</small></div>\n          <div class=\"edu-arrow\">→</div>\n          <div class=\"edu-step\"><b>技術能力</b><small>面向今天與明天的機會</small></div>\n        </div>\n      ",
+      "audio": [
+        {
+          "title": "影片重點 · 思科網路學院在做什麼？",
+          "subtitle": "把影片中的例子濃縮成一條線",
+          "text": "影片說，改變世界的人不是天生的，而是被創造的。自一九九七年以來，思科網路學院的目標，是培養數位經濟所需要的新一代人才與技能。影片也強調，科技讓事情變得更簡單、更快速，教育為了跟上也必須進步和發展。"
+        },
+        {
+          "title": "學習體驗 · 影片出現了哪些做法？",
+          "subtitle": "只整理影片明確呈現的內容",
+          "alt": true,
+          "text": "影片呈現了用真正的設備和軟體學習、在學習過程中收到個人化回饋、課程可以翻譯成二十種語言，以及從受過訓練的教練身上學習。這些做法都指向同一件事：讓學習者建立更深的技術知識，並為今天的需求和明天的機會做好準備。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "影片畫面裡出現過哪些網路設備詞？",
+          "kind": "note",
+          "body": "在實作學習的動畫畫面中，可看到 Firewall、Data Center、PC、Server、Switch、Access Point 等標籤。這段影片是在強調『用真正的設備和軟體學習』；本課並沒有進一步講解這些設備各自的功能，因此這裡不延伸定義。"
+        },
+        {
+          "title": "為什麼多語言也和『無邊界』呼應？",
+          "kind": "why",
+          "body": "影片一方面談網路降低地理與時區限制，另一方面又提到課程可翻譯成 20 種語言。兩者共同呈現的方向，是讓更多不同地點與語言背景的人能參與學習與交流。這是依影片脈絡做的整理，不額外延伸到影片未說明的制度或成果。"
+        }
+      ]
+    },
+    {
+      "eyebrow": "06 · 下車前帶走",
+      "title": "網路的影響，可以濃縮成四個改變",
+      "lead": "把整堂課收成一張記憶地圖。",
+      "time": "約 45 秒",
+      "visualHtml": "\n        <div class=\"takeaway-list\">\n          <div><b>① 人</b><span>更容易彼此溝通與連結</span></div>\n          <div><b>② 距離</b><span>國界、地理與時區限制降低</span></div>\n          <div><b>③ 社群與資料</b><span>形成全球社群，資料可跨地點存取</span></div>\n          <div><b>④ 學習</b><span>教育也要隨科技進步而演進</span></div>\n        </div>\n      ",
+      "audio": [
+        {
+          "title": "總複習語音",
+          "subtitle": "下車前再聽一次",
+          "text": "這堂課最重要的不是背很多名詞，而是看懂網路如何改變生活。第一，它讓人更容易彼此溝通。第二，它降低國界、距離和時區造成的限制。第三，它讓全球社群、線上交流與雲端存取成為可能。第四，當科技持續改變生活與工作，教育和技能培養也必須跟著演進。"
+        }
+      ],
+      "panels": [
+        {
+          "title": "本課文字摘要",
+          "kind": "note",
+          "open": true,
+          "body": "網路從『連接人』開始，進一步改變社交、商業、政治和個人互動；即時通訊促成不受地點與時區限制的全球社群，線上社群可交流想法與資訊。雲端又把可連結的範圍從『人』延伸到『資料與應用』。影片最後透過思科網路學院的案例，說明教育也需要跟著科技進步。"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "zh": "網路",
+      "en": "Network",
+      "explanation": "本課把網路放在『連結人與資訊』的生活情境中理解；它讓溝通與連結比過去更快速、更容易跨越距離。",
+      "audioText": "網路，英文常用名稱是 Network。本課把網路放在連結人與資訊的生活情境中理解；它讓溝通與連結比過去更快速，也更容易跨越距離。",
+      "enAudioText": "Network"
+    },
+    {
+      "zh": "網際網路",
+      "en": "Internet",
+      "explanation": "影片指出，網際網路改變社交、商業、政治與個人互動，並透過即時通訊促成全球社群。",
+      "audioText": "網際網路，英文是 Internet。影片指出，網際網路改變社交、商業、政治與個人互動，並透過即時通訊促成全球社群。",
+      "enAudioText": "Internet"
+    },
+    {
+      "zh": "全球社群",
+      "en": "Global Community",
+      "explanation": "由網路即時通訊促成的跨地點、跨時區社群，讓人不必身處同一地點也能互動。",
+      "audioText": "全球社群，英文可對應為 Global Community。它是由網路即時通訊促成的跨地點、跨時區社群，讓人不必身處同一地點也能互動。",
+      "enAudioText": "Global Community"
+    },
+    {
+      "zh": "線上社群",
+      "en": "Online Community",
+      "explanation": "在網路上交流想法與資訊的社群。影片指出，這類交流可能增加全球各地的生產力機會。",
+      "audioText": "線上社群，英文可對應為 Online Community。它是在網路上交流想法與資訊的社群；影片指出，這類交流可能增加全球各地的生產力機會。",
+      "enAudioText": "Online Community"
+    },
+    {
+      "zh": "雲端",
+      "en": "Cloud",
+      "explanation": "影片用來說明儲存文件與圖片，並能隨時隨地在裝置上存取資料與應用程式的方式。",
+      "audioText": "雲端，英文是 Cloud。影片用它來說明儲存文件與圖片，並能隨時隨地在裝置上存取資料與應用程式。",
+      "enAudioText": "Cloud"
+    },
+    {
+      "zh": "思科網路學院",
+      "en": "Cisco Networking Academy",
+      "explanation": "影片中的教育案例。自 1997 年以來，影片描述其目標為培養數位經濟所需的新一代人才與技能。",
+      "audioText": "思科網路學院，英文是 Cisco Networking Academy。它是影片中的教育案例；影片描述其自一九九七年以來，持續培養數位經濟所需要的新一代人才與技能。",
+      "enAudioText": "Cisco Networking Academy"
+    }
+  ],
+  "termQuiz": [
+    {
+      "question": "「網際網路」的英文名稱是哪一個？",
+      "choices": [
+        {
+          "label": "Internet",
+          "correct": true
+        },
+        {
+          "label": "Cloud",
+          "correct": false
+        },
+        {
+          "label": "Global Community",
+          "correct": false
+        }
+      ],
+      "correctText": "對，網際網路對應 Internet。",
+      "wrongText": "回想術語卡：這個詞描述的是改變社交、商業、政治與個人互動的那個網路環境。"
+    },
+    {
+      "question": "Global Community 對應哪一個中文專有名詞？",
+      "choices": [
+        {
+          "label": "雲端",
+          "correct": false
+        },
+        {
+          "label": "全球社群",
+          "correct": true
+        },
+        {
+          "label": "線上社群",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯，Global Community 就是全球社群。",
+      "wrongText": "提示：它強調跨地點、跨時區的人形成共同社群。"
+    },
+    {
+      "question": "哪個術語最符合『儲存文件和圖片，並能隨時隨地存取資料與應用程式』？",
+      "choices": [
+        {
+          "label": "雲端 Cloud",
+          "correct": true
+        },
+        {
+          "label": "全球社群 Global Community",
+          "correct": false
+        },
+        {
+          "label": "網路 Network",
+          "correct": false
+        }
+      ],
+      "correctText": "對，這就是影片用來解釋雲端的情境。",
+      "wrongText": "回想火車、公園、山頂三個例子。"
+    },
+    {
+      "question": "Online Community 對應哪一個中文專有名詞？",
+      "choices": [
+        {
+          "label": "線上社群",
+          "correct": true
+        },
+        {
+          "label": "全球社群",
+          "correct": false
+        },
+        {
+          "label": "數位經濟",
+          "correct": false
+        }
+      ],
+      "correctText": "正確，Online Community 對應線上社群。",
+      "wrongText": "提示：這個詞強調在網路上交流想法與資訊。"
+    },
+    {
+      "question": "「思科網路學院」的英文名稱是哪一個？",
+      "choices": [
+        {
+          "label": "Cisco Networking Academy",
+          "correct": true
+        },
+        {
+          "label": "Cisco Data Center",
+          "correct": false
+        },
+        {
+          "label": "Cisco Global Community",
+          "correct": false
+        }
+      ],
+      "correctText": "對，影片頁面與動畫都使用 Cisco Networking Academy。",
+      "wrongText": "回想影片一開始的大字標誌：CISCO NETWORKING ACADEMY。"
+    },
+    {
+      "question": "Network 對應哪一個中文名稱？",
+      "choices": [
+        {
+          "label": "網路",
+          "correct": true
+        },
+        {
+          "label": "雲端",
+          "correct": false
+        },
+        {
+          "label": "伺服器",
+          "correct": false
+        }
+      ],
+      "correctText": "正確，Network 就是網路。",
+      "wrongText": "提示：整堂課的主題就是『網路影響我們的生活』。"
+    },
+    {
+      "question": "哪個術語最符合『跨地點、跨時區的人可以互動形成共同社群』？",
+      "choices": [
+        {
+          "label": "全球社群 Global Community",
+          "correct": true
+        },
+        {
+          "label": "雲端 Cloud",
+          "correct": false
+        },
+        {
+          "label": "思科網路學院 Cisco Networking Academy",
+          "correct": false
+        }
+      ],
+      "correctText": "對。這一題是從定義反向叫回『全球社群』。",
+      "wrongText": "提示：題目描述的是人形成的社群，不是資料儲存方式。"
+    }
+  ],
+  "recallQuiz": [
+    {
+      "question": "影片一開始為什麼先談『與他人互動和通訊』？",
+      "choices": [
+        {
+          "label": "因為通訊是理解網路影響生活的起點：人需要彼此連結",
+          "correct": true
+        },
+        {
+          "label": "因為影片要證明食物與住所不重要",
+          "correct": false
+        },
+        {
+          "label": "因為只有工程師需要與人溝通",
+          "correct": false
+        }
+      ],
+      "correctText": "正確。影片先建立『人需要連結』，再進入網路如何放大這種連結。",
+      "wrongText": "回到第一段：基本生存需求之後，影片緊接著談與他人互動與通訊的重要性。"
+    },
+    {
+      "question": "哪一條最完整呈現影片對『無邊界』的說明？",
+      "choices": [
+        {
+          "label": "網路讓國界、地理距離與某些實體限制變得不那麼重要",
+          "correct": true
+        },
+        {
+          "label": "網路讓世界所有國界在法律上消失",
+          "correct": false
+        },
+        {
+          "label": "網路只影響娛樂，不影響社交或商業",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯。『無邊界』在本課是指限制與障礙降低，不是字面上的國界消失。",
+      "wrongText": "注意影片原意是『變得不那麼重要、障礙減少』。"
+    },
+    {
+      "question": "為什麼全球社群能形成？",
+      "choices": [
+        {
+          "label": "因為網際網路通訊的即時性，讓互動不再受地點或時區強烈限制",
+          "correct": true
+        },
+        {
+          "label": "因為所有人都必須搬到同一個城市",
+          "correct": false
+        },
+        {
+          "label": "因為只能在固定時間使用網路",
+          "correct": false
+        }
+      ],
+      "correctText": "對。影片把『即時通訊』和『全球社群』直接連在一起。",
+      "wrongText": "回想第三段的流程：即時通訊 → 全球社群 → 跨地點／時區互動。"
+    },
+    {
+      "question": "火車、公園、山頂這三個例子共同在說明什麼？",
+      "choices": [
+        {
+          "label": "雲端讓資料和應用程式能在不同地點與裝置上存取",
+          "correct": true
+        },
+        {
+          "label": "只有戶外才能使用網路",
+          "correct": false
+        },
+        {
+          "label": "資料必須存在同一台本機設備",
+          "correct": false
+        }
+      ],
+      "correctText": "正確。三個場景都在強化『隨時隨地存取』。",
+      "wrongText": "把三個場景放在一起想：地點一直換，但資料仍然可以存取。"
+    },
+    {
+      "question": "思科網路學院案例在整堂課裡扮演什麼角色？",
+      "choices": [
+        {
+          "label": "說明科技進步時，教育與技能培養也需要跟著演進",
+          "correct": true
+        },
+        {
+          "label": "證明網路只需要背設備名稱",
+          "correct": false
+        },
+        {
+          "label": "說明科技進步後不再需要學習",
+          "correct": false
+        }
+      ],
+      "correctText": "沒錯。影片用實作、個人化回饋、多語言與教練等例子，呈現教育如何跟上科技。",
+      "wrongText": "回想影片中的一句話：為了跟上，教育也必須進步和發展。"
+    }
+  ]
+};
+
+const root=document.getElementById('lessonRoot');
+const bar=document.getElementById('bar');
+const stepLabel=document.getElementById('stepLabel');
+const timeLabel=document.getElementById('timeLabel');
+const chapterToggle=document.getElementById('chapterToggle');
+const chapterNav=document.getElementById('chapterNav');
+const chapterList=document.getElementById('chapterList');
+const chapterNavCount=document.getElementById('chapterNavCount');
+document.getElementById('brand').textContent=COURSE.brand||COURSE.title||'通勤微課';
+document.title=(COURSE.title||'通勤微課')+'｜通勤微課';
+let current=0;
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderAudio(a){return `<div class="audio${a.alt?' alt':''}"><button class="play" data-speech="${escapeHtml(a.text||'')}">▶</button><div><div class="audio-title">${a.title||'語音解釋'}</div><div class="audio-sub">${a.subtitle||''}</div></div><div class="inline-transcript">${escapeHtml(a.text||'')}</div></div>`}
+function renderPanel(p){return `<details class="panel ${p.kind||'note'}" ${p.open?'open':''}><summary>${p.title||'補充'}</summary><div class="panel-body">${p.body||''}</div></details>`}
+function renderQuiz(q,idx){if(!q)return'';return `<div class="quiz-block"><p class="lead" style="margin-bottom:8px">${q.prompt||''}</p><div class="quiz">${(q.choices||[]).map((c,i)=>`<button class="choice" data-segment="${idx}" data-correct="${c.correct?'1':'0'}">${c.label||('選項 '+(i+1))}</button>`).join('')}</div><div class="feedback" id="feedback-${idx}" data-correct-text="${escapeHtml(q.correctText||'✅ 正確') }" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`}
+function buildScreens(){
+  const screens=[];
+  (COURSE.segments||[]).forEach((s,i)=>screens.push({type:'segment',data:s,segmentIndex:i}));
+  const terms=COURSE.glossary||[];
+  const glossaryChunkSize=4; // 手機上一頁最多約 4 個術語；超過就自動分頁，不限制總數。
+  for(let i=0;i<terms.length;i+=glossaryChunkSize){
+    screens.push({type:'glossary',data:terms.slice(i,i+glossaryChunkSize),page:Math.floor(i/glossaryChunkSize)+1,pages:Math.ceil(terms.length/glossaryChunkSize)});
+  }
+  const termQuiz=COURSE.termQuiz||[];
+  const quizChunkSize=5; // 術語很多時不要一頁塞太多題，自動分批複習。
+  for(let i=0;i<termQuiz.length;i+=quizChunkSize){
+    screens.push({type:'termquiz',data:termQuiz.slice(i,i+quizChunkSize),offset:i,page:Math.floor(i/quizChunkSize)+1,pages:Math.ceil(termQuiz.length/quizChunkSize)});
+  }
+  if((COURSE.recallQuiz||[]).length) screens.push({type:'recall',data:COURSE.recallQuiz,offset:0});
+  return screens;
+}
+let SCREENS=[];
+function screenMeta(scr,index){
+  if(scr.type==='segment'){
+    const s=scr.data||{};
+    return {kicker:s.eyebrow||`學習 ${scr.segmentIndex+1}`,name:s.title||`學習段落 ${scr.segmentIndex+1}`};
+  }
+  if(scr.type==='glossary') return {kicker:`專有名詞整理${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞複習'};
+  if(scr.type==='termquiz') return {kicker:`術語測驗${scr.pages>1?` ${scr.page}/${scr.pages}`:''}`,name:'專有名詞記憶測驗'};
+  return {kicker:'最後回想',name:'整堂課回想測驗'};
+}
+function renderChapterNav(){
+  chapterNavCount.textContent=`共 ${SCREENS.length} 段`;
+  chapterList.innerHTML=SCREENS.map((scr,i)=>{
+    const m=screenMeta(scr,i);
+    return `<button type="button" class="chapter-item${i===current?' active':''}" data-jump="${i}" aria-current="${i===current?'step':'false'}"><span class="chapter-num">${i+1}</span><span class="chapter-copy"><span class="chapter-kicker">${escapeHtml(m.kicker)}</span><span class="chapter-name">${escapeHtml(m.name)}</span></span></button>`;
+  }).join('');
+  chapterList.querySelectorAll('.chapter-item').forEach(btn=>btn.addEventListener('click',()=>{
+    show(Number(btn.dataset.jump));
+    setChapterNav(false);
+  }));
+}
+function setChapterNav(open){
+  const next=typeof open==='boolean'?open:!chapterNav.classList.contains('open');
+  chapterNav.classList.toggle('open',next);
+  chapterToggle.setAttribute('aria-expanded',next?'true':'false');
+}
+function renderTerm(t){
+  const speech=t.audioText||`${t.zh||''}，英文是 ${t.en||''}。${t.explanation||''}`;
+  const enSpeech=t.enAudioText||t.en||'';
+  return `<div class="term-card"><div class="term-head"><div><div class="term-zh">${escapeHtml(t.zh||'')}</div><div class="term-en-row"><div class="term-en">${escapeHtml(t.en||'')}</div>${enSpeech?`<button class="term-en-play play" data-speech="${escapeHtml(enSpeech)}" data-lang="en-US" aria-label="播放英文專有名詞" title="播放英文專有名詞">▶</button>`:''}</div></div><button class="term-play play" data-speech="${escapeHtml(speech)}" aria-label="播放專有名詞解釋" title="播放專有名詞解釋">▶</button></div><div class="term-exp">${escapeHtml(t.explanation||'')}</div><div class="term-transcript">${escapeHtml(speech)}</div></div>`;
+}
+function renderQuestionSet(items,prefix='recall',offset=0,total=items.length){
+  return `<div class="recall-score" id="${prefix}Score-${offset}">這一組已作答 0 / ${items.length} 題</div>${items.map((q,localIndex)=>{
+    const qi=offset+localIndex;
+    return `<div class="recall-item" data-set="${prefix}" data-q="${qi}"><div class="recall-q">${qi+1}. ${q.question||''}</div><div class="recall-options">${(q.choices||[]).map(c=>`<button class="recall-choice" data-set="${prefix}" data-q="${qi}" data-score-id="${prefix}Score-${offset}" data-group-size="${items.length}" data-correct="${c.correct?'1':'0'}">${c.label||''}</button>`).join('')}</div><div class="recall-feedback" id="${prefix}-feedback-${qi}" data-correct-text="${escapeHtml(q.correctText||'答對了')}" data-wrong-text="${escapeHtml(q.wrongText||'再想一下')}"></div></div>`;
+  }).join('')}`;
+}
+function render(){
+  SCREENS=buildScreens();
+  if(!SCREENS.length){root.innerHTML='<div class="empty">請加入課程段落，或課程結尾的專有名詞／術語測驗／回想測驗。</div>';stepLabel.textContent='0 段';return}
+  root.innerHTML=SCREENS.map((scr,i)=>{
+    if(scr.type==='segment'){
+      const s=scr.data;
+      return `<section class="screen" data-step="${i}" data-time="${s.time||''}" style="display:${i===0?'flex':'none'}">
+        <div class="eyebrow">${s.eyebrow||String(scr.segmentIndex+1).padStart(2,'0')}</div>
+        <h1>${s.title||''}</h1>
+        ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+        ${s.visualHtml?`<div class="visual">${s.visualHtml}</div>`:''}
+        ${renderQuiz(s.quiz,scr.segmentIndex)}
+        ${(s.audio&&s.audio.length)?`<div class="audio-stack">${s.audio.map(renderAudio).join('')}</div>`:''}
+        ${(s.panels&&s.panels.length)?`<div class="assist"><div class="assist-label">想更懂時再展開</div>${s.panels.map(renderPanel).join('')}</div>`:''}
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='glossary'){
+      return `<section class="screen" data-step="${i}" data-time="術語複習" style="display:none">
+        <div class="eyebrow">專有名詞整理${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>把今天遇到的術語一次收好</h1>
+        <p class="lead">中文、英文、白話解釋與語音放在一起。語音唸出的內容和下方逐字稿完全相同。</p>
+        <div class="term-grid">${scr.data.map(renderTerm).join('')}</div>
+        ${navHtml(i)}
+      </section>`;
+    }
+    if(scr.type==='termquiz'){
+      return `<section class="screen" data-step="${i}" data-time="術語測驗" style="display:none">
+        <div class="eyebrow">專有名詞記憶測驗${scr.pages>1?` · ${scr.page}/${scr.pages}`:''}</div>
+        <h1>剛看完，現在把術語叫回來</h1>
+        <p class="lead">專門練中英對照、定義辨識與名詞回想。重要術語至少要被考到一次。</p>
+        ${renderQuestionSet(scr.data,'termquiz',scr.offset,(COURSE.termQuiz||[]).length)}
+        ${navHtml(i)}
+        <div class="tiny">題型可混合中→英、英→中、解釋→名詞｜術語多時自動分頁</div>
+      </section>`;
+    }
+    return `<section class="screen" data-step="${i}" data-time="回想測驗" style="display:none">
+      <div class="eyebrow">最後回想</div>
+      <h1>不重看內容，試著想回來</h1>
+      <p class="lead">這幾題抓整堂課最值得記住的概念、原因、步驟與代表性例子；專有名詞已經在上一輪另外練過。</p>
+      ${renderQuestionSet(scr.data,'recall',0,(COURSE.recallQuiz||[]).length)}
+      ${navHtml(i,true)}
+      <div class="tiny">題數依課程內容決定｜重點是幫助回想，不是增加考試壓力</div>
+    </section>`;
+  }).join('');
+  renderChapterNav();
+  bind();show(0);
+}
+function navHtml(i,isLast=false){return `<div class="footer"><button class="btn secondary prev" ${i===0?'disabled':''}>上一段</button><button class="btn primary next">${isLast||i===SCREENS.length-1?'再看一次':'下一段'}</button></div>`}
+function stopSpeech(){if('speechSynthesis'in window)window.speechSynthesis.cancel();document.querySelectorAll('.play').forEach(b=>b.textContent='▶')}
+function show(i){
+  stopSpeech(); const screens=[...document.querySelectorAll('.screen')];
+  current=Math.max(0,Math.min(screens.length-1,i));
+  screens.forEach((s,n)=>s.style.display=n===current?'flex':'none');
+  bar.style.width=((current+1)/screens.length*100)+'%';
+  const kind=SCREENS[current]?.type;
+  const kindLabel=kind==='glossary'?'術語整理':kind==='termquiz'?'術語測驗':kind==='segment'?'學習':'回想測驗';
+  stepLabel.textContent=`${kindLabel} · ${current+1} / ${screens.length}`;
+  chapterToggle.textContent=`段落 ${current+1}/${screens.length} ▾`;
+  chapterList.querySelectorAll('.chapter-item').forEach((item,n)=>{item.classList.toggle('active',n===current);item.setAttribute('aria-current',n===current?'step':'false')});
+  timeLabel.textContent=screens[current].dataset.time||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bind(){
+  chapterToggle.onclick=()=>setChapterNav();
+  document.querySelectorAll('.next').forEach((b,i)=>b.onclick=()=>show(i===SCREENS.length-1?0:i+1));
+  document.querySelectorAll('.prev').forEach((b,i)=>b.onclick=()=>show(i-1));
+  document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!('speechSynthesis'in window)){alert('此瀏覽器不支援語音播放；可直接閱讀下方逐字稿。');return}
+    if(window.speechSynthesis.speaking){stopSpeech();return}
+    const u=new SpeechSynthesisUtterance(btn.dataset.speech||'');u.lang=btn.dataset.lang||'zh-TW';u.rate=btn.dataset.lang==='en-US' ? .9 : .94;u.pitch=1;const original='▶';btn.textContent='❚❚';u.onend=()=>btn.textContent=original;u.onerror=()=>btn.textContent=original;window.speechSynthesis.speak(u)
+  }));
+  document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const idx=c.dataset.segment;const block=c.closest('.quiz-block');block.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById('feedback-'+idx);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show')
+  }));
+  const answeredBySet={};
+  document.querySelectorAll('.recall-choice').forEach(c=>c.addEventListener('click',()=>{
+    const qi=c.dataset.q;const setName=c.dataset.set||'recall';const item=c.closest('.recall-item');item.querySelectorAll('.recall-choice').forEach(x=>x.classList.remove('correct','wrong'));
+    const fb=document.getElementById(setName+'-feedback-'+qi);const ok=c.dataset.correct==='1';c.classList.add(ok?'correct':'wrong');fb.textContent=ok?fb.dataset.correctText:fb.dataset.wrongText;fb.classList.add('show');
+    const scoreId=c.dataset.scoreId;answeredBySet[scoreId] ||= new Set();answeredBySet[scoreId].add(qi);
+    const score=document.getElementById(scoreId);if(score)score.textContent=`這一組已作答 ${answeredBySet[scoreId].size} / ${c.dataset.groupSize} 題`;
+  }));
+}
+render();
+</script>
+</body>
+</html>
