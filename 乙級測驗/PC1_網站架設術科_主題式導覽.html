@@ -407,7 +407,7 @@ tr:last-child td{border-bottom:none}
     <div class="brand">PC1 <span>網站架設術科</span>｜主題式導覽</div>
     <nav class="nav" aria-label="頁首導覽">
       <a href="#p0">總覽</a><a href="#p1">USB</a><a href="#p2">做線</a><a href="#p3">套件</a>
-      <a href="#p4">Ping</a><a href="#p5">帳密權</a><a href="#p6">設定</a><a href="#p7">測試</a><a href="#p8">up1/up2</a>
+      <a href="#p4">Ping</a><a href="#p5">帳密權</a><a href="#p6">設定</a><a href="#p7">up1/up2</a><a href="#p8">測試</a>
     </nav>
     <div class="actions"><button class="action" onclick="window.print()">列印 / PDF</button></div>
   </div>
@@ -421,8 +421,8 @@ tr:last-child td{border-bottom:none}
   <a href="#p4" data-target="p4"><span class="topic-index">04</span><span class="topic-name">IP / Ping</span></a>
   <a href="#p5" data-target="p5"><span class="topic-index">05</span><span class="topic-name">帳密權限</span></a>
   <a href="#p6" data-target="p6"><span class="topic-index">06</span><span class="topic-name">網站設定</span></a>
-  <a href="#p7" data-target="p7"><span class="topic-index">07</span><span class="topic-name">FTP 測試</span></a>
-  <a href="#p8" data-target="p8"><span class="topic-index">08</span><span class="topic-name">up1 / up2</span></a>
+  <a href="#p7" data-target="p7"><span class="topic-index">07</span><span class="topic-name">up1 / up2</span></a>
+  <a href="#p8" data-target="p8"><span class="topic-index">08</span><span class="topic-name">FTP 測試</span></a>
 </nav>
 
 <section class="slide" id="p0">
@@ -440,8 +440,8 @@ tr:last-child td{border-bottom:none}
       <a class="step-card" href="#p4" style="text-decoration:none"><span class="step-index">04</span><span><h3>試 Ping</h3><p>IP、Firewall、HTTPD 與連線測試。</p></span></a>
       <a class="step-card" href="#p5" style="text-decoration:none"><span class="step-index">05</span><span><h3>帳密權</h3><p>WebX-1 / WebX-2 帳號、密碼、目錄權限。</p></span></a>
       <a class="step-card" href="#p6" style="text-decoration:none"><span class="step-index">06</span><span><h3>設定</h3><p>www、index.html、userdir、htaccess、htpasswd。</p></span></a>
-      <a class="step-card" href="#p7" style="text-decoration:none"><span class="step-index">07</span><span><h3>測試</h3><p>FTP 登入與 dir、!cat、put、!rm、bye。</p></span></a>
-      <a class="step-card" href="#p8" style="text-decoration:none"><span class="step-index">08</span><span><h3>建立 up1 / up2</h3><p>建立兩個 700 KB 測試檔，接著進 PC2。</p></span></a>
+      <a class="step-card" href="#p7" style="text-decoration:none"><span class="step-index">07</span><span><h3>建立 up1 / up2</h3><p>先建立兩個 700 KB 測試檔，接著往 PC2 設定。</p></span></a>
+      <a class="step-card" href="#p8" style="text-decoration:none"><span class="step-index">08</span><span><h3>FTP 測試</h3><p>PC2 完成後，再回來做兩段 FTP 登入、下載、上傳與刪除測試。</p></span></a>
     </div>
   </div>
   <div class="slide-no">00 / 08</div><div class="keyhint">↑ ↓ / PgUp PgDn 可換主題</div>
@@ -730,35 +730,11 @@ firewall-cmd --list-service</pre></div>
 </section>
 
 <section class="slide" id="p7">
-  <div class="wrap content-grid">
-    <div class="text-panel">
-      <div class="eyebrow">Step 07</div><h2>FTP 測試</h2>
-      <p class="takeaway">測試可以等下面步驟做完，到 PC2 部分一起測試；PC1 主要確認 FTP 操作流程。</p>
-      <div class="report-line gold"><strong>異常提示：</strong>原筆記註記輸入 123 後會出現 <strong>anonymous only</strong>。</div>
-    </div>
-    <div class="panel">
-      <div class="panel-title"><span class="tag cyan">FTP</span><h3>PC1 測試項目</h3></div>
-      <div class="command-wrap"><button class="copy-btn">複製</button><pre>ftp&gt;200.100.X.1
-ftp&gt;123
-# 出現 anonymous only
-
-# PC1 測試只要：
-dir
-!cat
-put
-!rm
-bye</pre></div>
-    </div>
-  </div>
-  <div class="slide-no">07 / 08</div><div class="keyhint">主題：FTP 測試</div>
-</section>
-
-<section class="slide" id="p8">
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">Step 08</div><h2>建立 up1 / up2</h2>
-      <p class="takeaway">最後在根目錄建立兩個測試檔案，每個 700 KB，完成後繼續往 PC2 設定。</p>
-      <div class="report-line green"><strong>完成：</strong>PC1 流程到這裡結束 → 繼續往 PC2 去設定。</div>
+      <div class="eyebrow">Step 07</div><h2>先建立 up1 / up2</h2>
+      <p class="takeaway">先幫 FTP 準備兩個測試檔案，再繼續往 PC2 去設定。</p>
+      <div class="report-line green"><strong>順序：</strong>PC1 建立 up1 / up2 → 繼續往 PC2 設定 → PC2 完成後再回到 Step 08 測試。</div>
     </div>
     <div class="panel">
       <div class="panel-title"><span class="tag gold">Files</span><h3>建立 700 KB 測試檔</h3></div>
@@ -770,9 +746,84 @@ dd if=/dev/zero of=up2 bs=1k count=700</pre></div>
         <div class="ip-card"><h3>up1</h3><div class="ip-row"><span>大小</span><code>700 KB</code></div></div>
         <div class="ip-card"><h3>up2</h3><div class="ip-row"><span>大小</span><code>700 KB</code></div></div>
       </div>
+      <div class="report-line" style="margin-top:14px"><strong>完成後：</strong>繼續往 PC2 去設定囉。</div>
     </div>
   </div>
-  <div class="slide-no">08 / 08</div><div class="keyhint">PC1 完成</div>
+  <div class="slide-no">07 / 08</div><div class="keyhint">主題：up1 / up2</div>
+</section>
+
+<section class="slide tall" id="p8">
+  <div class="wrap">
+    <div class="eyebrow">Step 08</div><h2>FTP 測試</h2>
+    <p class="takeaway">這一步要先等 PC2 做完再測試。依新版筆記分成兩段：先測 <span class="inline-code">200.100.X.1</span>，再測 <span class="inline-code">200.100.X.2</span>。</p>
+    <div class="report-line gold"><strong>注意：</strong>測試可以等 PC2 部分做完後，再回來完成這一段。</div>
+
+    <div class="cards-2" style="margin-top:22px">
+      <div class="panel">
+        <div class="panel-title"><span class="tag cyan">1</span><h3>測試 200.100.X.1</h3></div>
+        <div class="command-wrap"><button class="copy-btn">複製</button><pre>ftp&gt;200.100.X.1
+ftp&gt;123
+# 出現 anonymous only
+
+dir
+# 看一下有沒有 FtpX-1.txt 跟 FtpX-2.txt
+
+ftp&gt;get FtpX-1.txt
+ftp&gt;!cat FtpX-1.txt
+ftp&gt;!rm FtpX-1.txt
+ftp&gt;bye</pre></div>
+        <div class="report-line green"><strong>檢查點：</strong>輸入 123 後要出現 <strong>anonymous only</strong>，並用 <span class="inline-code">dir</span> 確認 FtpX-1.txt 與 FtpX-2.txt。</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="tag gold">2</span><h3>測試 200.100.X.2</h3></div>
+        <div class="report-line"><strong>登入前：</strong>一樣先在 <span class="inline-code">/hoem</span> 下確認有 up1 跟 up2，再登入。</div>
+        <div class="command-wrap" style="margin-top:14px"><button class="copy-btn">複製</button><pre>ftp&gt;200.100.X.2
+ftp&gt;anonymous
+# 要看到 Login failed
+
+ftp&gt;user FtpX-2
+passwd:
+# Login successful
+
+ftp&gt;dir
+# 或 ls，確定目錄是空的
+
+put up1
+# 看到 Transfer complete
+
+ftp&gt;put up2
+# 看到 Failure writing to local file
+
+ftp&gt;dir
+# 或 ls
+# Here comes the directory listing
+716800 up1
+319448 up2</pre></div>
+      </div>
+    </div>
+
+    <div class="cards-2" style="margin-top:16px">
+      <div class="panel">
+        <div class="panel-title"><span class="tag green">結果</span><h3>確認上傳結果</h3></div>
+        <ul class="bullets">
+          <li><span class="n">1</span><span><span class="inline-code">up1</span> 顯示 <strong>716800</strong>。</span></li>
+          <li><span class="n">2</span><span><span class="inline-code">up2</span> 是 <strong>30 幾萬</strong>就對了；新版筆記範例為 <span class="inline-code">319448</span>。</span></li>
+          <li><span class="n">3</span><span>看到這個結果表示上傳成功且完成。</span></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="tag red">清理</span><h3>最後刪除測試檔</h3></div>
+        <p class="takeaway" style="font-size:clamp(14px,1.1vw,17px);margin-top:0">刪除上傳檔案，以備監考人員測試。</p>
+        <div class="command-wrap" style="margin-top:13px"><button class="copy-btn">複製</button><pre>ftp&gt;del up1
+ftp&gt;del up2
+ftp&gt;bye</pre></div>
+        <div class="report-line green"><strong>完成：</strong>FTP 測試流程結束。</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-no">08 / 08</div><div class="keyhint">主題：FTP 測試</div>
 </section>
 
 <script>
