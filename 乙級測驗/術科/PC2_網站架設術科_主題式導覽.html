@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>PC2｜網站架設術科・主題式導覽</title>
+<style>
+
+:root{
+  --bg:#07111d;
+  --panel:#0d1c2d;
+  --panel2:#10243a;
+  --panel3:#0a1725;
+  --text:#f1f7fb;
+  --muted:#a9bcc9;
+  --cyan:#50d9ff;
+  --gold:#ffc85b;
+  --green:#76e2b9;
+  --red:#ff8c8c;
+  --line:rgba(255,255,255,.09);
+  --code:#050c14;
+  --shadow:0 18px 54px rgba(0,0,0,.30);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+body{
+  margin:0;
+  color:var(--text);
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 8% 0%,rgba(80,217,255,.09),transparent 22%),
+    radial-gradient(circle at 92% 10%,rgba(255,200,91,.06),transparent 20%),
+    linear-gradient(180deg,#06101a,#07111d);
+  overflow-x:hidden;
+  font-size:clamp(15px,1.05vw,18px);
+}
+a{color:inherit}
+button{font:inherit}
+header{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  min-height:56px;
+  background:rgba(5,12,21,.84);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.header-inner{
+  min-height:56px;max-width:1320px;margin:auto;padding:8px 22px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.brand{font-weight:900;font-size:clamp(13px,1.15vw,16px);letter-spacing:.02em;white-space:nowrap}
+.brand span{color:var(--cyan)}
+.nav{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.nav a{
+  text-decoration:none;color:var(--muted);font-size:clamp(12px,.95vw,14px);
+  padding:5px 7px;border-radius:7px;transition:.18s ease;
+}
+.nav a:hover{background:rgba(80,217,255,.08);color:#fff}
+.actions{display:flex;gap:7px;flex:0 0 auto}
+.action{
+  border:1px solid rgba(80,217,255,.24);background:rgba(80,217,255,.07);
+  color:#fff;border-radius:9px;padding:7px 10px;cursor:pointer;font-size:12px;
+}
+.action:hover{background:rgba(80,217,255,.13)}
+
+.slide{
+  min-height:100svh;
+  scroll-snap-align:start;
+  display:flex;
+  align-items:center;
+  padding:82px 30px 44px;
+  position:relative;
+}
+.slide.tall{align-items:flex-start}
+.wrap{width:100%;max-width:1320px;margin:auto}
+.eyebrow{
+  color:var(--cyan);font-size:clamp(12px,1.05vw,15px);font-weight:900;
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px;
+}
+h1{
+  font-size:clamp(40px,6vw,78px);line-height:1.04;letter-spacing:-.04em;
+  margin:0 0 15px;text-wrap:balance;
+}
+h2{
+  font-size:clamp(30px,4vw,52px);line-height:1.12;letter-spacing:-.03em;
+  margin:0;text-wrap:balance;
+}
+h3{font-size:clamp(18px,1.55vw,23px);line-height:1.35}
+.takeaway{
+  margin:10px 0 0;color:var(--muted);font-size:clamp(16px,1.35vw,20px);line-height:1.7;
+  max-width:820px;
+}
+.hero-grid{
+  display:grid;grid-template-columns:minmax(0,.9fr) minmax(360px,1.1fr);
+  gap:42px;align-items:center;
+}
+.content-grid{
+  display:grid;grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);
+  gap:32px;align-items:start;
+}
+.text-panel{max-width:520px}
+.report-line{
+  margin-top:18px;padding:14px 16px;border:1px solid rgba(80,217,255,.18);
+  background:rgba(80,217,255,.055);border-radius:13px;color:#d6f8ff;
+  font-size:clamp(14px,1.1vw,17px);line-height:1.7;
+}
+.report-line.gold{border-color:rgba(255,200,91,.22);background:rgba(255,200,91,.055);color:#ffe9b3}
+.report-line.green{border-color:rgba(118,226,185,.22);background:rgba(118,226,185,.055);color:#d9fff1}
+
+.overview{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;
+}
+.step-card,.panel{
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(16,36,58,.86),rgba(10,23,37,.88));
+  box-shadow:var(--shadow);
+}
+.step-card{
+  padding:18px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
+  min-height:112px;transition:transform .18s ease,border-color .18s ease;
+}
+.step-card:hover{transform:translateY(-2px);border-color:rgba(80,217,255,.26)}
+.step-index{
+  width:38px;height:38px;display:grid;place-items:center;border-radius:11px;
+  color:#06111b;background:linear-gradient(135deg,var(--cyan),#bdf7ff);
+  font-weight:950;font-size:13px;
+}
+.step-card:nth-child(3n+2) .step-index{background:linear-gradient(135deg,var(--gold),#ffe9a8)}
+.step-card:nth-child(3n) .step-index{background:linear-gradient(135deg,var(--green),#c9ffe8)}
+.step-card h3{margin:0 0 5px}
+.step-card p{margin:0;color:var(--muted);line-height:1.6;font-size:clamp(14px,1.05vw,16px)}
+
+.panel{padding:clamp(16px,2vw,24px)}
+.panel + .panel{margin-top:16px}
+.panel-title{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.panel-title .tag{margin:0}
+.panel-title h3{margin:0}
+.tag{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:34px;font-size:12px;font-weight:900;border-radius:999px;padding:4px 9px;
+}
+.tag.cyan{color:#bdf5ff;background:rgba(80,217,255,.10);border:1px solid rgba(80,217,255,.14)}
+.tag.gold{color:#ffe5a6;background:rgba(255,200,91,.10);border:1px solid rgba(255,200,91,.14)}
+.tag.green{color:#caffec;background:rgba(118,226,185,.10);border:1px solid rgba(118,226,185,.14)}
+.tag.red{color:#ffcaca;background:rgba(255,140,140,.10);border:1px solid rgba(255,140,140,.14)}
+
+.bullets{margin:0;padding:0;list-style:none;display:grid;gap:11px}
+.bullets li{
+  display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:flex-start;
+  color:var(--muted);font-size:clamp(15px,1.25vw,18px);line-height:1.65;
+}
+.bullets .n{
+  width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  font-size:12px;font-weight:900;color:#07111d;background:linear-gradient(135deg,var(--cyan),#b9f5ff)
+}
+strong{color:#f7fbfe}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+.inline-code{
+  display:inline;padding:.12em .42em;border-radius:6px;background:rgba(255,255,255,.055);
+  color:#dff8ff;border:1px solid rgba(255,255,255,.07);font-size:1em;overflow-wrap:anywhere;
+}
+.command-wrap{position:relative}
+.copy-btn{
+  position:absolute;right:10px;top:10px;z-index:2;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);color:#d9eef7;border-radius:8px;padding:5px 8px;
+  cursor:pointer;font-size:11px;
+}
+.copy-btn:hover{background:rgba(255,255,255,.11)}
+pre{
+  margin:0;padding:16px 14px;background:var(--code);border:1px solid rgba(80,217,255,.10);
+  border-radius:12px;color:#dff8ff;font-size:clamp(14px,1.15vw,17px);line-height:1.72;
+  overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;tab-size:2;
+}
+.command-wrap pre{padding-top:42px}
+.note{color:#90a8b8;font-size:13px;line-height:1.55;margin-top:10px}
+
+.cards-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cards-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ip-card{
+  border:1px solid var(--line);background:rgba(255,255,255,.018);border-radius:15px;padding:16px;
+}
+.ip-card h3{margin:0 0 8px;font-size:clamp(17px,1.5vw,21px)}
+.ip-row{
+  display:grid;grid-template-columns:58px 1fr;gap:8px;padding:7px 0;
+  border-top:1px solid rgba(255,255,255,.055);font-size:clamp(13px,1.05vw,16px);
+}
+.ip-row:first-of-type{border-top:0}
+.ip-row span:first-child{color:#7890a1;font-weight:800}
+.ip-row code{color:#dff8ff;overflow-wrap:anywhere;font-size:clamp(14px,1.05vw,16px)}
+
+.cable-strip{display:grid;grid-template-columns:repeat(8,minmax(54px,1fr));gap:7px;margin-top:16px}
+.cable{
+  min-height:72px;border-radius:12px;display:grid;place-items:center;text-align:center;padding:8px 5px;
+  font-size:clamp(11px,.9vw,13px);font-weight:900;border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.025);
+}
+.cable.orange{box-shadow:inset 0 -5px 0 #f39a42}
+.cable.green{box-shadow:inset 0 -5px 0 #59c58c}
+.cable.blue{box-shadow:inset 0 -5px 0 #56a6ff}
+.cable.brown{box-shadow:inset 0 -5px 0 #a87351}
+
+.flow{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:14px;color:var(--muted)
+}
+.flow span{
+  border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:10px;
+  padding:8px 11px;font-size:clamp(13px,1vw,15px)
+}
+.flow b{color:var(--cyan)}
+
+.summary-table{overflow:hidden;border:1px solid var(--line);border-radius:16px;background:rgba(13,28,45,.88)}
+table{border-collapse:collapse;width:100%;min-width:0;table-layout:fixed}
+th,td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;vertical-align:top;overflow-wrap:anywhere;word-break:break-word}
+th{font-size:14px;color:#bdf5ff;background:rgba(80,217,255,.04)}
+td{font-size:clamp(13px,1vw,16px);color:var(--muted);line-height:1.55}
+.summary-table th:nth-child(1),.summary-table td:nth-child(1){width:24%}
+.summary-table th:nth-child(2),.summary-table td:nth-child(2){width:46%}
+.summary-table th:nth-child(3),.summary-table td:nth-child(3){width:30%}
+.summary-table code{white-space:normal;overflow-wrap:anywhere;word-break:break-word}
+tr:last-child td{border-bottom:none}
+
+/* 主要 3 個設定檔：改成三個獨立區塊，避免小螢幕欄位互相擠壓 */
+.config-file-list{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+}
+.config-file-card{
+  min-width:0;
+  padding:15px 16px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  background:rgba(5,18,30,.42);
+}
+.config-file-name{
+  margin-bottom:11px;
+  color:#bdf5ff;
+  font-size:clamp(17px,1.35vw,20px);
+  font-weight:900;
+}
+.config-file-info{
+  display:grid;
+  grid-template-columns:112px minmax(0,1fr);
+  gap:10px;
+  align-items:start;
+  padding-top:8px;
+  color:var(--muted);
+  font-size:clamp(14px,1.05vw,17px);
+  line-height:1.6;
+}
+.config-file-info + .config-file-info{
+  margin-top:7px;
+  border-top:1px solid rgba(255,255,255,.055);
+}
+.config-label{
+  color:#7890a1;
+  font-weight:800;
+}
+.config-file-info code{
+  min-width:0;
+  color:#dff8ff;
+  font-size:1em;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.slide-no{position:absolute;left:30px;bottom:16px;color:#71889a;font-size:11px;letter-spacing:.12em}
+.keyhint{position:absolute;right:30px;bottom:16px;color:#71889a;font-size:11px}
+
+.topic-nav{
+  position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:45;
+  display:flex;flex-direction:column;gap:7px;width:164px;pointer-events:auto;
+}
+.topic-nav a{
+  position:relative;display:flex;align-items:center;gap:9px;min-height:34px;padding:7px 10px;
+  border-radius:10px;text-decoration:none;color:#7f94a4;background:rgba(5,13,22,.64);
+  border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(10px);
+  transition:transform .18s ease,color .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.topic-nav a:hover{color:#e9faff;background:rgba(80,217,255,.08);border-color:rgba(80,217,255,.20);transform:translateX(-3px)}
+.topic-index{
+  flex:0 0 auto;width:25px;height:22px;display:grid;place-items:center;border-radius:7px;
+  font-size:10px;font-weight:900;color:#7690a2;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.05)
+}
+.topic-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;font-weight:800;letter-spacing:.01em}
+.topic-nav a.active{
+  color:#f5fdff;background:linear-gradient(90deg,rgba(80,217,255,.18),rgba(80,217,255,.07));
+  border-color:rgba(80,217,255,.44);box-shadow:0 0 0 1px rgba(80,217,255,.06),0 0 24px rgba(80,217,255,.16);
+  transform:translateX(-7px)
+}
+.topic-nav a.active::before{
+  content:"";position:absolute;left:-7px;top:8px;bottom:8px;width:3px;border-radius:999px;
+  background:var(--cyan);box-shadow:0 0 12px rgba(80,217,255,.9)
+}
+.topic-nav a.active .topic-index{color:#05111b;background:linear-gradient(135deg,var(--cyan),#bdf7ff);border-color:transparent}
+.topic-nav a.active .topic-name::after{content:"  ← 現在";color:var(--cyan);font-size:10px;font-weight:900}
+
+@media(min-width:1180px){.slide .wrap{padding-right:170px}}
+@media(max-width:1179px){.topic-nav{width:138px;right:8px}.topic-name{font-size:11px}}
+@media(max-width:980px){
+  .nav{display:none}
+  .topic-nav{
+    left:50%;right:auto;top:auto;bottom:10px;transform:translateX(-50%);
+    width:min(94vw,820px);flex-direction:row;gap:6px;padding:7px;overflow-x:auto;
+    border-radius:14px;background:rgba(5,13,22,.82);border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(14px)
+  }
+  .topic-nav a{flex:0 0 auto;min-height:30px;padding:6px 9px}
+  .topic-nav a.active{transform:none}.topic-nav a.active::before{display:none}.topic-nav a.active .topic-name::after{content:""}
+  .slide{padding-bottom:86px}
+  .hero-grid,.content-grid{grid-template-columns:1fr}.text-panel{max-width:none}
+  .overview,.cards-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  html{scroll-snap-type:none;-webkit-text-size-adjust:100%}
+  body{overflow-x:hidden}
+  header{height:auto;min-height:56px}
+  .header-inner{min-height:56px;padding:8px 14px;align-items:center}
+  .brand{white-space:normal;line-height:1.3;font-size:12px;max-width:100%}
+  .actions{display:none}
+
+  .slide{
+    min-height:auto;
+    padding:76px 14px calc(104px + env(safe-area-inset-bottom));
+    align-items:flex-start;
+  }
+  .slide .wrap{width:100%;padding-right:0!important}
+  .hero-grid,.content-grid{gap:20px}
+  .overview,.cards-2,.cards-3{grid-template-columns:1fr;gap:12px}
+  .step-card{min-height:auto;padding:14px;grid-template-columns:34px minmax(0,1fr);gap:11px}
+  .step-index{width:34px;height:34px;border-radius:10px}
+  .panel{padding:14px;border-radius:14px}
+  .panel + .panel{margin-top:12px}
+  .panel-title{align-items:flex-start;gap:8px;margin-bottom:12px}
+  .panel-title h3{font-size:18px;line-height:1.35}
+
+  h1{font-size:clamp(34px,11vw,52px);line-height:1.08}
+  h2{font-size:clamp(27px,8.5vw,38px);line-height:1.18}
+  .takeaway{font-size:16px;line-height:1.7}
+  .report-line{font-size:14px;padding:12px 13px}
+  .bullets{gap:9px}
+  .bullets li{grid-template-columns:26px minmax(0,1fr);gap:9px;font-size:15px;line-height:1.72}
+  .bullets .n{width:26px;height:26px}
+
+  pre{font-size:16px;line-height:1.72;padding:14px 12px;max-width:100%;overflow-x:hidden;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
+  .command-wrap,.panel,.summary-table,.text-panel,.wrap{min-width:0}
+  .inline-code,code{overflow-wrap:anywhere;word-break:break-word}
+  .ip-row code{font-size:15px;line-height:1.6}
+  .command-wrap pre{padding-top:46px}
+  .copy-btn{min-width:58px;min-height:34px;right:8px;top:8px}
+  .summary-table{max-width:100%;overflow:hidden}
+  table{min-width:0;width:100%;table-layout:fixed}
+  .summary-table thead{display:none}
+  .summary-table table,.summary-table tbody,.summary-table tr,.summary-table td{display:block;width:100%}
+  .summary-table tr{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .summary-table tr:last-child{border-bottom:0}
+  .summary-table td{border:0;padding:4px 0;overflow-wrap:anywhere;word-break:break-word}
+  .summary-table td:first-child{color:#bdf5ff;font-weight:900}
+  .summary-table td:first-child::before{content:"項目：";color:#7890a1;font-weight:700}
+  .summary-table td:nth-child(2)::before{content:"位置：";color:#7890a1;font-weight:700}
+  .config-file-list{gap:10px}
+  .config-file-card{padding:14px 13px}
+  .config-file-info{grid-template-columns:1fr;gap:3px;padding-top:7px;font-size:16px}
+  .config-file-name{font-size:19px;margin-bottom:8px}
+  .config-label{font-size:13px;letter-spacing:.03em}
+  .config-file-info code{font-size:16px;line-height:1.65}
+  .ip-row{grid-template-columns:52px minmax(0,1fr)}
+  .cable-strip{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .cable{min-height:64px;padding:7px 4px}
+
+  .topic-nav{
+    left:50%;right:auto;bottom:calc(8px + env(safe-area-inset-bottom));
+    width:calc(100vw - 20px);max-width:none;
+    padding:6px;gap:5px;overflow-x:auto;overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .topic-nav::-webkit-scrollbar{display:none}
+  .topic-nav a{min-height:38px;padding:7px 10px;touch-action:manipulation}
+  .topic-nav .topic-index{width:26px;height:24px}
+  .topic-name{font-size:11px;max-width:none}
+  .keyhint,.slide-no{display:none}
+}
+@media(max-width:420px){
+  .slide{padding-inline:12px}
+  .panel{padding:12px}
+  .step-card{padding:12px}
+  .cable-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .topic-name{max-width:78px}
+  .topic-nav a{padding-inline:8px}
+  table{min-width:0}
+}
+@media print{
+  header,.topic-nav,.keyhint,.copy-btn{display:none!important}
+  html{scroll-snap-type:none}
+  body{background:#fff;color:#111}
+  .slide{min-height:auto;page-break-after:always;padding:24px}
+  .slide .wrap{padding-right:0!important}
+  .takeaway,.bullets li,.step-card p,td,.note{color:#333}
+  .step-card,.panel,.ip-card{box-shadow:none;background:#fff;border-color:#ccc}
+  pre{background:#f5f5f5;color:#111;border-color:#ccc;white-space:pre-wrap}
+}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="brand">PC2 <span>網站架設術科</span>｜主題式導覽</div>
+    <nav class="nav" aria-label="頁首導覽">
+      <a href="#p0">總覽</a><a href="#p1">USB</a><a href="#p2">做線</a><a href="#p3">套件</a>
+      <a href="#p4">Ping</a><a href="#p5">帳密權</a><a href="#p6">設定</a><a href="#p7">測試</a>
+    </nav>
+    <div class="actions"><button class="action" onclick="window.print()">列印 / PDF</button></div>
+  </div>
+</header>
+
+<nav class="topic-nav" aria-label="主題導覽">
+  <a href="#p0" data-target="p0"><span class="topic-index">00</span><span class="topic-name">流程總覽</span></a>
+  <a href="#p1" data-target="p1"><span class="topic-index">01</span><span class="topic-name">USB 安裝</span></a>
+  <a href="#p2" data-target="p2"><span class="topic-index">02</span><span class="topic-name">網路線</span></a>
+  <a href="#p3" data-target="p3"><span class="topic-index">03</span><span class="topic-name">套件 / Repo</span></a>
+  <a href="#p4" data-target="p4"><span class="topic-index">04</span><span class="topic-name">IP / Ping</span></a>
+  <a href="#p5" data-target="p5"><span class="topic-index">05</span><span class="topic-name">帳密權限</span></a>
+  <a href="#p6" data-target="p6"><span class="topic-index">06</span><span class="topic-name">FTP / 配額設定</span></a>
+  <a href="#p7" data-target="p7"><span class="topic-index">07</span><span class="topic-name">瀏覽器測試</span></a>
+</nav>
+
+<section class="slide" id="p0">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">PC2 · FTP Server Practical</div>
+      <h1>網站架設術科<br>PC2 操作流程</h1>
+      <p class="takeaway">延續 PC1 最終版的主題式排版，把 PC2 的 FTP Server、雙 IP、歡迎詞、vsftpd 與磁碟配額集中成可快速複習的流程。</p>
+      <div class="report-line"><strong>使用方式：</strong>照 01 → 07 依序操作；指令區塊可直接按「複製」。手機版會自動切成底部主題導覽，Code 字體維持大字閱讀。</div>
+    </div>
+    <div class="overview" aria-label="七步驟總覽">
+      <a class="step-card" href="#p1" style="text-decoration:none"><span class="step-index">01</span><span><h3>USB</h3><p>BIOS、UEFI、開機順序、root 與磁碟配置。</p></span></a>
+      <a class="step-card" href="#p2" style="text-decoration:none"><span class="step-index">02</span><span><h3>做線</h3><p>CAT5 接頭、線序顏色與考場插孔。</p></span></a>
+      <a class="step-card" href="#p3" style="text-decoration:none"><span class="step-index">03</span><span><h3>套件</h3><p>centos.repo、vsftpd、ftp 與 firewall-config。</p></span></a>
+      <a class="step-card" href="#p4" style="text-decoration:none"><span class="step-index">04</span><span><h3>試 Ping</h3><p>雙 IP、Firewall、vsftpd 與 7 組 Ping。</p></span></a>
+      <a class="step-card" href="#p5" style="text-decoration:none"><span class="step-index">05</span><span><h3>帳密權</h3><p>建立 FtpX-2 帳號與密碼。</p></span></a>
+      <a class="step-card" href="#p6" style="text-decoration:none"><span class="step-index">06</span><span><h3>設定</h3><p>歡迎詞、兩份 FTP 設定檔、服務與磁碟配額。</p></span></a>
+      <a class="step-card" href="#p7" style="text-decoration:none"><span class="step-index">07</span><span><h3>測試</h3><p>瀏覽器測網站、改 IP 驗證 Forbidden，再改回。</p></span></a>
+    </div>
+  </div>
+  <div class="slide-no">00 / 07</div><div class="keyhint">↑ ↓ / PgUp PgDn 可換主題</div>
+</section>
+
+<section class="slide" id="p1">
+  <div class="wrap content-grid">
+    <div class="text-panel">
+      <div class="eyebrow">Step 01</div><h2>USB 安裝</h2>
+      <p class="takeaway">先完成 BIOS / UEFI 與系統安裝，確認開機順序與磁碟配置。</p>
+      <div class="report-line gold"><strong>關鍵：</strong>舊版關閉、開 UEFI；開機順序選 USB / STATA2。</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><span class="tag cyan">安裝</span><h3>依序完成</h3></div>
+      <ol class="bullets">
+        <li><span class="n">1</span><span>進 BIOS。</span></li>
+        <li><span class="n">2</span><span>舊版關閉，開 <strong>UEFI</strong>。</span></li>
+        <li><span class="n">3</span><span>開機順序：<strong>USB / STATA2</strong>。</span></li>
+        <li><span class="n">4</span><span>設定 <strong>root</strong>。</span></li>
+        <li><span class="n">5</span><span>磁碟空間配置選：<strong>自動 / 全部刪除 / 取回空間</strong>。</span></li>
+        <li><span class="n">6</span><span>安裝完成。</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide-no">01 / 07</div><div class="keyhint">主題：USB 安裝</div>
+</section>
+
+<section class="slide" id="p2">
+  <div class="wrap content-grid">
+    <div class="text-panel">
+      <div class="eyebrow">Step 02</div><h2>做線</h2>
+      <p class="takeaway">先套環再做接頭，並照筆記中的 8 芯色序排列。</p>
+      <div class="report-line"><strong>插孔：</strong>2 號線插橋接孔（中間）；1 號線插考場資訊插座（最上）。</div>
+    </div>
+    <div>
+      <div class="panel">
+        <div class="panel-title"><span class="tag gold">CAT5</span><h3>操作順序</h3></div>
+        <ul class="bullets">
+          <li><span class="n">1</span><span>先把環套入 CAT5 線中，再做接頭。</span></li>
+          <li><span class="n">2</span><span>確認 8 芯顏色順序。</span></li>
+          <li><span class="n">3</span><span>完成後依 1 號線 / 2 號線的位置接入。</span></li>
+        </ul>
+        <div class="cable-strip" aria-label="網路線線序">
+          <div class="cable orange">白橘</div><div class="cable orange">橘</div><div class="cable green">白綠</div><div class="cable blue">藍</div>
+          <div class="cable blue">白藍</div><div class="cable green">綠</div><div class="cable brown">白棕</div><div class="cable brown">棕</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-no">02 / 07</div><div class="keyhint">主題：網路線</div>
+</section>
+
+<section class="slide tall" id="p3">
+  <div class="wrap">
+    <div class="eyebrow">Step 03</div><h2>套件與 Repo</h2>
+    <p class="takeaway">先調整 <span class="inline-code">centos.repo</span>、確認 USB / 媒體，再安裝 PC2 需要的 FTP Server 套件。</p>
+    <div class="cards-2" style="margin-top:22px">
+      <div class="panel">
+        <div class="panel-title"><span class="tag cyan">A</span><h3>改 centos.repo</h3></div>
+        <div class="command-wrap"><button class="copy-btn">複製</button><pre>cd /etc/yum.repos.d
+ll
+mkdir backup
+cp * backup
+ll backup
+rm centos-addons.repo -y
+vim centos.repo</pre></div>
+        <ul class="bullets" style="margin-top:15px">
+          <li><span class="n">1</span><span>留下 <strong>【baseos】</strong> 與 <strong>【appstream】</strong> 區塊。</span></li>
+          <li><span class="n">2</span><span>連用 2 次：先按 9，再按 dd。</span></li>
+          <li><span class="n">3</span><span>最下面不要的區塊：先按 d，再按住 <strong>shift</strong> 後按 g 變大寫，從游標開始刪到最後。</span></li>
+          <li><span class="n">4</span><span>【baseos】註解 <span class="inline-code">metalink=......</span>，新增 <span class="inline-code">baseurl=file:///media/BaseOS</span>。</span></li>
+          <li><span class="n">5</span><span>【appstream】註解 <span class="inline-code">metalink=......</span>，新增 <span class="inline-code">baseurl=file:///media/AppStream</span>。</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="panel">
+          <div class="panel-title"><span class="tag gold">B</span><h3>確認 USB / 媒體</h3></div>
+          <div class="command-wrap"><button class="copy-btn">複製</button><pre>df -h</pre></div>
+          <p class="takeaway" style="font-size:clamp(14px,1.1vw,17px)">查看 USB 是否在 <span class="inline-code">/dev/sr0</span>，確認位置並掛到 <span class="inline-code">/media</span> 上。</p>
+          <div class="report-line green">要有看到 <strong>read-only</strong>。</div>
+        </div>
+        <div class="panel">
+          <div class="panel-title"><span class="tag green">C</span><h3>安裝套件</h3></div>
+          <div class="command-wrap"><button class="copy-btn">複製</button><pre>dnf install vsftpd -y
+dnf install ftp -y
+dnf install firewall-config -y
+
+setenforce 0</pre></div>
+          <p class="note">依原筆記：套件安裝完成後執行 <span class="inline-code">setenforce 0</span>。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-no">03 / 07</div><div class="keyhint">主題：套件 / Repo</div>
+</section>
+
+<section class="slide tall" id="p4">
+  <div class="wrap">
+    <div class="eyebrow">Step 04</div><h2>IP、Firewall 與 Ping</h2>
+    <p class="takeaway">PC2 的 <span class="inline-code">enp1s0</span> 設兩組 200.100.X.x IP；先確認 MAC 身分，再放行 Firewall、啟動 vsftpd，最後依序 Ping。</p>
+    <div class="cards-2" style="margin-top:22px">
+      <div>
+        <div class="panel">
+          <div class="panel-title"><span class="tag cyan">IP</span><h3>enp1s0 雙 IP</h3></div>
+          <div class="report-line"><strong>提醒：</strong>設定 IP 記得勾「自動連線」；MAC 身分要選對。<span class="inline-code">enp1s0</span> 的 MAC 是橋接的，也就是 2 號環。</div>
+          <div class="cards-2" style="margin-top:15px">
+            <div class="ip-card">
+              <h3>IP 1</h3>
+              <div class="ip-row"><span>IP</span><code>200.100.X.1</code></div>
+              <div class="ip-row"><span>MASK</span><code>255.255.255.0</code></div>
+              <div class="ip-row"><span>GTW</span><code>200.100.X.254</code></div>
+            </div>
+            <div class="ip-card">
+              <h3>IP 2</h3>
+              <div class="ip-row"><span>IP</span><code>200.100.X.2</code></div>
+              <div class="ip-row"><span>MASK</span><code>255.255.255.0</code></div>
+              <div class="ip-row"><span>GTW</span><code>0.0.0.0</code></div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-title"><span class="tag gold">Firewall</span><h3>防火牆與 vsftpd</h3></div>
+          <div class="command-wrap"><button class="copy-btn">複製</button><pre>firewall-cmd --add-service=http --per
+firewall-cmd --add-service=https --per
+firewall-cmd --add-service=ftp --per
+firewall-cmd --add-masquerade --per
+firewall-cmd --reload
+
+systemctl stop vsftpd
+systemctl start vsftpd</pre></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="tag green">Ping</span><h3>測試順序</h3></div>
+        <p class="takeaway" style="font-size:clamp(14px,1.1vw,17px);margin-top:0">先 Ping 自己，再 Ping 別台。</p>
+        <div class="command-wrap" style="margin-top:13px"><button class="copy-btn">複製</button><pre>ping 200.100.X.254
+ping 200.100.X.2
+ping 200.100.X.1
+ping 10.1.X.1
+ping 10.1.X.2
+ping 10.1.X.254
+ping 10.1.200.200</pre></div>
+        <div class="flow"><span>200.100.X.x</span><b>→</b><span>10.1.X.x</span><b>→</b><span>考場</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-no">04 / 07</div><div class="keyhint">主題：IP / Ping</div>
+</section>
+
+<section class="slide" id="p5">
+  <div class="wrap content-grid">
+    <div class="text-panel">
+      <div class="eyebrow">Step 05</div><h2>帳密與權限</h2>
+      <p class="takeaway">PC2 需要建立 <strong>FtpX-2</strong> 使用者，後續第二個 FTP Server 會允許這個帳號登入。</p>
+      <div class="report-line gold"><strong>密碼：</strong>執行 passwd 後，筆記寫輸入 <span class="inline-code">FtpX-2</span>。</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><span class="tag cyan">Account</span><h3>建立 FtpX-2</h3></div>
+      <div class="command-wrap"><button class="copy-btn">複製</button><pre>useradd FtpX-2
+passwd FtpX-2
+# 輸入 FtpX-2</pre></div>
+    </div>
+  </div>
+  <div class="slide-no">05 / 07</div><div class="keyhint">主題：帳密權限</div>
+</section>
+
+<section class="slide tall" id="p6">
+  <div class="wrap">
+    <div class="eyebrow">Step 06</div><h2>FTP Server 與磁碟配額</h2>
+    <p class="takeaway">這一段是 PC2 核心：先做兩台 FTP Server 的歡迎詞，再設定兩份 vsftpd 設定檔，最後處理 FtpX-2 的磁碟配額。</p>
+
+    <div class="cards-2" style="margin-top:22px">
+      <div class="panel">
+        <div class="panel-title"><span class="tag cyan">1</span><h3>FtpX-1 歡迎詞</h3></div>
+        <div class="command-wrap"><button class="copy-btn">複製</button><pre>cd /var/ftp
+vim FtpX-1.txt</pre></div>
+        <div class="report-line" style="margin-top:14px"><strong>輸入內容：</strong></div>
+        <div class="command-wrap" style="margin-top:10px"><button class="copy-btn">複製</button><pre>歡迎光臨
+這是FtpX-1號XXX的第1個FTP伺服器
+本伺服器僅允許匿名登入，不允許其他帳號登入</pre></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="tag gold">2</span><h3>FtpX-2 歡迎詞</h3></div>
+        <div class="command-wrap"><button class="copy-btn">複製</button><pre>cp FtpX-1.txt FtpX-2.txt
+vim FtpX-2.txt</pre></div>
+        <div class="report-line gold" style="margin-top:14px"><strong>改成：</strong></div>
+        <div class="command-wrap" style="margin-top:10px"><button class="copy-btn">複製</button><pre>歡迎光臨
+這是FtpX-2號XXX的第2個FTP伺服器
+本伺服器僅允許FtpX-2帳號登入，不允許匿名登入</pre></div>
+      </div>
+    </div>
+
+    <div class="cards-2" style="margin-top:16px">
+      <div class="panel">
+        <div class="panel-title"><span class="tag green">3</span><h3>vsftpd.conf：200.100.X.1</h3></div>
+        <div class="command-wrap"><button class="copy-btn">複製</button><pre>cd /etc/vsftpd/
+ll
+vim vsftpd.conf
+
+anonymous_enable=YES
+local_enable=NO
+listen=YES
+listen_address=200.100.X.1
+banner_file=/var/ftp/FtpX-1.txt
+listen_ipv6=NO</pre></div>
+        <div class="report-line green"><strong>用途：</strong>第 1 台 FTP Server 僅允許匿名登入。</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="tag cyan">4</span><h3>vsftpd2.conf：200.100.X.2</h3></div>
+        <div class="command-wrap"><button class="copy-btn">複製</button><pre>cp vsftpd.conf vsftpd2.conf
+vim vsftpd2.conf
+
+anonymous_enable=NO
+local_enable=YES
+listen=YES
+listen_address=200.100.X.2
+banner_file=/var/ftp/FtpX-2.txt</pre></div>
+        <div class="report-line"><strong>用途：</strong>第 2 台 FTP Server 允許 FtpX-2 帳號登入，不允許匿名登入。</div>
+      </div>
+    </div>
+
+    <div class="cards-2" style="margin-top:16px">
+      <div class="panel">
+        <div class="panel-title"><span class="tag gold">5</span><h3>重啟兩台 FTP Server</h3></div>
+        <div class="command-wrap"><button class="copy-btn">複製</button><pre>systemctl stop vsftpd
+systemctl start vsftpd@vsftpd
+systemctl start vsftpd@vsftpd2
+firewall-cmd --listen-service</pre></div>
+        <p class="note">以上指令依原筆記文字保留。</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="tag red">6</span><h3>設定磁碟配額</h3></div>
+        <div class="report-line gold"><strong>先做：</strong>筆記註記「先離開 /home」。</div>
+        <div class="command-wrap" style="margin-top:13px"><button class="copy-btn">複製</button><pre>umount /home
+sysemctl daemon-reload
+mount /home
+
+xfs_quota -x -c "limit -u bsoft=800k bhard=1024k FtpX-2" /home
+
+repquota -auv</pre></div>
+        <div class="report-line green"><strong>配額：</strong>bsoft = 800k、bhard = 1024k，套用到 FtpX-2 的 /home。</div>
+        <p class="note">指令拼字依原筆記保留，未自行改寫。</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-no">06 / 07</div><div class="keyhint">主題：FTP / 配額設定</div>
+</section>
+
+<section class="slide tall" id="p7">
+  <div class="wrap">
+    <div class="eyebrow">Step 07</div><h2>瀏覽器測試</h2>
+    <p class="takeaway">PC2 設定完成後，用瀏覽器確認 PC1 的兩個網站與考場頁面，再改 IP 驗證 WebX-2 的 IP 限制是否生效。</p>
+
+    <div class="cards-2" style="margin-top:22px">
+      <div class="panel">
+        <div class="panel-title"><span class="tag cyan">A</span><h3>先開三個網址</h3></div>
+        <div class="command-wrap"><button class="copy-btn">複製</button><pre>http://10.1.X.1/~WebX-1
+# 第一個網站
+
+http://10.1.X.2/~WebX-2
+# 第二個網站鎖 IP 帳密
+
+http://10.1.200.200
+# 考場</pre></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="tag gold">B</span><h3>改 IP 測 Forbidden</h3></div>
+        <ul class="bullets">
+          <li><span class="n">1</span><span>把 <span class="inline-code">200.100.X.1</span> 改成 <span class="inline-code">200.100.X.100</span>。</span></li>
+          <li><span class="n">2</span><span>再測 <span class="inline-code">http://10.1.X.2/~WebX-2</span>。</span></li>
+          <li><span class="n">3</span><span>要看到 <strong>forbidden</strong>。</span></li>
+        </ul>
+        <div class="report-line gold"><strong>驗證點：</strong>改 IP 後，第二個網站應被擋住。</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <div class="panel-title"><span class="tag green">C</span><h3>測試完成後改回</h3></div>
+      <div class="cards-2">
+        <div class="ip-card">
+          <h3>1. IP 改回</h3>
+          <div class="ip-row"><span>從</span><code>200.100.X.100</code></div>
+          <div class="ip-row"><span>改回</span><code>200.100.X.1</code></div>
+        </div>
+        <div class="ip-card">
+          <h3>2. 重新套用</h3>
+          <div class="ip-row"><span>IP</span><code>按鈕要關掉再開</code></div>
+          <div class="ip-row"><span>再測</span><code>http://10.1.X.2/~WebX-2</code></div>
+        </div>
+      </div>
+      <div class="report-line green"><strong>完成條件：</strong>改回後再次測試第二個網站，要看到<strong>正常網頁</strong>。</div>
+    </div>
+  </div>
+  <div class="slide-no">07 / 07</div><div class="keyhint">主題：瀏覽器測試</div>
+</section>
+
+<script>
+
+const links=[...document.querySelectorAll('.topic-nav a')];
+const sections=[...document.querySelectorAll('.slide')];
+
+function setActive(id){
+  links.forEach(a=>a.classList.toggle('active',a.dataset.target===id));
+  const active=links.find(a=>a.dataset.target===id);
+  if(active && window.innerWidth<=980){active.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});}
+}
+
+const observer=new IntersectionObserver(entries=>{
+  const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+  if(visible)setActive(visible.target.id);
+},{threshold:[.22,.45,.7]});
+sections.forEach(s=>observer.observe(s));
+setActive('p0');
+
+// 在 file:// 直接開啟時，Chrome 會把每個本機檔案視為獨立安全來源。
+// 攔截頁內 # 主題連結，直接用 scrollIntoView，避免瀏覽器重新嘗試載入 file URL。
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href').slice(1);
+    const target=document.getElementById(id);
+    if(!target)return;
+    e.preventDefault();
+    target.scrollIntoView({behavior:'smooth',block:'start'});
+    setActive(id);
+  });
+});
+
+document.addEventListener('keydown',e=>{
+  if(!['ArrowDown','ArrowUp','PageDown','PageUp'].includes(e.key))return;
+  const y=window.scrollY+window.innerHeight*.35;
+  let idx=sections.findIndex(s=>s.offsetTop+s.offsetHeight>y);
+  if(idx<0)idx=0;
+  const next=(e.key==='ArrowDown'||e.key==='PageDown')?Math.min(idx+1,sections.length-1):Math.max(idx-1,0);
+  if(next!==idx){e.preventDefault();sections[next].scrollIntoView({behavior:'smooth',block:'start'});}
+});
+
+document.querySelectorAll('.copy-btn').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const pre=btn.parentElement.querySelector('pre');
+    if(!pre)return;
+    const text=pre.innerText;
+    let copied=false;
+    try{
+      if(window.isSecureContext && navigator.clipboard){
+        await navigator.clipboard.writeText(text);
+        copied=true;
+      }else{
+        const ta=document.createElement('textarea');
+        ta.value=text;
+        ta.setAttribute('readonly','');
+        ta.style.position='fixed';
+        ta.style.opacity='0';
+        document.body.appendChild(ta);
+        ta.select();
+        copied=document.execCommand('copy');
+        ta.remove();
+      }
+    }catch(err){copied=false;}
+    const old=btn.textContent;
+    btn.textContent=copied?'已複製':'請手動複製';
+    setTimeout(()=>btn.textContent=old,1400);
+  });
+});
+
+</script>
+</body>
+</html>
