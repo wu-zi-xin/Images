@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>PC1｜網站架設術科・考試模式</title>
+<style>
+:root{
+  --bg:#07111d;--panel:#0d1c2d;--panel2:#10243a;--panel3:#0a1725;
+  --text:#f1f7fb;--muted:#a9bcc9;--cyan:#50d9ff;--gold:#ffc85b;
+  --green:#76e2b9;--red:#ff8c8c;--line:rgba(255,255,255,.09);--code:#050c14;
+  --shadow:0 18px 54px rgba(0,0,0,.30);--radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--text);
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 8% 0%,rgba(80,217,255,.09),transparent 22%),
+    radial-gradient(circle at 92% 10%,rgba(255,200,91,.06),transparent 20%),
+    linear-gradient(180deg,#06101a,#07111d);
+  min-height:100svh;overflow-x:hidden;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.topbar{
+  position:sticky;top:0;z-index:30;
+  background:rgba(5,12,21,.88);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.topbar-inner{
+  max-width:1180px;margin:auto;padding:10px 18px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.brand{font-weight:950;font-size:clamp(14px,1.3vw,18px);white-space:nowrap}
+.brand span{color:var(--cyan)}
+.top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.btn{
+  border:1px solid rgba(80,217,255,.24);background:rgba(80,217,255,.07);
+  color:#fff;border-radius:10px;padding:8px 11px;font-size:13px;font-weight:800;
+}
+.btn:hover{background:rgba(80,217,255,.13)}
+.btn.gold{border-color:rgba(255,200,91,.26);background:rgba(255,200,91,.07)}
+.btn.red{border-color:rgba(255,140,140,.28);background:rgba(255,140,140,.07)}
+.btn.green{border-color:rgba(118,226,185,.28);background:rgba(118,226,185,.07)}
+
+.page{max-width:1180px;margin:auto;padding:28px 18px 72px}
+.hero{padding:22px 0 18px}
+.eyebrow{color:var(--cyan);font-size:13px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+h1{font-size:clamp(34px,5.8vw,64px);line-height:1.04;letter-spacing:-.04em;margin:0 0 12px}
+.lead{margin:0;color:var(--muted);font-size:clamp(16px,1.6vw,20px);line-height:1.75;max-width:900px}
+.notice{
+  margin-top:16px;padding:13px 15px;border-radius:13px;
+  border:1px solid rgba(80,217,255,.18);background:rgba(80,217,255,.055);
+  color:#d6f8ff;line-height:1.65;font-size:14px;
+}
+
+.dashboard{
+  display:grid;grid-template-columns:280px minmax(0,1fr);gap:18px;align-items:start;margin-top:18px;
+}
+.sidebar,.exam-card{
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(16,36,58,.90),rgba(10,23,37,.92));
+  box-shadow:var(--shadow);
+}
+.sidebar{padding:16px;position:sticky;top:78px}
+.sidebar h2{font-size:17px;margin:0 0 12px}
+.progress-track{height:10px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),#bdf7ff);transition:width .25s ease}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.stat{padding:10px 8px;border:1px solid rgba(255,255,255,.06);border-radius:11px;background:rgba(255,255,255,.025);text-align:center}
+.stat b{display:block;font-size:20px}
+.stat span{display:block;color:#7f94a4;font-size:11px;margin-top:2px}
+.topic-list{display:grid;gap:7px;margin-top:14px}
+.topic-btn{
+  width:100%;display:flex;align-items:center;gap:9px;text-align:left;
+  border:1px solid rgba(255,255,255,.07);background:rgba(5,13,22,.52);color:#9bb0bd;
+  border-radius:10px;padding:8px 10px;
+}
+.topic-btn:hover,.topic-btn.active{color:#fff;border-color:rgba(80,217,255,.35);background:rgba(80,217,255,.08)}
+.topic-btn .num{
+  width:28px;height:25px;display:grid;place-items:center;border-radius:7px;
+  background:rgba(255,255,255,.045);font-size:11px;font-weight:950;
+}
+.topic-btn.active .num{color:#06111b;background:linear-gradient(135deg,var(--cyan),#bdf7ff)}
+.sidebar-note{margin-top:14px;color:#7890a1;font-size:12px;line-height:1.55}
+
+.exam-card{padding:clamp(18px,3vw,30px);min-height:560px;position:relative;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+.exam-card.correct-flash{animation:correctCardFlash .72s ease}
+@keyframes correctCardFlash{
+  0%{border-color:var(--line);box-shadow:var(--shadow);transform:scale(1)}
+  28%{border-color:rgba(118,226,185,.82);box-shadow:0 0 0 4px rgba(118,226,185,.13),0 0 42px rgba(118,226,185,.22);transform:scale(1.008)}
+  100%{border-color:var(--line);box-shadow:var(--shadow);transform:scale(1)}
+}
+.q-meta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:16px}
+.tag{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:950}
+.tag.cyan{color:#bdf5ff;background:rgba(80,217,255,.10);border:1px solid rgba(80,217,255,.16)}
+.tag.gold{color:#ffe5a6;background:rgba(255,200,91,.10);border:1px solid rgba(255,200,91,.16)}
+.tag.green{color:#caffec;background:rgba(118,226,185,.10);border:1px solid rgba(118,226,185,.16)}
+.tag.red{color:#ffcaca;background:rgba(255,140,140,.10);border:1px solid rgba(255,140,140,.16)}
+.q-count{margin-left:auto;color:#7890a1;font-size:13px;font-weight:800}
+.scene{
+  padding:13px 15px;border-left:4px solid var(--cyan);border-radius:10px;
+  background:rgba(80,217,255,.055);color:#caeff8;line-height:1.65;font-size:14px;margin-bottom:16px;
+}
+.question{font-size:clamp(23px,3.1vw,36px);line-height:1.28;letter-spacing:-.025em;margin:0 0 12px}
+.sub{color:var(--muted);font-size:15px;line-height:1.7;margin:0 0 18px}
+.answer-area{display:grid;gap:12px;margin-top:16px}
+.field{display:grid;gap:7px}
+.field label{color:#a7bdc9;font-size:13px;font-weight:850}
+.input,.textarea{
+  width:100%;border-radius:12px;border:1px solid rgba(80,217,255,.18);
+  background:#050c14;color:#e7fbff;outline:none;padding:13px 14px;
+  font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+  font-size:clamp(17px,1.65vw,21px);line-height:1.65;
+  transition:border-color .16s ease,box-shadow .16s ease;
+}
+.input:focus,.textarea:focus{border-color:rgba(80,217,255,.62);box-shadow:0 0 0 3px rgba(80,217,255,.08)}
+.textarea{min-height:170px;resize:vertical;white-space:pre-wrap}
+.helper{color:#728a9b;font-size:12px;line-height:1.55}
+.exam-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.primary{
+  border:0;border-radius:11px;padding:10px 16px;font-weight:950;
+  color:#05111b;background:linear-gradient(135deg,var(--cyan),#bdf7ff);
+}
+.primary:hover{filter:brightness(1.05)}
+.secondary{border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:10px 14px;background:rgba(255,255,255,.045);color:#e8f5fb;font-weight:800}
+.secondary:hover{background:rgba(255,255,255,.08)}
+.feedback{display:none;margin-top:18px;padding:14px 15px;border-radius:13px;line-height:1.65}
+.feedback.show{display:block}
+.feedback.ok{border:2px solid rgba(118,226,185,.62);background:rgba(118,226,185,.12);color:#eafff6;font-size:17px;font-weight:850;box-shadow:0 0 24px rgba(118,226,185,.10)}
+.feedback.bad{border:1px solid rgba(255,140,140,.25);background:rgba(255,140,140,.07);color:#ffd4d4}
+.success-toast{
+  position:fixed;left:50%;top:50%;z-index:9999;
+  transform:translate(-50%,-50%) scale(.82);
+  opacity:0;pointer-events:none;
+  min-width:min(86vw,360px);
+  padding:22px 26px;border-radius:22px;text-align:center;
+  color:#eafff6;background:rgba(7,32,28,.94);
+  border:2px solid rgba(118,226,185,.78);
+  box-shadow:0 24px 80px rgba(0,0,0,.55),0 0 52px rgba(118,226,185,.26);
+  backdrop-filter:blur(14px);
+}
+.success-toast.show{animation:successPop .72s ease both}
+.success-icon{
+  width:72px;height:72px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;
+  font-size:48px;font-weight:950;line-height:1;color:#062019;
+  background:linear-gradient(135deg,var(--green),#d8fff0);
+  box-shadow:0 0 34px rgba(118,226,185,.35);
+}
+.success-title{font-size:clamp(30px,7vw,42px);font-weight:950;letter-spacing:.02em}
+.success-sub{margin-top:4px;color:#bff7df;font-size:15px;font-weight:800}
+@keyframes successPop{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.72)}
+  18%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}
+  34%{transform:translate(-50%,-50%) scale(1)}
+  78%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.96)}
+}
+.answer-box{display:none;margin-top:12px;border:1px solid rgba(255,200,91,.18);border-radius:12px;background:rgba(255,200,91,.055);padding:13px 14px}
+.answer-box.show{display:block}
+.answer-title{color:#ffe5a6;font-size:12px;font-weight:950;margin-bottom:8px;letter-spacing:.05em}
+.answer-box pre{margin:0;color:#fff4cf;white-space:pre-wrap;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:16px;line-height:1.65}
+.answer-box p{margin:0;color:#ffecc1;line-height:1.65}
+.result{display:none;text-align:center;padding:28px 10px}
+.result.show{display:block}
+.result .score{font-size:clamp(52px,9vw,88px);font-weight:950;line-height:1;color:var(--cyan)}
+.result h2{font-size:30px;margin:12px 0 7px}
+.result p{color:var(--muted);line-height:1.7}
+.wrong-list{display:grid;gap:9px;margin-top:18px;text-align:left}
+.wrong-item{border:1px solid rgba(255,140,140,.15);background:rgba(255,140,140,.045);border-radius:11px;padding:11px 12px;color:#ffd4d4;font-size:14px;line-height:1.55}
+
+@media(max-width:860px){
+  .topbar-inner{align-items:flex-start}.top-actions{gap:6px}.btn{padding:7px 9px;font-size:12px}
+  .dashboard{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .topic-list{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .topic-btn{justify-content:center;padding:8px 6px}.topic-btn .label{display:none}
+  .exam-card{min-height:auto}
+}
+@media(max-width:560px){
+  .page{padding:18px 12px 88px}
+  .hero{padding-top:12px}
+  .topbar-inner{padding:8px 12px}
+  .brand{white-space:normal;line-height:1.3}
+  .top-actions .btn:nth-child(3){display:none}
+  .stats{gap:6px}.stat{padding:8px 4px}.stat b{font-size:18px}
+  .topic-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .topic-btn{min-height:42px}
+  .exam-card{padding:17px 14px;border-radius:15px}
+  .q-meta{margin-bottom:13px}.q-count{width:100%;margin-left:0}
+  .question{font-size:clamp(24px,7vw,32px)}
+  .input,.textarea{font-size:18px;padding:13px 12px}
+  .textarea{min-height:190px}
+  .exam-actions{display:grid;grid-template-columns:1fr 1fr}
+  .exam-actions .primary{grid-column:1/-1;min-height:48px}
+  .exam-actions button{min-height:44px}
+  .success-toast{min-width:min(90vw,340px);padding:20px 18px;border-radius:18px}
+  .success-icon{width:66px;height:66px;font-size:43px}
+}
+
+@media(max-width:390px){
+  .topic-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .topic-btn .label{display:inline;font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="success-toast" id="successToast" role="status" aria-live="polite">
+  <div class="success-icon">✓</div>
+  <div class="success-title">答對！</div>
+  <div class="success-sub">準備進入下一題 →</div>
+</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">PC1 <span>網站架設術科</span>｜考試模式</div>
+    <div class="top-actions">
+      <button class="btn" id="randomBtn">隨機一題</button>
+      <button class="btn gold" id="wrongBtn">只考錯題</button>
+      <button class="btn red" id="resetBtn">重設</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <section class="hero">
+    <div class="eyebrow">Practice · Command Recall</div>
+    <h1>不是看答案，<br>是自己把它打出來。</h1>
+    <p class="lead">我會照 PC1 最終版的流程出題：問你現在要進哪個目錄、改哪個設定、下載哪些套件、下一條指令是什麼。指令題會留空白讓你自己輸入，答完再檢查。答對會自動跳下一題；空格與英文字母大小寫採寬鬆判斷。</p>
+    <div class="notice"><strong>評分方式：</strong>題目依你的 PC1 最終版內容製作，不另外改寫原筆記中的指令。指令檢查會忽略多餘空白與空白行，但仍以筆記中的文字為答案基準。</div>
+  </section>
+
+  <section class="dashboard">
+    <aside class="sidebar">
+      <h2>練習進度</h2>
+      <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="stats">
+        <div class="stat"><b id="doneStat">0</b><span>已作答</span></div>
+        <div class="stat"><b id="correctStat">0</b><span>首次答對</span></div>
+        <div class="stat"><b id="wrongStat">0</b><span>錯題</span></div>
+      </div>
+      <div class="topic-list" id="topicList"></div>
+      <div class="sidebar-note">點主題可直接跳到該段第一題。手機版會縮成數字按鈕，不會擠在一起。</div>
+    </aside>
+
+    <section class="exam-card">
+      <div id="quizView">
+        <div class="q-meta">
+          <span class="tag cyan" id="stepTag">STEP 01</span>
+          <span class="tag gold" id="typeTag">位置</span>
+          <span class="q-count" id="qCount">1 / 46</span>
+        </div>
+        <div class="scene" id="scene"></div>
+        <h2 class="question" id="question"></h2>
+        <p class="sub" id="sub"></p>
+        <div class="answer-area" id="answerArea"></div>
+        <div class="exam-actions">
+          <button class="primary" id="checkBtn">檢查答案</button>
+          <button class="secondary" id="hintBtn">提示</button>
+          <button class="secondary" id="showBtn">看答案</button>
+          <button class="secondary" id="prevBtn">上一題</button>
+          <button class="secondary" id="nextBtn">下一題</button>
+        </div>
+        <div class="feedback" id="feedback"></div>
+        <div class="answer-box" id="answerBox">
+          <div class="answer-title">參考答案</div>
+          <div id="answerContent"></div>
+        </div>
+      </div>
+      <div class="result" id="resultView">
+        <div class="score" id="finalScore">0%</div>
+        <h2>PC1 全流程完成</h2>
+        <p id="resultText"></p>
+        <div class="wrong-list" id="wrongList"></div>
+        <div class="exam-actions" style="justify-content:center">
+          <button class="primary" id="retryWrongBtn">重新考錯題</button>
+          <button class="secondary" id="restartBtn">從第一題重來</button>
+        </div>
+      </div>
+    </section>
+  </section>
+</main>
+
+<script>
+const topics = [
+  {step:1,name:'USB 安裝'}, {step:2,name:'網路線'}, {step:3,name:'套件 / Repo'}, {step:4,name:'IP / Ping'},
+  {step:5,name:'帳密權限'}, {step:6,name:'網站設定'}, {step:7,name:'FTP 測試'}, {step:8,name:'up1 / up2'}
+];
+
+const Q = [
+{step:1,type:'位置',scene:'你剛開機，現在要先處理系統安裝前的開機設定。',q:'第一個要進到哪裡？',sub:'輸入筆記中的名稱。',kind:'text',answer:'BIOS',hint:'是主機板開機設定介面。'},
+{step:1,type:'設定',scene:'你已進入 BIOS。',q:'舊版要關閉，接著要開啟什麼模式？',sub:'只輸入模式名稱即可。',kind:'text',answer:'UEFI',hint:'四個英文字母。'},
+{step:1,type:'設定',scene:'接著要調整開機來源。',q:'開機順序要設定成什麼？',sub:'依最終版筆記輸入。',kind:'text',answer:'USB / STATA2',variants:['USB/STATA2','USB STATA2','USB / SATA2','USB/SATA2','USB SATA2'],hint:'USB 加上另一個來源。'},
+{step:1,type:'設定',scene:'系統安裝流程繼續。',q:'接下來要設定哪個帳號？',sub:'輸入帳號名稱。',kind:'text',answer:'root',hint:'Linux 系統管理者帳號。'},
+{step:1,type:'設定',scene:'來到磁碟空間配置。',q:'筆記列出的 3 個磁碟空間選項是什麼？',sub:'可以用 / 或換行分隔。',kind:'lines',answerLines:['自動','全部刪除','取回空間'],unordered:true,hint:'第一個是「自動」。'},
+
+{step:2,type:'操作',scene:'準備開始做 CAT5 網路線。',q:'做接頭之前，要先做哪件事？',sub:'用一句話回答即可。',kind:'text',answer:'先把環套入CAT5線中',variants:['把環套入CAT5線中','先把環套入 cat5 線中','先把環套入CAT5線中，再做接頭'],contains:['環','CAT5'],hint:'別忘了先把「環」處理好。'},
+{step:2,type:'線序',scene:'接頭要依正確顏色排列。',q:'請依順序輸入 8 芯顏色。',sub:'一行一個或用空格分隔都可以。',kind:'sequence',sequence:['白橘','橘','白綠','藍','白藍','綠','白棕','棕'],hint:'開頭是：白橘、橘、白綠。'},
+{step:2,type:'位置',scene:'線做好後，要插到考場指定位置。',q:'2 號線要插哪裡？',sub:'請包含位置說明。',kind:'text',answer:'橋接孔（中間）',variants:['橋接孔(中間)','橋接孔 中間','橋接孔'],contains:['橋接孔'],hint:'位置在中間。'},
+{step:2,type:'位置',scene:'接著處理 1 號線。',q:'1 號線要插哪裡？',sub:'請包含位置說明。',kind:'text',answer:'考場資訊插座（最上）',variants:['考場資訊插座(最上)','考場資訊插座 最上','考場資訊插座'],contains:['考場資訊插座'],hint:'位置在最上面。'},
+
+{step:3,type:'指令',scene:'開始處理 yum repo。',q:'第一個要進到哪個目錄？請輸入完整指令。',sub:'這題要打 command。',kind:'command',answer:'cd /etc/yum.repos.d',hint:'cd /etc/...'},
+{step:3,type:'指令',scene:'已經在 /etc/yum.repos.d。',q:'建立 backup 並把目前檔案複製進去，要輸入哪幾條指令？',sub:'依筆記順序輸入。',kind:'commands',answerLines:['mkdir backup','cp * backup','ll backup'],hint:'mkdir → cp → ll。'},
+{step:3,type:'指令',scene:'備份完成，接著清理不需要的 repo 檔。',q:'刪除 centos-addons.repo 的完整指令是什麼？',sub:'包含參數。',kind:'command',answer:'rm centos-addons.repo -y',hint:'rm ... -y'},
+{step:3,type:'指令',scene:'下一步要修改主要 repo 設定。',q:'要用 vim 開哪個檔案？請輸入完整指令。',sub:'輸入 command。',kind:'command',answer:'vim centos.repo',hint:'檔名是 centos.repo。'},
+{step:3,type:'設定',scene:'你已經打開 centos.repo。',q:'只要留下哪兩個區塊？',sub:'輸入兩個名稱。',kind:'lines',answerLines:['baseos','appstream'],unordered:true,hint:'一個是 BaseOS。'},
+{step:3,type:'Vim',scene:'你要刪掉最下面不要的區塊。',q:'筆記寫的按鍵操作是什麼？',sub:'請寫出 d 與 shift + g 的操作。',kind:'text',answer:'d shift+g',variants:['d shift + g','先按 d，再按住 shift 後按 g','d Shift+G','dG'],contains:['d','g'],hint:'先 d，再 Shift + G。'},
+{step:3,type:'設定',scene:'編輯【baseos】區塊。',q:'註解 metalink 後，要新增哪一行 baseurl？',sub:'完整輸入設定行。',kind:'command',answer:'baseurl=file:///media/BaseOS',hint:'file:///media/BaseOS'},
+{step:3,type:'設定',scene:'接著編輯【appstream】區塊。',q:'要新增哪一行 baseurl？',sub:'完整輸入設定行。',kind:'command',answer:'baseurl=file:///media/AppStream',hint:'file:///media/AppStream'},
+{step:3,type:'指令',scene:'Repo 設定完，接著確認 USB / 媒體位置。',q:'先輸入哪個指令查看？',sub:'輸入 command。',kind:'command',answer:'df -h',hint:'df 加一個參數。'},
+{step:3,type:'檢查',scene:'你已執行 df -h。',q:'筆記要你確認哪個裝置、掛到哪裡，並看到什麼狀態？',sub:'三個答案分開填。',kind:'fields',fields:[
+  {label:'裝置',answer:'/dev/sr0'},{label:'掛載位置',answer:'/media'},{label:'狀態',answer:'read-only',variants:['readonly','read only']}
+],hint:'裝置是 /dev/sr0。'},
+{step:3,type:'下載',scene:'媒體來源確認完成，現在開始安裝服務套件。',q:'要下載 / 安裝哪 4 個套件？請把完整 dnf 指令打出來。',sub:'四行指令。',kind:'commands',answerLines:['dnf install httpd -y','dnf install mod_ssl -y','dnf install ftp -y','dnf install firewall-config -y'],hint:'httpd、mod_ssl、ftp、firewall-config。'},
+{step:3,type:'指令',scene:'套件安裝完成。',q:'原筆記下一條暫時關閉相關限制的指令是什麼？',sub:'完整輸入。',kind:'command',answer:'setenforce 0',hint:'setenforce + 數字。'},
+
+{step:4,type:'網路',scene:'現在開始設定第一張網卡 enp1s0。',q:'請填入 enp1s0 的 IP / MASK / GTW。',sub:'照筆記填三個欄位。',kind:'fields',fields:[
+  {label:'IP',answer:'200.100.X.254'},{label:'MASK',answer:'255.255.255.0'},{label:'GTW',answer:'0.0.0.0'}
+],hint:'IP 開頭是 200.100。'},
+{step:4,type:'網路',scene:'接著設定 enp1s2。',q:'請填入 enp1s2 的 IP1 / MASK / GTW / IP2。',sub:'照筆記填。',kind:'fields',fields:[
+  {label:'IP1',answer:'10.1.X.1'},{label:'MASK',answer:'255.255.255.0'},{label:'GTW',answer:'10.1.X.254'},{label:'IP2',answer:'10.1.X.2'}
+],hint:'IP1 是 10.1.X.1。'},
+{step:4,type:'設定',scene:'IP 設定畫面還有兩個容易漏掉的地方。',q:'要勾什麼？enp1s0 的 MAC 身分又是哪一個？',sub:'兩個答案分開填。',kind:'fields',fields:[
+  {label:'要勾選',answer:'自動連線',contains:['自動連線']},{label:'enp1s0 MAC 身分',answer:'橋接的，也就是2號環',contains:['橋接','2號']}
+],hint:'第一個是「自動連線」。'},
+{step:4,type:'指令',scene:'IP 設定完成，開始放行 Firewall。',q:'請輸入 Firewall 的 5 條指令。',sub:'包含 http、https、ftp、masquerade 與 reload。',kind:'commands',answerLines:['firewall-cmd --add-service=http --per','firewall-cmd --add-service=https --per','firewall-cmd --add-service=ftp --per','firewall-cmd --add-masquerade --per','firewall-cmd --reload'],hint:'前三條是 add-service。'},
+{step:4,type:'指令',scene:'Firewall 完成後，要重新處理 HTTPD。',q:'原筆記是先關掉再啟動。請輸入兩條指令。',sub:'依順序輸入。',kind:'commands',answerLines:['systemctl stop httpd','systemctl start httpd'],hint:'stop → start。'},
+{step:4,type:'測試',scene:'現在要開始 Ping，筆記寫「先 ping 自己，再 ping 別台」。',q:'請照順序打出 7 個 ping 指令。',sub:'每行一個。',kind:'commands',answerLines:['ping 10.1.X.1','ping 10.1.X.2','ping 10.1.X.254','ping 10.1.200.200','ping 200.100.X.254','ping 200.100.X.2','ping 200.100.X.1'],hint:'第一個是 ping 10.1.X.1。'},
+
+{step:5,type:'指令',scene:'網路確認完成，現在建立兩個使用者。',q:'請輸入建立 WebX-1 / WebX-2 與設定密碼的指令。',sub:'只要 command；密碼內容不用另外輸入。',kind:'commands',answerLines:['useradd WebX-1','passwd WebX-1','useradd WebX-2','passwd WebX-2'],hint:'useradd 和 passwd 各兩次。'},
+{step:5,type:'位置',scene:'帳號建立完成，要先確認家目錄。',q:'要進到哪裡查看？請輸入完整指令。',sub:'輸入 command。',kind:'command',answer:'cd /home',hint:'cd /...'},
+{step:5,type:'權限',scene:'確認有 WebX-1 / WebX-2 目錄後。',q:'設定資料夾權限要輸入哪兩條指令？',sub:'兩行。',kind:'commands',answerLines:['chmod o+x WebX-1','chmod o+x WebX-2'],hint:'chmod o+x ...'},
+
+{step:6,type:'位置',scene:'開始網站設定。你目前在 /home。',q:'請建立兩個使用者的 www 目錄。',sub:'依最終版輸入兩條 mkdir。',kind:'commands',answerLines:['mkdir /home/WebX-1/www','mkdir /home/WebX-2/www'],hint:'兩條 mkdir /home/WebX-?/www。'},
+{step:6,type:'首頁',scene:'先處理 WebX-1 的首頁。',q:'要進哪裡、開哪個檔？',sub:'輸入兩條指令。',kind:'commands',answerLines:['cd /home/WebX-1/www','vim index.html'],hint:'cd 到 WebX-1/www，再 vim。'},
+{step:6,type:'內容',scene:'index.html 已開啟。',q:'WebX-1 首頁要輸入哪一句？',sub:'依筆記原文輸入。',kind:'text',answer:'網站架設術科—WebX-1號XXX的第1個網站',variants:['網站架設術科-WebX-1號XXX的第1個網站'],hint:'結尾是「第1個網站」。'},
+{step:6,type:'指令',scene:'WebX-1 首頁完成，要複製給 WebX-2。',q:'複製 index.html 的指令是什麼？',sub:'完整輸入。',kind:'command',answer:'cp index.html ../../WebX-2/www/',hint:'cp index.html ../../...'},
+{step:6,type:'首頁',scene:'接著修改 WebX-2 首頁。',q:'要進哪裡、開哪個檔？',sub:'輸入兩條指令。',kind:'commands',answerLines:['cd /home/WebX-2/www','vim index.html'],hint:'WebX-2/www。'},
+{step:6,type:'內容',scene:'WebX-2 的 index.html 已開啟。',q:'首頁要輸入哪一句？',sub:'依筆記原文。',kind:'text',answer:'網站架設術科—WebX-2號XXX的第2個網站',variants:['網站架設術科-WebX-2號XXX的第2個網站'],hint:'結尾是「第2個網站」。'},
+{step:6,type:'設定檔',scene:'兩個首頁都完成，現在進到主要 3 個設定檔。',q:'請填入 userdir、.htaccess、.htpasswd 的原筆記位置。',sub:'這裡完全依你的最終版筆記出題。',kind:'fields',fields:[
+  {label:'userdir',answer:'/etc/httpd/conf.d/userdir.conf'},
+  {label:'.htaccess',answer:'/home/Web-2/www/.htaccess'},
+  {label:'.htpasswd',answer:'/home/Web-2/www/.htpasswd'}
+],hint:'userdir 在 /etc/httpd/conf.d/。'},
+{step:6,type:'設定',scene:'現在修改 userdir.conf。',q:'UserDir 要從什麼改成什麼？Directory 的 public_html 又要改成什麼？',sub:'分三欄填。',kind:'fields',fields:[
+  {label:'原本 UserDir',answer:'public_html'},{label:'改成',answer:'www'},{label:'Directory 內 public_html 改成',answer:'www'}
+],hint:'兩個地方最後都會是 www。'},
+{step:6,type:'指令',scene:'接著輸入 Web-2 的 Directory 區塊。',q:'請把筆記中的完整區塊打出來。',sub:'包含 vim 那一行與 Directory 內容。',kind:'commands',answerLines:['vim //etc/httpd/conf.d/userdir.conf','<Directory "/home/Web-2/www">','AllowOverride all','Order deny,allow','Deny from all','Allow from 200.100.X.1','</Directory>'],hint:'AllowOverride all、Order deny,allow。'},
+{step:6,type:'驗證',scene:'接著處理 .htaccess / .htpasswd。',q:'請輸入原筆記中的完整操作與設定。',sub:'注意：答案依你的最終版原文，不另外修正大小寫或空格。',kind:'commands',answerLines:['cd /home/Web-2/www/','vim .htaccess','AuthType Basic','AuthNAme "WebX-2 only"','AuthUserFile /home/Web-2/www/.htpasswd','Require valid-user','htpasswd - c .htpasswd WebX-2'],hint:'第一行先 cd /home/Web-2/www/。'},
+{step:6,type:'指令',scene:'設定檔完成，準備重新啟動伺服器並查看服務。',q:'原筆記要輸入哪兩條指令？',sub:'兩行。',kind:'commands',answerLines:['systemctl restart_httpd','firewall-cmd --list-service'],hint:'第一條以 systemctl 開頭。'},
+{step:6,type:'檢查',scene:'你執行完服務檢查。',q:'筆記說要看到哪 4 個項目？',sub:'一行一個或空格分隔。',kind:'sequence',sequence:['httpd','mod_ssl','ftp','firewall'],unordered:true,hint:'第一個是 httpd。'},
+
+{step:7,type:'FTP',scene:'PC1 主要確認 FTP 操作流程。',q:'先連到哪個位址？接著輸入什麼？會看到什麼？',sub:'三個答案分開填。',kind:'fields',fields:[
+  {label:'FTP 位址',answer:'200.100.X.1'},{label:'接著輸入',answer:'123'},{label:'出現文字',answer:'anonymous only',variants:['anonymous only']}
+],hint:'位址是 200.100.X.1。'},
+{step:7,type:'FTP',scene:'FTP 已進入操作階段。',q:'PC1 測試只要哪 5 個操作？',sub:'依順序輸入。',kind:'sequence',sequence:['dir','!cat','put','!rm','bye'],hint:'dir 開頭，bye 結尾。'},
+
+{step:8,type:'位置',scene:'最後要建立 up1 / up2。',q:'先進到哪裡？請輸入完整指令。',sub:'輸入 command。',kind:'command',answer:'cd /',hint:'根目錄。'},
+{step:8,type:'指令',scene:'你已在根目錄。',q:'請建立 up1 與 up2，兩個都要 700 KB。',sub:'輸入兩條 dd 指令。',kind:'commands',answerLines:['dd if=/dev/zero of=up1 bs=1k count=700','dd if=/dev/zero of=up2 bs=1k count=700'],hint:'dd if=/dev/zero ... count=700。'}
+];
+
+let index = 0;
+let answered = new Set();
+let firstTryCorrect = new Set();
+let wrong = new Set();
+let attempts = {};
+let wrongMode = false;
+let wrongQueue = [];
+
+const el = id => document.getElementById(id);
+const topicList = el('topicList');
+
+function normalizeText(s){
+  return String(s ?? '')
+    .replace(/[（]/g,'(').replace(/[）]/g,')')
+    .replace(/[，]/g,',').replace(/[：]/g,':')
+    .replace(/[—–]/g,'-')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+// 考試模式採「寬鬆空格」判斷：忽略大小寫與所有空白差異。
+// 例如 USB/STATA2、usb / STATA2、USB  /  STATA2 都視為相同格式。
+function normalizeLoose(s){
+  return normalizeText(s).toLowerCase().replace(/\s+/g,'');
+}
+function normalizeCommandLine(s){
+  return normalizeText(s).toLowerCase().replace(/\s+/g,'');
+}
+function normalizeCommand(s){
+  return String(s ?? '').split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(normalizeCommandLine).join('\n');
+}
+function linesOf(s){return normalizeCommand(s).split('\n').filter(Boolean)}
+function comparable(a,b,caseSensitive=true){
+  if(caseSensitive){return normalizeText(a)===normalizeText(b)}
+  return normalizeLoose(a)===normalizeLoose(b);
+}
+function checkSingle(value, spec, isCommand=false){
+  const variants=[spec.answer,...(spec.variants||[])];
+  if(spec.contains){
+    const v=normalizeLoose(value);
+    return spec.contains.every(k=>v.includes(normalizeLoose(k)));
+  }
+  if(isCommand){
+    const v=normalizeCommand(value);
+    return variants.some(a=>normalizeCommand(a)===v);
+  }
+  return variants.some(a=>comparable(value,a,false));
+}
+function checkLines(value, expected, unordered=false){
+  const got=linesOf(value);
+  const exp=expected.map(x=>normalizeCommandLine(x));
+  if(unordered){
+    return exp.every(x=>got.includes(x)) && got.length>=exp.length;
+  }
+  if(got.length!==exp.length)return false;
+  return exp.every((x,i)=>got[i]===x);
+}
+function tokenSequence(value){
+  return normalizeText(value).split(/[\s,、/\n]+/).map(x=>x.trim()).filter(Boolean);
+}
+function checkSequence(value, expected, unordered=false){
+  const got=tokenSequence(value).map(x=>x.toLowerCase());
+  const exp=expected.map(x=>x.toLowerCase());
+  if(unordered)return exp.every(x=>got.includes(x)) && got.length>=exp.length;
+  return got.length===exp.length && exp.every((x,i)=>got[i]===x);
+}
+
+function renderTopics(){
+  topicList.innerHTML='';
+  topics.forEach(t=>{
+    const b=document.createElement('button');
+    b.className='topic-btn';
+    b.innerHTML=`<span class="num">0${t.step}</span><span class="label">${t.name}</span>`;
+    b.addEventListener('click',()=>{
+      wrongMode=false;wrongQueue=[];
+      const i=Q.findIndex(q=>q.step===t.step);
+      if(i>=0){index=i;render();window.scrollTo({top:0,behavior:'smooth'});}
+    });
+    topicList.appendChild(b);
+  });
+}
+
+function currentQuestionIndex(){
+  if(wrongMode && wrongQueue.length){return wrongQueue[index]}
+  return index;
+}
+function getQuestion(){return Q[currentQuestionIndex()]}
+
+function renderAnswerInputs(q){
+  const a=el('answerArea');a.innerHTML='';
+  if(q.kind==='fields'){
+    q.fields.forEach((f,i)=>{
+      const wrap=document.createElement('div');wrap.className='field';
+      wrap.innerHTML=`<label for="ans_${i}">${f.label}</label><input class="input" id="ans_${i}" autocomplete="off" autocapitalize="off" spellcheck="false">`;
+      a.appendChild(wrap);
+    });
+  }else if(['commands','lines'].includes(q.kind)){
+    const wrap=document.createElement('div');wrap.className='field';
+    wrap.innerHTML=`<label for="answerMain">請自己輸入</label><textarea class="textarea" id="answerMain" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="在這裡輸入…"></textarea><div class="helper">多行題請照順序一行一個；空白行、字母大小寫與行內空格不嚴格判斷。</div>`;
+    a.appendChild(wrap);
+  }else{
+    const wrap=document.createElement('div');wrap.className='field';
+    const label=q.kind==='command'?'請輸入完整指令':'請輸入答案';
+    wrap.innerHTML=`<label for="answerMain">${label}</label><input class="input" id="answerMain" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="在這裡輸入…">`;
+    a.appendChild(wrap);
+  }
+  setTimeout(()=>{
+    const first=a.querySelector('input,textarea'); if(first) first.focus({preventScroll:true});
+  },40);
+}
+
+function answerMarkup(q){
+  if(q.kind==='fields'){
+    const text=q.fields.map(f=>`${f.label}：${f.answer}`).join('\n');
+    return `<pre>${escapeHtml(text)}</pre>`;
+  }
+  if(q.kind==='commands' || q.kind==='lines')return `<pre>${escapeHtml(q.answerLines.join('\n'))}</pre>`;
+  if(q.kind==='sequence')return `<pre>${escapeHtml(q.sequence.join(q.unordered?' / ':' → '))}</pre>`;
+  return `<pre>${escapeHtml(q.answer)}</pre>`;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+
+function updateStats(){
+  el('doneStat').textContent=answered.size;
+  el('correctStat').textContent=firstTryCorrect.size;
+  el('wrongStat').textContent=wrong.size;
+  el('progressBar').style.width=`${Math.round(answered.size/Q.length*100)}%`;
+}
+
+function render(){
+  el('resultView').classList.remove('show');
+  el('quizView').style.display='block';
+  const qi=currentQuestionIndex();
+  const q=Q[qi];
+  el('stepTag').textContent=`STEP 0${q.step}`;
+  el('typeTag').textContent=q.type;
+  el('scene').textContent=q.scene;
+  el('question').textContent=q.q;
+  el('sub').textContent=q.sub||'';
+  el('qCount').textContent=wrongMode?`錯題 ${index+1} / ${wrongQueue.length}`:`${qi+1} / ${Q.length}`;
+  renderAnswerInputs(q);
+  el('feedback').className='feedback';el('feedback').textContent='';
+  el('answerBox').classList.remove('show');el('answerContent').innerHTML=answerMarkup(q);
+  [...topicList.children].forEach((b,i)=>b.classList.toggle('active',i===q.step-1));
+  el('prevBtn').disabled= index<=0;
+  el('nextBtn').textContent = (!wrongMode && qi===Q.length-1) || (wrongMode && index===wrongQueue.length-1) ? '完成' : '下一題';
+  updateStats();
+}
+
+function grade(q){
+  if(q.kind==='fields'){
+    let ok=true;let details=[];
+    q.fields.forEach((f,i)=>{
+      const v=el(`ans_${i}`).value;
+      const good=checkSingle(v,f,false);
+      if(!good){ok=false;details.push(f.label)}
+    });
+    return {ok,details};
+  }
+  const v=el('answerMain').value;
+  if(q.kind==='command')return {ok:checkSingle(v,q,true)};
+  if(q.kind==='commands')return {ok:checkLines(v,q.answerLines,false)};
+  if(q.kind==='lines')return {ok:checkSequence(v,q.answerLines,!!q.unordered)};
+  if(q.kind==='sequence')return {ok:checkSequence(v,q.sequence,!!q.unordered)};
+  return {ok:checkSingle(v,q,false)};
+}
+
+let autoAdvanceTimer=null;
+function showCorrectSuccess(){
+  const toast=el('successToast');
+  const card=document.querySelector('.exam-card');
+  toast.classList.remove('show');
+  card.classList.remove('correct-flash');
+  // 強制重排，讓連續答對時動畫每題都會重新播放。
+  void toast.offsetWidth;
+  toast.classList.add('show');
+  card.classList.add('correct-flash');
+}
+
+function checkAnswer(){
+  const qi=currentQuestionIndex(), q=Q[qi];
+  attempts[qi]=(attempts[qi]||0)+1;
+  const r=grade(q);
+  answered.add(qi);
+  const fb=el('feedback');
+  if(r.ok){
+    if(attempts[qi]===1)firstTryCorrect.add(qi);
+    wrong.delete(qi);
+    fb.className='feedback show ok';
+    fb.innerHTML='<strong>✓ 答對！</strong> 很好，準備進入下一題…';
+    showCorrectSuccess();
+    updateStats();
+    // 大型成功提示播放完後再前進，手機上也能清楚看到。
+    clearTimeout(autoAdvanceTimer);
+    autoAdvanceTimer=setTimeout(()=>{
+      // 避免使用者在等待期間手動切題後又被自動跳走。
+      if(currentQuestionIndex()===qi) next();
+    },720);
+    return;
+  }else{
+    wrong.add(qi);
+    fb.className='feedback show bad';
+    fb.innerHTML=`<strong>還沒對。</strong>${r.details?.length?` 再檢查：${r.details.join('、')}。`:''} 你可以先重打，或按「提示 / 看答案」。`;
+  }
+  updateStats();
+}
+
+function next(){
+  if(wrongMode){
+    if(index>=wrongQueue.length-1){showResult(true);return}
+    index++;render();return;
+  }
+  if(index>=Q.length-1){showResult(false);return}
+  index++;render();
+}
+function prev(){if(index>0){index--;render()}}
+
+function showResult(fromWrong){
+  el('quizView').style.display='none';
+  el('resultView').classList.add('show');
+  const denom=fromWrong?Math.max(1,wrongQueue.length):Q.length;
+  const relevant=fromWrong?wrongQueue:Q.map((_,i)=>i);
+  const correctNow=relevant.filter(i=>answered.has(i)&&!wrong.has(i)).length;
+  const pct=Math.round(correctNow/denom*100);
+  el('finalScore').textContent=`${pct}%`;
+  el('resultText').textContent=wrong.size?`目前還有 ${wrong.size} 題需要再練。建議直接按「重新考錯題」。`:'目前沒有錯題。可以再隨機抽題測記憶。';
+  const list=el('wrongList');list.innerHTML='';
+  [...wrong].sort((a,b)=>a-b).forEach(i=>{
+    const d=document.createElement('div');d.className='wrong-item';
+    d.textContent=`STEP 0${Q[i].step}｜${Q[i].q}`;list.appendChild(d);
+  });
+  if(!wrong.size)el('retryWrongBtn').style.display='none'; else el('retryWrongBtn').style.display='inline-block';
+}
+
+el('checkBtn').addEventListener('click',checkAnswer);
+el('hintBtn').addEventListener('click',()=>{
+  const q=getQuestion();const fb=el('feedback');fb.className='feedback show';
+  fb.style.border='1px solid rgba(255,200,91,.20)';fb.style.background='rgba(255,200,91,.055)';fb.style.color='#ffe9b3';
+  fb.innerHTML=`<strong>提示：</strong> ${escapeHtml(q.hint||'回想目前步驟的目的與上一個動作。')}`;
+});
+el('showBtn').addEventListener('click',()=>el('answerBox').classList.toggle('show'));
+el('nextBtn').addEventListener('click',next);
+el('prevBtn').addEventListener('click',prev);
+el('randomBtn').addEventListener('click',()=>{wrongMode=false;wrongQueue=[];index=Math.floor(Math.random()*Q.length);render()});
+el('wrongBtn').addEventListener('click',()=>{
+  if(!wrong.size){alert('目前還沒有錯題。先做幾題再回來。');return}
+  wrongMode=true;wrongQueue=[...wrong].sort((a,b)=>a-b);index=0;render();
+});
+el('retryWrongBtn').addEventListener('click',()=>{
+  wrongMode=true;wrongQueue=[...wrong].sort((a,b)=>a-b);index=0;render();
+});
+function hardReset(){index=0;answered.clear();firstTryCorrect.clear();wrong.clear();attempts={};wrongMode=false;wrongQueue=[];render()}
+el('resetBtn').addEventListener('click',()=>{if(confirm('要清除本次作答紀錄並從第一題重來嗎？'))hardReset()});
+el('restartBtn').addEventListener('click',hardReset);
+
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();checkAnswer()}
+});
+
+renderTopics();render();
+</script>
+</body>
+</html>
