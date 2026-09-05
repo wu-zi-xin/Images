@@ -228,7 +228,7 @@ h1{font-size:clamp(34px,5.8vw,64px);line-height:1.04;letter-spacing:-.04em;margi
   <section class="hero">
     <div class="eyebrow">Practice · Command Recall</div>
     <h1>不是看答案，<br>是自己把它打出來。</h1>
-    <p class="lead">我會照 PC1 最終版的流程出題：問你現在要進哪個目錄、改哪個設定、下載哪些套件、下一條指令是什麼。指令題會留空白讓你自己輸入，答完再檢查。答對會自動跳下一題；空格與英文字母大小寫採寬鬆判斷。</p>
+    <p class="lead">我會照 PC1 最終版的流程出題：問你現在要進哪個目錄、改哪個設定、下載哪些套件、下一條指令是什麼。Step 07 先建立 up1 / up2，再去完成 PC2；Step 08 回來做完整 FTP 測試。指令題會留空白讓你自己輸入，答對會自動跳下一題；空格與英文字母大小寫採寬鬆判斷。</p>
     <div class="notice"><strong>評分方式：</strong>題目依你的 PC1 最終版內容製作，不另外改寫原筆記中的指令。指令檢查會忽略多餘空白與空白行，但仍以筆記中的文字為答案基準。</div>
   </section>
 
@@ -250,7 +250,7 @@ h1{font-size:clamp(34px,5.8vw,64px);line-height:1.04;letter-spacing:-.04em;margi
         <div class="q-meta">
           <span class="tag cyan" id="stepTag">STEP 01</span>
           <span class="tag gold" id="typeTag">位置</span>
-          <span class="q-count" id="qCount">1 / 46</span>
+          <span class="q-count" id="qCount">1 / 56</span>
         </div>
         <div class="scene" id="scene"></div>
         <h2 class="question" id="question"></h2>
@@ -286,7 +286,7 @@ h1{font-size:clamp(34px,5.8vw,64px);line-height:1.04;letter-spacing:-.04em;margi
 <script>
 const topics = [
   {step:1,name:'USB 安裝'}, {step:2,name:'網路線'}, {step:3,name:'套件 / Repo'}, {step:4,name:'IP / Ping'},
-  {step:5,name:'帳密權限'}, {step:6,name:'網站設定'}, {step:7,name:'FTP 測試'}, {step:8,name:'up1 / up2'}
+  {step:5,name:'帳密權限'}, {step:6,name:'網站設定'}, {step:7,name:'up1 / up2'}, {step:8,name:'FTP 測試'}
 ];
 
 const Q = [
@@ -352,13 +352,32 @@ const Q = [
 {step:6,type:'指令',scene:'設定檔完成，準備重新啟動伺服器並查看服務。',q:'原筆記要輸入哪兩條指令？',sub:'兩行。',kind:'commands',answerLines:['systemctl restart_httpd','firewall-cmd --list-service'],hint:'第一條以 systemctl 開頭。'},
 {step:6,type:'檢查',scene:'你執行完服務檢查。',q:'筆記說要看到哪 4 個項目？',sub:'一行一個或空格分隔。',kind:'sequence',sequence:['httpd','mod_ssl','ftp','firewall'],unordered:true,hint:'第一個是 httpd。'},
 
-{step:7,type:'FTP',scene:'PC1 主要確認 FTP 操作流程。',q:'先連到哪個位址？接著輸入什麼？會看到什麼？',sub:'三個答案分開填。',kind:'fields',fields:[
-  {label:'FTP 位址',answer:'200.100.X.1'},{label:'接著輸入',answer:'123'},{label:'出現文字',answer:'anonymous only',variants:['anonymous only']}
-],hint:'位址是 200.100.X.1。'},
-{step:7,type:'FTP',scene:'FTP 已進入操作階段。',q:'PC1 測試只要哪 5 個操作？',sub:'依順序輸入。',kind:'sequence',sequence:['dir','!cat','put','!rm','bye'],hint:'dir 開頭，bye 結尾。'},
+{step:7,type:'位置',scene:'網站設定完成後，先幫 FTP 準備 up1 / up2 測試檔。',q:'建立檔案前先進到哪裡？請輸入完整指令。',sub:'依最終版流程輸入 command。',kind:'command',answer:'cd /',hint:'要到根目錄。'},
+{step:7,type:'指令',scene:'你已經在根目錄。',q:'請建立 up1 與 up2，兩個都要 700 KB。',sub:'輸入兩條 dd 指令。',kind:'commands',answerLines:['dd if=/dev/zero of=up1 bs=1k count=700','dd if=/dev/zero of=up2 bs=1k count=700'],hint:'dd if=/dev/zero ... count=700。'},
+{step:7,type:'流程',scene:'up1 / up2 已建立完成。',q:'接下來要先去哪個部分設定？',sub:'依最終版流程回答。',kind:'text',answer:'PC2',variants:['繼續往PC2去設定','往PC2設定','PC2設定'],contains:['PC2'],hint:'Step 08 還不能立刻做，要先完成另一台。'},
 
-{step:8,type:'位置',scene:'最後要建立 up1 / up2。',q:'先進到哪裡？請輸入完整指令。',sub:'輸入 command。',kind:'command',answer:'cd /',hint:'根目錄。'},
-{step:8,type:'指令',scene:'你已在根目錄。',q:'請建立 up1 與 up2，兩個都要 700 KB。',sub:'輸入兩條 dd 指令。',kind:'commands',answerLines:['dd if=/dev/zero of=up1 bs=1k count=700','dd if=/dev/zero of=up2 bs=1k count=700'],hint:'dd if=/dev/zero ... count=700。'}
+{step:8,type:'時機',scene:'準備進入最後的 FTP 測試。',q:'這一段要在什麼時候回來做？',sub:'用一句話回答即可。',kind:'text',answer:'PC2做完再測試',variants:['PC2做完後再測試','等PC2做完再測試','PC2完成後再回來測試'],contains:['PC2'],hint:'要先等 PC2。'},
+{step:8,type:'FTP 1',scene:'第一段先測試 200.100.X.1。',q:'先連到哪個位址？接著輸入什麼？會出現什麼？',sub:'三個答案分開填。',kind:'fields',fields:[
+  {label:'FTP 位址',answer:'200.100.X.1'},{label:'接著輸入',answer:'123'},{label:'出現文字',answer:'anonymous only'}
+],hint:'輸入 123 後要看到 anonymous only。'},
+{step:8,type:'FTP 1',scene:'已進入 200.100.X.1 的測試流程。',q:'用 dir 要確認看到哪兩個檔案？',sub:'兩個檔名都要輸入。',kind:'lines',answerLines:['FtpX-1.txt','FtpX-2.txt'],unordered:true,hint:'都是 FtpX 開頭的 txt。'},
+{step:8,type:'FTP 1',scene:'目錄中已看到 FtpX-1.txt 與 FtpX-2.txt。',q:'接著對 FtpX-1.txt 要做哪些操作？',sub:'依順序輸入 get、!cat、!rm、bye。可輸入或省略 ftp> 提示字樣。',kind:'commands',answerLines:['get FtpX-1.txt','!cat FtpX-1.txt','!rm FtpX-1.txt','bye'],hint:'先 get，再 !cat、!rm，最後 bye。'},
+
+{step:8,type:'FTP 2',scene:'準備開始第二段 200.100.X.2 測試。',q:'登入前，最終版筆記寫要先在哪個位置確認有 up1 跟 up2？',sub:'依最終版內容輸入路徑。',kind:'text',answer:'/hoem',variants:['/home'],hint:'照最終版筆記原文是 /hoem；輸入 /home 也會接受。'},
+{step:8,type:'FTP 2',scene:'現在連到 200.100.X.2。',q:'先用 anonymous 嘗試時要看到什麼？接著用哪個使用者登入？成功後看到什麼？',sub:'三個答案分開填。',kind:'fields',fields:[
+  {label:'anonymous 結果',answer:'Login failed'},{label:'登入使用者',answer:'FtpX-2'},{label:'成功訊息',answer:'Login successful'}
+],hint:'anonymous 要失敗，FtpX-2 才成功。'},
+{step:8,type:'FTP 2',scene:'FtpX-2 已 Login successful。',q:'要用什麼指令確認目前目錄是空的？',sub:'dir 或 ls 都可以。',kind:'text',answer:'dir',variants:['ls'],hint:'兩個常用列目錄指令都接受。'},
+{step:8,type:'上傳',scene:'確認 FTP 目錄是空的，開始上傳測試。',q:'上傳 up1 的指令與成功訊息是什麼？',sub:'兩個答案分開填。',kind:'fields',fields:[
+  {label:'指令',answer:'put up1',variants:['ftp>put up1']},{label:'看到訊息',answer:'Transfer complete'}
+],hint:'put up1。'},
+{step:8,type:'上傳',scene:'up1 已完成，接著測試 up2。',q:'上傳 up2 的指令與預期訊息是什麼？',sub:'兩個答案分開填。',kind:'fields',fields:[
+  {label:'指令',answer:'put up2',variants:['ftp>put up2']},{label:'看到訊息',answer:'Failure writing to local file'}
+],hint:'這次不是 Transfer complete。'},
+{step:8,type:'結果',scene:'再次 dir 或 ls 查看上傳結果。',q:'最終版範例中 up1 與 up2 分別顯示多少？',sub:'只填數字即可。',kind:'fields',fields:[
+  {label:'up1',answer:'716800'},{label:'up2',answer:'319448'}
+],hint:'up2 是 30 幾萬就對了。'},
+{step:8,type:'清理',scene:'FTP 測試已完成，最後要把上傳檔案刪掉，留給監考人員重新測試。',q:'請輸入最後 3 個指令。',sub:'依順序：刪 up1、刪 up2、離開 FTP。可輸入或省略 ftp> 提示字樣。',kind:'commands',answerLines:['del up1','del up2','bye'],hint:'兩個 del，最後 bye。'}
 ];
 
 let index = 0;
@@ -386,7 +405,10 @@ function normalizeLoose(s){
   return normalizeText(s).toLowerCase().replace(/\s+/g,'');
 }
 function normalizeCommandLine(s){
-  return normalizeText(s).toLowerCase().replace(/\s+/g,'');
+  return normalizeText(s)
+    .toLowerCase()
+    .replace(/^ftp\s*>\s*/i,'')
+    .replace(/\s+/g,'');
 }
 function normalizeCommand(s){
   return String(s ?? '').split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(normalizeCommandLine).join('\n');
@@ -458,7 +480,7 @@ function renderAnswerInputs(q){
     });
   }else if(['commands','lines'].includes(q.kind)){
     const wrap=document.createElement('div');wrap.className='field';
-    wrap.innerHTML=`<label for="answerMain">請自己輸入</label><textarea class="textarea" id="answerMain" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="在這裡輸入…"></textarea><div class="helper">多行題請照順序一行一個；空白行、字母大小寫與行內空格不嚴格判斷。</div>`;
+    wrap.innerHTML=`<label for="answerMain">請自己輸入</label><textarea class="textarea" id="answerMain" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="在這裡輸入…"></textarea><div class="helper">多行題請照順序一行一個；空白行、字母大小寫與行內空格不嚴格判斷。FTP 題的 ftp> 提示字樣可輸入也可省略。</div>`;
     a.appendChild(wrap);
   }else{
     const wrap=document.createElement('div');wrap.className='field';
